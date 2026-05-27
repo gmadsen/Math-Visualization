@@ -502,14 +502,12 @@ $$K_2(R) := \ker(\pi) = Z(\mathrm{St}(R)) \subset \mathrm{St}(R) \twoheadrightar
     <label for="ak-k2-b">$b$ (rational):</label>
     <input id="ak-k2-b" type="text" value="3" style="max-width:90px">
     <button id="ak-k2-go" class="active">compute symbol</button>
-  </div>
-  <div class="row">
     <button id="ak-k2-test1">test: {2, -1}</button>
     <button id="ak-k2-test2">test: {3, -2} = {3, 1-3}</button>
     <button id="ak-k2-test3">test: {-1, -1}</button>
   </div>
   <svg id="ak-k2-svg" viewBox="-260 -130 520 260" width="100%" height="280"><title>K2 symbol {a,b}: tame symbols at primes 2,3,5,7 and Steinberg relation check</title></svg>
-  <div id="ak-k2-out" class="readout"></div>
+  <div class="readout" id="ak-k2-out"></div>
 </div><script>
 (function(){
   const svg = document.getElementById('ak-k2-svg');

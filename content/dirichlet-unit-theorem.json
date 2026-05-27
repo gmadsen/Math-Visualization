@@ -81,13 +81,32 @@
         },
         {
           "type": "widget",
-          "slug": "dirichlet-unit-theorem-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-rank",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-rank\">\n  <div class=\"hd\"><div class=\"ttl\">Unit rank calculator</div><div class=\"hint\">enter signature $(r_1,r_2)$ — get the rank, the unit group structure, and the dimension of the trace-zero hyperplane</div></div>\n  <div class=\"row\">\n    <label for=\"rk-r1\">$r_1$ (real places)</label>\n    <input type=\"number\" id=\"rk-r1\" value=\"2\" min=\"0\" max=\"12\" step=\"1\" style=\"width:5em\">\n    <label for=\"rk-r2\">$r_2$ (complex places)</label>\n    <input type=\"number\" id=\"rk-r2\" value=\"0\" min=\"0\" max=\"6\" step=\"1\" style=\"width:5em\">\n  </div>\n  <div class=\"readout\" id=\"rk-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "Unit rank calculator",
-            "hint": "enter signature $(r_1,r_2)$ — get the rank, the unit group structure, and the dimension of the trace-zero hyperplane"
+            "hint": "enter signature $(r_1,r_2)$ — get the rank, the unit group structure, and the dimension of the trace-zero hyperplane",
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "rk-r1",
+                "label": "$r_1$ (real places)",
+                "inputHtml": "<input type=\"number\" id=\"rk-r1\" value=\"2\" min=\"0\" max=\"12\" step=\"1\" style=\"width:5em\">",
+                "format": "separate"
+              },
+              {
+                "type": "numinput",
+                "id": "rk-r2",
+                "label": "$r_2$ (complex places)",
+                "inputHtml": "<input type=\"number\" id=\"rk-r2\" value=\"0\" min=\"0\" max=\"6\" step=\"1\" style=\"width:5em\">",
+                "format": "separate"
+              }
+            ],
+            "readout": {
+              "id": "rk-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -220,13 +239,30 @@
         },
         {
           "type": "widget",
-          "slug": "dirichlet-unit-theorem-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-pell",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-pell\">\n  <div class=\"hd\"><div class=\"ttl\">Pell solver via continued fractions</div><div class=\"hint\">type a non-square $d$ (1–200) and watch the algorithm</div></div>\n  <div class=\"row\">\n    <label for=\"pl-d\">$d$</label>\n    <input type=\"number\" id=\"pl-d\" value=\"13\" min=\"2\" max=\"200\" step=\"1\" style=\"width:5em\">\n    <button id=\"pl-go\">solve</button>\n  </div>\n  <div class=\"readout\" id=\"pl-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "Pell solver via continued fractions",
-            "hint": "type a non-square $d$ (1–200) and watch the algorithm"
+            "hint": "type a non-square $d$ (1–200) and watch the algorithm",
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "pl-d",
+                "label": "$d$",
+                "inputHtml": "<input type=\"number\" id=\"pl-d\" value=\"13\" min=\"2\" max=\"200\" step=\"1\" style=\"width:5em\">",
+                "format": "separate"
+              },
+              {
+                "type": "button",
+                "id": "pl-go",
+                "text": "solve"
+              }
+            ],
+            "readout": {
+              "id": "pl-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -257,13 +293,25 @@
         },
         {
           "type": "widget",
-          "slug": "dirichlet-unit-theorem-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-su",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-su\">\n  <div class=\"hd\"><div class=\"ttl\">$S$-units of $\\mathbb{Z}[1/N]$</div><div class=\"hint\">factor $N$, count finite places in $S$, read the rank</div></div>\n  <div class=\"row\">\n    <label for=\"su-N\">$N$ (squarefree, ≥ 2)</label>\n    <input type=\"number\" id=\"su-N\" value=\"6\" min=\"2\" max=\"2310\" step=\"1\" style=\"width:5em\">\n  </div>\n  <div class=\"readout\" id=\"su-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "$S$-units of $\\mathbb{Z}[1/N]$",
-            "hint": "factor $N$, count finite places in $S$, read the rank"
+            "hint": "factor $N$, count finite places in $S$, read the rank",
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "su-N",
+                "label": "$N$ (squarefree, ≥ 2)",
+                "inputHtml": "<input type=\"number\" id=\"su-N\" value=\"6\" min=\"2\" max=\"2310\" step=\"1\" style=\"width:5em\">",
+                "format": "separate"
+              }
+            ],
+            "readout": {
+              "id": "su-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

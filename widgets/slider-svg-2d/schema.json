@@ -102,6 +102,19 @@
               "style": { "type": "string", "description": "Optional inline `style` on the `<select>` (e.g. `min-width:160px`), emitted verbatim. Round-tripped from widgets that set one." },
               "optionsHtml": { "type": "string", "description": "Verbatim inner markup of the `<select>` — the `<option>` run exactly as authored (inline or indented/multi-line). Validated by the migrate tool to contain only `<option>` elements (no event handlers).", "x-artifact": true }
             }
+          },
+          {
+            "$comment": "Typed text/number `<input>` control (not a range slider). Emits an optional `<label>` then the verbatim `<input>` tag. inputHtml is the verbatim tag (corpus number/text inputs carry inconsistent attr orders + style/min/max/step/maxlength); the migrate tool allowlists the attr names and rejects event handlers.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "inputHtml"],
+            "properties": {
+              "type":  { "const": "numinput" },
+              "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+              "label": { "type": "string", "description": "Optional label text. `separate`: `<label for=ID>` before the input; `nested`: text inside `<label>` before the `<input>`. May contain KaTeX." },
+              "format": { "enum": ["separate", "nested"], "default": "separate" },
+              "inputHtml": { "type": "string", "description": "Verbatim `<input …>` (or `<input …/>`) tag. Validated by the migrate tool: type is text/number, attr names allowlisted (id/type/value/min/max/step/maxlength/placeholder/style/class/data-*/aria-*), no event handlers.", "x-artifact": true }
+            }
           }
         ]
       }

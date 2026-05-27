@@ -271,13 +271,13 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget">
   <div class="hd"><div class="ttl">Miller–Rabin witness search</div><div class="hint">Pick $n$, pick a base $a$, watch the squaring chain.</div></div>
   <div class="row">
-    <label>$n$ <input type="number" id="mr-n" value="561" min="3" step="2" style="width:7em"></label>
-    <label>base $a$ <input type="number" id="mr-a" value="2" min="2" style="width:5em"></label>
+    <label>$n$<input type="number" id="mr-n" value="561" min="3" step="2" style="width:7em"></label>
+    <label>base $a$<input type="number" id="mr-a" value="2" min="2" style="width:5em"></label>
     <button id="mr-go">Run</button>
     <button id="mr-rand">Random witness</button>
   </div>
   <svg id="mr-svg" viewBox="0 0 760 220" width="100%"><title>Miller–Rabin witness search</title></svg>
-  <div class="readout" id="mr-out">Click Run.</div>
+  <div class="readout" id="mr-out"></div>
 </div>
 
 <p>For deterministic guarantees, <strong>AKS</strong> (Agrawal–Kayal–Saxena, 2002) tests whether $(x+a)^n \equiv x^n + a \pmod{n,\ x^r - 1}$ for sufficiently many $a$ and a carefully chosen small $r$. It runs in $O((\log n)^{6+\epsilon})$ — polynomial, deterministic, unconditional. In practice Miller–Rabin remains the workhorse; AKS is theoretical bedrock.</p>
@@ -308,13 +308,13 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget">
   <div class="hd"><div class="ttl">Pollard $\rho$ — the cycle</div><div class="hint">Watch $x \mapsto x^2+1 \bmod n$ enter its $\rho$-shaped orbit.</div></div>
   <div class="row">
-    <label>$n$ <input type="number" id="rho-n" value="91" min="4" style="width:7em"></label>
+    <label>$n$<input type="number" id="rho-n" value="91" min="4" style="width:7em"></label>
     <button id="rho-go">Trace</button>
     <button id="rho-step">Step</button>
     <button id="rho-reset">Reset</button>
   </div>
   <svg id="rho-svg" viewBox="0 0 760 280" width="100%"><title>Pollard $\rho$ — the cycle</title></svg>
-  <div class="readout" id="rho-out">Click Trace.</div>
+  <div class="readout" id="rho-out"></div>
 </div>
 
 <p>For RSA-sized targets one needs <strong>Pollard's $p-1$</strong> (works when $p-1$ is smooth), the <strong>quadratic sieve</strong> (subexp $L_n[1/2, 1]$, good up to ~120 digits), and finally the <strong>number-field sieve</strong>. All three use the same recipe: collect relations of the form "smooth product equals smooth product modulo $n$" in a factor base, find a $\mathbb{F}_2$-linear dependence, extract a square root, take a $\gcd$.</p>
@@ -387,12 +387,12 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="widget">
   <div class="hd"><div class="ttl">Square-and-multiply</div><div class="hint">Trace $7^{13} \bmod 11$ — every bit costs one squaring plus an optional multiply.</div></div>
   <div class="row">
-    <label>$a$ <input type="number" id="exp-a" value="7" style="width:5em"></label>
-    <label>$k$ <input type="number" id="exp-k" value="13" style="width:5em"></label>
-    <label>$n$ <input type="number" id="exp-n" value="11" style="width:5em"></label>
+    <label>$a$<input type="number" id="exp-a" value="7" style="width:5em"></label>
+    <label>$k$<input type="number" id="exp-k" value="13" style="width:5em"></label>
+    <label>$n$<input type="number" id="exp-n" value="11" style="width:5em"></label>
     <button id="exp-go">Trace</button>
   </div>
-  <div class="readout" id="exp-out">Click Trace.</div>
+  <div class="readout" id="exp-out"></div>
 </div>
 
 <h3>Tonelli–Shanks: square roots mod $p$</h3>

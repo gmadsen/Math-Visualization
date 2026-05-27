@@ -376,10 +376,10 @@ for all $\gamma$ in the level subgroup, plus growth conditions at cusps.</div>
   <div class="row">
     <label for="rk-n">$n$</label>
     <input type="number" id="rk-n" min="1" max="60" step="1" value="12">
-    <span class="small" id="rk-h">try $n = 25$, $32$, $48$ — note the divisibility-by-4 effect.</span>
+    <span id="rk-h" class="small">try $n = 25$, $32$, $48$ — note the divisibility-by-4 effect.</span>
   </div>
-  <div class="readout" id="rk-out"></div>
   <svg id="rk-svg" viewBox="0 0 620 160" width="620" height="160"><title>r_k(n) bar chart</title></svg>
+  <div class="readout" id="rk-out"></div>
 </div>
 
 <script>
@@ -541,9 +541,9 @@ $$\boxed{\;\;a_F(p) \;=\; a_f(p^2) \;+\; \chi(p)\,p^{k-1}.\;\;}$$</div>
     <label for="shi-chi">$\chi(p)$</label>
     <select id="shi-chi"><option value="1" selected>+1</option><option value="-1">−1</option><option value="0">0</option></select>
   </div>
-  <div class="readout" id="shi-out"></div>
   <svg id="shi-svg" viewBox="0 0 620 220" width="620" height="220"><title>Shimura correspondence diagram</title></svg>
-  <div class="small">Default: $k=6$, $p=11$, $a_f(p^2)=-72$ corresponds to $\Delta$'s $a_\Delta(11)=534612$ via the inverse — playing forward gives $a_F(11)=-72+11^5=160979$, not $\Delta$'s value. (Shimura is not the literal-coefficient inverse for $\Delta$; it's the right correspondence at the eigenvalue level for the right normalization.)</div>
+  <div class="readout" id="shi-out"></div>
+  <p class="small">Default: $k=6$, $p=11$, $a_f(p^2)=-72$ corresponds to $\Delta$'s $a_\Delta(11)=534612$ via the inverse — playing forward gives $a_F(11)=-72+11^5=160979$, not $\Delta$'s value. (Shimura is not the literal-coefficient inverse for $\Delta$; it's the right correspondence at the eigenvalue level for the right normalization.)</p>
 </div>
 
 <script>

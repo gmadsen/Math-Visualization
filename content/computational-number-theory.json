@@ -12,12 +12,45 @@
         },
         {
           "type": "widget",
-          "slug": "cnt-mr",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "mr",
             "title": "Miller–Rabin witness search",
             "hint": "Pick $n$, pick a base $a$, watch the squaring chain.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Miller–Rabin witness search</div><div class=\"hint\">Pick $n$, pick a base $a$, watch the squaring chain.</div></div>\n  <div class=\"row\">\n    <label>$n$ <input type=\"number\" id=\"mr-n\" value=\"561\" min=\"3\" step=\"2\" style=\"width:7em\"></label>\n    <label>base $a$ <input type=\"number\" id=\"mr-a\" value=\"2\" min=\"2\" style=\"width:5em\"></label>\n    <button id=\"mr-go\">Run</button>\n    <button id=\"mr-rand\">Random witness</button>\n  </div>\n  <svg id=\"mr-svg\" viewBox=\"0 0 760 220\" width=\"100%\"><title>Miller–Rabin witness search</title></svg>\n  <div class=\"readout\" id=\"mr-out\">Click Run.</div>\n</div>",
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "mr-n",
+                "label": "$n$",
+                "inputHtml": "<input type=\"number\" id=\"mr-n\" value=\"561\" min=\"3\" step=\"2\" style=\"width:7em\">",
+                "format": "nested"
+              },
+              {
+                "type": "numinput",
+                "id": "mr-a",
+                "label": "base $a$",
+                "inputHtml": "<input type=\"number\" id=\"mr-a\" value=\"2\" min=\"2\" style=\"width:5em\">",
+                "format": "nested"
+              },
+              {
+                "type": "button",
+                "id": "mr-go",
+                "text": "Run"
+              },
+              {
+                "type": "button",
+                "id": "mr-rand",
+                "text": "Random witness"
+              }
+            ],
+            "svg": {
+              "id": "mr-svg",
+              "viewBox": "0 0 760 220",
+              "width": "100%"
+            },
+            "readout": {
+              "id": "mr-out"
+            },
             "bodyScript": ""
           }
         },
@@ -53,12 +86,43 @@
         },
         {
           "type": "widget",
-          "slug": "cnt-rho",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "rho",
             "title": "Pollard $\\rho$ — the cycle",
             "hint": "Watch $x \\mapsto x^2+1 \\bmod n$ enter its $\\rho$-shaped orbit.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Pollard $\\rho$ — the cycle</div><div class=\"hint\">Watch $x \\mapsto x^2+1 \\bmod n$ enter its $\\rho$-shaped orbit.</div></div>\n  <div class=\"row\">\n    <label>$n$ <input type=\"number\" id=\"rho-n\" value=\"91\" min=\"4\" style=\"width:7em\"></label>\n    <button id=\"rho-go\">Trace</button>\n    <button id=\"rho-step\">Step</button>\n    <button id=\"rho-reset\">Reset</button>\n  </div>\n  <svg id=\"rho-svg\" viewBox=\"0 0 760 280\" width=\"100%\"><title>Pollard $\\rho$ — the cycle</title></svg>\n  <div class=\"readout\" id=\"rho-out\">Click Trace.</div>\n</div>",
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "rho-n",
+                "label": "$n$",
+                "inputHtml": "<input type=\"number\" id=\"rho-n\" value=\"91\" min=\"4\" style=\"width:7em\">",
+                "format": "nested"
+              },
+              {
+                "type": "button",
+                "id": "rho-go",
+                "text": "Trace"
+              },
+              {
+                "type": "button",
+                "id": "rho-step",
+                "text": "Step"
+              },
+              {
+                "type": "button",
+                "id": "rho-reset",
+                "text": "Reset"
+              }
+            ],
+            "svg": {
+              "id": "rho-svg",
+              "viewBox": "0 0 760 280",
+              "width": "100%"
+            },
+            "readout": {
+              "id": "rho-out"
+            },
             "bodyScript": ""
           }
         },
@@ -164,12 +228,42 @@
         },
         {
           "type": "widget",
-          "slug": "cnt-exp",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "exp",
             "title": "Square-and-multiply",
             "hint": "Trace $7^{13} \\bmod 11$ — every bit costs one squaring plus an optional multiply.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Square-and-multiply</div><div class=\"hint\">Trace $7^{13} \\bmod 11$ — every bit costs one squaring plus an optional multiply.</div></div>\n  <div class=\"row\">\n    <label>$a$ <input type=\"number\" id=\"exp-a\" value=\"7\" style=\"width:5em\"></label>\n    <label>$k$ <input type=\"number\" id=\"exp-k\" value=\"13\" style=\"width:5em\"></label>\n    <label>$n$ <input type=\"number\" id=\"exp-n\" value=\"11\" style=\"width:5em\"></label>\n    <button id=\"exp-go\">Trace</button>\n  </div>\n  <div class=\"readout\" id=\"exp-out\">Click Trace.</div>\n</div>",
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "exp-a",
+                "label": "$a$",
+                "inputHtml": "<input type=\"number\" id=\"exp-a\" value=\"7\" style=\"width:5em\">",
+                "format": "nested"
+              },
+              {
+                "type": "numinput",
+                "id": "exp-k",
+                "label": "$k$",
+                "inputHtml": "<input type=\"number\" id=\"exp-k\" value=\"13\" style=\"width:5em\">",
+                "format": "nested"
+              },
+              {
+                "type": "numinput",
+                "id": "exp-n",
+                "label": "$n$",
+                "inputHtml": "<input type=\"number\" id=\"exp-n\" value=\"11\" style=\"width:5em\">",
+                "format": "nested"
+              },
+              {
+                "type": "button",
+                "id": "exp-go",
+                "text": "Trace"
+              }
+            ],
+            "readout": {
+              "id": "exp-out"
+            },
             "bodyScript": ""
           }
         },

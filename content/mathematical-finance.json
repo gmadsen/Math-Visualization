@@ -244,13 +244,80 @@
         },
         {
           "type": "widget",
-          "slug": "mf-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-mc-pricer",
             "title": "Monte Carlo European call vs. Black–Scholes",
             "hint": "simulate $S_T$ under $\\mathbb{Q}$ · compare to closed form · $N$ paths",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-mc-pricer\">\n  <div class=\"hd\"><div class=\"ttl\">Monte Carlo European call vs. Black–Scholes</div><div class=\"hint\">simulate $S_T$ under $\\mathbb{Q}$ · compare to closed form · $N$ paths</div></div>\n  <div class=\"row\">\n    <label for=\"mc-S\">$S_0$</label>\n    <input id=\"mc-S\" type=\"number\" value=\"100\" step=\"1\" style=\"width:5em\">\n    <label for=\"mc-K\">$K$</label>\n    <input id=\"mc-K\" type=\"number\" value=\"100\" step=\"1\" style=\"width:5em\">\n    <label for=\"mc-r\">$r$</label>\n    <input id=\"mc-r\" type=\"number\" value=\"0.03\" step=\"0.005\" style=\"width:5em\">\n    <label for=\"mc-sig\">$\\sigma$</label>\n    <input id=\"mc-sig\" type=\"number\" value=\"0.20\" step=\"0.01\" style=\"width:5em\">\n    <label for=\"mc-T\">$T$</label>\n    <input id=\"mc-T\" type=\"number\" value=\"1.0\" step=\"0.1\" style=\"width:5em\">\n  </div>\n  <div class=\"row\">\n    <label for=\"mc-N\">$N$ paths</label>\n    <input id=\"mc-N\" type=\"range\" min=\"500\" max=\"50000\" step=\"500\" value=\"10000\">\n    <span id=\"mc-Nv\" class=\"small\">N = 10000</span>\n    <button id=\"mc-run\">run Monte Carlo</button>\n  </div>\n  <svg id=\"mc-svg\" viewBox=\"0 0 760 280\" width=\"760\" height=\"280\"><title>Histogram of simulated terminal asset prices with the strike line</title></svg>\n  <div class=\"readout\" id=\"mc-out\"></div>\n</div>",
-            "bodyScript": "<script>\n/* §3 — Monte Carlo European call pricer */\n(function(){\n  const svg=$('#mc-svg'), out=$('#mc-out');\n  const SIn=$('#mc-S'), KIn=$('#mc-K'), rIn=$('#mc-r'), sigIn=$('#mc-sig'), TIn=$('#mc-T'), NIn=$('#mc-N');\n  const NV=$('#mc-Nv');\n  const W=760, H=280, xL=60, xR=W-30, yT=30, yB=H-40;\n  function normCdfLocal(x){\n    const a1=0.254829592, a2=-0.284496736, a3=1.421413741, a4=-1.453152027, a5=1.061405429, p=0.3275911;\n    const sign=x<0?-1:1; x=Math.abs(x)/Math.SQRT2;\n    const t=1/(1+p*x);\n    const y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);\n    return 0.5*(1+sign*y);\n  }\n  function bsCall(S,K,r,sig,T){\n    if(T<=1e-9) return Math.max(S-K,0);\n    const sst=sig*Math.sqrt(T);\n    const d1=(Math.log(S/K)+(r+sig*sig/2)*T)/sst;\n    const d2=d1-sst;\n    return S*normCdfLocal(d1)-K*Math.exp(-r*T)*normCdfLocal(d2);\n  }\n  function run(){\n    const S0=+SIn.value, K=+KIn.value, r=+rIn.value, sig=+sigIn.value, T=+TIn.value, N=+NIn.value;\n    NV.textContent='N = '+N;\n    const drift=(r-0.5*sig*sig)*T, vol=sig*Math.sqrt(T);\n    const ST=new Float64Array(N);\n    let pay=0, paysq=0;\n    for(let i=0;i<N;i++){\n      const z=randn();\n      const s=S0*Math.exp(drift+vol*z);\n      ST[i]=s;\n      const p=Math.max(s-K,0);\n      pay+=p; paysq+=p*p;\n    }\n    const meanPay=pay/N;\n    const mc=Math.exp(-r*T)*meanPay;\n    const varPay=paysq/N - meanPay*meanPay;\n    const se=Math.exp(-r*T)*Math.sqrt(varPay/N);\n    const bs=bsCall(S0,K,r,sig,T);\n    // histogram\n    svg.innerHTML='';\n    let mn=Infinity, mx=-Infinity;\n    for(let i=0;i<N;i++){ if(ST[i]<mn)mn=ST[i]; if(ST[i]>mx)mx=ST[i]; }\n    const nb=40;\n    const bins=new Int32Array(nb);\n    for(let i=0;i<N;i++){\n      const b=Math.min(nb-1, Math.floor((ST[i]-mn)/(mx-mn)*nb));\n      bins[b]++;\n    }\n    let maxB=0; for(const v of bins) if(v>maxB) maxB=v;\n    const X=s=>xL+(s-mn)/(mx-mn)*(xR-xL);\n    const Y=c=>yB-(c/maxB)*(yB-yT);\n    svg.appendChild(SVG('line',{x1:xL,y1:yB,x2:xR,y2:yB,stroke:'var(--line)'}));\n    for(let b=0;b<nb;b++){\n      const sLo=mn+(b/nb)*(mx-mn);\n      const sHi=mn+((b+1)/nb)*(mx-mn);\n      const x1=X(sLo), x2=X(sHi);\n      svg.appendChild(SVG('rect',{x:x1,y:Y(bins[b]),width:Math.max(0,x2-x1-1),height:yB-Y(bins[b]),fill:'var(--violet)',opacity:0.55}));\n    }\n    // strike line\n    if(K>=mn && K<=mx){\n      const xk=X(K);\n      svg.appendChild(SVG('line',{x1:xk,y1:yT,x2:xk,y2:yB,stroke:'var(--yellow)','stroke-dasharray':'3 4','stroke-width':1.2}));\n      const t=SVG('text',{x:xk,y:yT-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      t.textContent='K='+K; svg.appendChild(t);\n    }\n    for(let i=0;i<=4;i++){\n      const s=mn+(i/4)*(mx-mn);\n      const xp=X(s);\n      svg.appendChild(SVG('line',{x1:xp,y1:yB,x2:xp,y2:yB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:yB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=s.toFixed(0); svg.appendChild(t);\n    }\n    const xl=SVG('text',{x:(xL+xR)/2,y:H-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xl.textContent='terminal asset price S_T'; svg.appendChild(xl);\n    out.textContent =\n      `parameters:  S₀=${S0}, K=${K}, r=${r}, σ=${sig.toFixed(2)}, T=${T.toFixed(2)},  N=${N} paths\\n`+\n      `Monte Carlo price  e^{−rT}·𝔼̂[max(Sₜ−K,0)]  =  ${mc.toFixed(4)}\\n`+\n      `standard error                              =  ${se.toFixed(4)}\\n`+\n      `Black–Scholes closed form                   =  ${bs.toFixed(4)}\\n`+\n      `relative error                              =  ${(Math.abs(mc-bs)/bs*100).toFixed(2)} %\\n\\n`+\n      `Histogram: simulated S_T under 𝐐 (lognormal). The portion of mass right of K=${K} contributes to the call payoff.`;\n  }\n  NIn.addEventListener('input',()=>{NV.textContent='N = '+NIn.value;});\n  $('#mc-run').addEventListener('click', run);\n  run();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "mc-S",
+                "label": "$S_0$",
+                "inputHtml": "<input id=\"mc-S\" type=\"number\" value=\"100\" step=\"1\" style=\"width:5em\">",
+                "format": "separate"
+              },
+              {
+                "type": "numinput",
+                "id": "mc-K",
+                "label": "$K$",
+                "inputHtml": "<input id=\"mc-K\" type=\"number\" value=\"100\" step=\"1\" style=\"width:5em\">",
+                "format": "separate"
+              },
+              {
+                "type": "numinput",
+                "id": "mc-r",
+                "label": "$r$",
+                "inputHtml": "<input id=\"mc-r\" type=\"number\" value=\"0.03\" step=\"0.005\" style=\"width:5em\">",
+                "format": "separate"
+              },
+              {
+                "type": "numinput",
+                "id": "mc-sig",
+                "label": "$\\sigma$",
+                "inputHtml": "<input id=\"mc-sig\" type=\"number\" value=\"0.20\" step=\"0.01\" style=\"width:5em\">",
+                "format": "separate"
+              },
+              {
+                "type": "numinput",
+                "id": "mc-T",
+                "label": "$T$",
+                "inputHtml": "<input id=\"mc-T\" type=\"number\" value=\"1.0\" step=\"0.1\" style=\"width:5em\">",
+                "format": "separate"
+              },
+              {
+                "type": "slider",
+                "id": "mc-N",
+                "label": "$N$ paths",
+                "min": 500,
+                "max": 50000,
+                "value": 10000,
+                "format": "separate",
+                "step": 500
+              },
+              {
+                "type": "span",
+                "id": "mc-Nv",
+                "text": "N = 10000"
+              },
+              {
+                "type": "button",
+                "id": "mc-run",
+                "text": "run Monte Carlo"
+              }
+            ],
+            "svg": {
+              "id": "mc-svg",
+              "viewBox": "0 0 760 280",
+              "width": 760,
+              "height": 280,
+              "title": "Histogram of simulated terminal asset prices with the strike line"
+            },
+            "readout": {
+              "id": "mc-out"
+            },
+            "bodyScript": "<script>\n/* §3 — Monte Carlo European call pricer */\n(function(){\n  const svg=$('#mc-svg'), out=$('#mc-out');\n  const SIn=$('#mc-S'), KIn=$('#mc-K'), rIn=$('#mc-r'), sigIn=$('#mc-sig'), TIn=$('#mc-T'), NIn=$('#mc-N');\n  const NV=$('#mc-Nv');\n  const W=760, H=280, xL=60, xR=W-30, yT=30, yB=H-40;\n  function normCdfLocal(x){\n    const a1=0.254829592, a2=-0.284496736, a3=1.421413741, a4=-1.453152027, a5=1.061405429, p=0.3275911;\n    const sign=x<0?-1:1; x=Math.abs(x)/Math.SQRT2;\n    const t=1/(1+p*x);\n    const y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);\n    return 0.5*(1+sign*y);\n  }\n  function bsCall(S,K,r,sig,T){\n    if(T<=1e-9) return Math.max(S-K,0);\n    const sst=sig*Math.sqrt(T);\n    const d1=(Math.log(S/K)+(r+sig*sig/2)*T)/sst;\n    const d2=d1-sst;\n    return S*normCdfLocal(d1)-K*Math.exp(-r*T)*normCdfLocal(d2);\n  }\n  function run(){\n    const S0=+SIn.value, K=+KIn.value, r=+rIn.value, sig=+sigIn.value, T=+TIn.value, N=+NIn.value;\n    NV.textContent='N = '+N;\n    const drift=(r-0.5*sig*sig)*T, vol=sig*Math.sqrt(T);\n    const ST=new Float64Array(N);\n    let pay=0, paysq=0;\n    for(let i=0;i<N;i++){\n      const z=randn();\n      const s=S0*Math.exp(drift+vol*z);\n      ST[i]=s;\n      const p=Math.max(s-K,0);\n      pay+=p; paysq+=p*p;\n    }\n    const meanPay=pay/N;\n    const mc=Math.exp(-r*T)*meanPay;\n    const varPay=paysq/N - meanPay*meanPay;\n    const se=Math.exp(-r*T)*Math.sqrt(varPay/N);\n    const bs=bsCall(S0,K,r,sig,T);\n    // histogram\n    svg.innerHTML='';\n    let mn=Infinity, mx=-Infinity;\n    for(let i=0;i<N;i++){ if(ST[i]<mn)mn=ST[i]; if(ST[i]>mx)mx=ST[i]; }\n    const nb=40;\n    const bins=new Int32Array(nb);\n    for(let i=0;i<N;i++){\n      const b=Math.min(nb-1, Math.floor((ST[i]-mn)/(mx-mn)*nb));\n      bins[b]++;\n    }\n    let maxB=0; for(const v of bins) if(v>maxB) maxB=v;\n    const X=s=>xL+(s-mn)/(mx-mn)*(xR-xL);\n    const Y=c=>yB-(c/maxB)*(yB-yT);\n    svg.appendChild(SVG('line',{x1:xL,y1:yB,x2:xR,y2:yB,stroke:'var(--line)'}));\n    for(let b=0;b<nb;b++){\n      const sLo=mn+(b/nb)*(mx-mn);\n      const sHi=mn+((b+1)/nb)*(mx-mn);\n      const x1=X(sLo), x2=X(sHi);\n      svg.appendChild(SVG('rect',{x:x1,y:Y(bins[b]),width:Math.max(0,x2-x1-1),height:yB-Y(bins[b]),fill:'var(--violet)',opacity:0.55}));\n    }\n    // strike line\n    if(K>=mn && K<=mx){\n      const xk=X(K);\n      svg.appendChild(SVG('line',{x1:xk,y1:yT,x2:xk,y2:yB,stroke:'var(--yellow)','stroke-dasharray':'3 4','stroke-width':1.2}));\n      const t=SVG('text',{x:xk,y:yT-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n      t.textContent='K='+K; svg.appendChild(t);\n    }\n    for(let i=0;i<=4;i++){\n      const s=mn+(i/4)*(mx-mn);\n      const xp=X(s);\n      svg.appendChild(SVG('line',{x1:xp,y1:yB,x2:xp,y2:yB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:yB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=s.toFixed(0); svg.appendChild(t);\n    }\n    const xl=SVG('text',{x:(xL+xR)/2,y:H-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xl.textContent='terminal asset price S_T'; svg.appendChild(xl);\n    out.textContent =\n      `parameters:  S₀=${S0}, K=${K}, r=${r}, σ=${sig.toFixed(2)}, T=${T.toFixed(2)},  N=${N} paths\\n`+\n      `Monte Carlo price  e^{−rT}·𝔼̂[max(Sₜ−K,0)]  =  ${mc.toFixed(4)}\\n`+\n      `standard error                              =  ${se.toFixed(4)}\\n`+\n      `Black–Scholes closed form                   =  ${bs.toFixed(4)}\\n`+\n      `relative error                              =  ${(Math.abs(mc-bs)/bs*100).toFixed(2)} %\\n\\n`+\n      `Histogram: simulated S_T under 𝐐 (lognormal). The portion of mass right of K=${K} contributes to the call payoff.`;\n  }\n  NIn.addEventListener('input',()=>{NV.textContent='N = '+NIn.value;});\n  $('#mc-run').addEventListener('click', run);\n  run();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

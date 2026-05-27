@@ -689,19 +689,19 @@ $$\sigma_\mathfrak{a} \cdot j(\mathbb{C}/\mathfrak{b}) \;=\; j(\mathbb{C}/\mathf
 </ul>
 
 <div class="widget" id="cm-frob">
-<div class="hd"><div class="ttl">Frobenius–Artin dictionary</div><div class="hint">pick a prime $\mathfrak{p}$ of $K$; see its action on $j$ and on torsion</div></div>
-<div class="row">
-  <label for="cm-frob-K">field $K$:</label>
-  <select id="cm-frob-K">
+  <div class="hd"><div class="ttl">Frobenius–Artin dictionary</div><div class="hint">pick a prime $\mathfrak{p}$ of $K$; see its action on $j$ and on torsion</div></div>
+  <div class="row">
+    <label for="cm-frob-K">field $K$:</label>
+    <select id="cm-frob-K">
     <option value="-15" selected>$\mathbb{Q}(\sqrt{-15})$ (h=2)</option>
     <option value="-23">$\mathbb{Q}(\sqrt{-23})$ (h=3)</option>
     <option value="-31">$\mathbb{Q}(\sqrt{-31})$ (h=3)</option>
   </select>
-  <label for="cm-frob-p">prime $p$:</label>
-  <input type="number" id="cm-frob-p" value="2" min="2" max="97" style="width:70px">
-</div>
-<div class="readout" id="cm-frob-out"></div>
-<p class="small">For $p$ split in $K$, one gets $\mathfrak{p}\bar{\mathfrak{p}} = (p)$. The class $[\mathfrak{p}] \in \mathrm{Cl}(\mathcal{O}_K)$ determines $\sigma_{\mathfrak{p}}$ acting on $j(E_\mathfrak{a}) \mapsto j(E_{\mathfrak{p}^{-1}\mathfrak{a}})$. For $p$ inert, $\mathfrak{p} = (p)$ is principal, so $\sigma_\mathfrak{p}$ is trivial on $H$ but non-trivial on extensions involving torsion.</p>
+    <label for="cm-frob-p">prime $p$:</label>
+    <input type="number" id="cm-frob-p" value="2" min="2" max="97" style="width:70px">
+  </div>
+  <div class="readout" id="cm-frob-out"></div>
+  <p class="small">For $p$ split in $K$, one gets $\mathfrak{p}\bar{\mathfrak{p}} = (p)$. The class $[\mathfrak{p}] \in \mathrm{Cl}(\mathcal{O}_K)$ determines $\sigma_{\mathfrak{p}}$ acting on $j(E_\mathfrak{a}) \mapsto j(E_{\mathfrak{p}^{-1}\mathfrak{a}})$. For $p$ inert, $\mathfrak{p} = (p)$ is principal, so $\sigma_\mathfrak{p}$ is trivial on $H$ but non-trivial on extensions involving torsion.</p>
 </div>
 <script>
 (function(){

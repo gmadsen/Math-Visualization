@@ -325,27 +325,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "ak-k2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "input",
-    "role": "interactive",
-    "title": "ak-k2 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$K_2$ symbol calculator: Steinberg relations on $\\mathbb{Q}^\\times$\" widget on the algebraic-k-theory-foundations topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$K_2$ symbol calculator: Steinberg relations on $\\mathbb{Q}^\\times$\" widget on `algebraic-k-theory-foundations`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "algebra-field-tower",
     "family": "algebra-field-tower",
     "dimension": "2d",
@@ -916,27 +895,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the analytic-number-theory topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "as-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "as-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -1934,69 +1892,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cmb-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cmb-w1 widget params",
-    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Cmb w1 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cmb-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cmb-w2 widget params",
-    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Cmb w2 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cmb-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cmb-w6 widget params",
-    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Cmb w6 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cnt-bu",
     "family": "verbatim",
     "dimension": "2d",
@@ -2012,69 +1907,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Buchmann — relation matrix to Smith normal form\" widget on `computational-number-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cnt-exp",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "input",
-    "role": "interactive",
-    "title": "cnt-exp widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Square-and-multiply\" widget on the computational-number-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Square-and-multiply\" widget on `computational-number-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cnt-mr",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "input",
-    "role": "interactive",
-    "title": "cnt-mr widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Miller–Rabin witness search\" widget on the computational-number-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Miller–Rabin witness search\" widget on `computational-number-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cnt-rho",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "input",
-    "role": "interactive",
-    "title": "cnt-rho widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Pollard $\\rho$ — the cycle\" widget on the computational-number-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Pollard $\\rho$ — the cycle\" widget on `computational-number-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -2955,27 +2787,6 @@ window.__MVWidgets = [
     "gesture": "drag",
     "role": "interactive",
     "title": "complex-multiplication-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the complex-multiplication topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `complex-multiplication` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "complex-multiplication-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "complex-multiplication-w4 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the complex-multiplication topic.",
     "requiredParams": [
       "widgetId",
@@ -4622,69 +4433,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Spinor under boosts: rest-frame spin-up boosted to a moving frame\" widget on `dirac-equation`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dirichlet-unit-theorem-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dirichlet-unit-theorem-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dirichlet-unit-theorem-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dirichlet-unit-theorem-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dirichlet-unit-theorem-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dirichlet-unit-theorem-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -6876,48 +6624,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "half-integral-weight-forms-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `half-integral-weight-forms` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "half-integral-weight-forms-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "half-integral-weight-forms-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `half-integral-weight-forms` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "half-integral-weight-forms-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "half-integral-weight-forms-w3 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the half-integral-weight-forms topic.",
     "requiredParams": [
       "widgetId",
@@ -9676,27 +9382,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mf-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "mf-w3 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Monte Carlo European call vs. Black–Scholes\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Monte Carlo European call vs. Black–Scholes\" widget on `mathematical-finance`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -12717,69 +12402,6 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Bespoke widget for `sheaves.html` (§2 *Presheaves*, concept `presheaf-functor`). It makes a presheaf — a contravariant functor on the poset of opens — concrete through the restriction of a section. Single module, not part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "shim-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "shim-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the shimura-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `shimura-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "shim-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "shim-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the shimura-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `shimura-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "shim-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "shim-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the shimura-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `shimura-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
