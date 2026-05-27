@@ -8508,48 +8508,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "hf-knot-floer",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "hf-knot-floer widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Knot Floer bigrading lattice\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Knot Floer bigrading lattice\" widget on `heegaard-floer`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "hf-splittings",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "hf-splittings widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Heegaard splittings · genus selector\" widget on the heegaard-floer topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Heegaard splittings · genus selector\" widget on `heegaard-floer`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "hf-surgery-triangle",
     "family": "verbatim",
     "dimension": "2d",
@@ -8788,27 +8746,6 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Symmetry-of-Tor explorer over $\\mathbb{Z}$, introduced on `homological.html` §13. Bespoke semantic module — the gcd arithmetic is intrinsic; params carry only chrome.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "homotopy-theory-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "homotopy-theory-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the homotopy-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `homotopy-theory` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -9739,111 +9676,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "khov-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "khov-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the khovanov-homology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `khovanov-homology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "khov-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "khov-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the khovanov-homology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `khovanov-homology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "khov-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "khov-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the khovanov-homology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `khovanov-homology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "khov-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "khov-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the khovanov-homology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `khovanov-homology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "khov-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "khov-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the khovanov-homology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `khovanov-homology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "khov-w6",
     "family": "verbatim",
     "dimension": "2d",
@@ -10726,27 +10558,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Pushout-product: cell complex × cell complex remains cellular\" widget on `model-categories`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mcg-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "mcg-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -15071,27 +14882,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "surg-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "surg-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the surgery-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the surgery-theory topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "surg-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -15605,27 +15395,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "trop-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "trop-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Balancing-condition checker for `tropical-geometry` §2. Pick a tropical curve from a menu (line, conic, cubic, unbalanced); inspect each vertex's primitive edge directions and see the balancing residual.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

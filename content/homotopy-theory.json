@@ -82,13 +82,32 @@
         },
         {
           "type": "widget",
-          "slug": "homotopy-theory-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-hurewicz",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-hurewicz\">\n  <div class=\"hd\"><div class=\"ttl\">Hurewicz: π_n vs H_n in low degrees</div><div class=\"hint\">pick a space, watch the comparison</div></div>\n  <div class=\"row\">\n    <label for=\"hu-pick\">space:</label>\n    <select id=\"hu-pick\">\n      <option value=\"s2\" selected>$S^2$</option>\n      <option value=\"s3\">$S^3$</option>\n      <option value=\"t2\">$T^2$ (torus)</option>\n      <option value=\"rp2\">$\\mathbb{RP}^2$</option>\n      <option value=\"cp2\">$\\mathbb{CP}^2$</option>\n      <option value=\"kg1\">$K(\\mathbb{Z}/3,1)$ (lens-space-like)</option>\n    </select>\n  </div>\n  <svg id=\"hu-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Hurewicz comparison</title></svg>\n  <div class=\"readout\" id=\"hu-out\"></div>\n  <p class=\"small\">Hurewicz says $\\pi_n=H_n$ at the first non-trivial degree (with $\\pi_1\\to H_1$ being abelianisation in degree $1$). Above that degree, the two are wildly different: $\\pi_3(S^2)=\\mathbb{Z}$ but $H_3(S^2)=0$ — the Hopf map is invisible to homology.</p>\n</div>",
-            "bodyScript": "",
             "title": "Hurewicz: π_n vs H_n in low degrees",
-            "hint": "pick a space, watch the comparison"
+            "hint": "pick a space, watch the comparison",
+            "controls": [
+              {
+                "type": "select",
+                "id": "hu-pick",
+                "label": "space:",
+                "optionsHtml": "\n      <option value=\"s2\" selected>$S^2$</option>\n      <option value=\"s3\">$S^3$</option>\n      <option value=\"t2\">$T^2$ (torus)</option>\n      <option value=\"rp2\">$\\mathbb{RP}^2$</option>\n      <option value=\"cp2\">$\\mathbb{CP}^2$</option>\n      <option value=\"kg1\">$K(\\mathbb{Z}/3,1)$ (lens-space-like)</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "hu-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Hurewicz comparison"
+            },
+            "readout": {
+              "id": "hu-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "Hurewicz says $\\pi_n=H_n$ at the first non-trivial degree (with $\\pi_1\\to H_1$ being abelianisation in degree $1$). Above that degree, the two are wildly different: $\\pi_3(S^2)=\\mathbb{Z}$ but $H_3(S^2)=0$ — the Hopf map is invisible to homology."
           }
         },
         {
