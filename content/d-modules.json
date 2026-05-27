@@ -282,13 +282,24 @@
         },
         {
           "type": "widget",
-          "slug": "d-modules-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-bfunc",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-bfunc\">\n  <div class=\"hd\"><div class=\"ttl\">$b$-function calculator</div><div class=\"hint\">pick $f$ — read $b_f(s)$ and its roots</div></div>\n  <div class=\"row\">\n    <label for=\"bf-pick\">$f$ =</label>\n    <select id=\"bf-pick\">\n      <option value=\"x\">$x$</option>\n      <option value=\"x2\">$x^2$</option>\n      <option value=\"x2y2\" selected>$x^2 + y^2$</option>\n      <option value=\"x2y3\">$x^2 + y^3$ (cusp)</option>\n      <option value=\"x3y3\">$x^3 + y^3$</option>\n      <option value=\"xy\">$xy$</option>\n      <option value=\"x2y4\">$x^2 + y^4$ (A_3 curve singularity)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"bf-out\">Pick a polynomial. The widget displays $b_f(s)$ and locates its roots on a line — all in $(-\\infty, 0) \\cap \\mathbb{Q}$ by Kashiwara's theorem.</div>\n</div>",
-            "bodyScript": "",
             "title": "$b$-function calculator",
-            "hint": "pick $f$ — read $b_f(s)$ and its roots"
+            "hint": "pick $f$ — read $b_f(s)$ and its roots",
+            "controls": [
+              {
+                "type": "select",
+                "id": "bf-pick",
+                "label": "$f$ =",
+                "optionsHtml": "\n      <option value=\"x\">$x$</option>\n      <option value=\"x2\">$x^2$</option>\n      <option value=\"x2y2\" selected>$x^2 + y^2$</option>\n      <option value=\"x2y3\">$x^2 + y^3$ (cusp)</option>\n      <option value=\"x3y3\">$x^3 + y^3$</option>\n      <option value=\"xy\">$xy$</option>\n      <option value=\"x2y4\">$x^2 + y^4$ (A_3 curve singularity)</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "bf-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

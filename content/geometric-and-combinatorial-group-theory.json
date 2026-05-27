@@ -12,13 +12,24 @@
         },
         {
           "type": "widget",
-          "slug": "gcg-pres",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "pres",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Presentation explorer</div>\n    <div class=\"hint\">Pick a group; inspect its standard presentation and a sample reduction.</div></div>\n  <div class=\"row\">\n    <label for=\"pres-pick\">Group:</label>\n    <select id=\"pres-pick\">\n      <option value=\"Z\">$\\mathbb{Z}$</option>\n      <option value=\"Z2\">$\\mathbb{Z}^2$</option>\n      <option value=\"Zn\">$\\mathbb{Z}/6\\mathbb{Z}$</option>\n      <option value=\"Dn\">$D_4$</option>\n      <option value=\"F2\">$F_2$ (free)</option>\n      <option value=\"trefoil\">Trefoil $\\langle a,b \\mid aba=bab \\rangle$</option>\n    </select>\n  </div>\n  <div id=\"pres-readout\" class=\"readout\"></div>\n  <p class=\"small\" style=\"margin-top:.5rem\">The word problem — decide whether a given word in $S^{\\pm 1}$ equals $e$ — is undecidable in general (Novikov 1955, Boone 1958), even for finitely-presented groups. It is decidable for finite groups (compute), free groups (reduce), abelian groups (sum exponents), and hyperbolic groups (Dehn's algorithm, §5).</p>\n</div>",
-            "bodyScript": "<script>\n(function(){\n  const data = {\n    Z: {pres:\"⟨ a | (none) ⟩\", word:\"aaa·a⁻¹·a⁻¹ = a (free reduction)\", note:\"Free on one generator — every word is some aⁿ.\"},\n    Z2: {pres:\"⟨ a, b | aba⁻¹b⁻¹ ⟩\", word:\"abab⁻¹a⁻¹ ↦ a·a·b·b⁻¹·a⁻¹ = a²·a⁻¹ = a (commute then cancel)\", note:\"Adding the commutator [a,b]=e to F(a,b) collapses it to ℤ².\"},\n    Zn: {pres:\"⟨ a | a⁶ ⟩\", word:\"a⁴ · a³ = a⁷ = a (since a⁶ = e)\", note:\"One generator, one relator setting the order.\"},\n    Dn: {pres:\"⟨ r, s | r⁴, s², srsr ⟩\", word:\"srs = r⁻¹ (from srsr=e)\", note:\"Reflections invert rotations: a presentation of D₄, the symmetries of a square.\"},\n    F2: {pres:\"⟨ a, b | (none) ⟩\", word:\"abb⁻¹a⁻¹ = e (free reduction only)\", note:\"No relators — the universal group on two generators. Cayley graph is the 4-regular tree.\"},\n    trefoil: {pres:\"⟨ a, b | aba = bab ⟩\", word:\"aba·b⁻¹a⁻¹ = bab·b⁻¹a⁻¹ = b (apply braid relation)\", note:\"Braid relation aba=bab: this is also the 3-strand braid group B₃ and π₁ of the trefoil-knot complement.\"}\n  };\n  const sel = document.getElementById(\"pres-pick\");\n  const out = document.getElementById(\"pres-readout\");\n  function go(){\n    const d = data[sel.value];\n    out.textContent = \"presentation:  \" + d.pres + \"\\nsample word:   \" + d.word + \"\\n\\n\" + d.note;\n  }\n  sel.addEventListener(\"change\", go);\n  go();\n})();\n</script>"
+            "title": "Presentation explorer",
+            "hint": "Pick a group; inspect its standard presentation and a sample reduction.",
+            "controls": [
+              {
+                "type": "select",
+                "id": "pres-pick",
+                "label": "Group:",
+                "optionsHtml": "\n      <option value=\"Z\">$\\mathbb{Z}$</option>\n      <option value=\"Z2\">$\\mathbb{Z}^2$</option>\n      <option value=\"Zn\">$\\mathbb{Z}/6\\mathbb{Z}$</option>\n      <option value=\"Dn\">$D_4$</option>\n      <option value=\"F2\">$F_2$ (free)</option>\n      <option value=\"trefoil\">Trefoil $\\langle a,b \\mid aba=bab \\rangle$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "pres-readout"
+            },
+            "bodyScript": "<script>\n(function(){\n  const data = {\n    Z: {pres:\"⟨ a | (none) ⟩\", word:\"aaa·a⁻¹·a⁻¹ = a (free reduction)\", note:\"Free on one generator — every word is some aⁿ.\"},\n    Z2: {pres:\"⟨ a, b | aba⁻¹b⁻¹ ⟩\", word:\"abab⁻¹a⁻¹ ↦ a·a·b·b⁻¹·a⁻¹ = a²·a⁻¹ = a (commute then cancel)\", note:\"Adding the commutator [a,b]=e to F(a,b) collapses it to ℤ².\"},\n    Zn: {pres:\"⟨ a | a⁶ ⟩\", word:\"a⁴ · a³ = a⁷ = a (since a⁶ = e)\", note:\"One generator, one relator setting the order.\"},\n    Dn: {pres:\"⟨ r, s | r⁴, s², srsr ⟩\", word:\"srs = r⁻¹ (from srsr=e)\", note:\"Reflections invert rotations: a presentation of D₄, the symmetries of a square.\"},\n    F2: {pres:\"⟨ a, b | (none) ⟩\", word:\"abb⁻¹a⁻¹ = e (free reduction only)\", note:\"No relators — the universal group on two generators. Cayley graph is the 4-regular tree.\"},\n    trefoil: {pres:\"⟨ a, b | aba = bab ⟩\", word:\"aba·b⁻¹a⁻¹ = bab·b⁻¹a⁻¹ = b (apply braid relation)\", note:\"Braid relation aba=bab: this is also the 3-strand braid group B₃ and π₁ of the trefoil-knot complement.\"}\n  };\n  const sel = document.getElementById(\"pres-pick\");\n  const out = document.getElementById(\"pres-readout\");\n  function go(){\n    const d = data[sel.value];\n    out.textContent = \"presentation:  \" + d.pres + \"\\nsample word:   \" + d.word + \"\\n\\n\" + d.note;\n  }\n  sel.addEventListener(\"change\", go);\n  go();\n})();\n</script>",
+            "trailingProse": "The word problem — decide whether a given word in $S^{\\pm 1}$ equals $e$ — is undecidable in general (Novikov 1955, Boone 1958), even for finitely-presented groups. It is decidable for finite groups (compute), free groups (reduce), abelian groups (sum exponents), and hyperbolic groups (Dehn's algorithm, §5)."
           }
         },
         {
