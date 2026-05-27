@@ -6552,27 +6552,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "gb-staircase",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "gb-staircase widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Staircase &amp; standard monomials\" widget on the groebner-bases topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Staircase &amp; standard monomials\" widget on `groebner-bases`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "gcb-central-extension-browser",
     "family": "gcb-central-extension-browser",
     "dimension": "2d",
@@ -6924,27 +6903,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `geometric-invariant-theory` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gmt-coarea",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gmt-coarea widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Coarea formula: ∫|∇u| as integrated level-set perimeter\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Coarea formula: ∫|∇u| as integrated level-set perimeter\" widget on `geometric-measure-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -7389,27 +7347,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Chern-Simons knots: Jones polynomial of small knots\" widget on `gauge-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gt-curv",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "gt-curv widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Abelian curvature density on a square\" widget on the gauge-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Abelian curvature density on a square\" widget on `gauge-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -9120,27 +9057,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "iwasawa-theory-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "iwasawa-theory-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "iwasawa-theory-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -10060,54 +9976,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "maass-forms-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "maass-forms-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the maass-forms topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `maass-forms` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "maass-forms-w2",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "click",
     "role": "interactive",
     "title": "maass-forms-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the maass-forms topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `maass-forms` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "maass-forms-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "maass-forms-w3 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the maass-forms topic.",
     "requiredParams": [
       "widgetId",
@@ -10495,48 +10369,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the mirror-symmetry topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ml-wf",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "ml-wf widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Wavefront set: where × direction\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Wavefront set: where × direction\" widget on `microlocal-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mmp-and-birational-geometry-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mmp-and-birational-geometry-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -11997,27 +11829,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "pchar-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "pchar-w6 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Artin–Schreier genus as $p$ and $f$ vary\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Artin–Schreier genus as $p$ and $f$ vary\" widget on `positive-characteristic-ag`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "pchar-w7",
     "family": "verbatim",
     "dimension": "2d",
@@ -12201,27 +12012,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "positivity-and-ample-line-bundles-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "positivity-and-ample-line-bundles-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -13557,27 +13347,6 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Bespoke widget for `sheaves.html` (§2 *Presheaves*, concept `presheaf-functor`). It makes a presheaf — a contravariant functor on the poset of opens — concrete through the restriction of a section. Single module, not part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "shim-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "shim-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the shimura-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `shimura-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

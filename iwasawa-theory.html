@@ -286,16 +286,16 @@ The slogan: $p$-class numbers grow at a rate dictated by an exponential ($\mu$),
     <select id="g-p"><option value="2">2</option><option value="3" selected>3</option><option value="5">5</option><option value="7">7</option></select>
     <label for="g-mu">$\mu$</label>
     <input type="range" id="g-mu" min="0" max="2" step="1" value="0">
-    <span class="readout" id="g-mu-val" style="min-width:2.5em;display:inline-block">0</span>
+    <span id="g-mu-val" class="readout">0</span>
     <label for="g-lam">$\lambda$</label>
     <input type="range" id="g-lam" min="0" max="6" step="1" value="2">
-    <span class="readout" id="g-lam-val" style="min-width:2.5em;display:inline-block">2</span>
+    <span id="g-lam-val" class="readout">2</span>
     <label for="g-nu">$\nu$</label>
     <input type="range" id="g-nu" min="-3" max="3" step="1" value="1">
-    <span class="readout" id="g-nu-val" style="min-width:2.5em;display:inline-block">1</span>
+    <span id="g-nu-val" class="readout">1</span>
   </div>
   <svg id="g-svg" viewBox="0 0 620 280" width="620" height="280"><title>Iwasawa growth formula</title></svg>
-  <div class="readout" id="g-out">drag sliders…</div>
+  <div class="readout" id="g-out"></div>
 </div>
 <script>
 /* =========== SECTION 1: Iwasawa growth formula widget =========== */
