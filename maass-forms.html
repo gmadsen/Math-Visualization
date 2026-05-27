@@ -293,10 +293,10 @@ where $r$ is the <strong>spectral parameter</strong>. This shift is not cosmetic
     </select>
     <label for="lp-val">value</label>
     <input type="range" id="lp-val" min="0" max="6" step="0.05" value="2.5">
-    <span class="readout" id="lp-val-out" style="min-width:3.5em;display:inline-block">2.5</span>
+    <span id="lp-val-out" class="readout">2.5</span>
   </div>
   <svg id="lp-svg" viewBox="0 0 640 240" width="640" height="240" aria-label="eigenvalue lambda vs spectral parameter"><title>Laplacian eigenvalue $\lambda = s(1-s) = 1/4 + r^2$</title></svg>
-  <div class="readout" id="lp-out">drag the slider…</div>
+  <div class="readout" id="lp-out"></div>
 </div>
 
 <p>The yellow plotted curve shows $\lambda(r)=\tfrac14+r^2$. The horizontal line at $\lambda=\tfrac14$ is the Selberg threshold: above it, $r$ is real and we are in the "tempered" regime; below it, $r$ becomes imaginary and we cross into exceptional territory. Switching the parameterisation to $s=\tfrac12+t$ exhibits the exceptional eigenvalues directly.</p>
@@ -384,7 +384,6 @@ Equivalently, no exceptional eigenvalues exist: every Maass spectral parameter $
 
 <div class="widget" id="w-selberg">
   <div class="hd"><div class="ttl">Selberg progress bar</div><div class="hint">how close are we to $\tfrac14$?</div></div>
-  <svg id="sb-svg" viewBox="0 0 640 180" width="640" height="180" aria-label="Selberg eigenvalue progress"><title>Selberg eigenvalue progress</title></svg>
   <div class="row">
     <label for="sb-pick">show bound</label>
     <select id="sb-pick">
@@ -396,7 +395,8 @@ Equivalently, no exceptional eigenvalues exist: every Maass spectral parameter $
       <option value="5">conjectural ($1/4$)</option>
     </select>
   </div>
-  <div class="readout" id="sb-out">choose a bound…</div>
+  <svg id="sb-svg" viewBox="0 0 640 180" width="640" height="180" aria-label="Selberg eigenvalue progress"><title>Selberg eigenvalue progress</title></svg>
+  <div class="readout" id="sb-out"></div>
 </div>
 
 <h3>Non-congruence groups: counterexamples exist</h3>

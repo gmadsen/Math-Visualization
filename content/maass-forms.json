@@ -12,13 +12,48 @@
         },
         {
           "type": "widget",
-          "slug": "maass-forms-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-laplacian",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-laplacian\">\n  <div class=\"hd\"><div class=\"ttl\">$\\Delta$ on $\\Im(z)^s$ and Maass eigenvalues</div><div class=\"hint\">$\\Delta y^s = s(1-s)\\,y^s$ — drag $s$ on the critical line</div></div>\n  <div class=\"row\">\n    <label for=\"lp-mode\">parameterise as</label>\n    <select id=\"lp-mode\">\n      <option value=\"r\" selected>$s = \\tfrac12+ir$ (real $r$)</option>\n      <option value=\"t\">$s = \\tfrac12+t$ (real $t$, exceptional regime)</option>\n    </select>\n    <label for=\"lp-val\">value</label>\n    <input type=\"range\" id=\"lp-val\" min=\"0\" max=\"6\" step=\"0.05\" value=\"2.5\">\n    <span class=\"readout\" id=\"lp-val-out\" style=\"min-width:3.5em;display:inline-block\">2.5</span>\n  </div>\n  <svg id=\"lp-svg\" viewBox=\"0 0 640 240\" width=\"640\" height=\"240\" aria-label=\"eigenvalue lambda vs spectral parameter\"><title>Laplacian eigenvalue $\\lambda = s(1-s) = 1/4 + r^2$</title></svg>\n  <div class=\"readout\" id=\"lp-out\">drag the slider…</div>\n</div>",
-            "bodyScript": "",
             "title": "$\\Delta$ on $\\Im(z)^s$ and Maass eigenvalues",
-            "hint": "$\\Delta y^s = s(1-s)\\,y^s$ — drag $s$ on the critical line"
+            "hint": "$\\Delta y^s = s(1-s)\\,y^s$ — drag $s$ on the critical line",
+            "controls": [
+              {
+                "type": "select",
+                "id": "lp-mode",
+                "label": "parameterise as",
+                "optionsHtml": "\n      <option value=\"r\" selected>$s = \\tfrac12+ir$ (real $r$)</option>\n      <option value=\"t\">$s = \\tfrac12+t$ (real $t$, exceptional regime)</option>\n    "
+              },
+              {
+                "type": "slider",
+                "id": "lp-val",
+                "label": "value",
+                "min": 0,
+                "max": 6,
+                "value": 2.5,
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "lp-val-out",
+                "class": "readout",
+                "text": "2.5"
+              }
+            ],
+            "svg": {
+              "id": "lp-svg",
+              "viewBox": "0 0 640 240",
+              "width": 640,
+              "height": 240,
+              "ariaLabel": "eigenvalue lambda vs spectral parameter",
+              "title": "Laplacian eigenvalue $\\lambda = s(1-s) = 1/4 + r^2$"
+            },
+            "readout": {
+              "id": "lp-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -90,13 +125,32 @@
         },
         {
           "type": "widget",
-          "slug": "maass-forms-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-selberg",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-selberg\">\n  <div class=\"hd\"><div class=\"ttl\">Selberg progress bar</div><div class=\"hint\">how close are we to $\\tfrac14$?</div></div>\n  <svg id=\"sb-svg\" viewBox=\"0 0 640 180\" width=\"640\" height=\"180\" aria-label=\"Selberg eigenvalue progress\"><title>Selberg eigenvalue progress</title></svg>\n  <div class=\"row\">\n    <label for=\"sb-pick\">show bound</label>\n    <select id=\"sb-pick\">\n      <option value=\"0\">trivial (positivity)</option>\n      <option value=\"1\">Selberg 1965 ($3/16$)</option>\n      <option value=\"2\">Luo–Rudnick–Sarnak ($171/784$)</option>\n      <option value=\"3\">Kim–Shahidi ($66/289$)</option>\n      <option value=\"4\" selected>Kim–Sarnak ($975/4096$)</option>\n      <option value=\"5\">conjectural ($1/4$)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"sb-out\">choose a bound…</div>\n</div>",
-            "bodyScript": "",
             "title": "Selberg progress bar",
-            "hint": "how close are we to $\\tfrac14$?"
+            "hint": "how close are we to $\\tfrac14$?",
+            "controls": [
+              {
+                "type": "select",
+                "id": "sb-pick",
+                "label": "show bound",
+                "optionsHtml": "\n      <option value=\"0\">trivial (positivity)</option>\n      <option value=\"1\">Selberg 1965 ($3/16$)</option>\n      <option value=\"2\">Luo–Rudnick–Sarnak ($171/784$)</option>\n      <option value=\"3\">Kim–Shahidi ($66/289$)</option>\n      <option value=\"4\" selected>Kim–Sarnak ($975/4096$)</option>\n      <option value=\"5\">conjectural ($1/4$)</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "sb-svg",
+              "viewBox": "0 0 640 180",
+              "width": 640,
+              "height": 180,
+              "ariaLabel": "Selberg eigenvalue progress",
+              "title": "Selberg eigenvalue progress"
+            },
+            "readout": {
+              "id": "sb-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

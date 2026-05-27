@@ -440,11 +440,11 @@ $$H^i(X, \mathcal{F} \otimes L^{\otimes n}) \;=\; 0 \quad \text{for all } i > 0 
       <option value="omega">Ω^1 (cotangent sheaf)</option>
     </select>
     <label for="serre-n">twist by $\mathcal{O}(1)^{\otimes n}$, $n =$</label>
-    <input type="range" id="serre-n" min="0" max="6" step="1" value="0" />
+    <input type="range" id="serre-n" min="0" max="6" step="1" value="0">
     <span id="serre-n-val" class="pill">n = 0</span>
   </div>
   <svg id="serre-svg" viewBox="0 0 720 200" width="720" height="200"><title>Serre vanishing table for sheaves on the projective plane</title></svg>
-  <div class="readout" id="serre-out">As n grows, the higher cohomology H^i for i > 0 eventually vanishes — that's Serre. The threshold n_0 depends on the sheaf.</div>
+  <div class="readout" id="serre-out"></div>
 </div>
 
 <p>Watching the cohomology table go from filled to empty as $n$ grows is a vivid picture of what Serre's theorem promises: all the obstructions encoded in higher cohomology eventually disappear once we twist by enough copies of an ample line bundle.</p>
