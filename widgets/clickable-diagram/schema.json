@@ -19,9 +19,39 @@
     },
     {
       "$ref": "#/$defs/svgDiagram"
+    },
+    {
+      "$ref": "#/$defs/tableDiagram"
     }
   ],
   "$defs": {
+    "tableDiagram": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The 'table-diagram' sub-family: a static `<table>` (all rows authored inline) that the script wires up for interaction (e.g. click a row → readout updates), plus an optional readout div. No SVG and no controls row. The table is carried verbatim (tableLiteral) so its rows/cells/KaTeX round-trip byte-identical; the bespoke draw/compute body is the verbatim scriptBodyLiteral.",
+      "required": [
+        "interaction",
+        "widgetId",
+        "title",
+        "hint",
+        "tableLiteral",
+        "scriptBodyLiteral"
+      ],
+      "properties": {
+        "interaction": { "const": "table-diagram" },
+        "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "title": { "type": "string" },
+        "titleTag": { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag for the .ttl header element. Default 'div'." },
+        "hintTag": { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag for the .hint header element. Default 'div'." },
+        "hint": { "type": "string" },
+        "hdHtml": { "type": "string", "description": "ARTIFACT. Verbatim inner HTML of the .hd header, used instead of title/hint when the header carries non-standard markup.", "x-artifact": true },
+        "tableLiteral": { "type": "string", "description": "ARTIFACT. Verbatim full `<table …>…</table>` block (including its leading indent and all rows). A portable consumer renders its own table from structured data; this exists so renderMarkup byte-matches the legacy inline source.", "x-artifact": true },
+        "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "id of the readout div. Optional — omit for a table widget with no readout." },
+        "readoutContent": { "type": "string", "description": "ARTIFACT. Initial inner HTML/text of the readout div, which the script may overwrite. Optional; absent means an empty readout.", "x-artifact": true },
+        "trailingExplainer": { "type": "string", "description": "Optional trailing `<p class=\"small\">` caption after the readout." },
+        "scriptBodyLiteral": { "type": "string", "description": "ARTIFACT. Verbatim content of the driving <script> block, excluding the tags themselves.", "x-artifact": true }
+      }
+    },
     "option": {
       "type": "object",
       "additionalProperties": false,
