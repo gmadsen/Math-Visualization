@@ -37,6 +37,15 @@ const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
 const argv = process.argv.slice(2);
+// --normalize: relax the STRICT byte-identity default for widgets that
+// button-stepper's fixed output can't reproduce byte-for-byte but only with
+// INVISIBLE deltas — a no-wrapper-id `<div class="widget">` (button-stepper
+// adds the id) and an id-first readout `<div id=… class="readout">` (rendered
+// class-first). Attr order doesn't render and an added DOM id is inert, so the
+// page is visually/behaviourally unchanged; the SCRIPT byte-identity guard is
+// still enforced (the driving script is untouched), and migrated widgets are
+// browser-verified. Mirrors migrate-to-slider-svg-2d's --normalize.
+const NORMALIZE = argv.includes('--normalize');
 const positional = argv.filter((a) => !a.startsWith('--'));
 if (positional.length < 2) {
   console.error('Usage: node scripts/migrate-to-button-stepper.mjs <topic> <verbatim-slug> [...]');
@@ -223,7 +232,7 @@ function parseSvg(svgTag, svgInner) {
 // layout[] array plus an optional trailingExplainer. Each iteration matches the
 // next top-level element by its opening tag; div blocks use a depth counter to
 // find their matching close (readout/raw inner may contain nested elements).
-function parseBody(body) {
+function parseBody(body, { normalize = false } = {}) {
   const layout = [];
   let trailingExplainer;
   let i = 0;
@@ -263,6 +272,21 @@ function parseBody(body) {
       if (content !== '') block.content = content;
       layout.push(block);
       i = end;
+    } else if (normalize && (mm = slice.match(/^<div id="([^"]+)" class="(readout(?:\s[^"]*)?)"( style="[^"]*")?>/))) {
+      // id-FIRST readout (`<div id=… class="readout">`) — only in --normalize.
+      // button-stepper emits class-first, so this re-renders with attrs reordered
+      // (invisible — attr order doesn't render). Captures id + full class + style.
+      const id = mm[1];
+      const cls = mm[2];
+      const styleAttr = mm[3];
+      const { innerStart, closeStart, end } = matchDivClose(body, i);
+      const block = { kind: 'readout', id };
+      if (cls !== 'readout') block.className = cls;
+      if (styleAttr) block.style = styleAttr.match(/ style="([^"]*)"/)[1];
+      const content = body.slice(innerStart, closeStart);
+      if (content !== '') block.content = content;
+      layout.push(block);
+      i = end;
     } else if ((mm = slice.match(/^<p class="small">([\s\S]*?)<\/p>\s*$/))) {
       // trailing explainer — must be the LAST thing in the body
       trailingExplainer = mm[1];
@@ -277,11 +301,25 @@ function parseBody(body) {
 // Parse a full verbatim bodyMarkup → button-stepper params (sans bodyScript,
 // which the caller copies from the verbatim block). Throws on any shape it
 // can't reproduce; the main loop's byte-identity guard is the final check.
-function parseVerbatimMarkup(bodyMarkup) {
+function parseVerbatimMarkup(bodyMarkup, { normalize = false, fallbackWidgetId } = {}) {
+  let widgetId, inner, synthesizedWidgetId = false;
   const wrapMatch = bodyMarkup.match(/^<div class="widget" id="([^"]+)">\n([\s\S]*)\n<\/div>$/);
-  if (!wrapMatch) throw new Error('wrapper is not `<div class="widget" id="…">…</div>` (button-stepper requires a wrapper id)');
-  const widgetId = wrapMatch[1];
-  const inner = wrapMatch[2];
+  if (wrapMatch) {
+    widgetId = wrapMatch[1];
+    inner = wrapMatch[2];
+  } else {
+    // No wrapper id. button-stepper requires one — in --normalize, synthesize
+    // it from the verbatim block's own widgetId param (the value already used as
+    // the widget-script `ref`). The caller collision-checks before committing.
+    const noIdMatch = bodyMarkup.match(/^<div class="widget">\n([\s\S]*)\n<\/div>$/);
+    if (!noIdMatch || !normalize) {
+      throw new Error('wrapper is not `<div class="widget" id="…">…</div>` (button-stepper requires a wrapper id; pass --normalize to synthesize one)');
+    }
+    if (!fallbackWidgetId) throw new Error('no-wrapper-id widget has no fallbackWidgetId to synthesize from');
+    widgetId = fallbackWidgetId;
+    inner = noIdMatch[1];
+    synthesizedWidgetId = true;
+  }
 
   // hd line: `  <div class="hd">…</div>` as the first line. The hd div nests
   // the ttl/hint divs, so find its balanced close (not the first </div>).
@@ -295,7 +333,7 @@ function parseVerbatimMarkup(bodyMarkup) {
   let body = inner.slice(hdEnd);
   if (body.startsWith('\n')) body = body.slice(1);
 
-  const { layout, trailingExplainer } = parseBody(body);
+  const { layout, trailingExplainer } = parseBody(body, { normalize });
 
   const params = { widgetId, title: hd.title, layout };
   if (hd.titleTag === 'span') params.titleTag = 'span';
@@ -304,7 +342,7 @@ function parseVerbatimMarkup(bodyMarkup) {
     if (hd.hintTag === 'span') params.hintTag = 'span';
   }
   if (trailingExplainer !== undefined) params.trailingExplainer = trailingExplainer;
-  return params;
+  return { params, synthesizedWidgetId };
 }
 
 // Parse a verbatim bodyScript into the pieces button-stepper's renderScript
@@ -345,9 +383,12 @@ for (const section of doc.sections) {
       continue;
     }
 
-    let params, scriptParts;
+    let params, synthesizedWidgetId, scriptParts;
     try {
-      params = parseVerbatimMarkup(old.bodyMarkup);
+      ({ params, synthesizedWidgetId } = parseVerbatimMarkup(old.bodyMarkup, {
+        normalize: NORMALIZE,
+        fallbackWidgetId: old.widgetId,
+      }));
       scriptParts = parseVerbatimScript(old.bodyScript || '');
     } catch (e) {
       console.error(
@@ -361,21 +402,38 @@ for (const section of doc.sections) {
     const newParams = { ...params, bodyScript: scriptParts.body };
     if (scriptParts.sectionComment !== undefined) newParams.sectionComment = scriptParts.sectionComment;
 
-    // Full byte-identity guard across BOTH the markup and the script. The
-    // widget contributes renderMarkup at its block, and (via the adjacent
-    // widget-script ref) renderScript at the script block; the leadSep that
-    // separated them in the verbatim bodyScript is relocated into a raw block.
-    // If `renderMarkup === bodyMarkup` AND `leadSep + renderScript === bodyScript`,
-    // the reconstructed page is byte-for-byte identical → provably zero change.
     const renderedMarkup = renderButtonStepper(newParams);
     const renderedScript = renderButtonStepperScript(newParams);
-    if (renderedMarkup !== old.bodyMarkup) {
-      console.error(`  ${block.slug}: MARKUP byte-identity FAILED — refusing to migrate`);
-      console.error('--- expected ---'); console.error(JSON.stringify(old.bodyMarkup));
+
+    // MARKUP guard. Default: strict byte-identity (renderMarkup === original).
+    // --normalize: still PROVABLY invisible — build `expected` by applying ONLY
+    // the two known invisible transforms to the original (add the synthesized
+    // wrapper id; reorder id-first readouts to button-stepper's class-first),
+    // then require renderMarkup === expected. Attr order doesn't render and an
+    // added DOM id is inert, so a match proves the rendered page is visually/
+    // behaviourally identical. Anything that re-renders DIFFERENTLY from those
+    // two transforms (an unexpected, possibly-visible delta) defers — no
+    // blind skip, no browser-verify needed.
+    let expectedMarkup = old.bodyMarkup;
+    if (NORMALIZE) {
+      if (synthesizedWidgetId) {
+        expectedMarkup = expectedMarkup.replace('<div class="widget">', `<div class="widget" id="${params.widgetId}">`);
+      }
+      expectedMarkup = expectedMarkup.replace(
+        /<div id="([A-Za-z][\w-]*)" class="(readout(?:\s[^"]*)?)"( style="[^"]*")?>/g,
+        '<div class="$2" id="$1"$3>'
+      );
+    }
+    if (renderedMarkup !== expectedMarkup) {
+      console.error(`  ${block.slug}: MARKUP guard FAILED${NORMALIZE ? ' (--normalize: unexpected non-invisible delta)' : ''} — refusing to migrate`);
+      console.error('--- expected ---'); console.error(JSON.stringify(expectedMarkup));
       console.error('--- actual ---');   console.error(JSON.stringify(renderedMarkup));
       failed++;
       continue;
     }
+    // SCRIPT guard: ALWAYS enforced. The driving script is untouched by either
+    // mode, so leadSep + renderScript must reproduce the verbatim bodyScript
+    // exactly — proves the IIFE body / sectionComment / separator are intact.
     if (scriptParts.leadSep + renderedScript !== old.bodyScript) {
       console.error(`  ${block.slug}: SCRIPT byte-identity FAILED — refusing to migrate`);
       console.error('--- expected ---'); console.error(JSON.stringify(old.bodyScript));
@@ -384,13 +442,34 @@ for (const section of doc.sections) {
       continue;
     }
 
-    // The verbatim widget-script block must be adjacent (next non-widget block
-    // referencing this widget). Find it; if it isn't the immediate sibling, the
-    // script layout is unusual → defer rather than guess where the separator goes.
-    const scriptIdx = i + 1;
-    const sb = section.blocks[scriptIdx];
-    if (!sb || sb.type !== 'widget-script' || sb.ref !== params.widgetId) {
-      console.error(`  ${block.slug}: expected an adjacent widget-script ref="${params.widgetId}" at block ${scriptIdx} — defer`);
+    // Synthesized wrapper id (no-wrapper-id + --normalize): refuse if that id
+    // already appears as an `id="…"` anywhere in the topic — adding it would
+    // create a duplicate id / `<section id>` anchor collision (the ec-j bug).
+    if (synthesizedWidgetId) {
+      const idTok = `id="${params.widgetId}"`;
+      let hits = 0;
+      const scan = (s) => {
+        if (typeof s !== 'string') return;
+        let idx = 0;
+        while ((idx = s.indexOf(idTok, idx)) !== -1) { hits++; idx += idTok.length; }
+      };
+      scan(doc.rawHead); scan(doc.rawBodyPrefix); scan(doc.rawBodySuffix);
+      for (const sec of doc.sections) for (const b of sec.blocks) { scan(b.html); if (b.params) scan(b.params.bodyMarkup); }
+      if (hits > 0) {
+        console.error(`  ${block.slug}: synthesized wrapper id "${params.widgetId}" already appears as id="…" (${hits}×) — collision, defer`);
+        failed++;
+        continue;
+      }
+    }
+
+    // Find the widget-script block referencing this widget ANYWHERE in the
+    // section (not necessarily the immediate sibling — some topics group their
+    // scripts). The leadSep that preceded the script in the verbatim bodyScript
+    // is relocated into a raw block immediately before that widget-script block,
+    // so the page reproduces the original regardless of adjacency.
+    const scriptIdx = section.blocks.findIndex((b) => b.type === 'widget-script' && b.ref === params.widgetId);
+    if (scriptIdx < 0) {
+      console.error(`  ${block.slug}: no widget-script ref="${params.widgetId}" found in section — defer`);
       failed++;
       continue;
     }
@@ -398,15 +477,13 @@ for (const section of doc.sections) {
     const origSlug = block.slug;
     block.slug = 'button-stepper';
     block.params = newParams;
-    // Relocate the leading separator into a raw block between the widget and
-    // its widget-script block (render-doc joins with '' — without this the
-    // script would glue to `</div>`).
     if (scriptParts.leadSep !== '') {
       section.blocks.splice(scriptIdx, 0, { type: 'raw', html: scriptParts.leadSep });
-      i++; // skip over the block we just inserted
+      if (scriptIdx <= i) i++; // inserted at/before our cursor → keep alignment
     }
     migrated++;
-    console.log(`  ${origSlug}→button-stepper: migrated (${old.bodyMarkup.length}B markup byte-identical; leadSep ${JSON.stringify(scriptParts.leadSep)} relocated)`);
+    const how = NORMALIZE && (synthesizedWidgetId || renderedMarkup !== old.bodyMarkup) ? 'normalized' : 'byte-identical';
+    console.log(`  ${origSlug}→button-stepper: migrated (${how}; ${old.bodyMarkup.length}B markup; leadSep ${JSON.stringify(scriptParts.leadSep)} relocated)`);
   }
 }
 

@@ -496,13 +496,52 @@
         },
         {
           "type": "widget",
-          "slug": "mf-w6",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "w-bs-derivation",
             "title": "Delta-hedging proof of the BS PDE",
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "bsd-svg",
+                "viewBox": "0 0 760 280",
+                "width": 760,
+                "height": 280,
+                "titleText": "Step-by-step delta-hedging derivation of the Black–Scholes PDE"
+              },
+              {
+                "kind": "row",
+                "children": [
+                  {
+                    "kind": "button",
+                    "id": "bsd-prev",
+                    "label": "◀ prev"
+                  },
+                  {
+                    "kind": "span",
+                    "attrs": " id=\"bsd-stepv\" class=\"small\"",
+                    "content": "step 1 / 5"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "bsd-next",
+                    "label": "next ▶"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "bsd-reset",
+                    "label": "reset"
+                  }
+                ]
+              },
+              {
+                "kind": "readout",
+                "id": "bsd-out"
+              }
+            ],
             "hint": "prev / next steps through the argument",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-bs-derivation\">\n  <div class=\"hd\"><div class=\"ttl\">Delta-hedging proof of the BS PDE</div><div class=\"hint\">prev / next steps through the argument</div></div>\n  <svg id=\"bsd-svg\" viewBox=\"0 0 760 280\" width=\"760\" height=\"280\"><title>Step-by-step delta-hedging derivation of the Black–Scholes PDE</title></svg>\n  <div class=\"row\">\n    <button id=\"bsd-prev\">◀ prev</button>\n    <span id=\"bsd-stepv\" class=\"small\">step 1 / 5</span>\n    <button id=\"bsd-next\">next ▶</button>\n    <button id=\"bsd-reset\">reset</button>\n  </div>\n  <div class=\"readout\" id=\"bsd-out\"></div>\n</div>",
-            "bodyScript": "<script>\n/* §6 — Delta-hedging proof scrubber */\n(function(){\n  const svg=$('#bsd-svg'), out=$('#bsd-out');\n  const stepV=$('#bsd-stepv');\n  const W=760, H=280;\n  // Each step has a short title + body lines. We render as SVG text.\n  const steps = [\n    {\n      ttl: 'Step 1.  Setup',\n      body: [\n        'Hold one option V(S,t) and short Δ_t shares of S.',\n        'Portfolio value:  Π_t = V_t − Δ_t · S_t',\n        '',\n        'Goal: choose Δ_t so dΠ_t has no dB term.'\n      ]\n    },\n    {\n      ttl: 'Step 2.  Itô on V',\n      body: [\n        'Apply Itô to V(S_t, t) with S following dS = μS dt + σS dB:',\n        '',\n        'dV = (∂_t V + μS ∂_S V + ½σ²S² ∂_SS V) dt + σS ∂_S V · dB'\n      ]\n    },\n    {\n      ttl: 'Step 3.  Subtract Δ · dS',\n      body: [\n        'dS = μS dt + σS dB.   Compute dΠ = dV − Δ_t dS:',\n        '',\n        'dΠ = (∂_t V + ½σ²S² ∂_SS V + μS(∂_S V − Δ_t)) dt',\n        '     + σS (∂_S V − Δ_t) dB'\n      ]\n    },\n    {\n      ttl: 'Step 4.  Choose Δ_t = ∂_S V',\n      body: [\n        'Setting Δ_t = ∂_S V cancels both the σS · dB term AND the μS-drift contribution:',\n        '',\n        'dΠ = (∂_t V + ½σ²S² ∂_SS V) dt          (no randomness!)'\n      ]\n    },\n    {\n      ttl: 'Step 5.  No-arbitrage closes the loop',\n      body: [\n        'A riskless portfolio must earn r:   dΠ = r Π dt = r(V − S∂_S V) dt.',\n        '',\n        'Equate:  ∂_t V + ½σ²S² ∂_SS V = rV − rS ∂_S V',\n        '',\n        '⇒   ∂_t V + ½σ²S² ∂_SS V + rS ∂_S V − rV = 0    ◾'\n      ]\n    }\n  ];\n  let idx=0;\n  function render(){\n    svg.innerHTML='';\n    stepV.textContent='step '+(idx+1)+' / '+steps.length;\n    // progress dots\n    for(let i=0;i<steps.length;i++){\n      const cx=60+i*22, cy=20;\n      svg.appendChild(SVG('circle',{cx,cy,r:6,fill: i<=idx ? 'var(--yellow)' : 'var(--panel2)', stroke:'var(--line)','stroke-width':1}));\n    }\n    const st=steps[idx];\n    // title\n    const t=SVG('text',{x:60,y:60,'font-size':16,fill:'var(--yellow)','font-weight':600});\n    t.textContent=st.ttl;\n    svg.appendChild(t);\n    // body\n    for(let i=0;i<st.body.length;i++){\n      const line=SVG('text',{x:60,y:95+i*26,'font-size':14,fill:'var(--ink)','font-family':'ui-monospace,monospace'});\n      line.textContent=st.body[i];\n      svg.appendChild(line);\n    }\n    out.textContent = 'showing step '+(idx+1)+' of '+steps.length+'.  the derivation uses only Itô + no-arbitrage; no measure change needed.';\n  }\n  $('#bsd-prev').addEventListener('click',()=>{ if(idx>0) idx--; render(); });\n  $('#bsd-next').addEventListener('click',()=>{ if(idx<steps.length-1) idx++; render(); });\n  $('#bsd-reset').addEventListener('click',()=>{ idx=0; render(); });\n  render();\n})();\n</script>"
+            "bodyScript": "  const svg=$('#bsd-svg'), out=$('#bsd-out');\n  const stepV=$('#bsd-stepv');\n  const W=760, H=280;\n  // Each step has a short title + body lines. We render as SVG text.\n  const steps = [\n    {\n      ttl: 'Step 1.  Setup',\n      body: [\n        'Hold one option V(S,t) and short Δ_t shares of S.',\n        'Portfolio value:  Π_t = V_t − Δ_t · S_t',\n        '',\n        'Goal: choose Δ_t so dΠ_t has no dB term.'\n      ]\n    },\n    {\n      ttl: 'Step 2.  Itô on V',\n      body: [\n        'Apply Itô to V(S_t, t) with S following dS = μS dt + σS dB:',\n        '',\n        'dV = (∂_t V + μS ∂_S V + ½σ²S² ∂_SS V) dt + σS ∂_S V · dB'\n      ]\n    },\n    {\n      ttl: 'Step 3.  Subtract Δ · dS',\n      body: [\n        'dS = μS dt + σS dB.   Compute dΠ = dV − Δ_t dS:',\n        '',\n        'dΠ = (∂_t V + ½σ²S² ∂_SS V + μS(∂_S V − Δ_t)) dt',\n        '     + σS (∂_S V − Δ_t) dB'\n      ]\n    },\n    {\n      ttl: 'Step 4.  Choose Δ_t = ∂_S V',\n      body: [\n        'Setting Δ_t = ∂_S V cancels both the σS · dB term AND the μS-drift contribution:',\n        '',\n        'dΠ = (∂_t V + ½σ²S² ∂_SS V) dt          (no randomness!)'\n      ]\n    },\n    {\n      ttl: 'Step 5.  No-arbitrage closes the loop',\n      body: [\n        'A riskless portfolio must earn r:   dΠ = r Π dt = r(V − S∂_S V) dt.',\n        '',\n        'Equate:  ∂_t V + ½σ²S² ∂_SS V = rV − rS ∂_S V',\n        '',\n        '⇒   ∂_t V + ½σ²S² ∂_SS V + rS ∂_S V − rV = 0    ◾'\n      ]\n    }\n  ];\n  let idx=0;\n  function render(){\n    svg.innerHTML='';\n    stepV.textContent='step '+(idx+1)+' / '+steps.length;\n    // progress dots\n    for(let i=0;i<steps.length;i++){\n      const cx=60+i*22, cy=20;\n      svg.appendChild(SVG('circle',{cx,cy,r:6,fill: i<=idx ? 'var(--yellow)' : 'var(--panel2)', stroke:'var(--line)','stroke-width':1}));\n    }\n    const st=steps[idx];\n    // title\n    const t=SVG('text',{x:60,y:60,'font-size':16,fill:'var(--yellow)','font-weight':600});\n    t.textContent=st.ttl;\n    svg.appendChild(t);\n    // body\n    for(let i=0;i<st.body.length;i++){\n      const line=SVG('text',{x:60,y:95+i*26,'font-size':14,fill:'var(--ink)','font-family':'ui-monospace,monospace'});\n      line.textContent=st.body[i];\n      svg.appendChild(line);\n    }\n    out.textContent = 'showing step '+(idx+1)+' of '+steps.length+'.  the derivation uses only Itô + no-arbitrage; no measure change needed.';\n  }\n  $('#bsd-prev').addEventListener('click',()=>{ if(idx>0) idx--; render(); });\n  $('#bsd-next').addEventListener('click',()=>{ if(idx<steps.length-1) idx++; render(); });\n  $('#bsd-reset').addEventListener('click',()=>{ idx=0; render(); });\n  render();",
+            "sectionComment": "§6 — Delta-hedging proof scrubber"
           }
         },
         {
@@ -541,13 +580,45 @@
         },
         {
           "type": "widget",
-          "slug": "mf-w7",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "w-vol-smile",
             "title": "Implied volatility shapes",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "id": "vs-flat",
+                    "className": "active",
+                    "label": "flat (Black–Scholes)"
+                  },
+                  {
+                    "id": "vs-smile",
+                    "label": "smile (Heston-ish)"
+                  },
+                  {
+                    "id": "vs-skew",
+                    "label": "skew (equity)"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "vs-svg",
+                "viewBox": "0 0 760 320",
+                "width": 760,
+                "height": 320,
+                "titleText": "Implied volatility as a function of moneyness, showing flat / smile / skew shapes"
+              },
+              {
+                "kind": "readout",
+                "id": "vs-out"
+              }
+            ],
             "hint": "flat under Black–Scholes · smile under Heston · skew in equity markets",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-vol-smile\">\n  <div class=\"hd\"><div class=\"ttl\">Implied volatility shapes</div><div class=\"hint\">flat under Black–Scholes · smile under Heston · skew in equity markets</div></div>\n  <div class=\"row\">\n    <button id=\"vs-flat\" class=\"active\">flat (Black–Scholes)</button>\n    <button id=\"vs-smile\">smile (Heston-ish)</button>\n    <button id=\"vs-skew\">skew (equity)</button>\n  </div>\n  <svg id=\"vs-svg\" viewBox=\"0 0 760 320\" width=\"760\" height=\"320\"><title>Implied volatility as a function of moneyness, showing flat / smile / skew shapes</title></svg>\n  <div class=\"readout\" id=\"vs-out\"></div>\n</div>",
-            "bodyScript": "<script>\n/* §7 — implied vol surface shapes */\n(function(){\n  const svg=$('#vs-svg'), out=$('#vs-out');\n  const bFlat=$('#vs-flat'), bSmile=$('#vs-smile'), bSkew=$('#vs-skew');\n  const W=760, H=320, xL=60, xR=W-30, yT=30, yB=H-40;\n  let mode='flat';\n  function impVol(m, mode){\n    // m = log-moneyness log(K/F)\n    if(mode==='flat') return 0.22;\n    if(mode==='smile') return 0.22 + 0.18*m*m;\n    if(mode==='skew')  return 0.22 - 0.30*m + 0.16*m*m;\n    return 0.22;\n  }\n  function draw(){\n    svg.innerHTML='';\n    bFlat.classList.toggle('active', mode==='flat');\n    bSmile.classList.toggle('active', mode==='smile');\n    bSkew.classList.toggle('active', mode==='skew');\n    const mMin=-0.5, mMax=0.5;\n    let vMax=0.0;\n    for(let i=0;i<=200;i++){\n      const m=mMin+(i/200)*(mMax-mMin);\n      const v=impVol(m,mode);\n      if(v>vMax) vMax=v;\n    }\n    const vMin=0.05, vMaxA=Math.max(vMax,0.5)*1.1;\n    const X=m=>xL+(m-mMin)/(mMax-mMin)*(xR-xL);\n    const Y=v=>yB-(v-vMin)/(vMaxA-vMin)*(yB-yT);\n    // axes\n    svg.appendChild(SVG('line',{x1:xL,y1:yB,x2:xR,y2:yB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:xL,y1:yT,x2:xL,y2:yB,stroke:'var(--line)'}));\n    // moneyness = 1 line\n    const xAtm=X(0);\n    svg.appendChild(SVG('line',{x1:xAtm,y1:yT,x2:xAtm,y2:yB,stroke:'var(--yellow)','stroke-dasharray':'3 4'}));\n    const t=SVG('text',{x:xAtm,y:yT-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    t.textContent='ATM (K=F)'; svg.appendChild(t);\n    // implied-vol curve\n    let d='';\n    for(let i=0;i<=200;i++){\n      const m=mMin+(i/200)*(mMax-mMin);\n      const v=impVol(m,mode);\n      d += (i===0?'M':'L')+X(m)+','+Y(v)+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // x ticks\n    for(let i=0;i<=4;i++){\n      const m=mMin+(i/4)*(mMax-mMin);\n      const xp=X(m);\n      svg.appendChild(SVG('line',{x1:xp,y1:yB,x2:xp,y2:yB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:yB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=m.toFixed(2); svg.appendChild(t);\n    }\n    // y ticks\n    for(let i=0;i<=4;i++){\n      const v=vMin+(i/4)*(vMaxA-vMin);\n      const yp=Y(v);\n      svg.appendChild(SVG('line',{x1:xL-4,y1:yp,x2:xL,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xL-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n    const xl=SVG('text',{x:(xL+xR)/2,y:H-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xl.textContent='log-moneyness  log(K/F)'; svg.appendChild(xl);\n    const yl=SVG('text',{x:14,y:yT+(yB-yT)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${yT+(yB-yT)/2})`});\n    yl.textContent='implied volatility σ_imp'; svg.appendChild(yl);\n    // readout\n    const sigATM=impVol(0,mode);\n    const sigUp=impVol(0.2,mode);\n    const sigDn=impVol(-0.2,mode);\n    const labels={flat:'flat (Black–Scholes)', smile:'symmetric smile (Heston-ish)', skew:'skew (equity-index style)'};\n    out.textContent =\n      'mode:  '+labels[mode]+'\\n\\n'+\n      'sample implied vols:\\n'+\n      `   K/F = e^{−0.2} (OTM put):   σ_imp = ${sigDn.toFixed(3)}\\n`+\n      `   K = F   (ATM):              σ_imp = ${sigATM.toFixed(3)}\\n`+\n      `   K/F = e^{+0.2} (OTM call):  σ_imp = ${sigUp.toFixed(3)}\\n\\n`+\n      (mode==='flat' ? 'flat surface = Black–Scholes is the true generator.  empirically false.' :\n       mode==='smile' ? 'smile = symmetric heavy tails.  produced by stochastic-vol models (Heston).' :\n       'skew = OTM puts overpriced relative to BS.  reflects crash-risk premium in equity markets.');\n  }\n  bFlat.addEventListener('click',()=>{ mode='flat'; draw(); });\n  bSmile.addEventListener('click',()=>{ mode='smile'; draw(); });\n  bSkew.addEventListener('click',()=>{ mode='skew'; draw(); });\n  draw();\n})();\n</script>"
+            "bodyScript": "  const svg=$('#vs-svg'), out=$('#vs-out');\n  const bFlat=$('#vs-flat'), bSmile=$('#vs-smile'), bSkew=$('#vs-skew');\n  const W=760, H=320, xL=60, xR=W-30, yT=30, yB=H-40;\n  let mode='flat';\n  function impVol(m, mode){\n    // m = log-moneyness log(K/F)\n    if(mode==='flat') return 0.22;\n    if(mode==='smile') return 0.22 + 0.18*m*m;\n    if(mode==='skew')  return 0.22 - 0.30*m + 0.16*m*m;\n    return 0.22;\n  }\n  function draw(){\n    svg.innerHTML='';\n    bFlat.classList.toggle('active', mode==='flat');\n    bSmile.classList.toggle('active', mode==='smile');\n    bSkew.classList.toggle('active', mode==='skew');\n    const mMin=-0.5, mMax=0.5;\n    let vMax=0.0;\n    for(let i=0;i<=200;i++){\n      const m=mMin+(i/200)*(mMax-mMin);\n      const v=impVol(m,mode);\n      if(v>vMax) vMax=v;\n    }\n    const vMin=0.05, vMaxA=Math.max(vMax,0.5)*1.1;\n    const X=m=>xL+(m-mMin)/(mMax-mMin)*(xR-xL);\n    const Y=v=>yB-(v-vMin)/(vMaxA-vMin)*(yB-yT);\n    // axes\n    svg.appendChild(SVG('line',{x1:xL,y1:yB,x2:xR,y2:yB,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:xL,y1:yT,x2:xL,y2:yB,stroke:'var(--line)'}));\n    // moneyness = 1 line\n    const xAtm=X(0);\n    svg.appendChild(SVG('line',{x1:xAtm,y1:yT,x2:xAtm,y2:yB,stroke:'var(--yellow)','stroke-dasharray':'3 4'}));\n    const t=SVG('text',{x:xAtm,y:yT-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});\n    t.textContent='ATM (K=F)'; svg.appendChild(t);\n    // implied-vol curve\n    let d='';\n    for(let i=0;i<=200;i++){\n      const m=mMin+(i/200)*(mMax-mMin);\n      const v=impVol(m,mode);\n      d += (i===0?'M':'L')+X(m)+','+Y(v)+' ';\n    }\n    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n    // x ticks\n    for(let i=0;i<=4;i++){\n      const m=mMin+(i/4)*(mMax-mMin);\n      const xp=X(m);\n      svg.appendChild(SVG('line',{x1:xp,y1:yB,x2:xp,y2:yB+4,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xp,y:yB+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent=m.toFixed(2); svg.appendChild(t);\n    }\n    // y ticks\n    for(let i=0;i<=4;i++){\n      const v=vMin+(i/4)*(vMaxA-vMin);\n      const yp=Y(v);\n      svg.appendChild(SVG('line',{x1:xL-4,y1:yp,x2:xL,y2:yp,stroke:'var(--mute)'}));\n      const t=SVG('text',{x:xL-8,y:yp+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent=v.toFixed(2); svg.appendChild(t);\n    }\n    const xl=SVG('text',{x:(xL+xR)/2,y:H-4,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    xl.textContent='log-moneyness  log(K/F)'; svg.appendChild(xl);\n    const yl=SVG('text',{x:14,y:yT+(yB-yT)/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)',transform:`rotate(-90 14 ${yT+(yB-yT)/2})`});\n    yl.textContent='implied volatility σ_imp'; svg.appendChild(yl);\n    // readout\n    const sigATM=impVol(0,mode);\n    const sigUp=impVol(0.2,mode);\n    const sigDn=impVol(-0.2,mode);\n    const labels={flat:'flat (Black–Scholes)', smile:'symmetric smile (Heston-ish)', skew:'skew (equity-index style)'};\n    out.textContent =\n      'mode:  '+labels[mode]+'\\n\\n'+\n      'sample implied vols:\\n'+\n      `   K/F = e^{−0.2} (OTM put):   σ_imp = ${sigDn.toFixed(3)}\\n`+\n      `   K = F   (ATM):              σ_imp = ${sigATM.toFixed(3)}\\n`+\n      `   K/F = e^{+0.2} (OTM call):  σ_imp = ${sigUp.toFixed(3)}\\n\\n`+\n      (mode==='flat' ? 'flat surface = Black–Scholes is the true generator.  empirically false.' :\n       mode==='smile' ? 'smile = symmetric heavy tails.  produced by stochastic-vol models (Heston).' :\n       'skew = OTM puts overpriced relative to BS.  reflects crash-risk premium in equity markets.');\n  }\n  bFlat.addEventListener('click',()=>{ mode='flat'; draw(); });\n  bSmile.addEventListener('click',()=>{ mode='smile'; draw(); });\n  bSkew.addEventListener('click',()=>{ mode='skew'; draw(); });\n  draw();",
+            "sectionComment": "§7 — implied vol surface shapes"
           }
         },
         {

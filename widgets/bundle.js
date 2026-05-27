@@ -367,48 +367,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "ak-apps",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "ak-apps widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Algebraic K-theory applications: explicit examples\" widget on the algebraic-k-theory-foundations topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Algebraic K-theory applications: explicit examples\" widget on `algebraic-k-theory-foundations`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ak-k0",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "ak-k0 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$K_0$ explorer: stable equivalence vs. isomorphism\" widget on the algebraic-k-theory-foundations topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$K_0$ explorer: stable equivalence vs. isomorphism\" widget on `algebraic-k-theory-foundations`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "ak-k2",
     "family": "verbatim",
     "dimension": "2d",
@@ -424,27 +382,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"$K_2$ symbol calculator: Steinberg relations on $\\mathbb{Q}^\\times$\" widget on `algebraic-k-theory-foundations`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ak-Q",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "ak-Q widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Q-construction: zigzag morphisms and $\\pi_1 = K_0$\" widget on the algebraic-k-theory-foundations topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Q-construction: zigzag morphisms and $\\pi_1 = K_0$\" widget on `algebraic-k-theory-foundations`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -2270,27 +2207,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cm-analytic-rings",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cm-analytic-rings widget params",
-    "description": "Bespoke verbatim-renderer slug for the Analytic-ring zoo (condensed / solid / liquid frameworks) widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "\"Analytic ring zoo: condensed/solid/liquid frameworks\" picker for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cm-liquid-tensor",
     "family": "verbatim",
     "dimension": "2d",
@@ -2306,48 +2222,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "\"Classical projective vs liquid tensor\" parameterised comparison for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cm-lte",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cm-lte widget params",
-    "description": "Bespoke verbatim-renderer slug for the Liquid Tensor Experiment timeline / milestone explorer widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "\"Liquid Tensor Experiment timeline\" milestone explorer for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cm-snake",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cm-snake widget params",
-    "description": "Bespoke verbatim-renderer slug for the Snake-lemma comparison: Cond(Ab) vs topological Ab widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "\"Snake lemma in Cond(Ab) vs topological Ab\" demonstrator for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -5552,27 +5426,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "dirac-sea",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dirac-sea widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Dirac sea: click a filled negative-energy state to create a positron\" widget on the dirac-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Dirac sea: click a filled negative-energy state to create a positron\" widget on `dirac-equation`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "dirac-spin",
     "family": "verbatim",
     "dimension": "2d",
@@ -8109,27 +7962,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "gt-sw",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "gt-sw widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"SW invariants of small 4-manifolds (curated table)\" widget on the gauge-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"SW invariants of small 4-manifolds (curated table)\" widget on `gauge-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "half-integral-weight-forms-w1",
     "family": "verbatim",
     "dimension": "2d",
@@ -10201,27 +10033,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "kg-anti",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "kg-anti widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Particle ↔ antiparticle: 4-momentum flip\" widget on the klein-gordon-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Particle ↔ antiparticle: 4-momentum flip\" widget on `klein-gordon-equation`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "khov-w1",
     "family": "verbatim",
     "dimension": "2d",
@@ -11194,48 +11005,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mc-lift",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mc-lift widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Lifting calculus: when does the diagonal exist?\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Lifting calculus: when does the diagonal exist?\" widget on `model-categories`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mc-nerve",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mc-nerve widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Simplicial nerve: from cof–fib objects to $(\\infty,1)$-category\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Simplicial nerve: from cof–fib objects to $(\\infty,1)$-category\" widget on `model-categories`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mc-pushout",
     "family": "verbatim",
     "dimension": "2d",
@@ -11251,27 +11020,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Pushout-product: cell complex × cell complex remains cellular\" widget on `model-categories`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mc-quillen",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mc-quillen widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$|\\cdot| \\dashv \\mathrm{Sing}$: round-tripping through CW realization\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$|\\cdot| \\dashv \\mathrm{Sing}$: round-tripping through CW realization\" widget on `model-categories`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -11356,48 +11104,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Monte Carlo European call vs. Black–Scholes\" widget on `mathematical-finance`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mf-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mf-w6 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Delta-hedging proof of the BS PDE\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Delta-hedging proof of the BS PDE\" widget on `mathematical-finance`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mf-w7",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mf-w7 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Implied volatility shapes\" widget on the mathematical-finance topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Implied volatility shapes\" widget on `mathematical-finance`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -13278,27 +12984,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "positivity-and-ample-line-bundles-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "positivity-and-ample-line-bundles-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "pp-cross-ratio",
     "family": "pp-cross-ratio",
     "dimension": "2d",
@@ -13568,48 +13253,6 @@ window.__MVWidgets = [
     },
     "exampleMarkup": "<div class=\"widget\" id=\"w-proof-scrubber-example\"></div>",
     "exampleScript": "<script>\n(function(){\n  if(!window.MVProofScrubber) return;\n  MVProofScrubber.init('#w-proof-scrubber-example', {\n    title: \"Pythagorean theorem — geometric proof\",\n    hint: \"drag the slider · or press play\",\n    viewBox: \"0 0 240 240\",\n    autoplayMs: 2000,\n    steps: [\n      {\n        title: \"The claim\",\n        body: \"For a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<polygon points='40,200 200,200 200,40' fill='var(--panel2)' stroke='var(--ink)' stroke-width='1.5'/><text x='115' y='220' text-anchor='middle' font-size='14' fill='var(--mute)'>a</text><text x='215' y='125' text-anchor='middle' font-size='14' fill='var(--mute)'>b</text><text x='100' y='110' text-anchor='middle' font-size='14' fill='var(--yellow)'>c</text>\",\n      },\n      {\n        title: \"Tile a square of side $a+b$ two ways\",\n        body: \"Take a big square of side length $a+b$ and place four copies of the right triangle in two arrangements. The leftover area must agree across both arrangements.\",\n        svgInner: \"<rect x='40' y='40' width='160' height='160' fill='none' stroke='var(--ink)' stroke-width='1.5'/><line x1='40' y1='80' x2='200' y2='80' stroke='var(--mute)' stroke-dasharray='4 3'/><line x1='160' y1='40' x2='160' y2='200' stroke='var(--mute)' stroke-dasharray='4 3'/>\",\n      },\n      {\n        title: \"Arrangement A: two squares $a^2 + b^2$\",\n        body: \"In the first arrangement the leftover region is a square of side $a$ plus a square of side $b$ — total area $a^2 + b^2$.\",\n        svgInner: \"<rect x='40' y='40' width='40' height='40' fill='color-mix(in srgb, var(--blue) 25%, var(--panel2))' stroke='var(--blue)'/><rect x='80' y='80' width='120' height='120' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)'/><text x='60' y='65' text-anchor='middle' font-size='14' fill='var(--ink)'>a²</text><text x='140' y='145' text-anchor='middle' font-size='14' fill='var(--ink)'>b²</text>\",\n      },\n      {\n        title: \"Arrangement B: one square $c^2$\",\n        body: \"In the second arrangement the leftover region is a single tilted square whose side is the hypotenuse $c$ — total area $c^2$.\",\n        svgInner: \"<polygon points='80,40 200,80 160,200 40,160' fill='color-mix(in srgb, var(--yellow) 25%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.5'/><text x='120' y='128' text-anchor='middle' font-size='16' fill='var(--ink)'>c²</text>\",\n      },\n      {\n        title: \"Equate\",\n        body: \"Both arrangements have the same total area $(a+b)^2$ and the same four triangles removed, so the leftover regions are equal: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<text x='120' y='130' text-anchor='middle' font-size='22' fill='var(--yellow)' font-weight='600'>a² + b² = c²</text>\",\n      },\n    ],\n  });\n})();\n</script>"
-  },
-  {
-    "slug": "qft-fock",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "qft-fock widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Spin-statistics on display: drag particles to swap\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Spin-statistics on display: drag particles to swap\" widget on `quantum-field-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "qft-sm-fields",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "qft-sm-fields widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Standard Model gauge group: SU(3)×SU(2)×U(1)\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Standard Model gauge group: SU(3)×SU(2)×U(1)\" widget on `quantum-field-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
   },
   {
     "slug": "quad-recip-jacobi",
@@ -15058,27 +14701,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "sm-rg",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "sm-rg widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"RG flow on a 2-coupling plane\" widget on the statistical-mechanics topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"RG flow on a 2-coupling plane\" widget on `statistical-mechanics`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "sobolev-embedding-exponent",
     "family": "sobolev-embedding-exponent",
     "dimension": "2d",
@@ -15220,48 +14842,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the sobolev-spaces-distributions topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "spec-herm",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "spec-herm widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Random Hermitian matrix: spectrum on the real line\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Random Hermitian matrix: spectrum on the real line\" widget on `spectral-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "spec-op",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "spec-op widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Three operators on $\\ell^2(\\mathbb{Z})$\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Three operators on $\\ell^2(\\mathbb{Z})$\" widget on `spectral-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -16262,27 +15842,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "toric-varieties-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "toric-varieties-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "toric-varieties-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -16310,27 +15869,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "toric-varieties-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "toric-varieties-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "toric-varieties-w4 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
     "requiredParams": [
       "widgetId",
