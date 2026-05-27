@@ -1649,90 +1649,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cg-bm",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cg-bm widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Brunn–Minkowski numerical check\" widget on the convex-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Brunn–Minkowski numerical check\" widget on `convex-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cg-mink",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cg-mink widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Minkowski sum of two polygons\" widget on the convex-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Minkowski sum of two polygons\" widget on `convex-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cg-polar",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cg-polar widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Polar duality of a polygon\" widget on the convex-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Polar duality of a polygon\" widget on `convex-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cg-support",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cg-support widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Support function on the sphere\" widget on the convex-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Support function on the sphere\" widget on `convex-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "characteristic-classes-c1-clutching",
     "family": "characteristic-classes-c1-clutching",
     "dimension": "2d",
@@ -2039,54 +1955,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cluster-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cluster-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cluster-algebras topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cluster-algebras` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cluster-w5",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "click",
     "role": "interactive",
     "title": "cluster-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cluster-algebras topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cluster-algebras` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cluster-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cluster-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the cluster-algebras topic.",
     "requiredParams": [
       "widgetId",
@@ -3649,27 +3523,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "continued-fractions-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "continued-fractions-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "continued-fractions-w3",
     "family": "verbatim",
     "dimension": "2d",
@@ -3727,27 +3580,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "copt-approx",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "copt-approx widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"LP rounding playground\" widget on the combinatorial-optimization topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"LP rounding playground\" widget on `combinatorial-optimization`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -4039,27 +3871,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "crystalline-cohomology-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "crystalline-cohomology-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "crystalline-cohomology-w3",
     "family": "verbatim",
     "dimension": "2d",
@@ -4108,27 +3919,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "crystalline-cohomology-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "crystalline-cohomology-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "crystalline-cohomology-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
     "requiredParams": [
       "widgetId",
@@ -4264,27 +4054,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Verbatim slug for an inline widget on the coding-theory topic. Markup + script are stored opaquely in `params.bodyMarkup` / `params.bodyScript`; the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs` returns them byte-for-byte.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cv-w-epigraph",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cv-w-epigraph widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Epigraph &amp; supporting line\" widget on the convex-optimization topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Epigraph &amp; supporting line\" widget on `convex-optimization`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -5147,27 +4916,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Spinor under boosts: rest-frame spin-up boosted to a moving frame\" widget on `dirac-equation`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dirichlet-unit-theorem-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dirichlet-unit-theorem-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

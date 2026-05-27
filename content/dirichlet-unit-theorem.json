@@ -12,13 +12,41 @@
         },
         {
           "type": "widget",
-          "slug": "dirichlet-unit-theorem-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-le",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-le\">\n  <div class=\"hd\"><div class=\"ttl\">Log-embedding of $\\mathcal{O}_K^\\times$ for $K=\\mathbb{Q}(\\sqrt{d})$</div><div class=\"hint\">click to step through powers of the fundamental unit</div></div>\n  <div class=\"row\">\n    <label for=\"le-d\">$d$ (squarefree $>1$)</label>\n    <select id=\"le-d\">\n      <option value=\"2\" selected>2 ($\\varepsilon=1+\\sqrt{2}$)</option>\n      <option value=\"3\">3 ($\\varepsilon=2+\\sqrt{3}$)</option>\n      <option value=\"5\">5 ($\\varepsilon=(1+\\sqrt{5})/2$)</option>\n      <option value=\"6\">6 ($\\varepsilon=5+2\\sqrt{6}$)</option>\n      <option value=\"7\">7 ($\\varepsilon=8+3\\sqrt{7}$)</option>\n      <option value=\"10\">10 ($\\varepsilon=3+\\sqrt{10}$)</option>\n    </select>\n    <button id=\"le-step\">step $\\varepsilon^k$</button>\n    <button id=\"le-reset\">reset</button>\n  </div>\n  <svg id=\"le-svg\" viewBox=\"0 0 620 280\" width=\"620\" height=\"280\"><title>Log-embedding visualisation</title></svg>\n  <div class=\"readout\" id=\"le-out\">pick a $d$ and press step…</div>\n</div>",
-            "bodyScript": "",
             "title": "Log-embedding of $\\mathcal{O}_K^\\times$ for $K=\\mathbb{Q}(\\sqrt{d})$",
-            "hint": "click to step through powers of the fundamental unit"
+            "hint": "click to step through powers of the fundamental unit",
+            "controls": [
+              {
+                "type": "select",
+                "id": "le-d",
+                "label": "$d$ (squarefree $>1$)",
+                "optionsHtml": "\n      <option value=\"2\" selected>2 ($\\varepsilon=1+\\sqrt{2}$)</option>\n      <option value=\"3\">3 ($\\varepsilon=2+\\sqrt{3}$)</option>\n      <option value=\"5\">5 ($\\varepsilon=(1+\\sqrt{5})/2$)</option>\n      <option value=\"6\">6 ($\\varepsilon=5+2\\sqrt{6}$)</option>\n      <option value=\"7\">7 ($\\varepsilon=8+3\\sqrt{7}$)</option>\n      <option value=\"10\">10 ($\\varepsilon=3+\\sqrt{10}$)</option>\n    "
+              },
+              {
+                "type": "button",
+                "id": "le-step",
+                "text": "step $\\varepsilon^k$"
+              },
+              {
+                "type": "button",
+                "id": "le-reset",
+                "text": "reset"
+              }
+            ],
+            "svg": {
+              "id": "le-svg",
+              "viewBox": "0 0 620 280",
+              "width": 620,
+              "height": 280,
+              "title": "Log-embedding visualisation"
+            },
+            "readout": {
+              "id": "le-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

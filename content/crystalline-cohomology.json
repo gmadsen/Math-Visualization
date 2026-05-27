@@ -58,13 +58,46 @@
         },
         {
           "type": "widget",
-          "slug": "crystalline-cohomology-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-pd",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-pd\">\n  <div class=\"hd\"><div class=\"ttl\">$p$-adic valuation of $p^n/n!$</div><div class=\"hint\">why divided powers stay in the ideal $pW$</div></div>\n  <div class=\"row\">\n    <label for=\"pd-p\">prime $p$</label>\n    <select id=\"pd-p\"><option value=\"2\">2</option><option value=\"3\" selected>3</option><option value=\"5\">5</option><option value=\"7\">7</option></select>\n    <label for=\"pd-n\">$n$</label>\n    <input type=\"range\" id=\"pd-n\" min=\"1\" max=\"20\" step=\"1\" value=\"5\">\n    <span class=\"readout small\" id=\"pd-n-val\" style=\"min-width:2.5em;display:inline-block\">5</span>\n  </div>\n  <svg id=\"pd-svg\" viewBox=\"0 0 580 220\" width=\"580\" height=\"220\"><title>$p$-adic valuation of $p^n/n!$</title></svg>\n  <div class=\"readout\" id=\"pd-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "$p$-adic valuation of $p^n/n!$",
-            "hint": "why divided powers stay in the ideal $pW$"
+            "hint": "why divided powers stay in the ideal $pW$",
+            "controls": [
+              {
+                "type": "select",
+                "id": "pd-p",
+                "label": "prime $p$",
+                "optionsHtml": "<option value=\"2\">2</option><option value=\"3\" selected>3</option><option value=\"5\">5</option><option value=\"7\">7</option>"
+              },
+              {
+                "type": "slider",
+                "id": "pd-n",
+                "label": "$n$",
+                "min": 1,
+                "max": 20,
+                "value": 5,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "pd-n-val",
+                "class": "readout small",
+                "text": "5"
+              }
+            ],
+            "svg": {
+              "id": "pd-svg",
+              "viewBox": "0 0 580 220",
+              "width": 580,
+              "height": 220
+            },
+            "readout": {
+              "id": "pd-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -216,13 +249,30 @@
         },
         {
           "type": "widget",
-          "slug": "crystalline-cohomology-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-newton",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-newton\">\n  <div class=\"hd\"><div class=\"ttl\">Newton above Hodge for $H^1$ of an elliptic curve</div><div class=\"hint\">two cases: ordinary vs. supersingular</div></div>\n  <div class=\"row\">\n    <label for=\"nw-kind\">case</label>\n    <select id=\"nw-kind\">\n      <option value=\"ord\" selected>ordinary $E_0$ — slopes $\\{0,1\\}$</option>\n      <option value=\"ss\">supersingular $E_0$ — slopes $\\{1/2,1/2\\}$</option>\n    </select>\n  </div>\n  <svg id=\"nw-svg\" viewBox=\"0 0 560 300\" width=\"560\" height=\"300\"><title>Newton above Hodge for $H^1$ of an elliptic curve</title></svg>\n  <div class=\"readout\" id=\"nw-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "Newton above Hodge for $H^1$ of an elliptic curve",
-            "hint": "two cases: ordinary vs. supersingular"
+            "hint": "two cases: ordinary vs. supersingular",
+            "controls": [
+              {
+                "type": "select",
+                "id": "nw-kind",
+                "label": "case",
+                "optionsHtml": "\n      <option value=\"ord\" selected>ordinary $E_0$ — slopes $\\{0,1\\}$</option>\n      <option value=\"ss\">supersingular $E_0$ — slopes $\\{1/2,1/2\\}$</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "nw-svg",
+              "viewBox": "0 0 560 300",
+              "width": 560,
+              "height": 300
+            },
+            "readout": {
+              "id": "nw-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
