@@ -288,8 +288,6 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
     <button id="cm-y-zp">$T = \mathbb{Z}_p$ ($p$-adic integers)</button>
     <button id="cm-y-r">$T = \mathbb{R}$</button>
     <button id="cm-y-disc">$T = \{0,1,2\}$ discrete</button>
-  </div>
-  <div class="row">
     <label for="cm-y-probe">probe profinite $S$:</label>
     <select id="cm-y-probe" style="min-width:240px">
       <option value="pt">$S = *$ (one point)</option>
@@ -299,7 +297,7 @@ $$\underline T(S) \;:=\; \mathrm{Cont}(S, T),$$
     </select>
   </div>
   <svg id="cm-y-svg" viewBox="-260 -130 520 260" width="100%" height="280"><title>Underlying-condensed-set functor: continuous maps from a profinite probe S into a topological space T form the value of underline T at S</title></svg>
-  <div id="cm-y-out" class="readout"></div>
+  <div class="readout" id="cm-y-out"></div>
 </div>
 <script>
 (function(){
@@ -604,13 +602,11 @@ $$\alpha_S\colon \mathbb{Z}[S] \otimes M \;\longrightarrow\; \mathrm{Maps}(S, M)
 <div class="widget" id="cm-solid-test">
   <div class="hd"><div class="ttl">Solidity test: $\mathbb{Z}[S] \otimes M \xrightarrow{\alpha_S} \mathrm{Maps}(S, M)$ — iso or not?</div><div class="hint">pick a condensed abelian group; pick a profinite probe; widget computes both sides</div></div>
   <div class="row">
-    <button id="cm-st-zp"  class="active">$M = \mathbb{Z}_p$</button>
+    <button id="cm-st-zp" class="active">$M = \mathbb{Z}_p$</button>
     <button id="cm-st-zppx">$M = \mathbb{Z}_p[[x]]$</button>
     <button id="cm-st-r">$M = \mathbb{R}$</button>
     <button id="cm-st-qp">$M = \mathbb{Q}_p$</button>
     <button id="cm-st-prof">$M = \widehat{\mathbb{Z}}$ (profinite)</button>
-  </div>
-  <div class="row">
     <label for="cm-st-probe">probe profinite $S$:</label>
     <select id="cm-st-probe" style="min-width:200px">
       <option value="2pt">$S = \{0,1\}$ (2 pts)</option>
@@ -619,7 +615,7 @@ $$\alpha_S\colon \mathbb{Z}[S] \otimes M \;\longrightarrow\; \mathrm{Maps}(S, M)
     </select>
   </div>
   <svg id="cm-st-svg" viewBox="-280 -130 560 260" width="100%" height="280"><title>Solidity test: comparison map alpha_S between completed-tensor and continuous-maps; iso means M is solid</title></svg>
-  <div id="cm-st-out" class="readout"></div>
+  <div class="readout" id="cm-st-out"></div>
 </div>
 <script>
 (function(){
@@ -780,14 +776,12 @@ $$\mu\colon \mathcal{M}_p(V) \;\to\; V$$
       <option value="ell2">$W = \ell^2$</option>
       <option value="L1">$W = L^1[0,1]$</option>
     </select>
-  </div>
-  <div class="row">
     <label for="cm-lt-p">$p$ (liquidity):</label>
-    <input id="cm-lt-p" type="range" min="0.05" max="0.99" step="0.01" value="0.6">
+    <input type="range" id="cm-lt-p" min="0.05" max="0.99" step="0.01" value="0.6">
     <span id="cm-lt-p-out" class="small"></span>
   </div>
   <svg id="cm-lt-svg" viewBox="-280 -120 560 240" width="100%" height="240"><title>Comparison of classical projective tensor product with the liquid tensor product as the parameter p varies</title></svg>
-  <div id="cm-lt-out" class="readout"></div>
+  <div class="readout" id="cm-lt-out"></div>
 </div>
 <script>
 (function(){

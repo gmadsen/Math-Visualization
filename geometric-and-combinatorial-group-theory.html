@@ -500,11 +500,10 @@ $$ \tfrac{1}{K}\, d_X(x, x') - C \;\le\; d_Y(f(x), f(x')) \;\le\; K\, d_X(x, x')
 <p>Quasi-isometry is brutal — it forgets element order, individual generators, and any local structure — but the surviving invariants are the lifeblood of geometric group theory: growth type, number of ends, hyperbolicity, asymptotic dimension, $\ell^p$-cohomology.</p>
 
 <div class="widget">
-  <div class="hd"><div class="ttl">Quasi-isometry checker</div>
-    <div class="hint">Slide $K$ and $C$ to see the bilipschitz envelope around $y = x$.</div></div>
+  <div class="hd"><div class="ttl">Quasi-isometry checker</div><div class="hint">Slide $K$ and $C$ to see the bilipschitz envelope around $y = x$.</div></div>
   <div class="row">
-    <label>$K$ <input id="qi-K" type="range" min="1" max="4" step="0.1" value="1.5"></label>
-    <label>$C$ <input id="qi-C" type="range" min="0" max="40" step="1" value="10"></label>
+    <label>$K$<input id="qi-K" type="range" min="1" max="4" step="0.1" value="1.5"></label>
+    <label>$C$<input id="qi-C" type="range" min="0" max="40" step="1" value="10"></label>
     <label>candidate: <select id="qi-pick">
       <option value="floor">$\lfloor x \rfloor$ (ℝ → ℤ)</option>
       <option value="2x">$2x$ (ℝ → ℝ)</option>
@@ -513,7 +512,7 @@ $$ \tfrac{1}{K}\, d_X(x, x') - C \;\le\; d_Y(f(x), f(x')) \;\le\; K\, d_X(x, x')
     </select></label>
   </div>
   <svg id="qi-svg" viewBox="0 0 480 280" width="540" height="320"><title>Quasi-isometry checker</title></svg>
-  <div id="qi-readout" class="readout"></div>
+  <div class="readout" id="qi-readout"></div>
 </div>
 
 <script>

@@ -276,12 +276,12 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="cos">$f(x)=\cos(x)$ &nbsp; ($|f'(x_*)|\approx 0.67$ at fp; not a Banach contraction on the slider domain — local convergence only)</option>
       <option value="quart">$f(x)=\tfrac{1}{4}x+3$ &nbsp; ($L=1/4$, fp $=4$)</option>
     </select></label>
-    <label>$x_0$: <input type="range" id="bp-x0" min="-3" max="6" step="0.1" value="-2"></label>
-    <label>steps: <input type="range" id="bp-n" min="1" max="20" step="1" value="8"></label>
+    <label>$x_0$:<input id="bp-x0" type="range" min="-3" max="6" step="0.1" value="-2"></label>
+    <label>steps:<input id="bp-n" type="range" min="1" max="20" step="1" value="8"></label>
   </div>
   <svg id="bp-svg" viewBox="0 0 560 320" width="100%"><title>Picard iteration trajectory</title></svg>
-  <div class="readout" id="bp-out">…</div>
-  <div class="note">The cobweb diagram bounces between $y=f(x)$ and $y=x$. The horizontal step is $x_{n+1}-x_n$; the vertical step is $f(x_n)-x_n$. Slope $|f'|<1$ guarantees the spirals contract.</div>
+  <div class="readout" id="bp-out"></div>
+  <p class="small">The cobweb diagram bounces between $y=f(x)$ and $y=x$. The horizontal step is $x_{n+1}-x_n$; the vertical step is $f(x_n)-x_n$. Slope $|f'|<1$ guarantees the spirals contract.</p>
 </div>
 
 <!-- callback-auto-begin -->
@@ -389,8 +389,8 @@ If $\Lambda(f)\ne 0$, then $f$ has a fixed point. The implication is one-way: $\
     </select></label>
   </div>
   <svg id="lf-svg" viewBox="0 0 560 240" width="100%"><title>Lefschetz number computation</title></svg>
-  <div class="readout" id="lf-out">…</div>
-  <div class="note">$\Lambda(f)\ne 0$ forces a fixed point. The torus identity has $\Lambda=0$ but fixes everything — proof that the converse fails.</div>
+  <div class="readout" id="lf-out"></div>
+  <p class="small">$\Lambda(f)\ne 0$ forces a fixed point. The torus identity has $\Lambda=0$ but fixes everything — proof that the converse fails.</p>
 </div>
 
 <!-- callback-auto-begin -->
@@ -841,12 +841,12 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
       <option value="tx">$f=tx$ &nbsp; (true: $x_0 e^{t^2/2}$)</option>
       <option value="sin">$f=\sin(x)$</option>
     </select></label>
-    <label>iterations: <input type="range" id="pl-k" min="0" max="6" step="1" value="3"></label>
-    <label>$x_0$: <input type="range" id="pl-x0" min="-2" max="2" step="0.1" value="1"></label>
+    <label>iterations:<input id="pl-k" type="range" min="0" max="6" step="1" value="3"></label>
+    <label>$x_0$:<input id="pl-x0" type="range" min="-2" max="2" step="0.1" value="1"></label>
   </div>
   <svg id="pl-svg" viewBox="0 0 560 280" width="100%"><title>Picard–Lindelöf in action</title></svg>
-  <div class="readout" id="pl-out">…</div>
-  <div class="note">Each iterate $\varphi_{k+1}(t)=x_0+\int_0^t f(s,\varphi_k(s))\,ds$ moves toward the unique solution, which is the contraction's fixed point.</div>
+  <div class="readout" id="pl-out"></div>
+  <p class="small">Each iterate $\varphi_{k+1}(t)=x_0+\int_0^t f(s,\varphi_k(s))\,ds$ moves toward the unique solution, which is the contraction's fixed point.</p>
 </div>
 
 <div class="quiz" data-concept="fpt-applications"></div>

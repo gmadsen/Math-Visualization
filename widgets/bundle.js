@@ -1976,69 +1976,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cm-liquid-tensor",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cm-liquid-tensor widget params",
-    "description": "Bespoke verbatim-renderer slug for the Classical projective vs liquid tensor product (parameterised) widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "\"Classical projective vs liquid tensor\" parameterised comparison for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cm-solid-test",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cm-solid-test widget params",
-    "description": "Bespoke verbatim-renderer slug for the Solidity test for the comparison map alpha_S widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "\"Solidity test alpha_S\" comparison for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cm-yoneda",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cm-yoneda widget params",
-    "description": "Bespoke verbatim-renderer slug for the Topological-space-to-condensed-set Yoneda probe widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "\"Topological space to condensed set\" Yoneda probe for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cmb-w1",
     "family": "verbatim",
     "dimension": "2d",
@@ -5114,48 +5051,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "ec-rep",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "ec-rep widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Repeated addition: $nP$\" widget on the elliptic-curves topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Repeated addition: $nP$\" widget on `elliptic-curves`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "ec-tf",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "ec-tf widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$E(\\mathbb{F}_p)$ scatter\" widget on the elliptic-curves topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$E(\\mathbb{F}_p)$ scatter\" widget on `elliptic-curves`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "elementary-topos-theory-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",
@@ -5962,27 +5857,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "fpt-bp",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "fpt-bp widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Picard iteration trajectory\" widget on the fixed-point-theorems topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Picard iteration trajectory\" widget on `fixed-point-theorems`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "fpt-br",
     "family": "verbatim",
     "dimension": "2d",
@@ -5998,48 +5872,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"No-retraction lemma — the disk\" widget on `fixed-point-theorems`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "fpt-lf",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "fpt-lf widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Lefschetz number computation\" widget on the fixed-point-theorems topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Lefschetz number computation\" widget on `fixed-point-theorems`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "fpt-pl",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "fpt-pl widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Picard–Lindelöf in action\" widget on the fixed-point-theorems topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Picard–Lindelöf in action\" widget on `fixed-point-theorems`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -6735,27 +6567,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Presentation explorer\" widget on `geometric-and-combinatorial-group-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "gcg-qi",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gcg-qi widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Quasi-isometry checker\" widget on the geometric-and-combinatorial-group-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Quasi-isometry checker\" widget on `geometric-and-combinatorial-group-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -10159,27 +9970,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"The same morphism wears different hats in different model categories\" widget on `model-categories`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mc-pushout",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "mc-pushout widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Pushout-product: cell complex × cell complex remains cellular\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Pushout-product: cell complex × cell complex remains cellular\" widget on `model-categories`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
