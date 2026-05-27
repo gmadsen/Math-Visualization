@@ -113,10 +113,14 @@ export function renderMarkup(params) {
   if (!Array.isArray(controls) || controls.length === 0) {
     throw new TypeError('slider-svg-2d: controls must be a non-empty array');
   }
-  if (!svg || typeof svg.id !== 'string') throw new TypeError('slider-svg-2d: svg.id is required');
+  // `svg` is OPTIONAL: most widgets have a diagram, but some (e.g. select +
+  // readout dropdowns with no plot) carry only controls + a readout. When
+  // present it must have an id; when absent the svg block is omitted.
+  if (svg != null && typeof svg.id !== 'string') throw new TypeError('slider-svg-2d: svg.id is required when svg is present');
 
   let readoutMarkup = '';
   if (readout === true) {
+    if (!svg) throw new TypeError('slider-svg-2d: readout=true derives its id from svg.id — svg-less widgets must use readout:{ id }');
     readoutMarkup = `\n  <div class="readout" id="${readoutIdFromSvg(svg.id)}"></div>`;
   } else if (readout && typeof readout === 'object') {
     const cls = readout.class || 'readout';
@@ -133,6 +137,9 @@ export function renderMarkup(params) {
   // many widgets give the SVG a more specific accessibility name than the
   // page header — e.g. header `$(p,q)$-bigrading explorer` vs SVG title
   // `bidegree summands`). Falls back to the header title when omitted.
+  // SVG block (empty when the widget has no diagram — see optional-svg note above).
+  let svgBlock = '';
+  if (svg) {
   const svgTitleText = (typeof svg.title === 'string') ? svg.title : title;
   const svgInner = `<title>${escapeHtml(svgTitleText)}</title>`;
 
@@ -153,6 +160,8 @@ export function renderMarkup(params) {
     // widgets set directly on the element: a dark plotting canvas, a border, or
     // `cursor:crosshair` (the affordance for click-to-place widgets like ec-gl).
     (svg.style != null ? ` style="${svg.style}"` : '');
+    svgBlock = `\n  <svg ${svgAttrs}>${svgInner}</svg>`;
+  }
 
   // Wrapper id: opt-in via `wrapperHasId: true`. Two distinct uses of
   // widgetId across the corpus require this split:
@@ -192,13 +201,17 @@ export function renderMarkup(params) {
     ? `\n  <p class="small">${trailingProse}</p>`
     : '';
 
+  // Row block carries NO trailing newline; the svgBlock (when present) and the
+  // readout/trailing blocks each lead with their own `\n`. This keeps a single
+  // separator before whatever follows the row — `\n  <svg>` when there's a
+  // diagram, `\n  <div readout>` when the widget is svg-less.
   return (
     `<div class="widget"${wrapperIdAttr}>\n` +
     `  <div class="hd"><div class="ttl">${title}</div><div class="hint">${hint}</div></div>\n` +
     `  <div class="row">\n` +
     `    ${controlsMarkup}\n` +
-    `  </div>\n` +
-    `  <svg ${svgAttrs}>${svgInner}</svg>` +
+    `  </div>` +
+    svgBlock +
     readoutMarkup +
     trailingMarkup + '\n' +
     `</div>`

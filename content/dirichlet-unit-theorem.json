@@ -122,13 +122,25 @@
         },
         {
           "type": "widget",
-          "slug": "dirichlet-unit-theorem-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-reg",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-reg\">\n  <div class=\"hd\"><div class=\"ttl\">Regulator of $\\mathbb{Q}(\\sqrt{d})$</div><div class=\"hint\">choose $d>0$ — read off $\\varepsilon$ and $R_K=\\log\\varepsilon$</div></div>\n  <div class=\"row\">\n    <label for=\"rg-d\">$d$</label>\n    <select id=\"rg-d\">\n      <option value=\"2\" selected>2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\">5</option>\n      <option value=\"6\">6</option>\n      <option value=\"7\">7</option>\n      <option value=\"10\">10</option>\n      <option value=\"11\">11</option>\n      <option value=\"13\">13</option>\n      <option value=\"61\">61</option>\n      <option value=\"94\">94</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"rg-out\">pick a $d$…</div>\n  <p class=\"small\" style=\"margin-top:.6rem\">For $d=61$ the fundamental unit has $9$-digit coefficients; for $d=94$ they have $19$ digits. The regulator $R_K$ stays a sensible $\\log$-sized number even as the unit explodes — that is part of why $R_K$ (not $\\varepsilon$ itself) is the right invariant.</p>\n</div>",
-            "bodyScript": "",
             "title": "Regulator of $\\mathbb{Q}(\\sqrt{d})$",
-            "hint": "choose $d>0$ — read off $\\varepsilon$ and $R_K=\\log\\varepsilon$"
+            "hint": "choose $d>0$ — read off $\\varepsilon$ and $R_K=\\log\\varepsilon$",
+            "controls": [
+              {
+                "type": "select",
+                "id": "rg-d",
+                "label": "$d$",
+                "optionsHtml": "\n      <option value=\"2\" selected>2</option>\n      <option value=\"3\">3</option>\n      <option value=\"5\">5</option>\n      <option value=\"6\">6</option>\n      <option value=\"7\">7</option>\n      <option value=\"10\">10</option>\n      <option value=\"11\">11</option>\n      <option value=\"13\">13</option>\n      <option value=\"61\">61</option>\n      <option value=\"94\">94</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "rg-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "For $d=61$ the fundamental unit has $9$-digit coefficients; for $d=94$ they have $19$ digits. The regulator $R_K$ stays a sensible $\\log$-sized number even as the unit explodes — that is part of why $R_K$ (not $\\varepsilon$ itself) is the right invariant."
           }
         },
         {
@@ -159,13 +171,25 @@
         },
         {
           "type": "widget",
-          "slug": "dirichlet-unit-theorem-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-cnf",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-cnf\">\n  <div class=\"hd\"><div class=\"ttl\">Class number formula calculator</div><div class=\"hint\">imaginary quadratic $\\mathbb{Q}(\\sqrt{-d})$ — confirm the residue</div></div>\n  <div class=\"row\">\n    <label for=\"cnf-d\">$-d$</label>\n    <select id=\"cnf-d\">\n      <option value=\"-1\" selected>$-1$ ($h=1, w=4$)</option>\n      <option value=\"-2\">$-2$ ($h=1, w=2$)</option>\n      <option value=\"-3\">$-3$ ($h=1, w=6$)</option>\n      <option value=\"-5\">$-5$ ($h=2, w=2$)</option>\n      <option value=\"-7\">$-7$ ($h=1, w=2$)</option>\n      <option value=\"-15\">$-15$ ($h=2, w=2$)</option>\n      <option value=\"-23\">$-23$ ($h=3, w=2$)</option>\n      <option value=\"-163\">$-163$ ($h=1, w=2$)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"cnf-out\">…</div>\n  <p class=\"small\" style=\"margin-top:.6rem\">The residue equals $\\dfrac{2\\pi h_K}{w_K\\sqrt{|\\Delta_K|}}$ for an imaginary quadratic field. Heegner's nine values $-1,-2,-3,-7,-11,-19,-43,-67,-163$ are the only $d$ with $h_K=1$ (Stark, Heegner, Baker).</p>\n</div>",
-            "bodyScript": "",
             "title": "Class number formula calculator",
-            "hint": "imaginary quadratic $\\mathbb{Q}(\\sqrt{-d})$ — confirm the residue"
+            "hint": "imaginary quadratic $\\mathbb{Q}(\\sqrt{-d})$ — confirm the residue",
+            "controls": [
+              {
+                "type": "select",
+                "id": "cnf-d",
+                "label": "$-d$",
+                "optionsHtml": "\n      <option value=\"-1\" selected>$-1$ ($h=1, w=4$)</option>\n      <option value=\"-2\">$-2$ ($h=1, w=2$)</option>\n      <option value=\"-3\">$-3$ ($h=1, w=6$)</option>\n      <option value=\"-5\">$-5$ ($h=2, w=2$)</option>\n      <option value=\"-7\">$-7$ ($h=1, w=2$)</option>\n      <option value=\"-15\">$-15$ ($h=2, w=2$)</option>\n      <option value=\"-23\">$-23$ ($h=3, w=2$)</option>\n      <option value=\"-163\">$-163$ ($h=1, w=2$)</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "cnf-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "The residue equals $\\dfrac{2\\pi h_K}{w_K\\sqrt{|\\Delta_K|}}$ for an imaginary quadratic field. Heegner's nine values $-1,-2,-3,-7,-11,-19,-43,-67,-163$ are the only $d$ with $h_K=1$ (Stark, Heegner, Baker)."
           }
         },
         {
