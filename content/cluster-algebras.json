@@ -133,14 +133,52 @@
         },
         {
           "type": "widget",
-          "slug": "cluster-w3",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "cl-laurent",
             "title": "Laurent expansion in type $A_2$",
+            "layout": [
+              {
+                "kind": "row",
+                "children": [
+                  {
+                    "kind": "button",
+                    "id": "cl-l-prev",
+                    "label": "←"
+                  },
+                  {
+                    "kind": "span",
+                    "attrs": " id=\"cl-l-step\" style=\"color:var(--mute);font-size:.92rem\"",
+                    "content": "step 1 / 5"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "cl-l-next",
+                    "label": "→"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "cl-l-svg",
+                "viewBox": "0 0 720 200",
+                "width": 720,
+                "height": 200,
+                "ariaLabel": "Laurent expansion display",
+                "titleText": "Laurent expansion"
+              },
+              {
+                "kind": "readout",
+                "id": "cl-l-out"
+              }
+            ],
             "hint": "step through the five cluster variables; watch the denominator stay monomial",
-            "bodyMarkup": "<div class=\"widget\" id=\"cl-laurent\">\n  <div class=\"hd\"><div class=\"ttl\">Laurent expansion in type $A_2$</div><div class=\"hint\">step through the five cluster variables; watch the denominator stay monomial</div></div>\n  <div class=\"row\">\n    <button id=\"cl-l-prev\">←</button>\n    <span id=\"cl-l-step\" style=\"color:var(--mute);font-size:.92rem\">step 1 / 5</span>\n    <button id=\"cl-l-next\">→</button>\n  </div>\n  <svg id=\"cl-l-svg\" viewBox=\"0 0 720 200\" width=\"720\" height=\"200\" aria-label=\"Laurent expansion display\"><title>Laurent expansion</title></svg>\n  <div class=\"readout\" id=\"cl-l-out\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = document.querySelector('#cl-l-svg');\n  const out = document.querySelector('#cl-l-out');\n  const bp = document.querySelector('#cl-l-prev');\n  const bn = document.querySelector('#cl-l-next');\n  const lab = document.querySelector('#cl-l-step');\n  if(!svg || !out) return;\n  // The five cluster variables of A2 with their Laurent forms.\n  const cv = [\n    {name:'x₁',  num:'x_1',                den:'1',     coeffs:[1],        d1:0, d2:0,  color:'var(--blue)'},\n    {name:'x₂',  num:'x_2',                den:'1',     coeffs:[1],        d1:0, d2:0,  color:'var(--blue)'},\n    {name:'x₃',  num:'1 + x_2',            den:'x_1',   coeffs:[1,1],      d1:1, d2:0,  color:'var(--cyan)'},\n    {name:'x₄',  num:'1 + x_1 + x_2',      den:'x_1·x_2', coeffs:[1,1,1],  d1:1, d2:1,  color:'var(--green)'},\n    {name:'x₅',  num:'1 + x_1',            den:'x_2',   coeffs:[1,1],      d1:0, d2:1,  color:'var(--cyan)'}\n  ];\n  let i = 0;\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // The big formula box on the left\n    const c = cv[i];\n    const fx = 80, fy = 90;\n    // numerator\n    const t1 = SVG('text',{x:fx+220, y:fy-14, 'text-anchor':'middle','font-size':22, fill:'var(--ink)'});\n    t1.textContent = c.num;\n    svg.appendChild(t1);\n    // fraction line\n    svg.appendChild(SVG('line',{x1:fx+90, y1:fy, x2:fx+360, y2:fy, stroke:'var(--mute)', 'stroke-width':1.5}));\n    // denominator\n    const t2 = SVG('text',{x:fx+220, y:fy+24, 'text-anchor':'middle','font-size':20, fill:c.color});\n    t2.textContent = c.den;\n    svg.appendChild(t2);\n    // x_n = label on left\n    const t3 = SVG('text',{x:fx+30, y:fy+6, 'text-anchor':'middle','font-size':22, fill:'var(--yellow)','font-weight':600});\n    t3.textContent = c.name + ' =';\n    svg.appendChild(t3);\n    // coefficient bar chart on the right\n    const bx = 510, by0 = 50, by1 = 150;\n    const t4 = SVG('text',{x:bx + 80, y:by0-12, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    t4.textContent = 'numerator coefficients';\n    svg.appendChild(t4);\n    const cn = c.coeffs.length;\n    const bw = Math.min(28, 160/Math.max(cn,1));\n    c.coeffs.forEach((coef, k) => {\n      const x0 = bx + k*(bw+8);\n      const h = (by1 - by0) * coef / Math.max(...c.coeffs, 1);\n      svg.appendChild(SVG('rect',{x:x0, y:by1-h, width:bw, height:h, fill:c.color, opacity:0.85}));\n      const tt = SVG('text',{x:x0+bw/2, y:by1-h-4, 'text-anchor':'middle','font-size':11,fill:'var(--ink)'});\n      tt.textContent = String(coef);\n      svg.appendChild(tt);\n    });\n    // exponents box\n    const t5 = SVG('text',{x:bx + 80, y:by1+22, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    t5.textContent = `denom = x₁^${c.d1} · x₂^${c.d2} (always monomial)`;\n    svg.appendChild(t5);\n  }\n\n  function update(){\n    render();\n    lab.textContent = `step ${i+1} / 5`;\n    const c = cv[i];\n    out.textContent =\n      `${c.name} = (${c.num}) / (${c.den})\\n` +\n      `Numerator: positive integer combination of monomials in (x₁, x₂).\\n` +\n      `Denominator: a single monomial x₁^${c.d1} · x₂^${c.d2}. ` +\n      (c.d1+c.d2===0 ? '(initial generator — degree 0 denominator)' : '(Laurent monomial — guaranteed by the FZ theorem)');\n  }\n  bp.addEventListener('click', () => { i = (i + cv.length - 1) % cv.length; update(); });\n  bn.addEventListener('click', () => { i = (i + 1) % cv.length; update(); });\n\n  update();\n})();\n</script>"
+            "bodyScript": "  const svg = document.querySelector('#cl-l-svg');\n  const out = document.querySelector('#cl-l-out');\n  const bp = document.querySelector('#cl-l-prev');\n  const bn = document.querySelector('#cl-l-next');\n  const lab = document.querySelector('#cl-l-step');\n  if(!svg || !out) return;\n  // The five cluster variables of A2 with their Laurent forms.\n  const cv = [\n    {name:'x₁',  num:'x_1',                den:'1',     coeffs:[1],        d1:0, d2:0,  color:'var(--blue)'},\n    {name:'x₂',  num:'x_2',                den:'1',     coeffs:[1],        d1:0, d2:0,  color:'var(--blue)'},\n    {name:'x₃',  num:'1 + x_2',            den:'x_1',   coeffs:[1,1],      d1:1, d2:0,  color:'var(--cyan)'},\n    {name:'x₄',  num:'1 + x_1 + x_2',      den:'x_1·x_2', coeffs:[1,1,1],  d1:1, d2:1,  color:'var(--green)'},\n    {name:'x₅',  num:'1 + x_1',            den:'x_2',   coeffs:[1,1],      d1:0, d2:1,  color:'var(--cyan)'}\n  ];\n  let i = 0;\n\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // The big formula box on the left\n    const c = cv[i];\n    const fx = 80, fy = 90;\n    // numerator\n    const t1 = SVG('text',{x:fx+220, y:fy-14, 'text-anchor':'middle','font-size':22, fill:'var(--ink)'});\n    t1.textContent = c.num;\n    svg.appendChild(t1);\n    // fraction line\n    svg.appendChild(SVG('line',{x1:fx+90, y1:fy, x2:fx+360, y2:fy, stroke:'var(--mute)', 'stroke-width':1.5}));\n    // denominator\n    const t2 = SVG('text',{x:fx+220, y:fy+24, 'text-anchor':'middle','font-size':20, fill:c.color});\n    t2.textContent = c.den;\n    svg.appendChild(t2);\n    // x_n = label on left\n    const t3 = SVG('text',{x:fx+30, y:fy+6, 'text-anchor':'middle','font-size':22, fill:'var(--yellow)','font-weight':600});\n    t3.textContent = c.name + ' =';\n    svg.appendChild(t3);\n    // coefficient bar chart on the right\n    const bx = 510, by0 = 50, by1 = 150;\n    const t4 = SVG('text',{x:bx + 80, y:by0-12, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    t4.textContent = 'numerator coefficients';\n    svg.appendChild(t4);\n    const cn = c.coeffs.length;\n    const bw = Math.min(28, 160/Math.max(cn,1));\n    c.coeffs.forEach((coef, k) => {\n      const x0 = bx + k*(bw+8);\n      const h = (by1 - by0) * coef / Math.max(...c.coeffs, 1);\n      svg.appendChild(SVG('rect',{x:x0, y:by1-h, width:bw, height:h, fill:c.color, opacity:0.85}));\n      const tt = SVG('text',{x:x0+bw/2, y:by1-h-4, 'text-anchor':'middle','font-size':11,fill:'var(--ink)'});\n      tt.textContent = String(coef);\n      svg.appendChild(tt);\n    });\n    // exponents box\n    const t5 = SVG('text',{x:bx + 80, y:by1+22, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n    t5.textContent = `denom = x₁^${c.d1} · x₂^${c.d2} (always monomial)`;\n    svg.appendChild(t5);\n  }\n\n  function update(){\n    render();\n    lab.textContent = `step ${i+1} / 5`;\n    const c = cv[i];\n    out.textContent =\n      `${c.name} = (${c.num}) / (${c.den})\\n` +\n      `Numerator: positive integer combination of monomials in (x₁, x₂).\\n` +\n      `Denominator: a single monomial x₁^${c.d1} · x₂^${c.d2}. ` +\n      (c.d1+c.d2===0 ? '(initial generator — degree 0 denominator)' : '(Laurent monomial — guaranteed by the FZ theorem)');\n  }\n  bp.addEventListener('click', () => { i = (i + cv.length - 1) % cv.length; update(); });\n  bn.addEventListener('click', () => { i = (i + 1) % cv.length; update(); });\n\n  update();"
           }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
         },
         {
           "type": "widget-script",

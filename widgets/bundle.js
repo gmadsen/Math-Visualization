@@ -2207,27 +2207,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cluster-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cluster-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cluster-algebras topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cluster-algebras` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cluster-w4",
     "family": "verbatim",
     "dimension": "2d",
@@ -2841,27 +2820,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cohomology-and-duality-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cohomology-and-duality-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cohomology-and-duality-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -2910,27 +2868,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "cohomology-and-duality-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cohomology-and-duality-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cohomology-and-duality-w5 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
     "requiredParams": [
       "widgetId",
@@ -4210,27 +4147,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"LP rounding playground\" widget on `combinatorial-optimization`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "copt-poly",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "copt-poly widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Matching polytope vs. fractional relaxation\" widget on the combinatorial-optimization topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Matching polytope vs. fractional relaxation\" widget on `combinatorial-optimization`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -11425,48 +11341,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mchaos-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interactive",
-    "role": "interactive",
-    "title": "mchaos-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mchaos-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interactive",
-    "role": "interactive",
-    "title": "mchaos-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mathematical-chaos topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mathematical-chaos` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mf-w3",
     "family": "verbatim",
     "dimension": "2d",
@@ -11683,27 +11557,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "mmp-and-birational-geometry-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `mmp-and-birational-geometry` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mmp-and-birational-geometry-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mmp-and-birational-geometry-w3 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the mmp-and-birational-geometry topic.",
     "requiredParams": [
       "widgetId",
@@ -14670,27 +14523,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the **schrodinger-equation** topic. Absorbs all six inline interactives on that page — wave-packet spreading, eigenstate superposition + animate, harmonic-oscillator energy ladder, hydrogen spectrum series picker, rectangular-barrier tunneling, and stationary-phase classical-limit explorer.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "scv-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "scv-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the several-complex-variables topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for one inline widget on `several-complex-variables.html`. Body markup and script are stored opaquely in `params.bodyMarkup`/`params.bodyScript`; future migration could hoist semantic params (slider ranges, color tokens) out of the strings.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

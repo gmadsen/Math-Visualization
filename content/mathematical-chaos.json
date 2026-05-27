@@ -203,14 +203,57 @@
         },
         {
           "type": "widget",
-          "slug": "mchaos-w3",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "w-mchaos-horseshoe",
             "title": "Smale's horseshoe: stretch, fold, replace",
+            "layout": [
+              {
+                "kind": "row",
+                "children": [
+                  {
+                    "kind": "button",
+                    "id": "hs-prev",
+                    "label": "prev"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "hs-next",
+                    "label": "next"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "hs-reset",
+                    "label": "reset"
+                  },
+                  {
+                    "kind": "span",
+                    "attrs": " id=\"hs-step\" class=\"small\"",
+                    "content": "step 0 of 4"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "hs-svg",
+                "viewBox": "0 0 720 320",
+                "width": 720,
+                "height": 320,
+                "titleText": "Smale's horseshoe construction"
+              },
+              {
+                "kind": "readout",
+                "id": "hs-out",
+                "content": "click next to stretch + fold + place back…"
+              }
+            ],
             "hint": "step through the construction — the cyan strips are $\\bigcap_{|n|\\le k}f^n(Q)$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-mchaos-horseshoe\">\n  <div class=\"hd\"><div class=\"ttl\">Smale's horseshoe: stretch, fold, replace</div><div class=\"hint\">step through the construction — the cyan strips are $\\bigcap_{|n|\\le k}f^n(Q)$</div></div>\n  <div class=\"row\">\n    <button id=\"hs-prev\">prev</button>\n    <button id=\"hs-next\">next</button>\n    <button id=\"hs-reset\">reset</button>\n    <span id=\"hs-step\" class=\"small\">step 0 of 4</span>\n  </div>\n  <svg id=\"hs-svg\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Smale's horseshoe construction</title></svg>\n  <div class=\"readout\" id=\"hs-out\">click next to stretch + fold + place back…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#hs-svg'), out=$('#hs-out'), prev=$('#hs-prev'), next=$('#hs-next'), reset=$('#hs-reset'), step=$('#hs-step');\n  const stages = [\n    {label:'Stage 0 — the square Q', text:'Start with a square Q = [0,1]^2. The map f stretches vertically by μ>2, compresses horizontally by λ<1/2, then folds the top half back over the bottom.'},\n    {label:'Stage 1 — f(Q): a horseshoe', text:'After one application: f(Q) is a horseshoe-shaped region. Two horizontal strips H0, H1 ⊂ Q are mapped onto two vertical strips V0, V1 ⊂ Q — these are what stay inside Q.'},\n    {label:'Stage 2 — f²(Q) ∩ Q', text:'Points that stay in Q for 2 iterations lie in f(V0 ∪ V1) ∩ (H0 ∪ H1) — 4 thinner vertical strips. The dynamics on these strips is coded by the first two symbols (s0,s1)∈{0,1}².'},\n    {label:'Stage 3 — f³(Q) ∩ Q', text:'After 3 iterations, 8 yet thinner strips. The strip widths shrink as λⁿ, so the limit as n→∞ in the forward direction is a Cantor set of vertical lines.'},\n    {label:'Stage 4 — the Cantor set Λ', text:'Λ = ∩_{n∈ℤ} fⁿ(Q) is a Cantor set ≅ {0,1}^ℤ. The map f|_Λ is conjugate to the shift, so it has periodic orbits of every period and a dense orbit. This is the topological skeleton of every uniformly hyperbolic chaotic system.'}\n  ];\n  let s=0;\n  function drawSquare(x,y,w,h,fill,stroke){\n    return SVG('rect',{x,y,width:w,height:h,fill:fill||'none',stroke:stroke||'var(--line)','stroke-width':1});\n  }\n  function drawStripes(x,y,w,h,n,vertical,fill){\n    let strips=[[0,1]];\n    for(let k=0;k<n;k++){\n      const newStrips=[];\n      for(const [a,b] of strips){\n        const len=b-a;\n        const lpart=len*0.42, rpart=len*0.42;\n        newStrips.push([a, a+lpart]);\n        newStrips.push([b-rpart, b]);\n      }\n      strips=newStrips;\n    }\n    const out=[];\n    for(const [a,b] of strips){\n      if(vertical){\n        out.push(SVG('rect',{x:x+w*a,y,width:w*(b-a),height:h,fill:fill||'var(--cyan)',opacity:0.5,stroke:'none'}));\n      } else {\n        out.push(SVG('rect',{x,y:y+h*a,width:w,height:h*(b-a),fill:fill||'var(--yellow)',opacity:0.5,stroke:'none'}));\n      }\n    }\n    return out;\n  }\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const Qx=70, Qy=40, Qs=240;\n    svg.appendChild(drawSquare(Qx,Qy,Qs,Qs,'var(--panel2)','var(--mute)'));\n    const t=SVG('text',{x:Qx+Qs/2,y:Qy-12,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    t.textContent='Q'; svg.appendChild(t);\n    if(s===0){\n      const txt=SVG('text',{x:Qx+Qs/2,y:Qy+Qs/2+5,'text-anchor':'middle','font-size':16,fill:'var(--mute)'});\n      txt.textContent='Q'; svg.appendChild(txt);\n    } else {\n      for(const r of drawStripes(Qx,Qy,Qs,Qs,1,false,'var(--yellow)')) svg.appendChild(r);\n      const tl=SVG('text',{x:Qx-8,y:Qy+Qs*0.21+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); tl.textContent='H0'; svg.appendChild(tl);\n      const tu=SVG('text',{x:Qx-8,y:Qy+Qs*0.79+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); tu.textContent='H1'; svg.appendChild(tu);\n    }\n    const Rx=420, Ry=40, Rs=240;\n    svg.appendChild(drawSquare(Rx,Ry,Rs,Rs,'var(--panel2)','var(--mute)'));\n    if(s===0){\n      const txt=SVG('text',{x:Rx+Rs/2,y:Ry+Rs/2+5,'text-anchor':'middle','font-size':16,fill:'var(--mute)'});\n      txt.textContent='Q'; svg.appendChild(txt);\n    } else if(s===1){\n      for(const r of drawStripes(Rx,Ry,Rs,Rs,1,true,'var(--cyan)')) svg.appendChild(r);\n      const aPath = 'M '+(Rx+Rs*0.21)+' '+Ry+' C '+(Rx+Rs*0.21)+' '+(Ry-50)+', '+(Rx+Rs*0.79)+' '+(Ry-50)+', '+(Rx+Rs*0.79)+' '+Ry;\n      svg.appendChild(SVG('path',{d:aPath,fill:'none',stroke:'var(--cyan)','stroke-width':1.5,opacity:0.85}));\n      const tl=SVG('text',{x:Rx+Rs*0.21,y:Ry+Rs+14,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); tl.textContent='V0'; svg.appendChild(tl);\n      const tu=SVG('text',{x:Rx+Rs*0.79,y:Ry+Rs+14,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); tu.textContent='V1'; svg.appendChild(tu);\n      const lbl=SVG('text',{x:Rx+Rs/2,y:Ry-22,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'}); lbl.textContent='f(Q)'; svg.appendChild(lbl);\n    } else {\n      for(const r of drawStripes(Rx,Ry,Rs,Rs,s,true,'var(--cyan)')) svg.appendChild(r);\n      const lbl=SVG('text',{x:Rx+Rs/2,y:Ry-22,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'});\n      lbl.textContent = s===4 ? 'Λ = invariant Cantor set' : ('f^'+s+'(Q) ∩ Q  →  '+Math.pow(2,s)+' strips'); svg.appendChild(lbl);\n    }\n    const ax1=Qx+Qs+10, ax2=Rx-10, ay=Qy+Qs/2;\n    svg.appendChild(SVG('line',{x1:ax1,y1:ay,x2:ax2,y2:ay,stroke:'var(--ink)','stroke-width':1.2,'marker-end':'url(#hs-arr)'}));\n    let defs=svg.querySelector('defs');\n    if(!defs){ defs=SVG('defs'); svg.appendChild(defs); }\n    if(!defs.querySelector('#hs-arr')){\n      const m=SVG('marker',{id:'hs-arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n      m.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--ink)'}));\n      defs.appendChild(m);\n    }\n    const fl=SVG('text',{x:(ax1+ax2)/2,y:ay-6,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-style':'italic'});\n    fl.textContent = s===0 ? 'f' : ('f^'+s); svg.appendChild(fl);\n    out.textContent = stages[s].label + '\\n' + stages[s].text;\n    step.textContent='step '+s+' of '+(stages.length-1);\n  }\n  prev.addEventListener('click',()=>{ s=Math.max(0,s-1); render(); });\n  next.addEventListener('click',()=>{ s=Math.min(stages.length-1,s+1); render(); });\n  reset.addEventListener('click',()=>{ s=0; render(); });\n  render();\n})();\n</script>"
+            "bodyScript": "  const svg=$('#hs-svg'), out=$('#hs-out'), prev=$('#hs-prev'), next=$('#hs-next'), reset=$('#hs-reset'), step=$('#hs-step');\n  const stages = [\n    {label:'Stage 0 — the square Q', text:'Start with a square Q = [0,1]^2. The map f stretches vertically by μ>2, compresses horizontally by λ<1/2, then folds the top half back over the bottom.'},\n    {label:'Stage 1 — f(Q): a horseshoe', text:'After one application: f(Q) is a horseshoe-shaped region. Two horizontal strips H0, H1 ⊂ Q are mapped onto two vertical strips V0, V1 ⊂ Q — these are what stay inside Q.'},\n    {label:'Stage 2 — f²(Q) ∩ Q', text:'Points that stay in Q for 2 iterations lie in f(V0 ∪ V1) ∩ (H0 ∪ H1) — 4 thinner vertical strips. The dynamics on these strips is coded by the first two symbols (s0,s1)∈{0,1}².'},\n    {label:'Stage 3 — f³(Q) ∩ Q', text:'After 3 iterations, 8 yet thinner strips. The strip widths shrink as λⁿ, so the limit as n→∞ in the forward direction is a Cantor set of vertical lines.'},\n    {label:'Stage 4 — the Cantor set Λ', text:'Λ = ∩_{n∈ℤ} fⁿ(Q) is a Cantor set ≅ {0,1}^ℤ. The map f|_Λ is conjugate to the shift, so it has periodic orbits of every period and a dense orbit. This is the topological skeleton of every uniformly hyperbolic chaotic system.'}\n  ];\n  let s=0;\n  function drawSquare(x,y,w,h,fill,stroke){\n    return SVG('rect',{x,y,width:w,height:h,fill:fill||'none',stroke:stroke||'var(--line)','stroke-width':1});\n  }\n  function drawStripes(x,y,w,h,n,vertical,fill){\n    let strips=[[0,1]];\n    for(let k=0;k<n;k++){\n      const newStrips=[];\n      for(const [a,b] of strips){\n        const len=b-a;\n        const lpart=len*0.42, rpart=len*0.42;\n        newStrips.push([a, a+lpart]);\n        newStrips.push([b-rpart, b]);\n      }\n      strips=newStrips;\n    }\n    const out=[];\n    for(const [a,b] of strips){\n      if(vertical){\n        out.push(SVG('rect',{x:x+w*a,y,width:w*(b-a),height:h,fill:fill||'var(--cyan)',opacity:0.5,stroke:'none'}));\n      } else {\n        out.push(SVG('rect',{x,y:y+h*a,width:w,height:h*(b-a),fill:fill||'var(--yellow)',opacity:0.5,stroke:'none'}));\n      }\n    }\n    return out;\n  }\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const Qx=70, Qy=40, Qs=240;\n    svg.appendChild(drawSquare(Qx,Qy,Qs,Qs,'var(--panel2)','var(--mute)'));\n    const t=SVG('text',{x:Qx+Qs/2,y:Qy-12,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});\n    t.textContent='Q'; svg.appendChild(t);\n    if(s===0){\n      const txt=SVG('text',{x:Qx+Qs/2,y:Qy+Qs/2+5,'text-anchor':'middle','font-size':16,fill:'var(--mute)'});\n      txt.textContent='Q'; svg.appendChild(txt);\n    } else {\n      for(const r of drawStripes(Qx,Qy,Qs,Qs,1,false,'var(--yellow)')) svg.appendChild(r);\n      const tl=SVG('text',{x:Qx-8,y:Qy+Qs*0.21+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); tl.textContent='H0'; svg.appendChild(tl);\n      const tu=SVG('text',{x:Qx-8,y:Qy+Qs*0.79+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); tu.textContent='H1'; svg.appendChild(tu);\n    }\n    const Rx=420, Ry=40, Rs=240;\n    svg.appendChild(drawSquare(Rx,Ry,Rs,Rs,'var(--panel2)','var(--mute)'));\n    if(s===0){\n      const txt=SVG('text',{x:Rx+Rs/2,y:Ry+Rs/2+5,'text-anchor':'middle','font-size':16,fill:'var(--mute)'});\n      txt.textContent='Q'; svg.appendChild(txt);\n    } else if(s===1){\n      for(const r of drawStripes(Rx,Ry,Rs,Rs,1,true,'var(--cyan)')) svg.appendChild(r);\n      const aPath = 'M '+(Rx+Rs*0.21)+' '+Ry+' C '+(Rx+Rs*0.21)+' '+(Ry-50)+', '+(Rx+Rs*0.79)+' '+(Ry-50)+', '+(Rx+Rs*0.79)+' '+Ry;\n      svg.appendChild(SVG('path',{d:aPath,fill:'none',stroke:'var(--cyan)','stroke-width':1.5,opacity:0.85}));\n      const tl=SVG('text',{x:Rx+Rs*0.21,y:Ry+Rs+14,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); tl.textContent='V0'; svg.appendChild(tl);\n      const tu=SVG('text',{x:Rx+Rs*0.79,y:Ry+Rs+14,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'}); tu.textContent='V1'; svg.appendChild(tu);\n      const lbl=SVG('text',{x:Rx+Rs/2,y:Ry-22,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'}); lbl.textContent='f(Q)'; svg.appendChild(lbl);\n    } else {\n      for(const r of drawStripes(Rx,Ry,Rs,Rs,s,true,'var(--cyan)')) svg.appendChild(r);\n      const lbl=SVG('text',{x:Rx+Rs/2,y:Ry-22,'text-anchor':'middle','font-size':12,fill:'var(--cyan)'});\n      lbl.textContent = s===4 ? 'Λ = invariant Cantor set' : ('f^'+s+'(Q) ∩ Q  →  '+Math.pow(2,s)+' strips'); svg.appendChild(lbl);\n    }\n    const ax1=Qx+Qs+10, ax2=Rx-10, ay=Qy+Qs/2;\n    svg.appendChild(SVG('line',{x1:ax1,y1:ay,x2:ax2,y2:ay,stroke:'var(--ink)','stroke-width':1.2,'marker-end':'url(#hs-arr)'}));\n    let defs=svg.querySelector('defs');\n    if(!defs){ defs=SVG('defs'); svg.appendChild(defs); }\n    if(!defs.querySelector('#hs-arr')){\n      const m=SVG('marker',{id:'hs-arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});\n      m.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--ink)'}));\n      defs.appendChild(m);\n    }\n    const fl=SVG('text',{x:(ax1+ax2)/2,y:ay-6,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-style':'italic'});\n    fl.textContent = s===0 ? 'f' : ('f^'+s); svg.appendChild(fl);\n    out.textContent = stages[s].label + '\\n' + stages[s].text;\n    step.textContent='step '+s+' of '+(stages.length-1);\n  }\n  prev.addEventListener('click',()=>{ s=Math.max(0,s-1); render(); });\n  next.addEventListener('click',()=>{ s=Math.min(stages.length-1,s+1); render(); });\n  reset.addEventListener('click',()=>{ s=0; render(); });\n  render();"
           }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
         },
         {
           "type": "widget-script",
@@ -336,14 +379,58 @@
         },
         {
           "type": "widget",
-          "slug": "mchaos-w5",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "w-mchaos-ergodic",
             "title": "Time average vs. space average: $f_4(x)=4x(1-x)$",
+            "layout": [
+              {
+                "kind": "row",
+                "children": [
+                  {
+                    "kind": "button",
+                    "id": "erg-go",
+                    "label": "+1000 steps"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "erg-go10",
+                    "label": "+10000 steps"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "erg-reset",
+                    "label": "reset"
+                  },
+                  {
+                    "kind": "span",
+                    "attrs": " class=\"small\" id=\"erg-count\"",
+                    "content": "N = 0"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "erg-svg",
+                "viewBox": "0 0 720 260",
+                "width": 720,
+                "height": 260,
+                "titleText": "Ergodic histogram convergence"
+              },
+              {
+                "kind": "readout",
+                "id": "erg-out",
+                "content": "click +1000 to start iterating…"
+              }
+            ],
             "hint": "run many steps and watch the histogram converge to the invariant density",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-mchaos-ergodic\">\n  <div class=\"hd\"><div class=\"ttl\">Time average vs. space average: $f_4(x)=4x(1-x)$</div><div class=\"hint\">run many steps and watch the histogram converge to the invariant density</div></div>\n  <div class=\"row\">\n    <button id=\"erg-go\">+1000 steps</button>\n    <button id=\"erg-go10\">+10000 steps</button>\n    <button id=\"erg-reset\">reset</button>\n    <span class=\"small\" id=\"erg-count\">N = 0</span>\n  </div>\n  <svg id=\"erg-svg\" viewBox=\"0 0 720 260\" width=\"720\" height=\"260\"><title>Ergodic histogram convergence</title></svg>\n  <div class=\"readout\" id=\"erg-out\">click +1000 to start iterating…</div>\n  <p class=\"small\">The invariant density $\\rho(x) = \\tfrac{1}{\\pi\\sqrt{x(1-x)}}$ (yellow curve) is what Birkhoff's theorem says the histogram of long orbits will converge to. It diverges integrably at $x=0,1$ — orbits spend disproportionately long near the endpoints, which the cobweb diagram makes visually obvious.</p>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg=$('#erg-svg'), out=$('#erg-out'), go=$('#erg-go'), go10=$('#erg-go10'), reset=$('#erg-reset'), counter=$('#erg-count');\n  const W=720, H=260, ML=44, MR=14, MT=14, MB=30;\n  const BINS=40;\n  let bins=new Array(BINS).fill(0);\n  let x=0.31415, N=0;\n  function step(steps){\n    for(let k=0;k<steps;k++){\n      x = 4*x*(1-x);\n      if(x<=0||x>=1) x=0.5;\n      const b=Math.min(BINS-1,Math.floor(x*BINS));\n      bins[b]++; N++;\n    }\n    render();\n  }\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('rect',{x:ML,y:MT,width:W-ML-MR,height:H-MT-MB,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':0.6}));\n    const xpx=t=>ML+(W-ML-MR)*t;\n    const total=Math.max(N,1);\n    const probs = bins.map(c=>c/total);\n    const dens = probs.map(p=>p*BINS);\n    let maxD = 4;\n    for(const d of dens) maxD=Math.max(maxD,d);\n    const ypx=d=>(H-MB)-(H-MB-MT)*d/maxD;\n    for(let i=0;i<BINS;i++){\n      const xl=xpx(i/BINS), xr=xpx((i+1)/BINS), y=ypx(dens[i]);\n      svg.appendChild(SVG('rect',{x:xl+1,y,width:xr-xl-2,height:Math.max(0,(H-MB)-y),fill:'var(--cyan)',opacity:0.55}));\n    }\n    const path=[];\n    for(let k=0;k<=200;k++){\n      const t=(k+0.5)/201;\n      const rho = 1/(Math.PI*Math.sqrt(t*(1-t)));\n      path.push((k?'L':'M')+xpx(t).toFixed(2)+' '+ypx(Math.min(maxD,rho)).toFixed(2));\n    }\n    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    for(const t of [0,0.25,0.5,0.75,1]){\n      const xp=xpx(t);\n      svg.appendChild(SVG('line',{x1:xp,y1:H-MB,x2:xp,y2:H-MB+4,stroke:'var(--mute)'}));\n      const lbl=SVG('text',{x:xp,y:H-MB+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lbl.textContent=t.toString(); svg.appendChild(lbl);\n    }\n    const xl=SVG('text',{x:(ML+W-MR)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); xl.textContent='x in [0,1]'; svg.appendChild(xl);\n    counter.textContent='N = '+N;\n    let dist=0;\n    for(let i=0;i<BINS;i++){\n      const xc=(i+0.5)/BINS;\n      const rho_i = 1/(Math.PI*Math.sqrt(xc*(1-xc)));\n      dist += Math.abs(dens[i]-rho_i)/BINS;\n    }\n    out.textContent =\n      'iterations N = '+N+'\\n'+\n      'empirical density (cyan bars) vs invariant density ρ(x)=1/(π√(x(1-x))) (yellow curve)\\n'+\n      'L1 distance ≈ '+dist.toFixed(3)+' — shrinks like 1/√N by the ergodic CLT';\n  }\n  go.addEventListener('click',()=>step(1000));\n  go10.addEventListener('click',()=>step(10000));\n  reset.addEventListener('click',()=>{ bins=new Array(BINS).fill(0); x=0.31415; N=0; render(); });\n  render();\n})();\n</script>"
+            "trailingExplainer": "The invariant density $\\rho(x) = \\tfrac{1}{\\pi\\sqrt{x(1-x)}}$ (yellow curve) is what Birkhoff's theorem says the histogram of long orbits will converge to. It diverges integrably at $x=0,1$ — orbits spend disproportionately long near the endpoints, which the cobweb diagram makes visually obvious.",
+            "bodyScript": "  const svg=$('#erg-svg'), out=$('#erg-out'), go=$('#erg-go'), go10=$('#erg-go10'), reset=$('#erg-reset'), counter=$('#erg-count');\n  const W=720, H=260, ML=44, MR=14, MT=14, MB=30;\n  const BINS=40;\n  let bins=new Array(BINS).fill(0);\n  let x=0.31415, N=0;\n  function step(steps){\n    for(let k=0;k<steps;k++){\n      x = 4*x*(1-x);\n      if(x<=0||x>=1) x=0.5;\n      const b=Math.min(BINS-1,Math.floor(x*BINS));\n      bins[b]++; N++;\n    }\n    render();\n  }\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG('rect',{x:ML,y:MT,width:W-ML-MR,height:H-MT-MB,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':0.6}));\n    const xpx=t=>ML+(W-ML-MR)*t;\n    const total=Math.max(N,1);\n    const probs = bins.map(c=>c/total);\n    const dens = probs.map(p=>p*BINS);\n    let maxD = 4;\n    for(const d of dens) maxD=Math.max(maxD,d);\n    const ypx=d=>(H-MB)-(H-MB-MT)*d/maxD;\n    for(let i=0;i<BINS;i++){\n      const xl=xpx(i/BINS), xr=xpx((i+1)/BINS), y=ypx(dens[i]);\n      svg.appendChild(SVG('rect',{x:xl+1,y,width:xr-xl-2,height:Math.max(0,(H-MB)-y),fill:'var(--cyan)',opacity:0.55}));\n    }\n    const path=[];\n    for(let k=0;k<=200;k++){\n      const t=(k+0.5)/201;\n      const rho = 1/(Math.PI*Math.sqrt(t*(1-t)));\n      path.push((k?'L':'M')+xpx(t).toFixed(2)+' '+ypx(Math.min(maxD,rho)).toFixed(2));\n    }\n    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--yellow)','stroke-width':2}));\n    for(const t of [0,0.25,0.5,0.75,1]){\n      const xp=xpx(t);\n      svg.appendChild(SVG('line',{x1:xp,y1:H-MB,x2:xp,y2:H-MB+4,stroke:'var(--mute)'}));\n      const lbl=SVG('text',{x:xp,y:H-MB+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      lbl.textContent=t.toString(); svg.appendChild(lbl);\n    }\n    const xl=SVG('text',{x:(ML+W-MR)/2,y:H-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'}); xl.textContent='x in [0,1]'; svg.appendChild(xl);\n    counter.textContent='N = '+N;\n    let dist=0;\n    for(let i=0;i<BINS;i++){\n      const xc=(i+0.5)/BINS;\n      const rho_i = 1/(Math.PI*Math.sqrt(xc*(1-xc)));\n      dist += Math.abs(dens[i]-rho_i)/BINS;\n    }\n    out.textContent =\n      'iterations N = '+N+'\\n'+\n      'empirical density (cyan bars) vs invariant density ρ(x)=1/(π√(x(1-x))) (yellow curve)\\n'+\n      'L1 distance ≈ '+dist.toFixed(3)+' — shrinks like 1/√N by the ergodic CLT';\n  }\n  go.addEventListener('click',()=>step(1000));\n  go10.addEventListener('click',()=>step(10000));\n  reset.addEventListener('click',()=>{ bins=new Array(BINS).fill(0); x=0.31415; N=0; render(); });\n  render();"
           }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
         },
         {
           "type": "widget-script",
