@@ -3871,27 +3871,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "d-modules-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "d-modules-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the d-modules topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `d-modules` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "declarative-host",
     "family": "declarative-host",
     "dimension": "2d",
@@ -6300,27 +6279,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "gcg-pres",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "gcg-pres widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Presentation explorer\" widget on the geometric-and-combinatorial-group-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Presentation explorer\" widget on `geometric-and-combinatorial-group-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "general-relativity-cosmology",
     "family": "general-relativity-cosmology",
     "dimension": "2d",
@@ -8664,48 +8622,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "iwasawa-theory-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "iwasawa-theory-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "iwasawa-theory-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `iwasawa-theory` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "iwasawa-theory-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "iwasawa-theory-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the iwasawa-theory topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
     "requiredParams": [
       "widgetId",
@@ -11283,27 +11199,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "pchar-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "pchar-w2 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Rank of $F_*\\mathcal{O}_X$\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Rank of $F_*\\mathcal{O}_X$\" widget on `positive-characteristic-ag`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "pchar-w3",
     "family": "verbatim",
     "dimension": "2d",
@@ -11319,48 +11214,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Mehta–Ramanathan proof scrub\" widget on `positive-characteristic-ag`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "pchar-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "pchar-w4 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Cartier action on $f^{p-1}\\,df$\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Cartier action on $f^{p-1}\\,df$\" widget on `positive-characteristic-ag`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "pchar-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "pchar-w5 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$F$-singularity browser\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$F$-singularity browser\" widget on `positive-characteristic-ag`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -11403,27 +11256,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"The de Rham–Witt bicomplex grading\" widget on `positive-characteristic-ag`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "pchar-w9",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "pchar-w9 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Pathology browser\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Pathology browser\" widget on `positive-characteristic-ag`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -12912,27 +12744,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "shim-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "shim-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the shimura-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `shimura-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "shim-w5",
     "family": "verbatim",
     "dimension": "2d",
@@ -13942,27 +13753,6 @@ window.__MVWidgets = [
     "gesture": "select",
     "role": "interactive",
     "title": "surg-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the surgery-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the surgery-theory topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "surg-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "surg-w3 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the surgery-theory topic.",
     "requiredParams": [
       "widgetId",

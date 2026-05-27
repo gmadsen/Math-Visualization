@@ -126,13 +126,24 @@
         },
         {
           "type": "widget",
-          "slug": "surg-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-whitehead",
             "title": "Whitehead group · cyclic $\\mathbb{Z}/n$",
             "hint": "pick $n$, see $\\mathrm{Wh}(\\mathbb{Z}/n)$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-whitehead\">\n  <div class=\"hd\"><div class=\"ttl\">Whitehead group · cyclic $\\mathbb{Z}/n$</div><div class=\"hint\">pick $n$, see $\\mathrm{Wh}(\\mathbb{Z}/n)$</div></div>\n  <div class=\"row\">\n    <label for=\"wh-n\">$n$:</label>\n    <select id=\"wh-n\">\n      <option value=\"1\">$n=1$</option>\n      <option value=\"2\">$n=2$</option>\n      <option value=\"3\">$n=3$</option>\n      <option value=\"4\">$n=4$</option>\n      <option value=\"5\" selected>$n=5$</option>\n      <option value=\"6\">$n=6$</option>\n      <option value=\"7\">$n=7$</option>\n      <option value=\"8\">$n=8$</option>\n      <option value=\"11\">$n=11$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"wh-out\"></div>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "wh-n",
+                "label": "$n$:",
+                "optionsHtml": "\n      <option value=\"1\">$n=1$</option>\n      <option value=\"2\">$n=2$</option>\n      <option value=\"3\">$n=3$</option>\n      <option value=\"4\">$n=4$</option>\n      <option value=\"5\" selected>$n=5$</option>\n      <option value=\"6\">$n=6$</option>\n      <option value=\"7\">$n=7$</option>\n      <option value=\"8\">$n=8$</option>\n      <option value=\"11\">$n=11$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "wh-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

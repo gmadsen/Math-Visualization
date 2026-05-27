@@ -257,13 +257,30 @@
         },
         {
           "type": "widget",
-          "slug": "iwasawa-theory-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-mc",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-mc\">\n  <div class=\"hd\"><div class=\"ttl\">Two ideals, one identity</div><div class=\"hint\">algebraic vs. analytic side</div></div>\n  <div class=\"row\">\n    <label for=\"mc-f\">char generator $f(T)$</label>\n    <select id=\"mc-f\">\n      <option value=\"T\">$T$</option>\n      <option value=\"T+p\" selected>$T+p$</option>\n      <option value=\"T2-T\">$T^2-T$</option>\n      <option value=\"T2+pT+p\">$T^2+pT+p$</option>\n    </select>\n    <label for=\"mc-u\">unit $u\\in\\Lambda^\\times$</label>\n    <select id=\"mc-u\">\n      <option value=\"1\" selected>$1$</option>\n      <option value=\"1+T\">$1+T$</option>\n      <option value=\"2-pT\">$2-pT$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"mc-out\">…</div>\n</div>",
-            "bodyScript": "\n\n<script>\n/* =========== SECTION 5: main conjecture two-ideals widget =========== */\n(function(){\n  const fS=$('#mc-f'), uS=$('#mc-u'), out=$('#mc-out');\n  const FLAB={'T':'T','T+p':'(T+p)','T2-T':'(T^2-T)','T2+pT+p':'(T^2+pT+p)'};\n  function render(){\n    const f=fS.value, u=uS.value;\n    const lhs = `algebraic:  char_Λ(X_∞(χ)) = ${FLAB[f]}`;\n    const rhs = `analytic:   (L_p(χ^{-1}ω, T))    = (${u})·${FLAB[f]}  =  ${FLAB[f]}  (since unit ${u} ∈ Λ^×)`;\n    const eq  = `equal as ideals in Λ ⊗ ℚ_p  ✓  (Mazur–Wiles for abelian /ℚ; Wiles for totally real)`;\n    out.textContent = lhs + '\\n' + rhs + '\\n\\n' + eq;\n  }\n  [fS,uS].forEach(s=>s.addEventListener('change',render));\n  render();\n})();\n</script>",
             "title": "Two ideals, one identity",
-            "hint": "algebraic vs. analytic side"
+            "hint": "algebraic vs. analytic side",
+            "controls": [
+              {
+                "type": "select",
+                "id": "mc-f",
+                "label": "char generator $f(T)$",
+                "optionsHtml": "\n      <option value=\"T\">$T$</option>\n      <option value=\"T+p\" selected>$T+p$</option>\n      <option value=\"T2-T\">$T^2-T$</option>\n      <option value=\"T2+pT+p\">$T^2+pT+p$</option>\n    "
+              },
+              {
+                "type": "select",
+                "id": "mc-u",
+                "label": "unit $u\\in\\Lambda^\\times$",
+                "optionsHtml": "\n      <option value=\"1\" selected>$1$</option>\n      <option value=\"1+T\">$1+T$</option>\n      <option value=\"2-pT\">$2-pT$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "mc-out"
+            },
+            "bodyScript": "\n\n<script>\n/* =========== SECTION 5: main conjecture two-ideals widget =========== */\n(function(){\n  const fS=$('#mc-f'), uS=$('#mc-u'), out=$('#mc-out');\n  const FLAB={'T':'T','T+p':'(T+p)','T2-T':'(T^2-T)','T2+pT+p':'(T^2+pT+p)'};\n  function render(){\n    const f=fS.value, u=uS.value;\n    const lhs = `algebraic:  char_Λ(X_∞(χ)) = ${FLAB[f]}`;\n    const rhs = `analytic:   (L_p(χ^{-1}ω, T))    = (${u})·${FLAB[f]}  =  ${FLAB[f]}  (since unit ${u} ∈ Λ^×)`;\n    const eq  = `equal as ideals in Λ ⊗ ℚ_p  ✓  (Mazur–Wiles for abelian /ℚ; Wiles for totally real)`;\n    out.textContent = lhs + '\\n' + rhs + '\\n\\n' + eq;\n  }\n  [fS,uS].forEach(s=>s.addEventListener('change',render));\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -298,13 +315,36 @@
         },
         {
           "type": "widget",
-          "slug": "iwasawa-theory-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-ell",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-ell\">\n  <div class=\"hd\"><div class=\"ttl\">What's proved for which curve?</div><div class=\"hint\">CM / non-CM, ordinary / supersingular at $p$</div></div>\n  <div class=\"row\">\n    <label for=\"el-cm\">CM type</label>\n    <select id=\"el-cm\">\n      <option value=\"cm\" selected>CM by imaginary quadratic $K$</option>\n      <option value=\"nocm\">non-CM (generic)</option>\n    </select>\n    <label for=\"el-red\">reduction at $p$</label>\n    <select id=\"el-red\">\n      <option value=\"ord\" selected>good ordinary</option>\n      <option value=\"ss\">good supersingular</option>\n      <option value=\"mult\">multiplicative</option>\n    </select>\n    <label for=\"el-ar\">analytic rank $\\operatorname{ord}_{s=1}L(E,s)$</label>\n    <select id=\"el-ar\">\n      <option value=\"0\" selected>0</option>\n      <option value=\"1\">1</option>\n      <option value=\"2\">≥ 2</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"el-out\">pick a configuration…</div>\n</div>",
-            "bodyScript": "\n\n<script>\n/* =========== SECTION 6: who's-proved-what widget =========== */\n(function(){\n  const cm=$('#el-cm'), red=$('#el-red'), ar=$('#el-ar'), out=$('#el-out');\n  function render(){\n    const isCM = cm.value==='cm';\n    const r = red.value;\n    const a = +ar.value;\n    const lines=[];\n    // Coates-Wiles\n    if(isCM && a===0){\n      lines.push('  ✓ Coates–Wiles (1977): L(E,1) ≠ 0 + CM ⇒ rank 0 (E(ℚ) finite).');\n    } else if(isCM){\n      lines.push('  – Coates–Wiles applies only when a-rank = 0; here a-rank > 0.');\n    } else {\n      lines.push('  – Coates–Wiles requires CM; this curve is non-CM.');\n    }\n    // Kato divisibility (modular elliptic curves over Q)\n    if(r==='ord'){\n      lines.push('  ✓ Kato (Euler system): char_Λ(X_E) | (L_p(E,T)) — modularity supplies the input.');\n    } else if(r==='mult'){\n      lines.push('  ✓ Kato also covers multiplicative reduction.');\n    } else {\n      lines.push('  ▲ Kato in the supersingular case requires Pollack/Sprung ± L_p; signed main conjectures.');\n    }\n    // Skinner-Urban\n    if(r==='ord' && !isCM){\n      lines.push('  ✓ Skinner–Urban (2014): (L_p(E,T)) | char_Λ(X_E) under standard hypotheses.');\n    } else if(r==='ord' && isCM){\n      lines.push('  ✓ Rubin (CM case, 1991) provides the converse divisibility.');\n    } else {\n      lines.push('  ▲ Converse divisibility in supersingular/multiplicative cases is still partial.');\n    }\n    // p-part of BSD\n    if(a<=1 && r==='ord'){\n      lines.push('  ⇒ p-part of BSD known (mod hypotheses) for analytic rank ≤ 1.');\n    } else if(a>=2){\n      lines.push('  ▲ Analytic rank ≥ 2 is wide open: even nonvanishing of leading L-coefficient is conjectural.');\n    }\n    out.textContent = `curve: ${isCM?'CM':'non-CM'},  reduction: ${r},  analytic rank: ${a}\\n\\n` + lines.join('\\n');\n  }\n  [cm,red,ar].forEach(s=>s.addEventListener('change',render));\n  render();\n})();\n</script>",
             "title": "What's proved for which curve?",
-            "hint": "CM / non-CM, ordinary / supersingular at $p$"
+            "hint": "CM / non-CM, ordinary / supersingular at $p$",
+            "controls": [
+              {
+                "type": "select",
+                "id": "el-cm",
+                "label": "CM type",
+                "optionsHtml": "\n      <option value=\"cm\" selected>CM by imaginary quadratic $K$</option>\n      <option value=\"nocm\">non-CM (generic)</option>\n    "
+              },
+              {
+                "type": "select",
+                "id": "el-red",
+                "label": "reduction at $p$",
+                "optionsHtml": "\n      <option value=\"ord\" selected>good ordinary</option>\n      <option value=\"ss\">good supersingular</option>\n      <option value=\"mult\">multiplicative</option>\n    "
+              },
+              {
+                "type": "select",
+                "id": "el-ar",
+                "label": "analytic rank $\\operatorname{ord}_{s=1}L(E,s)$",
+                "optionsHtml": "\n      <option value=\"0\" selected>0</option>\n      <option value=\"1\">1</option>\n      <option value=\"2\">≥ 2</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "el-out"
+            },
+            "bodyScript": "\n\n<script>\n/* =========== SECTION 6: who's-proved-what widget =========== */\n(function(){\n  const cm=$('#el-cm'), red=$('#el-red'), ar=$('#el-ar'), out=$('#el-out');\n  function render(){\n    const isCM = cm.value==='cm';\n    const r = red.value;\n    const a = +ar.value;\n    const lines=[];\n    // Coates-Wiles\n    if(isCM && a===0){\n      lines.push('  ✓ Coates–Wiles (1977): L(E,1) ≠ 0 + CM ⇒ rank 0 (E(ℚ) finite).');\n    } else if(isCM){\n      lines.push('  – Coates–Wiles applies only when a-rank = 0; here a-rank > 0.');\n    } else {\n      lines.push('  – Coates–Wiles requires CM; this curve is non-CM.');\n    }\n    // Kato divisibility (modular elliptic curves over Q)\n    if(r==='ord'){\n      lines.push('  ✓ Kato (Euler system): char_Λ(X_E) | (L_p(E,T)) — modularity supplies the input.');\n    } else if(r==='mult'){\n      lines.push('  ✓ Kato also covers multiplicative reduction.');\n    } else {\n      lines.push('  ▲ Kato in the supersingular case requires Pollack/Sprung ± L_p; signed main conjectures.');\n    }\n    // Skinner-Urban\n    if(r==='ord' && !isCM){\n      lines.push('  ✓ Skinner–Urban (2014): (L_p(E,T)) | char_Λ(X_E) under standard hypotheses.');\n    } else if(r==='ord' && isCM){\n      lines.push('  ✓ Rubin (CM case, 1991) provides the converse divisibility.');\n    } else {\n      lines.push('  ▲ Converse divisibility in supersingular/multiplicative cases is still partial.');\n    }\n    // p-part of BSD\n    if(a<=1 && r==='ord'){\n      lines.push('  ⇒ p-part of BSD known (mod hypotheses) for analytic rank ≤ 1.');\n    } else if(a>=2){\n      lines.push('  ▲ Analytic rank ≥ 2 is wide open: even nonvanishing of leading L-coefficient is conjectural.');\n    }\n    out.textContent = `curve: ${isCM?'CM':'non-CM'},  reduction: ${r},  analytic rank: ${a}\\n\\n` + lines.join('\\n');\n  }\n  [cm,red,ar].forEach(s=>s.addEventListener('change',render));\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

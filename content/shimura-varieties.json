@@ -225,13 +225,30 @@
         },
         {
           "type": "widget",
-          "slug": "shim-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-hilb",
             "title": "Widget 4 · Hilbert vs quaternionic comparison",
             "hint": "pick $F$, then split or non-split $B/F$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-hilb\">\n  <div class=\"hd\"><div class=\"ttl\">Widget 4 · Hilbert vs quaternionic comparison</div><div class=\"hint\">pick $F$, then split or non-split $B/F$</div></div>\n  <div class=\"row\">\n    <label for=\"w-hilb-F\">field $F$:</label>\n    <select id=\"w-hilb-F\">\n      <option value=\"Q\" selected>F = ℚ (d=1)</option>\n      <option value=\"Qsqrt5\">F = ℚ(√5) (d=2)</option>\n      <option value=\"Qsqrt2\">F = ℚ(√2) (d=2)</option>\n      <option value=\"Qsqrt6\">F = ℚ(√6) (d=2)</option>\n      <option value=\"cubic\">F = totally real cubic (d=3)</option>\n    </select>\n    <label for=\"w-hilb-B\">algebra $B/F$:</label>\n    <select id=\"w-hilb-B\">\n      <option value=\"split\" selected>B = M₂(F) (split everywhere)</option>\n      <option value=\"nonsplit2\">B ramified at 2 places (non-split)</option>\n      <option value=\"nonsplit4\">B ramified at 4 places (non-split)</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"w-hilb-out\">…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const F = document.getElementById(\"w-hilb-F\");\n  const B = document.getElementById(\"w-hilb-B\");\n  const out = document.getElementById(\"w-hilb-out\");\n  const data = {\n    Q:      { d:1, name:\"ℚ\", disc:1 },\n    Qsqrt5: { d:2, name:\"ℚ(√5)\", disc:5 },\n    Qsqrt2: { d:2, name:\"ℚ(√2)\", disc:8 },\n    Qsqrt6: { d:2, name:\"ℚ(√6)\", disc:24 },\n    cubic:  { d:3, name:\"totally real cubic (e.g. ℚ(α), α³−α−1=0)\", disc:23 }\n  };\n  function render(){\n    const f = data[F.value];\n    const b = B.value;\n    const lines = [];\n    lines.push(`F = ${f.name},  d = [F:ℚ] = ${f.d}`);\n    if(b === \"split\"){\n      lines.push(`B = M₂(F) — split at every place of F`);\n      lines.push(`G = Res_{F/ℚ} GL₂  ⇒  Hilbert modular variety`);\n      lines.push(`X = ℋ^${f.d},  dim_ℂ Sh_K = ${f.d}`);\n      lines.push(`compact? ${f.d===0?\"\":\"no\"}  (cusps present, indexed by the cl(F))`);\n      lines.push(`moduli: abelian d-folds with RM by 𝒪_F  (d = ${f.d})`);\n      lines.push(`reflex: E(G,X) = ℚ`);\n    } else {\n      const ramif = (b === \"nonsplit2\") ? 2 : 4;\n      const splitInf = Math.max(0, f.d - ramif/2 + 0); // heuristic\n      const splitAtOneInfPlace = (f.d >= 1);\n      lines.push(`B/F quaternion algebra ramified at ${ramif} places of F`);\n      lines.push(`(# infinite places of F = ${f.d}; split at exactly 1 ⇒ Shimura curve)`);\n      if(f.d === 1){\n        lines.push(`F = ℚ:  B is non-split ⇒ compact Shimura curve X^B (dim 1)`);\n        lines.push(`moduli: abelian surfaces with QM by an order in B (fake elliptic curves)`);\n      } else {\n        lines.push(`F totally real of degree ${f.d}, B split at one ∞-place`);\n        lines.push(`⇒ Shimura curve X^B over reflex E ⊂ F·ℚ^{ab}`);\n        lines.push(`Jacquet–Langlands: H¹(X^B) ↔ subspace of S₂(N_B) on the GL₂/F side`);\n      }\n      lines.push(`compact? yes (no cusps for non-split B)`);\n    }\n    out.textContent = lines.join(\"\\n\");\n  }\n  F.addEventListener(\"change\",render);\n  B.addEventListener(\"change\",render);\n  render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "select",
+                "id": "w-hilb-F",
+                "label": "field $F$:",
+                "optionsHtml": "\n      <option value=\"Q\" selected>F = ℚ (d=1)</option>\n      <option value=\"Qsqrt5\">F = ℚ(√5) (d=2)</option>\n      <option value=\"Qsqrt2\">F = ℚ(√2) (d=2)</option>\n      <option value=\"Qsqrt6\">F = ℚ(√6) (d=2)</option>\n      <option value=\"cubic\">F = totally real cubic (d=3)</option>\n    "
+              },
+              {
+                "type": "select",
+                "id": "w-hilb-B",
+                "label": "algebra $B/F$:",
+                "optionsHtml": "\n      <option value=\"split\" selected>B = M₂(F) (split everywhere)</option>\n      <option value=\"nonsplit2\">B ramified at 2 places (non-split)</option>\n      <option value=\"nonsplit4\">B ramified at 4 places (non-split)</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "w-hilb-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const F = document.getElementById(\"w-hilb-F\");\n  const B = document.getElementById(\"w-hilb-B\");\n  const out = document.getElementById(\"w-hilb-out\");\n  const data = {\n    Q:      { d:1, name:\"ℚ\", disc:1 },\n    Qsqrt5: { d:2, name:\"ℚ(√5)\", disc:5 },\n    Qsqrt2: { d:2, name:\"ℚ(√2)\", disc:8 },\n    Qsqrt6: { d:2, name:\"ℚ(√6)\", disc:24 },\n    cubic:  { d:3, name:\"totally real cubic (e.g. ℚ(α), α³−α−1=0)\", disc:23 }\n  };\n  function render(){\n    const f = data[F.value];\n    const b = B.value;\n    const lines = [];\n    lines.push(`F = ${f.name},  d = [F:ℚ] = ${f.d}`);\n    if(b === \"split\"){\n      lines.push(`B = M₂(F) — split at every place of F`);\n      lines.push(`G = Res_{F/ℚ} GL₂  ⇒  Hilbert modular variety`);\n      lines.push(`X = ℋ^${f.d},  dim_ℂ Sh_K = ${f.d}`);\n      lines.push(`compact? ${f.d===0?\"\":\"no\"}  (cusps present, indexed by the cl(F))`);\n      lines.push(`moduli: abelian d-folds with RM by 𝒪_F  (d = ${f.d})`);\n      lines.push(`reflex: E(G,X) = ℚ`);\n    } else {\n      const ramif = (b === \"nonsplit2\") ? 2 : 4;\n      const splitInf = Math.max(0, f.d - ramif/2 + 0); // heuristic\n      const splitAtOneInfPlace = (f.d >= 1);\n      lines.push(`B/F quaternion algebra ramified at ${ramif} places of F`);\n      lines.push(`(# infinite places of F = ${f.d}; split at exactly 1 ⇒ Shimura curve)`);\n      if(f.d === 1){\n        lines.push(`F = ℚ:  B is non-split ⇒ compact Shimura curve X^B (dim 1)`);\n        lines.push(`moduli: abelian surfaces with QM by an order in B (fake elliptic curves)`);\n      } else {\n        lines.push(`F totally real of degree ${f.d}, B split at one ∞-place`);\n        lines.push(`⇒ Shimura curve X^B over reflex E ⊂ F·ℚ^{ab}`);\n        lines.push(`Jacquet–Langlands: H¹(X^B) ↔ subspace of S₂(N_B) on the GL₂/F side`);\n      }\n      lines.push(`compact? yes (no cusps for non-split B)`);\n    }\n    out.textContent = lines.join(\"\\n\");\n  }\n  F.addEventListener(\"change\",render);\n  B.addEventListener(\"change\",render);\n  render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

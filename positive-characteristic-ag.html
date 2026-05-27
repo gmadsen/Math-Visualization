@@ -333,9 +333,9 @@ function drawNode(svg, x, y, label, opts={}){
     <select id="fr-p"><option value="2">2</option><option value="3" selected>3</option><option value="5">5</option><option value="7">7</option></select>
     <label for="fr-n">$n=\dim X$</label>
     <input type="range" id="fr-n" min="1" max="4" step="1" value="1">
-    <span class="readout small" id="fr-n-val" style="min-width:2em;display:inline-block">1</span>
+    <span id="fr-n-val" class="readout small">1</span>
   </div>
-  <div class="readout" id="fr-out">…</div>
+  <div class="readout" id="fr-out"></div>
 </div>
 <script>
 (function(){
@@ -457,7 +457,7 @@ characterised on degree-$1$ generators by $C^{-1}(d\bar x)=[x^{p-1}dx]$ in the c
       <option value="x^2-1">$x^2-1$</option>
     </select>
   </div>
-  <div class="readout" id="ca-out">…</div>
+  <div class="readout" id="ca-out"></div>
 </div>
 <script>
 (function(){
@@ -572,7 +572,7 @@ characterised on degree-$1$ generators by $C^{-1}(d\bar x)=[x^{p-1}dx]$ in the c
     <label for="fs-p">$p$</label>
     <select id="fs-p"><option value="2">2</option><option value="3" selected>3</option><option value="5">5</option></select>
   </div>
-  <div class="readout" id="fs-out">…</div>
+  <div class="readout" id="fs-out"></div>
 </div>
 <script>
 (function(){
@@ -823,7 +823,7 @@ V: W_${n-1}Ω^${j} → W_${n}Ω^${j} is the Verschiebung (shift). FV = VF = mult
       <option value="mmp">termination of the MMP</option>
     </select>
   </div>
-  <div class="readout" id="path-out">…</div>
+  <div class="readout" id="path-out"></div>
 </div>
 <script>
 (function(){

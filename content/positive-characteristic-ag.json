@@ -31,13 +31,40 @@
         },
         {
           "type": "widget",
-          "slug": "pchar-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-frob-rank",
             "title": "Rank of $F_*\\mathcal{O}_X$",
             "hint": "pick $p$ and $\\dim X$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-frob-rank\">\n  <div class=\"hd\"><div class=\"ttl\">Rank of $F_*\\mathcal{O}_X$</div><div class=\"hint\">pick $p$ and $\\dim X$</div></div>\n  <div class=\"row\">\n    <label for=\"fr-p\">$p$</label>\n    <select id=\"fr-p\"><option value=\"2\">2</option><option value=\"3\" selected>3</option><option value=\"5\">5</option><option value=\"7\">7</option></select>\n    <label for=\"fr-n\">$n=\\dim X$</label>\n    <input type=\"range\" id=\"fr-n\" min=\"1\" max=\"4\" step=\"1\" value=\"1\">\n    <span class=\"readout small\" id=\"fr-n-val\" style=\"min-width:2em;display:inline-block\">1</span>\n  </div>\n  <div class=\"readout\" id=\"fr-out\">…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const ps=document.getElementById('fr-p'), ns=document.getElementById('fr-n'),\n    nv=document.getElementById('fr-n-val'), out=document.getElementById('fr-out');\n  if(!ps||!ns||!out) return;\n  function render(){\n    const p=+ps.value, n=+ns.value;\n    nv.textContent = String(n);\n    const rk = Math.pow(p,n);\n    const basis = (n===1)\n      ? `1, x, x², …, x^{${p-1}}`\n      : (n===2)\n        ? `x^{i₁}y^{i₂}, 0 ≤ iⱼ < ${p}`\n        : `x_1^{i_1}…x_${n}^{i_${n}}, 0 ≤ i_j < ${p}`;\n    out.textContent = `p=${p}, n=${n} · rank of F_*𝒪_X is p^n = ${rk}\\nlocal basis (over a smooth point): ${basis}`;\n  }\n  ps.addEventListener('change',render); ns.addEventListener('input',render); render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "select",
+                "id": "fr-p",
+                "label": "$p$",
+                "optionsHtml": "<option value=\"2\">2</option><option value=\"3\" selected>3</option><option value=\"5\">5</option><option value=\"7\">7</option>"
+              },
+              {
+                "type": "slider",
+                "id": "fr-n",
+                "label": "$n=\\dim X$",
+                "min": 1,
+                "max": 4,
+                "value": 1,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "fr-n-val",
+                "class": "readout small",
+                "text": "1"
+              }
+            ],
+            "readout": {
+              "id": "fr-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const ps=document.getElementById('fr-p'), ns=document.getElementById('fr-n'),\n    nv=document.getElementById('fr-n-val'), out=document.getElementById('fr-out');\n  if(!ps||!ns||!out) return;\n  function render(){\n    const p=+ps.value, n=+ns.value;\n    nv.textContent = String(n);\n    const rk = Math.pow(p,n);\n    const basis = (n===1)\n      ? `1, x, x², …, x^{${p-1}}`\n      : (n===2)\n        ? `x^{i₁}y^{i₂}, 0 ≤ iⱼ < ${p}`\n        : `x_1^{i_1}…x_${n}^{i_${n}}, 0 ≤ i_j < ${p}`;\n    out.textContent = `p=${p}, n=${n} · rank of F_*𝒪_X is p^n = ${rk}\\nlocal basis (over a smooth point): ${basis}`;\n  }\n  ps.addEventListener('change',render); ns.addEventListener('input',render); render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -121,13 +148,30 @@
         },
         {
           "type": "widget",
-          "slug": "pchar-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-cartier",
             "title": "Cartier action on $f^{p-1}\\,df$",
             "hint": "pick $p$ and a polynomial $f$; watch $C$ extract its \"Frobenius-typical\" part",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-cartier\">\n  <div class=\"hd\"><div class=\"ttl\">Cartier action on $f^{p-1}\\,df$</div><div class=\"hint\">pick $p$ and a polynomial $f$; watch $C$ extract its \"Frobenius-typical\" part</div></div>\n  <div class=\"row\">\n    <label for=\"ca-p\">$p$</label>\n    <select id=\"ca-p\"><option value=\"2\">2</option><option value=\"3\" selected>3</option><option value=\"5\">5</option><option value=\"7\">7</option></select>\n    <label for=\"ca-f\">$f$</label>\n    <select id=\"ca-f\">\n      <option value=\"x\">$x$</option>\n      <option value=\"x+1\" selected>$x+1$</option>\n      <option value=\"x^2+x\">$x^2+x$</option>\n      <option value=\"x^2-1\">$x^2-1$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"ca-out\">…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const ps=document.getElementById('ca-p'), fs=document.getElementById('ca-f'), out=document.getElementById('ca-out');\n  if(!ps||!fs||!out) return;\n  // For demo: f a polynomial, compute the trace/Cartier action on f^{p-1} df,\n  // exploiting C(g^p df) = g (when df is the chosen differential), C(df) = 0,\n  // and bilinearity. We expand f^{p-1} df symbolically as a sum of terms a_k x^k dx,\n  // identify which k have form (p*j - 1) (i.e. x^{pj-1} dx = (1/p)*d(x^{pj}), but in char p,\n  // x^{pj-1} dx = (x^{j})^p / x * (1/p) is messier — instead just identify monomials\n  // x^{p*m + p-1} dx whose Cartier image is x^m d x.\n  function expandPoly(s, p){\n    // toy parser: handles \"x\", \"x+1\", \"x^2+x\", \"x^2-1\"\n    const t = s.replace(/\\s+/g,'');\n    if(t==='x') return {1:1};\n    if(t==='x+1') return {0:1,1:1};\n    if(t==='x^2+x') return {1:1,2:1};\n    if(t==='x^2-1') return {0:-1,2:1};\n    return {0:1};\n  }\n  function modp(n,p){ return ((n%p)+p)%p; }\n  function polyAdd(a,b){ const r={...a}; for(const k of Object.keys(b)) r[k]=(r[k]||0)+b[k]; return r; }\n  function polyScale(a,c){ const r={}; for(const k of Object.keys(a)) r[k]=a[k]*c; return r; }\n  function polyMul(a,b){ let r={}; for(const i of Object.keys(a)) for(const j of Object.keys(b)) { const k=+i+ +j; r[k]=(r[k]||0)+a[i]*b[j]; } return r; }\n  function polyPow(a,e){ let r={0:1}; for(let i=0;i<e;i++) r=polyMul(r,a); return r; }\n  function polyToString(a,p){\n    const terms=[];\n    const keys = Object.keys(a).map(Number).sort((u,v)=>v-u);\n    for(const k of keys){\n      let c=modp(a[k],p);\n      if(c===0) continue;\n      const cs = c===1 ? '' : c+'·';\n      const xs = k===0 ? '1' : k===1 ? 'x' : `x^${k}`;\n      terms.push(c===1 && k===0 ? '1' : (cs+xs));\n    }\n    return terms.length? terms.join(' + ') : '0';\n  }\n  function render(){\n    const p=+ps.value;\n    const fStr=fs.value;\n    const fPoly = expandPoly(fStr,p);\n    const fp1 = polyPow(fPoly,p-1);\n    // f^{p-1} df = f^{p-1} * f'(x) dx; treat dx as a token.\n    // f'(x) symbolically: differentiate fPoly\n    const fp = {};\n    for(const k of Object.keys(fPoly)){ const kk=+k; if(kk>=1) fp[kk-1] = (fp[kk-1]||0)+fPoly[k]*kk; }\n    const expr = polyMul(fp1, fp);\n    // Now apply Cartier: C(a_k x^k dx) = a_k^{1/p} * x^m dx if k = p*m + (p-1) [i.e. mod p == p-1], else 0.\n    // Over F_p, a^{1/p} = a (Frobenius is an automorphism on the residue, but here we're really pulling back to X^{(p)}).\n    const cartImg = {};\n    for(const k of Object.keys(expr)){\n      const kk=+k, c=modp(expr[k],p);\n      if(c===0) continue;\n      if(modp(kk,p)===p-1){\n        const m=(kk-(p-1))/p;\n        cartImg[m]=(cartImg[m]||0)+c;\n      }\n    }\n    out.textContent =\n      `p=${p}, f=${fStr}\\n` +\n      `f^{p-1}·df = (${polyToString(expr,p)})·dx     (mod ${p})\\n` +\n      `C( f^{p-1}·df ) = (${polyToString(cartImg,p)})·dx     ← the Frobenius-typical part survives\\n` +\n      `(degrees with k ≡ p−1 = ${p-1} mod ${p} are kept; everything else is in the image of d and hence vanishes under C.)`;\n  }\n  ps.addEventListener('change',render); fs.addEventListener('change',render); render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "select",
+                "id": "ca-p",
+                "label": "$p$",
+                "optionsHtml": "<option value=\"2\">2</option><option value=\"3\" selected>3</option><option value=\"5\">5</option><option value=\"7\">7</option>"
+              },
+              {
+                "type": "select",
+                "id": "ca-f",
+                "label": "$f$",
+                "optionsHtml": "\n      <option value=\"x\">$x$</option>\n      <option value=\"x+1\" selected>$x+1$</option>\n      <option value=\"x^2+x\">$x^2+x$</option>\n      <option value=\"x^2-1\">$x^2-1$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "ca-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const ps=document.getElementById('ca-p'), fs=document.getElementById('ca-f'), out=document.getElementById('ca-out');\n  if(!ps||!fs||!out) return;\n  // For demo: f a polynomial, compute the trace/Cartier action on f^{p-1} df,\n  // exploiting C(g^p df) = g (when df is the chosen differential), C(df) = 0,\n  // and bilinearity. We expand f^{p-1} df symbolically as a sum of terms a_k x^k dx,\n  // identify which k have form (p*j - 1) (i.e. x^{pj-1} dx = (1/p)*d(x^{pj}), but in char p,\n  // x^{pj-1} dx = (x^{j})^p / x * (1/p) is messier — instead just identify monomials\n  // x^{p*m + p-1} dx whose Cartier image is x^m d x.\n  function expandPoly(s, p){\n    // toy parser: handles \"x\", \"x+1\", \"x^2+x\", \"x^2-1\"\n    const t = s.replace(/\\s+/g,'');\n    if(t==='x') return {1:1};\n    if(t==='x+1') return {0:1,1:1};\n    if(t==='x^2+x') return {1:1,2:1};\n    if(t==='x^2-1') return {0:-1,2:1};\n    return {0:1};\n  }\n  function modp(n,p){ return ((n%p)+p)%p; }\n  function polyAdd(a,b){ const r={...a}; for(const k of Object.keys(b)) r[k]=(r[k]||0)+b[k]; return r; }\n  function polyScale(a,c){ const r={}; for(const k of Object.keys(a)) r[k]=a[k]*c; return r; }\n  function polyMul(a,b){ let r={}; for(const i of Object.keys(a)) for(const j of Object.keys(b)) { const k=+i+ +j; r[k]=(r[k]||0)+a[i]*b[j]; } return r; }\n  function polyPow(a,e){ let r={0:1}; for(let i=0;i<e;i++) r=polyMul(r,a); return r; }\n  function polyToString(a,p){\n    const terms=[];\n    const keys = Object.keys(a).map(Number).sort((u,v)=>v-u);\n    for(const k of keys){\n      let c=modp(a[k],p);\n      if(c===0) continue;\n      const cs = c===1 ? '' : c+'·';\n      const xs = k===0 ? '1' : k===1 ? 'x' : `x^${k}`;\n      terms.push(c===1 && k===0 ? '1' : (cs+xs));\n    }\n    return terms.length? terms.join(' + ') : '0';\n  }\n  function render(){\n    const p=+ps.value;\n    const fStr=fs.value;\n    const fPoly = expandPoly(fStr,p);\n    const fp1 = polyPow(fPoly,p-1);\n    // f^{p-1} df = f^{p-1} * f'(x) dx; treat dx as a token.\n    // f'(x) symbolically: differentiate fPoly\n    const fp = {};\n    for(const k of Object.keys(fPoly)){ const kk=+k; if(kk>=1) fp[kk-1] = (fp[kk-1]||0)+fPoly[k]*kk; }\n    const expr = polyMul(fp1, fp);\n    // Now apply Cartier: C(a_k x^k dx) = a_k^{1/p} * x^m dx if k = p*m + (p-1) [i.e. mod p == p-1], else 0.\n    // Over F_p, a^{1/p} = a (Frobenius is an automorphism on the residue, but here we're really pulling back to X^{(p)}).\n    const cartImg = {};\n    for(const k of Object.keys(expr)){\n      const kk=+k, c=modp(expr[k],p);\n      if(c===0) continue;\n      if(modp(kk,p)===p-1){\n        const m=(kk-(p-1))/p;\n        cartImg[m]=(cartImg[m]||0)+c;\n      }\n    }\n    out.textContent =\n      `p=${p}, f=${fStr}\\n` +\n      `f^{p-1}·df = (${polyToString(expr,p)})·dx     (mod ${p})\\n` +\n      `C( f^{p-1}·df ) = (${polyToString(cartImg,p)})·dx     ← the Frobenius-typical part survives\\n` +\n      `(degrees with k ≡ p−1 = ${p-1} mod ${p} are kept; everything else is in the image of d and hence vanishes under C.)`;\n  }\n  ps.addEventListener('change',render); fs.addEventListener('change',render); render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -166,13 +210,30 @@
         },
         {
           "type": "widget",
-          "slug": "pchar-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-fsing",
             "title": "$F$-singularity browser",
             "hint": "pick a hypersurface; check which $F$-class it lands in",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-fsing\">\n  <div class=\"hd\"><div class=\"ttl\">$F$-singularity browser</div><div class=\"hint\">pick a hypersurface; check which $F$-class it lands in</div></div>\n  <div class=\"row\">\n    <label for=\"fs-r\">ring</label>\n    <select id=\"fs-r\">\n      <option value=\"reg\" selected>$k[x,y]$ (regular)</option>\n      <option value=\"A1\">$k[x,y]/(xy)$ (node, $A_1$)</option>\n      <option value=\"cusp\">$k[x,y]/(y^2-x^3)$ (cusp)</option>\n      <option value=\"cone\">$k[x,y,z]/(xy-z^p)$</option>\n      <option value=\"A2\">$k[x,y,z]/(x^2+y^2+z^2)$ (ordinary double point)</option>\n    </select>\n    <label for=\"fs-p\">$p$</label>\n    <select id=\"fs-p\"><option value=\"2\">2</option><option value=\"3\" selected>3</option><option value=\"5\">5</option></select>\n  </div>\n  <div class=\"readout\" id=\"fs-out\">…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const rs=document.getElementById('fs-r'), ps=document.getElementById('fs-p'), out=document.getElementById('fs-out');\n  if(!rs||!ps||!out) return;\n  const data = {\n    reg:    {p2:['F-regular','F-rational','F-split','F-pure'], p3:['F-regular','F-rational','F-split','F-pure'], p5:['F-regular','F-rational','F-split','F-pure'], note:'A regular local ring is F-regular (hence everything weaker). Frobenius is flat — Kunz’s theorem.'},\n    A1:     {p2:['F-split','F-pure'], p3:['F-split','F-pure'], p5:['F-split','F-pure'], note:'Nodes are F-pure (Stanley–Reisner-ish, monomial ideal). Not F-regular: the ideal (x+y) is tightly closed only after adjusting; in MMP terms a node is log-canonical, not klt.'},\n    cusp:   {p2:[], p3:[], p5:[], note:'The cuspidal cubic y²=x³ is NEVER F-pure in characteristic p ≥ 3. Fedder’s criterion: k[x,y]/(f) is F-pure iff f^{p−1} ∉ (x^p, y^p). For f = y²−x³ the binomial term needs (p−1)/2 ≤ k < p/3, an empty range for p ≥ 3. (p = 2 also fails directly.) Char-0 analog: cusp is log-canonical but not klt — and even the log-canonical analog only holds in the asymptotic-p sense, not at any specific small prime.'},\n    cone:   {p2:['F-pure','F-split'], p3:['F-pure','F-split'], p5:['F-pure','F-split'], note:'Hypersurface xy − z^p (p = char k): Fedder’s criterion gives the term (xy)^{p−1} = x^{p−1}y^{p−1} in (xy − z^p)^{p−1}, which is NOT in (x^p, y^p, z^p). So this cone IS F-pure (and F-split, since it is F-finite) in every characteristic. It fails to be F-regular: tight closure adds new elements to parameter ideals. Char-0 analog: log-canonical, not klt.'},\n    A2:     {p2:['F-pure'], p3:['F-regular','F-split','F-pure','F-rational'], p5:['F-regular','F-split','F-pure','F-rational'], note:'Quadric cone has different F-behaviour for p=2 (degenerate) vs p odd (F-regular, matches the rational double point picture of Lipman–Rieman).'},\n  };\n  function render(){\n    const k=rs.value, p=ps.value;\n    const e = data[k];\n    const list = e['p'+p] || [];\n    out.textContent = `ring: ${rs.options[rs.selectedIndex].text}\\np = ${p}\\nF-classes satisfied: ${list.length? list.join(', ') : '(none of F-pure, F-split, F-regular, F-rational)'}\\n${e.note}`;\n  }\n  rs.addEventListener('change',render); ps.addEventListener('change',render); render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "select",
+                "id": "fs-r",
+                "label": "ring",
+                "optionsHtml": "\n      <option value=\"reg\" selected>$k[x,y]$ (regular)</option>\n      <option value=\"A1\">$k[x,y]/(xy)$ (node, $A_1$)</option>\n      <option value=\"cusp\">$k[x,y]/(y^2-x^3)$ (cusp)</option>\n      <option value=\"cone\">$k[x,y,z]/(xy-z^p)$</option>\n      <option value=\"A2\">$k[x,y,z]/(x^2+y^2+z^2)$ (ordinary double point)</option>\n    "
+              },
+              {
+                "type": "select",
+                "id": "fs-p",
+                "label": "$p$",
+                "optionsHtml": "<option value=\"2\">2</option><option value=\"3\" selected>3</option><option value=\"5\">5</option>"
+              }
+            ],
+            "readout": {
+              "id": "fs-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const rs=document.getElementById('fs-r'), ps=document.getElementById('fs-p'), out=document.getElementById('fs-out');\n  if(!rs||!ps||!out) return;\n  const data = {\n    reg:    {p2:['F-regular','F-rational','F-split','F-pure'], p3:['F-regular','F-rational','F-split','F-pure'], p5:['F-regular','F-rational','F-split','F-pure'], note:'A regular local ring is F-regular (hence everything weaker). Frobenius is flat — Kunz’s theorem.'},\n    A1:     {p2:['F-split','F-pure'], p3:['F-split','F-pure'], p5:['F-split','F-pure'], note:'Nodes are F-pure (Stanley–Reisner-ish, monomial ideal). Not F-regular: the ideal (x+y) is tightly closed only after adjusting; in MMP terms a node is log-canonical, not klt.'},\n    cusp:   {p2:[], p3:[], p5:[], note:'The cuspidal cubic y²=x³ is NEVER F-pure in characteristic p ≥ 3. Fedder’s criterion: k[x,y]/(f) is F-pure iff f^{p−1} ∉ (x^p, y^p). For f = y²−x³ the binomial term needs (p−1)/2 ≤ k < p/3, an empty range for p ≥ 3. (p = 2 also fails directly.) Char-0 analog: cusp is log-canonical but not klt — and even the log-canonical analog only holds in the asymptotic-p sense, not at any specific small prime.'},\n    cone:   {p2:['F-pure','F-split'], p3:['F-pure','F-split'], p5:['F-pure','F-split'], note:'Hypersurface xy − z^p (p = char k): Fedder’s criterion gives the term (xy)^{p−1} = x^{p−1}y^{p−1} in (xy − z^p)^{p−1}, which is NOT in (x^p, y^p, z^p). So this cone IS F-pure (and F-split, since it is F-finite) in every characteristic. It fails to be F-regular: tight closure adds new elements to parameter ideals. Char-0 analog: log-canonical, not klt.'},\n    A2:     {p2:['F-pure'], p3:['F-regular','F-split','F-pure','F-rational'], p5:['F-regular','F-split','F-pure','F-rational'], note:'Quadric cone has different F-behaviour for p=2 (degenerate) vs p odd (F-regular, matches the rational double point picture of Lipman–Rieman).'},\n  };\n  function render(){\n    const k=rs.value, p=ps.value;\n    const e = data[k];\n    const list = e['p'+p] || [];\n    out.textContent = `ring: ${rs.options[rs.selectedIndex].text}\\np = ${p}\\nF-classes satisfied: ${list.length? list.join(', ') : '(none of F-pure, F-split, F-regular, F-rational)'}\\n${e.note}`;\n  }\n  rs.addEventListener('change',render); ps.addEventListener('change',render); render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -336,13 +397,24 @@
         },
         {
           "type": "widget",
-          "slug": "pchar-w9",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-path",
             "title": "Pathology browser",
             "hint": "pick a char-0 theorem; see how it breaks in char $p$",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-path\">\n  <div class=\"hd\"><div class=\"ttl\">Pathology browser</div><div class=\"hint\">pick a char-0 theorem; see how it breaks in char $p$</div></div>\n  <div class=\"row\">\n    <label for=\"path-th\">theorem</label>\n    <select id=\"path-th\">\n      <option value=\"kodaira\" selected>Kodaira vanishing</option>\n      <option value=\"bertini\">Bertini smoothness</option>\n      <option value=\"hodge\">Hodge symmetry $h^{p,q}=h^{q,p}$</option>\n      <option value=\"lift\">existence of $W$-lifts</option>\n      <option value=\"resolution\">resolution of singularities</option>\n      <option value=\"mmp\">termination of the MMP</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"path-out\">…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const ts=document.getElementById('path-th'), out=document.getElementById('path-out');\n  if(!ts||!out) return;\n  const data = {\n    kodaira: `KODAIRA VANISHING (X smooth projective over k, L ample ⇒ H^i(X, L^{-1}) = 0 for i < dim X)\\n\\nIn char 0: theorem (Kodaira 1953).\\nIn char p: FALSE in general (Raynaud 1978).\\nCounterexample: there is a smooth projective surface in char p with an ample L such that H^1(X, L^{-1}) ≠ 0.\\nFix: requires Frobenius splitting (Mehta–Ramanathan) or a W_2-lift (Deligne–Illusie). Without either hypothesis, vanishing is genuinely open.`,\n    bertini: `BERTINI'S SMOOTHNESS THEOREM (general hyperplane section of a smooth variety is smooth)\\n\\nIn char 0: theorem.\\nIn char p: the classical statement (generic hyperplane section of a smooth projective variety in P^n is smooth) STILL HOLDS. What CAN FAIL is Bertini for arbitrary base-point-free linear systems coming from inseparable morphisms — e.g. pullback along the Frobenius P^n → P^n produces a covering whose \"general member\" is everywhere singular, even though no actual hyperplane in the original P^n behaves that way.\\nKleiman–Altman discuss the corrected statements; the upshot is that Bertini-type theorems in char p must distinguish separable from inseparable situations.`,\n    hodge:    `HODGE SYMMETRY h^{p,q} = h^{q,p}\\n\\nIn char 0: theorem (Hodge 1941 via harmonic analysis on Kähler manifolds).\\nIn char p: CAN FAIL. There exist smooth projective surfaces in char p with h^{0,1} ≠ h^{1,0}, i.e. Picard variety and Albanese variety having different dimensions.\\nMumford constructed smooth projective surfaces in char 2 and 3 exhibiting this asymmetry (typically h^{1,0} > h^{0,1}); the precise numerical values depend on which construction one consults — see Mumford, “Pathologies of modular algebraic surfaces” (1961), and Mumford, “Enriques’ classification of surfaces in char p, II–III.”`,\n    lift:     `EXISTENCE OF W-LIFTS (every X_0/k smooth proper lifts to a smooth scheme over W = W(k))\\n\\nIn char 0: trivial (X already exists).\\nIn char p: FALSE. Hirokado (1999), Schröer (2003) gave smooth projective varieties in char 2, 3 with no lift to W.\\nEven the weaker question of W_2-lifts is subtle: such lifts are unobstructed for smooth proper curves (dim 1) and smooth proper surfaces (Deligne–Illusie), but non-W_2-liftable smooth projective threefolds exist in char 2 (Liedtke and others), so a blanket “dim ≤ 3” statement is too strong. Liedtke–Satriano analyze W_2-obstructions case by case rather than guaranteeing existence.`,\n    resolution: `RESOLUTION OF SINGULARITIES\\n\\nIn char 0: theorem (Hironaka 1964 in any dimension).\\nIn char p: OPEN in dimension > 3.\\nKnown in char p for surfaces (Abhyankar–Lipman) and threefolds (Abhyankar; Cossart–Piltant). For ≥ 4-folds it is the major open problem of birational geometry in positive characteristic.`,\n    mmp:      `TERMINATION OF THE MINIMAL MODEL PROGRAM\\n\\nIn char 0: known in dim ≤ 3 (Mori), expected in all dimensions (Birkar–Cascini–Hacon–McKernan handle the finite-generation side).\\nIn char p: OPEN in dim ≥ 3. The MMP exists conjecturally; many key steps depend on Kodaira vanishing which fails. Some work-arounds via F-singularities (Patakfalvi, Schwede–Smith). Active research frontier.`,\n  };\n  function render(){ out.textContent = data[ts.value]; }\n  ts.addEventListener('change',render); render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "select",
+                "id": "path-th",
+                "label": "theorem",
+                "optionsHtml": "\n      <option value=\"kodaira\" selected>Kodaira vanishing</option>\n      <option value=\"bertini\">Bertini smoothness</option>\n      <option value=\"hodge\">Hodge symmetry $h^{p,q}=h^{q,p}$</option>\n      <option value=\"lift\">existence of $W$-lifts</option>\n      <option value=\"resolution\">resolution of singularities</option>\n      <option value=\"mmp\">termination of the MMP</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "path-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const ts=document.getElementById('path-th'), out=document.getElementById('path-out');\n  if(!ts||!out) return;\n  const data = {\n    kodaira: `KODAIRA VANISHING (X smooth projective over k, L ample ⇒ H^i(X, L^{-1}) = 0 for i < dim X)\\n\\nIn char 0: theorem (Kodaira 1953).\\nIn char p: FALSE in general (Raynaud 1978).\\nCounterexample: there is a smooth projective surface in char p with an ample L such that H^1(X, L^{-1}) ≠ 0.\\nFix: requires Frobenius splitting (Mehta–Ramanathan) or a W_2-lift (Deligne–Illusie). Without either hypothesis, vanishing is genuinely open.`,\n    bertini: `BERTINI'S SMOOTHNESS THEOREM (general hyperplane section of a smooth variety is smooth)\\n\\nIn char 0: theorem.\\nIn char p: the classical statement (generic hyperplane section of a smooth projective variety in P^n is smooth) STILL HOLDS. What CAN FAIL is Bertini for arbitrary base-point-free linear systems coming from inseparable morphisms — e.g. pullback along the Frobenius P^n → P^n produces a covering whose \"general member\" is everywhere singular, even though no actual hyperplane in the original P^n behaves that way.\\nKleiman–Altman discuss the corrected statements; the upshot is that Bertini-type theorems in char p must distinguish separable from inseparable situations.`,\n    hodge:    `HODGE SYMMETRY h^{p,q} = h^{q,p}\\n\\nIn char 0: theorem (Hodge 1941 via harmonic analysis on Kähler manifolds).\\nIn char p: CAN FAIL. There exist smooth projective surfaces in char p with h^{0,1} ≠ h^{1,0}, i.e. Picard variety and Albanese variety having different dimensions.\\nMumford constructed smooth projective surfaces in char 2 and 3 exhibiting this asymmetry (typically h^{1,0} > h^{0,1}); the precise numerical values depend on which construction one consults — see Mumford, “Pathologies of modular algebraic surfaces” (1961), and Mumford, “Enriques’ classification of surfaces in char p, II–III.”`,\n    lift:     `EXISTENCE OF W-LIFTS (every X_0/k smooth proper lifts to a smooth scheme over W = W(k))\\n\\nIn char 0: trivial (X already exists).\\nIn char p: FALSE. Hirokado (1999), Schröer (2003) gave smooth projective varieties in char 2, 3 with no lift to W.\\nEven the weaker question of W_2-lifts is subtle: such lifts are unobstructed for smooth proper curves (dim 1) and smooth proper surfaces (Deligne–Illusie), but non-W_2-liftable smooth projective threefolds exist in char 2 (Liedtke and others), so a blanket “dim ≤ 3” statement is too strong. Liedtke–Satriano analyze W_2-obstructions case by case rather than guaranteeing existence.`,\n    resolution: `RESOLUTION OF SINGULARITIES\\n\\nIn char 0: theorem (Hironaka 1964 in any dimension).\\nIn char p: OPEN in dimension > 3.\\nKnown in char p for surfaces (Abhyankar–Lipman) and threefolds (Abhyankar; Cossart–Piltant). For ≥ 4-folds it is the major open problem of birational geometry in positive characteristic.`,\n    mmp:      `TERMINATION OF THE MINIMAL MODEL PROGRAM\\n\\nIn char 0: known in dim ≤ 3 (Mori), expected in all dimensions (Birkar–Cascini–Hacon–McKernan handle the finite-generation side).\\nIn char p: OPEN in dim ≥ 3. The MMP exists conjecturally; many key steps depend on Kodaira vanishing which fails. Some work-arounds via F-singularities (Patakfalvi, Schwede–Smith). Active research frontier.`,\n  };\n  function render(){ out.textContent = data[ts.value]; }\n  ts.addEventListener('change',render); render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
