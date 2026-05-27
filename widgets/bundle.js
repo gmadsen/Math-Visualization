@@ -3661,6 +3661,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "crystalline-cohomology-w4",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "crystalline-cohomology-w4 widget params",
+    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ct-w2",
     "family": "verbatim",
     "dimension": "2d",
