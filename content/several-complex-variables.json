@@ -290,14 +290,56 @@
         },
         {
           "type": "widget",
-          "slug": "scv-w4",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "w-stein",
             "title": "Cartan B walk-through",
+            "layout": [
+              {
+                "kind": "row",
+                "children": [
+                  {
+                    "kind": "button",
+                    "id": "st-prev",
+                    "label": "◀ prev"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "st-next",
+                    "label": "next ▶"
+                  },
+                  {
+                    "kind": "button",
+                    "id": "st-reset",
+                    "label": "reset"
+                  },
+                  {
+                    "kind": "span",
+                    "attrs": " class=\"readout\" id=\"st-step-out\" style=\"min-width:5em;display:inline-block\"",
+                    "content": "step 1 / 4"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "st-svg",
+                "viewBox": "0 0 620 320",
+                "width": 620,
+                "height": 320,
+                "titleText": "Stein manifold: PSH exhaustion sublevel sets and Cartan B argument"
+              },
+              {
+                "kind": "readout",
+                "id": "st-out"
+              }
+            ],
             "hint": "step through the three moves of the Theorem B proof",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-stein\">\n  <div class=\"hd\"><div class=\"ttl\">Cartan B walk-through</div><div class=\"hint\">step through the three moves of the Theorem B proof</div></div>\n  <div class=\"row\">\n    <button id=\"st-prev\">◀ prev</button>\n    <button id=\"st-next\">next ▶</button>\n    <button id=\"st-reset\">reset</button>\n    <span class=\"readout\" id=\"st-step-out\" style=\"min-width:5em;display:inline-block\">step 1 / 4</span>\n  </div>\n  <svg id=\"st-svg\" viewBox=\"0 0 620 320\" width=\"620\" height=\"320\"><title>Stein manifold: PSH exhaustion sublevel sets and Cartan B argument</title></svg>\n  <div class=\"readout\" id=\"st-out\"></div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const svg = $('#st-svg'), prev = $('#st-prev'), next = $('#st-next'), reset = $('#st-reset'), so = $('#st-step-out'), out = $('#st-out');\n  const W = 620, H = 320;\n  let step = 1;\n  const STEPS = [\n    {\n      title: \"Step 1. Smooth strictly PSH exhaustion ρ on X\",\n      body: \"X is Stein ⇒ admits a smooth strictly plurisubharmonic ρ : X → ℝ with ρ → +∞ at infinity. The sublevels X_c = {ρ < c} are relatively compact + strictly pseudoconvex.\",\n      cs: [1.3, 1.8, 2.4]\n    },\n    {\n      title: \"Step 2. Hörmander solves ∂̄ on each X_c\",\n      body: \"On each strictly pseudoconvex X_c the weighted ∂̄-equation ∂̄u = α has an L²-bounded solution with weight φ_c chosen to dominate α on X_c (Hörmander).\",\n      cs: [1.3, 1.8, 2.4]\n    },\n    {\n      title: \"Step 3. Runge-style approximation across c < c'\",\n      body: \"Solutions on X_c approximate to solutions on X_{c'} via PSH-weight tracking: the difference is a holomorphic function on X_c, polynomially approximable on the holomorphic hull ⇒ hull = X_c (Stein).\",\n      cs: [1.3, 1.8, 2.4]\n    },\n    {\n      title: \"Step 4. Pass to the limit → Theorem B for ℱ = ℱ_X\",\n      body: \"Take c ↗ ∞. The compatible local solutions glue to a global one. Conclusion: H^q(X, O_X) = 0 for q ≥ 1. The same argument with sheaf-theoretic adjustments handles every coherent ℱ.\",\n      cs: [1.3, 1.8, 2.4]\n    },\n  ];\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    so.textContent = \"step \" + step + \" / \" + STEPS.length;\n    const s = STEPS[step - 1];\n    const cx = W / 2, cy = H / 2;\n    // Draw concentric \"X_c\" sublevel sets\n    const baseR = 30;\n    const colors = [\"var(--violet)\", \"var(--cyan)\", \"var(--green)\"];\n    s.cs.forEach((c, i) => {\n      const r = baseR * c * 1.4;\n      svg.appendChild(SVG(\"circle\", {cx, cy: cy + 20, r, fill: colors[i], opacity: step >= 1 ? 0.10 + 0.07 * i : 0.03, stroke: colors[i], \"stroke-width\": 1.4}));\n      const lab = SVG(\"text\", {x: cx + r + 6, y: cy + 20 + 4, \"font-size\": 11, fill: colors[i]});\n      lab.textContent = \"X_{c=\" + c.toFixed(1) + \"}\"; svg.appendChild(lab);\n    });\n    if (step >= 2) {\n      const tag = SVG(\"text\", {x: cx - 200, y: 70, \"font-size\": 12, fill: \"var(--yellow)\"});\n      tag.textContent = \"Hörmander ∂̄u_c = α_c with weight φ_c\"; svg.appendChild(tag);\n    }\n    if (step >= 3) {\n      const tag = SVG(\"text\", {x: cx - 200, y: 95, \"font-size\": 12, fill: \"var(--cyan)\"});\n      tag.textContent = \"Runge: u_c approximates u_{c'} as c ↗\"; svg.appendChild(tag);\n    }\n    if (step >= 4) {\n      const tag = SVG(\"text\", {x: cx - 200, y: 120, \"font-size\": 12, fill: \"var(--green)\"});\n      tag.textContent = \"limit u : X → ℂ globalises ⇒ H^q(X, ℱ) = 0\"; svg.appendChild(tag);\n    }\n    const t = SVG(\"text\", {x: 30, y: 30, \"font-size\": 13, fill: \"var(--ink)\", \"font-weight\": 600});\n    t.textContent = s.title; svg.appendChild(t);\n    out.textContent = s.body;\n  }\n  prev.addEventListener(\"click\", () => { step = Math.max(1, step - 1); render(); });\n  next.addEventListener(\"click\", () => { step = Math.min(STEPS.length, step + 1); render(); });\n  reset.addEventListener(\"click\", () => { step = 1; render(); });\n  render();\n})();\n</script>"
+            "bodyScript": "  const svg = $('#st-svg'), prev = $('#st-prev'), next = $('#st-next'), reset = $('#st-reset'), so = $('#st-step-out'), out = $('#st-out');\n  const W = 620, H = 320;\n  let step = 1;\n  const STEPS = [\n    {\n      title: \"Step 1. Smooth strictly PSH exhaustion ρ on X\",\n      body: \"X is Stein ⇒ admits a smooth strictly plurisubharmonic ρ : X → ℝ with ρ → +∞ at infinity. The sublevels X_c = {ρ < c} are relatively compact + strictly pseudoconvex.\",\n      cs: [1.3, 1.8, 2.4]\n    },\n    {\n      title: \"Step 2. Hörmander solves ∂̄ on each X_c\",\n      body: \"On each strictly pseudoconvex X_c the weighted ∂̄-equation ∂̄u = α has an L²-bounded solution with weight φ_c chosen to dominate α on X_c (Hörmander).\",\n      cs: [1.3, 1.8, 2.4]\n    },\n    {\n      title: \"Step 3. Runge-style approximation across c < c'\",\n      body: \"Solutions on X_c approximate to solutions on X_{c'} via PSH-weight tracking: the difference is a holomorphic function on X_c, polynomially approximable on the holomorphic hull ⇒ hull = X_c (Stein).\",\n      cs: [1.3, 1.8, 2.4]\n    },\n    {\n      title: \"Step 4. Pass to the limit → Theorem B for ℱ = ℱ_X\",\n      body: \"Take c ↗ ∞. The compatible local solutions glue to a global one. Conclusion: H^q(X, O_X) = 0 for q ≥ 1. The same argument with sheaf-theoretic adjustments handles every coherent ℱ.\",\n      cs: [1.3, 1.8, 2.4]\n    },\n  ];\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    svg.appendChild(SVG(\"rect\",{x:0,y:0,width:W,height:H,fill:\"var(--bg)\"}));\n    so.textContent = \"step \" + step + \" / \" + STEPS.length;\n    const s = STEPS[step - 1];\n    const cx = W / 2, cy = H / 2;\n    // Draw concentric \"X_c\" sublevel sets\n    const baseR = 30;\n    const colors = [\"var(--violet)\", \"var(--cyan)\", \"var(--green)\"];\n    s.cs.forEach((c, i) => {\n      const r = baseR * c * 1.4;\n      svg.appendChild(SVG(\"circle\", {cx, cy: cy + 20, r, fill: colors[i], opacity: step >= 1 ? 0.10 + 0.07 * i : 0.03, stroke: colors[i], \"stroke-width\": 1.4}));\n      const lab = SVG(\"text\", {x: cx + r + 6, y: cy + 20 + 4, \"font-size\": 11, fill: colors[i]});\n      lab.textContent = \"X_{c=\" + c.toFixed(1) + \"}\"; svg.appendChild(lab);\n    });\n    if (step >= 2) {\n      const tag = SVG(\"text\", {x: cx - 200, y: 70, \"font-size\": 12, fill: \"var(--yellow)\"});\n      tag.textContent = \"Hörmander ∂̄u_c = α_c with weight φ_c\"; svg.appendChild(tag);\n    }\n    if (step >= 3) {\n      const tag = SVG(\"text\", {x: cx - 200, y: 95, \"font-size\": 12, fill: \"var(--cyan)\"});\n      tag.textContent = \"Runge: u_c approximates u_{c'} as c ↗\"; svg.appendChild(tag);\n    }\n    if (step >= 4) {\n      const tag = SVG(\"text\", {x: cx - 200, y: 120, \"font-size\": 12, fill: \"var(--green)\"});\n      tag.textContent = \"limit u : X → ℂ globalises ⇒ H^q(X, ℱ) = 0\"; svg.appendChild(tag);\n    }\n    const t = SVG(\"text\", {x: 30, y: 30, \"font-size\": 13, fill: \"var(--ink)\", \"font-weight\": 600});\n    t.textContent = s.title; svg.appendChild(t);\n    out.textContent = s.body;\n  }\n  prev.addEventListener(\"click\", () => { step = Math.max(1, step - 1); render(); });\n  next.addEventListener(\"click\", () => { step = Math.min(STEPS.length, step + 1); render(); });\n  reset.addEventListener(\"click\", () => { step = 1; render(); });\n  render();"
           }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
         },
         {
           "type": "widget-script",

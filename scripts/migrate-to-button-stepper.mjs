@@ -115,9 +115,44 @@ function parseButton(openAttrs, label) {
   return btn;
 }
 
+// Allowlist for verbatim <span> attribute strings (status/counter spans in
+// stepper rows). Cosmetic + a11y attrs accepted; event handlers (on*=) and
+// anything else throw rather than silently propagate (cf. slider labelAttrs).
+const SPAN_ATTR_ALLOW = /^(?:id|class|style|title|data-[a-z][a-z0-9_-]*|aria-[a-z]+)$/;
+// Validate a verbatim <span> attribute string before it's spliced back into
+// `<span${attrs}>`. The string must consist ENTIRELY of allowlisted
+// double-quoted attributes — we strip each `name="…"` in turn and require the
+// residue to be blank. This closes the gap a name-only scan would leave: a
+// single-quoted/unquoted/boolean attribute (e.g. `onclick='…'`) matches no
+// `name="…"` token, so it survives in the residue and trips the throw rather
+// than slipping through to the verbatim splice. (Codex + review flagged this on
+// PR #376; source is trusted corpus but this is cheap defense-in-depth.)
+function assertSpanAttrsSafe(attrs) {
+  if (!attrs) return;
+  let residual = attrs;
+  const attrRe = /\s+([a-zA-Z][a-zA-Z0-9_-]*)="[^"]*"/;
+  let m;
+  while ((m = residual.match(attrRe))) {
+    const name = m[1].toLowerCase();
+    if (!SPAN_ATTR_ALLOW.test(name)) {
+      throw new Error(`span has disallowed attribute "${name}" (allow id/class/style/title/data-*/aria-*): "${attrs}"`);
+    }
+    residual = residual.slice(0, m.index) + residual.slice(m.index + m[0].length);
+  }
+  if (residual.trim() !== '') {
+    throw new Error(
+      `span has a non-double-quoted or unparseable attribute (refusing verbatim splice): "${attrs}" — residual "${residual.trim()}"`
+    );
+  }
+}
+
 // Parse the inner of a <div class="row">…</div> into a row layout block.
-// The renderer emits label (optional) then each button on its own line. We
-// accept that shape; anything else (slider/select/span controls, text) throws.
+// Tokenises into an ordered run of <label>/<button>/<span>. A row that is only
+// (optional) label + buttons emits the legacy `{ label?, buttons[] }` form
+// (byte-identical to existing button-stepper widgets); a row that also carries
+// a <span> (a status/counter display in a stepper) emits the ordered `children`
+// form so the span round-trips in place. Anything else (sliders/selects/inputs)
+// throws and the widget defers.
 function parseRow(rowOpenAttrs, rowInner) {
   const block = { kind: 'row' };
   const idMatch = rowOpenAttrs.match(/\bid="([^"]+)"/);
@@ -130,21 +165,34 @@ function parseRow(rowOpenAttrs, rowInner) {
   const trimmed = rowInner.trim();
   if (trimmed === '') return block; // empty row (id-only)
 
-  const buttons = [];
-  let label;
-  // Tokenise: optional leading <label>…</label>, then a run of <button>…</button>.
+  const children = [];
   let rest = trimmed;
-  const labelMatch = rest.match(/^<label>([\s\S]*?)<\/label>\s*/);
-  if (labelMatch) { label = labelMatch[1]; rest = rest.slice(labelMatch[0].length); }
-  const btnRe = /^<button([^>]*)>([\s\S]*?)<\/button>\s*/;
   while (rest.length > 0) {
-    const bm = rest.match(btnRe);
-    if (!bm) throw new Error(`row contains non-button content (sliders/selects/text defer): "${rest.slice(0, 60)}"`);
-    buttons.push(parseButton(bm[1], bm[2]));
-    rest = rest.slice(bm[0].length);
+    let mm;
+    if ((mm = rest.match(/^<label>([\s\S]*?)<\/label>\s*/))) {
+      children.push({ kind: 'label', text: mm[1] });
+    } else if ((mm = rest.match(/^<button([^>]*)>([\s\S]*?)<\/button>\s*/))) {
+      children.push({ kind: 'button', ...parseButton(mm[1], mm[2]) });
+    } else if ((mm = rest.match(/^<span([^>]*)>([\s\S]*?)<\/span>\s*/))) {
+      assertSpanAttrsSafe(mm[1]);
+      const span = { kind: 'span' };
+      if (mm[1]) span.attrs = mm[1];     // verbatim attr string (incl. leading space)
+      if (mm[2] !== '') span.content = mm[2];
+      children.push(span);
+    } else {
+      throw new Error(`row contains unsupported content (sliders/selects/inputs defer): "${rest.slice(0, 60)}"`);
+    }
+    rest = rest.slice(mm[0].length);
   }
-  if (label !== undefined) block.label = label;
-  if (buttons.length) block.buttons = buttons;
+
+  if (children.some((c) => c.kind === 'span')) {
+    block.children = children;            // ordered form (span present)
+  } else {
+    const label = children.find((c) => c.kind === 'label');
+    const buttons = children.filter((c) => c.kind === 'button').map(({ kind, ...b }) => b);
+    if (label) block.label = label.text;
+    if (buttons.length) block.buttons = buttons;
+  }
   return block;
 }
 

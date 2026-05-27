@@ -59,19 +59,48 @@ function renderButton(btn, indent) {
   return `${indent}<button${renderButtonAttrs(btn)}>${btn.label}</button>`;
 }
 
+// Render one element of a row's ordered `children` array. Three kinds:
+//   button → delegates to renderButton (id/type/data/class/label)
+//   span   → <span{attrs}>{content}</span>, where `attrs` is a VERBATIM
+//            attribute string (incl. leading space). Hand-authored status/
+//            counter spans carry id/class/style in inconsistent orders, so the
+//            verbatim string is the only way to round-trip them byte-exactly
+//            (same rationale as slider-svg-2d's labelAttrs). The migrate tool
+//            allowlists the attr names before storing.
+//   label  → <label>{text}</label>
+function renderRowChild(child, indent) {
+  if (child.kind === 'button') return renderButton(child, indent);
+  if (child.kind === 'span') {
+    const attrs = typeof child.attrs === 'string' ? child.attrs : '';
+    const content = typeof child.content === 'string' ? child.content : '';
+    return `${indent}<span${attrs}>${content}</span>`;
+  }
+  if (child.kind === 'label') return `${indent}<label>${child.text}</label>`;
+  throw new Error(`button-stepper: unknown row child kind "${child.kind}"`);
+}
+
 function renderRowBlock(block) {
-  // Three sub-shapes observed in the corpus:
+  // Four sub-shapes observed in the corpus:
   //   (a) empty w/ id — <div class="row" id="X"></div>
   //   (b) label + buttons — label on its own line, buttons each on their own
   //   (c) buttons only — each button on its own line
+  //   (d) ordered `children` — buttons/spans/labels interleaved (e.g. a
+  //       prev/next stepper with a "step 1/5" counter span between the arrows).
   //
-  // When a `row` block carries neither `label` nor `buttons`, it renders as
-  // the (a) shape (id-only empty row). Without an id and without content,
-  // that's an invalid block; schema requires at least one meaningful field.
+  // When `children` is present it takes precedence (fully ordered render).
+  // Otherwise the legacy label+buttons path runs. With neither, an id-only
+  // empty row (a).
+  const idAttr = block.id ? ` id="${block.id}"` : '';
+
+  if (Array.isArray(block.children) && block.children.length > 0) {
+    const lines = [`  <div class="row"${idAttr}>`];
+    for (const child of block.children) lines.push(renderRowChild(child, '    '));
+    lines.push(`  </div>`);
+    return lines.join('\n');
+  }
+
   const hasLabel = typeof block.label === 'string' && block.label.length > 0;
   const buttons = Array.isArray(block.buttons) ? block.buttons : [];
-
-  const idAttr = block.id ? ` id="${block.id}"` : '';
 
   if (!hasLabel && buttons.length === 0) {
     // Empty row — e.g. w-top's <div class="row" id="top-grid"></div>.

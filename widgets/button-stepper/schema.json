@@ -157,6 +157,51 @@
         }
       }
     },
+    "rowChild": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "label"],
+          "properties": {
+            "kind": { "const": "button" },
+            "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+            "label": { "type": "string", "description": "Button text (may contain KaTeX $…$)." },
+            "dataAttr": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "value"],
+              "properties": {
+                "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+                "value": { "type": "string" }
+              }
+            },
+            "className": { "type": "string" },
+            "type": { "type": "string" },
+            "action": { "type": "string" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind"],
+          "properties": {
+            "kind": { "const": "span" },
+            "attrs": { "type": "string", "description": "Verbatim attribute string (incl. leading space) spliced into `<span…>`. Hand-authored status/counter spans carry id/class/style in inconsistent orders, so the verbatim string is the only byte-exact round-trip (cf. slider-svg-2d labelAttrs). The migrate tool allowlists the attr NAMES (id/class/style/data-*/aria-*) before storing." },
+            "content": { "type": "string", "description": "Initial inner text/HTML; usually empty or a placeholder the driving script overwrites." }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "text"],
+          "properties": {
+            "kind": { "const": "label" },
+            "text": { "type": "string" }
+          }
+        }
+      ]
+    },
     "layoutBlock": {
       "oneOf": [
         {
@@ -223,6 +268,13 @@
               "type": "array",
               "items": {
                 "$ref": "#/$defs/button"
+              }
+            },
+            "children": {
+              "type": "array",
+              "description": "Ordered row children (button / span / label, interleaved). Used for stepper rows that mix a status/counter <span> with prev/next buttons. When present, takes precedence over `label`/`buttons` (the renderer emits each child in order).",
+              "items": {
+                "$ref": "#/$defs/rowChild"
               }
             }
           }
