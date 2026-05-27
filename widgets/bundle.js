@@ -6006,27 +6006,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "git-w7",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "git-w7 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the geometric-invariant-theory topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `geometric-invariant-theory` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "gmt-currents",
     "family": "verbatim",
     "dimension": "2d",
@@ -9151,27 +9130,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"The same morphism wears different hats in different model categories\" widget on `model-categories`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "mcg-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "input",
-    "role": "interactive",
-    "title": "mcg-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -12720,27 +12678,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Light cone &amp; vector classification\" widget on `special-relativity`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "st-cy-moduli",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "st-cy-moduli widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Calabi–Yau moduli counter\" widget on the string-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Calabi–Yau moduli counter\" widget on `string-theory`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
