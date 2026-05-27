@@ -111,9 +111,15 @@ function preserveNumeric(s) {
 // `<option …>…</option>` elements plus whitespace, with no event handlers —
 // `<optgroup>`, nested controls, or `on*=` defer rather than splice unsafely.
 function assertOptionsSafe(optionsHtml) {
-  const stripped = optionsHtml.replace(/<option\b[^>]*>[\s\S]*?<\/option>/gi, '').trim();
+  // Option inner is `[^<]*` — TEXT-only (incl. KaTeX `$…$` and entities), no
+  // nested tags. A `[\s\S]*?` body would strip a whole `<option><span>…</span>`
+  // / `<option><script>…</script>` and leave an empty residue, smuggling nested
+  // markup into the verbatim splice (Codex flagged on PR #378). Restricting to
+  // `[^<]*` means any nested-tag option fails to strip → survives in the residue
+  // → throws. optgroup / non-option content also defers via the residue check.
+  const stripped = optionsHtml.replace(/<option\b[^>]*>[^<]*<\/option>/gi, '').trim();
   if (stripped !== '') {
-    throw new Error('<select> inner has non-<option> content (optgroup/other defers): ' + stripped.slice(0, 60));
+    throw new Error('<select> inner has non-<option> or nested-markup content (defers): ' + stripped.slice(0, 60));
   }
   if (/\son[a-z]+\s*=/i.test(optionsHtml)) {
     throw new Error('<select> option carries an event handler (on*=)');
