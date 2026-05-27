@@ -175,13 +175,61 @@
         },
         {
           "type": "widget",
-          "slug": "positivity-and-ample-line-bundles-w4",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "w-cones",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-cones\">\n  <div class=\"hd\"><div class=\"ttl\">The chain of cones in $N^1(X)_\\mathbb{R}$</div><div class=\"hint\">a schematic of the four positivity classes</div></div>\n  <svg id=\"cones-svg\" viewBox=\"0 0 760 320\" width=\"760\" height=\"320\"><title>Schematic chain of positivity cones</title></svg>\n  <div class=\"readout\" id=\"cones-out\">Click a region to read its definition.</div>\n  <div class=\"row\">\n    <button data-r=\"amp\" class=\"active\">Ample</button>\n    <button data-r=\"nef\">Nef</button>\n    <button data-r=\"big\">Big</button>\n    <button data-r=\"psef\">Pseudo-effective</button>\n  </div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('cones-svg');\n  const out = document.getElementById('cones-out');\n  const buttons = svg.parentElement.querySelectorAll('button[data-r]');\n\n  // Schematic: four nested regions — pseudoeff outer, big = interior of pseudoeff\n  // nef independent, ample = nef ∩ big interior\n  function render(active){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n\n    const cx = 380, cy = 160;\n\n    // pseudo-effective (largest) — colored grayish\n    const psef = SVG('path', {\n      d: 'M 130 280 L 200 30 L 560 30 L 630 280 Z',\n      fill: 'var(--violet)', 'fill-opacity': active==='psef' ? 0.30 : 0.10,\n      stroke: 'var(--violet)', 'stroke-width': active==='psef'?3:1.5\n    });\n    svg.appendChild(psef);\n\n    // big (subset of pseudo-effective interior)\n    const big = SVG('path', {\n      d: 'M 180 270 L 230 60 L 530 60 L 580 270 Z',\n      fill: 'var(--yellow)', 'fill-opacity': active==='big' ? 0.30 : 0.10,\n      stroke: 'var(--yellow)', 'stroke-width': active==='big'?3:1.5\n    });\n    svg.appendChild(big);\n\n    // nef (overlapping with big)\n    const nef = SVG('path', {\n      d: 'M 220 280 L 290 80 L 560 80 L 600 280 Z',\n      fill: 'var(--cyan)', 'fill-opacity': active==='nef' ? 0.30 : 0.10,\n      stroke: 'var(--cyan)', 'stroke-width': active==='nef'?3:1.5\n    });\n    svg.appendChild(nef);\n\n    // ample (interior of nef)\n    const amp = SVG('path', {\n      d: 'M 260 270 L 320 110 L 530 110 L 570 270 Z',\n      fill: 'var(--green)', 'fill-opacity': active==='amp' ? 0.40 : 0.18,\n      stroke: 'var(--green)', 'stroke-width': active==='amp'?3:1.5\n    });\n    svg.appendChild(amp);\n\n    // labels\n    const labels = [\n      {x:115, y:300, t:'Pseudo-effective', col:'var(--violet)'},\n      {x:170, y:50, t:'Big', col:'var(--yellow)'},\n      {x:235, y:75, t:'Nef', col:'var(--cyan)'},\n      {x:295, y:135, t:'Ample', col:'var(--green)'}\n    ];\n    labels.forEach(L => {\n      const t = SVG('text', {x:L.x, y:L.y, 'font-size':13, fill:L.col, 'font-weight':600});\n      t.textContent = L.t;\n      svg.appendChild(t);\n    });\n\n    // text on the right: hierarchy\n    const explain = [\n      'Ample ⊂ Nef',\n      'Ample ⊂ Big',\n      'Nef ∩ Big = Nef-and-big',\n      'Big ⊂ Pseudo-effective'\n    ];\n    explain.forEach((s, i) => {\n      const t = SVG('text', {x:30, y:30 + i*22, 'font-size':12, fill:'var(--mute)'});\n      t.textContent = s;\n      svg.appendChild(t);\n    });\n  }\n\n  const desc = {\n    amp: 'AMPLE: L^{dim Y} · Y > 0 for all subvarieties Y ⊆ X (Nakai–Moishezon). Equivalently: some L^⊗n is very ample. The interior of Nef.',\n    nef: 'NEF: L · C ≥ 0 for every curve C. Closure of Amp(X) (Kleiman). Dual to the Mori cone NE(X)-bar.',\n    big: 'BIG: h^0(X, L^⊗m) grows like m^{dim X}. Equivalently L = A + E with A ample Q-divisor and E effective (Kodaira lemma).',\n    psef: 'PSEUDO-EFFECTIVE: closure of the cone of effective divisor classes. The largest positivity class — every nonzero element has positive degree against some moving curve.'\n  };\n\n  function setActive(r){\n    buttons.forEach(b => b.classList.toggle('active', b.dataset.r === r));\n    render(r);\n    out.textContent = desc[r] || (\"(no description for cone class \\\"\" + r + \"\\\")\");\n  }\n\n  buttons.forEach(b => b.addEventListener('click', () => setActive(b.dataset.r)));\n  setActive('amp');\n})();\n</script>",
             "title": "The chain of cones in $N^1(X)_\\mathbb{R}$",
-            "hint": "a schematic of the four positivity classes"
+            "layout": [
+              {
+                "kind": "svg",
+                "id": "cones-svg",
+                "viewBox": "0 0 760 320",
+                "width": 760,
+                "height": 320,
+                "titleText": "Schematic chain of positivity cones"
+              },
+              {
+                "kind": "readout",
+                "id": "cones-out",
+                "content": "Click a region to read its definition."
+              },
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "dataAttr": {
+                      "name": "data-r",
+                      "value": "amp"
+                    },
+                    "className": "active",
+                    "label": "Ample"
+                  },
+                  {
+                    "dataAttr": {
+                      "name": "data-r",
+                      "value": "nef"
+                    },
+                    "label": "Nef"
+                  },
+                  {
+                    "dataAttr": {
+                      "name": "data-r",
+                      "value": "big"
+                    },
+                    "label": "Big"
+                  },
+                  {
+                    "dataAttr": {
+                      "name": "data-r",
+                      "value": "psef"
+                    },
+                    "label": "Pseudo-effective"
+                  }
+                ]
+              }
+            ],
+            "hint": "a schematic of the four positivity classes",
+            "bodyScript": "  const svg = document.getElementById('cones-svg');\n  const out = document.getElementById('cones-out');\n  const buttons = svg.parentElement.querySelectorAll('button[data-r]');\n\n  // Schematic: four nested regions — pseudoeff outer, big = interior of pseudoeff\n  // nef independent, ample = nef ∩ big interior\n  function render(active){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n\n    const cx = 380, cy = 160;\n\n    // pseudo-effective (largest) — colored grayish\n    const psef = SVG('path', {\n      d: 'M 130 280 L 200 30 L 560 30 L 630 280 Z',\n      fill: 'var(--violet)', 'fill-opacity': active==='psef' ? 0.30 : 0.10,\n      stroke: 'var(--violet)', 'stroke-width': active==='psef'?3:1.5\n    });\n    svg.appendChild(psef);\n\n    // big (subset of pseudo-effective interior)\n    const big = SVG('path', {\n      d: 'M 180 270 L 230 60 L 530 60 L 580 270 Z',\n      fill: 'var(--yellow)', 'fill-opacity': active==='big' ? 0.30 : 0.10,\n      stroke: 'var(--yellow)', 'stroke-width': active==='big'?3:1.5\n    });\n    svg.appendChild(big);\n\n    // nef (overlapping with big)\n    const nef = SVG('path', {\n      d: 'M 220 280 L 290 80 L 560 80 L 600 280 Z',\n      fill: 'var(--cyan)', 'fill-opacity': active==='nef' ? 0.30 : 0.10,\n      stroke: 'var(--cyan)', 'stroke-width': active==='nef'?3:1.5\n    });\n    svg.appendChild(nef);\n\n    // ample (interior of nef)\n    const amp = SVG('path', {\n      d: 'M 260 270 L 320 110 L 530 110 L 570 270 Z',\n      fill: 'var(--green)', 'fill-opacity': active==='amp' ? 0.40 : 0.18,\n      stroke: 'var(--green)', 'stroke-width': active==='amp'?3:1.5\n    });\n    svg.appendChild(amp);\n\n    // labels\n    const labels = [\n      {x:115, y:300, t:'Pseudo-effective', col:'var(--violet)'},\n      {x:170, y:50, t:'Big', col:'var(--yellow)'},\n      {x:235, y:75, t:'Nef', col:'var(--cyan)'},\n      {x:295, y:135, t:'Ample', col:'var(--green)'}\n    ];\n    labels.forEach(L => {\n      const t = SVG('text', {x:L.x, y:L.y, 'font-size':13, fill:L.col, 'font-weight':600});\n      t.textContent = L.t;\n      svg.appendChild(t);\n    });\n\n    // text on the right: hierarchy\n    const explain = [\n      'Ample ⊂ Nef',\n      'Ample ⊂ Big',\n      'Nef ∩ Big = Nef-and-big',\n      'Big ⊂ Pseudo-effective'\n    ];\n    explain.forEach((s, i) => {\n      const t = SVG('text', {x:30, y:30 + i*22, 'font-size':12, fill:'var(--mute)'});\n      t.textContent = s;\n      svg.appendChild(t);\n    });\n  }\n\n  const desc = {\n    amp: 'AMPLE: L^{dim Y} · Y > 0 for all subvarieties Y ⊆ X (Nakai–Moishezon). Equivalently: some L^⊗n is very ample. The interior of Nef.',\n    nef: 'NEF: L · C ≥ 0 for every curve C. Closure of Amp(X) (Kleiman). Dual to the Mori cone NE(X)-bar.',\n    big: 'BIG: h^0(X, L^⊗m) grows like m^{dim X}. Equivalently L = A + E with A ample Q-divisor and E effective (Kodaira lemma).',\n    psef: 'PSEUDO-EFFECTIVE: closure of the cone of effective divisor classes. The largest positivity class — every nonzero element has positive degree against some moving curve.'\n  };\n\n  function setActive(r){\n    buttons.forEach(b => b.classList.toggle('active', b.dataset.r === r));\n    render(r);\n    out.textContent = desc[r] || (\"(no description for cone class \\\"\" + r + \"\\\")\");\n  }\n\n  buttons.forEach(b => b.addEventListener('click', () => setActive(b.dataset.r)));\n  setActive('amp');"
           }
         },
         {
@@ -200,6 +248,10 @@
         {
           "type": "raw",
           "html": "\n</section>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "widget-script",

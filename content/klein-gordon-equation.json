@@ -225,14 +225,40 @@
         },
         {
           "type": "widget",
-          "slug": "kg-anti",
+          "slug": "button-stepper",
           "params": {
             "widgetId": "kg-anti",
             "title": "Particle ↔ antiparticle: 4-momentum flip",
+            "layout": [
+              {
+                "kind": "row",
+                "buttons": [
+                  {
+                    "id": "anti-toggle",
+                    "label": "Read as: <span id=\"anti-label\">positive-energy particle</span>"
+                  }
+                ]
+              },
+              {
+                "kind": "svg",
+                "id": "anti-svg",
+                "viewBox": "-180 -130 360 260",
+                "width": "100%",
+                "height": 280,
+                "titleText": "4-momentum flip under Feynman-Stückelberg reinterpretation"
+              },
+              {
+                "kind": "readout",
+                "id": "anti-out"
+              }
+            ],
             "hint": "click to swap interpretation; same mode, two readings",
-            "bodyMarkup": "<div class=\"widget\" id=\"kg-anti\">\n  <div class=\"hd\"><div class=\"ttl\">Particle ↔ antiparticle: 4-momentum flip</div><div class=\"hint\">click to swap interpretation; same mode, two readings</div></div>\n  <div class=\"row\">\n    <button id=\"anti-toggle\">Read as: <span id=\"anti-label\">positive-energy particle</span></button>\n  </div>\n  <svg id=\"anti-svg\" viewBox=\"-180 -130 360 260\" width=\"100%\" height=\"280\"><title>4-momentum flip under Feynman-Stückelberg reinterpretation</title></svg>\n  <div id=\"anti-out\" class=\"readout\"></div>\n</div>",
-            "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('anti-svg');\n  const out = document.getElementById('anti-out');\n  const btn = document.getElementById('anti-toggle');\n  const lbl = document.getElementById('anti-label');\n  let particle = true; // true = positive-energy particle reading; false = antiparticle reading\n  const W = 150, H = 110;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes: horizontal = p_x, vertical = E (energy axis, up = +)\n    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:0,y1:-H,x2:0,y2:H,stroke:'var(--line)','stroke-width':1}));\n    const lx = SVG('text',{x:W-4,y:-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lx.textContent='pₓ'; svg.appendChild(lx);\n    const ly = SVG('text',{x:6,y:-H+12,'font-size':11,fill:'var(--mute)'}); ly.textContent='E'; svg.appendChild(ly);\n    const lyn = SVG('text',{x:6,y:H-4,'font-size':11,fill:'var(--mute)'}); lyn.textContent='−E'; svg.appendChild(lyn);\n    // mass shells\n    const E_to_y = 30, p_to_x = 50;\n    const upPath = [], dnPath = [];\n    for(let i=0;i<=200;i++){\n      const pp = -3 + 6*i/200;\n      const Em = Math.sqrt(pp*pp + 1.0);\n      upPath.push(`${i===0?'M':'L'}${(pp*p_to_x).toFixed(1)} ${(-Em*E_to_y).toFixed(1)}`);\n      dnPath.push(`${i===0?'M':'L'}${(pp*p_to_x).toFixed(1)} ${( Em*E_to_y).toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:upPath.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.6,'stroke-opacity':.7}));\n    svg.appendChild(SVG('path',{d:dnPath.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':1.6,'stroke-opacity':.7,'stroke-dasharray':'5 3'}));\n    // 4-momentum arrow\n    const p_x = 1.0, E0 = Math.sqrt(p_x*p_x + 1.0);\n    const tip = particle ? [p_x*p_to_x, -E0*E_to_y] : [-p_x*p_to_x, E0*E_to_y];\n    const color = particle ? 'var(--cyan)' : 'var(--pink)';\n    ensureArrow(svg,'anti-arr',color);\n    svg.appendChild(SVG('line',{x1:0,y1:0,x2:tip[0],y2:tip[1],stroke:color,'stroke-width':2.6,'marker-end':'url(#anti-arr)'}));\n    // Annotations\n    const ann = SVG('text',{x:tip[0]+10,y:tip[1]-2,'font-size':12,fill:color,'font-weight':600});\n    ann.textContent = particle ? 'p^μ = (+E, +pₓ)' : 'p^μ = (−E, −pₓ) ≡ antiparticle (+E, +pₓ) in reverse';\n    svg.appendChild(ann);\n    // label both shells\n    const cyL = SVG('text',{x:W-6,y:-E0*E_to_y - 4,'text-anchor':'end','font-size':10,fill:'var(--cyan)'}); cyL.textContent='+E branch (particle)'; svg.appendChild(cyL);\n    const pkL = SVG('text',{x:W-6,y: E0*E_to_y + 14,'text-anchor':'end','font-size':10,fill:'var(--pink)'}); pkL.textContent='−E branch (negative-energy mode)'; svg.appendChild(pkL);\n    out.textContent = particle\n      ? 'Reading the mode as a positive-energy PARTICLE:  p^μ = (+E, +pₓ).  Energy bounded below by +m.  Charge = +q (say).'\n      : 'Reading the SAME mode as an ANTIPARTICLE travelling in the reversed direction:  p^μ = (−E, −pₓ).  Equivalent to a positive-energy antiparticle with (+E, +pₓ) and opposite charge −q.  Spectrum stays bounded below.';\n  }\n  btn.addEventListener('click', () => {\n    particle = !particle;\n    lbl.textContent = particle ? 'positive-energy particle' : 'positive-energy antiparticle (Stückelberg)';\n    draw();\n  });\n  draw();\n})();\n</script>"
+            "bodyScript": "  const svg = document.getElementById('anti-svg');\n  const out = document.getElementById('anti-out');\n  const btn = document.getElementById('anti-toggle');\n  const lbl = document.getElementById('anti-label');\n  let particle = true; // true = positive-energy particle reading; false = antiparticle reading\n  const W = 150, H = 110;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes: horizontal = p_x, vertical = E (energy axis, up = +)\n    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:0,y1:-H,x2:0,y2:H,stroke:'var(--line)','stroke-width':1}));\n    const lx = SVG('text',{x:W-4,y:-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lx.textContent='pₓ'; svg.appendChild(lx);\n    const ly = SVG('text',{x:6,y:-H+12,'font-size':11,fill:'var(--mute)'}); ly.textContent='E'; svg.appendChild(ly);\n    const lyn = SVG('text',{x:6,y:H-4,'font-size':11,fill:'var(--mute)'}); lyn.textContent='−E'; svg.appendChild(lyn);\n    // mass shells\n    const E_to_y = 30, p_to_x = 50;\n    const upPath = [], dnPath = [];\n    for(let i=0;i<=200;i++){\n      const pp = -3 + 6*i/200;\n      const Em = Math.sqrt(pp*pp + 1.0);\n      upPath.push(`${i===0?'M':'L'}${(pp*p_to_x).toFixed(1)} ${(-Em*E_to_y).toFixed(1)}`);\n      dnPath.push(`${i===0?'M':'L'}${(pp*p_to_x).toFixed(1)} ${( Em*E_to_y).toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:upPath.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.6,'stroke-opacity':.7}));\n    svg.appendChild(SVG('path',{d:dnPath.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':1.6,'stroke-opacity':.7,'stroke-dasharray':'5 3'}));\n    // 4-momentum arrow\n    const p_x = 1.0, E0 = Math.sqrt(p_x*p_x + 1.0);\n    const tip = particle ? [p_x*p_to_x, -E0*E_to_y] : [-p_x*p_to_x, E0*E_to_y];\n    const color = particle ? 'var(--cyan)' : 'var(--pink)';\n    ensureArrow(svg,'anti-arr',color);\n    svg.appendChild(SVG('line',{x1:0,y1:0,x2:tip[0],y2:tip[1],stroke:color,'stroke-width':2.6,'marker-end':'url(#anti-arr)'}));\n    // Annotations\n    const ann = SVG('text',{x:tip[0]+10,y:tip[1]-2,'font-size':12,fill:color,'font-weight':600});\n    ann.textContent = particle ? 'p^μ = (+E, +pₓ)' : 'p^μ = (−E, −pₓ) ≡ antiparticle (+E, +pₓ) in reverse';\n    svg.appendChild(ann);\n    // label both shells\n    const cyL = SVG('text',{x:W-6,y:-E0*E_to_y - 4,'text-anchor':'end','font-size':10,fill:'var(--cyan)'}); cyL.textContent='+E branch (particle)'; svg.appendChild(cyL);\n    const pkL = SVG('text',{x:W-6,y: E0*E_to_y + 14,'text-anchor':'end','font-size':10,fill:'var(--pink)'}); pkL.textContent='−E branch (negative-energy mode)'; svg.appendChild(pkL);\n    out.textContent = particle\n      ? 'Reading the mode as a positive-energy PARTICLE:  p^μ = (+E, +pₓ).  Energy bounded below by +m.  Charge = +q (say).'\n      : 'Reading the SAME mode as an ANTIPARTICLE travelling in the reversed direction:  p^μ = (−E, −pₓ).  Equivalent to a positive-energy antiparticle with (+E, +pₓ) and opposite charge −q.  Spectrum stays bounded below.';\n  }\n  btn.addEventListener('click', () => {\n    particle = !particle;\n    lbl.textContent = particle ? 'positive-energy particle' : 'positive-energy antiparticle (Stückelberg)';\n    draw();\n  });\n  draw();"
           }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "widget-script",
