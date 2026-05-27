@@ -149,10 +149,23 @@ function parseVerbatimMarkup(bodyMarkup) {
   const middle = rest;
 
   // middle = rowBlock + '\n' + svgBlock | svgBlock + '\n' + rowBlock | svgBlock.
-  const svgRe = /^  <svg id="([^"]+)" viewBox="([^"]+)" width="([^"]+)" height="([^"]+)"><title>([\s\S]*?)<\/title><\/svg>$/m;
+  // The svg opens with `id` + `viewBox`, then optional `width`/`height`, then any
+  // remaining attrs (style/role/aria-label/…) captured verbatim. id+viewBox are
+  // the structural anchors; everything after is parsed leniently so styled /
+  // viewBox-only / labelled SVGs round-trip (the byte-identity guard is the net).
+  const svgRe = /^  <svg id="([^"]+)" viewBox="([^"]+)"([^>]*)><title>([\s\S]*?)<\/title><\/svg>$/m;
   const svgM = middle.match(svgRe);
-  if (!svgM) throw new Error('svg is not the canonical `<svg id viewBox width height><title>…</title></svg>` (styled/responsive/extra-attr svg defers)');
+  if (!svgM) throw new Error('svg is not `<svg id="…" viewBox="…"…><title>…</title></svg>` on its own line (multi-line/non-canonical svg defers)');
   const svgBlock = svgM[0];
+  // Peel optional `width`/`height` off the front of the post-viewBox attrs; the
+  // rest is svgExtraAttrs (verbatim, includes its leading space).
+  let svgAttrTail = svgM[3];
+  let svgWidthAttr, svgHeightAttr;
+  const wM = svgAttrTail.match(/^ width="([^"]*)"/);
+  if (wM) { svgWidthAttr = wM[1]; svgAttrTail = svgAttrTail.slice(wM[0].length); }
+  const hM = svgAttrTail.match(/^ height="([^"]*)"/);
+  if (hM) { svgHeightAttr = hM[1]; svgAttrTail = svgAttrTail.slice(hM[0].length); }
+  const svgExtraAttrs = svgAttrTail !== '' ? svgAttrTail : undefined;
   const beforeSvg = middle.slice(0, svgM.index);
   const afterSvg = middle.slice(svgM.index + svgBlock.length);
 
@@ -177,10 +190,11 @@ function parseVerbatimMarkup(bodyMarkup) {
     title: hd.title,
     svgId: svgM[1],
     svgViewBox: svgM[2],
-    svgWidthAttr: svgM[3],
-    svgHeightAttr: svgM[4],
-    svgTitle: svgM[5],
+    svgTitle: svgM[4],
   };
+  if (svgWidthAttr !== undefined) params.svgWidthAttr = svgWidthAttr;
+  if (svgHeightAttr !== undefined) params.svgHeightAttr = svgHeightAttr;
+  if (svgExtraAttrs !== undefined) params.svgExtraAttrs = svgExtraAttrs;
   if (hd.titleTag === 'span') params.titleTag = 'span';
   // svg-diagram requires `hint`; a header with no hint div can't round-trip.
   if (hd.hint === undefined) throw new Error('svg-diagram requires a `.hd > .hint` (header has none)');

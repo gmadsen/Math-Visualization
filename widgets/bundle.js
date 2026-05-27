@@ -1808,48 +1808,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cluster-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cluster-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cluster-algebras topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cluster-algebras` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cluster-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cluster-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cluster-algebras topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cluster-algebras` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cnt-bu",
     "family": "verbatim",
     "dimension": "2d",
@@ -6555,27 +6513,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "gt-cs",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "gt-cs widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Chern-Simons knots: Jones polynomial of small knots\" widget on the gauge-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Chern-Simons knots: Jones polynomial of small knots\" widget on `gauge-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "half-integral-weight-forms-w1",
     "family": "verbatim",
     "dimension": "2d",
@@ -8452,27 +8389,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the k-theory topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "kf-ellipse",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "kf-ellipse widget params",
-    "description": "Verbatim slug for the \"2D belief stepped through predict + update\" covariance-ellipse widget on kalman-filtering-and-state-estimation.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Kf ellipse widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
