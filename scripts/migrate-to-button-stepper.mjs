@@ -454,7 +454,12 @@ for (const section of doc.sections) {
         while ((idx = s.indexOf(idTok, idx)) !== -1) { hits++; idx += idTok.length; }
       };
       scan(doc.rawHead); scan(doc.rawBodyPrefix); scan(doc.rawBodySuffix);
-      for (const sec of doc.sections) for (const b of sec.blocks) { scan(b.html); if (b.params) scan(b.params.bodyMarkup); }
+      for (const sec of doc.sections) for (const b of sec.blocks) {
+        scan(b.html);
+        // Cover bodyScript too: a verbatim driver may build `<div id="X">` via
+        // innerHTML, which would collide with a synthesized wrapper id at runtime.
+        if (b.params) { scan(b.params.bodyMarkup); scan(b.params.bodyScript); }
+      }
       if (hits > 0) {
         console.error(`  ${block.slug}: synthesized wrapper id "${params.widgetId}" already appears as id="…" (${hits}×) — collision, defer`);
         failed++;
