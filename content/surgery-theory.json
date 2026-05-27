@@ -12,13 +12,37 @@
         },
         {
           "type": "widget",
-          "slug": "surg-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-handle-attach",
             "title": "Handle attachment · index selector",
             "hint": "pick $(n,k)$, see the gluing",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-handle-attach\">\n  <div class=\"hd\"><div class=\"ttl\">Handle attachment · index selector</div><div class=\"hint\">pick $(n,k)$, see the gluing</div></div>\n  <div class=\"row\">\n    <label for=\"ha-n\">ambient $n$:</label>\n    <select id=\"ha-n\">\n      <option value=\"3\">$n=3$</option>\n      <option value=\"4\">$n=4$</option>\n      <option value=\"5\" selected>$n=5$</option>\n      <option value=\"6\">$n=6$</option>\n    </select>\n    <label for=\"ha-k\">handle index $k$:</label>\n    <select id=\"ha-k\">\n      <option value=\"0\">$k=0$</option>\n      <option value=\"1\">$k=1$</option>\n      <option value=\"2\" selected>$k=2$</option>\n      <option value=\"3\">$k=3$</option>\n    </select>\n  </div>\n  <svg id=\"ha-svg\" viewBox=\"0 0 720 220\" width=\"100%\" height=\"220\"><title>Handle schematic</title></svg>\n  <div class=\"readout\" id=\"ha-out\"></div>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "ha-n",
+                "label": "ambient $n$:",
+                "optionsHtml": "\n      <option value=\"3\">$n=3$</option>\n      <option value=\"4\">$n=4$</option>\n      <option value=\"5\" selected>$n=5$</option>\n      <option value=\"6\">$n=6$</option>\n    "
+              },
+              {
+                "type": "select",
+                "id": "ha-k",
+                "label": "handle index $k$:",
+                "optionsHtml": "\n      <option value=\"0\">$k=0$</option>\n      <option value=\"1\">$k=1$</option>\n      <option value=\"2\" selected>$k=2$</option>\n      <option value=\"3\">$k=3$</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "ha-svg",
+              "viewBox": "0 0 720 220",
+              "width": "100%",
+              "height": 220,
+              "title": "Handle schematic"
+            },
+            "readout": {
+              "id": "ha-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

@@ -12,13 +12,32 @@
         },
         {
           "type": "widget",
-          "slug": "khov-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-cube",
             "title": "Cube of resolutions",
             "hint": "pick a diagram · click cube vertices to see their smoothings",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-cube\">\n  <div class=\"hd\"><div class=\"ttl\">Cube of resolutions</div><div class=\"hint\">pick a diagram · click cube vertices to see their smoothings</div></div>\n  <div class=\"row\">\n    <label for=\"cube-pick\">diagram:</label>\n    <select id=\"cube-pick\">\n      <option value=\"hopf\">Hopf link (2 crossings)</option>\n      <option value=\"trefoil\" selected>right trefoil $3_1$ (3 crossings)</option>\n      <option value=\"unknot\">twisted unknot R1 (1 crossing)</option>\n    </select>\n  </div>\n  <svg id=\"cube-svg\" viewBox=\"0 0 720 360\" width=\"720\" height=\"360\"><title>Hypercube of resolutions</title></svg>\n  <div class=\"readout\" id=\"cube-out\"></div>\n  <p class=\"small\">Each vertex $\\alpha\\in\\{0,1\\}^n$ is a complete smoothing; the integer labelled below it is the number of circles. Edges flip exactly one bit and correspond to a saddle cobordism (merge if circles drop by 1, split if they go up by 1).</p>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "cube-pick",
+                "label": "diagram:",
+                "optionsHtml": "\n      <option value=\"hopf\">Hopf link (2 crossings)</option>\n      <option value=\"trefoil\" selected>right trefoil $3_1$ (3 crossings)</option>\n      <option value=\"unknot\">twisted unknot R1 (1 crossing)</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "cube-svg",
+              "viewBox": "0 0 720 360",
+              "width": 720,
+              "height": 360,
+              "title": "Hypercube of resolutions"
+            },
+            "readout": {
+              "id": "cube-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "Each vertex $\\alpha\\in\\{0,1\\}^n$ is a complete smoothing; the integer labelled below it is the number of circles. Edges flip exactly one bit and correspond to a saddle cobordism (merge if circles drop by 1, split if they go up by 1)."
           }
         },
         {
@@ -53,13 +72,32 @@
         },
         {
           "type": "widget",
-          "slug": "khov-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-complex",
             "title": "Bigrading viewer",
             "hint": "pick a vertex of the cube · see $(i,j)$ ranges and total dimensions",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-complex\">\n  <div class=\"hd\"><div class=\"ttl\">Bigrading viewer</div><div class=\"hint\">pick a vertex of the cube · see $(i,j)$ ranges and total dimensions</div></div>\n  <div class=\"row\">\n    <label for=\"cmx-pick\">link:</label>\n    <select id=\"cmx-pick\">\n      <option value=\"unknot\">unknot (no crossings)</option>\n      <option value=\"hopf-pos\">positive Hopf link (2 crossings, $n_+=2$)</option>\n      <option value=\"trefoil-pos\" selected>right trefoil (3 crossings, $n_+=3$)</option>\n      <option value=\"trefoil-neg\">left trefoil (3 crossings, $n_-=3$)</option>\n    </select>\n  </div>\n  <svg id=\"cmx-svg\" viewBox=\"0 0 720 360\" width=\"720\" height=\"360\"><title>Bigraded Khovanov complex</title></svg>\n  <div class=\"readout\" id=\"cmx-out\"></div>\n  <p class=\"small\">Columns are homological degree $i$, rows are $q$-grading $j$. Cells show $\\dim_\\mathbb{Q} Kh^{i,j}(L)$ — the rank of the (rational) Khovanov homology in each bidegree — for the standard small knots tabulated below; the header sums them as $\\sum_{i,j}\\dim Kh^{i,j}$.</p>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "cmx-pick",
+                "label": "link:",
+                "optionsHtml": "\n      <option value=\"unknot\">unknot (no crossings)</option>\n      <option value=\"hopf-pos\">positive Hopf link (2 crossings, $n_+=2$)</option>\n      <option value=\"trefoil-pos\" selected>right trefoil (3 crossings, $n_+=3$)</option>\n      <option value=\"trefoil-neg\">left trefoil (3 crossings, $n_-=3$)</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "cmx-svg",
+              "viewBox": "0 0 720 360",
+              "width": 720,
+              "height": 360,
+              "title": "Bigraded Khovanov complex"
+            },
+            "readout": {
+              "id": "cmx-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "Columns are homological degree $i$, rows are $q$-grading $j$. Cells show $\\dim_\\mathbb{Q} Kh^{i,j}(L)$ — the rank of the (rational) Khovanov homology in each bidegree — for the standard small knots tabulated below; the header sums them as $\\sum_{i,j}\\dim Kh^{i,j}$."
           }
         },
         {
@@ -94,13 +132,32 @@
         },
         {
           "type": "widget",
-          "slug": "khov-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-jones",
             "title": "Graded Euler characteristic",
             "hint": "flip between $Kh^{i,j}(L)$ and $V_L(q)$ side by side",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-jones\">\n  <div class=\"hd\"><div class=\"ttl\">Graded Euler characteristic</div><div class=\"hint\">flip between $Kh^{i,j}(L)$ and $V_L(q)$ side by side</div></div>\n  <div class=\"row\">\n    <label for=\"je-pick\">knot/link:</label>\n    <select id=\"je-pick\">\n      <option value=\"unknot\">unknot</option>\n      <option value=\"hopf-pos\">positive Hopf link</option>\n      <option value=\"trefoil-r\" selected>right trefoil</option>\n      <option value=\"trefoil-l\">left trefoil</option>\n      <option value=\"fig8\">figure-eight</option>\n    </select>\n  </div>\n  <svg id=\"je-svg\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Khovanov table and Jones polynomial</title></svg>\n  <div class=\"readout\" id=\"je-out\"></div>\n  <p class=\"small\">Right and left trefoil have isomorphic Jones polynomials only after $q\\mapsto q^{-1}$ — but distinct $Kh$ tables, distinguishing the two even before specialising. This is the cleanest categorified upgrade over the polynomial.</p>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "je-pick",
+                "label": "knot/link:",
+                "optionsHtml": "\n      <option value=\"unknot\">unknot</option>\n      <option value=\"hopf-pos\">positive Hopf link</option>\n      <option value=\"trefoil-r\" selected>right trefoil</option>\n      <option value=\"trefoil-l\">left trefoil</option>\n      <option value=\"fig8\">figure-eight</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "je-svg",
+              "viewBox": "0 0 720 320",
+              "width": 720,
+              "height": 320,
+              "title": "Khovanov table and Jones polynomial"
+            },
+            "readout": {
+              "id": "je-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "Right and left trefoil have isomorphic Jones polynomials only after $q\\mapsto q^{-1}$ — but distinct $Kh$ tables, distinguishing the two even before specialising. This is the cleanest categorified upgrade over the polynomial."
           }
         },
         {
@@ -135,13 +192,32 @@
         },
         {
           "type": "widget",
-          "slug": "khov-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-rasmussen",
             "title": "Rasmussen calculator",
             "hint": "torus knots, trefoils, figure-eights · see $s$, slice genus, signature",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-rasmussen\">\n  <div class=\"hd\"><div class=\"ttl\">Rasmussen calculator</div><div class=\"hint\">torus knots, trefoils, figure-eights · see $s$, slice genus, signature</div></div>\n  <div class=\"row\">\n    <label for=\"ras-pick\">knot:</label>\n    <select id=\"ras-pick\">\n      <option value=\"unknot\">unknot</option>\n      <option value=\"trefoil-r\" selected>right trefoil $T(2,3)$</option>\n      <option value=\"trefoil-l\">left trefoil $T(2,-3)$</option>\n      <option value=\"fig8\">figure-eight $4_1$</option>\n      <option value=\"t25\">$T(2,5)$ (Solomon's seal)</option>\n      <option value=\"t27\">$T(2,7)$</option>\n      <option value=\"t34\">$T(3,4)$</option>\n      <option value=\"t35\">$T(3,5)$</option>\n      <option value=\"t45\">$T(4,5)$</option>\n    </select>\n  </div>\n  <svg id=\"ras-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Rasmussen invariant table</title></svg>\n  <div class=\"readout\" id=\"ras-out\"></div>\n  <p class=\"small\">For positive torus knots $T(p,q)$ with $p,q&gt;0$, Rasmussen proves $s(T(p,q))=(p-1)(q-1)$ and $g_4(T(p,q))=(p-1)(q-1)/2$ — bound saturated, and the proof is purely combinatorial.</p>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "ras-pick",
+                "label": "knot:",
+                "optionsHtml": "\n      <option value=\"unknot\">unknot</option>\n      <option value=\"trefoil-r\" selected>right trefoil $T(2,3)$</option>\n      <option value=\"trefoil-l\">left trefoil $T(2,-3)$</option>\n      <option value=\"fig8\">figure-eight $4_1$</option>\n      <option value=\"t25\">$T(2,5)$ (Solomon's seal)</option>\n      <option value=\"t27\">$T(2,7)$</option>\n      <option value=\"t34\">$T(3,4)$</option>\n      <option value=\"t35\">$T(3,5)$</option>\n      <option value=\"t45\">$T(4,5)$</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "ras-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280,
+              "title": "Rasmussen invariant table"
+            },
+            "readout": {
+              "id": "ras-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "For positive torus knots $T(p,q)$ with $p,q&gt;0$, Rasmussen proves $s(T(p,q))=(p-1)(q-1)$ and $g_4(T(p,q))=(p-1)(q-1)/2$ — bound saturated, and the proof is purely combinatorial."
           }
         },
         {
@@ -172,13 +248,32 @@
         },
         {
           "type": "widget",
-          "slug": "khov-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-foams",
             "title": "Foam web library",
             "hint": "pick an $sl_n$ web · see its dot relations",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-foams\">\n  <div class=\"hd\"><div class=\"ttl\">Foam web library</div><div class=\"hint\">pick an $sl_n$ web · see its dot relations</div></div>\n  <div class=\"row\">\n    <label for=\"foam-pick\">web:</label>\n    <select id=\"foam-pick\">\n      <option value=\"circle\" selected>plain circle ($\\mathfrak{sl}_2$)</option>\n      <option value=\"theta\">theta foam ($\\mathfrak{sl}_3$)</option>\n      <option value=\"ydiagram\">$Y$-junction ($\\mathfrak{sl}_n$)</option>\n      <option value=\"bubble\">bubble move ($\\mathfrak{sl}_n$)</option>\n    </select>\n  </div>\n  <svg id=\"foam-svg\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Foam web examples</title></svg>\n  <div class=\"readout\" id=\"foam-out\"></div>\n  <p class=\"small\">$\\mathfrak{sl}_n$ webs use coloured strands carrying labels in $\\{1,\\dots,n-1\\}$ (fundamental representations of $sl_n$). At $n=2$ all strands are colour $1$ and the web reduces to ordinary planar tangles; at $n=3$ trivalent vertices appear (theta foams).</p>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "foam-pick",
+                "label": "web:",
+                "optionsHtml": "\n      <option value=\"circle\" selected>plain circle ($\\mathfrak{sl}_2$)</option>\n      <option value=\"theta\">theta foam ($\\mathfrak{sl}_3$)</option>\n      <option value=\"ydiagram\">$Y$-junction ($\\mathfrak{sl}_n$)</option>\n      <option value=\"bubble\">bubble move ($\\mathfrak{sl}_n$)</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "foam-svg",
+              "viewBox": "0 0 720 320",
+              "width": 720,
+              "height": 320,
+              "title": "Foam web examples"
+            },
+            "readout": {
+              "id": "foam-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "$\\mathfrak{sl}_n$ webs use coloured strands carrying labels in $\\{1,\\dots,n-1\\}$ (fundamental representations of $sl_n$). At $n=2$ all strands are colour $1$ and the web reduces to ordinary planar tangles; at $n=3$ trivalent vertices appear (theta foams)."
           }
         },
         {
