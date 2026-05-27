@@ -480,17 +480,15 @@ The number of points satisfies $|A(\mathbb{F}_{q^n})|=\prod_i(1-\alpha_i^n)$, so
     <select id="wl-g"><option value="1">1 (elliptic)</option><option value="2" selected>2 (surface)</option></select>
     <label for="wl-th1">$\arg\alpha_1\in[0,\pi]$</label>
     <input type="range" id="wl-th1" min="0" max="3.14" step="0.05" value="1.0">
-    <span class="readout" id="wl-th1-val" style="min-width:3em;display:inline-block">1.00</span>
+    <span id="wl-th1-val" class="readout">1.00</span>
     <label for="wl-th2">$\arg\alpha_2\in[0,\pi]$ ($g\ge 2$)</label>
     <input type="range" id="wl-th2" min="0" max="3.14" step="0.05" value="2.0">
-    <span class="readout" id="wl-th2-val" style="min-width:3em;display:inline-block">2.00</span>
-  </div>
-  <div class="row">
+    <span id="wl-th2-val" class="readout">2.00</span>
     <label for="wl-n">extension $\mathbb{F}_{q^n}$</label>
     <input type="range" id="wl-n" min="1" max="10" step="1" value="1">
-    <span class="readout" id="wl-n-val" style="min-width:2em;display:inline-block">1</span>
+    <span id="wl-n-val" class="readout">1</span>
   </div>
-  <div class="readout" id="wl-out">…</div>
+  <div class="readout" id="wl-out"></div>
 </div>
 <script>
 (function(){
@@ -784,7 +782,7 @@ with $r=\mathrm{rank}\,A(K)$ finite and $A(K)_{\mathrm{tors}}$ finite.</div>
       <option value="g2plus" selected>dim or genus $\ge 2$</option>
     </select>
   </div>
-  <div class="readout" id="fin-out">Choose object + condition to see the finiteness theorem that applies.</div>
+  <div class="readout" id="fin-out"></div>
 </div>
 <script>
 (function(){

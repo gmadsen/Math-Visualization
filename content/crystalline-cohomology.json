@@ -12,13 +12,30 @@
         },
         {
           "type": "widget",
-          "slug": "crystalline-cohomology-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-zoo",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-zoo\">\n  <div class=\"hd\"><div class=\"ttl\">The Weil-cohomology zoo</div><div class=\"hint\">pick a coefficient prime; compare the answer</div></div>\n  <div class=\"row\">\n    <label for=\"zoo-p\">residue char $p$</label>\n    <select id=\"zoo-p\">\n      <option value=\"0\">$0$ (over $\\mathbb{C}$)</option>\n      <option value=\"2\">$2$</option>\n      <option value=\"3\">$3$</option>\n      <option value=\"5\" selected>$5$</option>\n      <option value=\"7\">$7$</option>\n    </select>\n    <label for=\"zoo-l\">cohomology / coefficient</label>\n    <select id=\"zoo-l\">\n      <option value=\"betti\">singular / Betti $\\mathbb{Q}$</option>\n      <option value=\"dr\">de Rham $/k$</option>\n      <option value=\"ladic\" selected>$\\ell$-adic étale, $\\ell\\ne p$</option>\n      <option value=\"padic\">$p$-adic étale</option>\n      <option value=\"cris\">crystalline $/W$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"zoo-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "The Weil-cohomology zoo",
-            "hint": "pick a coefficient prime; compare the answer"
+            "hint": "pick a coefficient prime; compare the answer",
+            "controls": [
+              {
+                "type": "select",
+                "id": "zoo-p",
+                "label": "residue char $p$",
+                "optionsHtml": "\n      <option value=\"0\">$0$ (over $\\mathbb{C}$)</option>\n      <option value=\"2\">$2$</option>\n      <option value=\"3\">$3$</option>\n      <option value=\"5\" selected>$5$</option>\n      <option value=\"7\">$7$</option>\n    "
+              },
+              {
+                "type": "select",
+                "id": "zoo-l",
+                "label": "cohomology / coefficient",
+                "optionsHtml": "\n      <option value=\"betti\">singular / Betti $\\mathbb{Q}$</option>\n      <option value=\"dr\">de Rham $/k$</option>\n      <option value=\"ladic\" selected>$\\ell$-adic étale, $\\ell\\ne p$</option>\n      <option value=\"padic\">$p$-adic étale</option>\n      <option value=\"cris\">crystalline $/W$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "zoo-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -157,13 +174,24 @@
         },
         {
           "type": "widget",
-          "slug": "crystalline-cohomology-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-comp",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-comp\">\n  <div class=\"hd\"><div class=\"ttl\">Compare with the Witt-vector enhancement</div><div class=\"hint\">pick a smooth proper $X_0$ over $\\mathbb{F}_q$</div></div>\n  <div class=\"row\">\n    <label for=\"cmp-x\">variety</label>\n    <select id=\"cmp-x\">\n      <option value=\"point\">$\\Spec\\,\\mathbb{F}_q$</option>\n      <option value=\"proj1\" selected>$\\mathbb{P}^1_{\\mathbb{F}_q}$</option>\n      <option value=\"ec-ord\">ordinary elliptic curve $E_0$</option>\n      <option value=\"ec-ss\">supersingular elliptic curve $E_0$</option>\n      <option value=\"proj2\">$\\mathbb{P}^2_{\\mathbb{F}_q}$</option>\n    </select>\n  </div>\n  <table class=\"plain\" id=\"cmp-tbl\">\n    <thead><tr><th>$i$</th><th>$\\dim_K H^i_{\\mathrm{cris}}\\otimes K$</th><th>matches $b_i$?</th><th>lift to $W$?</th></tr></thead>\n    <tbody></tbody>\n  </table>\n  <div class=\"readout\" id=\"cmp-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "Compare with the Witt-vector enhancement",
-            "hint": "pick a smooth proper $X_0$ over $\\mathbb{F}_q$"
+            "hint": "pick a smooth proper $X_0$ over $\\mathbb{F}_q$",
+            "controls": [
+              {
+                "type": "select",
+                "id": "cmp-x",
+                "label": "variety",
+                "optionsHtml": "\n      <option value=\"point\">$\\Spec\\,\\mathbb{F}_q$</option>\n      <option value=\"proj1\" selected>$\\mathbb{P}^1_{\\mathbb{F}_q}$</option>\n      <option value=\"ec-ord\">ordinary elliptic curve $E_0$</option>\n      <option value=\"ec-ss\">supersingular elliptic curve $E_0$</option>\n      <option value=\"proj2\">$\\mathbb{P}^2_{\\mathbb{F}_q}$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "cmp-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -203,13 +231,24 @@
         },
         {
           "type": "widget",
-          "slug": "crystalline-cohomology-w5",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-frob",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-frob\">\n  <div class=\"hd\"><div class=\"ttl\">Frobenius eigenvalues across $\\ell$</div><div class=\"hint\">crystalline at $\\ell=p$ matches every other $\\ell$</div></div>\n  <div class=\"row\">\n    <label for=\"frob-x\">variety</label>\n    <select id=\"frob-x\">\n      <option value=\"ec3\" selected>$E_0/\\mathbb{F}_3$, $a_3=2$</option>\n      <option value=\"ec5\">$E_0/\\mathbb{F}_5$, $a_5=-3$</option>\n      <option value=\"proj1\">$\\mathbb{P}^1/\\mathbb{F}_p$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"frob-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "Frobenius eigenvalues across $\\ell$",
-            "hint": "crystalline at $\\ell=p$ matches every other $\\ell$"
+            "hint": "crystalline at $\\ell=p$ matches every other $\\ell$",
+            "controls": [
+              {
+                "type": "select",
+                "id": "frob-x",
+                "label": "variety",
+                "optionsHtml": "\n      <option value=\"ec3\" selected>$E_0/\\mathbb{F}_3$, $a_3=2$</option>\n      <option value=\"ec5\">$E_0/\\mathbb{F}_5$, $a_5=-3$</option>\n      <option value=\"proj1\">$\\mathbb{P}^1/\\mathbb{F}_p$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "frob-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -312,13 +351,24 @@
         },
         {
           "type": "widget",
-          "slug": "crystalline-cohomology-w7",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-fontaine",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-fontaine\">\n  <div class=\"hd\"><div class=\"ttl\">Fontaine's functors $D_*(V)$</div><div class=\"hint\">period ring → cohomology recovered</div></div>\n  <div class=\"row\">\n    <label for=\"ft-ring\">period ring</label>\n    <select id=\"ft-ring\">\n      <option value=\"HT\">$B_{\\mathrm{HT}}$</option>\n      <option value=\"cris\" selected>$B_{\\mathrm{cris}}$</option>\n      <option value=\"dR\">$B_{\\mathrm{dR}}$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"ft-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "Fontaine's functors $D_*(V)$",
-            "hint": "period ring → cohomology recovered"
+            "hint": "period ring → cohomology recovered",
+            "controls": [
+              {
+                "type": "select",
+                "id": "ft-ring",
+                "label": "period ring",
+                "optionsHtml": "\n      <option value=\"HT\">$B_{\\mathrm{HT}}$</option>\n      <option value=\"cris\" selected>$B_{\\mathrm{cris}}$</option>\n      <option value=\"dR\">$B_{\\mathrm{dR}}$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "ft-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

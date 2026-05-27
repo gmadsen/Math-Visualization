@@ -408,47 +408,45 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'");
+  // `<svg>` is OPTIONAL: most widgets have a diagram, but some (select + readout
+  // dropdowns) have none. When absent, `svg` stays undefined and the renderer
+  // omits the svg block. A no-svg widget that nonetheless carries trailing prose
+  // the svg-anchored finder can't see trips the byte-identity guard → defers.
+  let svg;
   const svgOpenMatch = bodyMarkup.match(/<svg\b([^>]*)>/);
-  if (!svgOpenMatch) throw new Error('could not parse <svg> open tag');
-  const svgAttrStr = svgOpenMatch[1];
-  const svgAttr = (name) => {
-    const m = svgAttrStr.match(new RegExp(`\\b${name}="([^"]*)"`));
-    return m ? m[1] : undefined;
-  };
-  const svgId = svgAttr('id');
-  const svgViewBox = svgAttr('viewBox');
-  if (!svgId) throw new Error('<svg> open tag missing id');
-  if (!svgViewBox) throw new Error('<svg> open tag missing viewBox');
-  // width/height: numeric px OR a responsive percent string ("100%"). Keep the
-  // original string when it isn't a clean round-trippable number, so byte-identity
-  // holds for both `width="360"` and `width="100%"` (schema allows number|percent).
-  const dim = (s) => { if (s == null) return undefined; const n = Number(s); return (Number.isFinite(n) && String(n) === s) ? n : s; };
-  const svgWidth = dim(svgAttr('width'));
-  const svgHeight = dim(svgAttr('height'));
-  const svgRole = svgAttr('role');
-  const svgAriaLabel = svgAttr('aria-label');
-  // Inline `style` on the <svg> (verbatim machine CSS). Some widgets set a dark
-  // plotting canvas / border / `cursor:crosshair` directly on the element; without
-  // capturing it the affordance is silently lost (e.g. ec-gl's click-to-place
-  // crosshair). The renderer emits it verbatim (no HTML-escape).
-  const svgStyle = svgAttr('style');
-  const svg = {
-    id: svgId,
-    viewBox: svgViewBox,
-    ...(svgWidth != null ? { width: svgWidth } : {}),
-    ...(svgHeight != null ? { height: svgHeight } : {}),
-    ...(svgRole === 'img' ? { role: svgRole } : {}),
-    ...(svgAriaLabel != null ? { ariaLabel: unescapeHtml(svgAriaLabel) } : {}),
-    ...(svgStyle != null ? { style: svgStyle } : {}),
-  };
-  // Extract the SVG <title>...</title> text; preserve as override when
-  // it differs from the page header title (corpus convention — see
-  // renderer comment on svg.title for examples).
-  const svgTitleMatch = bodyMarkup.slice(svgOpenMatch.index).match(/<title>([\s\S]*?)<\/title>/);
-  if (svgTitleMatch) {
-    // Reverse the renderer's HTML escape for round-trip fidelity.
-    const unescaped = unescapeHtml(svgTitleMatch[1]);
-    if (unescaped !== title) svg.title = unescaped;
+  if (svgOpenMatch) {
+    const svgAttrStr = svgOpenMatch[1];
+    const svgAttr = (name) => {
+      const m = svgAttrStr.match(new RegExp(`\\b${name}="([^"]*)"`));
+      return m ? m[1] : undefined;
+    };
+    const svgId = svgAttr('id');
+    const svgViewBox = svgAttr('viewBox');
+    if (!svgId) throw new Error('<svg> open tag missing id');
+    if (!svgViewBox) throw new Error('<svg> open tag missing viewBox');
+    // width/height: numeric px OR a responsive percent string ("100%"). Keep the
+    // original string when it isn't a clean round-trippable number, so byte-identity
+    // holds for both `width="360"` and `width="100%"` (schema allows number|percent).
+    const dim = (s) => { if (s == null) return undefined; const n = Number(s); return (Number.isFinite(n) && String(n) === s) ? n : s; };
+    const svgWidth = dim(svgAttr('width'));
+    const svgHeight = dim(svgAttr('height'));
+    const svgRole = svgAttr('role');
+    const svgAriaLabel = svgAttr('aria-label');
+    const svgStyle = svgAttr('style');
+    svg = {
+      id: svgId,
+      viewBox: svgViewBox,
+      ...(svgWidth != null ? { width: svgWidth } : {}),
+      ...(svgHeight != null ? { height: svgHeight } : {}),
+      ...(svgRole === 'img' ? { role: svgRole } : {}),
+      ...(svgAriaLabel != null ? { ariaLabel: unescapeHtml(svgAriaLabel) } : {}),
+      ...(svgStyle != null ? { style: svgStyle } : {}),
+    };
+    const svgTitleMatch = bodyMarkup.slice(svgOpenMatch.index).match(/<title>([\s\S]*?)<\/title>/);
+    if (svgTitleMatch) {
+      const unescaped = unescapeHtml(svgTitleMatch[1]);
+      if (unescaped !== title) svg.title = unescaped;
+    }
   }
 
   // Readout: either `<div class="readout" id="...-readout"></div>` or absent.
@@ -478,7 +476,9 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
   }
   let readout = false;
   if (readoutId) {
-    const expectedId = svg.id.endsWith('-svg') ? svg.id.slice(0, -4) + '-readout' : null;
+    // svg-less widgets can't derive the readout id from svg.id, so they always
+    // take the explicit `{ id }` object form (expectedId stays null).
+    const expectedId = (svg && svg.id.endsWith('-svg')) ? svg.id.slice(0, -4) + '-readout' : null;
     if (readoutClass === 'readout' && expectedId === readoutId) {
       readout = true;
     } else if (readoutClass === 'readout') {
@@ -500,18 +500,29 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
   // capture contains the embedded `</p><p class="small">` boundary.
   // The JSON then stores semantically corrupted prose. Throw if >1.
   const trailingRegion = (() => {
-    // Find the region between the readout div close and the wrapper close.
-    // We look for the last `</div>` (wrapper close) and scan backwards
-    // from the SVG close for `<p class="small">` openings.
-    const svgEndIdx = bodyMarkup.indexOf('</svg>');
-    if (svgEndIdx < 0) return null;
+    // The trailing region is everything between the last structural block and
+    // the wrapper close, scanned for a `<p class="small">` / `<div class="note">`
+    // caption. Anchor at `</svg>` when there's a diagram; for svg-less widgets
+    // (select + readout) anchor at the readout div's close instead — otherwise
+    // the caption is never seen and silently dropped.
+    let anchorIdx = bodyMarkup.indexOf('</svg>');
+    if (anchorIdx < 0 && readoutId) {
+      const ri = bodyMarkup.indexOf(`id="${readoutId}"`);
+      if (ri >= 0) anchorIdx = bodyMarkup.indexOf('</div>', ri);
+    }
+    if (anchorIdx < 0) return null;
     const wrapperCloseIdx = bodyMarkup.lastIndexOf('</div>');
-    if (wrapperCloseIdx < svgEndIdx) return null;
-    return bodyMarkup.slice(svgEndIdx, wrapperCloseIdx);
+    if (wrapperCloseIdx <= anchorIdx) return null;
+    return bodyMarkup.slice(anchorIdx, wrapperCloseIdx);
   })();
   let trailingProse = null;
   if (trailingRegion) {
-    const openings = (trailingRegion.match(/<p class="small">/g) || []).length;
+    // Tolerate extra attrs on the trailing `<p class="small" …>` (e.g. an inline
+    // `style="margin-top:.6rem"`). The renderer emits the bare `<p class="small">`,
+    // so in byte-identity mode a styled `<p>` still won't round-trip and defers;
+    // in --normalize the style is a discardable cosmetic delta and the note text
+    // is preserved.
+    const openings = (trailingRegion.match(/<p class="small"[^>]*>/g) || []).length;
     if (openings > 1) {
       throw new Error(
         `multiple <p class="small"> blocks (${openings}) between readout and ` +
@@ -521,7 +532,7 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
       );
     }
     if (openings === 1) {
-      const m = trailingRegion.match(/<p class="small">([\s\S]*?)<\/p>/);
+      const m = trailingRegion.match(/<p class="small"[^>]*>([\s\S]*?)<\/p>/);
       if (m) trailingProse = m[1];
     }
     if (normalize && trailingProse === null) {

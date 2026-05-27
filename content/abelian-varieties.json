@@ -102,13 +102,78 @@
         },
         {
           "type": "widget",
-          "slug": "abelian-varieties-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-weil",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-weil\">\n  <div class=\"hd\"><div class=\"ttl\">Weil polynomial → point count</div><div class=\"hint\">$|A(\\mathbb{F}_{q^n})|=\\prod_i(1-\\alpha_i^n)$</div></div>\n  <div class=\"row\">\n    <label for=\"wl-q\">$q$ (prime power)</label>\n    <select id=\"wl-q\"><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"5\" selected>5</option><option value=\"7\">7</option><option value=\"11\">11</option></select>\n    <label for=\"wl-g\">dim $g$</label>\n    <select id=\"wl-g\"><option value=\"1\">1 (elliptic)</option><option value=\"2\" selected>2 (surface)</option></select>\n    <label for=\"wl-th1\">$\\arg\\alpha_1\\in[0,\\pi]$</label>\n    <input type=\"range\" id=\"wl-th1\" min=\"0\" max=\"3.14\" step=\"0.05\" value=\"1.0\">\n    <span class=\"readout\" id=\"wl-th1-val\" style=\"min-width:3em;display:inline-block\">1.00</span>\n    <label for=\"wl-th2\">$\\arg\\alpha_2\\in[0,\\pi]$ ($g\\ge 2$)</label>\n    <input type=\"range\" id=\"wl-th2\" min=\"0\" max=\"3.14\" step=\"0.05\" value=\"2.0\">\n    <span class=\"readout\" id=\"wl-th2-val\" style=\"min-width:3em;display:inline-block\">2.00</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"wl-n\">extension $\\mathbb{F}_{q^n}$</label>\n    <input type=\"range\" id=\"wl-n\" min=\"1\" max=\"10\" step=\"1\" value=\"1\">\n    <span class=\"readout\" id=\"wl-n-val\" style=\"min-width:2em;display:inline-block\">1</span>\n  </div>\n  <div class=\"readout\" id=\"wl-out\">…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const q = document.getElementById('wl-q');\n  const g = document.getElementById('wl-g');\n  const th1 = document.getElementById('wl-th1');\n  const th2 = document.getElementById('wl-th2');\n  const n = document.getElementById('wl-n');\n  const th1v = document.getElementById('wl-th1-val');\n  const th2v = document.getElementById('wl-th2-val');\n  const nv = document.getElementById('wl-n-val');\n  const out = document.getElementById('wl-out');\n  if(!out || !q) return;\n  function update(){\n    const Q = parseInt(q.value,10), G = parseInt(g.value,10);\n    const T1 = parseFloat(th1.value), T2 = parseFloat(th2.value);\n    const N = parseInt(n.value,10);\n    th1v.textContent = T1.toFixed(2);\n    th2v.textContent = T2.toFixed(2);\n    nv.textContent = N;\n    const sqrtq = Math.sqrt(Q);\n    // Frobenius eigenvalues lie on |z| = sqrt(q) in conjugate pairs.\n    // g=1: alpha, conj(alpha) at angle T1.\n    // g=2: alpha_1, conj(alpha_1), alpha_2, conj(alpha_2) at angles T1, T2.\n    const angles = G === 1 ? [T1, -T1] : [T1, -T1, T2, -T2];\n    // |A(F_{q^n})| = prod_i (1 - alpha_i^n).\n    // alpha_i = sqrt(q) * exp(i * angle); alpha_i^n = q^{n/2} * exp(i * n * angle).\n    let real = 1, imag = 0;\n    for(const a of angles){\n      const re = 1 - Math.pow(sqrtq, N) * Math.cos(N*a);\n      const im = -Math.pow(sqrtq, N) * Math.sin(N*a);\n      const nr = real*re - imag*im;\n      const ni = real*im + imag*re;\n      real = nr; imag = ni;\n    }\n    const pts = Math.round(real);\n    const bound = G === 1\n      ? 'Hasse: $|N - (q^n+1)| \\\\le 2\\\\sqrt{q^n}$'\n      : 'Weil: $(\\\\sqrt{q^n}-1)^{2g} \\\\le N \\\\le (\\\\sqrt{q^n}+1)^{2g}$ (from $|1-\\\\alpha_i^n|\\\\le 1+\\\\sqrt{q^n}$)';\n    out.innerHTML =\n      'For $A/\\\\mathbb{F}_'+Q+'$ of dim $g='+G+'$ with chosen Frobenius angles, '+\n      '$|A(\\\\mathbb{F}_{'+Q+'^{'+N+'}})| = '+pts+'$. '+\n      'Imag residue $\\\\approx '+imag.toFixed(3)+'$ (numerically $0$ — eigenvalues come in conjugate pairs). '+\n      bound+'.';\n    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});\n  }\n  for(const el of [q, g, th1, th2, n]) el.addEventListener('input', update);\n  update();\n})();\n</script>",
             "title": "Weil polynomial → point count",
-            "hint": "$|A(\\mathbb{F}_{q^n})|=\\prod_i(1-\\alpha_i^n)$"
+            "hint": "$|A(\\mathbb{F}_{q^n})|=\\prod_i(1-\\alpha_i^n)$",
+            "controls": [
+              {
+                "type": "select",
+                "id": "wl-q",
+                "label": "$q$ (prime power)",
+                "optionsHtml": "<option value=\"2\">2</option><option value=\"3\">3</option><option value=\"5\" selected>5</option><option value=\"7\">7</option><option value=\"11\">11</option>"
+              },
+              {
+                "type": "select",
+                "id": "wl-g",
+                "label": "dim $g$",
+                "optionsHtml": "<option value=\"1\">1 (elliptic)</option><option value=\"2\" selected>2 (surface)</option>"
+              },
+              {
+                "type": "slider",
+                "id": "wl-th1",
+                "label": "$\\arg\\alpha_1\\in[0,\\pi]$",
+                "min": 0,
+                "max": 3.14,
+                "value": "1.0",
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "wl-th1-val",
+                "class": "readout",
+                "text": "1.00"
+              },
+              {
+                "type": "slider",
+                "id": "wl-th2",
+                "label": "$\\arg\\alpha_2\\in[0,\\pi]$ ($g\\ge 2$)",
+                "min": 0,
+                "max": 3.14,
+                "value": "2.0",
+                "format": "separate",
+                "step": 0.05
+              },
+              {
+                "type": "span",
+                "id": "wl-th2-val",
+                "class": "readout",
+                "text": "2.00"
+              },
+              {
+                "type": "slider",
+                "id": "wl-n",
+                "label": "extension $\\mathbb{F}_{q^n}$",
+                "min": 1,
+                "max": 10,
+                "value": 1,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "wl-n-val",
+                "class": "readout",
+                "text": "1"
+              }
+            ],
+            "readout": {
+              "id": "wl-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const q = document.getElementById('wl-q');\n  const g = document.getElementById('wl-g');\n  const th1 = document.getElementById('wl-th1');\n  const th2 = document.getElementById('wl-th2');\n  const n = document.getElementById('wl-n');\n  const th1v = document.getElementById('wl-th1-val');\n  const th2v = document.getElementById('wl-th2-val');\n  const nv = document.getElementById('wl-n-val');\n  const out = document.getElementById('wl-out');\n  if(!out || !q) return;\n  function update(){\n    const Q = parseInt(q.value,10), G = parseInt(g.value,10);\n    const T1 = parseFloat(th1.value), T2 = parseFloat(th2.value);\n    const N = parseInt(n.value,10);\n    th1v.textContent = T1.toFixed(2);\n    th2v.textContent = T2.toFixed(2);\n    nv.textContent = N;\n    const sqrtq = Math.sqrt(Q);\n    // Frobenius eigenvalues lie on |z| = sqrt(q) in conjugate pairs.\n    // g=1: alpha, conj(alpha) at angle T1.\n    // g=2: alpha_1, conj(alpha_1), alpha_2, conj(alpha_2) at angles T1, T2.\n    const angles = G === 1 ? [T1, -T1] : [T1, -T1, T2, -T2];\n    // |A(F_{q^n})| = prod_i (1 - alpha_i^n).\n    // alpha_i = sqrt(q) * exp(i * angle); alpha_i^n = q^{n/2} * exp(i * n * angle).\n    let real = 1, imag = 0;\n    for(const a of angles){\n      const re = 1 - Math.pow(sqrtq, N) * Math.cos(N*a);\n      const im = -Math.pow(sqrtq, N) * Math.sin(N*a);\n      const nr = real*re - imag*im;\n      const ni = real*im + imag*re;\n      real = nr; imag = ni;\n    }\n    const pts = Math.round(real);\n    const bound = G === 1\n      ? 'Hasse: $|N - (q^n+1)| \\\\le 2\\\\sqrt{q^n}$'\n      : 'Weil: $(\\\\sqrt{q^n}-1)^{2g} \\\\le N \\\\le (\\\\sqrt{q^n}+1)^{2g}$ (from $|1-\\\\alpha_i^n|\\\\le 1+\\\\sqrt{q^n}$)';\n    out.innerHTML =\n      'For $A/\\\\mathbb{F}_'+Q+'$ of dim $g='+G+'$ with chosen Frobenius angles, '+\n      '$|A(\\\\mathbb{F}_{'+Q+'^{'+N+'}})| = '+pts+'$. '+\n      'Imag residue $\\\\approx '+imag.toFixed(3)+'$ (numerically $0$ — eigenvalues come in conjugate pairs). '+\n      bound+'.';\n    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});\n  }\n  for(const el of [q, g, th1, th2, n]) el.addEventListener('input', update);\n  update();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
@@ -233,13 +298,30 @@
         },
         {
           "type": "widget",
-          "slug": "abelian-varieties-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-fin",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-fin\">\n  <div class=\"hd\"><div class=\"ttl\">What's finite, where?</div><div class=\"hint\">Mordell–Weil, Mordell, Lang, …</div></div>\n  <div class=\"row\">\n    <label for=\"fin-obj\">object</label>\n    <select id=\"fin-obj\">\n      <option value=\"ec-points\">$E(K)$, $E$ elliptic / $K$ number field</option>\n      <option value=\"av-points\" selected>$A(K)$, $A$ abelian / $K$ number field</option>\n      <option value=\"curve-points\">$C(K)$, $C$ smooth projective genus $g$</option>\n      <option value=\"av-rep\">isomorphism classes of $g$-dim p.p.a.v.'s / $K$ with good reduction outside $S$</option>\n    </select>\n    <label for=\"fin-cond\">condition</label>\n    <select id=\"fin-cond\">\n      <option value=\"g0\">genus $0$</option>\n      <option value=\"g1\">genus $1$ / dim $1$</option>\n      <option value=\"g2plus\" selected>dim or genus $\\ge 2$</option>\n    </select>\n  </div>\n  <div class=\"readout\" id=\"fin-out\">Choose object + condition to see the finiteness theorem that applies.</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const obj = document.getElementById('fin-obj');\n  const cond = document.getElementById('fin-cond');\n  const out = document.getElementById('fin-out');\n  if(!out || !obj || !cond) return;\n  const table = {\n    'ec-points': {\n      'g0': '$E$ doesn\\'t exist for genus $0$ (an elliptic curve has genus $1$). For $\\\\mathbb{P}^1(K)$, the points are infinite — there\\'s no finiteness here.',\n      'g1': '<strong>Mordell–Weil (1922).</strong> $E(K) \\\\cong \\\\mathbb{Z}^r \\\\oplus E(K)_{\\\\mathrm{tors}}$, finitely generated. By Mazur (1977), $E(\\\\mathbb{Q})_{\\\\mathrm{tors}}$ is one of $15$ explicit groups; Merel (1996) bounds $|E(K)_{\\\\mathrm{tors}}|$ uniformly in $[K:\\\\mathbb{Q}]$.',\n      'g2plus': 'Genus $\\\\ge 2$ doesn\\'t apply to elliptic curves (they have genus $1$).'\n    },\n    'av-points': {\n      'g0': '$A$ doesn\\'t exist in dim $0$ (it would be a point).',\n      'g1': '<strong>Mordell–Weil for $g=1$:</strong> classical, $E(K)$ finitely generated. See the elliptic case.',\n      'g2plus': '<strong>Mordell–Weil (Weil 1929).</strong> $A(K)$ is finitely generated for any $g$. The proof is the same descent + heights argument.'\n    },\n    'curve-points': {\n      'g0': 'A genus-$0$ curve $C/K$ with $C(K)\\\\ne\\\\emptyset$ is $\\\\mathbb{P}^1$ — points form an infinite set $\\\\mathbb{P}^1(K)$.',\n      'g1': '<strong>Mordell–Weil:</strong> $C(K) = E(K)$ if $C$ has a rational point (it\\'s an elliptic curve); finitely generated. Otherwise $C(K)$ is a torsor under $E(K)$ — same finiteness theory.',\n      'g2plus': '<strong>Faltings\\' theorem (Mordell\\'s conjecture, 1983).</strong> $C(K)$ is <em>finite</em>. The bound is ineffective — no algorithm to enumerate $C(K)$ in general. Vojta\\'s height inequality gives a different (still ineffective) proof.'\n    },\n    'av-rep': {\n      'g0': 'Doesn\\'t apply (no $0$-dim AVs).',\n      'g1': '<strong>Shafarevich\\'s theorem (Faltings 1983).</strong> Finite for elliptic curves with good reduction outside $S$. Originally Shafarevich\\'s conjecture; proved as a special case of the higher-dim theorem.',\n      'g2plus': '<strong>Faltings (1983).</strong> Finite. This is the main theorem of <em>Endlichkeitssätze für abelsche Varietäten</em> — and it implies Mordell.'\n    }\n  };\n  function update(){\n    const o = obj.value, c = cond.value;\n    out.innerHTML = (table[o] && table[o][c]) || 'No data for this combination.';\n    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});\n  }\n  obj.addEventListener('change', update);\n  cond.addEventListener('change', update);\n  update();\n})();\n</script>",
             "title": "What's finite, where?",
-            "hint": "Mordell–Weil, Mordell, Lang, …"
+            "hint": "Mordell–Weil, Mordell, Lang, …",
+            "controls": [
+              {
+                "type": "select",
+                "id": "fin-obj",
+                "label": "object",
+                "optionsHtml": "\n      <option value=\"ec-points\">$E(K)$, $E$ elliptic / $K$ number field</option>\n      <option value=\"av-points\" selected>$A(K)$, $A$ abelian / $K$ number field</option>\n      <option value=\"curve-points\">$C(K)$, $C$ smooth projective genus $g$</option>\n      <option value=\"av-rep\">isomorphism classes of $g$-dim p.p.a.v.'s / $K$ with good reduction outside $S$</option>\n    "
+              },
+              {
+                "type": "select",
+                "id": "fin-cond",
+                "label": "condition",
+                "optionsHtml": "\n      <option value=\"g0\">genus $0$</option>\n      <option value=\"g1\">genus $1$ / dim $1$</option>\n      <option value=\"g2plus\" selected>dim or genus $\\ge 2$</option>\n    "
+              }
+            ],
+            "readout": {
+              "id": "fin-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const obj = document.getElementById('fin-obj');\n  const cond = document.getElementById('fin-cond');\n  const out = document.getElementById('fin-out');\n  if(!out || !obj || !cond) return;\n  const table = {\n    'ec-points': {\n      'g0': '$E$ doesn\\'t exist for genus $0$ (an elliptic curve has genus $1$). For $\\\\mathbb{P}^1(K)$, the points are infinite — there\\'s no finiteness here.',\n      'g1': '<strong>Mordell–Weil (1922).</strong> $E(K) \\\\cong \\\\mathbb{Z}^r \\\\oplus E(K)_{\\\\mathrm{tors}}$, finitely generated. By Mazur (1977), $E(\\\\mathbb{Q})_{\\\\mathrm{tors}}$ is one of $15$ explicit groups; Merel (1996) bounds $|E(K)_{\\\\mathrm{tors}}|$ uniformly in $[K:\\\\mathbb{Q}]$.',\n      'g2plus': 'Genus $\\\\ge 2$ doesn\\'t apply to elliptic curves (they have genus $1$).'\n    },\n    'av-points': {\n      'g0': '$A$ doesn\\'t exist in dim $0$ (it would be a point).',\n      'g1': '<strong>Mordell–Weil for $g=1$:</strong> classical, $E(K)$ finitely generated. See the elliptic case.',\n      'g2plus': '<strong>Mordell–Weil (Weil 1929).</strong> $A(K)$ is finitely generated for any $g$. The proof is the same descent + heights argument.'\n    },\n    'curve-points': {\n      'g0': 'A genus-$0$ curve $C/K$ with $C(K)\\\\ne\\\\emptyset$ is $\\\\mathbb{P}^1$ — points form an infinite set $\\\\mathbb{P}^1(K)$.',\n      'g1': '<strong>Mordell–Weil:</strong> $C(K) = E(K)$ if $C$ has a rational point (it\\'s an elliptic curve); finitely generated. Otherwise $C(K)$ is a torsor under $E(K)$ — same finiteness theory.',\n      'g2plus': '<strong>Faltings\\' theorem (Mordell\\'s conjecture, 1983).</strong> $C(K)$ is <em>finite</em>. The bound is ineffective — no algorithm to enumerate $C(K)$ in general. Vojta\\'s height inequality gives a different (still ineffective) proof.'\n    },\n    'av-rep': {\n      'g0': 'Doesn\\'t apply (no $0$-dim AVs).',\n      'g1': '<strong>Shafarevich\\'s theorem (Faltings 1983).</strong> Finite for elliptic curves with good reduction outside $S$. Originally Shafarevich\\'s conjecture; proved as a special case of the higher-dim theorem.',\n      'g2plus': '<strong>Faltings (1983).</strong> Finite. This is the main theorem of <em>Endlichkeitssätze für abelsche Varietäten</em> — and it implies Mordell.'\n    }\n  };\n  function update(){\n    const o = obj.value, c = cond.value;\n    out.innerHTML = (table[o] && table[o][c]) || 'No data for this combination.';\n    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]});\n  }\n  obj.addEventListener('change', update);\n  cond.addEventListener('change', update);\n  update();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

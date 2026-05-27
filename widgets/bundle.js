@@ -45,27 +45,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "abelian-varieties-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "abelian-varieties-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "abelian-varieties-w4",
     "family": "verbatim",
     "dimension": "2d",
@@ -93,27 +72,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "abelian-varieties-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "abelian-varieties-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "abelian-varieties-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
     "requiredParams": [
       "widgetId",
@@ -3012,96 +2970,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "complex-multiplication-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "complex-multiplication-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the complex-multiplication topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `complex-multiplication` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "complex-multiplication-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "complex-multiplication-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the complex-multiplication topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `complex-multiplication` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "complex-multiplication-w4",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "select",
     "role": "interactive",
     "title": "complex-multiplication-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the complex-multiplication topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `complex-multiplication` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "complex-multiplication-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "complex-multiplication-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the complex-multiplication topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `complex-multiplication` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "complex-multiplication-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "complex-multiplication-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the complex-multiplication topic.",
     "requiredParams": [
       "widgetId",
@@ -3502,27 +3376,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "continued-fractions-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "continued-fractions-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the continued-fractions topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `continued-fractions` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "counterexample-explorer",
     "family": "counterexample-explorer",
     "dimension": "2d",
@@ -3787,96 +3640,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "crystalline-cohomology-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "crystalline-cohomology-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "crystalline-cohomology-w3",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "click",
     "role": "interactive",
     "title": "crystalline-cohomology-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "crystalline-cohomology-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "crystalline-cohomology-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "crystalline-cohomology-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "crystalline-cohomology-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `crystalline-cohomology` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "crystalline-cohomology-w7",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "crystalline-cohomology-w7 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the crystalline-cohomology topic.",
     "requiredParams": [
       "widgetId",
@@ -4865,48 +4634,6 @@ window.__MVWidgets = [
     "gesture": "click",
     "role": "interactive",
     "title": "dirichlet-unit-theorem-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dirichlet-unit-theorem-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dirichlet-unit-theorem-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `dirichlet-unit-theorem` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "dirichlet-unit-theorem-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "dirichlet-unit-theorem-w4 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the dirichlet-unit-theorem topic.",
     "requiredParams": [
       "widgetId",
@@ -13496,7 +13223,6 @@ window.__MVWidgets = [
       "title",
       "hint",
       "controls",
-      "svg",
       "readout",
       "bodyScript"
     ],
