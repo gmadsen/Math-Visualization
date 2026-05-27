@@ -118,17 +118,31 @@ function parseButton(openAttrs, label) {
 // Allowlist for verbatim <span> attribute strings (status/counter spans in
 // stepper rows). Cosmetic + a11y attrs accepted; event handlers (on*=) and
 // anything else throw rather than silently propagate (cf. slider labelAttrs).
-const SPAN_ATTR_NAME = /\s+([a-zA-Z][a-zA-Z0-9_-]*)\s*=\s*"/g;
 const SPAN_ATTR_ALLOW = /^(?:id|class|style|title|data-[a-z][a-z0-9_-]*|aria-[a-z]+)$/;
+// Validate a verbatim <span> attribute string before it's spliced back into
+// `<span${attrs}>`. The string must consist ENTIRELY of allowlisted
+// double-quoted attributes — we strip each `name="…"` in turn and require the
+// residue to be blank. This closes the gap a name-only scan would leave: a
+// single-quoted/unquoted/boolean attribute (e.g. `onclick='…'`) matches no
+// `name="…"` token, so it survives in the residue and trips the throw rather
+// than slipping through to the verbatim splice. (Codex + review flagged this on
+// PR #376; source is trusted corpus but this is cheap defense-in-depth.)
 function assertSpanAttrsSafe(attrs) {
   if (!attrs) return;
-  SPAN_ATTR_NAME.lastIndex = 0;
+  let residual = attrs;
+  const attrRe = /\s+([a-zA-Z][a-zA-Z0-9_-]*)="[^"]*"/;
   let m;
-  while ((m = SPAN_ATTR_NAME.exec(attrs))) {
+  while ((m = residual.match(attrRe))) {
     const name = m[1].toLowerCase();
     if (!SPAN_ATTR_ALLOW.test(name)) {
       throw new Error(`span has disallowed attribute "${name}" (allow id/class/style/title/data-*/aria-*): "${attrs}"`);
     }
+    residual = residual.slice(0, m.index) + residual.slice(m.index + m[0].length);
+  }
+  if (residual.trim() !== '') {
+    throw new Error(
+      `span has a non-double-quoted or unparseable attribute (refusing verbatim splice): "${attrs}" — residual "${residual.trim()}"`
+    );
   }
 }
 
