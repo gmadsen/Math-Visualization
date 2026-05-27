@@ -12,13 +12,114 @@
         },
         {
           "type": "widget",
-          "slug": "abelian-varieties-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-torus",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-torus\">\n  <div class=\"hd\"><div class=\"ttl\">Complex torus $\\mathbb{C}^2/\\Lambda$ — algebraic or not?</div><div class=\"hint\">Riemann bilinear relations control projectivity</div></div>\n  <div class=\"row\">\n    <label for=\"tor-tau11\">$\\tau_{11}$ (real)</label>\n    <input type=\"range\" id=\"tor-tau11\" min=\"-1\" max=\"1\" step=\"0.1\" value=\"0\">\n    <span class=\"readout\" id=\"tor-tau11-val\" style=\"min-width:3em;display:inline-block\">0.0</span>\n    <label for=\"tor-tau12\">$\\tau_{12}=\\tau_{21}$ (real, symmetric)</label>\n    <input type=\"range\" id=\"tor-tau12\" min=\"-1\" max=\"1\" step=\"0.1\" value=\"0\">\n    <span class=\"readout\" id=\"tor-tau12-val\" style=\"min-width:3em;display:inline-block\">0.0</span>\n    <label for=\"tor-tau22\">$\\tau_{22}$ (real)</label>\n    <input type=\"range\" id=\"tor-tau22\" min=\"-1\" max=\"1\" step=\"0.1\" value=\"0\">\n    <span class=\"readout\" id=\"tor-tau22-val\" style=\"min-width:3em;display:inline-block\">0.0</span>\n  </div>\n  <div class=\"row\">\n    <label for=\"tor-y11\">$\\operatorname{Im}\\tau_{11}>0$</label>\n    <input type=\"range\" id=\"tor-y11\" min=\"0.2\" max=\"3\" step=\"0.1\" value=\"1.0\">\n    <span class=\"readout\" id=\"tor-y11-val\" style=\"min-width:3em;display:inline-block\">1.0</span>\n    <label for=\"tor-y12\">$\\operatorname{Im}\\tau_{12}=\\operatorname{Im}\\tau_{21}$</label>\n    <input type=\"range\" id=\"tor-y12\" min=\"-1.5\" max=\"1.5\" step=\"0.1\" value=\"0.0\">\n    <span class=\"readout\" id=\"tor-y12-val\" style=\"min-width:3em;display:inline-block\">0.0</span>\n    <label for=\"tor-y22\">$\\operatorname{Im}\\tau_{22}>0$</label>\n    <input type=\"range\" id=\"tor-y22\" min=\"0.2\" max=\"3\" step=\"0.1\" value=\"1.0\">\n    <span class=\"readout\" id=\"tor-y22-val\" style=\"min-width:3em;display:inline-block\">1.0</span>\n  </div>\n  <div class=\"readout\" id=\"tor-out\">…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const ids = ['tau11','tau12','tau22','y11','y12','y22'];\n  const inputs = {};\n  const labels = {};\n  for(const id of ids){\n    inputs[id] = document.getElementById('tor-'+id);\n    labels[id] = document.getElementById('tor-'+id+'-val');\n  }\n  const out = document.getElementById('tor-out');\n  if(!out || !inputs.tau11) return;\n  function update(){\n    const v = {};\n    for(const id of ids){\n      v[id] = parseFloat(inputs[id].value);\n      labels[id].textContent = v[id].toFixed(1);\n    }\n    // Y = Im tau, symmetric by construction (one slider for tau12 = tau21).\n    const Y = [[v.y11, v.y12],[v.y12, v.y22]];\n    const det = Y[0][0]*Y[1][1] - Y[0][1]*Y[1][0];\n    const tr = Y[0][0]+Y[1][1];\n    const positive = (Y[0][0] > 0) && (det > 0);\n    let msg;\n    if(positive){\n      msg = 'algebraic ✓ — period matrix lies in $\\\\mathfrak{H}_2$. Trace(Y)='+tr.toFixed(2)+', det(Y)='+det.toFixed(2)+'. This is the period matrix of a principally polarized abelian surface.';\n    } else {\n      msg = 'NOT algebraic ✗ — Im(τ) is not positive definite (det='+det.toFixed(2)+', need > 0 with Y₁₁ > 0). The complex torus exists, but it is not projective and admits no nonconstant meromorphic functions.';\n    }\n    out.innerHTML = msg;\n    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false}]});\n  }\n  for(const id of ids) inputs[id].addEventListener('input', update);\n  update();\n})();\n</script>",
             "title": "Complex torus $\\mathbb{C}^2/\\Lambda$ — algebraic or not?",
-            "hint": "Riemann bilinear relations control projectivity"
+            "hint": "Riemann bilinear relations control projectivity",
+            "controls": [
+              {
+                "type": "slider",
+                "id": "tor-tau11",
+                "label": "$\\tau_{11}$ (real)",
+                "min": -1,
+                "max": 1,
+                "value": 0,
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "tor-tau11-val",
+                "class": "readout",
+                "text": "0.0"
+              },
+              {
+                "type": "slider",
+                "id": "tor-tau12",
+                "label": "$\\tau_{12}=\\tau_{21}$ (real, symmetric)",
+                "min": -1,
+                "max": 1,
+                "value": 0,
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "tor-tau12-val",
+                "class": "readout",
+                "text": "0.0"
+              },
+              {
+                "type": "slider",
+                "id": "tor-tau22",
+                "label": "$\\tau_{22}$ (real)",
+                "min": -1,
+                "max": 1,
+                "value": 0,
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "tor-tau22-val",
+                "class": "readout",
+                "text": "0.0"
+              },
+              {
+                "type": "slider",
+                "id": "tor-y11",
+                "label": "$\\operatorname{Im}\\tau_{11}>0$",
+                "min": 0.2,
+                "max": 3,
+                "value": "1.0",
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "tor-y11-val",
+                "class": "readout",
+                "text": "1.0"
+              },
+              {
+                "type": "slider",
+                "id": "tor-y12",
+                "label": "$\\operatorname{Im}\\tau_{12}=\\operatorname{Im}\\tau_{21}$",
+                "min": -1.5,
+                "max": 1.5,
+                "value": "0.0",
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "tor-y12-val",
+                "class": "readout",
+                "text": "0.0"
+              },
+              {
+                "type": "slider",
+                "id": "tor-y22",
+                "label": "$\\operatorname{Im}\\tau_{22}>0$",
+                "min": 0.2,
+                "max": 3,
+                "value": "1.0",
+                "format": "separate",
+                "step": 0.1
+              },
+              {
+                "type": "span",
+                "id": "tor-y22-val",
+                "class": "readout",
+                "text": "1.0"
+              }
+            ],
+            "readout": {
+              "id": "tor-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const ids = ['tau11','tau12','tau22','y11','y12','y22'];\n  const inputs = {};\n  const labels = {};\n  for(const id of ids){\n    inputs[id] = document.getElementById('tor-'+id);\n    labels[id] = document.getElementById('tor-'+id+'-val');\n  }\n  const out = document.getElementById('tor-out');\n  if(!out || !inputs.tau11) return;\n  function update(){\n    const v = {};\n    for(const id of ids){\n      v[id] = parseFloat(inputs[id].value);\n      labels[id].textContent = v[id].toFixed(1);\n    }\n    // Y = Im tau, symmetric by construction (one slider for tau12 = tau21).\n    const Y = [[v.y11, v.y12],[v.y12, v.y22]];\n    const det = Y[0][0]*Y[1][1] - Y[0][1]*Y[1][0];\n    const tr = Y[0][0]+Y[1][1];\n    const positive = (Y[0][0] > 0) && (det > 0);\n    let msg;\n    if(positive){\n      msg = 'algebraic ✓ — period matrix lies in $\\\\mathfrak{H}_2$. Trace(Y)='+tr.toFixed(2)+', det(Y)='+det.toFixed(2)+'. This is the period matrix of a principally polarized abelian surface.';\n    } else {\n      msg = 'NOT algebraic ✗ — Im(τ) is not positive definite (det='+det.toFixed(2)+', need > 0 with Y₁₁ > 0). The complex torus exists, but it is not projective and admits no nonconstant meromorphic functions.';\n    }\n    out.innerHTML = msg;\n    if(window.renderMathInElement) window.renderMathInElement(out,{throwOnError:false,\n      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',delimiters:[{left:'$',right:'$',display:false}]});\n  }\n  for(const id of ids) inputs[id].addEventListener('input', update);\n  update();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {
