@@ -9346,27 +9346,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "mcg-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "mcg-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the mapping-class-groups topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an interactive widget on the mapping-class-groups topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "mirror-hms-pairing",
     "family": "mirror-hms-pairing",
     "dimension": "2d",
@@ -12999,27 +12978,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "st-string-math",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "st-string-math widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"String-math gallery: pick a duality\" widget on the string-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"String-math gallery: pick a duality\" widget on `string-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "stacks-dm-vs-artin",
     "family": "stacks-dm-vs-artin",
     "dimension": "2d",
@@ -13576,27 +13534,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "tda-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "tda-w4 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Stability proof — sketch in three slides\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Stability proof — sketch in three slides\" widget on `topological-data-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "tda-w6",
     "family": "verbatim",
     "dimension": "2d",
@@ -13819,27 +13756,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "trop-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "trop-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the tropical-geometry topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Baker–Norine chip-firing explorer for `tropical-geometry` §5. Pick a metric graph (theta, banana, dumbbell, $K_4$); fire chips at vertices and watch the divisor's tropical rank update against the Riemann–Roch identity $r(D) - r(K - D) = \\deg D - g + 1$.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
