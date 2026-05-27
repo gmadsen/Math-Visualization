@@ -90,6 +90,13 @@ function parseHd(hdInner) {
   return { title, titleTag, hint, hintTag };
 }
 
+// Extract controlsLiteral from a `  <div class="row">\n…\n  </div>` block.
+function parseRowBlock(rowBlock) {
+  const rowM = rowBlock.match(/^  <div class="row">\n([\s\S]*)\n  <\/div>$/);
+  if (!rowM) throw new Error('controls block is not the canonical `  <div class="row">\\n…\\n  </div>`');
+  return rowM[1];
+}
+
 // Parse a full verbatim bodyMarkup → svg-diagram params (sans script, copied by
 // the caller). Throws on any shape svg-diagram can't reproduce.
 function parseVerbatimMarkup(bodyMarkup) {
@@ -109,44 +116,60 @@ function parseVerbatimMarkup(bodyMarkup) {
   let body = inner.slice(hdEnd);
   if (body.startsWith('\n')) body = body.slice(1);
 
-  // Readout (EMPTY) splits body into middle (row + svg) and trailing.
-  const roMatch = body.match(/\n  <div class="readout" id="([^"]+)"><\/div>/);
-  if (!roMatch) throw new Error('no empty `<div class="readout" id>` found (non-empty/initial-text readout defers)');
-  const outputId = roMatch[1];
-  const middle = body.slice(0, roMatch.index);
-  const after = body.slice(roMatch.index + roMatch[0].length);
+  // Peel an optional trailing `<p class="small">…</p>` from the END, then an
+  // optional readout div from the (now shortened) END. What's left is the middle
+  // (controls row + svg, or — for the click-on-svg sub-family — just the svg).
+  let rest = body;
   let trailingExplainer;
-  if (after !== '') {
-    const tm = after.match(/^\n  <p class="small">([\s\S]*)<\/p>$/);
-    if (!tm) throw new Error('unexpected content after readout (only one trailing `<p class="small">` allowed)');
+  const tm = rest.match(/\n  <p class="small">([\s\S]*)<\/p>$/);
+  if (tm) {
     trailingExplainer = tm[1];
+    rest = rest.slice(0, tm.index);
   }
+  // Readout is optional and may carry initial text. Match up to its OWN close
+  // (first `</div>`), NOT anchored to end-of-string: an end-anchored non-greedy
+  // match would over-capture a trailing element (e.g. a `<div class="note small">`
+  // after the readout, as in cv-w-slater) INTO readoutContent — that round-trips
+  // byte-identical (the captured `</div>` happens to close the readout) but
+  // corrupts the structured data. So require that NOTHING follows the readout's
+  // close (the only allowed trailing — a single `<p class="small">` — was already
+  // peeled above); otherwise defer. A readout whose content nests its own `</div>`
+  // under-captures here → afterReadout non-empty → also defers (safe, not corrupt).
+  let outputId, readoutContent;
+  const roM = rest.match(/\n  <div class="readout" id="([^"]+)">([\s\S]*?)<\/div>/);
+  if (roM) {
+    const afterReadout = rest.slice(roM.index + roM[0].length);
+    if (afterReadout !== '') {
+      throw new Error('content after the readout div (e.g. a trailing `<div class="note">`) — svg-diagram supports only one trailing `<p class="small">`, which is peeled before this');
+    }
+    outputId = roM[1];
+    readoutContent = roM[2];
+    rest = rest.slice(0, roM.index);
+  }
+  const middle = rest;
 
-  // middle = rowBlock + '\n' + svgBlock  OR  svgBlock + '\n' + rowBlock.
-  const svgRe = /  <svg id="([^"]+)" viewBox="([^"]+)" width="([^"]+)" height="([^"]+)"><title>([\s\S]*?)<\/title><\/svg>/;
+  // middle = rowBlock + '\n' + svgBlock | svgBlock + '\n' + rowBlock | svgBlock.
+  const svgRe = /^  <svg id="([^"]+)" viewBox="([^"]+)" width="([^"]+)" height="([^"]+)"><title>([\s\S]*?)<\/title><\/svg>$/m;
   const svgM = middle.match(svgRe);
   if (!svgM) throw new Error('svg is not the canonical `<svg id viewBox width height><title>…</title></svg>` (styled/responsive/extra-attr svg defers)');
   const svgBlock = svgM[0];
   const beforeSvg = middle.slice(0, svgM.index);
   const afterSvg = middle.slice(svgM.index + svgBlock.length);
 
-  let layout, rowBlock;
-  if (beforeSvg === '') {
+  let layout, controlsLiteral;
+  if (beforeSvg === '' && afterSvg === '') {
+    // click-on-svg: no controls row (layout/controlsLiteral stay undefined).
+  } else if (beforeSvg === '' && afterSvg.startsWith('\n')) {
     // svg-first: svgBlock + '\n' + rowBlock
     layout = 'svg-first';
-    if (!afterSvg.startsWith('\n')) throw new Error('malformed svg-first middle (no separator before row)');
-    rowBlock = afterSvg.slice(1);
-  } else {
+    controlsLiteral = parseRowBlock(afterSvg.slice(1));
+  } else if (afterSvg === '' && beforeSvg.endsWith('\n')) {
     // controls-first: rowBlock + '\n' + svgBlock
     layout = 'controls-first';
-    if (!beforeSvg.endsWith('\n')) throw new Error('malformed controls-first middle (no separator after row)');
-    rowBlock = beforeSvg.slice(0, -1);
-    if (afterSvg !== '') throw new Error('content after svg in controls-first layout (a second block defers)');
+    controlsLiteral = parseRowBlock(beforeSvg.slice(0, -1));
+  } else {
+    throw new Error('unexpected middle structure (>1 block beside the svg, or non-canonical separators)');
   }
-
-  const rowM = rowBlock.match(/^  <div class="row">\n([\s\S]*)\n  <\/div>$/);
-  if (!rowM) throw new Error('controls block is not the canonical `  <div class="row">\\n…\\n  </div>`');
-  const controlsLiteral = rowM[1];
 
   const params = {
     interaction: 'svg-diagram',
@@ -157,15 +180,16 @@ function parseVerbatimMarkup(bodyMarkup) {
     svgWidthAttr: svgM[3],
     svgHeightAttr: svgM[4],
     svgTitle: svgM[5],
-    outputId,
-    layout,
-    controlsLiteral,
   };
   if (hd.titleTag === 'span') params.titleTag = 'span';
   // svg-diagram requires `hint`; a header with no hint div can't round-trip.
   if (hd.hint === undefined) throw new Error('svg-diagram requires a `.hd > .hint` (header has none)');
   params.hint = hd.hint;
   if (hd.hintTag === 'span') params.hintTag = 'span';
+  if (outputId !== undefined) params.outputId = outputId;
+  if (readoutContent !== undefined && readoutContent !== '') params.readoutContent = readoutContent;
+  if (layout !== undefined) params.layout = layout;
+  if (controlsLiteral !== undefined) params.controlsLiteral = controlsLiteral;
   if (trailingExplainer !== undefined) params.trailingExplainer = trailingExplainer;
   return params;
 }

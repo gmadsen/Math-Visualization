@@ -1523,27 +1523,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "ccr-w7",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interact",
-    "role": "interactive",
-    "title": "ccr-w7 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Riemannian ↔ CR dictionary\" widget on the conformal-and-cr-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Riemannian ↔ CR dictionary\" widget on `conformal-and-cr-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "characteristic-classes-c1-clutching",
     "family": "characteristic-classes-c1-clutching",
     "dimension": "2d",
@@ -10821,27 +10800,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "pchar-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interact",
-    "role": "interactive",
-    "title": "pchar-w1 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"The Frobenius factorization\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"The Frobenius factorization\" widget on `positive-characteristic-ag`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "pchar-w7",
     "family": "verbatim",
     "dimension": "2d",
@@ -10857,27 +10815,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Witt-vector arithmetic in $W_2(\\mathbb{F}_p)$\" widget on `positive-characteristic-ag`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "pchar-w8",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interact",
-    "role": "interactive",
-    "title": "pchar-w8 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"The de Rham–Witt bicomplex grading\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"The de Rham–Witt bicomplex grading\" widget on `positive-characteristic-ag`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -11004,27 +10941,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "positivity-and-ample-line-bundles-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "positivity-and-ample-line-bundles-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the positivity-and-ample-line-bundles topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `positivity-and-ample-line-bundles` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -13513,27 +13429,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "tda-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "interact",
-    "role": "interactive",
-    "title": "tda-w2 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Cycles vs. boundaries on the boundary of a triangle\" widget on the topological-data-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Cycles vs. boundaries on the boundary of a triangle\" widget on `topological-data-analysis`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "tda-w6",
     "family": "verbatim",
     "dimension": "2d",
@@ -13693,48 +13588,6 @@ window.__MVWidgets = [
       "title"
     ],
     "readmeExcerpt": "Bespoke widget for `toric-varieties.html` (§6 *Mirror symmetry preview*, concept `tv-mirror`). It makes **reflexive polytopes** and **Batyrev polar duality** tangible in dimension 2, where everything is drawable on the integer lattice. Single module, not part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "toric-varieties-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "toric-varieties-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "toric-varieties-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "toric-varieties-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the toric-varieties topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `toric-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
