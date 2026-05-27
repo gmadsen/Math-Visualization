@@ -126,6 +126,28 @@ function assertOptionsSafe(optionsHtml) {
   }
 }
 
+// Validate the attr names of a verbatim `<input>` tag (text/number control)
+// before storing it as a numinput control's inputHtml (spliced verbatim by the
+// renderer). Allowlist: id/type/value/min/max/step/maxlength/placeholder/style/
+// class/title/data-*/aria-*. Anything else (esp. on*= handlers) defers.
+const INPUT_ATTR_ALLOW = /^(?:id|type|value|min|max|step|maxlength|placeholder|style|class|title|data-[a-z][a-z0-9_-]*|aria-[a-z]+)$/;
+function assertInputAttrsSafe(inputTag) {
+  const inner = inputTag.replace(/^<input\b/, '').replace(/\/?>$/, '');
+  const re = /\s+([a-zA-Z][a-zA-Z0-9_-]*)(?:="[^"]*")?/g;
+  let m;
+  let residual = inner;
+  while ((m = re.exec(inner))) {
+    const name = m[1].toLowerCase();
+    if (!INPUT_ATTR_ALLOW.test(name)) {
+      throw new Error(`<input> has disallowed attribute "${name}" (text/number control allowlist): ${inputTag}`);
+    }
+    residual = residual.replace(m[0], '');
+  }
+  if (residual.trim() !== '') {
+    throw new Error(`<input> has an unparseable/non-double-quoted attribute (refusing verbatim splice): ${inputTag}`);
+  }
+}
+
 function parseControls(rowInner) {
   // Supported tokens in source order:
   //   nested-slider:    <label[ ATTRS]>LABEL<input id="ID" type="range" min=… max=… [step=…] value=…></label>
@@ -206,22 +228,28 @@ function parseControls(rowInner) {
           const m = inputAttrs.match(new RegExp(`\\b${name}="([^"]*)"`));
           return m ? m[1] : null;
         };
-        if (get('type') !== 'range') {
-          throw new Error('non-range input in nested-label .row: ' + inputAttrs);
+        const ntype = get('type');
+        if (ntype === 'range') {
+          slider = {
+            type: 'slider',
+            id: get('id'),
+            label: labelText,
+            // Store numerics as strings when they have a trailing `.0` (or
+            // any decimal that JS's Number() would lose). Pure integers
+            // stay as JSON numbers for cleaner schema validation.
+            min: preserveNumeric(get('min')),
+            max: preserveNumeric(get('max')),
+            value: preserveNumeric(get('value')),
+          };
+          const step = get('step');
+          if (step !== null) slider.step = preserveNumeric(step);
+        } else if (ntype === 'number' || ntype === 'text') {
+          // text/number input → numinput control (verbatim tag, nested form).
+          assertInputAttrsSafe(nestedInputMatch[0]);
+          slider = { type: 'numinput', id: get('id'), label: labelText, inputHtml: nestedInputMatch[0], format: 'nested' };
+        } else {
+          throw new Error('unsupported nested input type "' + ntype + '": ' + inputAttrs);
         }
-        slider = {
-          type: 'slider',
-          id: get('id'),
-          label: labelText,
-          // Store numerics as strings when they have a trailing `.0` (or
-          // any decimal that JS's Number() would lose). Pure integers
-          // stay as JSON numbers for cleaner schema validation.
-          min: preserveNumeric(get('min')),
-          max: preserveNumeric(get('max')),
-          value: preserveNumeric(get('value')),
-        };
-        const step = get('step');
-        if (step !== null) slider.step = preserveNumeric(step);
         advanceTo = labelEndIdx + '</label>'.length;
       } else {
         // Separate form: scan past </label> + whitespace for the sibling control.
@@ -265,32 +293,43 @@ function parseControls(rowInner) {
           const m = inputAttrs.match(new RegExp(`\\b${name}="([^"]*)"`));
           return m ? m[1] : null;
         };
-        if (get('type') !== 'range') {
-          throw new Error('non-range sibling input after <label for="…">: ' + inputAttrs);
-        }
+        const stype = get('type');
         const forId = forMatch ? forMatch[1] : get('id');
         if (get('id') !== forId) {
           throw new Error(
             `separate-label/input id mismatch: label for="${forId}" but input id="${get('id')}"`
           );
         }
-        slider = {
-          type: 'slider',
-          id: get('id'),
-          label: inner.trim(),
-          // Store numerics as strings when they have a trailing `.0` (or
-          // any decimal that JS's Number() would lose). Pure integers
-          // stay as JSON numbers for cleaner schema validation.
-          min: preserveNumeric(get('min')),
-          max: preserveNumeric(get('max')),
-          value: preserveNumeric(get('value')),
-          format: 'separate',
-        };
-        const step = get('step');
-        if (step !== null) slider.step = preserveNumeric(step);
+        if (stype === 'range') {
+          slider = {
+            type: 'slider',
+            id: get('id'),
+            label: inner.trim(),
+            // Store numerics as strings when they have a trailing `.0` (or
+            // any decimal that JS's Number() would lose). Pure integers
+            // stay as JSON numbers for cleaner schema validation.
+            min: preserveNumeric(get('min')),
+            max: preserveNumeric(get('max')),
+            value: preserveNumeric(get('value')),
+            format: 'separate',
+          };
+          const step = get('step');
+          if (step !== null) slider.step = preserveNumeric(step);
+        } else if (stype === 'number' || stype === 'text') {
+          const inputTag = rowInner.slice(j, inputCloseIdx + 1);
+          assertInputAttrsSafe(inputTag);
+          slider = { type: 'numinput', id: get('id'), label: inner.trim(), inputHtml: inputTag, format: 'separate' };
+        } else {
+          throw new Error('non-range/number/text sibling input after <label for="…">: ' + inputAttrs);
+        }
         advanceTo = inputCloseIdx + 1;
       }
-      if (labelAttrsWithoutFor) slider.labelAttrs = labelAttrsWithoutFor;
+      // labelAttrs is a slider-only field (the renderer splices it into the
+      // slider's `<label…>`); a non-slider control with extra label attrs defers.
+      if (labelAttrsWithoutFor) {
+        if (slider.type !== 'slider') throw new Error('label carries extra attrs on a non-slider control: ' + labelAttrsWithoutFor);
+        slider.labelAttrs = labelAttrsWithoutFor;
+      }
       controls.push(slider);
       i = advanceTo;
     } else if (rowInner.startsWith('<button', i)) {
@@ -536,11 +575,39 @@ function parseVerbatimMarkup(bodyMarkup, normalize) {
       if (m) trailingProse = m[1];
     }
     if (normalize && trailingProse === null) {
-      // Normalize: a trailing <div class="note…">…</div> becomes the standard
-      // <p class="small"> caption. (Note bodies are plain text/inline markup,
-      // no nested divs, so the non-greedy </div> match is safe.)
-      const nm = trailingRegion.match(/<div class="note[^"]*">([\s\S]*?)<\/div>/);
+      // Normalize: a trailing <div class="note…">…</div> or <div class="small">…</div>
+      // becomes the standard <p class="small"> caption. (Caption bodies are plain
+      // text/inline markup, no nested divs, so the non-greedy </div> match is safe.)
+      // The div→p is a discardable cosmetic delta under normalize; the TEXT is preserved.
+      const nm = trailingRegion.match(/<div class="(?:note[^"]*|small)">([\s\S]*?)<\/div>/);
       if (nm) trailingProse = nm[1];
+    }
+    // Defer-on-residue: the trailing region must not hold ANOTHER block the chrome
+    // can't represent — a second caption, or a <table>/<ul>/<ol>/<canvas> the script
+    // populates. slider-svg-2d's tail is exactly one optional <p class="small">, so
+    // anything past the one caption we captured would be SILENTLY DROPPED (normalize
+    // skips the byte-identity guard, jsdom stays green). Mirror the assertOptionsSafe/
+    // assertInputAttrsSafe discipline — refuse rather than lose content.
+    // (Caught half-integral-weight-forms-w3's trailing <div class="small"> caption,
+    // PR #385 review; before the prose-capture extension above it was dropped outright.)
+    const captionCount =
+      (trailingRegion.match(/<p class="small"[^>]*>/g) || []).length +
+      (trailingRegion.match(/<div class="(?:note[^"]*|small)">/g) || []).length;
+    const captured = trailingProse === null ? 0 : 1;
+    if (captionCount > captured) {
+      throw new Error(
+        `uncaptured trailing caption(s) in the widget tail (would be silently ` +
+        `dropped): ${captionCount} caption block(s) found, only ${captured} captured. ` +
+        `Merge them into one paragraph in the source, or defer this widget.`
+      );
+    }
+    for (const t of ['<table', '<ul', '<ol', '<canvas', '<textarea', '<pre']) {
+      if (trailingRegion.includes(t)) {
+        throw new Error(
+          `uncaptured ${t}…> in the widget tail (would be silently dropped) — ` +
+          `slider-svg-2d's tail holds only one <p class="small">. Defer this widget.`
+        );
+      }
     }
   }
 

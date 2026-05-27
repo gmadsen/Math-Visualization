@@ -594,10 +594,8 @@ for any (suitably integrable) payoff $g$. The discount accounts for time-value; 
     <input id="mc-sig" type="number" value="0.20" step="0.01" style="width:5em">
     <label for="mc-T">$T$</label>
     <input id="mc-T" type="number" value="1.0" step="0.1" style="width:5em">
-  </div>
-  <div class="row">
     <label for="mc-N">$N$ paths</label>
-    <input id="mc-N" type="range" min="500" max="50000" step="500" value="10000">
+    <input type="range" id="mc-N" min="500" max="50000" step="500" value="10000">
     <span id="mc-Nv" class="small">N = 10000</span>
     <button id="mc-run">run Monte Carlo</button>
   </div>

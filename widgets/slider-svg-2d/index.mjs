@@ -91,6 +91,22 @@ function renderControl(c) {
       : '';
     return `${labelPart}${sel}`;
   }
+  if (c.type === 'numinput') {
+    // Typed text/number `<input>` control (NOT a range slider). `inputHtml` is
+    // the VERBATIM `<input …>` (or `<input …/>`) tag — the corpus's number/text
+    // inputs carry inconsistent attr orders + `style="width:…"`/`min`/`max`/`step`/
+    // `maxlength`, so the verbatim tag is the only byte-exact round-trip (the
+    // migrate tool allowlists the attr NAMES). `nested` wraps it in the label;
+    // `separate` (default) puts `<label for=ID>` before it.
+    const inputHtml = typeof c.inputHtml === 'string' ? c.inputHtml : '';
+    if (c.format === 'nested') {
+      return `<label>${c.label || ''}${inputHtml}</label>`;
+    }
+    const labelPart = (typeof c.label === 'string' && c.label !== '')
+      ? `<label for="${c.id}">${c.label}</label>\n    `
+      : '';
+    return `${labelPart}${inputHtml}`;
+  }
   throw new Error(`slider-svg-2d: unknown control type "${c.type}"`);
 }
 

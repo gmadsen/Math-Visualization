@@ -58,13 +58,37 @@
         },
         {
           "type": "widget",
-          "slug": "half-integral-weight-forms-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-rk-checker",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-rk-checker\">\n  <div class=\"hd\"><div class=\"ttl\">$r_k(n)$ vs. closed-form</div><div class=\"hint\">verify Jacobi's formulas for $k=2,4$</div></div>\n  <div class=\"row\">\n    <label for=\"rk-n\">$n$</label>\n    <input type=\"number\" id=\"rk-n\" min=\"1\" max=\"60\" step=\"1\" value=\"12\">\n    <span class=\"small\" id=\"rk-h\">try $n = 25$, $32$, $48$ — note the divisibility-by-4 effect.</span>\n  </div>\n  <div class=\"readout\" id=\"rk-out\"></div>\n  <svg id=\"rk-svg\" viewBox=\"0 0 620 160\" width=\"620\" height=\"160\"><title>r_k(n) bar chart</title></svg>\n</div>",
-            "bodyScript": "",
             "title": "$r_k(n)$ vs. closed-form",
-            "hint": "verify Jacobi's formulas for $k=2,4$"
+            "hint": "verify Jacobi's formulas for $k=2,4$",
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "rk-n",
+                "label": "$n$",
+                "inputHtml": "<input type=\"number\" id=\"rk-n\" min=\"1\" max=\"60\" step=\"1\" value=\"12\">",
+                "format": "separate"
+              },
+              {
+                "type": "span",
+                "id": "rk-h",
+                "text": "try $n = 25$, $32$, $48$ — note the divisibility-by-4 effect."
+              }
+            ],
+            "svg": {
+              "id": "rk-svg",
+              "viewBox": "0 0 620 160",
+              "width": 620,
+              "height": 160,
+              "title": "r_k(n) bar chart"
+            },
+            "readout": {
+              "id": "rk-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {
@@ -104,13 +128,52 @@
         },
         {
           "type": "widget",
-          "slug": "half-integral-weight-forms-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-shimura",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-shimura\">\n  <div class=\"hd\"><div class=\"ttl\">Shimura recipe calculator</div><div class=\"hint\">turn $a_f(p^2)$ into $a_F(p)$</div></div>\n  <div class=\"row\">\n    <label for=\"shi-k\">$k$</label>\n    <input type=\"number\" id=\"shi-k\" min=\"1\" max=\"10\" step=\"1\" value=\"6\">\n    <label for=\"shi-p\">$p$</label>\n    <select id=\"shi-p\">\n      <option>3</option><option>5</option><option>7</option><option selected>11</option><option>13</option>\n    </select>\n    <label for=\"shi-afp2\">$a_f(p^2)$</label>\n    <input type=\"number\" id=\"shi-afp2\" step=\"any\" value=\"-72\">\n    <label for=\"shi-chi\">$\\chi(p)$</label>\n    <select id=\"shi-chi\"><option value=\"1\" selected>+1</option><option value=\"-1\">−1</option><option value=\"0\">0</option></select>\n  </div>\n  <div class=\"readout\" id=\"shi-out\"></div>\n  <svg id=\"shi-svg\" viewBox=\"0 0 620 220\" width=\"620\" height=\"220\"><title>Shimura correspondence diagram</title></svg>\n  <div class=\"small\">Default: $k=6$, $p=11$, $a_f(p^2)=-72$ corresponds to $\\Delta$'s $a_\\Delta(11)=534612$ via the inverse — playing forward gives $a_F(11)=-72+11^5=160979$, not $\\Delta$'s value. (Shimura is not the literal-coefficient inverse for $\\Delta$; it's the right correspondence at the eigenvalue level for the right normalization.)</div>\n</div>",
-            "bodyScript": "",
             "title": "Shimura recipe calculator",
-            "hint": "turn $a_f(p^2)$ into $a_F(p)$"
+            "hint": "turn $a_f(p^2)$ into $a_F(p)$",
+            "controls": [
+              {
+                "type": "numinput",
+                "id": "shi-k",
+                "label": "$k$",
+                "inputHtml": "<input type=\"number\" id=\"shi-k\" min=\"1\" max=\"10\" step=\"1\" value=\"6\">",
+                "format": "separate"
+              },
+              {
+                "type": "select",
+                "id": "shi-p",
+                "label": "$p$",
+                "optionsHtml": "\n      <option>3</option><option>5</option><option>7</option><option selected>11</option><option>13</option>\n    "
+              },
+              {
+                "type": "numinput",
+                "id": "shi-afp2",
+                "label": "$a_f(p^2)$",
+                "inputHtml": "<input type=\"number\" id=\"shi-afp2\" step=\"any\" value=\"-72\">",
+                "format": "separate"
+              },
+              {
+                "type": "select",
+                "id": "shi-chi",
+                "label": "$\\chi(p)$",
+                "optionsHtml": "<option value=\"1\" selected>+1</option><option value=\"-1\">−1</option><option value=\"0\">0</option>"
+              }
+            ],
+            "svg": {
+              "id": "shi-svg",
+              "viewBox": "0 0 620 220",
+              "width": 620,
+              "height": 220,
+              "title": "Shimura correspondence diagram"
+            },
+            "readout": {
+              "id": "shi-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "Default: $k=6$, $p=11$, $a_f(p^2)=-72$ corresponds to $\\Delta$'s $a_\\Delta(11)=534612$ via the inverse — playing forward gives $a_F(11)=-72+11^5=160979$, not $\\Delta$'s value. (Shimura is not the literal-coefficient inverse for $\\Delta$; it's the right correspondence at the eigenvalue level for the right normalization.)"
           }
         },
         {
