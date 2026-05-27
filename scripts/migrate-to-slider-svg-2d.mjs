@@ -106,6 +106,20 @@ function preserveNumeric(s) {
   );
 }
 
+// Validate the verbatim inner of a `<select>` before storing it as a select
+// control's optionsHtml (spliced back verbatim by the renderer). Must be ONLY
+// `<option …>…</option>` elements plus whitespace, with no event handlers —
+// `<optgroup>`, nested controls, or `on*=` defer rather than splice unsafely.
+function assertOptionsSafe(optionsHtml) {
+  const stripped = optionsHtml.replace(/<option\b[^>]*>[\s\S]*?<\/option>/gi, '').trim();
+  if (stripped !== '') {
+    throw new Error('<select> inner has non-<option> content (optgroup/other defers): ' + stripped.slice(0, 60));
+  }
+  if (/\son[a-z]+\s*=/i.test(optionsHtml)) {
+    throw new Error('<select> option carries an event handler (on*=)');
+  }
+}
+
 function parseControls(rowInner) {
   // Supported tokens in source order:
   //   nested-slider:    <label[ ATTRS]>LABEL<input id="ID" type="range" min=… max=… [step=…] value=…></label>
@@ -183,12 +197,35 @@ function parseControls(rowInner) {
         if (step !== null) slider.step = preserveNumeric(step);
         advanceTo = labelEndIdx + '</label>'.length;
       } else {
-        // Separate form: scan past </label> + whitespace for the sibling <input>.
+        // Separate form: scan past </label> + whitespace for the sibling control.
         const afterLabel = labelEndIdx + '</label>'.length;
         let j = afterLabel;
         while (j < rowInner.length && /\s/.test(rowInner[j])) j++;
+        if (rowInner.startsWith('<select', j)) {
+          // <label for="ID">L</label> <select id="ID">OPTIONS</select> → select control.
+          const selOpenEnd = rowInner.indexOf('>', j);
+          if (selOpenEnd < 0) throw new Error('unterminated <select> open tag');
+          const selOpenTag = rowInner.slice(j, selOpenEnd + 1);
+          const selIdM = selOpenTag.match(/\bid="([^"]+)"/);
+          if (!selIdM) throw new Error('<select> without id: ' + selOpenTag);
+          const selId = selIdM[1];
+          const extra = selOpenTag.slice('<select'.length, -1).replace(/\s*id="[^"]*"/, '').trim();
+          if (extra) throw new Error('<select> with unsupported attribute(s) (only id): ' + selOpenTag);
+          if (labelAttrsWithoutFor.trim()) {
+            throw new Error('select-label carries extra attrs (unsupported): ' + labelAttrsWithoutFor);
+          }
+          const forId = forMatch ? forMatch[1] : selId;
+          if (selId !== forId) throw new Error(`separate-label/select id mismatch: for="${forId}" select id="${selId}"`);
+          const selCloseIdx = rowInner.indexOf('</select>', selOpenEnd);
+          if (selCloseIdx < 0) throw new Error('unterminated <select>');
+          const optionsHtml = rowInner.slice(selOpenEnd + 1, selCloseIdx);
+          assertOptionsSafe(optionsHtml);
+          controls.push({ type: 'select', id: selId, label: inner.trim(), optionsHtml });
+          i = selCloseIdx + '</select>'.length;
+          continue;
+        }
         if (!rowInner.startsWith('<input', j)) {
-          throw new Error('<label for="…"> not followed by <input>: ' + rowInner.slice(i, i + 80));
+          throw new Error('<label for="…"> not followed by <input> or <select>: ' + rowInner.slice(i, i + 80));
         }
         const inputCloseIdx = rowInner.indexOf('>', j);
         if (inputCloseIdx < 0) throw new Error('unterminated <input> after separate-form label');
