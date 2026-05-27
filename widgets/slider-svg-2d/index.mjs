@@ -69,6 +69,20 @@ function renderControl(c) {
     const text = c.text || '';
     return `<span id="${c.id}"${classAttr}>${text}</span>`;
   }
+  if (c.type === 'select') {
+    // Dropdown control: `<label for="ID">LABEL</label>` (when label present)
+    // followed by `<select id="ID">{optionsHtml}</select>`. `optionsHtml` is the
+    // VERBATIM inner markup (the `<option>` run, exactly as authored — inline or
+    // multi-line/indented) so byte-identical roundtrip holds across the corpus's
+    // varied option layouts. The migrate tool allowlists it to `<option>`-only.
+    // KaTeX in option labels renders via the page's js/katex-select.js shim
+    // (already loaded on pages with working LaTeX-in-<option> selects).
+    const opts = typeof c.optionsHtml === 'string' ? c.optionsHtml : '';
+    const labelPart = (typeof c.label === 'string' && c.label !== '')
+      ? `<label for="${c.id}">${c.label}</label>\n    `
+      : '';
+    return `${labelPart}<select id="${c.id}">${opts}</select>`;
+  }
   throw new Error(`slider-svg-2d: unknown control type "${c.type}"`);
 }
 

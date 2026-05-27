@@ -964,75 +964,12 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "as-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "as-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "as-w3",
     "family": "verbatim",
     "dimension": "2d",
     "gesture": "click",
     "role": "interactive",
     "title": "as-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "as-w5",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "as-w5 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `arithmetic-statistics` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "as-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "as-w6 widget params",
     "description": "Verbatim-renderer slug for an inline widget on the arithmetic-statistics topic.",
     "requiredParams": [
       "widgetId",
@@ -1733,27 +1670,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cg-john",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "cg-john widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"John ellipsoid of a 2D body\" widget on the convex-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"John ellipsoid of a 2D body\" widget on `convex-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cg-mink",
     "family": "verbatim",
     "dimension": "2d",
@@ -1790,27 +1706,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Polar duality of a polygon\" widget on `convex-geometry`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cg-poly",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "cg-poly widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"$f$-vector explorer\" widget on the convex-geometry topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"$f$-vector explorer\" widget on `convex-geometry`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -2312,27 +2207,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "cmb-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cmb-w4 widget params",
-    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Cmb w4 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "cmb-w6",
     "family": "verbatim",
     "dimension": "2d",
@@ -2348,27 +2222,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Cmb w6 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cmb-w7",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "cmb-w7 widget params",
-    "description": "Bespoke verbatim-renderer slug for one widget on the computational-molecular-biology topic. Carries opaque bodyMarkup + bodyScript strings; uses the shared verbatim renderer (widgets/_shared/verbatim-renderer.mjs).",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Cmb w7 widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -2474,69 +2327,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"Schoof — CRT recovery of $t$\" widget on `computational-number-theory`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cobordism-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cobordism-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cobordism-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cobordism-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cobordism-w6",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cobordism-w6 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cobordism topic.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cobordism` topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -2688,69 +2478,6 @@ window.__MVWidgets = [
       "bodyMarkup"
     ],
     "readmeExcerpt": "Static SVG illustrating the equivalence between left fibrations and presheaves. Used in cocartesian-fibrations.html §6.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cohomology-and-duality-w2",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cohomology-and-duality-w2 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cohomology-and-duality-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cohomology-and-duality-w3 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "cohomology-and-duality-w4",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "cohomology-and-duality-w4 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the cohomology-and-duality topic. Carries opaque bodyMarkup + bodyScript strings so the byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `cohomology-and-duality` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` and `bodyScript` are the full widget body and the driving script extracted as opaque strings so the byte-identical round-trip stays intact.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -4021,27 +3748,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"LP rounding playground\" widget on `combinatorial-optimization`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "copt-tu",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "select",
-    "role": "interactive",
-    "title": "copt-tu widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"TU witness\" widget on the combinatorial-optimization topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"TU witness\" widget on `combinatorial-optimization`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

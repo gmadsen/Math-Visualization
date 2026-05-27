@@ -12,13 +12,31 @@
         },
         {
           "type": "widget",
-          "slug": "cobordism-w1",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-bord",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-bord\">\n  <div class=\"hd\"><div class=\"ttl\">Cobordism class explorer</div><div class=\"hint\">pick a closed 2-manifold, see whether it bounds</div></div>\n  <div class=\"row\">\n    <label for=\"bord-pick\">manifold:</label>\n    <select id=\"bord-pick\">\n      <option value=\"s2\" selected>$S^2$</option>\n      <option value=\"t2\">$T^2$ (torus)</option>\n      <option value=\"g2\">genus-2 surface $\\Sigma_2$</option>\n      <option value=\"rp2\">$\\mathbb{RP}^2$ (real projective plane)</option>\n      <option value=\"kb\">Klein bottle</option>\n      <option value=\"rp2-rp2\">$\\mathbb{RP}^2 \\sqcup \\mathbb{RP}^2$</option>\n    </select>\n  </div>\n  <svg id=\"bord-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Cobordism class explorer</title></svg>\n  <div class=\"readout\" id=\"bord-out\"></div>\n  <p class=\"small\">For an orientable closed surface, the bounding $3$-manifold is a handlebody. For the Klein bottle it is the twisted $I$-bundle over $S^1$. $\\mathbb{RP}^2$ alone does not bound; two copies of $\\mathbb{RP}^2$ do, because $[\\mathbb{RP}^2]+[\\mathbb{RP}^2]=0$ in $\\mathbb{Z}/2$.</p>\n</div>",
-            "bodyScript": "",
             "title": "Cobordism class explorer",
-            "hint": "pick a closed 2-manifold, see whether it bounds"
+            "hint": "pick a closed 2-manifold, see whether it bounds",
+            "controls": [
+              {
+                "type": "select",
+                "id": "bord-pick",
+                "label": "manifold:",
+                "optionsHtml": "\n      <option value=\"s2\" selected>$S^2$</option>\n      <option value=\"t2\">$T^2$ (torus)</option>\n      <option value=\"g2\">genus-2 surface $\\Sigma_2$</option>\n      <option value=\"rp2\">$\\mathbb{RP}^2$ (real projective plane)</option>\n      <option value=\"kb\">Klein bottle</option>\n      <option value=\"rp2-rp2\">$\\mathbb{RP}^2 \\sqcup \\mathbb{RP}^2$</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "bord-svg",
+              "viewBox": "0 0 720 280",
+              "width": 720,
+              "height": 280
+            },
+            "readout": {
+              "id": "bord-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "For an orientable closed surface, the bounding $3$-manifold is a handlebody. For the Klein bottle it is the twisted $I$-bundle over $S^1$. $\\mathbb{RP}^2$ alone does not bound; two copies of $\\mathbb{RP}^2$ do, because $[\\mathbb{RP}^2]+[\\mathbb{RP}^2]=0$ in $\\mathbb{Z}/2$."
           }
         },
         {
@@ -193,13 +211,32 @@
         },
         {
           "type": "widget",
-          "slug": "cobordism-w4",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-sig",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-sig\">\n  <div class=\"hd\"><div class=\"ttl\">Signatures of oriented manifolds</div><div class=\"hint\">pick $M$, see $\\sigma$ both ways</div></div>\n  <div class=\"row\">\n    <label for=\"sig-pick\">manifold:</label>\n    <select id=\"sig-pick\">\n      <option value=\"cp2\" selected>$\\mathbb{CP}^2$ ($n=4$)</option>\n      <option value=\"cp4\">$\\mathbb{CP}^4$ ($n=8$)</option>\n      <option value=\"s2xs2\">$S^2\\times S^2$ ($n=4$)</option>\n      <option value=\"cp1xcp3\">$\\mathbb{CP}^1\\times\\mathbb{CP}^3$ ($n=8$)</option>\n      <option value=\"k3\">K3 surface ($n=4$)</option>\n      <option value=\"cp3\">$\\mathbb{CP}^3$ ($n=6$)</option>\n      <option value=\"t4\">$T^4$ ($n=4$)</option>\n    </select>\n  </div>\n  <svg id=\"sig-svg\" viewBox=\"0 0 720 240\" width=\"720\" height=\"240\"><title>Hirzebruch signatures</title></svg>\n  <div class=\"readout\" id=\"sig-out\"></div>\n  <p class=\"small\">Signature computed two ways: from the cup-product intersection form on $H^{2k}$, and from the $L$-genus paired against the fundamental class. They must agree (Hirzebruch). For $n$ not divisible by $4$, $\\sigma=0$ definitionally — that is why $\\mathbb{CP}^3$ has $\\sigma=0$ even though it is non-trivial in $\\Omega_*^{SO}$.</p>\n</div>",
-            "bodyScript": "",
             "title": "Signatures of oriented manifolds",
-            "hint": "pick $M$, see $\\sigma$ both ways"
+            "hint": "pick $M$, see $\\sigma$ both ways",
+            "controls": [
+              {
+                "type": "select",
+                "id": "sig-pick",
+                "label": "manifold:",
+                "optionsHtml": "\n      <option value=\"cp2\" selected>$\\mathbb{CP}^2$ ($n=4$)</option>\n      <option value=\"cp4\">$\\mathbb{CP}^4$ ($n=8$)</option>\n      <option value=\"s2xs2\">$S^2\\times S^2$ ($n=4$)</option>\n      <option value=\"cp1xcp3\">$\\mathbb{CP}^1\\times\\mathbb{CP}^3$ ($n=8$)</option>\n      <option value=\"k3\">K3 surface ($n=4$)</option>\n      <option value=\"cp3\">$\\mathbb{CP}^3$ ($n=6$)</option>\n      <option value=\"t4\">$T^4$ ($n=4$)</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "sig-svg",
+              "viewBox": "0 0 720 240",
+              "width": 720,
+              "height": 240,
+              "title": "Hirzebruch signatures"
+            },
+            "readout": {
+              "id": "sig-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "Signature computed two ways: from the cup-product intersection form on $H^{2k}$, and from the $L$-genus paired against the fundamental class. They must agree (Hirzebruch). For $n$ not divisible by $4$, $\\sigma=0$ definitionally — that is why $\\mathbb{CP}^3$ has $\\sigma=0$ even though it is non-trivial in $\\Omega_*^{SO}$."
           }
         },
         {
@@ -312,13 +349,32 @@
         },
         {
           "type": "widget",
-          "slug": "cobordism-w6",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-tqft",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-tqft\">\n  <div class=\"hd\"><div class=\"ttl\">$\\mathrm{Cob}_2$: morphisms are surfaces with boundary</div><div class=\"hint\">pick a basic cobordism, see the linear map</div></div>\n  <div class=\"row\">\n    <label for=\"tqft-pick\">cobordism:</label>\n    <select id=\"tqft-pick\">\n      <option value=\"cyl\" selected>cylinder $S^1\\to S^1$</option>\n      <option value=\"cap\">cap $\\emptyset \\to S^1$ (disk)</option>\n      <option value=\"cocap\">cocap $S^1\\to\\emptyset$ (disk reversed)</option>\n      <option value=\"pants\">pants $S^1\\sqcup S^1\\to S^1$ (multiplication)</option>\n      <option value=\"copants\">copants $S^1\\to S^1\\sqcup S^1$ (comultiplication)</option>\n      <option value=\"torus\">torus $\\emptyset\\to\\emptyset$</option>\n    </select>\n  </div>\n  <svg id=\"tqft-svg\" viewBox=\"0 0 720 300\" width=\"720\" height=\"300\"><title>2D cobordism category</title></svg>\n  <div class=\"readout\" id=\"tqft-out\"></div>\n  <p class=\"small\">A $2$-dimensional TQFT is the data of a finite-dimensional vector space $A=Z(S^1)$ together with: (1) a multiplication $A\\otimes A\\to A$ (pants), (2) a unit $k\\to A$ (cap), (3) a counit $A\\to k$ (cocap), (4) a coassociative comultiplication (copants). The axioms force $A$ to be a <em>commutative Frobenius algebra</em>: 2D TQFTs are equivalent to commutative Frobenius algebras over $k$.</p>\n</div>",
-            "bodyScript": "",
             "title": "$\\mathrm{Cob}_2$: morphisms are surfaces with boundary",
-            "hint": "pick a basic cobordism, see the linear map"
+            "hint": "pick a basic cobordism, see the linear map",
+            "controls": [
+              {
+                "type": "select",
+                "id": "tqft-pick",
+                "label": "cobordism:",
+                "optionsHtml": "\n      <option value=\"cyl\" selected>cylinder $S^1\\to S^1$</option>\n      <option value=\"cap\">cap $\\emptyset \\to S^1$ (disk)</option>\n      <option value=\"cocap\">cocap $S^1\\to\\emptyset$ (disk reversed)</option>\n      <option value=\"pants\">pants $S^1\\sqcup S^1\\to S^1$ (multiplication)</option>\n      <option value=\"copants\">copants $S^1\\to S^1\\sqcup S^1$ (comultiplication)</option>\n      <option value=\"torus\">torus $\\emptyset\\to\\emptyset$</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "tqft-svg",
+              "viewBox": "0 0 720 300",
+              "width": 720,
+              "height": 300,
+              "title": "2D cobordism category"
+            },
+            "readout": {
+              "id": "tqft-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true,
+            "trailingProse": "A $2$-dimensional TQFT is the data of a finite-dimensional vector space $A=Z(S^1)$ together with: (1) a multiplication $A\\otimes A\\to A$ (pants), (2) a unit $k\\to A$ (cap), (3) a counit $A\\to k$ (cocap), (4) a coassociative comultiplication (copants). The axioms force $A$ to be a <em>commutative Frobenius algebra</em>: 2D TQFTs are equivalent to commutative Frobenius algebras over $k$."
           }
         },
         {

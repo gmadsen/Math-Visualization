@@ -19,7 +19,7 @@ page has wired one in yet.
 | slug | family | gesture | dimension | instances | topics |
 |---|---|---|---|---:|---|
 | `button-stepper` | button-stepper | click | 2d | 393 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-k-theory-foundations, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, brill-noether, bsd, category-theory, class-field-theory, cluster-algebras, cohomology-and-duality, combinatorial-optimization, complex-analysis, condensed-mathematics, conformal-and-cr-geometry, differential-geometry, dirac-equation, dirichlet-series-euler-products, donaldson-thomas-and-gw-invariants, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, gauge-theory, geometric-invariant-theory, hecke-operators, homological, klein-gordon-equation, lie-groups, mathematical-biology, mathematical-chaos, mathematical-finance, measure-theory, mmp-and-birational-geometry, model-categories, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, positivity-and-ample-line-bundles, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, quantum-field-theory, random-matrix-theory, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, several-complex-variables, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, spectral-theory, stacks, statistical-mechanics, theta-functions, toric-varieties, upper-half-plane-hyperbolic, zeta-values |
-| `slider-svg-2d` | slider-readout | slider | 2d | 171 | algebraic-k-theory-foundations, arithmetic-statistics, brill-noether, cobordism, coding-theory, combinatorial-optimization, computational-molecular-biology, computational-number-theory, conformal-and-cr-geometry, continued-fractions, convex-geometry, convex-optimization, d-modules, dirac-equation, donaldson-thomas-and-gw-invariants, elliptic-curves, fixed-point-theorems, gauge-theory, geometric-and-combinatorial-group-theory, geometric-invariant-theory, geometric-measure-theory, heegaard-floer, homotopy-theory, kahler-geometry, kalman-filtering-and-state-estimation, klein-gordon-equation, maass-forms, mapping-class-groups, mathematical-biology, mathematical-chaos, mathematical-finance, microlocal-analysis, mmp-and-birational-geometry, model-categories, optimal-control-and-dynamic-programming, positivity-and-ample-line-bundles, quantum-field-theory, random-matrix-theory, semigroup-theory-evolution-equations, several-complex-variables, shimura-varieties, special-relativity, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory, surgery-theory, topological-data-analysis, tropical-geometry, wavelets |
+| `slider-svg-2d` | slider-readout | slider | 2d | 185 | algebraic-k-theory-foundations, arithmetic-statistics, brill-noether, cobordism, coding-theory, cohomology-and-duality, combinatorial-optimization, computational-molecular-biology, computational-number-theory, conformal-and-cr-geometry, continued-fractions, convex-geometry, convex-optimization, d-modules, dirac-equation, donaldson-thomas-and-gw-invariants, elliptic-curves, fixed-point-theorems, gauge-theory, geometric-and-combinatorial-group-theory, geometric-invariant-theory, geometric-measure-theory, heegaard-floer, homotopy-theory, kahler-geometry, kalman-filtering-and-state-estimation, klein-gordon-equation, maass-forms, mapping-class-groups, mathematical-biology, mathematical-chaos, mathematical-finance, microlocal-analysis, mmp-and-birational-geometry, model-categories, optimal-control-and-dynamic-programming, positivity-and-ample-line-bundles, quantum-field-theory, random-matrix-theory, semigroup-theory-evolution-equations, several-complex-variables, shimura-varieties, special-relativity, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory, surgery-theory, topological-data-analysis, tropical-geometry, wavelets |
 | `parametric-plot` | parametric-plot | slider | 2d | 107 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, expanders, game-theory, graph-theory-fundamentals, information-geometry, kernel-methods-and-rkhs, markov-decision-processes, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
@@ -84,10 +84,7 @@ page has wired one in yet.
 | `ant-sieve-truncation` | ant-sieve-truncation | slider | 2d | 1 | analytic-number-theory |
 | `ant-waring-finiteness` | ant-waring-finiteness | click | 2d | 1 | additive-number-theory |
 | `ant-zero-free-region` | ant-zero-free-region | slider | 2d | 1 | analytic-number-theory |
-| `as-w2` | verbatim | click | 2d | 1 | arithmetic-statistics |
 | `as-w3` | verbatim | click | 2d | 1 | arithmetic-statistics |
-| `as-w5` | verbatim | click | 2d | 1 | arithmetic-statistics |
-| `as-w6` | verbatim | click | 2d | 1 | arithmetic-statistics |
 | `atiyah-singer-anomaly` | atiyah-singer-anomaly | slider | 2d | 1 | atiyah-singer-index-theorem |
 | `atiyah-singer-cases` | atiyah-singer-cases | pick | 2d | 1 | atiyah-singer-index-theorem |
 | `atiyah-singer-ch-td` | atiyah-singer-ch-td | slider | 2d | 1 | atiyah-singer-index-theorem |
@@ -115,10 +112,8 @@ page has wired one in yet.
 | `calabi-yau-syz-fibration` | calabi-yau-syz-fibration | slider | 2d | 1 | calabi-yau-manifolds |
 | `ccr-w7` | verbatim | interact | 2d | 1 | conformal-and-cr-geometry |
 | `cg-bm` | verbatim | slider | 2d | 1 | convex-geometry |
-| `cg-john` | verbatim | select | 2d | 1 | convex-geometry |
 | `cg-mink` | verbatim | slider | 2d | 1 | convex-geometry |
 | `cg-polar` | verbatim | slider | 2d | 1 | convex-geometry |
-| `cg-poly` | verbatim | select | 2d | 1 | convex-geometry |
 | `cg-support` | verbatim | slider | 2d | 1 | convex-geometry |
 | `characteristic-classes-c1-clutching` | characteristic-classes-c1-clutching | slider | 2d | 1 | characteristic-classes |
 | `characteristic-classes-classifying-map` | characteristic-classes-classifying-map | click | 2d | 1 | characteristic-classes |
@@ -141,17 +136,12 @@ page has wired one in yet.
 | `cm-yoneda` | verbatim | click | 2d | 1 | condensed-mathematics |
 | `cmb-w1` | verbatim | slider | 2d | 1 | computational-molecular-biology |
 | `cmb-w2` | verbatim | slider | 2d | 1 | computational-molecular-biology |
-| `cmb-w4` | verbatim | slider | 2d | 1 | computational-molecular-biology |
 | `cmb-w6` | verbatim | slider | 2d | 1 | computational-molecular-biology |
-| `cmb-w7` | verbatim | slider | 2d | 1 | computational-molecular-biology |
 | `cnt-bu` | verbatim | click | 2d | 1 | computational-number-theory |
 | `cnt-exp` | verbatim | input | 2d | 1 | computational-number-theory |
 | `cnt-mr` | verbatim | input | 2d | 1 | computational-number-theory |
 | `cnt-rho` | verbatim | input | 2d | 1 | computational-number-theory |
 | `cnt-sch` | verbatim | input | 2d | 1 | computational-number-theory |
-| `cobordism-w1` | verbatim | click | 2d | 1 | cobordism |
-| `cobordism-w4` | verbatim | click | 2d | 1 | cobordism |
-| `cobordism-w6` | verbatim | click | 2d | 1 | cobordism |
 | `cocartesian-fibrations-edge-scrubber` | cocartesian-fibrations-edge-scrubber | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-examples-graph` | cocartesian-fibrations-examples-graph | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-fibration-clickable` | cocartesian-fibrations-fibration-clickable | interact | 2d | 1 | cocartesian-fibrations |
@@ -160,9 +150,6 @@ page has wired one in yet.
 | `cocartesian-fibrations-leftright-scrubber` | cocartesian-fibrations-leftright-scrubber | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-transport-clickable` | cocartesian-fibrations-transport-clickable | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-universal-leftfib` | cocartesian-fibrations-universal-leftfib | interact | 2d | 1 | cocartesian-fibrations |
-| `cohomology-and-duality-w2` | verbatim | click | 2d | 1 | cohomology-and-duality |
-| `cohomology-and-duality-w3` | verbatim | click | 2d | 1 | cohomology-and-duality |
-| `cohomology-and-duality-w4` | verbatim | click | 2d | 1 | cohomology-and-duality |
 | `cohomology-stiefel-whitney-rpn` | cohomology-stiefel-whitney-rpn | slider | 2d | 1 | cohomology-and-duality |
 | `commutative-algebra-artinian-local` | parametric-plot | select | 2d | 1 | commutative-algebra |
 | `commutative-algebra-completion` | commutative-algebra-completion | interact | 2d | 1 | commutative-algebra |
@@ -226,7 +213,6 @@ page has wired one in yet.
 | `continued-fractions-w5` | verbatim | click | 2d | 1 | continued-fractions |
 | `continued-fractions-w6` | verbatim | click | 2d | 1 | continued-fractions |
 | `copt-approx` | verbatim | select | 2d | 1 | combinatorial-optimization |
-| `copt-tu` | verbatim | select | 2d | 1 | combinatorial-optimization |
 | `crypto-diffie-hellman` | crypto-diffie-hellman | slider | 2d | 1 | mathematics-and-cryptography |
 | `crypto-ecc-points` | crypto-ecc-points | slider | 2d | 1 | mathematics-and-cryptography |
 | `crypto-lwe-samples` | crypto-lwe-samples | slider | 2d | 1 | mathematics-and-cryptography |
@@ -863,7 +849,7 @@ page has wired one in yet.
 
 - Topics: **11**, concepts: **76**
 - Widgets: **76** (registry-driven: 76, inline: 0)
-  - by family: button-stepper: 15, slider-readout: 11, verbatim: 5, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, prob-convergence-modes: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, info-aep-typical-set: 1, info-cramer-rao: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
+  - by family: button-stepper: 15, slider-readout: 13, verbatim: 3, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, prob-convergence-modes: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, info-aep-typical-set: 1, info-cramer-rao: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
   - by dimension: 2d: 76
   - by gesture: slider: 46, click: 22, step: 5, button: 2, toggle: 1
 - Quizzes: **265** (v1: 228, hard: 24, expert: 13)
@@ -873,9 +859,9 @@ page has wired one in yet.
 
 - Topics: **25**, concepts: **160**
 - Widgets: **177** (registry-driven: 177, inline: 0)
-  - by family: verbatim: 37, button-stepper: 36, slider-readout: 21, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, cohomology-stiefel-whitney-rpn: 1, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, knot-polynomials-vassiliev: 1, knot-polynomials-khovanov: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, sm-manifold-gallery: 1, diff-forms-integration: 1, diff-forms-pullback: 1, diff-geom-surface-patch: 1, diff-geom-fundamental-forms: 1, rg-ricci-curvature: 1, rg-volume-form: 1, lie-algebra-tangent: 1, lie-adjoint-killing: 1, riemann-surfaces-chart-atlas: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by family: button-stepper: 36, verbatim: 29, slider-readout: 29, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, cohomology-stiefel-whitney-rpn: 1, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, knot-polynomials-vassiliev: 1, knot-polynomials-khovanov: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, sm-manifold-gallery: 1, diff-forms-integration: 1, diff-forms-pullback: 1, diff-geom-surface-patch: 1, diff-geom-fundamental-forms: 1, rg-ricci-curvature: 1, rg-volume-form: 1, lie-algebra-tangent: 1, lie-adjoint-killing: 1, riemann-surfaces-chart-atlas: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
   - by dimension: 2d: 170, 3d: 7
-  - by gesture: click: 88, slider: 52, select: 13, drag: 8, button-stepper: 6, step: 3, pick: 2, static: 2, interact: 1, input: 1, timeline: 1
+  - by gesture: click: 82, slider: 60, select: 11, drag: 8, button-stepper: 6, step: 3, pick: 2, static: 2, interact: 1, input: 1, timeline: 1
 - Quizzes: **622** (v1: 480, hard: 142, expert: 0)
   - by type: mcq: 410, numeric: 160, multi-select: 22, matching: 10, ordering: 7, complex: 7, spot-the-error: 3, proof-completion: 3
 
@@ -883,9 +869,9 @@ page has wired one in yet.
 
 - Topics: **19**, concepts: **128**
 - Widgets: **162** (registry-driven: 162, inline: 0)
-  - by family: button-stepper: 66, verbatim: 35, slider-readout: 4, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, galois-normal-separable: 1, galois-primitive-element: 1, quad-recip-supplementary: 1, quad-recip-jacobi: 1, ant-waring-finiteness: 1, padic-newton-polygon: 1, padic-ramification-tower: 1, clickable-graph: 1, fr-splitting-types: 1, fr-decomposition: 1, class-field-theory-existence: 1, class-field-theory-conductor-discriminant: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1, galois-representations-semisimplification: 1, galois-representations-conductor: 1
+  - by family: button-stepper: 66, verbatim: 32, slider-readout: 7, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, galois-normal-separable: 1, galois-primitive-element: 1, quad-recip-supplementary: 1, quad-recip-jacobi: 1, ant-waring-finiteness: 1, padic-newton-polygon: 1, padic-ramification-tower: 1, clickable-graph: 1, fr-splitting-types: 1, fr-decomposition: 1, class-field-theory-existence: 1, class-field-theory-conductor-discriminant: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1, galois-representations-semisimplification: 1, galois-representations-conductor: 1
   - by dimension: 2d: 162
-  - by gesture: click: 105, slider: 30, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
+  - by gesture: click: 102, slider: 33, input: 8, select: 5, edit: 4, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
 - Quizzes: **564** (v1: 381, hard: 183, expert: 0)
   - by type: mcq: 375, numeric: 164, multi-select: 11, matching: 5, ordering: 4, complex: 3, spot-the-error: 1, guess-my-rule: 1
 
@@ -933,9 +919,9 @@ page has wired one in yet.
 
 - Topics: **9**, concepts: **58**
 - Widgets: **59** (registry-driven: 59, inline: 0)
-  - by family: parametric-plot: 24, slider-readout: 21, verbatim: 8, button-stepper: 5, inline-code-cell: 1
+  - by family: parametric-plot: 24, slider-readout: 22, verbatim: 7, button-stepper: 5, inline-code-cell: 1
   - by dimension: 2d: 59
-  - by gesture: slider: 50, click: 5, select: 2, scrub: 1, edit: 1
+  - by gesture: slider: 51, click: 5, scrub: 1, select: 1, edit: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)
   - by type: mcq: 116, numeric: 36, multi-select: 14, matching: 4, spot-the-error: 2, ordering: 2
 

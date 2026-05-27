@@ -89,6 +89,18 @@
               "class": { "type": "string", "description": "CSS class for the span. Omit to emit a `<span>` with no class attribute (kahler-geometry style); set to `\"small\"` for the spectral-theory style." },
               "text":  { "type": "string", "default": "", "description": "Initial inner text; usually empty since the driving script fills it on first draw." }
             }
+          },
+          {
+            "$comment": "Dropdown control. Emits an optional `<label for=ID>` then `<select id=ID>{optionsHtml}</select>`. optionsHtml is the verbatim inner `<option>` run (preserves the corpus's inline vs multi-line option layouts byte-for-byte); the migrate tool allowlists it to <option>-only and rejects event handlers. LaTeX in option labels renders via the page's js/katex-select.js shim.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "optionsHtml"],
+            "properties": {
+              "type":  { "const": "select" },
+              "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+              "label": { "type": "string", "description": "Optional `<label for=ID>` text rendered before the select. May contain KaTeX $...$. Omit for a bare `<select>`." },
+              "optionsHtml": { "type": "string", "description": "Verbatim inner markup of the `<select>` — the `<option>` run exactly as authored (inline or indented/multi-line). Validated by the migrate tool to contain only `<option>` elements (no event handlers).", "x-artifact": true }
+            }
           }
         ]
       }
