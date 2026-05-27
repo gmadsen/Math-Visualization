@@ -288,28 +288,37 @@ function renderProofStepperScript(params) {
 
 function renderSvgDiagramMarkup(params) {
   const {
-    widgetId, title, hint,
+    widgetId,
     svgId, svgViewBox, svgWidthAttr, svgHeightAttr, svgTitle,
-    outputId, layout,
-    controlsLiteral, titleTag, hintTag,
+    outputId, layout, readoutContent,
+    controlsLiteral,
   } = params;
-  // The <div class="row"> ... </div> block wraps controlsLiteral verbatim so
-  // that each widget's bespoke control markup (labels, selects, ranges, spans)
-  // round-trips byte-identical to the original inline HTML.
-  const rowBlock =
-    `  <div class="row">\n` +
-    `${controlsLiteral}\n` +
-    `  </div>`;
   const svgBlock =
     `  <svg id="${svgId}" viewBox="${svgViewBox}" width="${svgWidthAttr}" height="${svgHeightAttr}"><title>${svgTitle}</title></svg>`;
-  const middle = layout === 'svg-first'
-    ? `${svgBlock}\n${rowBlock}`
-    : `${rowBlock}\n${svgBlock}`;
+  // The <div class="row"> ... </div> block wraps controlsLiteral verbatim so
+  // that each widget's bespoke control markup (labels, selects, ranges, spans)
+  // round-trips byte-identical to the original inline HTML. The click-on-svg
+  // sub-family has NO controls row (the SVG itself is the control surface): when
+  // controlsLiteral is absent, the row block is omitted and the SVG stands alone.
+  let middle;
+  if (typeof controlsLiteral === 'string') {
+    const rowBlock = `  <div class="row">\n${controlsLiteral}\n  </div>`;
+    middle = layout === 'svg-first' ? `${svgBlock}\n${rowBlock}` : `${rowBlock}\n${svgBlock}`;
+  } else {
+    middle = svgBlock;
+  }
+  // The readout div is optional (some click-on-svg widgets have no readout) and
+  // may carry initial text (readoutContent, e.g. "Click a term…") that the
+  // script overwrites on interaction. Existing adopters omit readoutContent →
+  // empty readout, byte-identical to before.
+  const readoutBlock = (typeof outputId === 'string')
+    ? `\n  <div class="readout" id="${outputId}">${typeof readoutContent === 'string' ? readoutContent : ''}</div>`
+    : '';
   return (
     `<div class="widget" id="${widgetId}">\n` +
     renderHdLine(params) +
-    `${middle}\n` +
-    `  <div class="readout" id="${outputId}"></div>` +
+    `${middle}` +
+    `${readoutBlock}` +
     `${renderTrailingExplainer(params)}\n` +
     `</div>`
   );

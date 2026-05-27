@@ -298,7 +298,11 @@
     "svgDiagram": {
       "type": "object",
       "additionalProperties": false,
-      "description": "The 'select-diagram' family: a <select> (or other control) + an SVG canvas + a readout div. On change of the control, the script redraws the SVG and rewrites the readout. Because each absorbed widget's draw/compute body is bespoke (different FNS tables, different DATA dictionaries, different plotting logic), the script body is carried verbatim as an artifact. The chrome — widget wrapper, header, row of controls, SVG attrs, readout div — is reconstructed from structured fields so that a portable consumer (React / SSR) can render sensible UI without touching the script body.",
+      "dependentRequired": {
+        "controlsLiteral": ["layout"],
+        "readoutContent": ["outputId"]
+      },
+      "description": "The 'select-diagram' family: a <select> (or other control) + an SVG canvas + a readout div. On change of the control, the script redraws the SVG and rewrites the readout. Also covers the 'click-on-svg' sub-family, where there is NO controls row (the SVG itself is the control surface, click handlers attached by the script) — in that case controlsLiteral and layout are omitted. Because each absorbed widget's draw/compute body is bespoke (different FNS tables, different DATA dictionaries, different plotting logic), the script body is carried verbatim as an artifact. The chrome — widget wrapper, header, optional row of controls, SVG attrs, optional readout div — is reconstructed from structured fields so that a portable consumer (React / SSR) can render sensible UI without touching the script body. outputId/layout/controlsLiteral are optional: a click-on-svg widget may have no row (controlsLiteral/layout absent) and/or no readout (outputId absent).",
       "required": [
         "interaction",
         "widgetId",
@@ -309,9 +313,6 @@
         "svgWidthAttr",
         "svgHeightAttr",
         "svgTitle",
-        "outputId",
-        "layout",
-        "controlsLiteral",
         "scriptBodyLiteral"
       ],
       "properties": {
@@ -369,14 +370,20 @@
         },
         "outputId": {
           "type": "string",
-          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+          "description": "id of the readout div. Optional — omit for a click-on-svg widget with no readout (e.g. sr-cone)."
+        },
+        "readoutContent": {
+          "type": "string",
+          "description": "ARTIFACT. Initial inner HTML/text of the readout div (e.g. \"Click a term in the sequence above.\"), which the script overwrites on interaction. Optional — absent means an empty readout (the common select-diagram case). Carried verbatim so the click-on-svg sub-family (whose readouts ship with prompt text) round-trips byte-identical.",
+          "x-artifact": true
         },
         "layout": {
           "enum": [
             "controls-first",
             "svg-first"
           ],
-          "description": "Where the SVG sits relative to the controls row. 'controls-first' = row above SVG (the common case, e.g. w-multcalc, w-res). 'svg-first' = SVG above row (e.g. w-cubic, where the canvas is the primary visual and the controls tune it)."
+          "description": "Where the SVG sits relative to the controls row. 'controls-first' = row above SVG (the common case, e.g. w-multcalc, w-res). 'svg-first' = SVG above row (e.g. w-cubic, where the canvas is the primary visual and the controls tune it). Optional — omit for a click-on-svg widget with no controls row."
         },
         "controlsLiteral": {
           "type": "string",
