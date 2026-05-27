@@ -62,13 +62,30 @@
         },
         {
           "type": "widget",
-          "slug": "continued-fractions-w2",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-hur",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-hur\">\n  <div class=\"hd\"><div class=\"ttl\">Approximation rates vs. Hurwitz floor</div><div class=\"hint\">$q_n^2|\\alpha-p_n/q_n|$ along convergents</div></div>\n  <div class=\"row\">\n    <label for=\"hur-pick\">$\\alpha$</label>\n    <select id=\"hur-pick\">\n      <option value=\"phi\" selected>$\\varphi$ — golden ratio (extremal)</option>\n      <option value=\"sqrt2\">$\\sqrt{2}$</option>\n      <option value=\"sqrt3\">$\\sqrt{3}$</option>\n      <option value=\"sqrt5\">$\\sqrt{5}$</option>\n      <option value=\"e\">$e$</option>\n      <option value=\"pi\">$\\pi$</option>\n    </select>\n  </div>\n  <svg id=\"hur-svg\" viewBox=\"0 0 620 280\" width=\"620\" height=\"280\"><title>Approximation rates vs. Hurwitz floor</title></svg>\n  <div class=\"readout\" id=\"hur-out\">…</div>\n</div>",
-            "bodyScript": "",
             "title": "Approximation rates vs. Hurwitz floor",
-            "hint": "$q_n^2|\\alpha-p_n/q_n|$ along convergents"
+            "hint": "$q_n^2|\\alpha-p_n/q_n|$ along convergents",
+            "controls": [
+              {
+                "type": "select",
+                "id": "hur-pick",
+                "label": "$\\alpha$",
+                "optionsHtml": "\n      <option value=\"phi\" selected>$\\varphi$ — golden ratio (extremal)</option>\n      <option value=\"sqrt2\">$\\sqrt{2}$</option>\n      <option value=\"sqrt3\">$\\sqrt{3}$</option>\n      <option value=\"sqrt5\">$\\sqrt{5}$</option>\n      <option value=\"e\">$e$</option>\n      <option value=\"pi\">$\\pi$</option>\n    "
+              }
+            ],
+            "svg": {
+              "id": "hur-svg",
+              "viewBox": "0 0 620 280",
+              "width": 620,
+              "height": 280
+            },
+            "readout": {
+              "id": "hur-out"
+            },
+            "bodyScript": "",
+            "wrapperHasId": true
           }
         },
         {

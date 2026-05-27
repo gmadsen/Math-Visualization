@@ -285,7 +285,7 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="tri">equilateral triangle</option>
     </select>
     <label for="sup-theta">direction $\theta$</label>
-    <input id="sup-theta" type="range" min="0" max="6.2832" step="0.01" value="0.6">
+    <input type="range" id="sup-theta" min="0" max="6.2832" step="0.01" value="0.6">
     <span id="sup-theta-out" class="pill">θ=0.60</span>
   </div>
   <svg id="sup-svg" viewBox="0 0 640 360" width="100%" height="360" aria-label="Support function visualised by a rotating supporting hyperplane"><title>Supporting hyperplane and h_K(u) for a chosen body and direction</title></svg>
@@ -412,7 +412,7 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="hex">hexagon</option>
     </select>
     <label for="mk-lam">scale $\lambda$ on $B$</label>
-    <input id="mk-lam" type="range" min="0" max="1.6" step="0.01" value="0.8">
+    <input type="range" id="mk-lam" min="0" max="1.6" step="0.01" value="0.8">
     <span id="mk-lam-out" class="pill">λ=0.80</span>
   </div>
   <svg id="mk-svg" viewBox="0 0 640 340" width="100%" height="340" aria-label="Minkowski sum of two polygons with adjustable scale"><title>A + λB drawn as the polygon sum</title></svg>
@@ -534,7 +534,7 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="tri-tri">two equilateral triangles, different sizes</option>
     </select>
     <label for="bm-t">interpolation $t$</label>
-    <input id="bm-t" type="range" min="0" max="1" step="0.005" value="0.5">
+    <input type="range" id="bm-t" min="0" max="1" step="0.005" value="0.5">
     <span id="bm-t-out" class="pill">t=0.50</span>
   </div>
   <svg id="bm-svg" viewBox="0 0 640 320" width="100%" height="320" aria-label="Brunn–Minkowski LHS vs RHS as a function of t"><title>LHS = vol((1-t)A + tB)^{1/n}, RHS = (1-t)vol(A)^{1/n} + t·vol(B)^{1/n}</title></svg>
@@ -902,7 +902,7 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="pent">regular pentagon</option>
     </select>
     <label for="pol-scale">scale</label>
-    <input id="pol-scale" type="range" min="0.4" max="1.6" step="0.01" value="1">
+    <input type="range" id="pol-scale" min="0.4" max="1.6" step="0.01" value="1">
     <span id="pol-scale-out" class="pill">s=1.00</span>
   </div>
   <svg id="pol-svg" viewBox="0 0 640 340" width="100%" height="340" aria-label="Polygon and its polar dual"><title>K (violet) and K^circ (cyan), with vol(K)·vol(K^circ) readout</title></svg>

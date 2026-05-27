@@ -287,13 +287,10 @@ $$f^{**}(x) \;=\; f(x), \qquad f^*(y) \;:=\; \sup_{x\in\mathbb{R}^n}\,\bigl\{\la
 
 <div class="widget" id="cv-w-epigraph">
   <div class="hd"><div class="ttl">Epigraph &amp; supporting line</div><div class="hint">slide $a$ · pick a point on the graph · watch the tangent line stay below</div></div>
-  <svg id="cv-epi-svg" viewBox="0 0 580 320" width="580" height="320"><title>Graph of a convex function with epigraph shaded and a supporting line at a slider-chosen point.</title></svg>
   <div class="row">
     <label for="cv-epi-a">point $a$</label>
     <input type="range" id="cv-epi-a" min="-2.5" max="2.5" step="0.05" value="0.6">
-    <span class="readout" id="cv-epi-a-out" style="min-width:120px;flex:0 0 auto">a = 0.60</span>
-  </div>
-  <div class="row">
+    <span id="cv-epi-a-out" class="readout">a = 0.60</span>
     <label for="cv-epi-fn">function</label>
     <select id="cv-epi-fn">
       <option value="quad">$f(x)=x^2$</option>
@@ -301,8 +298,9 @@ $$f^{**}(x) \;=\; f(x), \qquad f^*(y) \;:=\; \sup_{x\in\mathbb{R}^n}\,\bigl\{\la
       <option value="abs">$f(x)=|x|$</option>
     </select>
   </div>
+  <svg id="cv-epi-svg" viewBox="0 0 580 320" width="580" height="320"><title>Graph of a convex function with epigraph shaded and a supporting line at a slider-chosen point.</title></svg>
   <div class="readout" id="cv-epi-out"></div>
-  <div class="note small">The grey region is the epigraph $\mathrm{epi}\,f$; the dashed cyan supporting line at the marked point is an affine minorant of $f$. The Legendre conjugate $f^*(g)$ is exactly the vertical-axis intercept of the supporting line with slope $g$. For $f=|x|$ at the kink, *any* slope in $[-1,1]$ supports — that's the subdifferential at $0$.</div>
+  <p class="small">The grey region is the epigraph $\mathrm{epi}\,f$; the dashed cyan supporting line at the marked point is an affine minorant of $f$. The Legendre conjugate $f^*(g)$ is exactly the vertical-axis intercept of the supporting line with slope $g$. For $f=|x|$ at the kink, *any* slope in $[-1,1]$ supports — that's the subdifferential at $0$.</p>
 </div>
 <script>
 /* ============================ §1 epigraph widget ============================ */
