@@ -310,8 +310,6 @@
         "hint",
         "svgId",
         "svgViewBox",
-        "svgWidthAttr",
-        "svgHeightAttr",
         "svgTitle",
         "scriptBodyLiteral"
       ],
@@ -356,12 +354,17 @@
         },
         "svgWidthAttr": {
           "type": "string",
-          "description": "ARTIFACT. Raw width attr value on <svg> — typically a px number or '100%'.",
+          "description": "ARTIFACT. Raw width attr value on <svg> — typically a px number or '100%'. Optional: some widgets are viewBox-only / responsive and set no width.",
           "x-artifact": true
         },
         "svgHeightAttr": {
           "type": "string",
-          "description": "ARTIFACT. Raw height attr value on <svg>.",
+          "description": "ARTIFACT. Raw height attr value on <svg>. Optional: omitted by viewBox-only / responsive widgets.",
+          "x-artifact": true
+        },
+        "svgExtraAttrs": {
+          "type": "string",
+          "description": "ARTIFACT. Verbatim trailing attributes on the <svg> open tag AFTER id/viewBox/width/height — e.g. ` style=\"cursor:crosshair\"`, ` role=\"img\" aria-label=\"…\"`. Includes its own leading space. Optional; emitted verbatim so styled/labelled SVGs round-trip byte-identical.",
           "x-artifact": true
         },
         "svgTitle": {

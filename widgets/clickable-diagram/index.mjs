@@ -289,12 +289,19 @@ function renderProofStepperScript(params) {
 function renderSvgDiagramMarkup(params) {
   const {
     widgetId,
-    svgId, svgViewBox, svgWidthAttr, svgHeightAttr, svgTitle,
+    svgId, svgViewBox, svgWidthAttr, svgHeightAttr, svgTitle, svgExtraAttrs,
     outputId, layout, readoutContent,
     controlsLiteral,
   } = params;
+  // After `id` + `viewBox`, the SVG carries optional `width`/`height` (some
+  // widgets are viewBox-only / responsive), then any remaining attrs verbatim
+  // via svgExtraAttrs (`style`/`role`/`aria-label`/etc.) — each is emit-when-
+  // present so existing adopters (width+height, no extras) are byte-identical.
+  const widthPart = typeof svgWidthAttr === 'string' ? ` width="${svgWidthAttr}"` : '';
+  const heightPart = typeof svgHeightAttr === 'string' ? ` height="${svgHeightAttr}"` : '';
+  const extraPart = typeof svgExtraAttrs === 'string' ? svgExtraAttrs : '';
   const svgBlock =
-    `  <svg id="${svgId}" viewBox="${svgViewBox}" width="${svgWidthAttr}" height="${svgHeightAttr}"><title>${svgTitle}</title></svg>`;
+    `  <svg id="${svgId}" viewBox="${svgViewBox}"${widthPart}${heightPart}${extraPart}><title>${svgTitle}</title></svg>`;
   // The <div class="row"> ... </div> block wraps controlsLiteral verbatim so
   // that each widget's bespoke control markup (labels, selects, ranges, spans)
   // round-trips byte-identical to the original inline HTML. The click-on-svg
