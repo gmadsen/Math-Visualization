@@ -148,6 +148,25 @@ function parseVerbatimMarkup(bodyMarkup) {
   }
   const middle = rest;
 
+  // table-diagram: the middle is exactly one `<table…>…</table>` block (no svg,
+  // no controls row) — a static table the script wires up. Captured verbatim.
+  if (/^  <table[\s\S]*<\/table>$/.test(middle) && !/<svg/.test(middle)) {
+    const params = {
+      interaction: 'table-diagram',
+      widgetId,
+      title: hd.title,
+      tableLiteral: middle,
+    };
+    if (hd.titleTag === 'span') params.titleTag = 'span';
+    if (hd.hint === undefined) throw new Error('table-diagram requires a `.hd > .hint` (header has none)');
+    params.hint = hd.hint;
+    if (hd.hintTag === 'span') params.hintTag = 'span';
+    if (outputId !== undefined) params.outputId = outputId;
+    if (readoutContent !== undefined && readoutContent !== '') params.readoutContent = readoutContent;
+    if (trailingExplainer !== undefined) params.trailingExplainer = trailingExplainer;
+    return params;
+  }
+
   // middle = rowBlock + '\n' + svgBlock | svgBlock + '\n' + rowBlock | svgBlock.
   // The svg opens with `id` + `viewBox`, then optional `width`/`height`, then any
   // remaining attrs (style/role/aria-label/…) captured verbatim. id+viewBox are
@@ -295,7 +314,7 @@ for (const section of doc.sections) {
       if (scriptIdx <= i) i++; // inserted at/before our cursor → keep alignment
     }
     migrated++;
-    console.log(`  ${origSlug}→clickable-diagram[svg-diagram]: migrated (byte-identical; ${old.bodyMarkup.length}B markup; layout=${params.layout}; leadSep ${JSON.stringify(scriptParts.leadSep)} relocated)`);
+    console.log(`  ${origSlug}→clickable-diagram[${params.interaction}]: migrated (byte-identical; ${old.bodyMarkup.length}B markup${params.layout ? `; layout=${params.layout}` : ''}; leadSep ${JSON.stringify(scriptParts.leadSep)} relocated)`);
   }
 }
 

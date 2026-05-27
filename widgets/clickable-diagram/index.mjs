@@ -344,10 +344,34 @@ function renderSvgDiagramScript(params) {
   );
 }
 
+// The 'table-diagram' sub-family: a static `<table>` (full rows authored inline)
+// that the script wires up for interaction (click a row → readout updates), plus
+// an optional readout. No SVG, no controls row. The table is carried verbatim
+// (tableLiteral) — like controlsLiteral, the rows/cells/KaTeX round-trip exactly.
+function renderTableDiagramMarkup(params) {
+  const { widgetId, outputId, readoutContent, tableLiteral } = params;
+  const readoutBlock = (typeof outputId === 'string')
+    ? `\n  <div class="readout" id="${outputId}">${typeof readoutContent === 'string' ? readoutContent : ''}</div>`
+    : '';
+  return (
+    `<div class="widget" id="${widgetId}">\n` +
+    renderHdLine(params) +
+    `${tableLiteral}` +
+    `${readoutBlock}` +
+    `${renderTrailingExplainer(params)}\n` +
+    `</div>`
+  );
+}
+
+function renderTableDiagramScript(params) {
+  return `<script>\n${params.scriptBodyLiteral}\n</script>`;
+}
+
 export function renderMarkup(params) {
   if (params.interaction === 'readout-only') return renderReadoutOnlyMarkup(params);
   if (params.interaction === 'proof-stepper') return renderProofStepperMarkup(params);
   if (params.interaction === 'svg-diagram') return renderSvgDiagramMarkup(params);
+  if (params.interaction === 'table-diagram') return renderTableDiagramMarkup(params);
   throw new Error(`clickable-diagram: unknown interaction "${params.interaction}"`);
 }
 
@@ -355,5 +379,6 @@ export function renderScript(params) {
   if (params.interaction === 'readout-only') return renderReadoutOnlyScript(params);
   if (params.interaction === 'proof-stepper') return renderProofStepperScript(params);
   if (params.interaction === 'svg-diagram') return renderSvgDiagramScript(params);
+  if (params.interaction === 'table-diagram') return renderTableDiagramScript(params);
   throw new Error(`clickable-diagram: unknown interaction "${params.interaction}"`);
 }
