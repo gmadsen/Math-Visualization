@@ -103,13 +103,34 @@
         },
         {
           "type": "widget",
-          "slug": "pchar-w3",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "w-mr",
             "title": "Mehta–Ramanathan proof scrub",
             "hint": "step through the splitting-implies-vanishing argument",
-            "bodyMarkup": "<div class=\"widget\" id=\"w-mr\">\n  <div class=\"hd\"><div class=\"ttl\">Mehta–Ramanathan proof scrub</div><div class=\"hint\">step through the splitting-implies-vanishing argument</div></div>\n  <div class=\"row\">\n    <label for=\"mr-step\">step</label>\n    <input type=\"range\" id=\"mr-step\" min=\"0\" max=\"4\" step=\"1\" value=\"0\">\n    <span class=\"readout small\" id=\"mr-step-lbl\" style=\"min-width:5em\">0 / 4</span>\n  </div>\n  <div class=\"readout\" id=\"mr-body\">…</div>\n</div>",
-            "bodyScript": "\n<script>\n(function(){\n  const sl=document.getElementById('mr-step'), lbl=document.getElementById('mr-step-lbl'), body=document.getElementById('mr-body');\n  if(!sl||!body) return;\n  const steps=[\n    {t:'Set-up', b:'$X/k$ smooth projective, $L$ an ample line bundle, $\\\\varphi\\\\colon F_*\\\\mathcal{O}_X\\\\to\\\\mathcal{O}_X$ a Frobenius splitting. Goal: $H^i(X,L^{-1})=0$ for $i<\\\\dim X$ (Kodaira-type vanishing in characteristic $p$).'},\n    {t:'Step 1 — pushforward and twist', b:'Apply $F_*$ to $L^{-1}$. By the projection formula, $F_*(F^*L^{-1}\\\\otimes\\\\mathcal{O}_X) = L^{-1}\\\\otimes F_*\\\\mathcal{O}_X$. On the other hand $F^*L = L^p$ as line bundles (Frobenius pulls back to $p$-th tensor power), so $F^*L^{-1} = L^{-p}$ and $F_*(L^{-p}) = L^{-1}\\\\otimes F_*\\\\mathcal{O}_X$.'},\n    {t:'Step 2 — splitting gives summand', b:'The splitting $\\\\varphi$ exhibits $L^{-1}$ as a direct summand of $L^{-1}\\\\otimes F_*\\\\mathcal{O}_X = F_*L^{-p}$. Therefore $H^i(X,L^{-1})$ is a direct summand of $H^i(X, F_*L^{-p}) = H^i(X, L^{-p})$ (since $F$ is affine, pushforward preserves cohomology).'},\n    {t:'Step 3 — iterate', b:'Iterating the splitting argument $r$ times exhibits $H^i(X,L^{-1})$ as a summand of $H^i(X,L^{-p^r})$ for every $r\\\\ge 1$. Now Serre vanishing says ampleness of $L$ implies $H^i(X,L^{-p^r})=0$ for $r\\\\gg 0$ once $i<\\\\dim X$.'},\n    {t:'Conclusion', b:'A summand of zero is zero, so $H^i(X,L^{-1})=0$ for all $i<\\\\dim X$. Serre duality gives the dual statement $H^j(X,L\\\\otimes\\\\omega_X)=0$ for $j>0$, which is Kodaira vanishing in characteristic $p$ — for Frobenius-split $X$. Raynaud (1978) showed unsplit smooth projective $X$ for which Kodaira vanishing fails, so the splitting hypothesis is essential.'}\n  ];\n  function render(){\n    const i=+sl.value;\n    lbl.textContent = `${i} / ${steps.length-1}`;\n    body.textContent = `${steps[i].t} — ${steps[i].b.replace(/\\\\[A-Za-z]+/g,m=>({\"\\\\mathcal\":\"𝓞\",\"\\\\to\":\"→\",\"\\\\otimes\":\"⊗\",\"\\\\dim\":\"dim\",\"\\\\ge\":\"≥\",\"\\\\gg\":\"≫\",\"\\\\colon\":\":\",\"\\\\varphi\":\"φ\"}[m]||m)).replace(/[{}]/g,'').replace(/\\$/g,'').replace(/\\\\/g,'')}`;\n  }\n  sl.addEventListener('input',render); render();\n})();\n</script>"
+            "controls": [
+              {
+                "type": "slider",
+                "id": "mr-step",
+                "label": "step",
+                "min": 0,
+                "max": 4,
+                "value": 0,
+                "format": "separate",
+                "step": 1
+              },
+              {
+                "type": "span",
+                "id": "mr-step-lbl",
+                "class": "readout small",
+                "text": "0 / 4"
+              }
+            ],
+            "readout": {
+              "id": "mr-body"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const sl=document.getElementById('mr-step'), lbl=document.getElementById('mr-step-lbl'), body=document.getElementById('mr-body');\n  if(!sl||!body) return;\n  const steps=[\n    {t:'Set-up', b:'$X/k$ smooth projective, $L$ an ample line bundle, $\\\\varphi\\\\colon F_*\\\\mathcal{O}_X\\\\to\\\\mathcal{O}_X$ a Frobenius splitting. Goal: $H^i(X,L^{-1})=0$ for $i<\\\\dim X$ (Kodaira-type vanishing in characteristic $p$).'},\n    {t:'Step 1 — pushforward and twist', b:'Apply $F_*$ to $L^{-1}$. By the projection formula, $F_*(F^*L^{-1}\\\\otimes\\\\mathcal{O}_X) = L^{-1}\\\\otimes F_*\\\\mathcal{O}_X$. On the other hand $F^*L = L^p$ as line bundles (Frobenius pulls back to $p$-th tensor power), so $F^*L^{-1} = L^{-p}$ and $F_*(L^{-p}) = L^{-1}\\\\otimes F_*\\\\mathcal{O}_X$.'},\n    {t:'Step 2 — splitting gives summand', b:'The splitting $\\\\varphi$ exhibits $L^{-1}$ as a direct summand of $L^{-1}\\\\otimes F_*\\\\mathcal{O}_X = F_*L^{-p}$. Therefore $H^i(X,L^{-1})$ is a direct summand of $H^i(X, F_*L^{-p}) = H^i(X, L^{-p})$ (since $F$ is affine, pushforward preserves cohomology).'},\n    {t:'Step 3 — iterate', b:'Iterating the splitting argument $r$ times exhibits $H^i(X,L^{-1})$ as a summand of $H^i(X,L^{-p^r})$ for every $r\\\\ge 1$. Now Serre vanishing says ampleness of $L$ implies $H^i(X,L^{-p^r})=0$ for $r\\\\gg 0$ once $i<\\\\dim X$.'},\n    {t:'Conclusion', b:'A summand of zero is zero, so $H^i(X,L^{-1})=0$ for all $i<\\\\dim X$. Serre duality gives the dual statement $H^j(X,L\\\\otimes\\\\omega_X)=0$ for $j>0$, which is Kodaira vanishing in characteristic $p$ — for Frobenius-split $X$. Raynaud (1978) showed unsplit smooth projective $X$ for which Kodaira vanishing fails, so the splitting hypothesis is essential.'}\n  ];\n  function render(){\n    const i=+sl.value;\n    lbl.textContent = `${i} / ${steps.length-1}`;\n    body.textContent = `${steps[i].t} — ${steps[i].b.replace(/\\\\[A-Za-z]+/g,m=>({\"\\\\mathcal\":\"𝓞\",\"\\\\to\":\"→\",\"\\\\otimes\":\"⊗\",\"\\\\dim\":\"dim\",\"\\\\ge\":\"≥\",\"\\\\gg\":\"≫\",\"\\\\colon\":\":\",\"\\\\varphi\":\"φ\"}[m]||m)).replace(/[{}]/g,'').replace(/\\$/g,'').replace(/\\\\/g,'')}`;\n  }\n  sl.addEventListener('input',render); render();\n})();\n</script>",
+            "wrapperHasId": true
           }
         },
         {

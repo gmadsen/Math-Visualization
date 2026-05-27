@@ -3,27 +3,6 @@
 // Source of truth: widgets/<slug>/schema.json, README.md, optional example.json.
 window.__MVWidgets = [
   {
-    "slug": "abelian-varieties-w1",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "click",
-    "role": "interactive",
-    "title": "abelian-varieties-w1 widget params",
-    "description": "Verbatim-renderer slug for an inline widget on the abelian-varieties topic. Carries opaque bodyMarkup + bodyScript strings so byte-identical round-trip stays intact.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Verbatim-renderer slug for an inline widget on the `abelian-varieties` topic. Uses the shared verbatim renderer at `widgets/_shared/verbatim-renderer.mjs`; `bodyMarkup` + `bodyScript` are full opaque strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "abelian-varieties-w2",
     "family": "verbatim",
     "dimension": "2d",
@@ -10878,27 +10857,6 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke verbatim slug for the \"The Frobenius factorization\" widget on `positive-characteristic-ag`.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
-    "slug": "pchar-w3",
-    "family": "verbatim",
-    "dimension": "2d",
-    "gesture": "slider",
-    "role": "interactive",
-    "title": "pchar-w3 widget params",
-    "description": "Bespoke verbatim-renderer slug for the \"Mehta–Ramanathan proof scrub\" widget on the positive-characteristic-ag topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
-    "requiredParams": [
-      "widgetId",
-      "title",
-      "hint",
-      "bodyMarkup",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke verbatim slug for the \"Mehta–Ramanathan proof scrub\" widget on `positive-characteristic-ag`.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
