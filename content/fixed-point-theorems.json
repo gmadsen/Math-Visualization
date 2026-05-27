@@ -12,13 +12,48 @@
         },
         {
           "type": "widget",
-          "slug": "fpt-bp",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "bp",
             "title": "Picard iteration trajectory",
             "hint": "Pick a contraction; watch $x_{n+1}=f(x_n)$ converge.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Picard iteration trajectory</div><div class=\"hint\">Pick a contraction; watch $x_{n+1}=f(x_n)$ converge.</div></div>\n  <div class=\"row\">\n    <label>map: <select id=\"bp-map\">\n      <option value=\"half\">$f(x)=\\tfrac{1}{2}x+1$ &nbsp; ($L=1/2$, fp $=2$)</option>\n      <option value=\"cos\">$f(x)=\\cos(x)$ &nbsp; ($|f'(x_*)|\\approx 0.67$ at fp; not a Banach contraction on the slider domain — local convergence only)</option>\n      <option value=\"quart\">$f(x)=\\tfrac{1}{4}x+3$ &nbsp; ($L=1/4$, fp $=4$)</option>\n    </select></label>\n    <label>$x_0$: <input type=\"range\" id=\"bp-x0\" min=\"-3\" max=\"6\" step=\"0.1\" value=\"-2\"></label>\n    <label>steps: <input type=\"range\" id=\"bp-n\" min=\"1\" max=\"20\" step=\"1\" value=\"8\"></label>\n  </div>\n  <svg id=\"bp-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Picard iteration trajectory</title></svg>\n  <div class=\"readout\" id=\"bp-out\">…</div>\n  <div class=\"note\">The cobweb diagram bounces between $y=f(x)$ and $y=x$. The horizontal step is $x_{n+1}-x_n$; the vertical step is $f(x_n)-x_n$. Slope $|f'|<1$ guarantees the spirals contract.</div>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "bp-map",
+                "label": "map: ",
+                "optionsHtml": "\n      <option value=\"half\">$f(x)=\\tfrac{1}{2}x+1$ &nbsp; ($L=1/2$, fp $=2$)</option>\n      <option value=\"cos\">$f(x)=\\cos(x)$ &nbsp; ($|f'(x_*)|\\approx 0.67$ at fp; not a Banach contraction on the slider domain — local convergence only)</option>\n      <option value=\"quart\">$f(x)=\\tfrac{1}{4}x+3$ &nbsp; ($L=1/4$, fp $=4$)</option>\n    ",
+                "format": "nested"
+              },
+              {
+                "type": "slider",
+                "id": "bp-x0",
+                "label": "$x_0$:",
+                "min": -3,
+                "max": 6,
+                "value": -2,
+                "step": 0.1
+              },
+              {
+                "type": "slider",
+                "id": "bp-n",
+                "label": "steps:",
+                "min": 1,
+                "max": 20,
+                "value": 8,
+                "step": 1
+              }
+            ],
+            "svg": {
+              "id": "bp-svg",
+              "viewBox": "0 0 560 320",
+              "width": "100%"
+            },
+            "readout": {
+              "id": "bp-out"
+            },
+            "bodyScript": "",
+            "trailingProse": "The cobweb diagram bounces between $y=f(x)$ and $y=x$. The horizontal step is $x_{n+1}-x_n$; the vertical step is $f(x_n)-x_n$. Slope $|f'|<1$ guarantees the spirals contract."
           }
         },
         {
@@ -139,13 +174,37 @@
         },
         {
           "type": "widget",
-          "slug": "fpt-lf",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "lf",
             "title": "Lefschetz number computation",
             "hint": "Pick a space and a self-map; read off $\\Lambda(f)$.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Lefschetz number computation</div><div class=\"hint\">Pick a space and a self-map; read off $\\Lambda(f)$.</div></div>\n  <div class=\"row\">\n    <label>space: <select id=\"lf-space\">\n      <option value=\"point\">point &nbsp; ($H_0=\\mathbb{Z}$)</option>\n      <option value=\"disk\">$D^2$ &nbsp; ($H_0=\\mathbb{Z}$)</option>\n      <option value=\"sphere\">$S^2$ &nbsp; ($H_0=H_2=\\mathbb{Z}$)</option>\n      <option value=\"torus\">$T^2$ &nbsp; (Betti $1,2,1$)</option>\n    </select></label>\n    <label>map: <select id=\"lf-map\">\n      <option value=\"id\">identity</option>\n      <option value=\"const\">constant</option>\n      <option value=\"antipode\">antipode (degree $\\pm 1$)</option>\n      <option value=\"rot\">rotation</option>\n    </select></label>\n  </div>\n  <svg id=\"lf-svg\" viewBox=\"0 0 560 240\" width=\"100%\"><title>Lefschetz number computation</title></svg>\n  <div class=\"readout\" id=\"lf-out\">…</div>\n  <div class=\"note\">$\\Lambda(f)\\ne 0$ forces a fixed point. The torus identity has $\\Lambda=0$ but fixes everything — proof that the converse fails.</div>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "lf-space",
+                "label": "space: ",
+                "optionsHtml": "\n      <option value=\"point\">point &nbsp; ($H_0=\\mathbb{Z}$)</option>\n      <option value=\"disk\">$D^2$ &nbsp; ($H_0=\\mathbb{Z}$)</option>\n      <option value=\"sphere\">$S^2$ &nbsp; ($H_0=H_2=\\mathbb{Z}$)</option>\n      <option value=\"torus\">$T^2$ &nbsp; (Betti $1,2,1$)</option>\n    ",
+                "format": "nested"
+              },
+              {
+                "type": "select",
+                "id": "lf-map",
+                "label": "map: ",
+                "optionsHtml": "\n      <option value=\"id\">identity</option>\n      <option value=\"const\">constant</option>\n      <option value=\"antipode\">antipode (degree $\\pm 1$)</option>\n      <option value=\"rot\">rotation</option>\n    ",
+                "format": "nested"
+              }
+            ],
+            "svg": {
+              "id": "lf-svg",
+              "viewBox": "0 0 560 240",
+              "width": "100%"
+            },
+            "readout": {
+              "id": "lf-out"
+            },
+            "bodyScript": "",
+            "trailingProse": "$\\Lambda(f)\\ne 0$ forces a fixed point. The torus identity has $\\Lambda=0$ but fixes everything — proof that the converse fails."
           }
         },
         {
@@ -369,13 +428,48 @@
         },
         {
           "type": "widget",
-          "slug": "fpt-pl",
+          "slug": "slider-svg-2d",
           "params": {
             "widgetId": "pl",
             "title": "Picard–Lindelöf in action",
             "hint": "Iterate the Picard operator on $\\dot{x}=f(t,x)$, $x(0)=x_0$.",
-            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Picard–Lindelöf in action</div><div class=\"hint\">Iterate the Picard operator on $\\dot{x}=f(t,x)$, $x(0)=x_0$.</div></div>\n  <div class=\"row\">\n    <label>$f(t,x)$: <select id=\"pl-f\">\n      <option value=\"x\">$f=x$ &nbsp; (true: $x_0 e^{t}$)</option>\n      <option value=\"tx\">$f=tx$ &nbsp; (true: $x_0 e^{t^2/2}$)</option>\n      <option value=\"sin\">$f=\\sin(x)$</option>\n    </select></label>\n    <label>iterations: <input type=\"range\" id=\"pl-k\" min=\"0\" max=\"6\" step=\"1\" value=\"3\"></label>\n    <label>$x_0$: <input type=\"range\" id=\"pl-x0\" min=\"-2\" max=\"2\" step=\"0.1\" value=\"1\"></label>\n  </div>\n  <svg id=\"pl-svg\" viewBox=\"0 0 560 280\" width=\"100%\"><title>Picard–Lindelöf in action</title></svg>\n  <div class=\"readout\" id=\"pl-out\">…</div>\n  <div class=\"note\">Each iterate $\\varphi_{k+1}(t)=x_0+\\int_0^t f(s,\\varphi_k(s))\\,ds$ moves toward the unique solution, which is the contraction's fixed point.</div>\n</div>",
-            "bodyScript": ""
+            "controls": [
+              {
+                "type": "select",
+                "id": "pl-f",
+                "label": "$f(t,x)$: ",
+                "optionsHtml": "\n      <option value=\"x\">$f=x$ &nbsp; (true: $x_0 e^{t}$)</option>\n      <option value=\"tx\">$f=tx$ &nbsp; (true: $x_0 e^{t^2/2}$)</option>\n      <option value=\"sin\">$f=\\sin(x)$</option>\n    ",
+                "format": "nested"
+              },
+              {
+                "type": "slider",
+                "id": "pl-k",
+                "label": "iterations:",
+                "min": 0,
+                "max": 6,
+                "value": 3,
+                "step": 1
+              },
+              {
+                "type": "slider",
+                "id": "pl-x0",
+                "label": "$x_0$:",
+                "min": -2,
+                "max": 2,
+                "value": 1,
+                "step": 0.1
+              }
+            ],
+            "svg": {
+              "id": "pl-svg",
+              "viewBox": "0 0 560 280",
+              "width": "100%"
+            },
+            "readout": {
+              "id": "pl-out"
+            },
+            "bodyScript": "",
+            "trailingProse": "Each iterate $\\varphi_{k+1}(t)=x_0+\\int_0^t f(s,\\varphi_k(s))\\,ds$ moves toward the unique solution, which is the contraction's fixed point."
           }
         },
         {

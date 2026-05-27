@@ -98,7 +98,9 @@
             "properties": {
               "type":  { "const": "select" },
               "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-              "label": { "type": "string", "description": "Optional `<label for=ID>` text rendered before the select. May contain KaTeX $...$. Omit for a bare `<select>`." },
+              "label": { "type": "string", "description": "Label text. In `separate` form (default) it's the `<label for=ID>` text before the select; in `nested` form it's the verbatim text inside `<label>` before the `<select>`. May contain KaTeX $...$. Omit for a bare `<select>`." },
+              "format": { "enum": ["separate", "nested"], "default": "separate", "description": "Markup shape. `separate`: `<label for=ID>LABEL</label>` then sibling `<select id=ID>`. `nested`: `<label>LABEL<select id=ID>…</select></label>` (label wraps the select). Preserved per-control for byte-identity." },
+              "style": { "type": "string", "description": "Optional inline `style` on the `<select>` (e.g. `min-width:160px`), emitted verbatim. Round-tripped from widgets that set one." },
               "optionsHtml": { "type": "string", "description": "Verbatim inner markup of the `<select>` — the `<option>` run exactly as authored (inline or indented/multi-line). Validated by the migrate tool to contain only `<option>` elements (no event handlers).", "x-artifact": true }
             }
           }

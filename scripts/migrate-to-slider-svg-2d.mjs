@@ -174,6 +174,27 @@ function parseControls(rowInner) {
       if (labelEndIdx < 0) throw new Error('unterminated <label> in .row');
       const inner = rowInner.slice(openCloseIdx + 1, labelEndIdx);
 
+      // Nested-form select: `<label>LABELTEXT<select ID [style]>OPTS</select></label>`
+      // (label wraps the select; the select sits at the end of the label inner).
+      const nestedSelectMatch = inner.match(/^([\s\S]*?)<select\b([^>]*)>([\s\S]*)<\/select>\s*$/);
+      if (nestedSelectMatch) {
+        const labelText = nestedSelectMatch[1];
+        const selAttrs = nestedSelectMatch[2];
+        const optionsHtml = nestedSelectMatch[3];
+        const selIdM = selAttrs.match(/\bid="([^"]+)"/);
+        if (!selIdM) throw new Error('nested <select> without id: ' + inner.slice(0, 80));
+        const styleM = selAttrs.match(/\sstyle="([^"]*)"/);
+        const extra = selAttrs.replace(/\s*id="[^"]*"/, '').replace(/\s*style="[^"]*"/, '').trim();
+        if (extra) throw new Error('nested <select> with unsupported attribute(s) (id/style only): ' + selAttrs);
+        if (labelAttrsWithoutFor.trim()) throw new Error('nested-select label carries extra attrs: ' + labelAttrsWithoutFor);
+        assertOptionsSafe(optionsHtml);
+        const ctrl = { type: 'select', id: selIdM[1], label: labelText, optionsHtml, format: 'nested' };
+        if (styleM) ctrl.style = styleM[1];
+        controls.push(ctrl);
+        i = labelEndIdx + '</label>'.length;
+        continue;
+      }
+
       const nestedInputMatch = inner.match(/<input\s+([^>]+?)\s*\/?>/);
       let slider;
       let advanceTo;
@@ -215,8 +236,9 @@ function parseControls(rowInner) {
           const selIdM = selOpenTag.match(/\bid="([^"]+)"/);
           if (!selIdM) throw new Error('<select> without id: ' + selOpenTag);
           const selId = selIdM[1];
-          const extra = selOpenTag.slice('<select'.length, -1).replace(/\s*id="[^"]*"/, '').trim();
-          if (extra) throw new Error('<select> with unsupported attribute(s) (only id): ' + selOpenTag);
+          const styleM = selOpenTag.match(/\sstyle="([^"]*)"/);
+          const extra = selOpenTag.slice('<select'.length, -1).replace(/\s*id="[^"]*"/, '').replace(/\s*style="[^"]*"/, '').trim();
+          if (extra) throw new Error('<select> with unsupported attribute(s) (only id/style): ' + selOpenTag);
           if (labelAttrsWithoutFor.trim()) {
             throw new Error('select-label carries extra attrs (unsupported): ' + labelAttrsWithoutFor);
           }
@@ -226,7 +248,10 @@ function parseControls(rowInner) {
           if (selCloseIdx < 0) throw new Error('unterminated <select>');
           const optionsHtml = rowInner.slice(selOpenEnd + 1, selCloseIdx);
           assertOptionsSafe(optionsHtml);
-          controls.push({ type: 'select', id: selId, label: inner.trim(), optionsHtml });
+          const selStyle = styleM ? styleM[1] : undefined;
+          const selCtrl = { type: 'select', id: selId, label: inner.trim(), optionsHtml };
+          if (selStyle !== undefined) selCtrl.style = selStyle;
+          controls.push(selCtrl);
           i = selCloseIdx + '</select>'.length;
           continue;
         }

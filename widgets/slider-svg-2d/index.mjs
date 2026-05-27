@@ -78,10 +78,18 @@ function renderControl(c) {
     // KaTeX in option labels renders via the page's js/katex-select.js shim
     // (already loaded on pages with working LaTeX-in-<option> selects).
     const opts = typeof c.optionsHtml === 'string' ? c.optionsHtml : '';
+    const styleAttr = (typeof c.style === 'string') ? ` style="${c.style}"` : '';
+    const sel = `<select id="${c.id}"${styleAttr}>${opts}</select>`;
+    if (c.format === 'nested') {
+      // Nested form: `<label>LABEL<select …>…</select></label>` (the label text
+      // and select are one element). c.label is the verbatim text before <select>.
+      return `<label>${c.label || ''}${sel}</label>`;
+    }
+    // Separate form (default): `<label for=ID>LABEL</label>` then `<select id=ID>`.
     const labelPart = (typeof c.label === 'string' && c.label !== '')
       ? `<label for="${c.id}">${c.label}</label>\n    `
       : '';
-    return `${labelPart}<select id="${c.id}">${opts}</select>`;
+    return `${labelPart}${sel}`;
   }
   throw new Error(`slider-svg-2d: unknown control type "${c.type}"`);
 }

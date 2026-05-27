@@ -600,24 +600,24 @@ giving $P + Q = (x_3, y_3)$.</p>
 <p>For $n \in \mathbb{Z}$ one defines $[n] : E \to E$ by $[0] P = O$, $[n+1] P = [n] P + P$, and $[-n] P = -[n] P$. This is a morphism of group schemes, called the <em>multiplication-by-$n$</em> map. Its degree is $n^2$, a number-theoretically decisive fact: the kernel $E[n]$, the <em>$n$-torsion subgroup</em>, has $n^2$ geometric points over $\bar k$ (when $\operatorname{char}(k) \nmid n$), and is isomorphic as an abstract group to $(\mathbb{Z}/n)^2$.</p>
 
 <div class="widget">
-<div class="hd"><span class="ttl">Repeated addition: $nP$</span><span class="hint">pick curve preset and $P$, slide $n$</span></div>
-<div class="row">
-  <label>curve <select id="rep-curve">
+  <div class="hd"><div class="ttl">Repeated addition: $nP$</div><div class="hint">pick curve preset and $P$, slide $n$</div></div>
+  <div class="row">
+    <label>curve <select id="rep-curve">
     <option value="-2,1">y² = x³ - 2x + 1</option>
     <option value="-1,1">y² = x³ - x + 1</option>
     <option value="0,1">y² = x³ + 1</option>
     <option value="-2,2">y² = x³ - 2x + 2</option>
   </select></label>
-  <label>starting $P$ <select id="rep-P">
+    <label>starting $P$ <select id="rep-P">
     <option value="0">preset 1</option>
     <option value="1">preset 2</option>
     <option value="2">preset 3</option>
   </select></label>
-  <label>$n$ <input type="range" id="rep-n" min="-6" max="6" step="1" value="2"></label>
-  <span id="rep-nval" class="small">2</span>
-</div>
-<svg id="rep-svg" viewBox="0 0 560 400" width="560" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Repeated addition: $nP$</title></svg>
-<div id="rep-out" class="readout"></div>
+    <label>$n$<input id="rep-n" type="range" min="-6" max="6" step="1" value="2"></label>
+    <span id="rep-nval" class="small">2</span>
+  </div>
+  <svg id="rep-svg" viewBox="0 0 560 400" width="560" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Repeated addition: $nP$</title></svg>
+  <div class="readout" id="rep-out"></div>
 </div>
 
 <script>
@@ -791,24 +791,24 @@ $$E(\mathbb{F}_p) \cong \mathbb{Z}/m \oplus \mathbb{Z}/mk \quad \text{for some i
 In particular $E(\mathbb{F}_p)$ is cyclic or "nearly cyclic": $m = 1$ is the common case.</p>
 
 <div class="widget">
-<div class="hd"><span class="ttl">$E(\mathbb{F}_p)$ scatter</span><span class="hint">choose curve and prime; see all rational points</span></div>
-<div class="row">
-  <label>curve <select id="tf-curve">
+  <div class="hd"><div class="ttl">$E(\mathbb{F}_p)$ scatter</div><div class="hint">choose curve and prime; see all rational points</div></div>
+  <div class="row">
+    <label>curve <select id="tf-curve">
     <option value="-1,0">y² = x³ - x</option>
     <option value="0,1">y² = x³ + 1</option>
     <option value="-4,4">y² = x³ - 4x + 4</option>
     <option value="1,1">y² = x³ + x + 1</option>
     <option value="-2,1">y² = x³ - 2x + 1</option>
   </select></label>
-  <label>$p$ <select id="tf-p">
+    <label>$p$ <select id="tf-p">
     <option value="5">5</option>
     <option value="7">7</option>
     <option value="11">11</option>
     <option value="13" selected>13</option>
   </select></label>
-</div>
-<svg id="tf-svg" viewBox="0 0 400 400" width="400" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>$E(\mathbb{F}_p)$ scatter</title></svg>
-<div id="tf-out" class="readout"></div>
+  </div>
+  <svg id="tf-svg" viewBox="0 0 400 400" width="400" height="400" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>$E(\mathbb{F}_p)$ scatter</title></svg>
+  <div class="readout" id="tf-out"></div>
 </div>
 
 <script>
