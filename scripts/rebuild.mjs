@@ -118,6 +118,7 @@ const STEPS = [
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
   { name: 'notation',   script: 'audit-notation.mjs',           fix: false },
   { name: 'draft-cards', script: 'audit-draft-index-cards.mjs', fix: false },
+  { name: 'slug-titles', script: 'audit-slug-flavored-titles.mjs', fix: false },
   { name: 'starter',    script: 'audit-starter-concepts.mjs',   fix: false },
   // Low-usage advisory audits — always exit 0; surface quality gaps that
   // aren't blockers (concepts without worked examples, quiz questions whose
