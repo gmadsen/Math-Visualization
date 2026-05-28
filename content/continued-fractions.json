@@ -32,7 +32,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./galois.html#field-extensions\">Field extensions and minimal polynomials</a></li>\n    <li><a href=\"./algebraic-number-theory.html#examples\">Number fields and rings of integers</a></li>\n    <li><a href=\"./galois.html#galois\">Field extensions and automorphisms</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./galois.html#normal-separable\">Field extensions and minimal polynomials</a></li>\n    <li><a href=\"./algebraic-number-theory.html#examples\">Number fields and rings of integers</a></li>\n    <li><a href=\"./galois.html#galois\">Field extensions and automorphisms</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

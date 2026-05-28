@@ -276,7 +276,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#homotopy\">Homotopy and classifying maps</a></li>\n    <li><a href=\"./k-theory.html#vector-bundles\">K-theory and stable bundles</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html\">Homotopy and classifying maps</a></li>\n    <li><a href=\"./k-theory.html#vector-bundles\">K-theory and stable bundles</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
