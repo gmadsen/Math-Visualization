@@ -288,38 +288,38 @@ function drawNode(svg, x, y, label, opts={}){
       <marker id="ch-arr-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--pink)"/></marker>
     </defs>
     <!-- top row: X -->
-    <text x="40"  y="80" font-size="13" fill="var(--mute)">$X^\bullet$</text>
-    <text x="120" y="80" text-anchor="middle" font-size="14">$X^{n-1}$</text>
-    <text x="280" y="80" text-anchor="middle" font-size="14">$X^{n}$</text>
-    <text x="440" y="80" text-anchor="middle" font-size="14">$X^{n+1}$</text>
+    <text x="40"  y="80" font-size="13" fill="var(--mute)">X•</text>
+    <text x="120" y="80" text-anchor="middle" font-size="14">Xⁿ⁻¹</text>
+    <text x="280" y="80" text-anchor="middle" font-size="14">Xⁿ</text>
+    <text x="440" y="80" text-anchor="middle" font-size="14">Xⁿ⁺¹</text>
     <line x1="160" y1="76" x2="240" y2="76" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ch-arr)"/>
     <line x1="320" y1="76" x2="400" y2="76" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ch-arr)"/>
-    <text x="200" y="68" text-anchor="middle" font-size="12" fill="var(--mute)">$d$</text>
-    <text x="360" y="68" text-anchor="middle" font-size="12" fill="var(--mute)">$d$</text>
+    <text x="200" y="68" text-anchor="middle" font-size="12" fill="var(--mute)">𝑑</text>
+    <text x="360" y="68" text-anchor="middle" font-size="12" fill="var(--mute)">𝑑</text>
     <!-- bottom row: Y -->
-    <text x="40"  y="220" font-size="13" fill="var(--mute)">$Y^\bullet$</text>
-    <text x="120" y="220" text-anchor="middle" font-size="14">$Y^{n-1}$</text>
-    <text x="280" y="220" text-anchor="middle" font-size="14">$Y^{n}$</text>
-    <text x="440" y="220" text-anchor="middle" font-size="14">$Y^{n+1}$</text>
+    <text x="40"  y="220" font-size="13" fill="var(--mute)">Y•</text>
+    <text x="120" y="220" text-anchor="middle" font-size="14">Yⁿ⁻¹</text>
+    <text x="280" y="220" text-anchor="middle" font-size="14">Yⁿ</text>
+    <text x="440" y="220" text-anchor="middle" font-size="14">Yⁿ⁺¹</text>
     <line x1="160" y1="216" x2="240" y2="216" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ch-arr)"/>
     <line x1="320" y1="216" x2="400" y2="216" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ch-arr)"/>
-    <text x="200" y="234" text-anchor="middle" font-size="12" fill="var(--mute)">$d$</text>
-    <text x="360" y="234" text-anchor="middle" font-size="12" fill="var(--mute)">$d$</text>
+    <text x="200" y="234" text-anchor="middle" font-size="12" fill="var(--mute)">𝑑</text>
+    <text x="360" y="234" text-anchor="middle" font-size="12" fill="var(--mute)">𝑑</text>
     <!-- vertical f arrows (yellow, slight left offset) -->
     <line class="ch-pick" data-key="f-1" x1="112" y1="92" x2="112" y2="208" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#ch-arr-y)" style="cursor:pointer"/>
     <line class="ch-pick" data-key="f-0" x1="272" y1="92" x2="272" y2="208" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#ch-arr-y)" style="cursor:pointer"/>
     <line class="ch-pick" data-key="f-p" x1="432" y1="92" x2="432" y2="208" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#ch-arr-y)" style="cursor:pointer"/>
-    <text x="100" y="155" font-size="12" fill="var(--yellow)">$f$</text>
+    <text x="100" y="155" font-size="12" fill="var(--yellow)">𝑓</text>
     <!-- vertical g arrows (cyan, slight right offset) -->
     <line class="ch-pick" data-key="g-1" x1="132" y1="92" x2="132" y2="208" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#ch-arr-c)" style="cursor:pointer"/>
     <line class="ch-pick" data-key="g-0" x1="292" y1="92" x2="292" y2="208" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#ch-arr-c)" style="cursor:pointer"/>
     <line class="ch-pick" data-key="g-p" x1="452" y1="92" x2="452" y2="208" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#ch-arr-c)" style="cursor:pointer"/>
-    <text x="138" y="155" font-size="12" fill="var(--cyan)">$g$</text>
+    <text x="138" y="155" font-size="12" fill="var(--cyan)">𝑔</text>
     <!-- diagonal s arrows (pink, going up and to the left) -->
     <line class="ch-pick" data-key="s-0" x1="260" y1="208" x2="160" y2="92" stroke="var(--pink)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ch-arr-p)" style="cursor:pointer"/>
     <line class="ch-pick" data-key="s-p" x1="420" y1="208" x2="320" y2="92" stroke="var(--pink)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ch-arr-p)" style="cursor:pointer"/>
-    <text x="210" y="155" font-size="12" fill="var(--pink)">$s$</text>
-    <text x="370" y="155" font-size="12" fill="var(--pink)">$s$</text>
+    <text x="210" y="155" font-size="12" fill="var(--pink)">𝑠</text>
+    <text x="370" y="155" font-size="12" fill="var(--pink)">𝑠</text>
   </svg>
   <div class="readout" id="ch-readout">click an arrow above — yellow $f$, cyan $g$, dashed pink $s$ — to see what it does and the relation $f - g = ds + sd$ at that degree.</div>
 </div>
@@ -474,11 +474,11 @@ with two roofs equivalent if they admit a common refinement. Composition of roof
     <circle class="rf-pick" data-key="Z" cx="230" cy="60"  r="16" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
     <text x="230" y="64" text-anchor="middle" font-size="14" pointer-events="none">Z</text>
     <line class="rf-pick" data-key="s" x1="218" y1="74" x2="96" y2="170" stroke="var(--yellow)" stroke-width="1.8" marker-end="url(#rf-arr-y)" style="cursor:pointer"/>
-    <text x="135" y="115" font-size="13" fill="var(--yellow)">$s$ (qis)</text>
+    <text x="135" y="115" font-size="13" fill="var(--yellow)">𝑠 (qis)</text>
     <line class="rf-pick" data-key="f" x1="242" y1="74" x2="364" y2="170" stroke="var(--cyan)" stroke-width="1.8" marker-end="url(#rf-arr-c)" style="cursor:pointer"/>
-    <text x="320" y="115" font-size="13" fill="var(--cyan)">$f$</text>
+    <text x="320" y="115" font-size="13" fill="var(--cyan)">𝑓</text>
     <line x1="100" y1="180" x2="360" y2="180" stroke="var(--mute)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#rf-arr)"/>
-    <text x="230" y="210" text-anchor="middle" font-size="12" fill="var(--mute)">induced morphism in $D(\mathcal{A})$: $f \circ s^{-1}$</text>
+    <text x="230" y="210" text-anchor="middle" font-size="12" fill="var(--mute)">induced morphism in D(𝓐): 𝑓 ∘ 𝑠⁻¹</text>
   </svg>
   <div class="readout" id="rf-readout">click any node or arrow to see its role in the roof.</div>
 </div>
@@ -719,13 +719,13 @@ where $X^\bullet \to I^\bullet$ is a quasi-iso to a complex of injectives. $RF$ 
     <text x="246" y="210" font-size="11" fill="var(--mute)">2</text>
     <line x1="232" y1="210" x2="248" y2="210" stroke="var(--line)"/>
     <rect class="ts-pick" data-key="leq0"  x="40"  y="100" width="160" height="160" fill="rgba(255,216,102,0.10)" stroke="var(--yellow)" stroke-dasharray="4 3" style="cursor:pointer"/>
-    <text x="120" y="170" text-anchor="middle" font-size="14" fill="var(--yellow)">$D^{\le 0}$</text>
+    <text x="120" y="170" text-anchor="middle" font-size="14" fill="var(--yellow)">D^(≤0)</text>
     <rect class="ts-pick" data-key="geq0"  x="280" y="20"  width="160" height="120" fill="rgba(125,224,214,0.10)" stroke="var(--cyan)" stroke-dasharray="4 3" style="cursor:pointer"/>
-    <text x="360" y="80" text-anchor="middle" font-size="14" fill="var(--cyan)">$D^{\ge 0}$</text>
+    <text x="360" y="80" text-anchor="middle" font-size="14" fill="var(--cyan)">D^(≥0)</text>
     <rect class="ts-pick" data-key="heart" x="280" y="120" width="160" height="20"  fill="rgba(179,157,219,0.30)" stroke="var(--violet)" style="cursor:pointer"/>
-    <text x="360" y="135" text-anchor="middle" font-size="12" fill="var(--violet)">heart $\heartsuit \simeq \mathcal{A}$</text>
+    <text x="360" y="135" text-anchor="middle" font-size="12" fill="var(--violet)">heart ♡ ≃ 𝓐</text>
     <rect class="ts-pick" data-key="trunc" x="40"  y="40"  width="160" height="40"  fill="rgba(231,122,95,0.10)" stroke="var(--pink)" stroke-dasharray="4 3" style="cursor:pointer"/>
-    <text x="120" y="65" text-anchor="middle" font-size="12" fill="var(--pink)">$\tau_{\ge 1}X$ "lives upstairs"</text>
+    <text x="120" y="65" text-anchor="middle" font-size="12" fill="var(--pink)">τ_{≥1}X "lives upstairs"</text>
   </svg>
   <div class="readout" id="ts-readout">click a colored band to read its definition.</div>
 </div>
@@ -782,18 +782,18 @@ where $\pi_X, \pi_Y$ are the projections. Mukai's original example: $X$ an abeli
       <marker id="fm-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
     </defs>
     <rect class="fm-pick" data-key="X" x="40"  y="180" width="120" height="60" rx="10" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
-    <text x="100" y="216" text-anchor="middle" font-size="14" pointer-events="none">$D^b(X)$</text>
+    <text x="100" y="216" text-anchor="middle" font-size="14" pointer-events="none">Dᵇ(X)</text>
     <rect class="fm-pick" data-key="Y" x="320" y="180" width="120" height="60" rx="10" fill="var(--panel2)" stroke="var(--blue)" style="cursor:pointer"/>
-    <text x="380" y="216" text-anchor="middle" font-size="14" pointer-events="none">$D^b(Y)$</text>
+    <text x="380" y="216" text-anchor="middle" font-size="14" pointer-events="none">Dᵇ(Y)</text>
     <rect class="fm-pick" data-key="XY" x="180" y="40" width="120" height="60" rx="10" fill="var(--panel2)" stroke="var(--violet)" style="cursor:pointer"/>
-    <text x="240" y="76" text-anchor="middle" font-size="14" pointer-events="none">$D^b(X \times Y)$</text>
-    <text x="240" y="92" text-anchor="middle" font-size="11" pointer-events="none" fill="var(--mute)">kernel $\mathcal{P}$</text>
+    <text x="240" y="76" text-anchor="middle" font-size="14" pointer-events="none">Dᵇ(X × Y)</text>
+    <text x="240" y="92" text-anchor="middle" font-size="11" pointer-events="none" fill="var(--mute)">kernel 𝓟</text>
     <line class="fm-pick" data-key="piX" x1="190" y1="100" x2="120" y2="178" stroke="var(--yellow)" stroke-width="1.6" marker-end="url(#fm-arr)" style="cursor:pointer"/>
-    <text x="130" y="140" font-size="13" fill="var(--yellow)">$\pi_X^*$</text>
+    <text x="130" y="140" font-size="13" fill="var(--yellow)">π_X*</text>
     <line class="fm-pick" data-key="piY" x1="290" y1="100" x2="360" y2="178" stroke="var(--cyan)" stroke-width="1.6" marker-end="url(#fm-arr)" style="cursor:pointer"/>
-    <text x="335" y="140" font-size="13" fill="var(--cyan)">$R\pi_{Y,*}$</text>
+    <text x="335" y="140" font-size="13" fill="var(--cyan)">Rπ_{Y,*}</text>
     <line class="fm-pick" data-key="phi" x1="170" y1="210" x2="316" y2="210" stroke="var(--pink)" stroke-width="2" marker-end="url(#fm-arr)" style="cursor:pointer"/>
-    <text x="240" y="200" text-anchor="middle" font-size="13" fill="var(--pink)">$\Phi_{\mathcal{P}}$</text>
+    <text x="240" y="200" text-anchor="middle" font-size="13" fill="var(--pink)">Φ_𝓟</text>
   </svg>
   <div class="readout" id="fm-readout">click a node or arrow to read its role.</div>
 </div>
