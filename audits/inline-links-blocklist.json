@@ -59,6 +59,9 @@
     "capstone-sound-to-wavelets-story.html": {
       "hdg-applications": "§6 'applications' is plain English in a list of practical use cases",
       "real-differentiation": "§2 reader has already absorbed Fourier/convolution/Plancherel"
+    },
+    "cohomology-and-duality.html": {
+      "chern-classes": "§6 worked example (CP^n) is purely topological — $c_i \\in H^{2i}(X;\\mathbb{Z})$ via cup product. chern-classes (intersection-theory-chow, algebraic $A^i(X)$) is the wrong target; cc-chern-classes (topological) is correct."
     }
   }
 }

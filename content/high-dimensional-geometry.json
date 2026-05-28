@@ -41,7 +41,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Probability theory</a> · Expectation, variance, and moments</li>\n    <li><a href=\"./measure-theory.html#lp-spaces\">Measure theory</a> · $L^{p}$ spaces</li>\n    <li><a href=\"./measure-theory.html#lp\">Lᵖ spaces</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#expectation\">Probability theory</a> · Expectation, variance, and moments</li>\n    <li><a href=\"./measure-theory.html#lp\">Measure theory</a> · $L^{p}$ spaces</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

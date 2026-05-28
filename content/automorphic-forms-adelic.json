@@ -402,7 +402,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./modular-forms.html#eisenstein\">Classical Eisenstein series $E_k(\\tau)$</a> — the holomorphic prototype.</li>\n    <li><a href=\"./modular-forms.html#eisen\">Eisenstein series</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./modular-forms.html#eisen\">Classical Eisenstein series $E_k(\\tau)$</a> — the holomorphic prototype.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -456,7 +456,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./class-field-theory.html#artin-map\">Artin reciprocity</a> — the abelian case ${}^L\\mathrm{GL}_1 \\to {}^L \\mathrm{GL}_n$.</li>\n    <li><a href=\"./sato-tate.html#equidistribution\">Sato–Tate</a> — equidistribution as $\\mathrm{Sym}^k$ functoriality.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./class-field-theory.html#artin\">Artin reciprocity</a> — the abelian case ${}^L\\mathrm{GL}_1 \\to {}^L \\mathrm{GL}_n$.</li>\n    <li><a href=\"./sato-tate.html#weyl\">Sato–Tate</a> — equidistribution as $\\mathrm{Sym}^k$ functoriality.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",

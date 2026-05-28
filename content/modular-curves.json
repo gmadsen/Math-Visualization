@@ -313,7 +313,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The decomposition $S_2(\\Gamma_0(N)) = S_2^{\\mathrm{old}} \\oplus S_2^{\\mathrm{new}}$ refines the Hecke action: oldforms are pulled back from strict divisor levels via $f(\\tau) \\mapsto f(d\\tau)$, while $S_2^{\\mathrm{new}}$ admits a unique basis of <em>newforms</em> — normalized Hecke eigenforms whose $q$-expansions begin $q + a_2 q^2 + a_3 q^3 + \\cdots$ and whose Hecke eigenvalues uniquely determine them (multiplicity-one). On the Jacobian side this gives an isogeny decomposition\n$$J_0(N) \\;\\sim\\; \\prod_{M \\mid N} J_0(M)^{\\mathrm{new}\\,\\sigma_0(N/M)},$$\nand each newform of level $N$ gives one factor of $J_0(N)^{\\mathrm{new}}$ on which $W_N$ acts by signs.</p>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./hecke-operators.html#hecke-action\">Hecke operators on modular forms</a></li>\n    <li><a href=\"./modular-forms.html#cusp-forms\">Cusp forms and the Petersson inner product</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
+          "html": "\n\n<p>The decomposition $S_2(\\Gamma_0(N)) = S_2^{\\mathrm{old}} \\oplus S_2^{\\mathrm{new}}$ refines the Hecke action: oldforms are pulled back from strict divisor levels via $f(\\tau) \\mapsto f(d\\tau)$, while $S_2^{\\mathrm{new}}$ admits a unique basis of <em>newforms</em> — normalized Hecke eigenforms whose $q$-expansions begin $q + a_2 q^2 + a_3 q^3 + \\cdots$ and whose Hecke eigenvalues uniquely determine them (multiplicity-one). On the Jacobian side this gives an isogeny decomposition\n$$J_0(N) \\;\\sim\\; \\prod_{M \\mid N} J_0(M)^{\\mathrm{new}\\,\\sigma_0(N/M)},$$\nand each newform of level $N$ gives one factor of $J_0(N)^{\\mathrm{new}}$ on which $W_N$ acts by signs.</p>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./hecke-operators.html#qexp\">Hecke operators on modular forms</a></li>\n    <li><a href=\"./modular-forms.html#cusps\">Cusp forms and the Petersson inner product</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
           "type": "quiz",
@@ -358,7 +358,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elliptic-curves.html#cm\">Complex multiplication for elliptic curves</a></li>\n    <li><a href=\"./bsd.html#gross-zagier\">Gross–Zagier and the rank-$1$ BSD case</a></li>\n    <li><a href=\"./elliptic-curves.html#complex\">Complex uniformization and CM</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elliptic-curves.html#complex\">Complex multiplication for elliptic curves</a></li>\n    <li><a href=\"./bsd.html#gross-zagier\">Gross–Zagier and the rank-$1$ BSD case</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -411,7 +411,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elliptic-curves.html#mordell-weil\">Mordell–Weil for elliptic curves</a></li>\n    <li><a href=\"./modularity-and-flt.html#fermat\">Modularity and FLT</a></li>\n    <li><a href=\"./elliptic-curves.html#mordell\">Mordell–Weil and invariants</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elliptic-curves.html#mordell\">Mordell–Weil for elliptic curves</a></li>\n    <li><a href=\"./modularity-and-flt.html#frey\">Modularity and FLT</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

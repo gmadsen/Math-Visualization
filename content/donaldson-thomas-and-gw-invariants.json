@@ -159,7 +159,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./intersection-theory-chow.html#chern-classes\">Chern classes</a></li>\n    <li><a href=\"./deformation-theory.html#functor\">Deformation functor</a></li>\n    <li><a href=\"./deformation-theory.html#deformation-functor\">Deformation functors and Schlessinger's criteria</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./intersection-theory-chow.html#chern-classes\">Chern classes</a></li>\n    <li><a href=\"./deformation-theory.html#deformation-functor\">Deformation functor</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
