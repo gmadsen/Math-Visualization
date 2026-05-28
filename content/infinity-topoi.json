@@ -62,7 +62,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./infinity-categories.html#infty-limits\">$\\infty$-categorical (co)limits</a> — for the meaning of \"$L$ left exact\".</li>\n    <li><a href=\"./grothendieck-topologies-sites.html\">Grothendieck topologies &amp; sites</a> — the 1-categorical analogue of \"what gets inverted\".</li>\n    <li><a href=\"./elementary-topos-theory.html#sheafification\">Sheafification $a\\colon \\widehat C \\to \\mathrm{Sh}(C, J)$</a> — the model the $\\infty$-version generalizes.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./infinity-categories.html#infty-limits\">$\\infty$-categorical (co)limits</a> — for the meaning of \"$L$ left exact\".</li>\n    <li><a href=\"./grothendieck-topologies-sites.html\">Grothendieck topologies &amp; sites</a> — the 1-categorical analogue of \"what gets inverted\".</li>\n    <li><a href=\"./elementary-topos-theory.html#presheaf-topos\">Sheafification $a\\colon \\widehat C \\to \\mathrm{Sh}(C, J)$</a> — the model the $\\infty$-version generalizes.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
