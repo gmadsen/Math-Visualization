@@ -663,7 +663,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
     const key = `${p}.${q}`;
     const r = TBL[key] ?? '?';
     out.innerHTML = `$[P, Q] = [${NAMES[p]},\\, ${NAMES[q]}] = ${r}$`;
-    if(typeof renderMathInElement==='function') renderMathInElement(out, {throwOnError:false});
+    if(typeof renderMathInElement==='function') renderMathInElement(out, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
   }
   sel1.addEventListener('change', render);
   sel2.addEventListener('change', render);
@@ -990,7 +990,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
       (irr
         ? '<span style="color:var(--green)">Irreducible</span> — no integer obstruction. The D-module $M_{a,b,c}$ is simple, with rank-2 monodromy.'
         : `<span style="color:var(--pink)">Reducible</span> — ${violations.join(', ')}. The local system splits.`);
-    if(typeof renderMathInElement==='function') renderMathInElement(out, {throwOnError:false});
+    if(typeof renderMathInElement==='function') renderMathInElement(out, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
   }
 
   function update(){
@@ -1027,7 +1027,7 @@ $$P(s) \cdot f^{s+1} \;=\; b(s) \cdot f^s$$
     const v = sel.value;
     const e = TBL[v];
     out.innerHTML = `$b_f(s) = ${e.tex}$<br/>roots: $${e.rootsTex}$ — all in $(-\\infty, 0) \\cap \\mathbb{Q}$ as Kashiwara's theorem demands.`;
-    if(typeof renderMathInElement==='function') renderMathInElement(out, {throwOnError:false});
+    if(typeof renderMathInElement==='function') renderMathInElement(out, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
   }
   sel.addEventListener('change', render);
   render();
