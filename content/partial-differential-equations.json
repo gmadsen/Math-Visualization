@@ -82,7 +82,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./measure-theory.html#convergence-theorems\">Convergence theorems</a></li>\n    <li><a href=\"./measure-theory.html#convergence\">Monotone and dominated convergence</a></li>\n    <li><a href=\"./harmonic-functions.html#maximum\">Maximum principle</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./measure-theory.html#convergence\">Convergence theorems</a></li>\n    <li><a href=\"./harmonic-functions.html#maximum\">Maximum principle</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -190,7 +190,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./harmonic-functions.html#hf-laplace-equation\">The Laplace equation</a></li>\n    <li><a href=\"./harmonic-functions.html#laplace-equation\">Laplace's equation</a></li>\n    <li><a href=\"./harmonic-functions.html#poisson\">Poisson kernel</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./harmonic-functions.html#laplace-equation\">The Laplace equation</a></li>\n    <li><a href=\"./harmonic-functions.html#poisson\">Poisson kernel</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

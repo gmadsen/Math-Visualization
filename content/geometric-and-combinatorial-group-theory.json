@@ -329,7 +329,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#fundamental-group\">Fundamental group</a> — surface groups $\\pi_1(\\Sigma_g)$ for $g\\ge 2$ are the prototypical hyperbolic groups.</li>\n    <li><a href=\"./point-set-topology.html#metric-spaces\">Metric spaces</a> — the entire framework lives one layer up from the metric-space axioms.</li>\n    <li><a href=\"./algebraic-topology.html#pi1\">Fundamental group</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#pi1\">Fundamental group</a> — surface groups $\\pi_1(\\Sigma_g)$ for $g\\ge 2$ are the prototypical hyperbolic groups.</li>\n    <li><a href=\"./point-set-topology.html#metric\">Metric spaces</a> — the entire framework lives one layer up from the metric-space axioms.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -378,7 +378,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./spectral-graph-theory.html#adjacency-and-laplacian\">Adjacency &amp; Laplacian</a> — expander families are exactly Cayley graphs with bounded-below spectral gap.</li>\n    <li><a href=\"./spectral-graph-theory.html#adjacency-laplacian\">Adjacency, degree, and the Laplacian</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./spectral-graph-theory.html#adjacency-laplacian\">Adjacency &amp; Laplacian</a> — expander families are exactly Cayley graphs with bounded-below spectral gap.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -396,7 +396,7 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Geometric group theory remains a young, active field. The geometry of mapping class groups (Behrstock–Hagen–Sisto's hierarchically hyperbolic spaces), random groups (the Gromov density model), boundary rigidity for higher-rank lattices, and the still-open isomorphism problem for general hyperbolic groups all sit on its current frontier.</p>\n\n<ul>\n  <li><a href=\"./algebra.html#cosets\">Abstract algebra — Subgroups, cosets, Lagrange</a> — the finite-index machinery underwrites \"virtually $X$\" properties (nilpotent, free, abelian).</li>\n  <li><a href=\"./algebraic-topology.html#fundamental-group\">Algebraic topology — Fundamental group</a> — every f.p. group arises as $\\pi_1$ of some 2-complex; surface and 3-manifold $\\pi_1$ are the geometric flagships.</li>\n  <li><a href=\"./spectral-graph-theory.html#adjacency-and-laplacian\">Spectral graph theory — adjacency &amp; Laplacian</a> — expanders from Cayley graphs of $\\mathrm{SL}_2(\\mathbb{F}_p)$ tie group theory to spectral geometry.</li>\n  <li><a href=\"./point-set-topology.html#metric-spaces\">Point-set topology — Metric spaces</a> — the metric-space axioms are the entire foundation of word metrics and quasi-isometry.</li>\n  <li><a href=\"./lie-groups.html\">Lie groups</a> — lattices in semisimple Lie groups are the source of Mostow rigidity and many of the deepest examples in the field.</li>\n</ul>\n</section>\n\n"
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Geometric group theory remains a young, active field. The geometry of mapping class groups (Behrstock–Hagen–Sisto's hierarchically hyperbolic spaces), random groups (the Gromov density model), boundary rigidity for higher-rank lattices, and the still-open isomorphism problem for general hyperbolic groups all sit on its current frontier.</p>\n\n<ul>\n  <li><a href=\"./algebra.html#cosets\">Abstract algebra — Subgroups, cosets, Lagrange</a> — the finite-index machinery underwrites \"virtually $X$\" properties (nilpotent, free, abelian).</li>\n  <li><a href=\"./algebraic-topology.html#pi1\">Algebraic topology — Fundamental group</a> — every f.p. group arises as $\\pi_1$ of some 2-complex; surface and 3-manifold $\\pi_1$ are the geometric flagships.</li>\n  <li><a href=\"./spectral-graph-theory.html#adjacency-laplacian\">Spectral graph theory — adjacency &amp; Laplacian</a> — expanders from Cayley graphs of $\\mathrm{SL}_2(\\mathbb{F}_p)$ tie group theory to spectral geometry.</li>\n  <li><a href=\"./point-set-topology.html#metric\">Point-set topology — Metric spaces</a> — the metric-space axioms are the entire foundation of word metrics and quasi-isometry.</li>\n  <li><a href=\"./lie-groups.html\">Lie groups</a> — lattices in semisimple Lie groups are the source of Mostow rigidity and many of the deepest examples in the field.</li>\n</ul>\n</section>\n\n"
         }
       ]
     }

@@ -457,7 +457,7 @@ function drawNode(svg, x, y, label, opts={}){
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
-    <li><a href="./bezout.html#bezout">Bézout's theorem</a> — the prototype intersection-number computation, recovered in §4 from the Chow ring of $\mathbb{P}^2$.</li>
+    <li><a href="./bezout.html#statement">Bézout's theorem</a> — the prototype intersection-number computation, recovered in §4 from the Chow ring of $\mathbb{P}^2$.</li>
     <li><a href="./schemes.html">Schemes</a> — every closed subvariety appearing here is the support of a closed subscheme; rational equivalence is most cleanly stated in scheme-theoretic language.</li>
     <li><a href="./algebraic-topology.html#homology">Singular homology</a></li>
   </ul>
@@ -625,7 +625,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Among all smooth varieties, projective space has the simplest Chow ring imaginable: <em>a truncated polynomial ring on a single generator</em>. Let $h \in A^1(\mathbb{P}^n)$ denote the class of a hyperplane $H \subset \mathbb{P}^n$. Then</p>
 <p>$$ A^*(\mathbb{P}^n) \;=\; \mathbb{Z}[h] \,\big/\, (h^{n+1}), \qquad A^k(\mathbb{P}^n) = \mathbb{Z} \cdot h^k \quad (0 \le k \le n). $$</p>
 <p>The geometric content of $h^k$ is the class of any codimension-$k$ linear subspace $L^{n-k} \subset \mathbb{P}^n$ — every two such are rationally equivalent (move them via a linear family). The relation $h^{n+1} = 0$ is forced by dimension: a codimension-$(n+1)$ subvariety of $\mathbb{P}^n$ doesn't exist (it would have negative dimension), so its class is $0$.</p>
-<p>The intersection product is multiplication of polynomials in $h$ followed by truncation. Two effective hypersurfaces of degrees $d_1, d_2$ have classes $d_1 h$ and $d_2 h$, so they intersect in the class $d_1 d_2 \, h^2$. For $n = 2$ this is exactly <a href="./bezout.html#bezout">Bézout's theorem</a>: $C \cdot D = (\deg C)(\deg D)$ points (with multiplicity) in $\mathbb{P}^2$. For general $n$, intersecting $n$ hypersurfaces of degrees $d_1, \ldots, d_n$ in general position gives $$ d_1 h \cdot d_2 h \cdots d_n h \;=\; (d_1 d_2 \cdots d_n) \, h^n \;\in\; A^n(\mathbb{P}^n) = \mathbb{Z}, $$ recovering the projective Bézout count. Higher products of the same generator pile up "schubert-like" classes: $h^k$ has degree $1$ as the class of a codimension-$k$ linear space, and the intersection $h^a \cdot h^b = h^{a+b}$ if $a + b \le n$, else $0$.</p>
+<p>The intersection product is multiplication of polynomials in $h$ followed by truncation. Two effective hypersurfaces of degrees $d_1, d_2$ have classes $d_1 h$ and $d_2 h$, so they intersect in the class $d_1 d_2 \, h^2$. For $n = 2$ this is exactly <a href="./bezout.html#statement">Bézout's theorem</a>: $C \cdot D = (\deg C)(\deg D)$ points (with multiplicity) in $\mathbb{P}^2$. For general $n$, intersecting $n$ hypersurfaces of degrees $d_1, \ldots, d_n$ in general position gives $$ d_1 h \cdot d_2 h \cdots d_n h \;=\; (d_1 d_2 \cdots d_n) \, h^n \;\in\; A^n(\mathbb{P}^n) = \mathbb{Z}, $$ recovering the projective Bézout count. Higher products of the same generator pile up "schubert-like" classes: $h^k$ has degree $1$ as the class of a codimension-$k$ linear space, and the intersection $h^a \cdot h^b = h^{a+b}$ if $a + b \le n$, else $0$.</p>
 <p>The proof uses the affine cell decomposition $\mathbb{P}^n = \mathbb{A}^n \sqcup \mathbb{A}^{n-1} \sqcup \cdots \sqcup \mathbb{A}^0$ (Schubert cells), the affine-bundle homotopy property $A_*(\mathbb{A}^n) = \mathbb{Z}$ (Fulton, <em>Intersection Theory</em>, Prop. 1.9; classical, going back to Bloch — Quillen's analogous statement $K_i(R) \cong K_i(R[t])$ for regular $R$ lives on the K-theory side), and the localization sequence to assemble $A^*(\mathbb{P}^n)$ from the cells. The widget below lets you pick $n$ and explore the resulting ring; it also lets you compute $h^a \cdot h^b$ for arbitrary $a, b$.</p>
 <div class="widget" id="w-pn-ring">
   <div class="hd"><div class="ttl">$A^*(\mathbb{P}^n) = \mathbb{Z}[h]/(h^{n+1})$ — slide $n$, multiply $h^a \cdot h^b$</div><div class="hint">drag the sliders</div></div>
@@ -710,7 +710,7 @@ function drawNode(svg, x, y, label, opts={}){
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
-    <li><a href="./bezout.html#bezout">Bézout's theorem</a> — the case $n = 2$, recovered as multiplication in $\mathbb{Z}[h]/(h^3)$.</li>
+    <li><a href="./bezout.html#statement">Bézout's theorem</a> — the case $n = 2$, recovered as multiplication in $\mathbb{Z}[h]/(h^3)$.</li>
     <li><a href="./projective-plane.html#defn">Projective points and lines</a></li>
   </ul>
 </aside>
