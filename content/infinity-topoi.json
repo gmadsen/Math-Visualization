@@ -12,7 +12,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elementary-topos-theory.html#geometric-morphisms\">Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathsf{Set}]$</a> — the 1-categorical analogue.</li>\n    <li><a href=\"./infinity-categories.html#quasi-category\">Quasi-categories</a> — the model for what \"small $\\infty$-category $C$\" means.</li>\n    <li><a href=\"./simplicial-sets-and-nerve.html\">Simplicial sets &amp; nerve</a> — $\\mathcal{S}$ is the localization of $\\mathrm{sSet}$ at the Kan-fibration weak equivalences.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elementary-topos-theory.html#presheaf-topos\">Presheaf toposes $\\hat{C} = [C^{\\mathrm{op}}, \\mathsf{Set}]$</a> — the 1-categorical analogue.</li>\n    <li><a href=\"./infinity-categories.html#quasi-category\">Quasi-categories</a> — the model for what \"small $\\infty$-category $C$\" means.</li>\n    <li><a href=\"./simplicial-sets-and-nerve.html\">Simplicial sets &amp; nerve</a> — $\\mathcal{S}$ is the localization of $\\mathrm{sSet}$ at the Kan-fibration weak equivalences.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -62,7 +62,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./infinity-categories.html#infty-limits\">$\\infty$-categorical (co)limits</a> — for the meaning of \"$L$ left exact\".</li>\n    <li><a href=\"./grothendieck-topologies-sites.html\">Grothendieck topologies &amp; sites</a> — the 1-categorical analogue of \"what gets inverted\".</li>\n    <li><a href=\"./elementary-topos-theory.html#presheaf-topos\">Sheafification $a\\colon \\widehat C \\to \\mathrm{Sh}(C, J)$</a> — the model the $\\infty$-version generalizes.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./infinity-categories.html#infty-limits\">$\\infty$-categorical (co)limits</a> — for the meaning of \"$L$ left exact\".</li>\n    <li><a href=\"./grothendieck-topologies-sites.html\">Grothendieck topologies &amp; sites</a> — the 1-categorical analogue of \"what gets inverted\".</li>\n    <li><a href=\"./elementary-topos-theory.html#geometric-morphisms\">Sheafification $a\\colon \\widehat C \\to \\mathrm{Sh}(C, J)$</a> — the model the $\\infty$-version generalizes.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
