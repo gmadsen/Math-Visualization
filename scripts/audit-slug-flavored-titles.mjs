@@ -127,6 +127,17 @@ const WHITELIST = new Set([
   'Vertex operator algebras',
   'Geometric measure theory',
   'Quantum field theory',
+  'Mapping class groups',
+  'Markov decision processes',
+  'Probabilistic graphical models',
+  'Random matrix theory',
+  'Statistical learning theory',
+  'Topological data analysis',
+  'Computational molecular biology',
+  'Deep learning theory',
+  'Dirichlet unit theorem',
+  'Geometric invariant theory',
+  'Graph theory fundamentals',
 ]);
 
 function looksSlugFlavored(title) {
