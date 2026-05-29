@@ -1,6 +1,14 @@
 {
-  "generated": "2026-05-28T16:27:40.345Z",
+  "generated": "2026-05-29T23:04:17.706Z",
   "entries": [
+    {
+      "slug": "complex-multiplication",
+      "title": "Complex multiplication",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "feat(validate-katex): per-page macro awareness; drop bogus 'Sha' whitelist (#196) (#405)"
+    },
     {
       "slug": "algebra",
       "title": "Abstract algebra",
@@ -520,14 +528,6 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — third batch (15 more topics)"
-    },
-    {
-      "slug": "complex-multiplication",
-      "title": "Complex multiplication",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: Codex Tier 2 backlog — math/widget/anchor bugs from PRs #100-#170 (#187)"
     },
     {
       "slug": "condensed-mathematics",
