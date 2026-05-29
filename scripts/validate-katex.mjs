@@ -546,7 +546,11 @@ for (const topicId of model.topicIds) {
       val.forEach((v, i) => walkParamStrings(v, `${path}[${i}]`));
     } else if (val && typeof val === 'object') {
       for (const [k, v] of Object.entries(val)) {
-        if (/script|code/i.test(k)) continue; // JS/code body: `$(`/`${}` aren't math
+        // Skip JS/code-bearing param keys — `$('#id')` / `${expr}` there aren't
+        // math. Covers bodyScript, scriptBodyLiteral, templateLiteral (raw JS),
+        // and initialCode. bodyMarkup is HTML and stays validated (its <script>
+        // bodies are stripped inside validateContentString).
+        if (/script|code|literal/i.test(k)) continue;
         walkParamStrings(v, `${path}.${k}`);
       }
     }
