@@ -32,6 +32,11 @@
 //     in `.choices` (for mcq). Same for the `hard` sibling array.
 //   - concepts/*.json → every `concepts[i].blurb`.
 //   - concepts/capstones.json → every `capstone.blurb`.
+//   - content/*.json → every `type:"raw"` block's HTML (issue #210):
+//     structural checks + the doubled-backslash JSON-escape gate. The
+//     macro-warning pass is intentionally NOT run on content prose (it is
+//     dense with page-local macros the global whitelist can't see — see
+//     validateContentString / issue #196).
 //
 // Output format: `<file>:<path.to.field> → <error description>`, sorted by
 // file. Prints a final count. Exit 1 if any errors, 0 clean. Warnings print
@@ -39,8 +44,13 @@
 //
 // Zero dependencies: regex + string checks, runs from stock node.
 
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { loadContentModel } from './lib/content-model.mjs';
+import { loadTopicContent } from './lib/json-block-writer.mjs';
 import { escapedAt, extractSpans } from './lib/math-spans.mjs';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 const errors = [];   // [{ file, path, msg }]
 const warnings = []; // [{ file, path, msg }]
@@ -353,6 +363,62 @@ function checkUnknownMacros(body, span, file, path, macroCounts) {
 const unknownMacroCounts = new Map();
 
 // ─────────────────────────────────────────────────────────────────────────
+// Doubled-backslash JSON-escape bug (CONTENT raw blocks only).
+//
+// A `content/<topic>.json` `type:"raw"` HTML block is JSON-decoded ONCE before
+// it reaches the browser, so a single-backslash macro must be authored as `\\`
+// in the JSON source (e.g. `$\\mathcal{K}$` → decodes to `$\mathcal{K}$`). If
+// an author writes a *doubled* backslash (`$\\\\mathcal{K}$`), it decodes to
+// `$\\mathcal{K}$` — and KaTeX reads that leading `\\` as a line-break
+// primitive followed by the plain text "mathcal", silently mangling the math
+// under `throwOnError:false`. This is exactly the regression PR #209 shipped
+// in 5 places that only the multi-agent review caught (issue #210).
+//
+// After JSON decode, the bug shows as `\\` immediately followed by a letter.
+// We deliberately SKIP any span containing a `\begin{…}` environment, because
+// there `\\` is a legitimate row separator that is routinely followed by the
+// next cell's letter (`\begin{pmatrix}a&b\\c&d\end{pmatrix}`) — flagging those
+// would be ~19 corpus-wide false positives. Bare `\\` followed by whitespace,
+// `&`, brace, or end (a real line break) is also fine.
+const DOUBLED_BACKSLASH = /\\\\[a-zA-Z]/;
+
+function checkDoubledBackslash(body) {
+  if (/\\begin\{/.test(body)) return null; // matrix/aligned/cases — `\\` is a row break
+  const m = DOUBLED_BACKSLASH.exec(body);
+  if (!m) return null;
+  return `doubled backslash "\\\\${m[0].slice(2)}" — likely a JSON double-escape ` +
+    `(author wrote \\\\ where one backslash was meant); KaTeX reads it as a ` +
+    `line break + plain text. Use a single backslash in the JSON source.`;
+}
+
+// Validate a CONTENT raw-block string: structural checks (errors) + the
+// doubled-backslash gate, but NOT the unknown-macro warning pass — content
+// prose is dense with page-local macros (\Spec, \GL, \Sha, …) declared in each
+// page's own loader, which the global whitelist can't see, so running the
+// macro pass here would flood the advisory output (that's issue #196's
+// per-page-macro question). Structural + doubled-backslash are macro-agnostic.
+function validateContentString(s, file, path) {
+  if (typeof s !== 'string' || s === '') return;
+  // Strip <script>/<style> bodies first: a raw block often carries a widget's
+  // driving <script>, where JS `$('#id')` and template `${expr}` would be
+  // misread as math `$…$` delimiters. KaTeX only ever renders the prose, so
+  // only the prose is in scope. (Replace with spaces to keep offsets sane.)
+  s = s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, m => ' '.repeat(m.length))
+       .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, m => ' '.repeat(m.length));
+  const { spans, errors: extractErrs } = extractSpans(s);
+  for (const e of extractErrs) errors.push({ file, path, msg: e });
+  for (const span of spans) {
+    if (checkEmpty(span)) continue;
+    const braceMsg = checkBraces(span.body);
+    if (braceMsg) errors.push({ file, path, msg: `${span.open}…${span.close}: ${braceMsg}` });
+    const envMsg = checkEnvironments(span.body);
+    if (envMsg) errors.push({ file, path, msg: `${span.open}…${span.close}: ${envMsg}` });
+    const dblMsg = checkDoubledBackslash(span.body);
+    if (dblMsg) errors.push({ file, path, msg: `${span.open}…${span.close}: ${dblMsg}` });
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
 // Validate one string value, annotating errors with the JSON field path.
 
 function validateString(s, file, path) {
@@ -460,6 +526,34 @@ for (let i = 0; i < model.capstones.length; i++) {
   validateString(c.blurb, 'concepts/capstones.json', `capstones[${key}].blurb`);
 }
 
+// Content raw blocks (issue #210): the structured `content/<topic>.json` source
+// — never walked before, so JSON-escape-level bugs (doubled backslash) slid
+// past CI until a human reviewer caught them. Walk every `type:"raw"` block's
+// HTML for structural + doubled-backslash issues (macro-agnostic, see
+// validateContentString). `loadTopicContent` JSON-decodes the doc, so the
+// strings here are the post-decode form the browser ultimately parses.
+let contentTopics = 0;
+for (const topicId of model.topicIds) {
+  let doc;
+  try { doc = loadTopicContent(topicId, repoRoot); } catch { continue; }
+  if (!doc) continue;
+  contentTopics++;
+  const rel = `content/${topicId}.json`;
+  const walk = (node, path) => {
+    if (Array.isArray(node)) {
+      node.forEach((v, i) => walk(v, `${path}[${i}]`));
+    } else if (node && typeof node === 'object') {
+      if (node.type === 'raw' && typeof node.html === 'string') {
+        validateContentString(node.html, rel, `${path}.html`);
+      }
+      for (const [k, v] of Object.entries(node)) {
+        if (v && typeof v === 'object') walk(v, path ? `${path}.${k}` : k);
+      }
+    }
+  };
+  walk(doc, '');
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 // Report.
 
@@ -471,7 +565,7 @@ function cmp(a, b) {
 errors.sort(cmp);
 warnings.sort(cmp);
 
-console.log(`validate-katex: scanned quizzes/*.json + concepts/*.json`);
+console.log(`validate-katex: scanned quizzes/*.json + concepts/*.json + ${contentTopics} content/*.json (raw blocks: structural + doubled-backslash)`);
 console.log('');
 
 if (errors.length) {
