@@ -20,8 +20,11 @@
 //     review list, not a hard error.
 //
 //   CLASS C — LaTeX inside an SVG <text> node (can't render at all).
-//     KaTeX cannot typeset inside SVG <text>; a `$…$` or `\command` there shows
-//     as raw source. Advisory.
+//     KaTeX cannot typeset inside SVG <text>; a `\command` or a `$…$` pair with
+//     TeX-ish interior (backslash / super- or subscript / brace group) there
+//     shows as raw source — a reader-visible bug, gated under --strict. A bare
+//     literal `$` (e.g. a `cost $5` currency label) is legible plain text and
+//     is deliberately NOT flagged, so the gate never blocks a real dollar sign.
 //
 // Scope:
 //   - CLASS A prose + CLASS B inline-script scans run over EVERY top-level
@@ -65,6 +68,13 @@ const FIX = process.argv.includes('--fix');
 const TAG_OPEN = /<[a-zA-Z/!]/;
 // A backslash command, used to spot LaTeX leaking into SVG <text>.
 const TEX_CMD = /\\[a-zA-Z]/;
+// A `$…$` pair whose interior carries TeX syntax (a backslash command or a
+// super/subscript or a brace group). This is the *gated* shape of a CLASS C
+// leak: it renders as raw, broken source in an SVG <text>. A lone literal `$`
+// — e.g. a currency axis label like `cost $5` or a payoff range `$5–$10` —
+// is NOT a leak (it displays fine as plain SVG text), so it must not trip the
+// strict gate. (Codex review, PR #400.)
+const TEX_DOLLAR = /\$[^$]*[\\^_{}][^$]*\$/;
 
 const classA = []; // { file, where, span, ch }
 const classB = []; // { file, snippet }
@@ -358,7 +368,11 @@ for (const topicId of model.topicIds) {
   if (topic && topic.html) {
     for (const t of topic.html.querySelectorAll('text')) {
       const txt = t.textContent || '';
-      if (txt.includes('$') || TEX_CMD.test(txt)) {
+      // Flag only genuine un-renderable LaTeX — a backslash command or a
+      // `$…$` pair with TeX-ish interior. A bare literal `$` (currency) is
+      // legible plain text and is deliberately NOT flagged so the strict gate
+      // can't block a legitimate dollar-sign label (Codex review, PR #400).
+      if (TEX_CMD.test(txt) || TEX_DOLLAR.test(txt)) {
         classC.push({ file: `${topicId}.html`, text: txt.trim().slice(0, 80) });
       }
     }
