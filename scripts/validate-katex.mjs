@@ -254,7 +254,7 @@ const KATEX_MACROS = new Set([
   'ltimes', 'rtimes',
   'divideontimes',
   // Relations
-  'leq', 'le', 'geq', 'ge', 'neq', 'ne', 'equiv', 'sim', 'simeq', 'approx',
+  'leq', 'le', 'lt', 'geq', 'ge', 'gt', 'neq', 'ne', 'equiv', 'sim', 'simeq', 'approx',
   'cong', 'doteq', 'propto', 'asymp', 'bowtie', 'dashv', 'vdash', 'models',
   'perp', 'mid', 'nmid', 'parallel', 'nparallel', 'smile', 'frown',
   'sqsubset', 'sqsupset', 'sqsubseteq', 'sqsupseteq', 'subset', 'supset',
@@ -502,7 +502,16 @@ for (const topicId of model.topicIds) {
 
 for (const [topic, bank] of model.quizBanks) {
   if (!bank) continue;
-  activeTopicMacros = topicMacros.get(topic) || null;
+  // NOTE: do NOT apply the page's per-page macros to quiz strings. Quiz DOM is
+  // typeset by js/quiz.js with its own `renderMathInElement(el, {delimiters,
+  // throwOnError:false})` that does NOT pass the page loader's `macros` — so a
+  // quiz using e.g. `$\Sha$` renders raw even on a page that declares \Sha.
+  // Recognizing page macros here would MASK that real quiz-render bug (Codex
+  // review, #405). Quizzes get the global whitelist only; per-page macros
+  // apply to concept blurbs (which render in the page's own auto-render pass).
+  // The proper end-state is to make quiz.js inherit the macro map — the known
+  // corpus-wide quiz-macro-leak — tracked separately.
+  activeTopicMacros = null;
   const rel = `quizzes/${topic}.json`;
   const quizzes = (bank && bank.quizzes) || {};
   for (const [conceptId, quiz] of Object.entries(quizzes)) {
