@@ -602,17 +602,15 @@ function drawNode(svg, x, y, label, opts={}){
     drawNode(svg, 380, 180, 'Y',{stroke:'var(--violet)'});
     drawArrow(svg,[100,82],[100,158],{label:'étale atlas', color:'var(--mute)', markerId:'arr-uatlas'});
     drawArrow(svg,[380,82],[380,158],{label:'étale atlas', labelSide:0, color:'var(--mute)', markerId:'arr-vatlas'});
-    drawArrow(svg,[122,60],[358,60],{label:'$\\tilde f$', color:'var(--ink)', markerId:'arr-tildef'});
-    drawArrow(svg,[122,180],[358,180],{label:'$f$', color:active==='separated'?'var(--yellow)':'var(--ink)', width:2, markerId:'arr-f'});
+    drawArrow(svg,[122,60],[358,60],{label:'f̃', color:'var(--ink)', markerId:'arr-tildef'});
+    drawArrow(svg,[122,180],[358,180],{label:'f', color:active==='separated'?'var(--yellow)':'var(--ink)', width:2, markerId:'arr-f'});
     // labels: P on tildef and on f
     const txtP=SVG('text',{x:240,y:38,'text-anchor':'middle','font-size':12,fill:'var(--green)'});
     txtP.textContent = '𝑃 holds for f̃ ?'; svg.appendChild(txtP);
     const txtPp=SVG('text',{x:240,y:215,'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});
     txtPp.textContent = '⇔ 𝑃 holds for f'; svg.appendChild(txtPp);
     // re-typeset KaTeX
-    if(window.renderMathInElement) window.renderMathInElement(svg,{delimiters:[
-      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},
-      {left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});
+    /* KaTeX cannot render inside SVG <text>; the arrow labels above are Unicode */
   }
   function update(){
     const p = props[active];
