@@ -52,6 +52,17 @@ import { escapedAt, extractSpans } from './lib/math-spans.mjs';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
+// Widget param keys holding raw JavaScript (not KaTeX): their values use
+// `$('#id')` / `${expr}`, which the math-span extractor would misread as
+// `$…$`. Validated content params (title, hint, bodyMarkup, description,
+// controlsLiteral, tableLiteral, dataLiteral, proofsLiteral, labels, …) carry
+// real math and ARE checked. Explicit set, because substring matching on the
+// key name is wrong both ways (`description` contains "script"; the *Literal
+// HTML params contain "literal").
+const CODE_PARAM_KEYS = new Set([
+  'bodyScript', 'scriptBodyLiteral', 'templateLiteral', 'initialCode',
+]);
+
 const errors = [];   // [{ file, path, msg }]
 const warnings = []; // [{ file, path, msg }]
 
@@ -539,12 +550,40 @@ for (const topicId of model.topicIds) {
   if (!doc) continue;
   contentTopics++;
   const rel = `content/${topicId}.json`;
+  const walkParamStrings = (val, path) => {
+    if (typeof val === 'string') {
+      validateContentString(val, rel, path);
+    } else if (Array.isArray(val)) {
+      val.forEach((v, i) => walkParamStrings(v, `${path}[${i}]`));
+    } else if (val && typeof val === 'object') {
+      for (const [k, v] of Object.entries(val)) {
+        // Skip ONLY the params that hold raw JS, where `$('#id')`/`${expr}`
+        // would be misread as math. Use an explicit allowlist, NOT a substring
+        // match: `/script/` also hits `description` and `/literal/` also hits
+        // the HTML-markup params `controlsLiteral`/`tableLiteral` (which carry
+        // real `$…$` math and must be validated). bodyMarkup and the
+        // *Literal HTML/data params stay validated; their <script> bodies are
+        // stripped inside validateContentString.
+        if (CODE_PARAM_KEYS.has(k)) continue;
+        walkParamStrings(v, `${path}.${k}`);
+      }
+    }
+  };
   const walk = (node, path) => {
     if (Array.isArray(node)) {
       node.forEach((v, i) => walk(v, `${path}[${i}]`));
     } else if (node && typeof node === 'object') {
       if (node.type === 'raw' && typeof node.html === 'string') {
         validateContentString(node.html, rel, `${path}.html`);
+      } else if (node.type === 'widget' && node.params && typeof node.params === 'object') {
+        // Codex review on #210/#403: a `type:"widget"` block's params (title,
+        // hint, bodyMarkup, label arrays, …) are rendered into the page via
+        // renderMarkup(params) but validate-widget-params only schema/XSS-checks
+        // them — so the same JSON double-escape can ship inside widget math.
+        // Validate every string-valued param the same way. SKIP keys matching
+        // /script/i: bodyScript/scriptBodyLiteral are JS, where `$('#id')` and
+        // template `${expr}` would be misread as math delimiters.
+        walkParamStrings(node.params, `${path}.params`);
       }
       for (const [k, v] of Object.entries(node)) {
         if (v && typeof v === 'object') walk(v, path ? `${path}.${k}` : k);
