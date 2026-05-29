@@ -34,12 +34,15 @@
 //   - CLASS A also covers quiz banks (q / explain / choices / hint, plus hard &
 //     expert tiers) and concept/capstone title+blurb.
 //   - CLASS C (SVG <text>) stays topic-scoped — that's where widgets live.
-// Exits 0 (advisory) unless `--strict`, which exits 1 if any CLASS A hit exists
-// (the only reader-visible-bug class). `--write` dumps
+// Exits 0 (advisory) unless `--strict`, which exits 1 if any CLASS A or CLASS C
+// hit exists (both are reader-visible bugs — A loses prose, C shows raw LaTeX;
+// CLASS B stays advisory). The corpus was swept to zero on both across PRs
+// #392–#399; --strict locks that in. `--write` dumps
 // audits/math-rendering-leaks.md. `--fix` rewrites every CLASS A hazard at its
 // source — `&lt;` in content/<topic>.json prose (single HTML parse), `\lt ` in
 // quiz/concept JSON (KaTeX source, dual-path safe) — then exits; re-run after
-// `rebuild.mjs` to confirm CLASS A is clear.
+// `rebuild.mjs` to confirm CLASS A is clear. (CLASS C has no auto-fix: convert
+// the SVG <text> to Unicode or move the label out of the <text> node by hand.)
 //
 // Zero runtime deps beyond the shared content model + span extractor.
 
@@ -465,8 +468,15 @@ if (WRITE) {
   console.log(`\nwrote ${out}`);
 }
 
-if (STRICT && classA.length) {
-  console.error(`\naudit-math-rendering-leaks: ${classA.length} CLASS A (content-loss) hit(s) — failing under --strict.`);
+// Both CLASS A (content loss) and CLASS C (raw LaTeX shown in SVG <text>) are
+// reader-visible bugs that were swept to zero across PRs #392–#399. --strict
+// gates BOTH so neither class can silently regress. CLASS B stays advisory
+// (most hits are benign — see the class note above).
+if (STRICT && (classA.length || classC.length)) {
+  const parts = [];
+  if (classA.length) parts.push(`${classA.length} CLASS A (content-loss)`);
+  if (classC.length) parts.push(`${classC.length} CLASS C (LaTeX in SVG <text>)`);
+  console.error(`\naudit-math-rendering-leaks: ${parts.join(' + ')} hit(s) — failing under --strict.`);
   process.exit(1);
 }
 process.exit(0);

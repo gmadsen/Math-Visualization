@@ -142,14 +142,17 @@ const STEPS = [
   // regression.
   { name: 'widget-interactivity', script: 'audit-widget-interactivity.mjs',
     fix: false, extraArgs: ['--strict'] },
-  // CI gate: CLASS A math-rendering leaks — a raw `<letter` inside a `$…$` /
-  // `$$…$$` / `\(…\)` / `\[…\]` span, which the HTML tokenizer reads as a
-  // start-tag and swallows following prose (reader-visible content loss). The
-  // corpus was swept to zero; --strict fails if any reappears. Strict in BOTH
-  // fix and --no-fix mode so a regression is caught on the developer's machine
-  // before push (mirrors the widget-interactivity gate above). Fix a flagged
-  // hit with `node scripts/audit-math-rendering-leaks.mjs --fix` (rewrites
-  // `&lt;` in prose / `\lt ` in quiz+concept JSON), or hand-fix widget params.
+  // CI gate: CLASS A + CLASS C math-rendering leaks. CLASS A is a raw `<letter`
+  // inside a `$…$` / `$$…$$` / `\(…\)` / `\[…\]` span, which the HTML tokenizer
+  // reads as a start-tag and swallows following prose (reader-visible content
+  // loss). CLASS C is `$…$` or a `\command` inside an SVG `<text>` node, which
+  // KaTeX cannot typeset — the reader sees raw LaTeX source. The corpus was
+  // swept to zero on both across PRs #392–#399; --strict fails if either
+  // reappears. Strict in BOTH fix and --no-fix mode so a regression is caught
+  // on the developer's machine before push (mirrors the widget-interactivity
+  // gate above). Fix a CLASS A hit with `node scripts/audit-math-rendering-
+  // leaks.mjs --fix` (rewrites `&lt;` in prose / `\lt ` in quiz+concept JSON);
+  // CLASS C has no auto-fix — Unicode-ize the SVG `<text>` by hand.
   { name: 'math-leaks', script: 'audit-math-rendering-leaks.mjs',
     fix: false, extraArgs: ['--strict'] },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
