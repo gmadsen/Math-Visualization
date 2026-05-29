@@ -611,9 +611,7 @@ function drawNode(svg, x, y, label, opts={}){
       const ar1 = SVG('line',{x1:215,y1:y-2,x2:265,y2:y-2,stroke:col,'stroke-width':1.4,'marker-end':`url(#arr-hop-r-${i})`}); svg.appendChild(ar1);
       const ar2 = SVG('line',{x1:265,y1:y+8,x2:215,y2:y+8,stroke:col,'stroke-width':1.4,'marker-end':`url(#arr-hop-l-${i})`}); svg.appendChild(ar2);
     });
-    if(window.renderMathInElement){
-      /* KaTeX cannot render inside SVG <text>; labels are Unicode */
-    }
+    /* KaTeX cannot render inside SVG <text>; the SVG labels above are Unicode */
   }
   let active = 'mult';
   draw(active); out.textContent = ROWS.find(r=>r.id===active).readout;
@@ -688,9 +686,7 @@ function drawNode(svg, x, y, label, opts={}){
     const lg = SVG('text',{x:270,y:260,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
     lg.textContent = 'top row: char 0 / coprime-to-p → étale.   bottom row: char p → connected pieces appear.';
     svg.appendChild(lg);
-    if(window.renderMathInElement){
-      /* KaTeX cannot render inside SVG <text>; labels are Unicode */
-    }
+    /* KaTeX cannot render inside SVG <text>; the SVG labels above are Unicode */
   }
   let active = 'znq';
   draw(active); out.textContent = NODES.find(n=>n.id===active).readout;
