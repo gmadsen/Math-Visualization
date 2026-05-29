@@ -52,6 +52,17 @@ import { escapedAt, extractSpans } from './lib/math-spans.mjs';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
+// Widget param keys holding raw JavaScript (not KaTeX): their values use
+// `$('#id')` / `${expr}`, which the math-span extractor would misread as
+// `$…$`. Validated content params (title, hint, bodyMarkup, description,
+// controlsLiteral, tableLiteral, dataLiteral, proofsLiteral, labels, …) carry
+// real math and ARE checked. Explicit set, because substring matching on the
+// key name is wrong both ways (`description` contains "script"; the *Literal
+// HTML params contain "literal").
+const CODE_PARAM_KEYS = new Set([
+  'bodyScript', 'scriptBodyLiteral', 'templateLiteral', 'initialCode',
+]);
+
 const errors = [];   // [{ file, path, msg }]
 const warnings = []; // [{ file, path, msg }]
 
@@ -546,11 +557,14 @@ for (const topicId of model.topicIds) {
       val.forEach((v, i) => walkParamStrings(v, `${path}[${i}]`));
     } else if (val && typeof val === 'object') {
       for (const [k, v] of Object.entries(val)) {
-        // Skip JS/code-bearing param keys — `$('#id')` / `${expr}` there aren't
-        // math. Covers bodyScript, scriptBodyLiteral, templateLiteral (raw JS),
-        // and initialCode. bodyMarkup is HTML and stays validated (its <script>
-        // bodies are stripped inside validateContentString).
-        if (/script|code|literal/i.test(k)) continue;
+        // Skip ONLY the params that hold raw JS, where `$('#id')`/`${expr}`
+        // would be misread as math. Use an explicit allowlist, NOT a substring
+        // match: `/script/` also hits `description` and `/literal/` also hits
+        // the HTML-markup params `controlsLiteral`/`tableLiteral` (which carry
+        // real `$…$` math and must be validated). bodyMarkup and the
+        // *Literal HTML/data params stay validated; their <script> bodies are
+        // stripped inside validateContentString.
+        if (CODE_PARAM_KEYS.has(k)) continue;
         walkParamStrings(v, `${path}.${k}`);
       }
     }
