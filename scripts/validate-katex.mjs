@@ -331,8 +331,11 @@ const KATEX_MACROS = new Set([
   'char', 'mathchoice', 'relax', 'expandafter', 'noexpand',
   // Number systems shortcut
   'colon', 'semicolon',
-  // Specific non-standard but KaTeX-supported
-  'Sha', 'Sha',
+  // NOTE: \Sha was previously (mistakenly) whitelisted here as if it were a
+  // KaTeX built-in. It isn't — it's a per-page macro (→ \text{Ш}) declared in
+  // each arithmetic page's loader, now recognized via per-topic macro
+  // extraction (see topicMacros / issue #196). A page using \Sha WITHOUT
+  // declaring it now correctly warns.
   // Escaped specials treated as "macros" when followed by letters via lookbehind.
   // (These are accents when a letter follows; they're harmless in the whitelist.)
   'H', 'c', 'v', 'u', 'r', 'b', 'd', 't', 'l', 'o', 'O', 'AA', 'aa',
@@ -356,12 +359,19 @@ function isKnownMacro(name) {
   return KATEX_MACROS.has(name) || USER_MACROS.has(name);
 }
 
+// Per-page macros declared in the topic currently being walked (issue #196).
+// Set before each topic's strings are validated; null for sources with no
+// single owning page (e.g. capstone blurbs). A macro declared in the page's
+// own loader is NOT "unknown" on that page.
+let activeTopicMacros = null;
+
 function checkUnknownMacros(body, span, file, path, macroCounts) {
   let m;
   MACRO_RE.lastIndex = 0;
   while ((m = MACRO_RE.exec(body))) {
     const name = m[1];
     if (isKnownMacro(name)) continue;
+    if (activeTopicMacros && activeTopicMacros.has(name)) continue;
     warnings.push({
       file,
       path,
@@ -468,10 +478,31 @@ function validateString(s, file, path) {
 const model = await loadContentModel();
 
 // ─────────────────────────────────────────────────────────────────────────
+// Per-page KaTeX macros (issue #196). Each topic's loader declares macros like
+// \Sha, \GL, \Spec in its rawHead `macros:{ '\\Sha':'\\text{Ш}', … }`. Build a
+// per-topic name set so a macro USED on the page where it's DECLARED is not a
+// false "unknown" warning, while a page using e.g. \Sha WITHOUT declaring it
+// still warns. This replaces the bogus global 'Sha' whitelist entry — \Sha is
+// a per-page macro, not a KaTeX built-in.
+const MACRO_DECL_RE = /['"]\\\\([a-zA-Z]+)['"]\s*:/g;
+const topicMacros = new Map();
+for (const topicId of model.topicIds) {
+  let doc;
+  try { doc = loadTopicContent(topicId, repoRoot); } catch { continue; }
+  const head = doc && typeof doc.rawHead === 'string' ? doc.rawHead : '';
+  const names = new Set();
+  MACRO_DECL_RE.lastIndex = 0;
+  let mm;
+  while ((mm = MACRO_DECL_RE.exec(head))) names.add(mm[1]);
+  if (names.size) topicMacros.set(topicId, names);
+}
+
+// ─────────────────────────────────────────────────────────────────────────
 // Walk quizzes.
 
 for (const [topic, bank] of model.quizBanks) {
   if (!bank) continue;
+  activeTopicMacros = topicMacros.get(topic) || null;
   const rel = `quizzes/${topic}.json`;
   const quizzes = (bank && bank.quizzes) || {};
   for (const [conceptId, quiz] of Object.entries(quizzes)) {
@@ -524,12 +555,14 @@ for (const [topic, bank] of model.quizBanks) {
 // Walk concept blurbs (each owner topic).
 
 for (const c of model.concepts.values()) {
+  activeTopicMacros = topicMacros.get(c.topic) || null;
   const rel = `concepts/${c.topic}.json`;
   const key = c.id;
   validateString(c.blurb, rel, `concepts[${key}].blurb`);
 }
 
-// Capstones.
+// Capstones: no single owning page, so only the global whitelist applies.
+activeTopicMacros = null;
 for (let i = 0; i < model.capstones.length; i++) {
   const c = model.capstones[i];
   if (!c || typeof c !== 'object') continue;
