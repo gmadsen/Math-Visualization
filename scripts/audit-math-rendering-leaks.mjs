@@ -437,9 +437,9 @@ if (classB.length) {
 }
 
 if (classC.length) {
-  log('## CLASS C — LaTeX inside SVG <text>  (advisory)');
-  log('KaTeX cannot render inside SVG <text>; convert to Unicode or move to an');
-  log('HTML overlay / <foreignObject>.');
+  log('## CLASS C — LaTeX inside SVG <text>  (READER-VISIBLE BUG, gated under --strict)');
+  log('KaTeX cannot render inside SVG <text>; the reader sees raw LaTeX source.');
+  log('Convert to Unicode or move to an HTML overlay / <foreignObject>.');
   log('');
   for (const h of classC.sort((a, b) => a.file.localeCompare(b.file))) {
     log(`  ${h.file}  "${h.text}"`);
