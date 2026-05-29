@@ -20,8 +20,11 @@
 //     review list, not a hard error.
 //
 //   CLASS C — LaTeX inside an SVG <text> node (can't render at all).
-//     KaTeX cannot typeset inside SVG <text>; a `$…$` or `\command` there shows
-//     as raw source. Advisory.
+//     KaTeX cannot typeset inside SVG <text>; a `\command` or a `$…$` pair with
+//     TeX-ish interior (backslash / super- or subscript / brace group) there
+//     shows as raw source — a reader-visible bug, gated under --strict. A bare
+//     literal `$` (e.g. a `cost $5` currency label) is legible plain text and
+//     is deliberately NOT flagged, so the gate never blocks a real dollar sign.
 //
 // Scope:
 //   - CLASS A prose + CLASS B inline-script scans run over EVERY top-level
@@ -34,12 +37,15 @@
 //   - CLASS A also covers quiz banks (q / explain / choices / hint, plus hard &
 //     expert tiers) and concept/capstone title+blurb.
 //   - CLASS C (SVG <text>) stays topic-scoped — that's where widgets live.
-// Exits 0 (advisory) unless `--strict`, which exits 1 if any CLASS A hit exists
-// (the only reader-visible-bug class). `--write` dumps
+// Exits 0 (advisory) unless `--strict`, which exits 1 if any CLASS A or CLASS C
+// hit exists (both are reader-visible bugs — A loses prose, C shows raw LaTeX;
+// CLASS B stays advisory). The corpus was swept to zero on both across PRs
+// #392–#399; --strict locks that in. `--write` dumps
 // audits/math-rendering-leaks.md. `--fix` rewrites every CLASS A hazard at its
 // source — `&lt;` in content/<topic>.json prose (single HTML parse), `\lt ` in
 // quiz/concept JSON (KaTeX source, dual-path safe) — then exits; re-run after
-// `rebuild.mjs` to confirm CLASS A is clear.
+// `rebuild.mjs` to confirm CLASS A is clear. (CLASS C has no auto-fix: convert
+// the SVG <text> to Unicode or move the label out of the <text> node by hand.)
 //
 // Zero runtime deps beyond the shared content model + span extractor.
 
@@ -62,6 +68,13 @@ const FIX = process.argv.includes('--fix');
 const TAG_OPEN = /<[a-zA-Z/!]/;
 // A backslash command, used to spot LaTeX leaking into SVG <text>.
 const TEX_CMD = /\\[a-zA-Z]/;
+// A `$…$` pair whose interior carries TeX syntax (a backslash command or a
+// super/subscript or a brace group). This is the *gated* shape of a CLASS C
+// leak: it renders as raw, broken source in an SVG <text>. A lone literal `$`
+// — e.g. a currency axis label like `cost $5` or a payoff range `$5–$10` —
+// is NOT a leak (it displays fine as plain SVG text), so it must not trip the
+// strict gate. (Codex review, PR #400.)
+const TEX_DOLLAR = /\$[^$]*[\\^_{}][^$]*\$/;
 
 const classA = []; // { file, where, span, ch }
 const classB = []; // { file, snippet }
@@ -355,7 +368,11 @@ for (const topicId of model.topicIds) {
   if (topic && topic.html) {
     for (const t of topic.html.querySelectorAll('text')) {
       const txt = t.textContent || '';
-      if (txt.includes('$') || TEX_CMD.test(txt)) {
+      // Flag only genuine un-renderable LaTeX — a backslash command or a
+      // `$…$` pair with TeX-ish interior. A bare literal `$` (currency) is
+      // legible plain text and is deliberately NOT flagged so the strict gate
+      // can't block a legitimate dollar-sign label (Codex review, PR #400).
+      if (TEX_CMD.test(txt) || TEX_DOLLAR.test(txt)) {
         classC.push({ file: `${topicId}.html`, text: txt.trim().slice(0, 80) });
       }
     }
@@ -434,9 +451,9 @@ if (classB.length) {
 }
 
 if (classC.length) {
-  log('## CLASS C — LaTeX inside SVG <text>  (advisory)');
-  log('KaTeX cannot render inside SVG <text>; convert to Unicode or move to an');
-  log('HTML overlay / <foreignObject>.');
+  log('## CLASS C — LaTeX inside SVG <text>  (READER-VISIBLE BUG, gated under --strict)');
+  log('KaTeX cannot render inside SVG <text>; the reader sees raw LaTeX source.');
+  log('Convert to Unicode or move to an HTML overlay / <foreignObject>.');
   log('');
   for (const h of classC.sort((a, b) => a.file.localeCompare(b.file))) {
     log(`  ${h.file}  "${h.text}"`);
@@ -465,8 +482,15 @@ if (WRITE) {
   console.log(`\nwrote ${out}`);
 }
 
-if (STRICT && classA.length) {
-  console.error(`\naudit-math-rendering-leaks: ${classA.length} CLASS A (content-loss) hit(s) — failing under --strict.`);
+// Both CLASS A (content loss) and CLASS C (raw LaTeX shown in SVG <text>) are
+// reader-visible bugs that were swept to zero across PRs #392–#399. --strict
+// gates BOTH so neither class can silently regress. CLASS B stays advisory
+// (most hits are benign — see the class note above).
+if (STRICT && (classA.length || classC.length)) {
+  const parts = [];
+  if (classA.length) parts.push(`${classA.length} CLASS A (content-loss)`);
+  if (classC.length) parts.push(`${classC.length} CLASS C (LaTeX in SVG <text>)`);
+  console.error(`\naudit-math-rendering-leaks: ${parts.join(' + ')} hit(s) — failing under --strict.`);
   process.exit(1);
 }
 process.exit(0);
