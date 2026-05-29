@@ -394,7 +394,7 @@
             "layout": [
               {
                 "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-gz-N\">level $N$:</label>\n    <input id=\"w-gz-N\" type=\"range\" min=\"1\" max=\"71\" step=\"1\" value=\"71\">\n    <span id=\"w-gz-Nv\" class=\"pill\">N = 71</span>\n  </div>\n  <div class=\"row\">\n    <button id=\"w-gz-prime\">prime levels only</button>\n    <button id=\"w-gz-allmf\">show $|\\\\mathbb{M}|$ supersingular primes</button>\n  </div>"
+                "html": "<div class=\"row\">\n    <label for=\"w-gz-N\">level $N$:</label>\n    <input id=\"w-gz-N\" type=\"range\" min=\"1\" max=\"71\" step=\"1\" value=\"71\">\n    <span id=\"w-gz-Nv\" class=\"pill\">N = 71</span>\n  </div>\n  <div class=\"row\">\n    <button id=\"w-gz-prime\">prime levels only</button>\n    <button id=\"w-gz-allmf\">show $|\\mathbb{M}|$ supersingular primes</button>\n  </div>"
               },
               {
                 "kind": "readout",
@@ -458,7 +458,7 @@
             "layout": [
               {
                 "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-gen-pair\">commuting pair $(g, h)$:</label>\n    <select id=\"w-gen-pair\">\n      <option value=\"e,e\" selected>(e, e)   identity / identity</option>\n      <option value=\"e,2A\">(e, 2A)   ordinary Thompson</option>\n      <option value=\"2A,e\">(2A, e)   pure twist by 2A</option>\n      <option value=\"2A,2A\">(2A, 2A)  diagonal commuting pair</option>\n      <option value=\"2A,2B\">(2A, 2B)  commuting Fischer × Conway</option>\n      <option value=\"3A,3A\">(3A, 3A)  diagonal order-3 pair</option>\n      <option value=\"3A,e\">(3A, e)   pure twist by 3A</option>\n    </select>\n  </div>\n  <div class=\"row\">\n    <label for=\"w-gen-act\">apply $\\\\mathrm{SL}_2(\\\\mathbb{Z})$ generator:</label>\n    <button id=\"w-gen-S\">$S = \\\\begin{psmallmatrix}0&-1\\\\\\\\1&0\\\\end{psmallmatrix}$</button>\n    <button id=\"w-gen-T\">$T = \\\\begin{psmallmatrix}1&1\\\\\\\\0&1\\\\end{psmallmatrix}$</button>\n    <button id=\"w-gen-reset\">reset</button>\n  </div>"
+                "html": "<div class=\"row\">\n    <label for=\"w-gen-pair\">commuting pair $(g, h)$:</label>\n    <select id=\"w-gen-pair\">\n      <option value=\"e,e\" selected>(e, e)   identity / identity</option>\n      <option value=\"e,2A\">(e, 2A)   ordinary Thompson</option>\n      <option value=\"2A,e\">(2A, e)   pure twist by 2A</option>\n      <option value=\"2A,2A\">(2A, 2A)  diagonal commuting pair</option>\n      <option value=\"2A,2B\">(2A, 2B)  commuting Fischer × Conway</option>\n      <option value=\"3A,3A\">(3A, 3A)  diagonal order-3 pair</option>\n      <option value=\"3A,e\">(3A, e)   pure twist by 3A</option>\n    </select>\n  </div>\n  <div class=\"row\">\n    <label for=\"w-gen-act\">apply $\\mathrm{SL}_2(\\mathbb{Z})$ generator:</label>\n    <button id=\"w-gen-S\">$S = \\bigl(\\begin{smallmatrix}0&-1\\\\1&0\\end{smallmatrix}\\bigr)$</button>\n    <button id=\"w-gen-T\">$T = \\bigl(\\begin{smallmatrix}1&1\\\\0&1\\end{smallmatrix}\\bigr)$</button>\n    <button id=\"w-gen-reset\">reset</button>\n  </div>"
               },
               {
                 "kind": "readout",

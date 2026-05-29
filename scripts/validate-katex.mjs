@@ -539,12 +539,33 @@ for (const topicId of model.topicIds) {
   if (!doc) continue;
   contentTopics++;
   const rel = `content/${topicId}.json`;
+  const walkParamStrings = (val, path) => {
+    if (typeof val === 'string') {
+      validateContentString(val, rel, path);
+    } else if (Array.isArray(val)) {
+      val.forEach((v, i) => walkParamStrings(v, `${path}[${i}]`));
+    } else if (val && typeof val === 'object') {
+      for (const [k, v] of Object.entries(val)) {
+        if (/script|code/i.test(k)) continue; // JS/code body: `$(`/`${}` aren't math
+        walkParamStrings(v, `${path}.${k}`);
+      }
+    }
+  };
   const walk = (node, path) => {
     if (Array.isArray(node)) {
       node.forEach((v, i) => walk(v, `${path}[${i}]`));
     } else if (node && typeof node === 'object') {
       if (node.type === 'raw' && typeof node.html === 'string') {
         validateContentString(node.html, rel, `${path}.html`);
+      } else if (node.type === 'widget' && node.params && typeof node.params === 'object') {
+        // Codex review on #210/#403: a `type:"widget"` block's params (title,
+        // hint, bodyMarkup, label arrays, …) are rendered into the page via
+        // renderMarkup(params) but validate-widget-params only schema/XSS-checks
+        // them — so the same JSON double-escape can ship inside widget math.
+        // Validate every string-valued param the same way. SKIP keys matching
+        // /script/i: bodyScript/scriptBodyLiteral are JS, where `$('#id')` and
+        // template `${expr}` would be misread as math delimiters.
+        walkParamStrings(node.params, `${path}.params`);
       }
       for (const [k, v] of Object.entries(node)) {
         if (v && typeof v === 'object') walk(v, path ? `${path}.${k}` : k);
