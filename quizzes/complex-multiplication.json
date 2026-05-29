@@ -103,7 +103,7 @@
           "type": "mcq",
           "q": "For a modular elliptic curve $E/\\mathbb{Q}$ of conductor $N$ and an imaginary quadratic $K$ satisfying the Heegner hypothesis, what does the Gross–Zagier formula compute?",
           "choices": [
-            "The order of $\\Sha(E/\\mathbb{Q})$",
+            "The order of $\\text{Ш}(E/\\mathbb{Q})$",
             "The Néron–Tate height $\\hat h(y_K)$ of the trace of a Heegner point, in terms of $L'(E/K, 1)$",
             "The number of rational torsion points of $E$",
             "The leading Taylor coefficient of $L(E, s)$ at $s = 0$"
@@ -231,12 +231,12 @@
           "q": "What does the combination Gross–Zagier (1986) + Kolyvagin (1989) yield for a modular elliptic curve $E/\\mathbb{Q}$?",
           "choices": [
             "A proof of the full BSD conjecture for all $E$",
-            "A proof of BSD's rank conjecture when $\\mathrm{ord}_{s=1} L(E,s) \\le 1$, and finiteness of $\\Sha$ in those cases",
+            "A proof of BSD's rank conjecture when $\\mathrm{ord}_{s=1} L(E,s) \\le 1$, and finiteness of $\\text{Ш}$ in those cases",
             "A proof of the Riemann hypothesis for $L(E, s)$",
             "A proof of the modularity theorem"
           ],
           "answer": 1,
-          "explain": "Gross–Zagier expresses $L'(E/K, 1)$ as a height of a Heegner point; Kolyvagin's Euler-system argument then bounds the rank and Sha. Together they prove BSD's rank conjecture (rank = analytic rank) when the analytic rank is $0$ or $1$, plus finiteness of $\\Sha$ in those cases. Higher rank remains open."
+          "explain": "Gross–Zagier expresses $L'(E/K, 1)$ as a height of a Heegner point; Kolyvagin's Euler-system argument then bounds the rank and Sha. Together they prove BSD's rank conjecture (rank = analytic rank) when the analytic rank is $0$ or $1$, plus finiteness of $\\text{Ш}$ in those cases. Higher rank remains open."
         }
       ]
     }
