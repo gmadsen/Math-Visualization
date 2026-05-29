@@ -583,11 +583,11 @@ function drawNode(svg, x, y, label, opts={}){
 (function(){
   const svg = $('#svg-hopf-duality'), out = $('#out-hopf-duality');
   const ROWS = [
-    { id:'mult',  group:'$m\\colon G \\times G \\to G$',     hopf:'$\\Delta\\colon A \\to A \\otimes A$', readout:
+    { id:'mult',  group:'m: G × G → G',     hopf:'Δ: A → A ⊗ A', readout:
       'MULTIPLICATION ↔ COMULTIPLICATION\n  𝔾_a:  Δ(t) = t ⊗ 1 + 1 ⊗ t\n  𝔾_m:  Δ(t) = t ⊗ t\n  μ_n:   Δ(t) = t ⊗ t  (in k[t]/(tⁿ−1))\n  α_p:   Δ(t) = t ⊗ 1 + 1 ⊗ t  (in k[t]/(tᵖ))' },
-    { id:'ident', group:'$e\\colon \\Spec\\,k \\to G$', hopf:'$\\epsilon\\colon A \\to k$',           readout:
+    { id:'ident', group:'e: Spec k → G', hopf:'ε: A → k',           readout:
       'IDENTITY ↔ COUNIT\n  𝔾_a:  ε(t) = 0      (the additive identity)\n  𝔾_m:  ε(t) = 1      (the multiplicative identity)\n  μ_n:   ε(t) = 1\n  α_p:   ε(t) = 0' },
-    { id:'inv',   group:'$\\iota\\colon G \\to G$',           hopf:'$S\\colon A \\to A$',                   readout:
+    { id:'inv',   group:'ι: G → G',           hopf:'S: A → A',                   readout:
       'INVERSE ↔ ANTIPODE\n  𝔾_a:  S(t) = −t\n  𝔾_m:  S(t) = t⁻¹\n  μ_n:   S(t) = t⁻¹ = tⁿ⁻¹\n  α_p:   S(t) = −t' },
   ];
   function draw(activeId){
@@ -612,7 +612,7 @@ function drawNode(svg, x, y, label, opts={}){
       const ar2 = SVG('line',{x1:265,y1:y+8,x2:215,y2:y+8,stroke:col,'stroke-width':1.4,'marker-end':`url(#arr-hop-l-${i})`}); svg.appendChild(ar2);
     });
     if(window.renderMathInElement){
-      try { window.renderMathInElement(svg,{delimiters:[{left:'$',right:'$',display:false}],throwOnError:false}); } catch(e){}
+      /* KaTeX cannot render inside SVG <text>; labels are Unicode */
     }
   }
   let active = 'mult';
@@ -660,17 +660,17 @@ function drawNode(svg, x, y, label, opts={}){
 (function(){
   const svg = $('#svg-decomp-graph'), out = $('#out-decomp-graph');
   const NODES = [
-    { id:'znq',     x:90,  y:60,  label:'$\\mathbb{Z}/n$ over $\\mathbb{Q}$',
+    { id:'znq',     x:90,  y:60,  label:'ℤ/n over ℚ',
       readout:'$\\mathbb{Z}/n$ over $\\mathbb{Q}$ (char 0):\n  $G^\\circ = 1$, $G^{ét} = \\mathbb{Z}/n$.\n  Entirely étale; ordinary finite group.' },
-    { id:'munqq',   x:270, y:60,  label:'$\\mu_n$ over $\\mathbb{Q}$',
+    { id:'munqq',   x:270, y:60,  label:'μₙ over ℚ',
       readout:'$\\mu_n$ over $\\mathbb{Q}$ (char 0):\n  $G^\\circ = 1$, $G^{ét} = \\mu_n$ (étale, of order $n$).\n  Note: as a group, $\\mu_n(\\bar{\\mathbb{Q}}) \\cong \\mathbb{Z}/n$, but as a $\\mathbb{Q}$-group scheme there is a Galois action.' },
-    { id:'munfp',   x:450, y:60,  label:'$\\mu_n$ over $\\bar{\\mathbb{F}_p}$, $\\gcd(n,p)=1$',
+    { id:'munfp',   x:450, y:60,  label:'μₙ over F̄ₚ, gcd(n,p)=1',
       readout:'$\\mu_n$ over $\\bar{\\mathbb{F}_p}$, $\\gcd(n,p)=1$:\n  $G^\\circ = 1$, $G^{ét} = \\mu_n \\cong \\mathbb{Z}/n$.\n  Étale because $n$ is invertible in $k$.' },
-    { id:'mup',     x:90,  y:170, label:'$\\mu_p$ over $\\bar{\\mathbb{F}_p}$',
+    { id:'mup',     x:90,  y:170, label:'μₚ over F̄ₚ',
       readout:'$\\mu_p$ over $\\bar{\\mathbb{F}_p}$ (char $p$):\n  $G^\\circ = \\mu_p$, $G^{ét} = 1$.\n  Connected (infinitesimal): $t^p - 1 = (t-1)^p$, only one $\\bar k$-point.\n  Lie algebra is $k$, abelian.' },
-    { id:'alphap',  x:270, y:170, label:'$\\alpha_p$ over $\\bar{\\mathbb{F}_p}$',
+    { id:'alphap',  x:270, y:170, label:'αₚ over F̄ₚ',
       readout:'$\\alpha_p$ over $\\bar{\\mathbb{F}_p}$ (char $p$):\n  $G^\\circ = \\alpha_p$, $G^{ét} = 1$.\n  Purely infinitesimal; $\\alpha_p = \\ker(\\mathrm{Frob}\\colon \\mathbb{G}_a \\to \\mathbb{G}_a)$.\n  Lie algebra is $k$, abelian, but $\\alpha_p \\not\\cong \\mu_p$.' },
-    { id:'mixed',   x:450, y:170, label:'$\\mu_{pn}$ over $\\bar{\\mathbb{F}_p}$, $\\gcd(n,p)=1$',
+    { id:'mixed',   x:450, y:170, label:'μₚₙ over F̄ₚ, gcd(n,p)=1',
       readout:'$\\mu_{pn}$ over $\\bar{\\mathbb{F}_p}$ (char $p$):\n  $G^\\circ = \\mu_p$ (size 1 set-theoretically), $G^{ét} = \\mu_n$ (size $n$).\n  $\\mu_{pn} = \\mu_p \\times \\mu_n$ — both pieces non-trivial.' },
   ];
   function draw(activeId){
@@ -689,7 +689,7 @@ function drawNode(svg, x, y, label, opts={}){
     lg.textContent = 'top row: char 0 / coprime-to-p → étale.   bottom row: char p → connected pieces appear.';
     svg.appendChild(lg);
     if(window.renderMathInElement){
-      try { window.renderMathInElement(svg,{delimiters:[{left:'$',right:'$',display:false}],throwOnError:false}); } catch(e){}
+      /* KaTeX cannot render inside SVG <text>; labels are Unicode */
     }
   }
   let active = 'znq';
