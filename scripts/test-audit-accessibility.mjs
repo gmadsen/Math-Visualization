@@ -9,7 +9,7 @@
 // `break` — pin the contract here so a regression doesn't silently let
 // later legitimate violations get suppressed.
 
-import { checkSvgViewbox, checkSvgLabeling } from './audit-accessibility.mjs';
+import { checkSvgViewbox, checkSvgLabeling, checkImages } from './audit-accessibility.mjs';
 
 const failures = [];
 function check(name, cond, detail) {
@@ -139,6 +139,23 @@ function check(name, cond, detail) {
   const roled = '<svg viewBox="0 0 360 180" role="img"><text>G</text></svg>';
   const v = checkSvgLabeling(titled + labelled + roled);
   check('svg-labeling: <title>/aria-label/role=img all satisfy', v.length === 0, `got ${v.length}`);
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// checkImages must not match the `<img` substring of a `j<img.length` JS
+// comparison inside <script>, while still flagging a real <img> with no alt.
+
+{
+  const html = '<script>for(var j=0;j<img.length;j++){ var w=img[j]; }</script>';
+  const v = checkImages(html);
+  check('images: `j<img.length` in <script> not flagged', v.length === 0, `got ${v.length}`);
+}
+
+{
+  const withAlt = '<img src="x.png" alt="a plot">';
+  const noAlt = '<img src="y.png">';
+  check('images: real <img> missing alt flagged', checkImages(noAlt).length === 1, `got ${checkImages(noAlt).length}`);
+  check('images: <img> with alt not flagged', checkImages(withAlt).length === 0, `got ${checkImages(withAlt).length}`);
 }
 
 console.log('');
