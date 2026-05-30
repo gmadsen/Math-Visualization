@@ -1,6 +1,22 @@
 {
-  "generated": "2026-05-29T23:04:17.706Z",
+  "generated": "2026-05-30T05:53:09.253Z",
   "entries": [
+    {
+      "slug": "bsd",
+      "title": "Birch & Swinnerton-Dyer",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
+    },
+    {
+      "slug": "brill-noether",
+      "title": "Brill–Noether theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
+    },
     {
       "slug": "complex-multiplication",
       "title": "Complex multiplication",
@@ -8,6 +24,30 @@
       "tag": "",
       "date": "2026-05-29",
       "message": "feat(validate-katex): per-page macro awareness; drop bogus 'Sha' whitelist (#196) (#405)"
+    },
+    {
+      "slug": "langlands-program",
+      "title": "Langlands program",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
+    },
+    {
+      "slug": "motives",
+      "title": "Motives",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
+    },
+    {
+      "slug": "p-adic-numbers",
+      "title": "p-adic numbers",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
     },
     {
       "slug": "algebra",
@@ -514,14 +554,6 @@
       "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
     },
     {
-      "slug": "brill-noether",
-      "title": "Brill–Noether theory",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — 75 topics across all 12 sections"
-    },
-    {
       "slug": "cobordism",
       "title": "Cobordism",
       "color": "v",
@@ -978,22 +1010,6 @@
       "message": "Hodge capstone (algebraic-geometry) + Tour 8 \"What is Hodge theory?\" (#67)"
     },
     {
-      "slug": "langlands-program",
-      "title": "Langlands program",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-02",
-      "message": "Langlands capstone (modular-forms-and-l-functions) + Tour 9 \"Langlands philosophy\" (#68)"
-    },
-    {
-      "slug": "motives",
-      "title": "Motives",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-02",
-      "message": "Motives capstone (algebraic-geometry) + Tour 7 \"Solvability across mathematics\" (#64)"
-    },
-    {
       "slug": "statistical-mechanics",
       "title": "Statistical mechanics",
       "color": "p",
@@ -1029,14 +1045,6 @@
       "slug": "knot-polynomials",
       "title": "Knot polynomials",
       "color": "v",
-      "tag": "",
-      "date": "2026-05-01",
-      "message": "Refactor + corpus expansion: sidetoc, hamiltonians-figure, inline-widget migration, content materialization, graduate CA, +12 grad concepts (#45)"
-    },
-    {
-      "slug": "p-adic-numbers",
-      "title": "p-adic numbers",
-      "color": "c",
       "tag": "",
       "date": "2026-05-01",
       "message": "Refactor + corpus expansion: sidetoc, hamiltonians-figure, inline-widget migration, content materialization, graduate CA, +12 grad concepts (#45)"
@@ -1301,14 +1309,6 @@
       "slug": "bezout",
       "title": "Bézout's theorem",
       "color": "b",
-      "tag": "",
-      "date": "2026-04-26",
-      "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
-    },
-    {
-      "slug": "bsd",
-      "title": "Birch & Swinnerton-Dyer",
-      "color": "p",
       "tag": "",
       "date": "2026-04-26",
       "message": "Content + structure expansion: 22 new topics, 156 new concepts, full review pass (#35)"
