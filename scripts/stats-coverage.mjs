@@ -98,6 +98,28 @@ for (const slug of widgetMeta.keys()) {
   slugCounts.set(slug, { count: 0, topics: new Set() });
 }
 
+// A widget's effective gesture. `slider-svg-2d` carries the coarse slug gesture
+// "slider" in its registry meta, but hosts a heterogeneous `params.controls`
+// array (slider / select / numinput / button / span), so counting every
+// instance as "slider" over-reports sliders and hides ~100 select-driven and
+// ~30 numinput-driven widgets (the #380 follow-up). When a block declares a
+// typed `controls` array, classify by what it actually contains — slider-first,
+// since a widget with a slider IS a slider widget; one with only a select/input
+// is not. `span` is a readout, never a gesture. Slugs with no `controls` array
+// (clickable-diagram's verbatim controlsLiteral, button-stepper, …) keep their
+// registry meta gesture.
+function effectiveGesture(b, meta) {
+  const controls = b.params && Array.isArray(b.params.controls) ? b.params.controls : null;
+  if (controls && controls.length) {
+    const types = new Set(controls.map((c) => c && c.type));
+    if (types.has('slider')) return 'slider';
+    if (types.has('select')) return 'select';
+    if (types.has('numinput')) return 'input';
+    if (types.has('button')) return 'button';
+  }
+  return meta.gesture || 'unknown';
+}
+
 for (const f of readdirSync(contentDir)) {
   if (!f.endsWith('.json')) continue;
   const tid = f.replace(/\.json$/, '');
@@ -120,7 +142,7 @@ for (const f of readdirSync(contentDir)) {
       const meta = (b.meta || (b.slug && widgetMeta.get(b.slug))) || {};
       bump(row.widgets.byFamily, meta.family || 'unknown');
       bump(row.widgets.byDimension, meta.dimension || 'unknown');
-      bump(row.widgets.byGesture, meta.gesture || 'unknown');
+      bump(row.widgets.byGesture, effectiveGesture(b, meta));
       bump(row.widgets.byRole, meta.role || 'unknown');
     }
   }
