@@ -326,11 +326,13 @@ function checkInputs(html) {
   return violations;
 }
 
-function checkImages(html) {
+export function checkImages(html) {
   const violations = [];
+  const skip = nonRenderedRanges(html); // `<img` also appears as the `j<img.length` JS comparison inside <script>
   const re = /<img\b([^>]*)\/?>/gi;
   let m;
   while ((m = re.exec(html))) {
+    if (inRanges(m.index, skip)) continue;
     const open = `<img${m[1]}>`;
     if (!hasAttr(open, 'alt')) {
       violations.push({
