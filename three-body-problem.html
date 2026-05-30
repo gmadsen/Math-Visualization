@@ -283,7 +283,7 @@ Six second-order ODEs in three dimensions: $18$-dimensional phase space. Newton 
     <button id="tbp-sim-reset">reset</button>
     <label>speed <input id="tbp-sim-speed" type="range" min="1" max="20" value="6"></label>
   </div>
-  <svg id="tbp-sim" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <svg id="tbp-sim" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Two- and three-body gravitational orbit simulation"></svg>
   <div class="readout" id="tbp-sim-readout">init…</div>
   <p class="small">Energy $E$, angular momentum $L_z$, and centre of mass $R$ are conserved exactly by the equations; the readout tracks how well the leapfrog integrator preserves them. The figure-eight initial conditions (Chenciner–Montgomery) are <code>r₁=(0.97,−0.243)</code>, <code>r₃=−r₁</code>, <code>r₂=0</code>, with velocities $\dot r_2 = -2\dot r_1 = -2\dot r_3 = (-0.93, 0.864)/2$ and $G=m_i=1$.</p>
 </div><script>
@@ -488,7 +488,7 @@ $$U_{\mathrm{eff}}(x,y) \;=\; -\tfrac{1}{2}\Omega^2(x^2+y^2) \;-\; \frac{Gm_1}{r
     <label><input type="checkbox" id="tbp-l-contours" checked> show equipotential contours</label>
     <label><input type="checkbox" id="tbp-l-zvc"> highlight $C =$ const Hill region</label>
   </div>
-  <svg id="tbp-l" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <svg id="tbp-l" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Lagrange points of the restricted three-body problem"></svg>
   <div class="readout" id="tbp-l-readout"></div>
 </div><script>
 /* Widget 2: Lagrange points */
@@ -652,7 +652,7 @@ $$U_{\mathrm{eff}}(x,y) \;=\; -\tfrac{1}{2}\Omega^2(x^2+y^2) \;-\; \frac{Gm_1}{r
     <button id="tbp-sp-col">Euler collinear</button>
     <button id="tbp-sp-eight">figure-eight</button>
   </div>
-  <svg id="tbp-sp" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <svg id="tbp-sp" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Special periodic three-body solutions"></svg>
   <div class="readout" id="tbp-sp-readout"></div>
   <p class="small">All three are <em>choreographies</em> in a generalised sense: every mass follows a translate (or the same copy) of one curve. The figure-eight is the only currently known choreography of three equal masses on a single curve in the plane that is not a relative equilibrium.</p>
 </div><script>
@@ -775,7 +775,7 @@ $$\bigl(\Lambda, f\bigr) \;\cong\; \bigl(\{0,1\}^{\mathbb{Z}},\, \sigma\bigr).$$
     <button id="tbp-h-reset">reset</button>
     <label>iterations <input id="tbp-h-iter" type="range" min="0" max="6" value="2"></label>
   </div>
-  <svg id="tbp-h" viewBox="-180 -150 360 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <svg id="tbp-h" viewBox="-180 -150 360 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Smale horseshoe map and symbolic itineraries"></svg>
   <div class="readout" id="tbp-h-readout"></div>
   <p class="small">Each iteration of the horseshoe map cuts the surviving set into thinner horizontal strips. After $n$ iterations forward (and $n$ back) what remains is $2^{2n}$ rectangles indexed by length-$2n$ binary words — the symbolic itinerary $\dots a_{-2}a_{-1}.a_0a_1a_2\dots$ of the Cantor set $\Lambda$.</p>
 </div><script>
@@ -863,7 +863,7 @@ $$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\m
     <label>$\varepsilon$ <input id="tbp-k-eps" type="range" min="0" max="1" step="0.01" value="0"></label>
     <span id="tbp-k-eps-readout" class="small"></span>
   </div>
-  <svg id="tbp-k" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <svg id="tbp-k" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="KAM tori and resonances in phase space"></svg>
   <div class="readout" id="tbp-k-readout"></div>
   <p class="small">Schematic: each ring is an invariant torus indexed by its rotation number $\rho = \omega_2/\omega_1$. Rational $\rho$ resonates first — the torus breaks into a Birkhoff chain of islands. Irrational $\rho$ with high Diophantine constant survive longest. The golden mean $\rho = (\sqrt{5}-1)/2$ is the most robust (Greene's residue criterion).</p>
 </div><script>
@@ -982,7 +982,7 @@ $$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\m
     <button id="tbp-h2-l4">$L_4$ tadpole</button>
     <label>amplitude <input id="tbp-h2-amp" type="range" min="0.02" max="0.2" step="0.01" value="0.08"></label>
   </div>
-  <svg id="tbp-h2" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <svg id="tbp-h2" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Halo orbit about a libration point"></svg>
   <div class="readout" id="tbp-h2-readout"></div>
   <p class="small">Halo orbits at $L_1$/$L_2$ are 3D periodic orbits in the rotating frame; tadpole orbits at $L_4$ are large-amplitude librations. Real spacecraft halo orbits (e.g. JWST's around Sun–Earth $L_2$) have out-of-plane amplitude $A_z \approx 2.5\times 10^5$ km and in-plane semi-major axis $\sim 8\times 10^5$ km — small fractions of the Earth–Sun distance.</p>
 </div><script>
