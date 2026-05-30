@@ -398,11 +398,11 @@
           "choices": [
             "The discriminant",
             "The conductor",
-            "The Tate-Shafarevich group $\\Sha(E/\\mathbb{Q})$",
+            "The Tate-Shafarevich group $\\text{Ш}(E/\\mathbb{Q})$",
             "The j-invariant"
           ],
           "answer": 2,
-          "explain": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
+          "explain": "$\\text{Ш}(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
         }
       ],
       "hard": [

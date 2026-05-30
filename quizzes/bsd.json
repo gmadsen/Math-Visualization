@@ -165,7 +165,7 @@
             "Curves of conductor $N < 1000$"
           ],
           "answer": 2,
-          "explain": "Kolyvagin proved: if $E/\\mathbb{Q}$ is modular (now all curves, by Wiles et al.) and $\\operatorname{ord}_{s=1}L(E,s) \\le 1$, then the algebraic rank equals the analytic rank and $\\Sha(E/\\mathbb{Q})$ is finite. The case of analytic rank $\\ge 2$ remains open."
+          "explain": "Kolyvagin proved: if $E/\\mathbb{Q}$ is modular (now all curves, by Wiles et al.) and $\\operatorname{ord}_{s=1}L(E,s) \\le 1$, then the algebraic rank equals the analytic rank and $\\text{Ш}(E/\\mathbb{Q})$ is finite. The case of analytic rank $\\ge 2$ remains open."
         },
         {
           "type": "mcq",
@@ -206,12 +206,12 @@
           "q": "The full BSD conjecture expresses $\\lim_{s\\to 1} \\dfrac{L(E,s)}{(s-1)^r}$ in terms of which invariants?",
           "choices": [
             "just the rank $r$",
-            "regulator $R$, real period $\\Omega$, Tamagawa numbers $c_p$, $|\\Sha|$, $|E(\\mathbb{Q})_{\\text{tors}}|$",
+            "regulator $R$, real period $\\Omega$, Tamagawa numbers $c_p$, $|\\text{Ш}|$, $|E(\\mathbb{Q})_{\\text{tors}}|$",
             "only the conductor $N$",
             "the Euler characteristic of $E(\\mathbb{C})$"
           ],
           "answer": 1,
-          "explain": "Refined BSD: $\\displaystyle \\lim_{s\\to 1}\\frac{L(E,s)}{(s-1)^r} = \\frac{\\Omega \\cdot R \\cdot |\\Sha| \\cdot \\prod_p c_p}{|E(\\mathbb{Q})_{\\text{tors}}|^2}.$"
+          "explain": "Refined BSD: $\\displaystyle \\lim_{s\\to 1}\\frac{L(E,s)}{(s-1)^r} = \\frac{\\Omega \\cdot R \\cdot |\\text{Ш}| \\cdot \\prod_p c_p}{|E(\\mathbb{Q})_{\\text{tors}}|^2}.$"
         }
       ]
     },
@@ -275,7 +275,7 @@
             "undefined"
           ],
           "answer": 2,
-          "explain": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$. This keeps refined BSD sensible when $r=0$: the formula reduces to $L(E,1) = \\Omega\\cdot |\\Sha|\\cdot\\prod c_p / |E_{\\text{tors}}|^2$."
+          "explain": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$. This keeps refined BSD sensible when $r=0$: the formula reduces to $L(E,1) = \\Omega\\cdot |\\text{Ш}|\\cdot\\prod c_p / |E_{\\text{tors}}|^2$."
         }
       ]
     },
@@ -284,20 +284,20 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "The Cassels–Tate pairing on $\\Sha(E/\\mathbb{Q})$ is alternating and non-degenerate (when $\\Sha$ is finite). Which of the following is the correct logical chain forcing $|\\Sha|$ to be a perfect square?",
+          "q": "The Cassels–Tate pairing on $\\text{Ш}(E/\\mathbb{Q})$ is alternating and non-degenerate (when $\\text{Ш}$ is finite). Which of the following is the correct logical chain forcing $|\\text{Ш}|$ to be a perfect square?",
           "choices": [
             "An alternating non-degenerate pairing on a finite group $A$ pairs each element with itself to $0$, so $A \\cong B \\oplus B$ for some $B$, giving $|A| = |B|^2$",
-            "The Weil pairing on $E[n]$ forces $|\\Sha[n]|^2 = n^2$",
-            "$\\Sha$ embeds into $H^2(\\mathbb{Q}, \\mu_n)$ which has square order",
+            "The Weil pairing on $E[n]$ forces $|\\text{Ш}[n]|^2 = n^2$",
+            "$\\text{Ш}$ embeds into $H^2(\\mathbb{Q}, \\mu_n)$ which has square order",
             "Perfect squares are the only integers appearing as orders of abelian groups"
           ],
           "answer": 0,
           "hint": "An alternating form pairs every element with itself to zero — what does that force on the group?",
-          "explain": "A finite abelian group with a non-degenerate alternating bilinear pairing to $\\mathbb{Q}/\\mathbb{Z}$ is self-dual, and the alternating condition forces it to be isomorphic to $B \\oplus B$ for some $B$. Hence $|\\Sha| = |B|^2$."
+          "explain": "A finite abelian group with a non-degenerate alternating bilinear pairing to $\\mathbb{Q}/\\mathbb{Z}$ is self-dual, and the alternating condition forces it to be isomorphic to $B \\oplus B$ for some $B$. Hence $|\\text{Ш}| = |B|^2$."
         },
         {
           "type": "mcq",
-          "q": "A genus-$1$ curve $C/\\mathbb{Q}$ represents a non-trivial element of $\\Sha(E/\\mathbb{Q})$. What must be true of $C$?",
+          "q": "A genus-$1$ curve $C/\\mathbb{Q}$ represents a non-trivial element of $\\text{Ш}(E/\\mathbb{Q})$. What must be true of $C$?",
           "choices": [
             "$C$ has no $\\mathbb{R}$-points",
             "$C$ has $\\mathbb{Q}_p$-points for all primes $p$ and an $\\mathbb{R}$-point, but no $\\mathbb{Q}$-point",
@@ -305,20 +305,20 @@
             "$C$ is isomorphic to $E$ over $\\mathbb{Q}$"
           ],
           "answer": 1,
-          "explain": "$\\Sha$ consists of everywhere-locally-trivial torsors: $C$ must be locally solvable (points over every $\\mathbb{Q}_p$ and $\\mathbb{R}$) yet have no global $\\mathbb{Q}$-point. This is a pure failure of the Hasse principle, with no single local obstruction."
+          "explain": "$\\text{Ш}$ consists of everywhere-locally-trivial torsors: $C$ must be locally solvable (points over every $\\mathbb{Q}_p$ and $\\mathbb{R}$) yet have no global $\\mathbb{Q}$-point. This is a pure failure of the Hasse principle, with no single local obstruction."
         },
         {
           "type": "numeric",
-          "q": "Suppose $|\\mathrm{Sel}_3(E)| = 27$ and $|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 3$. Using the descent exact sequence $0 \\to E(\\mathbb{Q})/3E(\\mathbb{Q}) \\to \\mathrm{Sel}_3(E) \\to \\Sha(E)[3] \\to 0$, compute $|\\Sha(E)[3]|$.",
+          "q": "Suppose $|\\mathrm{Sel}_3(E)| = 27$ and $|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 3$. Using the descent exact sequence $0 \\to E(\\mathbb{Q})/3E(\\mathbb{Q}) \\to \\mathrm{Sel}_3(E) \\to \\text{Ш}(E)[3] \\to 0$, compute $|\\text{Ш}(E)[3]|$.",
           "answer": 9,
           "tol": 0.5,
-          "explain": "From the exact sequence, $|\\Sha[3]| = |\\mathrm{Sel}_3|/|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 27/3 = 9$. This is consistent with $|\\Sha|$ being a perfect square."
+          "explain": "From the exact sequence, $|\\text{Ш}[3]| = |\\mathrm{Sel}_3|/|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 27/3 = 9$. This is consistent with $|\\text{Ш}|$ being a perfect square."
         }
       ],
       "questions": [
         {
           "type": "mcq",
-          "q": "An element of $\\Sha(E/\\mathbb{Q})$ corresponds geometrically to:",
+          "q": "An element of $\\text{Ш}(E/\\mathbb{Q})$ corresponds geometrically to:",
           "choices": [
             "a rational point on $E$",
             "a Galois extension of $\\mathbb{Q}$",
@@ -326,12 +326,12 @@
             "a prime of bad reduction"
           ],
           "answer": 2,
-          "hint": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of…",
-          "explain": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of the Hasse principle."
+          "hint": "$\\text{Ш} = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of…",
+          "explain": "$\\text{Ш} = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of the Hasse principle."
         },
         {
           "type": "mcq",
-          "q": "If $\\Sha(E/\\mathbb{Q})$ is finite, the Cassels–Tate pairing forces $|\\Sha|$ to be a perfect square. Which of the following integers CANNOT be the order of a finite $\\Sha$?",
+          "q": "If $\\text{Ш}(E/\\mathbb{Q})$ is finite, the Cassels–Tate pairing forces $|\\text{Ш}|$ to be a perfect square. Which of the following integers CANNOT be the order of a finite $\\text{Ш}$?",
           "choices": [
             "$1$",
             "$4$",
@@ -341,11 +341,11 @@
           ],
           "answer": 2,
           "hint": "Which of the options isn't a perfect square?",
-          "explain": "Cassels–Tate gives $\\Sha(E/\\mathbb{Q})$ a non-degenerate alternating pairing, which forces its order to be a perfect square. Among the listed values, $1=1^2$, $4=2^2$, $9=3^2$, and $25=5^2$ are all squares; $6$ is not, so it is forbidden."
+          "explain": "Cassels–Tate gives $\\text{Ш}(E/\\mathbb{Q})$ a non-degenerate alternating pairing, which forces its order to be a perfect square. Among the listed values, $1=1^2$, $4=2^2$, $9=3^2$, and $25=5^2$ are all squares; $6$ is not, so it is forbidden."
         },
         {
           "type": "mcq",
-          "q": "The $n$-descent sequence reads $0 \\to E(\\mathbb{Q})/nE(\\mathbb{Q}) \\to \\mathrm{Sel}_n(E) \\to \\Sha(E/\\mathbb{Q})[n] \\to 0$. If $|\\mathrm{Sel}_2(E)| = 32$ and $|E(\\mathbb{Q})/2E(\\mathbb{Q})| = 8$, then $|\\Sha(E)[2]|$ is:",
+          "q": "The $n$-descent sequence reads $0 \\to E(\\mathbb{Q})/nE(\\mathbb{Q}) \\to \\mathrm{Sel}_n(E) \\to \\text{Ш}(E/\\mathbb{Q})[n] \\to 0$. If $|\\mathrm{Sel}_2(E)| = 32$ and $|E(\\mathbb{Q})/2E(\\mathbb{Q})| = 8$, then $|\\text{Ш}(E)[2]|$ is:",
           "choices": [
             "$4$",
             "$24$",
@@ -353,7 +353,7 @@
             "cannot be determined"
           ],
           "answer": 0,
-          "explain": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\Sha[2]|$ even when the full group is out of reach."
+          "explain": "From the exact sequence, $|\\text{Ш}[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\text{Ш}[2]|$ even when the full group is out of reach."
         }
       ]
     }
