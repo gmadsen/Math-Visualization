@@ -108,6 +108,13 @@ for (const slug of widgetMeta.keys()) {
 // is not. `span` is a readout, never a gesture. Slugs with no `controls` array
 // (clickable-diagram's verbatim controlsLiteral, button-stepper, …) keep their
 // registry meta gesture.
+//
+// We key strictly on `controls[].type` and only the slider-svg-2d vocabulary
+// (slider/select/numinput/button). `surface-viewer` also carries a `controls`
+// array but keys each entry as `.kind` (orbit/zoom/…), so its entries yield
+// `undefined` here and fall through to its meta gesture ("drag") by design — the
+// unrecognised-type fall-through is what keeps this scoped to slider-svg-2d
+// without hard-coding the slug.
 function effectiveGesture(b, meta) {
   const controls = b.params && Array.isArray(b.params.controls) ? b.params.controls : null;
   if (controls && controls.length) {
