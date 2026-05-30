@@ -283,7 +283,7 @@ Six second-order ODEs in three dimensions: $18$-dimensional phase space. Newton 
     <button id="tbp-sim-reset">reset</button>
     <label>speed <input id="tbp-sim-speed" type="range" min="1" max="20" value="6"></label>
   </div>
-  <svg id="tbp-sim" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Interactive N-body gravitational orbit simulation"></svg>
+  <svg id="tbp-sim" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Two- and three-body gravitational orbit simulation"></svg>
   <div class="readout" id="tbp-sim-readout">init…</div>
   <p class="small">Energy $E$, angular momentum $L_z$, and centre of mass $R$ are conserved exactly by the equations; the readout tracks how well the leapfrog integrator preserves them. The figure-eight initial conditions (Chenciner–Montgomery) are <code>r₁=(0.97,−0.243)</code>, <code>r₃=−r₁</code>, <code>r₂=0</code>, with velocities $\dot r_2 = -2\dot r_1 = -2\dot r_3 = (-0.93, 0.864)/2$ and $G=m_i=1$.</p>
 </div><script>
@@ -775,7 +775,7 @@ $$\bigl(\Lambda, f\bigr) \;\cong\; \bigl(\{0,1\}^{\mathbb{Z}},\, \sigma\bigr).$$
     <button id="tbp-h-reset">reset</button>
     <label>iterations <input id="tbp-h-iter" type="range" min="0" max="6" value="2"></label>
   </div>
-  <svg id="tbp-h" viewBox="-180 -150 360 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Horseshoe orbit in the co-rotating frame"></svg>
+  <svg id="tbp-h" viewBox="-180 -150 360 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px" aria-label="Smale horseshoe map and symbolic itineraries"></svg>
   <div class="readout" id="tbp-h-readout"></div>
   <p class="small">Each iteration of the horseshoe map cuts the surviving set into thinner horizontal strips. After $n$ iterations forward (and $n$ back) what remains is $2^{2n}$ rectangles indexed by length-$2n$ binary words — the symbolic itinerary $\dots a_{-2}a_{-1}.a_0a_1a_2\dots$ of the Cantor set $\Lambda$.</p>
 </div><script>
