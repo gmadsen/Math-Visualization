@@ -9,7 +9,7 @@
 // `break` — pin the contract here so a regression doesn't silently let
 // later legitimate violations get suppressed.
 
-import { checkSvgViewbox } from './audit-accessibility.mjs';
+import { checkSvgViewbox, checkSvgLabeling } from './audit-accessibility.mjs';
 
 const failures = [];
 function check(name, cond, detail) {
@@ -109,6 +109,36 @@ function check(name, cond, detail) {
   // differently, this assertion documents the change.
   check('unbalanced <script>: bare svg still flagged',
     v.length === 1, `got ${v.length}`);
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// checkSvgLabeling shares the same non-rendered skip zones (a decorative icon
+// built in a `return \`<svg viewBox=…>…\`` template inside <script> is JS
+// source, not a real a11y gap). Pin that it skips <script>/<pre>/comment SVGs
+// while still flagging a real unlabeled live-DOM SVG.
+
+{
+  const html =
+    '<script>const icon = "<svg viewBox=\'0 0 24 24\'><path d=\'M3 12h6\'/></svg>";</script>' +
+    '<pre><svg viewBox="0 0 24 24"><circle/></svg></pre>' +
+    '<!-- <svg viewBox="0 0 24 24"><rect/></svg> -->';
+  const v = checkSvgLabeling(html);
+  check('svg-labeling: <script>/<pre>/comment svgs skipped',
+    v.length === 0, `got ${v.length}`);
+}
+
+{
+  const html = '<svg viewBox="0 0 360 180" width="360" height="180"><text x="70" y="40">G</text></svg>';
+  const v = checkSvgLabeling(html);
+  check('svg-labeling: real unlabeled live svg flagged', v.length === 1, `got ${v.length}`);
+}
+
+{
+  const titled = '<svg viewBox="0 0 360 180"><title>Gauss map</title><text>G</text></svg>';
+  const labelled = '<svg viewBox="0 0 360 180" aria-label="Gauss map"><text>G</text></svg>';
+  const roled = '<svg viewBox="0 0 360 180" role="img"><text>G</text></svg>';
+  const v = checkSvgLabeling(titled + labelled + roled);
+  check('svg-labeling: <title>/aria-label/role=img all satisfy', v.length === 0, `got ${v.length}`);
 }
 
 console.log('');

@@ -173,6 +173,28 @@ function inRanges(idx, ranges) {
   return false;
 }
 
+// Byte ranges of regions whose markup is NOT live DOM: <script> (JS source,
+// where template literals build `<svg>`/`<button>` strings at runtime), <pre>
+// (documentation), and HTML comments. Tags/elements inside these must be
+// skipped by the DOM-presence checks (svg-labeling, buttons) — exactly as
+// checkSvgViewbox and checkInputs already do — otherwise a decorative icon in a
+// `return \`<svg viewBox="0 0 24 24">…\`` template reads as a real a11y gap.
+function nonRenderedRanges(html) {
+  const ranges = [];
+  const pair = (openRe, closeStr) => {
+    let m;
+    while ((m = openRe.exec(html))) {
+      const end = html.indexOf(closeStr, m.index + m[0].length);
+      if (end === -1) break;
+      ranges.push([m.index, end + closeStr.length]);
+    }
+  };
+  pair(/<!--/g, '-->');
+  pair(/<script\b[^>]*>/gi, '</script>');
+  pair(/<pre\b[^>]*>/gi, '</pre>');
+  return ranges;
+}
+
 // ────────────────────────────────────────────────────────────────────────────
 // Individual checks. Each returns an array of { msg, excerpt }.
 
@@ -195,15 +217,17 @@ function checkHeadingOrder(html) {
   return violations;
 }
 
-function checkSvgLabeling(html) {
+export function checkSvgLabeling(html) {
   const violations = [];
   const thumbs = findThumbRanges(html);
+  const skip = nonRenderedRanges(html); // <svg> inside <script>/<pre>/comments is JS source / docs, not live DOM
   // Walk svgs with simple regex but confirm inner content for title/desc.
   const svgRe = /<svg\b([^>]*)>([\s\S]*?)<\/svg>/gi;
   let m;
   while ((m = svgRe.exec(html))) {
     const idx = m.index;
     if (inRanges(idx, thumbs)) continue;
+    if (inRanges(idx, skip)) continue;
     const open = `<svg${m[1]}>`;
     const inner = m[2];
     if (hasAttr(open, 'aria-label')) continue;
@@ -222,9 +246,11 @@ function checkSvgLabeling(html) {
 
 function checkButtons(html) {
   const violations = [];
+  const skip = nonRenderedRanges(html); // <button> inside <script>/<pre>/comments is JS source / docs, not live DOM
   const btnRe = /<button\b([^>]*)>([\s\S]*?)<\/button>/gi;
   let m;
   while ((m = btnRe.exec(html))) {
+    if (inRanges(m.index, skip)) continue;
     const open = `<button${m[1]}>`;
     const inner = m[2];
     const visible = stripTags(inner);
@@ -403,18 +429,7 @@ export function checkSvgViewbox(html) {
     defsRanges.push([dm.index, dm.index + dm[0].length]);
   }
   // SVG markup inside <script>, <pre>, or HTML comments is JS source / docs, not live SVG.
-  const skipRanges = [];
-  const pairRangesLocal = (openRe, closeStr) => {
-    let m;
-    while ((m = openRe.exec(html))) {
-      const end = html.indexOf(closeStr, m.index + m[0].length);
-      if (end === -1) break;
-      skipRanges.push([m.index, end + closeStr.length]);
-    }
-  };
-  pairRangesLocal(/<!--/g, '-->');
-  pairRangesLocal(/<script\b[^>]*>/gi, '</script>');
-  pairRangesLocal(/<pre\b[^>]*>/gi, '</pre>');
+  const skipRanges = nonRenderedRanges(html);
   const svgRe = /<svg\b[^>]*>/gi;
   let m;
   while ((m = svgRe.exec(html))) {
