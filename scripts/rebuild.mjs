@@ -70,7 +70,12 @@ const STEPS = [
   { name: 'inline-links-detect-unit', script: 'test-inline-links-detect.mjs', fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
   { name: 'concept-latex', script: 'audit-concept-latex.mjs',   fix: false },
-  { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
+  // --strict promotes an unknown macro in a QUIZ string (a demonstrable render
+  // bug — quiz.js typesets with no page macros) from advisory warning to a
+  // gating error, so a re-introduced quiz-macro leak fails CI. Concept/content
+  // prose stays advisory (it IS resolved against the owning page's macros).
+  { name: 'katex',      script: 'validate-katex.mjs',           fix: false,
+    extraArgs: ['--strict'] },
   // Strict gate against regression: any inline `<div class="widget">` in
   // a topic's raw HTML beyond the grandfathered baseline fails CI. The
   // baseline lives at audits/inline-widgets-baseline.json and locks in

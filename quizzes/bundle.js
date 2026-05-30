@@ -7847,34 +7847,34 @@ window.MVQuizBank = {
             "q": "$W^r_d(C)$ is defined as a subset of which ambient variety?",
             "choices": [
               "The moduli space $\\mathcal{M}_g$.",
-              "The Picard variety $\\Pic^d(C)$.",
+              "The Picard variety $\\operatorname{Pic}^d(C)$.",
               "The projective space $\\mathbb{P}^r$.",
               "The symmetric product $C^{(d)}$."
             ],
             "answer": 1,
             "hint": "$W^r_d$ is a locus inside the space of degree-$d$ line bundles on $C$.",
-            "explain": "$W^r_d(C)\\subseteq\\Pic^d(C)$ is the set of line bundles $L$ of degree $d$ on $C$ with $h^0(L)\\ge r+1$. The Picard variety has dimension $g$, and $W^r_d$ cuts out a subvariety of expected codimension $(r+1)(g-d+r)$. The closely related space $G^r_d(C)$ — pairs $(L,V)$ rather than just $L$ — sits over $W^r_d$ and parametrises the actual $g^r_d$'s; the projection $G^r_d\\to W^r_d$ is birational outside $W^{r+1}_d$."
+            "explain": "$W^r_d(C)\\subseteq\\operatorname{Pic}^d(C)$ is the set of line bundles $L$ of degree $d$ on $C$ with $h^0(L)\\ge r+1$. The Picard variety has dimension $g$, and $W^r_d$ cuts out a subvariety of expected codimension $(r+1)(g-d+r)$. The closely related space $G^r_d(C)$ — pairs $(L,V)$ rather than just $L$ — sits over $W^r_d$ and parametrises the actual $g^r_d$'s; the projection $G^r_d\\to W^r_d$ is birational outside $W^{r+1}_d$."
           },
           {
             "type": "numeric",
-            "q": "The expected codimension of $W^r_d(C)$ in $\\Pic^d(C)$ is $(r+1)(g-d+r)$. For $(g,r,d)=(8,2,7)$, what is this codimension?",
+            "q": "The expected codimension of $W^r_d(C)$ in $\\operatorname{Pic}^d(C)$ is $(r+1)(g-d+r)$. For $(g,r,d)=(8,2,7)$, what is this codimension?",
             "answer": 9,
             "tol": 1e-9,
             "hint": "Plug in: $(2+1)(8-7+2)=3\\cdot 3$.",
-            "explain": "$(r+1)(g-d+r)=(2+1)(8-7+2)=3\\cdot 3=9$. So the expected codimension is $9$, but $\\dim\\Pic^d=g=8$ — the codimension exceeds the dimension, so $W^2_7(C)=\\emptyset$ on a general genus-$8$ curve. Consistently, $\\rho(8,2,7)=8-9=-1$."
+            "explain": "$(r+1)(g-d+r)=(2+1)(8-7+2)=3\\cdot 3=9$. So the expected codimension is $9$, but $\\dim\\operatorname{Pic}^d=g=8$ — the codimension exceeds the dimension, so $W^2_7(C)=\\emptyset$ on a general genus-$8$ curve. Consistently, $\\rho(8,2,7)=8-9=-1$."
           },
           {
             "type": "mcq",
             "q": "$W^r_d(C)$ has a natural scheme structure because it is:",
             "choices": [
               "A homogeneous space under a Lie group action.",
-              "A determinantal subscheme — cut out by a rank condition on a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$.",
+              "A determinantal subscheme — cut out by a rank condition on a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\operatorname{Pic}^d(C)$.",
               "A complete intersection of explicit polynomials.",
               "A toric variety."
             ],
             "answer": 1,
             "hint": "$h^0(L)\\ge r+1$ is a rank-drop condition on an evaluation-of-sections map.",
-            "explain": "Choose a Poincaré bundle on $C\\times\\Pic^d(C)$ and a sufficiently positive effective divisor $E$ on $C$. Pushforward along the second projection gives a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$, and the fibre rank-drop of $\\gamma$ at $L$ measures $h^0(L)$. The locus where $\\operatorname{rk}\\gamma\\le\\operatorname{rk}\\mathcal{F}-(r+1)$ — i.e. $h^0(L)\\ge r+1$ — is then a determinantal subscheme, cut by $(r+1)\\times(r+1)$ minors. This is how Macaulay/Porteous gives the expected codimension."
+            "explain": "Choose a Poincaré bundle on $C\\times\\operatorname{Pic}^d(C)$ and a sufficiently positive effective divisor $E$ on $C$. Pushforward along the second projection gives a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\operatorname{Pic}^d(C)$, and the fibre rank-drop of $\\gamma$ at $L$ measures $h^0(L)$. The locus where $\\operatorname{rk}\\gamma\\le\\operatorname{rk}\\mathcal{F}-(r+1)$ — i.e. $h^0(L)\\ge r+1$ — is then a determinantal subscheme, cut by $(r+1)\\times(r+1)$ minors. This is how Macaulay/Porteous gives the expected codimension."
           }
         ]
       },
@@ -7892,16 +7892,16 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "hint": "Existence is unconditional — it holds for <em>any</em> curve once $\\rho\\ge 0$.",
-            "explain": "The non-emptiness half of Brill–Noether is unconditional: <em>every</em> smooth projective curve of genus $g$ carries a $g^r_d$ whenever $\\rho(g,r,d)\\ge 0$. The proof is a Schubert / Chern-class computation: the class of $W^r_d$ in $H^*(\\Pic^d)$ is a positive Schur polynomial, hence non-zero. The 'general curve' refinement is for the <em>dimension</em>: $\\dim W^r_d=\\rho$ on a general curve, but on a special curve the dimension can jump."
+            "explain": "The non-emptiness half of Brill–Noether is unconditional: <em>every</em> smooth projective curve of genus $g$ carries a $g^r_d$ whenever $\\rho(g,r,d)\\ge 0$. The proof is a Schubert / Chern-class computation: the class of $W^r_d$ in $H^*(\\operatorname{Pic}^d)$ is a positive Schur polynomial, hence non-zero. The 'general curve' refinement is for the <em>dimension</em>: $\\dim W^r_d=\\rho$ on a general curve, but on a special curve the dimension can jump."
           },
           {
             "type": "ordering",
             "q": "Arrange the steps of the Kempf / Kleiman–Laksov existence proof in the standard order.",
             "items": [
-              "Construct the Poincaré bundle $\\mathcal{P}$ on $C\\times\\Pic^d(C)$.",
-              "Push $\\mathcal{P}$ (twisted) forward along $\\pi_2$ to get a map $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$.",
+              "Construct the Poincaré bundle $\\mathcal{P}$ on $C\\times\\operatorname{Pic}^d(C)$.",
+              "Push $\\mathcal{P}$ (twisted) forward along $\\pi_2$ to get a map $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\operatorname{Pic}^d(C)$.",
               "Identify $W^r_d$ as the determinantal locus where $\\operatorname{rk}\\gamma$ drops by $\\ge r+1$.",
-              "Apply Macaulay/Porteous to express $[W^r_d]\\in H^*(\\Pic^d)$ as a Schur polynomial in Chern classes.",
+              "Apply Macaulay/Porteous to express $[W^r_d]\\in H^*(\\operatorname{Pic}^d)$ as a Schur polynomial in Chern classes.",
               "Verify the Schur polynomial is non-zero (positive coefficients) whenever $\\rho\\ge 0$, hence $W^r_d\\ne\\emptyset$."
             ],
             "answer": [
@@ -7912,7 +7912,7 @@ window.MVQuizBank = {
               4
             ],
             "hint": "Build the universal object, push forward, identify the locus, compute the class, then evaluate.",
-            "explain": "The five steps form the proof in order: (1) Build a universal degree-$d$ line bundle parametrised over $\\Pic^d$. (2) Pushforward gives a comparison map of bundles whose fibre rank is $h^0$. (3) The determinantal locus is set-theoretically $W^r_d$. (4) Macaulay/Porteous gives an explicit class — a Schur polynomial — in cohomology. (5) Positivity of the Schur polynomial coefficients (when $\\rho\\ge 0$) forces the class to be non-zero, which forces the locus to be non-empty. The argument is Chern-class machinery applied universally; the geometric input is just 'a Poincaré bundle exists'."
+            "explain": "The five steps form the proof in order: (1) Build a universal degree-$d$ line bundle parametrised over $\\operatorname{Pic}^d$. (2) Pushforward gives a comparison map of bundles whose fibre rank is $h^0$. (3) The determinantal locus is set-theoretically $W^r_d$. (4) Macaulay/Porteous gives an explicit class — a Schur polynomial — in cohomology. (5) Positivity of the Schur polynomial coefficients (when $\\rho\\ge 0$) forces the class to be non-zero, which forces the locus to be non-empty. The argument is Chern-class machinery applied universally; the geometric input is just 'a Poincaré bundle exists'."
           },
           {
             "type": "mcq",
@@ -7982,7 +7982,7 @@ window.MVQuizBank = {
             ],
             "answer": 2,
             "hint": "$|\\rho|$ is the codimension of the failure locus in $\\mathcal{M}_g$.",
-            "explain": "For $\\rho=-1$, the locus of curves where $W^r_d$ is non-empty (against the generic expectation) has codimension $1$ in $\\mathcal{M}_g$ — it is a divisor. These are the <strong>Brill–Noether divisors</strong>; Eisenbud–Harris (1987) computed their classes in $\\Pic(\\overline{\\mathcal{M}}_g)\\otimes\\mathbb{Q}$ as explicit combinations of $\\lambda$ and the boundary classes $\\delta_i$, using limit linear series on flag curves. For more negative $\\rho$, the locus has higher codimension."
+            "explain": "For $\\rho=-1$, the locus of curves where $W^r_d$ is non-empty (against the generic expectation) has codimension $1$ in $\\mathcal{M}_g$ — it is a divisor. These are the <strong>Brill–Noether divisors</strong>; Eisenbud–Harris (1987) computed their classes in $\\operatorname{Pic}(\\overline{\\mathcal{M}}_g)\\otimes\\mathbb{Q}$ as explicit combinations of $\\lambda$ and the boundary classes $\\delta_i$, using limit linear series on flag curves. For more negative $\\rho$, the locus has higher codimension."
           },
           {
             "type": "mcq",
@@ -7995,7 +7995,7 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "hint": "Eisenbud–Harris's technical innovation was handling the boundary $\\partial\\overline{\\mathcal{M}}_g$.",
-            "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1986) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\Pic\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
+            "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1986) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\operatorname{Pic}\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
           },
           {
             "type": "multi-select",
@@ -8186,7 +8186,7 @@ window.MVQuizBank = {
               "Curves of conductor $N < 1000$"
             ],
             "answer": 2,
-            "explain": "Kolyvagin proved: if $E/\\mathbb{Q}$ is modular (now all curves, by Wiles et al.) and $\\operatorname{ord}_{s=1}L(E,s) \\le 1$, then the algebraic rank equals the analytic rank and $\\Sha(E/\\mathbb{Q})$ is finite. The case of analytic rank $\\ge 2$ remains open."
+            "explain": "Kolyvagin proved: if $E/\\mathbb{Q}$ is modular (now all curves, by Wiles et al.) and $\\operatorname{ord}_{s=1}L(E,s) \\le 1$, then the algebraic rank equals the analytic rank and $\\text{Ш}(E/\\mathbb{Q})$ is finite. The case of analytic rank $\\ge 2$ remains open."
           },
           {
             "type": "mcq",
@@ -8227,12 +8227,12 @@ window.MVQuizBank = {
             "q": "The full BSD conjecture expresses $\\lim_{s\\to 1} \\dfrac{L(E,s)}{(s-1)^r}$ in terms of which invariants?",
             "choices": [
               "just the rank $r$",
-              "regulator $R$, real period $\\Omega$, Tamagawa numbers $c_p$, $|\\Sha|$, $|E(\\mathbb{Q})_{\\text{tors}}|$",
+              "regulator $R$, real period $\\Omega$, Tamagawa numbers $c_p$, $|\\text{Ш}|$, $|E(\\mathbb{Q})_{\\text{tors}}|$",
               "only the conductor $N$",
               "the Euler characteristic of $E(\\mathbb{C})$"
             ],
             "answer": 1,
-            "explain": "Refined BSD: $\\displaystyle \\lim_{s\\to 1}\\frac{L(E,s)}{(s-1)^r} = \\frac{\\Omega \\cdot R \\cdot |\\Sha| \\cdot \\prod_p c_p}{|E(\\mathbb{Q})_{\\text{tors}}|^2}.$"
+            "explain": "Refined BSD: $\\displaystyle \\lim_{s\\to 1}\\frac{L(E,s)}{(s-1)^r} = \\frac{\\Omega \\cdot R \\cdot |\\text{Ш}| \\cdot \\prod_p c_p}{|E(\\mathbb{Q})_{\\text{tors}}|^2}.$"
           }
         ]
       },
@@ -8296,7 +8296,7 @@ window.MVQuizBank = {
               "undefined"
             ],
             "answer": 2,
-            "explain": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$. This keeps refined BSD sensible when $r=0$: the formula reduces to $L(E,1) = \\Omega\\cdot |\\Sha|\\cdot\\prod c_p / |E_{\\text{tors}}|^2$."
+            "explain": "The free part is zero-dimensional, so the Gram matrix is $0\\times 0$ and its determinant is $1$. This keeps refined BSD sensible when $r=0$: the formula reduces to $L(E,1) = \\Omega\\cdot |\\text{Ш}|\\cdot\\prod c_p / |E_{\\text{tors}}|^2$."
           }
         ]
       },
@@ -8305,20 +8305,20 @@ window.MVQuizBank = {
         "hard": [
           {
             "type": "mcq",
-            "q": "The Cassels–Tate pairing on $\\Sha(E/\\mathbb{Q})$ is alternating and non-degenerate (when $\\Sha$ is finite). Which of the following is the correct logical chain forcing $|\\Sha|$ to be a perfect square?",
+            "q": "The Cassels–Tate pairing on $\\text{Ш}(E/\\mathbb{Q})$ is alternating and non-degenerate (when $\\text{Ш}$ is finite). Which of the following is the correct logical chain forcing $|\\text{Ш}|$ to be a perfect square?",
             "choices": [
               "An alternating non-degenerate pairing on a finite group $A$ pairs each element with itself to $0$, so $A \\cong B \\oplus B$ for some $B$, giving $|A| = |B|^2$",
-              "The Weil pairing on $E[n]$ forces $|\\Sha[n]|^2 = n^2$",
-              "$\\Sha$ embeds into $H^2(\\mathbb{Q}, \\mu_n)$ which has square order",
+              "The Weil pairing on $E[n]$ forces $|\\text{Ш}[n]|^2 = n^2$",
+              "$\\text{Ш}$ embeds into $H^2(\\mathbb{Q}, \\mu_n)$ which has square order",
               "Perfect squares are the only integers appearing as orders of abelian groups"
             ],
             "answer": 0,
             "hint": "An alternating form pairs every element with itself to zero — what does that force on the group?",
-            "explain": "A finite abelian group with a non-degenerate alternating bilinear pairing to $\\mathbb{Q}/\\mathbb{Z}$ is self-dual, and the alternating condition forces it to be isomorphic to $B \\oplus B$ for some $B$. Hence $|\\Sha| = |B|^2$."
+            "explain": "A finite abelian group with a non-degenerate alternating bilinear pairing to $\\mathbb{Q}/\\mathbb{Z}$ is self-dual, and the alternating condition forces it to be isomorphic to $B \\oplus B$ for some $B$. Hence $|\\text{Ш}| = |B|^2$."
           },
           {
             "type": "mcq",
-            "q": "A genus-$1$ curve $C/\\mathbb{Q}$ represents a non-trivial element of $\\Sha(E/\\mathbb{Q})$. What must be true of $C$?",
+            "q": "A genus-$1$ curve $C/\\mathbb{Q}$ represents a non-trivial element of $\\text{Ш}(E/\\mathbb{Q})$. What must be true of $C$?",
             "choices": [
               "$C$ has no $\\mathbb{R}$-points",
               "$C$ has $\\mathbb{Q}_p$-points for all primes $p$ and an $\\mathbb{R}$-point, but no $\\mathbb{Q}$-point",
@@ -8326,20 +8326,20 @@ window.MVQuizBank = {
               "$C$ is isomorphic to $E$ over $\\mathbb{Q}$"
             ],
             "answer": 1,
-            "explain": "$\\Sha$ consists of everywhere-locally-trivial torsors: $C$ must be locally solvable (points over every $\\mathbb{Q}_p$ and $\\mathbb{R}$) yet have no global $\\mathbb{Q}$-point. This is a pure failure of the Hasse principle, with no single local obstruction."
+            "explain": "$\\text{Ш}$ consists of everywhere-locally-trivial torsors: $C$ must be locally solvable (points over every $\\mathbb{Q}_p$ and $\\mathbb{R}$) yet have no global $\\mathbb{Q}$-point. This is a pure failure of the Hasse principle, with no single local obstruction."
           },
           {
             "type": "numeric",
-            "q": "Suppose $|\\mathrm{Sel}_3(E)| = 27$ and $|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 3$. Using the descent exact sequence $0 \\to E(\\mathbb{Q})/3E(\\mathbb{Q}) \\to \\mathrm{Sel}_3(E) \\to \\Sha(E)[3] \\to 0$, compute $|\\Sha(E)[3]|$.",
+            "q": "Suppose $|\\mathrm{Sel}_3(E)| = 27$ and $|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 3$. Using the descent exact sequence $0 \\to E(\\mathbb{Q})/3E(\\mathbb{Q}) \\to \\mathrm{Sel}_3(E) \\to \\text{Ш}(E)[3] \\to 0$, compute $|\\text{Ш}(E)[3]|$.",
             "answer": 9,
             "tol": 0.5,
-            "explain": "From the exact sequence, $|\\Sha[3]| = |\\mathrm{Sel}_3|/|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 27/3 = 9$. This is consistent with $|\\Sha|$ being a perfect square."
+            "explain": "From the exact sequence, $|\\text{Ш}[3]| = |\\mathrm{Sel}_3|/|E(\\mathbb{Q})/3E(\\mathbb{Q})| = 27/3 = 9$. This is consistent with $|\\text{Ш}|$ being a perfect square."
           }
         ],
         "questions": [
           {
             "type": "mcq",
-            "q": "An element of $\\Sha(E/\\mathbb{Q})$ corresponds geometrically to:",
+            "q": "An element of $\\text{Ш}(E/\\mathbb{Q})$ corresponds geometrically to:",
             "choices": [
               "a rational point on $E$",
               "a Galois extension of $\\mathbb{Q}$",
@@ -8347,12 +8347,12 @@ window.MVQuizBank = {
               "a prime of bad reduction"
             ],
             "answer": 2,
-            "hint": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of…",
-            "explain": "$\\Sha = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of the Hasse principle."
+            "hint": "$\\text{Ш} = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of…",
+            "explain": "$\\text{Ш} = \\ker\\bigl(H^1(\\mathbb{Q},E) \\to \\prod_v H^1(\\mathbb{Q}_v,E)\\bigr)$ classifies principal homogeneous spaces for $E$ that are everywhere locally trivial but globally nontrivial — failures of the Hasse principle."
           },
           {
             "type": "mcq",
-            "q": "If $\\Sha(E/\\mathbb{Q})$ is finite, the Cassels–Tate pairing forces $|\\Sha|$ to be a perfect square. Which of the following integers CANNOT be the order of a finite $\\Sha$?",
+            "q": "If $\\text{Ш}(E/\\mathbb{Q})$ is finite, the Cassels–Tate pairing forces $|\\text{Ш}|$ to be a perfect square. Which of the following integers CANNOT be the order of a finite $\\text{Ш}$?",
             "choices": [
               "$1$",
               "$4$",
@@ -8362,11 +8362,11 @@ window.MVQuizBank = {
             ],
             "answer": 2,
             "hint": "Which of the options isn't a perfect square?",
-            "explain": "Cassels–Tate gives $\\Sha(E/\\mathbb{Q})$ a non-degenerate alternating pairing, which forces its order to be a perfect square. Among the listed values, $1=1^2$, $4=2^2$, $9=3^2$, and $25=5^2$ are all squares; $6$ is not, so it is forbidden."
+            "explain": "Cassels–Tate gives $\\text{Ш}(E/\\mathbb{Q})$ a non-degenerate alternating pairing, which forces its order to be a perfect square. Among the listed values, $1=1^2$, $4=2^2$, $9=3^2$, and $25=5^2$ are all squares; $6$ is not, so it is forbidden."
           },
           {
             "type": "mcq",
-            "q": "The $n$-descent sequence reads $0 \\to E(\\mathbb{Q})/nE(\\mathbb{Q}) \\to \\mathrm{Sel}_n(E) \\to \\Sha(E/\\mathbb{Q})[n] \\to 0$. If $|\\mathrm{Sel}_2(E)| = 32$ and $|E(\\mathbb{Q})/2E(\\mathbb{Q})| = 8$, then $|\\Sha(E)[2]|$ is:",
+            "q": "The $n$-descent sequence reads $0 \\to E(\\mathbb{Q})/nE(\\mathbb{Q}) \\to \\mathrm{Sel}_n(E) \\to \\text{Ш}(E/\\mathbb{Q})[n] \\to 0$. If $|\\mathrm{Sel}_2(E)| = 32$ and $|E(\\mathbb{Q})/2E(\\mathbb{Q})| = 8$, then $|\\text{Ш}(E)[2]|$ is:",
             "choices": [
               "$4$",
               "$24$",
@@ -8374,7 +8374,7 @@ window.MVQuizBank = {
               "cannot be determined"
             ],
             "answer": 0,
-            "explain": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\Sha[2]|$ even when the full group is out of reach."
+            "explain": "From the exact sequence, $|\\text{Ш}[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\text{Ш}[2]|$ even when the full group is out of reach."
           }
         ]
       }
@@ -39700,7 +39700,7 @@ window.MVQuizBank = {
             "q": "The two columns Langlands matches are:",
             "choices": [
               "smooth varieties and singular varieties",
-              "$n$-dimensional Galois representations and cuspidal automorphic representations of $\\GL_n(\\mathbb{A})$",
+              "$n$-dimensional Galois representations and cuspidal automorphic representations of $\\operatorname{GL}_n(\\mathbb{A})$",
               "real and complex analysis",
               "characteristic 0 and characteristic $p$"
             ],
@@ -39712,7 +39712,7 @@ window.MVQuizBank = {
             "q": "The L-function matching $L(\\rho,s) = L(\\pi,s)$ is testable because:",
             "choices": [
               "L-functions are easy to compute on both sides",
-              "Jacquet-Shalika strong multiplicity one says an automorphic representation of $\\GL_n$ is determined by its L-function",
+              "Jacquet-Shalika strong multiplicity one says an automorphic representation of $\\operatorname{GL}_n$ is determined by its L-function",
               "the Riemann hypothesis is known on both sides",
               "L-functions are integers"
             ],
@@ -39740,25 +39740,25 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "The local L-factor of an unramified Galois representation $\\rho$ at a prime $p$ is:",
             "choices": [
-              "$\\rho(\\Frob_p)$",
-              "$\\det\\bigl(I_n - \\rho(\\Frob_p) p^{-s}\\bigr)^{-1}$",
-              "$\\det \\rho(\\Frob_p)$",
-              "$\\mathrm{tr}\\, \\rho(\\Frob_p)$"
+              "$\\rho(\\mathrm{Frob}_p)$",
+              "$\\det\\bigl(I_n - \\rho(\\mathrm{Frob}_p) p^{-s}\\bigr)^{-1}$",
+              "$\\det \\rho(\\mathrm{Frob}_p)$",
+              "$\\mathrm{tr}\\, \\rho(\\mathrm{Frob}_p)$"
             ],
             "answer": 1,
-            "explain": "$L_p(\\rho,s) = \\det(I_n - \\rho(\\Frob_p) p^{-s})^{-1}$ — the inverse of the characteristic polynomial of $\\rho(\\Frob_p)$ evaluated at $p^{-s}$. The Euler product $L(\\rho,s) = \\prod_p L_p$ converges for $\\Re s$ large and is conjecturally meromorphic on all of $\\mathbb{C}$."
+            "explain": "$L_p(\\rho,s) = \\det(I_n - \\rho(\\mathrm{Frob}_p) p^{-s})^{-1}$ — the inverse of the characteristic polynomial of $\\rho(\\mathrm{Frob}_p)$ evaluated at $p^{-s}$. The Euler product $L(\\rho,s) = \\prod_p L_p$ converges for $\\Re s$ large and is conjecturally meromorphic on all of $\\mathbb{C}$."
           },
           {
             "type": "mcq",
             "q": "Strong multiplicity one (Jacquet-Shalika) says:",
             "choices": [
               "every Galois rep is automorphic",
-              "an irreducible cuspidal automorphic representation of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$ is determined by its L-factors at almost all primes",
+              "an irreducible cuspidal automorphic representation of $\\operatorname{GL}_n(\\mathbb{A}_\\mathbb{Q})$ is determined by its L-factors at almost all primes",
               "L-functions have unique Euler products",
               "the functional equation is unique"
             ],
             "answer": 1,
-            "explain": "Two cuspidal automorphic representations $\\pi$ and $\\pi'$ of $\\GL_n(\\mathbb{A})$ that have $L_p(\\pi,s) = L_p(\\pi',s)$ for all $p$ outside a finite set are isomorphic. This is the rigidity that makes 'matching L-functions' a meaningful test for the Langlands correspondence."
+            "explain": "Two cuspidal automorphic representations $\\pi$ and $\\pi'$ of $\\operatorname{GL}_n(\\mathbb{A})$ that have $L_p(\\pi,s) = L_p(\\pi',s)$ for all $p$ outside a finite set are isomorphic. This is the rigidity that makes 'matching L-functions' a meaningful test for the Langlands correspondence."
           },
           {
             "type": "multi-select",
@@ -39783,15 +39783,15 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Local Langlands for $\\GL_n$ at a $p$-adic place is a bijection between:",
+            "q": "Local Langlands for $\\operatorname{GL}_n$ at a $p$-adic place is a bijection between:",
             "choices": [
-              "smooth $\\GL_n$-reps and ordinary $n$-dim representations",
-              "$n$-dim Frobenius-semisimple Weil-Deligne representations of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible representations of $\\GL_n(\\mathbb{Q}_v)$",
+              "smooth $\\operatorname{GL}_n$-reps and ordinary $n$-dim representations",
+              "$n$-dim Frobenius-semisimple Weil-Deligne representations of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible representations of $\\operatorname{GL}_n(\\mathbb{Q}_v)$",
               "Galois characters and Dirichlet characters",
               "modular forms and L-functions"
             ],
             "answer": 1,
-            "explain": "Weil-Deligne reps capture local Galois data with monodromy; smooth admissible reps of $\\GL_n(\\mathbb{Q}_v)$ are the local automorphic side. Harris-Taylor (2001) and Henniart (2000) proved the bijection independently for $p$-adic places."
+            "explain": "Weil-Deligne reps capture local Galois data with monodromy; smooth admissible reps of $\\operatorname{GL}_n(\\mathbb{Q}_v)$ are the local automorphic side. Harris-Taylor (2001) and Henniart (2000) proved the bijection independently for $p$-adic places."
           },
           {
             "type": "mcq",
@@ -39800,19 +39800,19 @@ window.MVQuizBank = {
               "the determinant of $\\rho$",
               "the unipotent action of inertia — the piece of $\\Gal$-action that is missing from the Weil-rep factor $\\rho$ when inertia acts non-trivially through unipotent matrices",
               "the residue field characteristic",
-              "the trace of $\\rho(\\Frob)$"
+              "the trace of $\\rho(\\mathrm{Frob})$"
             ],
             "answer": 1,
             "explain": "Concrete example: the Steinberg representation of an elliptic curve with multiplicative reduction at $p$ has $\\rho$ unramified (action on the inertia-invariants is just multiplication by Frobenius eigenvalues) but the full local Galois rep also acts non-trivially through inertia via a unipotent matrix; $N = \\log$ of that unipotent piece. Together, $(\\rho, N)$ recover the full local Galois rep up to isomorphism. The 'Frobenius-semisimple' adjective is a separate condition imposed on $\\rho$ (it's not automatic from the construction)."
           },
           {
             "type": "mcq",
-            "q": "Local Langlands at $\\mathbb{R}$ or $\\mathbb{C}$ for $\\GL_n$ is:",
+            "q": "Local Langlands at $\\mathbb{R}$ or $\\mathbb{C}$ for $\\operatorname{GL}_n$ is:",
             "choices": [
               "open",
               "Langlands' classification of admissible reps of real reductive groups (1973) — proven",
               "false",
-              "trivial because $\\GL_n(\\mathbb{R})$ is connected"
+              "trivial because $\\operatorname{GL}_n(\\mathbb{R})$ is connected"
             ],
             "answer": 1,
             "explain": "Langlands' 1973 classification expresses every admissible representation of a real reductive group as a tempered representation parabolically induced and twisted by characters; the resulting bijection with archimedean Weil-Deligne reps is the archimedean local correspondence."
@@ -39824,7 +39824,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "The global Langlands correspondence for $\\GL_n$ over $\\mathbb{Q}$ is unconditionally proven for:",
+            "q": "The global Langlands correspondence for $\\operatorname{GL}_n$ over $\\mathbb{Q}$ is unconditionally proven for:",
             "choices": [
               "all $n$",
               "$n = 1$ (class field theory) — fully; $n = 2$ — substantially via modularity + Serre's conjecture; $n \\ge 3$ — only fragmentary cases",
@@ -39838,11 +39838,11 @@ window.MVQuizBank = {
             "type": "matching",
             "q": "Match each proven case to the team(s) that proved it:",
             "left": [
-              "Class field theory (Langlands for $\\GL_1$)",
+              "Class field theory (Langlands for $\\operatorname{GL}_1$)",
               "Modularity for <em>semistable</em> elliptic curves over $\\mathbb{Q}$",
               "Modularity for <em>all</em> elliptic curves over $\\mathbb{Q}$",
-              "Local Langlands for $\\GL_n$ over $p$-adic fields",
-              "Serre's conjecture (mod-$\\ell$ Langlands for $\\GL_2$)"
+              "Local Langlands for $\\operatorname{GL}_n$ over $p$-adic fields",
+              "Serre's conjecture (mod-$\\ell$ Langlands for $\\operatorname{GL}_2$)"
             ],
             "right": [
               "Wiles + Taylor-Wiles (1995)",
@@ -39879,15 +39879,15 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Why is class field theory exactly Langlands for $\\GL_1$?",
+            "q": "Why is class field theory exactly Langlands for $\\operatorname{GL}_1$?",
             "choices": [
-              "$\\GL_1$ has no representations",
-              "$\\GL_1(\\mathbb{A}_\\mathbb{Q}) = \\mathbb{A}_\\mathbb{Q}^\\times$, so automorphic reps of $\\GL_1$ are continuous characters of $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ — Hecke characters — and Galois characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ correspond to them via Artin reciprocity",
+              "$\\operatorname{GL}_1$ has no representations",
+              "$\\operatorname{GL}_1(\\mathbb{A}_\\mathbb{Q}) = \\mathbb{A}_\\mathbb{Q}^\\times$, so automorphic reps of $\\operatorname{GL}_1$ are continuous characters of $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ — Hecke characters — and Galois characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ correspond to them via Artin reciprocity",
               "Langlands trivially generalises CFT to all $n$",
-              "$\\GL_1$ has no L-functions"
+              "$\\operatorname{GL}_1$ has no L-functions"
             ],
             "answer": 1,
-            "explain": "Galois reps of dimension 1 are characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Automorphic reps of $\\GL_1$ are Hecke characters. Artin reciprocity is the bijection between them, with L-function equality. The same data, two viewpoints — exactly the Langlands correspondence at $n=1$."
+            "explain": "Galois reps of dimension 1 are characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Automorphic reps of $\\operatorname{GL}_1$ are Hecke characters. Artin reciprocity is the bijection between them, with L-function equality. The same data, two viewpoints — exactly the Langlands correspondence at $n=1$."
           },
           {
             "type": "mcq",
@@ -39935,7 +39935,7 @@ window.MVQuizBank = {
             "q": "Khare-Wintenberger's proof of Serre's conjecture (2009) says:",
             "choices": [
               "every elliptic curve is modular",
-              "every odd, irreducible mod-$\\ell$ Galois representation $\\bar\\rho\\colon \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\to \\GL_2(\\mathbb{F}_\\ell)$ is modular — comes from a modular form",
+              "every odd, irreducible mod-$\\ell$ Galois representation $\\bar\\rho\\colon \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\to \\operatorname{GL}_2(\\mathbb{F}_\\ell)$ is modular — comes from a modular form",
               "every Galois representation is modular",
               "modular forms are dense"
             ],
@@ -39961,7 +39961,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "For a *general* cuspidal automorphic $\\pi$ on $\\GL_2(\\mathbb{A}_\\mathbb{Q})$ (not necessarily from a modular form), symmetric-power lifts $\\Sym^k \\pi$ to $\\GL_{k+1}(\\mathbb{A}_\\mathbb{Q})$ are *unconditionally* known up to which $k$?",
+            "q": "For a *general* cuspidal automorphic $\\pi$ on $\\operatorname{GL}_2(\\mathbb{A}_\\mathbb{Q})$ (not necessarily from a modular form), symmetric-power lifts $\\mathrm{Sym}^k \\pi$ to $\\operatorname{GL}_{k+1}(\\mathbb{A}_\\mathbb{Q})$ are *unconditionally* known up to which $k$?",
             "choices": [
               "$k = 1$ (trivial lift only)",
               "$k = 4$ (Kim-Shahidi 2002 for $k = 3$; Kim 2003 for $k = 4$)",
@@ -39969,19 +39969,19 @@ window.MVQuizBank = {
               "$k = 100$"
             ],
             "answer": 1,
-            "explain": "For *general* cuspidal $\\pi$, the proven cases are Sym$^3$ (Kim-Shahidi 2002) and Sym$^4$ (Kim 2003). The stronger Newton-Thorne (2020) theorem extends to *all* $k$ but only when $\\pi$ comes from a cuspidal modular form (the more restricted cases that suffice for Sato-Tate's symmetric-power consequences). General-case $\\Sym^5$ and beyond remain open."
+            "explain": "For *general* cuspidal $\\pi$, the proven cases are Sym$^3$ (Kim-Shahidi 2002) and Sym$^4$ (Kim 2003). The stronger Newton-Thorne (2020) theorem extends to *all* $k$ but only when $\\pi$ comes from a cuspidal modular form (the more restricted cases that suffice for Sato-Tate's symmetric-power consequences). General-case $\\mathrm{Sym}^5$ and beyond remain open."
           },
           {
             "type": "mcq",
             "q": "The conjectural Langlands group $L_F$ is:",
             "choices": [
               "a specific finite group",
-              "a topological group whose continuous $n$-dim representations parametrise cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_F)$",
+              "a topological group whose continuous $n$-dim representations parametrise cuspidal automorphic reps of $\\operatorname{GL}_n(\\mathbb{A}_F)$",
               "the Galois group of $F$",
               "the idèle class group"
             ],
             "answer": 1,
-            "explain": "$L_F$ is the predicted universal Tannakian symmetry of the automorphic side: its $n$-dim representations are exactly the cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_F)$. $L_F^{\\mathrm{ab}}$ is the idèle class group; the étale-realisation quotient of the motivic Galois group sits inside $L_F$. The existence of $L_F$ as a literal topological group is open."
+            "explain": "$L_F$ is the predicted universal Tannakian symmetry of the automorphic side: its $n$-dim representations are exactly the cuspidal automorphic reps of $\\operatorname{GL}_n(\\mathbb{A}_F)$. $L_F^{\\mathrm{ab}}$ is the idèle class group; the étale-realisation quotient of the motivic Galois group sits inside $L_F$. The existence of $L_F$ as a literal topological group is open."
           },
           {
             "type": "mcq",
@@ -40004,8 +40004,8 @@ window.MVQuizBank = {
             "type": "multi-select",
             "q": "Which of the following does the Langlands program (in some form) <em>unify or directly predict</em> — as opposed to merely sit alongside?",
             "choices": [
-              "Class field theory (proved as Langlands for $\\GL_1$)",
-              "Modularity of elliptic curves over $\\mathbb{Q}$ and the Sato-Tate conjecture (consequences of $\\GL_2$ Langlands + symmetric-power lifting)",
+              "Class field theory (proved as Langlands for $\\operatorname{GL}_1$)",
+              "Modularity of elliptic curves over $\\mathbb{Q}$ and the Sato-Tate conjecture (consequences of $\\operatorname{GL}_2$ Langlands + symmetric-power lifting)",
               "The generalized Riemann hypothesis for automorphic L-functions (predicted by — but not implied by — automorphy)",
               "The Tate conjecture (sits on the conjectural $G_\\mathrm{mot} \\to L_F$ compatibility)"
             ],
@@ -40015,11 +40015,11 @@ window.MVQuizBank = {
               2,
               3
             ],
-            "explain": "All four, with the relationships disentangled: (0) CFT is the case $n = 1$ — proved (Artin reciprocity + Tate's thesis). (1) Modularity for $E/\\mathbb{Q}$ and Sato-Tate are consequences of $\\GL_2$-automorphy plus Sym$^k$-functoriality (Newton-Thorne 2020 finished the symmetric powers). (2) GRH for automorphic L-functions is <em>predicted</em> by Langlands' framework but is independent: the dictionary doesn't imply zeros lie on $\\Re s = 1/2$. (3) The Tate conjecture sits on the conjectural compatibility of the motivic Galois group with $L_F$; the Hodge conjecture itself is more directly a statement about complex geometry, so the link to automorphy is via motives rather than direct."
+            "explain": "All four, with the relationships disentangled: (0) CFT is the case $n = 1$ — proved (Artin reciprocity + Tate's thesis). (1) Modularity for $E/\\mathbb{Q}$ and Sato-Tate are consequences of $\\operatorname{GL}_2$-automorphy plus Sym$^k$-functoriality (Newton-Thorne 2020 finished the symmetric powers). (2) GRH for automorphic L-functions is <em>predicted</em> by Langlands' framework but is independent: the dictionary doesn't imply zeros lie on $\\Re s = 1/2$. (3) The Tate conjecture sits on the conjectural compatibility of the motivic Galois group with $L_F$; the Hodge conjecture itself is more directly a statement about complex geometry, so the link to automorphy is via motives rather than direct."
           },
           {
             "type": "mcq",
-            "q": "Geometric Langlands (Drinfeld for $\\GL_2$ in the 1980s; Laumon, Beilinson-Drinfeld, Lafforgue, Frenkel-Gaitsgory, Gaitsgory et al. since) replaces $\\mathbb{Q}$ with what?",
+            "q": "Geometric Langlands (Drinfeld for $\\operatorname{GL}_2$ in the 1980s; Laumon, Beilinson-Drinfeld, Lafforgue, Frenkel-Gaitsgory, Gaitsgory et al. since) replaces $\\mathbb{Q}$ with what?",
             "choices": [
               "the field $\\mathbb{C}$",
               "the function field $\\mathbb{F}_q(C)$ of a smooth projective curve $C/\\mathbb{F}_q$ — equivalently, the curve itself",
@@ -40027,7 +40027,7 @@ window.MVQuizBank = {
               "the surreal numbers"
             ],
             "answer": 1,
-            "explain": "Geometric Langlands works over function fields, with the curve $C$ replacing $\\mathrm{Spec}\\,\\mathbb{Z}$. The correspondence becomes: $\\ell$-adic local systems on $C$ ↔ Hecke eigensheaves on the moduli of $G$-bundles $\\mathrm{Bun}_G(C)$. Drinfeld proved $\\GL_2$ in the 1980s; Lafforgue extended to $\\GL_n$ (Fields Medal 2002, function-field analogue); the parallel sheaf-theoretic geometric formulation has been developed by Beilinson-Drinfeld, Frenkel-Gaitsgory, and Gaitsgory and collaborators."
+            "explain": "Geometric Langlands works over function fields, with the curve $C$ replacing $\\mathrm{Spec}\\,\\mathbb{Z}$. The correspondence becomes: $\\ell$-adic local systems on $C$ ↔ Hecke eigensheaves on the moduli of $G$-bundles $\\mathrm{Bun}_G(C)$. Drinfeld proved $\\operatorname{GL}_2$ in the 1980s; Lafforgue extended to $\\operatorname{GL}_n$ (Fields Medal 2002, function-field analogue); the parallel sheaf-theoretic geometric formulation has been developed by Beilinson-Drinfeld, Frenkel-Gaitsgory, and Gaitsgory and collaborators."
           },
           {
             "type": "mcq",
@@ -48940,13 +48940,13 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "Artin's comparison theorem identifies which two realizations of a smooth projective variety $X / \\mathbb{Q}$ after a base change?",
             "choices": [
-              "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and de Rham $H^*_{\\dR}(X/\\mathbb{Q})$ after $\\otimes_\\mathbb{Q} \\mathbb{C}$",
-              "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and ℓ-adic $H^*_{\\et}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$ after $\\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell$",
+              "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and de Rham $H^*_{\\mathrm{dR}}(X/\\mathbb{Q})$ after $\\otimes_\\mathbb{Q} \\mathbb{C}$",
+              "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and ℓ-adic $H^*_{\\text{ét}}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$ after $\\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell$",
               "$\\ell$-adic and crystalline via the period ring $B_{\\mathrm{cris}}$",
               "de Rham and crystalline via the de Rham–Witt complex"
             ],
             "answer": 1,
-            "explain": "Artin's comparison: $H^*_B(X(\\mathbb{C});\\mathbb{Q}) \\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell \\cong H^*_{\\et}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$. Choice (A) is Grothendieck's comparison (Betti↔dR over $\\mathbb{C}$). Choice (C) is Fontaine's $p$-adic comparison theorem (crystalline ↔ $p$-adic étale via $B_{\\mathrm{cris}}$). Choice (D) is Bloch–Illusie / Berthelot–Ogus (de Rham–Witt). Each comparison theorem is a non-trivial bridge between two realizations of the *same* motive."
+            "explain": "Artin's comparison: $H^*_B(X(\\mathbb{C});\\mathbb{Q}) \\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell \\cong H^*_{\\text{ét}}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$. Choice (A) is Grothendieck's comparison (Betti↔dR over $\\mathbb{C}$). Choice (C) is Fontaine's $p$-adic comparison theorem (crystalline ↔ $p$-adic étale via $B_{\\mathrm{cris}}$). Choice (D) is Bloch–Illusie / Berthelot–Ogus (de Rham–Witt). Each comparison theorem is a non-trivial bridge between two realizations of the *same* motive."
           }
         ]
       },
@@ -51422,11 +51422,11 @@ window.MVQuizBank = {
             "choices": [
               "The discriminant",
               "The conductor",
-              "The Tate-Shafarevich group $\\Sha(E/\\mathbb{Q})$",
+              "The Tate-Shafarevich group $\\text{Ш}(E/\\mathbb{Q})$",
               "The j-invariant"
             ],
             "answer": 2,
-            "explain": "$\\Sha(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
+            "explain": "$\\text{Ш}(E/\\mathbb{Q})$ parametrises locally trivial principal homogeneous spaces for $E$ — objects that have points in every $\\mathbb{Q}_p$ and in $\\mathbb{R}$ but not in $\\mathbb{Q}$. It is the standard measure of local-global failure for elliptic curves."
           }
         ],
         "hard": [

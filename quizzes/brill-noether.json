@@ -147,34 +147,34 @@
           "q": "$W^r_d(C)$ is defined as a subset of which ambient variety?",
           "choices": [
             "The moduli space $\\mathcal{M}_g$.",
-            "The Picard variety $\\Pic^d(C)$.",
+            "The Picard variety $\\operatorname{Pic}^d(C)$.",
             "The projective space $\\mathbb{P}^r$.",
             "The symmetric product $C^{(d)}$."
           ],
           "answer": 1,
           "hint": "$W^r_d$ is a locus inside the space of degree-$d$ line bundles on $C$.",
-          "explain": "$W^r_d(C)\\subseteq\\Pic^d(C)$ is the set of line bundles $L$ of degree $d$ on $C$ with $h^0(L)\\ge r+1$. The Picard variety has dimension $g$, and $W^r_d$ cuts out a subvariety of expected codimension $(r+1)(g-d+r)$. The closely related space $G^r_d(C)$ — pairs $(L,V)$ rather than just $L$ — sits over $W^r_d$ and parametrises the actual $g^r_d$'s; the projection $G^r_d\\to W^r_d$ is birational outside $W^{r+1}_d$."
+          "explain": "$W^r_d(C)\\subseteq\\operatorname{Pic}^d(C)$ is the set of line bundles $L$ of degree $d$ on $C$ with $h^0(L)\\ge r+1$. The Picard variety has dimension $g$, and $W^r_d$ cuts out a subvariety of expected codimension $(r+1)(g-d+r)$. The closely related space $G^r_d(C)$ — pairs $(L,V)$ rather than just $L$ — sits over $W^r_d$ and parametrises the actual $g^r_d$'s; the projection $G^r_d\\to W^r_d$ is birational outside $W^{r+1}_d$."
         },
         {
           "type": "numeric",
-          "q": "The expected codimension of $W^r_d(C)$ in $\\Pic^d(C)$ is $(r+1)(g-d+r)$. For $(g,r,d)=(8,2,7)$, what is this codimension?",
+          "q": "The expected codimension of $W^r_d(C)$ in $\\operatorname{Pic}^d(C)$ is $(r+1)(g-d+r)$. For $(g,r,d)=(8,2,7)$, what is this codimension?",
           "answer": 9,
           "tol": 1e-9,
           "hint": "Plug in: $(2+1)(8-7+2)=3\\cdot 3$.",
-          "explain": "$(r+1)(g-d+r)=(2+1)(8-7+2)=3\\cdot 3=9$. So the expected codimension is $9$, but $\\dim\\Pic^d=g=8$ — the codimension exceeds the dimension, so $W^2_7(C)=\\emptyset$ on a general genus-$8$ curve. Consistently, $\\rho(8,2,7)=8-9=-1$."
+          "explain": "$(r+1)(g-d+r)=(2+1)(8-7+2)=3\\cdot 3=9$. So the expected codimension is $9$, but $\\dim\\operatorname{Pic}^d=g=8$ — the codimension exceeds the dimension, so $W^2_7(C)=\\emptyset$ on a general genus-$8$ curve. Consistently, $\\rho(8,2,7)=8-9=-1$."
         },
         {
           "type": "mcq",
           "q": "$W^r_d(C)$ has a natural scheme structure because it is:",
           "choices": [
             "A homogeneous space under a Lie group action.",
-            "A determinantal subscheme — cut out by a rank condition on a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$.",
+            "A determinantal subscheme — cut out by a rank condition on a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\operatorname{Pic}^d(C)$.",
             "A complete intersection of explicit polynomials.",
             "A toric variety."
           ],
           "answer": 1,
           "hint": "$h^0(L)\\ge r+1$ is a rank-drop condition on an evaluation-of-sections map.",
-          "explain": "Choose a Poincaré bundle on $C\\times\\Pic^d(C)$ and a sufficiently positive effective divisor $E$ on $C$. Pushforward along the second projection gives a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$, and the fibre rank-drop of $\\gamma$ at $L$ measures $h^0(L)$. The locus where $\\operatorname{rk}\\gamma\\le\\operatorname{rk}\\mathcal{F}-(r+1)$ — i.e. $h^0(L)\\ge r+1$ — is then a determinantal subscheme, cut by $(r+1)\\times(r+1)$ minors. This is how Macaulay/Porteous gives the expected codimension."
+          "explain": "Choose a Poincaré bundle on $C\\times\\operatorname{Pic}^d(C)$ and a sufficiently positive effective divisor $E$ on $C$. Pushforward along the second projection gives a map of vector bundles $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\operatorname{Pic}^d(C)$, and the fibre rank-drop of $\\gamma$ at $L$ measures $h^0(L)$. The locus where $\\operatorname{rk}\\gamma\\le\\operatorname{rk}\\mathcal{F}-(r+1)$ — i.e. $h^0(L)\\ge r+1$ — is then a determinantal subscheme, cut by $(r+1)\\times(r+1)$ minors. This is how Macaulay/Porteous gives the expected codimension."
         }
       ]
     },
@@ -192,16 +192,16 @@
           ],
           "answer": 1,
           "hint": "Existence is unconditional — it holds for <em>any</em> curve once $\\rho\\ge 0$.",
-          "explain": "The non-emptiness half of Brill–Noether is unconditional: <em>every</em> smooth projective curve of genus $g$ carries a $g^r_d$ whenever $\\rho(g,r,d)\\ge 0$. The proof is a Schubert / Chern-class computation: the class of $W^r_d$ in $H^*(\\Pic^d)$ is a positive Schur polynomial, hence non-zero. The 'general curve' refinement is for the <em>dimension</em>: $\\dim W^r_d=\\rho$ on a general curve, but on a special curve the dimension can jump."
+          "explain": "The non-emptiness half of Brill–Noether is unconditional: <em>every</em> smooth projective curve of genus $g$ carries a $g^r_d$ whenever $\\rho(g,r,d)\\ge 0$. The proof is a Schubert / Chern-class computation: the class of $W^r_d$ in $H^*(\\operatorname{Pic}^d)$ is a positive Schur polynomial, hence non-zero. The 'general curve' refinement is for the <em>dimension</em>: $\\dim W^r_d=\\rho$ on a general curve, but on a special curve the dimension can jump."
         },
         {
           "type": "ordering",
           "q": "Arrange the steps of the Kempf / Kleiman–Laksov existence proof in the standard order.",
           "items": [
-            "Construct the Poincaré bundle $\\mathcal{P}$ on $C\\times\\Pic^d(C)$.",
-            "Push $\\mathcal{P}$ (twisted) forward along $\\pi_2$ to get a map $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\Pic^d(C)$.",
+            "Construct the Poincaré bundle $\\mathcal{P}$ on $C\\times\\operatorname{Pic}^d(C)$.",
+            "Push $\\mathcal{P}$ (twisted) forward along $\\pi_2$ to get a map $\\gamma\\colon\\mathcal{F}\\to\\mathcal{G}$ on $\\operatorname{Pic}^d(C)$.",
             "Identify $W^r_d$ as the determinantal locus where $\\operatorname{rk}\\gamma$ drops by $\\ge r+1$.",
-            "Apply Macaulay/Porteous to express $[W^r_d]\\in H^*(\\Pic^d)$ as a Schur polynomial in Chern classes.",
+            "Apply Macaulay/Porteous to express $[W^r_d]\\in H^*(\\operatorname{Pic}^d)$ as a Schur polynomial in Chern classes.",
             "Verify the Schur polynomial is non-zero (positive coefficients) whenever $\\rho\\ge 0$, hence $W^r_d\\ne\\emptyset$."
           ],
           "answer": [
@@ -212,7 +212,7 @@
             4
           ],
           "hint": "Build the universal object, push forward, identify the locus, compute the class, then evaluate.",
-          "explain": "The five steps form the proof in order: (1) Build a universal degree-$d$ line bundle parametrised over $\\Pic^d$. (2) Pushforward gives a comparison map of bundles whose fibre rank is $h^0$. (3) The determinantal locus is set-theoretically $W^r_d$. (4) Macaulay/Porteous gives an explicit class — a Schur polynomial — in cohomology. (5) Positivity of the Schur polynomial coefficients (when $\\rho\\ge 0$) forces the class to be non-zero, which forces the locus to be non-empty. The argument is Chern-class machinery applied universally; the geometric input is just 'a Poincaré bundle exists'."
+          "explain": "The five steps form the proof in order: (1) Build a universal degree-$d$ line bundle parametrised over $\\operatorname{Pic}^d$. (2) Pushforward gives a comparison map of bundles whose fibre rank is $h^0$. (3) The determinantal locus is set-theoretically $W^r_d$. (4) Macaulay/Porteous gives an explicit class — a Schur polynomial — in cohomology. (5) Positivity of the Schur polynomial coefficients (when $\\rho\\ge 0$) forces the class to be non-zero, which forces the locus to be non-empty. The argument is Chern-class machinery applied universally; the geometric input is just 'a Poincaré bundle exists'."
         },
         {
           "type": "mcq",
@@ -282,7 +282,7 @@
           ],
           "answer": 2,
           "hint": "$|\\rho|$ is the codimension of the failure locus in $\\mathcal{M}_g$.",
-          "explain": "For $\\rho=-1$, the locus of curves where $W^r_d$ is non-empty (against the generic expectation) has codimension $1$ in $\\mathcal{M}_g$ — it is a divisor. These are the <strong>Brill–Noether divisors</strong>; Eisenbud–Harris (1987) computed their classes in $\\Pic(\\overline{\\mathcal{M}}_g)\\otimes\\mathbb{Q}$ as explicit combinations of $\\lambda$ and the boundary classes $\\delta_i$, using limit linear series on flag curves. For more negative $\\rho$, the locus has higher codimension."
+          "explain": "For $\\rho=-1$, the locus of curves where $W^r_d$ is non-empty (against the generic expectation) has codimension $1$ in $\\mathcal{M}_g$ — it is a divisor. These are the <strong>Brill–Noether divisors</strong>; Eisenbud–Harris (1987) computed their classes in $\\operatorname{Pic}(\\overline{\\mathcal{M}}_g)\\otimes\\mathbb{Q}$ as explicit combinations of $\\lambda$ and the boundary classes $\\delta_i$, using limit linear series on flag curves. For more negative $\\rho$, the locus has higher codimension."
         },
         {
           "type": "mcq",
@@ -295,7 +295,7 @@
           ],
           "answer": 1,
           "hint": "Eisenbud–Harris's technical innovation was handling the boundary $\\partial\\overline{\\mathcal{M}}_g$.",
-          "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1986) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\Pic\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
+          "explain": "A limit linear series on a chain of components prescribes a coordinated choice of linear series on each component, with vanishing-sequence compatibility at the nodes. Eisenbud–Harris (1986) showed limit linear series on flag curves (chains of elliptic curves) smooth out to $g^r_d$'s on nearby smooth curves — proving Petri by degeneration and supplying explicit divisor classes in $\\operatorname{Pic}\\overline{\\mathcal{M}}_g\\otimes\\mathbb{Q}$. The classes are the central technical input to the Harris–Mumford theorem on the Kodaira dimension of $\\overline{\\mathcal{M}}_g$."
         },
         {
           "type": "multi-select",

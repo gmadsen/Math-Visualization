@@ -288,13 +288,13 @@
           "type": "mcq",
           "q": "Artin's comparison theorem identifies which two realizations of a smooth projective variety $X / \\mathbb{Q}$ after a base change?",
           "choices": [
-            "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and de Rham $H^*_{\\dR}(X/\\mathbb{Q})$ after $\\otimes_\\mathbb{Q} \\mathbb{C}$",
-            "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and ℓ-adic $H^*_{\\et}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$ after $\\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell$",
+            "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and de Rham $H^*_{\\mathrm{dR}}(X/\\mathbb{Q})$ after $\\otimes_\\mathbb{Q} \\mathbb{C}$",
+            "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and ℓ-adic $H^*_{\\text{ét}}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$ after $\\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell$",
             "$\\ell$-adic and crystalline via the period ring $B_{\\mathrm{cris}}$",
             "de Rham and crystalline via the de Rham–Witt complex"
           ],
           "answer": 1,
-          "explain": "Artin's comparison: $H^*_B(X(\\mathbb{C});\\mathbb{Q}) \\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell \\cong H^*_{\\et}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$. Choice (A) is Grothendieck's comparison (Betti↔dR over $\\mathbb{C}$). Choice (C) is Fontaine's $p$-adic comparison theorem (crystalline ↔ $p$-adic étale via $B_{\\mathrm{cris}}$). Choice (D) is Bloch–Illusie / Berthelot–Ogus (de Rham–Witt). Each comparison theorem is a non-trivial bridge between two realizations of the *same* motive."
+          "explain": "Artin's comparison: $H^*_B(X(\\mathbb{C});\\mathbb{Q}) \\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell \\cong H^*_{\\text{ét}}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$. Choice (A) is Grothendieck's comparison (Betti↔dR over $\\mathbb{C}$). Choice (C) is Fontaine's $p$-adic comparison theorem (crystalline ↔ $p$-adic étale via $B_{\\mathrm{cris}}$). Choice (D) is Bloch–Illusie / Berthelot–Ogus (de Rham–Witt). Each comparison theorem is a non-trivial bridge between two realizations of the *same* motive."
         }
       ]
     },

@@ -9,7 +9,7 @@
           "q": "The two columns Langlands matches are:",
           "choices": [
             "smooth varieties and singular varieties",
-            "$n$-dimensional Galois representations and cuspidal automorphic representations of $\\GL_n(\\mathbb{A})$",
+            "$n$-dimensional Galois representations and cuspidal automorphic representations of $\\operatorname{GL}_n(\\mathbb{A})$",
             "real and complex analysis",
             "characteristic 0 and characteristic $p$"
           ],
@@ -21,7 +21,7 @@
           "q": "The L-function matching $L(\\rho,s) = L(\\pi,s)$ is testable because:",
           "choices": [
             "L-functions are easy to compute on both sides",
-            "Jacquet-Shalika strong multiplicity one says an automorphic representation of $\\GL_n$ is determined by its L-function",
+            "Jacquet-Shalika strong multiplicity one says an automorphic representation of $\\operatorname{GL}_n$ is determined by its L-function",
             "the Riemann hypothesis is known on both sides",
             "L-functions are integers"
           ],
@@ -49,25 +49,25 @@
           "type": "mcq",
           "q": "The local L-factor of an unramified Galois representation $\\rho$ at a prime $p$ is:",
           "choices": [
-            "$\\rho(\\Frob_p)$",
-            "$\\det\\bigl(I_n - \\rho(\\Frob_p) p^{-s}\\bigr)^{-1}$",
-            "$\\det \\rho(\\Frob_p)$",
-            "$\\mathrm{tr}\\, \\rho(\\Frob_p)$"
+            "$\\rho(\\mathrm{Frob}_p)$",
+            "$\\det\\bigl(I_n - \\rho(\\mathrm{Frob}_p) p^{-s}\\bigr)^{-1}$",
+            "$\\det \\rho(\\mathrm{Frob}_p)$",
+            "$\\mathrm{tr}\\, \\rho(\\mathrm{Frob}_p)$"
           ],
           "answer": 1,
-          "explain": "$L_p(\\rho,s) = \\det(I_n - \\rho(\\Frob_p) p^{-s})^{-1}$ — the inverse of the characteristic polynomial of $\\rho(\\Frob_p)$ evaluated at $p^{-s}$. The Euler product $L(\\rho,s) = \\prod_p L_p$ converges for $\\Re s$ large and is conjecturally meromorphic on all of $\\mathbb{C}$."
+          "explain": "$L_p(\\rho,s) = \\det(I_n - \\rho(\\mathrm{Frob}_p) p^{-s})^{-1}$ — the inverse of the characteristic polynomial of $\\rho(\\mathrm{Frob}_p)$ evaluated at $p^{-s}$. The Euler product $L(\\rho,s) = \\prod_p L_p$ converges for $\\Re s$ large and is conjecturally meromorphic on all of $\\mathbb{C}$."
         },
         {
           "type": "mcq",
           "q": "Strong multiplicity one (Jacquet-Shalika) says:",
           "choices": [
             "every Galois rep is automorphic",
-            "an irreducible cuspidal automorphic representation of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$ is determined by its L-factors at almost all primes",
+            "an irreducible cuspidal automorphic representation of $\\operatorname{GL}_n(\\mathbb{A}_\\mathbb{Q})$ is determined by its L-factors at almost all primes",
             "L-functions have unique Euler products",
             "the functional equation is unique"
           ],
           "answer": 1,
-          "explain": "Two cuspidal automorphic representations $\\pi$ and $\\pi'$ of $\\GL_n(\\mathbb{A})$ that have $L_p(\\pi,s) = L_p(\\pi',s)$ for all $p$ outside a finite set are isomorphic. This is the rigidity that makes 'matching L-functions' a meaningful test for the Langlands correspondence."
+          "explain": "Two cuspidal automorphic representations $\\pi$ and $\\pi'$ of $\\operatorname{GL}_n(\\mathbb{A})$ that have $L_p(\\pi,s) = L_p(\\pi',s)$ for all $p$ outside a finite set are isomorphic. This is the rigidity that makes 'matching L-functions' a meaningful test for the Langlands correspondence."
         },
         {
           "type": "multi-select",
@@ -88,15 +88,15 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Local Langlands for $\\GL_n$ at a $p$-adic place is a bijection between:",
+          "q": "Local Langlands for $\\operatorname{GL}_n$ at a $p$-adic place is a bijection between:",
           "choices": [
-            "smooth $\\GL_n$-reps and ordinary $n$-dim representations",
-            "$n$-dim Frobenius-semisimple Weil-Deligne representations of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible representations of $\\GL_n(\\mathbb{Q}_v)$",
+            "smooth $\\operatorname{GL}_n$-reps and ordinary $n$-dim representations",
+            "$n$-dim Frobenius-semisimple Weil-Deligne representations of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible representations of $\\operatorname{GL}_n(\\mathbb{Q}_v)$",
             "Galois characters and Dirichlet characters",
             "modular forms and L-functions"
           ],
           "answer": 1,
-          "explain": "Weil-Deligne reps capture local Galois data with monodromy; smooth admissible reps of $\\GL_n(\\mathbb{Q}_v)$ are the local automorphic side. Harris-Taylor (2001) and Henniart (2000) proved the bijection independently for $p$-adic places."
+          "explain": "Weil-Deligne reps capture local Galois data with monodromy; smooth admissible reps of $\\operatorname{GL}_n(\\mathbb{Q}_v)$ are the local automorphic side. Harris-Taylor (2001) and Henniart (2000) proved the bijection independently for $p$-adic places."
         },
         {
           "type": "mcq",
@@ -105,19 +105,19 @@
             "the determinant of $\\rho$",
             "the unipotent action of inertia — the piece of $\\Gal$-action that is missing from the Weil-rep factor $\\rho$ when inertia acts non-trivially through unipotent matrices",
             "the residue field characteristic",
-            "the trace of $\\rho(\\Frob)$"
+            "the trace of $\\rho(\\mathrm{Frob})$"
           ],
           "answer": 1,
           "explain": "Concrete example: the Steinberg representation of an elliptic curve with multiplicative reduction at $p$ has $\\rho$ unramified (action on the inertia-invariants is just multiplication by Frobenius eigenvalues) but the full local Galois rep also acts non-trivially through inertia via a unipotent matrix; $N = \\log$ of that unipotent piece. Together, $(\\rho, N)$ recover the full local Galois rep up to isomorphism. The 'Frobenius-semisimple' adjective is a separate condition imposed on $\\rho$ (it's not automatic from the construction)."
         },
         {
           "type": "mcq",
-          "q": "Local Langlands at $\\mathbb{R}$ or $\\mathbb{C}$ for $\\GL_n$ is:",
+          "q": "Local Langlands at $\\mathbb{R}$ or $\\mathbb{C}$ for $\\operatorname{GL}_n$ is:",
           "choices": [
             "open",
             "Langlands' classification of admissible reps of real reductive groups (1973) — proven",
             "false",
-            "trivial because $\\GL_n(\\mathbb{R})$ is connected"
+            "trivial because $\\operatorname{GL}_n(\\mathbb{R})$ is connected"
           ],
           "answer": 1,
           "explain": "Langlands' 1973 classification expresses every admissible representation of a real reductive group as a tempered representation parabolically induced and twisted by characters; the resulting bijection with archimedean Weil-Deligne reps is the archimedean local correspondence."
@@ -129,7 +129,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "The global Langlands correspondence for $\\GL_n$ over $\\mathbb{Q}$ is unconditionally proven for:",
+          "q": "The global Langlands correspondence for $\\operatorname{GL}_n$ over $\\mathbb{Q}$ is unconditionally proven for:",
           "choices": [
             "all $n$",
             "$n = 1$ (class field theory) — fully; $n = 2$ — substantially via modularity + Serre's conjecture; $n \\ge 3$ — only fragmentary cases",
@@ -143,11 +143,11 @@
           "type": "matching",
           "q": "Match each proven case to the team(s) that proved it:",
           "left": [
-            "Class field theory (Langlands for $\\GL_1$)",
+            "Class field theory (Langlands for $\\operatorname{GL}_1$)",
             "Modularity for <em>semistable</em> elliptic curves over $\\mathbb{Q}$",
             "Modularity for <em>all</em> elliptic curves over $\\mathbb{Q}$",
-            "Local Langlands for $\\GL_n$ over $p$-adic fields",
-            "Serre's conjecture (mod-$\\ell$ Langlands for $\\GL_2$)"
+            "Local Langlands for $\\operatorname{GL}_n$ over $p$-adic fields",
+            "Serre's conjecture (mod-$\\ell$ Langlands for $\\operatorname{GL}_2$)"
           ],
           "right": [
             "Wiles + Taylor-Wiles (1995)",
@@ -178,15 +178,15 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Why is class field theory exactly Langlands for $\\GL_1$?",
+          "q": "Why is class field theory exactly Langlands for $\\operatorname{GL}_1$?",
           "choices": [
-            "$\\GL_1$ has no representations",
-            "$\\GL_1(\\mathbb{A}_\\mathbb{Q}) = \\mathbb{A}_\\mathbb{Q}^\\times$, so automorphic reps of $\\GL_1$ are continuous characters of $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ — Hecke characters — and Galois characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ correspond to them via Artin reciprocity",
+            "$\\operatorname{GL}_1$ has no representations",
+            "$\\operatorname{GL}_1(\\mathbb{A}_\\mathbb{Q}) = \\mathbb{A}_\\mathbb{Q}^\\times$, so automorphic reps of $\\operatorname{GL}_1$ are continuous characters of $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ — Hecke characters — and Galois characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ correspond to them via Artin reciprocity",
             "Langlands trivially generalises CFT to all $n$",
-            "$\\GL_1$ has no L-functions"
+            "$\\operatorname{GL}_1$ has no L-functions"
           ],
           "answer": 1,
-          "explain": "Galois reps of dimension 1 are characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Automorphic reps of $\\GL_1$ are Hecke characters. Artin reciprocity is the bijection between them, with L-function equality. The same data, two viewpoints — exactly the Langlands correspondence at $n=1$."
+          "explain": "Galois reps of dimension 1 are characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Automorphic reps of $\\operatorname{GL}_1$ are Hecke characters. Artin reciprocity is the bijection between them, with L-function equality. The same data, two viewpoints — exactly the Langlands correspondence at $n=1$."
         },
         {
           "type": "mcq",
@@ -234,7 +234,7 @@
           "q": "Khare-Wintenberger's proof of Serre's conjecture (2009) says:",
           "choices": [
             "every elliptic curve is modular",
-            "every odd, irreducible mod-$\\ell$ Galois representation $\\bar\\rho\\colon \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\to \\GL_2(\\mathbb{F}_\\ell)$ is modular — comes from a modular form",
+            "every odd, irreducible mod-$\\ell$ Galois representation $\\bar\\rho\\colon \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\to \\operatorname{GL}_2(\\mathbb{F}_\\ell)$ is modular — comes from a modular form",
             "every Galois representation is modular",
             "modular forms are dense"
           ],
@@ -260,7 +260,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For a *general* cuspidal automorphic $\\pi$ on $\\GL_2(\\mathbb{A}_\\mathbb{Q})$ (not necessarily from a modular form), symmetric-power lifts $\\Sym^k \\pi$ to $\\GL_{k+1}(\\mathbb{A}_\\mathbb{Q})$ are *unconditionally* known up to which $k$?",
+          "q": "For a *general* cuspidal automorphic $\\pi$ on $\\operatorname{GL}_2(\\mathbb{A}_\\mathbb{Q})$ (not necessarily from a modular form), symmetric-power lifts $\\mathrm{Sym}^k \\pi$ to $\\operatorname{GL}_{k+1}(\\mathbb{A}_\\mathbb{Q})$ are *unconditionally* known up to which $k$?",
           "choices": [
             "$k = 1$ (trivial lift only)",
             "$k = 4$ (Kim-Shahidi 2002 for $k = 3$; Kim 2003 for $k = 4$)",
@@ -268,19 +268,19 @@
             "$k = 100$"
           ],
           "answer": 1,
-          "explain": "For *general* cuspidal $\\pi$, the proven cases are Sym$^3$ (Kim-Shahidi 2002) and Sym$^4$ (Kim 2003). The stronger Newton-Thorne (2020) theorem extends to *all* $k$ but only when $\\pi$ comes from a cuspidal modular form (the more restricted cases that suffice for Sato-Tate's symmetric-power consequences). General-case $\\Sym^5$ and beyond remain open."
+          "explain": "For *general* cuspidal $\\pi$, the proven cases are Sym$^3$ (Kim-Shahidi 2002) and Sym$^4$ (Kim 2003). The stronger Newton-Thorne (2020) theorem extends to *all* $k$ but only when $\\pi$ comes from a cuspidal modular form (the more restricted cases that suffice for Sato-Tate's symmetric-power consequences). General-case $\\mathrm{Sym}^5$ and beyond remain open."
         },
         {
           "type": "mcq",
           "q": "The conjectural Langlands group $L_F$ is:",
           "choices": [
             "a specific finite group",
-            "a topological group whose continuous $n$-dim representations parametrise cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_F)$",
+            "a topological group whose continuous $n$-dim representations parametrise cuspidal automorphic reps of $\\operatorname{GL}_n(\\mathbb{A}_F)$",
             "the Galois group of $F$",
             "the idèle class group"
           ],
           "answer": 1,
-          "explain": "$L_F$ is the predicted universal Tannakian symmetry of the automorphic side: its $n$-dim representations are exactly the cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_F)$. $L_F^{\\mathrm{ab}}$ is the idèle class group; the étale-realisation quotient of the motivic Galois group sits inside $L_F$. The existence of $L_F$ as a literal topological group is open."
+          "explain": "$L_F$ is the predicted universal Tannakian symmetry of the automorphic side: its $n$-dim representations are exactly the cuspidal automorphic reps of $\\operatorname{GL}_n(\\mathbb{A}_F)$. $L_F^{\\mathrm{ab}}$ is the idèle class group; the étale-realisation quotient of the motivic Galois group sits inside $L_F$. The existence of $L_F$ as a literal topological group is open."
         },
         {
           "type": "mcq",
@@ -303,17 +303,17 @@
           "type": "multi-select",
           "q": "Which of the following does the Langlands program (in some form) <em>unify or directly predict</em> — as opposed to merely sit alongside?",
           "choices": [
-            "Class field theory (proved as Langlands for $\\GL_1$)",
-            "Modularity of elliptic curves over $\\mathbb{Q}$ and the Sato-Tate conjecture (consequences of $\\GL_2$ Langlands + symmetric-power lifting)",
+            "Class field theory (proved as Langlands for $\\operatorname{GL}_1$)",
+            "Modularity of elliptic curves over $\\mathbb{Q}$ and the Sato-Tate conjecture (consequences of $\\operatorname{GL}_2$ Langlands + symmetric-power lifting)",
             "The generalized Riemann hypothesis for automorphic L-functions (predicted by — but not implied by — automorphy)",
             "The Tate conjecture (sits on the conjectural $G_\\mathrm{mot} \\to L_F$ compatibility)"
           ],
           "answer": [0, 1, 2, 3],
-          "explain": "All four, with the relationships disentangled: (0) CFT is the case $n = 1$ — proved (Artin reciprocity + Tate's thesis). (1) Modularity for $E/\\mathbb{Q}$ and Sato-Tate are consequences of $\\GL_2$-automorphy plus Sym$^k$-functoriality (Newton-Thorne 2020 finished the symmetric powers). (2) GRH for automorphic L-functions is <em>predicted</em> by Langlands' framework but is independent: the dictionary doesn't imply zeros lie on $\\Re s = 1/2$. (3) The Tate conjecture sits on the conjectural compatibility of the motivic Galois group with $L_F$; the Hodge conjecture itself is more directly a statement about complex geometry, so the link to automorphy is via motives rather than direct."
+          "explain": "All four, with the relationships disentangled: (0) CFT is the case $n = 1$ — proved (Artin reciprocity + Tate's thesis). (1) Modularity for $E/\\mathbb{Q}$ and Sato-Tate are consequences of $\\operatorname{GL}_2$-automorphy plus Sym$^k$-functoriality (Newton-Thorne 2020 finished the symmetric powers). (2) GRH for automorphic L-functions is <em>predicted</em> by Langlands' framework but is independent: the dictionary doesn't imply zeros lie on $\\Re s = 1/2$. (3) The Tate conjecture sits on the conjectural compatibility of the motivic Galois group with $L_F$; the Hodge conjecture itself is more directly a statement about complex geometry, so the link to automorphy is via motives rather than direct."
         },
         {
           "type": "mcq",
-          "q": "Geometric Langlands (Drinfeld for $\\GL_2$ in the 1980s; Laumon, Beilinson-Drinfeld, Lafforgue, Frenkel-Gaitsgory, Gaitsgory et al. since) replaces $\\mathbb{Q}$ with what?",
+          "q": "Geometric Langlands (Drinfeld for $\\operatorname{GL}_2$ in the 1980s; Laumon, Beilinson-Drinfeld, Lafforgue, Frenkel-Gaitsgory, Gaitsgory et al. since) replaces $\\mathbb{Q}$ with what?",
           "choices": [
             "the field $\\mathbb{C}$",
             "the function field $\\mathbb{F}_q(C)$ of a smooth projective curve $C/\\mathbb{F}_q$ — equivalently, the curve itself",
@@ -321,7 +321,7 @@
             "the surreal numbers"
           ],
           "answer": 1,
-          "explain": "Geometric Langlands works over function fields, with the curve $C$ replacing $\\mathrm{Spec}\\,\\mathbb{Z}$. The correspondence becomes: $\\ell$-adic local systems on $C$ ↔ Hecke eigensheaves on the moduli of $G$-bundles $\\mathrm{Bun}_G(C)$. Drinfeld proved $\\GL_2$ in the 1980s; Lafforgue extended to $\\GL_n$ (Fields Medal 2002, function-field analogue); the parallel sheaf-theoretic geometric formulation has been developed by Beilinson-Drinfeld, Frenkel-Gaitsgory, and Gaitsgory and collaborators."
+          "explain": "Geometric Langlands works over function fields, with the curve $C$ replacing $\\mathrm{Spec}\\,\\mathbb{Z}$. The correspondence becomes: $\\ell$-adic local systems on $C$ ↔ Hecke eigensheaves on the moduli of $G$-bundles $\\mathrm{Bun}_G(C)$. Drinfeld proved $\\operatorname{GL}_2$ in the 1980s; Lafforgue extended to $\\operatorname{GL}_n$ (Fields Medal 2002, function-field analogue); the parallel sheaf-theoretic geometric formulation has been developed by Beilinson-Drinfeld, Frenkel-Gaitsgory, and Gaitsgory and collaborators."
         },
         {
           "type": "mcq",

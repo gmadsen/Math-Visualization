@@ -52,6 +52,29 @@ import { escapedAt, extractSpans } from './lib/math-spans.mjs';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
+// --strict promotes the one advisory class that is a *demonstrable* render bug
+// — an unknown macro in a QUIZ string — to a gating error. js/quiz.js typesets
+// quiz DOM with `renderMathInElement(el, {throwOnError:false})` and passes NO
+// page macros, so a quiz using e.g. `$\GL$` renders raw red error text on every
+// page (issue: the quiz-macro leak). Quiz strings must be self-contained
+// (global KaTeX built-ins only). Concept/content prose stays advisory because
+// it IS resolved against the owning page's declared macros. If --strict ever
+// false-positives on a real KaTeX built-in the whitelist lacks (as \dashrightarrow
+// did before it was added), the fix is one line: add the name to KATEX_MACROS.
+//
+// KNOWN BLIND SPOT: the 6 grandfathered project macros in USER_MACROS (\Spec,
+// \Gal, \Hom, \tr, \ad, \ind) are whitelisted by isKnownMacro() for ALL
+// contexts, so quiz strings using them still leak red in quiz.js yet neither
+// warn nor gate here (~850 corpus occurrences). Closing this means expanding
+// those inline across the quiz banks first, THEN dropping USER_MACROS from the
+// quiz-context known-set — tracked as a dedicated follow-up so this gate's
+// scope stays the macros actually fixed.
+const STRICT = process.argv.includes('--strict');
+
+// True only while walking quiz strings (the global-render, no-page-macro
+// surface). Gates the unknown-macro check under --strict.
+let quizContext = false;
+
 // Widget param keys holding raw JavaScript (not KaTeX): their values use
 // `$('#id')` / `${expr}`, which the math-span extractor would misread as
 // `$…$`. Validated content params (title, hint, bodyMarkup, description,
@@ -236,6 +259,7 @@ const KATEX_MACROS = new Set([
   'curvearrowright', 'curvearrowleft', 'circlearrowright', 'circlearrowleft',
   'Lsh', 'Rsh', 'upharpoonright', 'upharpoonleft', 'downharpoonright',
   'downharpoonleft', 'rightsquigarrow', 'leadsto', 'restriction',
+  'dashrightarrow', 'dashleftarrow',
   'xrightarrow', 'xleftarrow', 'xRightarrow', 'xLeftarrow',
   'xleftrightarrow', 'xLeftrightarrow', 'xhookrightarrow', 'xhookleftarrow',
   'xmapsto', 'xtofrom', 'xrightharpoonup', 'xrightharpoondown',
@@ -372,7 +396,8 @@ function checkUnknownMacros(body, span, file, path, macroCounts) {
     const name = m[1];
     if (isKnownMacro(name)) continue;
     if (activeTopicMacros && activeTopicMacros.has(name)) continue;
-    warnings.push({
+    const bucket = (STRICT && quizContext) ? errors : warnings;
+    bucket.push({
       file,
       path,
       msg: `${span.open}…${span.close}: unknown macro "\\${name}"`,
@@ -512,6 +537,7 @@ for (const [topic, bank] of model.quizBanks) {
   // The proper end-state is to make quiz.js inherit the macro map — the known
   // corpus-wide quiz-macro-leak — tracked separately.
   activeTopicMacros = null;
+  quizContext = true;
   const rel = `quizzes/${topic}.json`;
   const quizzes = (bank && bank.quizzes) || {};
   for (const [conceptId, quiz] of Object.entries(quizzes)) {
@@ -563,6 +589,7 @@ for (const [topic, bank] of model.quizBanks) {
 // ─────────────────────────────────────────────────────────────────────────
 // Walk concept blurbs (each owner topic).
 
+quizContext = false;
 for (const c of model.concepts.values()) {
   activeTopicMacros = topicMacros.get(c.topic) || null;
   const rel = `concepts/${c.topic}.json`;

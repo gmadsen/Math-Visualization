@@ -20587,7 +20587,7 @@ window.__MVConcepts = {
         "section": "Modular forms & L-functions",
         "title": "Universal reciprocity (the Langlands program)",
         "goal": "universal-reciprocity",
-        "blurb": "Conjectural bijection between $n$-dim Galois representations and cuspidal automorphic representations of $\\GL_n(\\mathbb{A}_F)$, mediated by L-function matching. Class field theory ($n=1$) and modularity of elliptic curves ($n=2$ over $\\mathbb{Q}$) are the proven cases; the conjectural Langlands group $L_F$ would be the universal Tannakian symmetry of the entire framework."
+        "blurb": "Conjectural bijection between $n$-dim Galois representations and cuspidal automorphic representations of $\\operatorname{GL}_n(\\mathbb{A}_F)$, mediated by L-function matching. Class field theory ($n=1$) and modularity of elliptic curves ($n=2$ over $\\mathbb{Q}$) are the proven cases; the conjectural Langlands group $L_F$ would be the universal Tannakian symmetry of the entire framework."
       },
       {
         "id": "capstone-infinity-topoi",
