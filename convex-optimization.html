@@ -827,7 +827,7 @@ $$\alpha_{\mathrm{GW}} \;=\; \min_{\theta\in[0,\pi]} \frac{\theta/\pi}{(1-\cos\t
     const lg2=SVG("text",{x:20,y:40,"font-size":11,fill:"var(--yellow)"}); lg2.textContent="cut edges (yellow)"; svg.appendChild(lg2);
     const lg3=SVG("text",{x:20,y:56,"font-size":11,fill:"var(--pink)"}); lg3.textContent="side +1 (pink)"; svg.appendChild(lg3);
     const lg4=SVG("text",{x:20,y:72,"font-size":11,fill:"var(--green)"}); lg4.textContent="side -1 (green)"; svg.appendChild(lg4);
-    out.textContent = `feasible relaxation value (this Gram config) = ${sdp.toFixed(3)}    this hyperplane cuts ${oneCut} / ${edges.length} edges    expected cut over ${N} random samples = ${exp.toFixed(3)}    ratio (vs this feasible value) ≈ ${ratio.toFixed(3)}  (GW guarantee: ≥ 0.878 vs the SDP optimum, which on $C_5$ is ≈ 4.52)`;
+    out.textContent = `feasible relaxation value (this Gram config) = ${sdp.toFixed(3)}    this hyperplane cuts ${oneCut} / ${edges.length} edges    expected cut over ${N} random samples = ${exp.toFixed(3)}    ratio (vs this feasible value) ≈ ${ratio.toFixed(3)}  (GW guarantee: ≥ 0.878 vs the SDP optimum, which on C_5 is ≈ 4.52)`;
   }
   PH.addEventListener("input",render);
   NS.addEventListener("input",render);
