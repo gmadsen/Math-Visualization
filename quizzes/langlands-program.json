@@ -103,7 +103,7 @@
           "q": "What does the monodromy operator $N$ in a Weil-Deligne representation $(\\rho, N)$ encode?",
           "choices": [
             "the determinant of $\\rho$",
-            "the unipotent action of inertia — the piece of $\\Gal$-action that is missing from the Weil-rep factor $\\rho$ when inertia acts non-trivially through unipotent matrices",
+            "the unipotent action of inertia — the piece of $\\operatorname{Gal}$-action that is missing from the Weil-rep factor $\\rho$ when inertia acts non-trivially through unipotent matrices",
             "the residue field characteristic",
             "the trace of $\\rho(\\mathrm{Frob})$"
           ],
@@ -181,24 +181,24 @@
           "q": "Why is class field theory exactly Langlands for $\\operatorname{GL}_1$?",
           "choices": [
             "$\\operatorname{GL}_1$ has no representations",
-            "$\\operatorname{GL}_1(\\mathbb{A}_\\mathbb{Q}) = \\mathbb{A}_\\mathbb{Q}^\\times$, so automorphic reps of $\\operatorname{GL}_1$ are continuous characters of $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ — Hecke characters — and Galois characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ correspond to them via Artin reciprocity",
+            "$\\operatorname{GL}_1(\\mathbb{A}_\\mathbb{Q}) = \\mathbb{A}_\\mathbb{Q}^\\times$, so automorphic reps of $\\operatorname{GL}_1$ are continuous characters of $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ — Hecke characters — and Galois characters of $\\operatorname{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ correspond to them via Artin reciprocity",
             "Langlands trivially generalises CFT to all $n$",
             "$\\operatorname{GL}_1$ has no L-functions"
           ],
           "answer": 1,
-          "explain": "Galois reps of dimension 1 are characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Automorphic reps of $\\operatorname{GL}_1$ are Hecke characters. Artin reciprocity is the bijection between them, with L-function equality. The same data, two viewpoints — exactly the Langlands correspondence at $n=1$."
+          "explain": "Galois reps of dimension 1 are characters of $\\operatorname{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Automorphic reps of $\\operatorname{GL}_1$ are Hecke characters. Artin reciprocity is the bijection between them, with L-function equality. The same data, two viewpoints — exactly the Langlands correspondence at $n=1$."
         },
         {
           "type": "mcq",
           "q": "The Artin reciprocity map (the heart of CFT) is:",
           "choices": [
-            "an isomorphism $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\cong \\mathbb{Q}^\\times$",
-            "a continuous surjection $\\theta\\colon \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$, with kernel = connected component of the identity in the idèle class group; passing to profinite completion gives an isomorphism",
+            "an isomorphism $\\operatorname{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\cong \\mathbb{Q}^\\times$",
+            "a continuous surjection $\\theta\\colon \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\operatorname{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$, with kernel = connected component of the identity in the idèle class group; passing to profinite completion gives an isomorphism",
             "a finite-index inclusion of the absolute Galois group into the idèles",
             "the statement that every Galois rep is 1-dimensional"
           ],
           "answer": 1,
-          "explain": "Artin's reciprocity is the surjection $\\theta\\colon C_\\mathbb{Q} := \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. It is the heart of CFT in its surjective-with-kernel-known form — the kernel is the connected component of the identity in $C_\\mathbb{Q}$ (the archimedean part). After profinite completion of $C_\\mathbb{Q} / (\\mathrm{conn. comp.})$, $\\theta$ becomes an isomorphism. Pontryagin duality then gives: characters of $\\Gal^{\\mathrm{ab}}$ ↔ characters of $C_\\mathbb{Q}$ trivial on connected component, equivalently Hecke characters."
+          "explain": "Artin's reciprocity is the surjection $\\theta\\colon C_\\mathbb{Q} := \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\operatorname{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. It is the heart of CFT in its surjective-with-kernel-known form — the kernel is the connected component of the identity in $C_\\mathbb{Q}$ (the archimedean part). After profinite completion of $C_\\mathbb{Q} / (\\mathrm{conn. comp.})$, $\\theta$ becomes an isomorphism. Pontryagin duality then gives: characters of $\\operatorname{Gal}^{\\mathrm{ab}}$ ↔ characters of $C_\\mathbb{Q}$ trivial on connected component, equivalently Hecke characters."
         },
         {
           "type": "mcq",
@@ -234,7 +234,7 @@
           "q": "Khare-Wintenberger's proof of Serre's conjecture (2009) says:",
           "choices": [
             "every elliptic curve is modular",
-            "every odd, irreducible mod-$\\ell$ Galois representation $\\bar\\rho\\colon \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\to \\operatorname{GL}_2(\\mathbb{F}_\\ell)$ is modular — comes from a modular form",
+            "every odd, irreducible mod-$\\ell$ Galois representation $\\bar\\rho\\colon \\operatorname{Gal}(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\to \\operatorname{GL}_2(\\mathbb{F}_\\ell)$ is modular — comes from a modular form",
             "every Galois representation is modular",
             "modular forms are dense"
           ],

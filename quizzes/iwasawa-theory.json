@@ -14,7 +14,7 @@
             "the procyclic group $\\widehat{\\mathbb{Z}}$"
           ],
           "answer": 1,
-          "explain": "By definition $\\Gal(K_\\infty/K)\\cong\\mathbb{Z}_p$ as topological groups; equivalently, $K_\\infty=\\bigcup_n K_n$ is a tower with $\\Gal(K_n/K)\\cong\\mathbb{Z}/p^n\\mathbb{Z}$."
+          "explain": "By definition $\\operatorname{Gal}(K_\\infty/K)\\cong\\mathbb{Z}_p$ as topological groups; equivalently, $K_\\infty=\\bigcup_n K_n$ is a tower with $\\operatorname{Gal}(K_n/K)\\cong\\mathbb{Z}/p^n\\mathbb{Z}$."
         },
         {
           "type": "mcq",
@@ -22,11 +22,11 @@
           "choices": [
             "as the full cyclotomic tower $\\mathbb{Q}(\\zeta_{p^\\infty})$",
             "as the maximal real subfield of $\\mathbb{Q}(\\zeta_{p^\\infty})$ for $p$ odd",
-            "as the fixed field of the torsion subgroup of $\\Gal(\\mathbb{Q}(\\zeta_{p^\\infty})/\\mathbb{Q})$",
+            "as the fixed field of the torsion subgroup of $\\operatorname{Gal}(\\mathbb{Q}(\\zeta_{p^\\infty})/\\mathbb{Q})$",
             "as the Hilbert class field of $\\mathbb{Q}$"
           ],
           "answer": 2,
-          "explain": "$\\Gal(\\mathbb{Q}(\\zeta_{p^\\infty})/\\mathbb{Q})\\cong\\mathbb{Z}_p^\\times\\cong(\\mathbb{Z}/p\\mathbb{Z})^\\times\\times(1+p\\mathbb{Z}_p)$ for odd $p$. The torsion part $(\\mathbb{Z}/p\\mathbb{Z})^\\times$ has order $p-1$; the fixed field is the unique $\\mathbb{Z}_p$-extension."
+          "explain": "$\\operatorname{Gal}(\\mathbb{Q}(\\zeta_{p^\\infty})/\\mathbb{Q})\\cong\\mathbb{Z}_p^\\times\\cong(\\mathbb{Z}/p\\mathbb{Z})^\\times\\times(1+p\\mathbb{Z}_p)$ for odd $p$. The torsion part $(\\mathbb{Z}/p\\mathbb{Z})^\\times$ has order $p-1$; the fixed field is the unique $\\mathbb{Z}_p$-extension."
         },
         {
           "type": "numeric",

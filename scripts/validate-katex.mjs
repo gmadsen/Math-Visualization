@@ -62,13 +62,11 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // false-positives on a real KaTeX built-in the whitelist lacks (as \dashrightarrow
 // did before it was added), the fix is one line: add the name to KATEX_MACROS.
 //
-// KNOWN BLIND SPOT: the 6 grandfathered project macros in USER_MACROS (\Spec,
-// \Gal, \Hom, \tr, \ad, \ind) are whitelisted by isKnownMacro() for ALL
-// contexts, so quiz strings using them still leak red in quiz.js yet neither
-// warn nor gate here (~850 corpus occurrences). Closing this means expanding
-// those inline across the quiz banks first, THEN dropping USER_MACROS from the
-// quiz-context known-set — tracked as a dedicated follow-up so this gate's
-// scope stays the macros actually fixed.
+// The 6 grandfathered project macros in USER_MACROS (\Spec \Gal \Hom \tr \ad
+// \ind) are page-local too, so isKnownMacro() does NOT treat them as known in
+// quiz context (see below) — quizzes must expand them inline, and the gate
+// catches a regression. They stay "known" for concept/content prose, which is
+// resolved against the owning page's loader.
 const STRICT = process.argv.includes('--strict');
 
 // True only while walking quiz strings (the global-render, no-page-macro
@@ -380,7 +378,12 @@ const KATEX_MACROS = new Set([
 const MACRO_RE = /\\([a-zA-Z]+)\*?/g;
 
 function isKnownMacro(name) {
-  return KATEX_MACROS.has(name) || USER_MACROS.has(name);
+  if (KATEX_MACROS.has(name)) return true;
+  // USER_MACROS (the 6 grandfathered project macros) are page-local — quiz.js
+  // never loads them, so in quiz context they are NOT known and must be expanded
+  // inline in the bank. Elsewhere (concept/content prose) the owning page's
+  // loader defines them, so treat as known.
+  return !quizContext && USER_MACROS.has(name);
 }
 
 // Per-page macros declared in the topic currently being walked (issue #196).

@@ -34,7 +34,7 @@
           "type": "mcq",
           "q": "Which equivalent description of a sieve on $c$ best generalises to arbitrary categories?",
           "choices": [
-            "A subset of $\\Hom(C, c)$ closed under precomposition with arbitrary arrows.",
+            "A subset of $\\operatorname{Hom}(C, c)$ closed under precomposition with arbitrary arrows.",
             "An open subset of the topological space $|C|$.",
             "An ideal of the endomorphism ring $\\operatorname{End}(c)$.",
             "An equivalence class of arrows into $c$ under composition."
@@ -126,32 +126,32 @@
       "questions": [
         {
           "type": "multi-select",
-          "q": "On $\\Spec \\mathbb{Q}$, which of the following structures become trivial Zariski-locally, and which require passing to the étale site?",
+          "q": "On $\\operatorname{Spec} \\mathbb{Q}$, which of the following structures become trivial Zariski-locally, and which require passing to the étale site?",
           "choices": [
             "A line bundle $\\mathcal{L}$ — Zariski-locally trivial.",
             "$\\mu_3$, the sheaf of cube roots of unity — étale-locally trivial (after adjoining $\\zeta_3$) but NOT Zariski-locally trivial.",
             "An fppf $\\underline{\\mathbb{Z}/3}$-torsor — étale-locally trivial (since $\\underline{\\mathbb{Z}/3}$ is étale on $\\mathbb{Q}$).",
-            "$\\mu_2$ over $\\Spec \\mathbb{F}_2$ — étale-locally trivial."
+            "$\\mu_2$ over $\\operatorname{Spec} \\mathbb{F}_2$ — étale-locally trivial."
           ],
           "answer": [
             0,
             1,
             2
           ],
-          "explain": "Line bundles are Zariski-locally trivial by the definition of locally free of rank 1. $\\mu_3$ over $\\mathbb{Q}$ is NOT Zariski-locally trivial because $\\mathbb{Q}$ has no primitive cube root of $1$ and $\\Spec \\mathbb{Q}$ has only the trivial Zariski cover; it does become trivial étale-locally after adjoining $\\zeta_3$, which is a separable extension since $3$ is invertible. For $\\underline{\\mathbb{Z}/3}$-torsors, étale and fppf cohomology agree because $\\underline{\\mathbb{Z}/3}$ is étale over a $\\mathbb{Z}[1/3]$-base. The trap is (d): in characteristic $2$, $\\mu_2 = \\Spec \\mathbb{F}_2[T]/(T-1)^2$ is the non-reduced Frobenius kernel — an infinitesimal group scheme of length $2$ that is NEVER étale-locally constant, because étale base change preserves reducedness and cannot turn one fat point into two reduced points. Trivializing $\\mu_2$ in characteristic $2$ requires an fppf cover, not étale.",
+          "explain": "Line bundles are Zariski-locally trivial by the definition of locally free of rank 1. $\\mu_3$ over $\\mathbb{Q}$ is NOT Zariski-locally trivial because $\\mathbb{Q}$ has no primitive cube root of $1$ and $\\operatorname{Spec} \\mathbb{Q}$ has only the trivial Zariski cover; it does become trivial étale-locally after adjoining $\\zeta_3$, which is a separable extension since $3$ is invertible. For $\\underline{\\mathbb{Z}/3}$-torsors, étale and fppf cohomology agree because $\\underline{\\mathbb{Z}/3}$ is étale over a $\\mathbb{Z}[1/3]$-base. The trap is (d): in characteristic $2$, $\\mu_2 = \\operatorname{Spec} \\mathbb{F}_2[T]/(T-1)^2$ is the non-reduced Frobenius kernel — an infinitesimal group scheme of length $2$ that is NEVER étale-locally constant, because étale base change preserves reducedness and cannot turn one fat point into two reduced points. Trivializing $\\mu_2$ in characteristic $2$ requires an fppf cover, not étale.",
           "hint": "A line bundle is Zariski-locally trivial by definition. For $\\mu_n$, the rule is: étale-locally trivial iff $n$ is invertible on the base; if $p \\mid n$ in characteristic $p$, $\\mu_n$ is infinitesimal and étale covers cannot trivialize it."
         },
         {
           "type": "mcq",
-          "q": "Which of the following is a covering family on $\\Spec \\mathbb{Q}$ in the étale site that is NOT a Zariski cover?",
+          "q": "Which of the following is a covering family on $\\operatorname{Spec} \\mathbb{Q}$ in the étale site that is NOT a Zariski cover?",
           "choices": [
-            "$\\{\\Spec \\mathbb{Q}(\\sqrt{2}) \\to \\Spec \\mathbb{Q}\\}$.",
-            "$\\{\\Spec \\mathbb{Q} \\to \\Spec \\mathbb{Q}\\}$ (the identity).",
-            "$\\{D(2) \\to \\Spec \\mathbb{Q}\\}$ (localisation at $2$).",
-            "$\\{\\Spec \\mathbb{Q}[\\sqrt{2}, \\sqrt{3}] \\to \\Spec \\mathbb{Q}\\}$, regarded as Zariski."
+            "$\\{\\operatorname{Spec} \\mathbb{Q}(\\sqrt{2}) \\to \\operatorname{Spec} \\mathbb{Q}\\}$.",
+            "$\\{\\operatorname{Spec} \\mathbb{Q} \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (the identity).",
+            "$\\{D(2) \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (localisation at $2$).",
+            "$\\{\\operatorname{Spec} \\mathbb{Q}[\\sqrt{2}, \\sqrt{3}] \\to \\operatorname{Spec} \\mathbb{Q}\\}$, regarded as Zariski."
           ],
           "answer": 0,
-          "explain": "A finite separable field extension is a finite étale cover, and $\\{\\Spec L \\to \\Spec K\\}$ for $L/K$ finite étale is jointly surjective. But it is NOT a Zariski cover — Zariski opens of $\\Spec K$ for a field are just $\\Spec K$ and $\\varnothing$. The other options are either Zariski covers (the identity, $D(2) = \\Spec \\mathbb{Q}$ since $2$ is a unit in $\\mathbb{Q}$) or not even surjective.",
+          "explain": "A finite separable field extension is a finite étale cover, and $\\{\\operatorname{Spec} L \\to \\operatorname{Spec} K\\}$ for $L/K$ finite étale is jointly surjective. But it is NOT a Zariski cover — Zariski opens of $\\operatorname{Spec} K$ for a field are just $\\operatorname{Spec} K$ and $\\varnothing$. The other options are either Zariski covers (the identity, $D(2) = \\operatorname{Spec} \\mathbb{Q}$ since $2$ is a unit in $\\mathbb{Q}$) or not even surjective.",
           "hint": "Zariski opens of a field are very restricted — what's the spectrum of a field as a topological space?"
         },
         {
@@ -177,7 +177,7 @@
           "q": "On the small Zariski site of a connected scheme $X$, which of the following presheaves are sheaves?",
           "choices": [
             "$U \\mapsto \\Gamma(U, \\mathcal{O}_X)$ — global sections of the structure sheaf.",
-            "$U \\mapsto \\Hom_{\\mathrm{Sch}/X}(U, T)$ for a fixed $X$-scheme $T$ — the representable presheaf $h_T$.",
+            "$U \\mapsto \\operatorname{Hom}_{\\mathrm{Sch}/X}(U, T)$ for a fixed $X$-scheme $T$ — the representable presheaf $h_T$.",
             "$U \\mapsto A$ for a fixed abelian group $A$ — the constant presheaf.",
             "$U \\mapsto A^{\\pi_0(U)}$ — the locally constant sheaf."
           ],
@@ -356,7 +356,7 @@
         },
         {
           "type": "mcq",
-          "q": "Which of the following gives a geometric morphism $\\mathrm{Sh}(\\Spec L) \\to \\mathrm{Sh}(\\Spec K)$ for a finite Galois extension $L/K$ of fields, on the étale site?",
+          "q": "Which of the following gives a geometric morphism $\\mathrm{Sh}(\\operatorname{Spec} L) \\to \\mathrm{Sh}(\\operatorname{Spec} K)$ for a finite Galois extension $L/K$ of fields, on the étale site?",
           "choices": [
             "The morphism induced by the restriction-of-scalars functor — corresponding to the $K$-algebra map $K \\hookrightarrow L$.",
             "The morphism induced by $L \\to K$ — but no such ring map generally exists.",
@@ -364,7 +364,7 @@
             "Only their identity geometric morphisms."
           ],
           "answer": 0,
-          "explain": "A continuous map of schemes $\\Spec L \\to \\Spec K$ is induced by the inclusion $K \\hookrightarrow L$ on rings. This is a continuous map of étale sites and gives a geometric morphism with $f^*$ = pullback of étale sheaves (restricting Galois actions to $\\Gal(L^{\\mathrm{sep}}/L)$) and $f_*$ = pushforward (induced representation along $\\Gal(L^{\\mathrm{sep}}/L) \\hookrightarrow \\Gal(K^{\\mathrm{sep}}/K)$).",
+          "explain": "A continuous map of schemes $\\operatorname{Spec} L \\to \\operatorname{Spec} K$ is induced by the inclusion $K \\hookrightarrow L$ on rings. This is a continuous map of étale sites and gives a geometric morphism with $f^*$ = pullback of étale sheaves (restricting Galois actions to $\\operatorname{Gal}(L^{\\mathrm{sep}}/L)$) and $f_*$ = pushforward (induced representation along $\\operatorname{Gal}(L^{\\mathrm{sep}}/L) \\hookrightarrow \\operatorname{Gal}(K^{\\mathrm{sep}}/K)$).",
           "hint": "A scheme map $X \\to Y$ always induces a geometric morphism $\\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$ on étale toposes — and a ring map $K \\to L$ gives a scheme map in the opposite direction."
         }
       ]

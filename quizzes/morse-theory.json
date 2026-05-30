@@ -230,7 +230,7 @@
           "choices": [
             "$W^u(p)\\cap W^s(q) = \\emptyset$ always",
             "$W^u(p)$ and $W^s(q)$ intersect transversally inside $M$",
-            "$\\ind(p) = \\ind(q)$ implies $p = q$",
+            "$\\operatorname{ind}(p) = \\operatorname{ind}(q)$ implies $p = q$",
             "the Hessians at $p$ and $q$ commute"
           ],
           "answer": 1,
@@ -239,11 +239,11 @@
         },
         {
           "type": "numeric",
-          "q": "If $\\ind(p) = 3$ and $\\ind(q) = 1$ and $(f,g)$ is Morse–Smale on a closed manifold, what is the dimension of the moduli space $\\mathcal{M}(p,q)/\\mathbb{R}$ of unparameterised gradient trajectories from $p$ to $q$?",
+          "q": "If $\\operatorname{ind}(p) = 3$ and $\\operatorname{ind}(q) = 1$ and $(f,g)$ is Morse–Smale on a closed manifold, what is the dimension of the moduli space $\\mathcal{M}(p,q)/\\mathbb{R}$ of unparameterised gradient trajectories from $p$ to $q$?",
           "answer": 1,
           "tol": 0,
-          "hint": "Dimension formula: $\\ind(p) - \\ind(q) - 1$.",
-          "explain": "The unparameterised moduli space has dimension $\\ind(p)-\\ind(q)-1$. With indices $3$ and $1$, the dimension is $3-1-1 = 1$ — a 1-manifold whose ends are broken trajectories through an intermediate index-$2$ critical point."
+          "hint": "Dimension formula: $\\operatorname{ind}(p) - \\operatorname{ind}(q) - 1$.",
+          "explain": "The unparameterised moduli space has dimension $\\operatorname{ind}(p)-\\operatorname{ind}(q)-1$. With indices $3$ and $1$, the dimension is $3-1-1 = 1$ — a 1-manifold whose ends are broken trajectories through an intermediate index-$2$ critical point."
         },
         {
           "type": "mcq",
@@ -255,8 +255,8 @@
             "Trajectories between non-consecutive indices are non-orientable."
           ],
           "answer": 1,
-          "hint": "Dimension of $\\mathcal{M}(p,q)/\\mathbb{R}$ is $\\ind(p)-\\ind(q)-1$.",
-          "explain": "When $\\ind(p)-\\ind(q) = 1$, the moduli space is $0$-dimensional (a finite set of points to count); for $\\ind(p)-\\ind(q) > 1$ it is positive-dimensional and there is no 'count'. Broken trajectories of total drop $1$ form the boundary of the $1$-dimensional moduli for drop $2$, which is exactly what gives $\\partial^2=0$."
+          "hint": "Dimension of $\\mathcal{M}(p,q)/\\mathbb{R}$ is $\\operatorname{ind}(p)-\\operatorname{ind}(q)-1$.",
+          "explain": "When $\\operatorname{ind}(p)-\\operatorname{ind}(q) = 1$, the moduli space is $0$-dimensional (a finite set of points to count); for $\\operatorname{ind}(p)-\\operatorname{ind}(q) > 1$ it is positive-dimensional and there is no 'count'. Broken trajectories of total drop $1$ form the boundary of the $1$-dimensional moduli for drop $2$, which is exactly what gives $\\partial^2=0$."
         }
       ]
     },

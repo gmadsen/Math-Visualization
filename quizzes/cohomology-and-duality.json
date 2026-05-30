@@ -6,7 +6,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Cochains are defined by $C^n(X;\\mathbb{Z}) = \\Hom(C_n(X),\\mathbb{Z})$ and the coboundary $\\delta\\colon C^n\\to C^{n+1}$ is given by:",
+          "q": "Cochains are defined by $C^n(X;\\mathbb{Z}) = \\operatorname{Hom}(C_n(X),\\mathbb{Z})$ and the coboundary $\\delta\\colon C^n\\to C^{n+1}$ is given by:",
           "choices": [
             "$(\\delta\\varphi)(\\sigma) = \\varphi(\\partial\\sigma)$",
             "$(\\delta\\varphi)(\\sigma) = \\partial\\,\\varphi(\\sigma)$",

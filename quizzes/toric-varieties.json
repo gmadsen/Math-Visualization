@@ -15,7 +15,7 @@
           ],
           "answer": 0,
           "explain": "A fan is a finite collection of strongly convex rational polyhedral cones closed under taking faces, with pairwise intersections that are faces of each. Covering all of $N_\\mathbb{R}$ is the extra condition for $X_\\Sigma$ to be complete; it isn't part of being a fan. Strong convexity rules out non-zero linear subspaces.",
-          "hint": "Think about the gluing condition you would need to make $\\Spec$s of cones glue to a scheme."
+          "hint": "Think about the gluing condition you would need to make $\\operatorname{Spec}$s of cones glue to a scheme."
         },
         {
           "type": "multi-select",
@@ -50,13 +50,13 @@
           "type": "mcq",
           "q": "Let $\\sigma \\subset \\mathbb{R}^2$ be the cone spanned by $e_1 = (1,0)$ and $e_2 = (0,1)$. What is $U_\\sigma$?",
           "choices": [
-            "$\\mathbb{A}^2 = \\Spec \\mathbb{C}[x,y]$",
+            "$\\mathbb{A}^2 = \\operatorname{Spec} \\mathbb{C}[x,y]$",
             "$\\mathbb{P}^2$",
             "The torus $(\\mathbb{C}^\\times)^2$",
             "$\\mathbb{A}^2 \\setminus \\{0\\}$"
           ],
           "answer": 0,
-          "explain": "The dual cone $\\sigma^\\vee \\subset M_\\mathbb{R}$ is spanned by the dual basis $e_1^*, e_2^*$, so $\\sigma^\\vee \\cap M = \\mathbb{Z}_{\\ge 0} e_1^* \\oplus \\mathbb{Z}_{\\ge 0} e_2^*$. The semigroup algebra is $\\mathbb{C}[x,y]$ where $x$, $y$ are the characters $e_1^*$, $e_2^*$. Hence $U_\\sigma = \\Spec \\mathbb{C}[x,y] = \\mathbb{A}^2$.",
+          "explain": "The dual cone $\\sigma^\\vee \\subset M_\\mathbb{R}$ is spanned by the dual basis $e_1^*, e_2^*$, so $\\sigma^\\vee \\cap M = \\mathbb{Z}_{\\ge 0} e_1^* \\oplus \\mathbb{Z}_{\\ge 0} e_2^*$. The semigroup algebra is $\\mathbb{C}[x,y]$ where $x$, $y$ are the characters $e_1^*$, $e_2^*$. Hence $U_\\sigma = \\operatorname{Spec} \\mathbb{C}[x,y] = \\mathbb{A}^2$.",
           "hint": "Compute $\\sigma^\\vee$ and read off the lattice points; each is a monomial."
         },
         {
@@ -74,7 +74,7 @@
         },
         {
           "type": "multi-select",
-          "q": "Which features of $U_\\sigma = \\Spec \\mathbb{C}[\\sigma^\\vee \\cap M]$ depend only on the cone $\\sigma$?",
+          "q": "Which features of $U_\\sigma = \\operatorname{Spec} \\mathbb{C}[\\sigma^\\vee \\cap M]$ depend only on the cone $\\sigma$?",
           "choices": [
             "Smoothness of $U_\\sigma$.",
             "Dimension of $U_\\sigma$.",

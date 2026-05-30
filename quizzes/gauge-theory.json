@@ -125,10 +125,10 @@
             "Under a gauge transformation $g\\colon M\\to U(1)$, a connection transforms as $A\\mapsto A' = A + g^{-1}dg$ (since $U(1)$ is abelian).",
             "Parallel transport along a path satisfies $\\frac{d}{dt}\\mathrm{Hol}_A(\\gamma|_{[0,t]}) = -iA(\\dot\\gamma)\\cdot\\mathrm{Hol}_A(\\gamma|_{[0,t]})$.",
             "Under the gauge change, $\\mathrm{Hol}_{A'}(\\gamma) = g(\\gamma(1))^{-1}\\mathrm{Hol}_A(\\gamma)g(\\gamma(0))$.",
-            "Taking the trace, $\\tr\\mathrm{Hol}_{A'}(\\gamma) = \\tr\\mathrm{Hol}_A(\\gamma)$ by cyclicity, so the trace is always gauge-invariant — for any path $\\gamma$, open or closed."
+            "Taking the trace, $\\operatorname{tr}\\mathrm{Hol}_{A'}(\\gamma) = \\operatorname{tr}\\mathrm{Hol}_A(\\gamma)$ by cyclicity, so the trace is always gauge-invariant — for any path $\\gamma$, open or closed."
           ],
           "answer": 3,
-          "explain": "The cyclicity-of-trace argument requires the path to be closed: only then does $\\gamma(0) = \\gamma(1)$ make $g(\\gamma(0)) = g(\\gamma(1))$ cancel under the trace. For an open path, $\\tr\\mathrm{Hol}_{A'}(\\gamma) = \\tr(g(\\gamma(1))^{-1}\\mathrm{Hol}_A(\\gamma)g(\\gamma(0)))$ does *not* equal $\\tr\\mathrm{Hol}_A(\\gamma)$ in general because $g(\\gamma(0))$ and $g(\\gamma(1))$ are independent group elements. Wilson lines (open path) are gauge-covariant; only Wilson loops (closed path) are gauge-invariant. Steps 1-3 are correct."
+          "explain": "The cyclicity-of-trace argument requires the path to be closed: only then does $\\gamma(0) = \\gamma(1)$ make $g(\\gamma(0)) = g(\\gamma(1))$ cancel under the trace. For an open path, $\\operatorname{tr}\\mathrm{Hol}_{A'}(\\gamma) = \\operatorname{tr}(g(\\gamma(1))^{-1}\\mathrm{Hol}_A(\\gamma)g(\\gamma(0)))$ does *not* equal $\\operatorname{tr}\\mathrm{Hol}_A(\\gamma)$ in general because $g(\\gamma(0))$ and $g(\\gamma(1))$ are independent group elements. Wilson lines (open path) are gauge-covariant; only Wilson loops (closed path) are gauge-invariant. Steps 1-3 are correct."
         }
       ]
     },
@@ -167,7 +167,7 @@
             "Set $A = \\mathrm{Im}(\\bar q\\,dq) / (|q|^2 + \\rho^2)$, viewing $q\\in\\mathbb{H}\\cong\\mathbb{R}^4$ as a quaternion and $\\rho>0$ as the size parameter.",
             "Identify $\\mathbb{R}^4 = \\mathbb{H}$ and $SU(2) = \\{q\\in\\mathbb{H} : |q|=1\\}$ as the unit quaternions.",
             "Verify by direct computation that $F = dA + A\\wedge A$ satisfies $*F = -F$ (anti-self-dual).",
-            "Compute $\\int_{\\mathbb{R}^4}\\tr(F\\wedge F) = -8\\pi^2$, identifying instanton number $k = 1$."
+            "Compute $\\int_{\\mathbb{R}^4}\\operatorname{tr}(F\\wedge F) = -8\\pi^2$, identifying instanton number $k = 1$."
           ],
           "answer": [
             1,
@@ -184,16 +184,16 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "The Chern-Simons 3-form is $\\omega_{CS}(A) = \\tr(A\\wedge dA + \\tfrac{2}{3}A\\wedge A\\wedge A)$. What is its exterior derivative?",
+          "q": "The Chern-Simons 3-form is $\\omega_{CS}(A) = \\operatorname{tr}(A\\wedge dA + \\tfrac{2}{3}A\\wedge A\\wedge A)$. What is its exterior derivative?",
           "choices": [
             "$d\\omega_{CS} = 0$",
-            "$d\\omega_{CS} = \\tr(F\\wedge F)$",
-            "$d\\omega_{CS} = \\tr(A\\wedge F)$",
-            "$d\\omega_{CS} = \\tr(F)$"
+            "$d\\omega_{CS} = \\operatorname{tr}(F\\wedge F)$",
+            "$d\\omega_{CS} = \\operatorname{tr}(A\\wedge F)$",
+            "$d\\omega_{CS} = \\operatorname{tr}(F)$"
           ],
           "answer": 1,
-          "explain": "Direct computation: $d\\omega_{CS} = \\tr(dA\\wedge dA + 2 dA\\wedge A\\wedge A) = \\tr((dA + A\\wedge A)\\wedge(dA + A\\wedge A)) = \\tr(F\\wedge F)$, using $\\tr(A^4) = 0$ on a 4-form and cyclicity. So $\\omega_{CS}$ is a 'Chern-Simons primitive' for the second Chern character $\\tr(F\\wedge F)$ — not a closed form on $M^3$, but its exterior derivative is the topological density on $M^4$. This is exactly why Chern-Simons is well-defined on closed 3-manifolds modulo $2\\pi\\mathbb{Z}$.",
-          "hint": "Try $d\\omega_{CS} = \\tr(F\\wedge F)$ — show it via the structure equation."
+          "explain": "Direct computation: $d\\omega_{CS} = \\operatorname{tr}(dA\\wedge dA + 2 dA\\wedge A\\wedge A) = \\operatorname{tr}((dA + A\\wedge A)\\wedge(dA + A\\wedge A)) = \\operatorname{tr}(F\\wedge F)$, using $\\operatorname{tr}(A^4) = 0$ on a 4-form and cyclicity. So $\\omega_{CS}$ is a 'Chern-Simons primitive' for the second Chern character $\\operatorname{tr}(F\\wedge F)$ — not a closed form on $M^3$, but its exterior derivative is the topological density on $M^4$. This is exactly why Chern-Simons is well-defined on closed 3-manifolds modulo $2\\pi\\mathbb{Z}$.",
+          "hint": "Try $d\\omega_{CS} = \\operatorname{tr}(F\\wedge F)$ — show it via the structure equation."
         },
         {
           "type": "mcq",
@@ -205,7 +205,7 @@
             "Because the action must be real."
           ],
           "answer": 1,
-          "explain": "Under a gauge transformation by $g\\colon M^3\\to SU(2)$, the change in $\\omega_{CS}$ contains an exact piece (which integrates to zero on closed $M$) plus the WZW 3-form $\\tfrac{1}{3}\\tr(g^{-1}dg)^3$. The integral of the latter over $M$ is $8\\pi^2$ times the winding number $\\deg(g)\\in\\pi_3(SU(2)) = \\mathbb{Z}$. So $S_{CS}\\to S_{CS} + 2\\pi k\\,\\deg(g)$, and $e^{iS_{CS}}$ is single-valued iff $k\\in\\mathbb{Z}$. The resulting $\\mathbb{Z}$-graded family of theories is the Witten-Reshetikhin-Turaev TQFT, indexed by the level."
+          "explain": "Under a gauge transformation by $g\\colon M^3\\to SU(2)$, the change in $\\omega_{CS}$ contains an exact piece (which integrates to zero on closed $M$) plus the WZW 3-form $\\tfrac{1}{3}\\operatorname{tr}(g^{-1}dg)^3$. The integral of the latter over $M$ is $8\\pi^2$ times the winding number $\\deg(g)\\in\\pi_3(SU(2)) = \\mathbb{Z}$. So $S_{CS}\\to S_{CS} + 2\\pi k\\,\\deg(g)$, and $e^{iS_{CS}}$ is single-valued iff $k\\in\\mathbb{Z}$. The resulting $\\mathbb{Z}$-graded family of theories is the Witten-Reshetikhin-Turaev TQFT, indexed by the level."
         },
         {
           "type": "multi-select",
@@ -221,7 +221,7 @@
             1,
             2
           ],
-          "explain": "(a) Metric independence: $\\omega_{CS}$ uses only $\\wedge$ and $d$, no $*$ — pure topological action. (b) Wilson loops $W_j(\\gamma) = \\tr_{V_j}\\mathrm{Hol}_A(\\gamma)$ recover the colored Jones polynomial when computed in CS at level $k$ — Witten's 1989 derivation. (c) Diffeomorphism-invariance is automatic: there's no metric, so any diffeomorphism is a symmetry. (d) is false: the gauge group $\\mathcal{G}$ acts by $A\\mapsto g^{-1}Ag + g^{-1}dg$ (non-abelian) — that is precisely what makes the theory rich; if it were abelian we'd just get linking numbers."
+          "explain": "(a) Metric independence: $\\omega_{CS}$ uses only $\\wedge$ and $d$, no $*$ — pure topological action. (b) Wilson loops $W_j(\\gamma) = \\operatorname{tr}_{V_j}\\mathrm{Hol}_A(\\gamma)$ recover the colored Jones polynomial when computed in CS at level $k$ — Witten's 1989 derivation. (c) Diffeomorphism-invariance is automatic: there's no metric, so any diffeomorphism is a symmetry. (d) is false: the gauge group $\\mathcal{G}$ acts by $A\\mapsto g^{-1}Ag + g^{-1}dg$ (non-abelian) — that is precisely what makes the theory rich; if it were abelian we'd just get linking numbers."
         }
       ]
     },
@@ -238,7 +238,7 @@
             "$U_p = U_{x,x+\\hat\\mu}^{-1}$"
           ],
           "answer": 1,
-          "explain": "Link variables are interpreted as parallel-transport operators along edges, so composition along a closed path is given by ordered group multiplication. The Wilson plaquette $U_p$ is the holonomy around the elementary square; its trace $\\mathrm{Re}\\tr(U_p)$ enters the action. Under a continuum limit $U_{xy}\\approx \\exp(a A_\\mu(x))$ with lattice spacing $a$, $U_p\\approx \\exp(a^2 F_{\\mu\\nu}(x) + O(a^4))$ — this Baker-Campbell-Hausdorff expansion is what recovers $\\tr(F^2)$ in the action."
+          "explain": "Link variables are interpreted as parallel-transport operators along edges, so composition along a closed path is given by ordered group multiplication. The Wilson plaquette $U_p$ is the holonomy around the elementary square; its trace $\\mathrm{Re}\\operatorname{tr}(U_p)$ enters the action. Under a continuum limit $U_{xy}\\approx \\exp(a A_\\mu(x))$ with lattice spacing $a$, $U_p\\approx \\exp(a^2 F_{\\mu\\nu}(x) + O(a^4))$ — this Baker-Campbell-Hausdorff expansion is what recovers $\\operatorname{tr}(F^2)$ in the action."
         },
         {
           "type": "mcq",
@@ -255,10 +255,10 @@
         },
         {
           "type": "multi-select",
-          "q": "Which features of the Wilson plaquette action $S_W = \\beta\\sum_p \\mathrm{Re}\\tr(\\mathbb{1} - U_p)$ make it the standard discretization of Yang-Mills?",
+          "q": "Which features of the Wilson plaquette action $S_W = \\beta\\sum_p \\mathrm{Re}\\operatorname{tr}(\\mathbb{1} - U_p)$ make it the standard discretization of Yang-Mills?",
           "choices": [
             "Gauge invariance is exact at finite lattice spacing — $S_W$ is invariant under $U_{xy}\\mapsto g_x^{-1} U_{xy} g_y$ for any local $g\\colon\\mathrm{vertices}\\to G$.",
-            "In the continuum limit $a\\to 0$, $S_W\\to \\tfrac{1}{2g^2}\\int\\tr(F\\wedge *F)$ with $\\beta = 2N/g^2$ for $SU(N)$.",
+            "In the continuum limit $a\\to 0$, $S_W\\to \\tfrac{1}{2g^2}\\int\\operatorname{tr}(F\\wedge *F)$ with $\\beta = 2N/g^2$ for $SU(N)$.",
             "The Haar measure on $G$ provides a canonical gauge-invariant integration measure, no gauge fixing needed.",
             "$S_W$ is exactly equal to the continuum Yang-Mills action at any nonzero lattice spacing $a$."
           ],

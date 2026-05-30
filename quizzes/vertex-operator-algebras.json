@@ -98,7 +98,7 @@
           "q": "For the central charge of the moonshine module $V^\\natural$, what is $c$?",
           "answer": 24,
           "tol": 0,
-          "explain": "$V^\\natural$ has central charge $c = 24$. This is forced by modular invariance: the graded character $\\tr q^{L_0 - c/24}$ must transform like a weight-$0$ modular function on $\\mathrm{SL}_2(\\mathbb{Z})$, which requires the shift $-c/24 = -1$ so that $L_0 - c/24$ has integer eigenvalues starting at $-1$, matching $J(\\tau) = q^{-1} + 196884\\, q + \\cdots$."
+          "explain": "$V^\\natural$ has central charge $c = 24$. This is forced by modular invariance: the graded character $\\operatorname{tr} q^{L_0 - c/24}$ must transform like a weight-$0$ modular function on $\\mathrm{SL}_2(\\mathbb{Z})$, which requires the shift $-c/24 = -1$ so that $L_0 - c/24$ has integer eigenvalues starting at $-1$, matching $J(\\tau) = q^{-1} + 196884\\, q + \\cdots$."
         },
         {
           "type": "mcq",
@@ -119,7 +119,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Zhu's theorem (1996) states that for a $C_2$-cofinite rational VOA $V$, the graded characters $\\mathrm{ch}_M(\\tau) = \\tr_M q^{L_0 - c/24}$ of irreducible modules:",
+          "q": "Zhu's theorem (1996) states that for a $C_2$-cofinite rational VOA $V$, the graded characters $\\mathrm{ch}_M(\\tau) = \\operatorname{tr}_M q^{L_0 - c/24}$ of irreducible modules:",
           "choices": [
             "are individually modular forms for $\\mathrm{SL}_2(\\mathbb{Z})$",
             "form the components of a vector-valued modular form for $\\mathrm{SL}_2(\\mathbb{Z})$, with the modules permuted by the modular action",
@@ -131,7 +131,7 @@
         },
         {
           "type": "mcq",
-          "q": "The shift by $-c/24$ in $\\tr q^{L_0 - c/24}$ is necessary because:",
+          "q": "The shift by $-c/24$ in $\\operatorname{tr} q^{L_0 - c/24}$ is necessary because:",
           "choices": [
             "without it the trace diverges",
             "it adjusts the modular weight so the character has good $\\mathrm{SL}_2(\\mathbb{Z})$ transformation properties (the $\\eta$-function shift)",
@@ -172,7 +172,7 @@
         },
         {
           "type": "mcq",
-          "q": "The Conway–Norton conjecture, proved by Borcherds, asserts that for each $g \\in \\mathbb{M}$ the McKay–Thompson series $T_g(\\tau) = \\sum_n \\tr(g \\mid V^\\natural_n)\\, q^n$ is:",
+          "q": "The Conway–Norton conjecture, proved by Borcherds, asserts that for each $g \\in \\mathbb{M}$ the McKay–Thompson series $T_g(\\tau) = \\sum_n \\operatorname{tr}(g \\mid V^\\natural_n)\\, q^n$ is:",
           "choices": [
             "a polynomial in $j(\\tau)$",
             "the Hauptmodul of a genus-zero subgroup of $\\mathrm{SL}_2(\\mathbb{R})$ commensurable with $\\mathrm{SL}_2(\\mathbb{Z})$",

@@ -73,7 +73,7 @@
         },
         {
           "type": "multi-select",
-          "q": "Which thermodynamic identities follow from $Z(\\beta) = \\tr\\,e^{-\\beta H}$ by direct differentiation?",
+          "q": "Which thermodynamic identities follow from $Z(\\beta) = \\operatorname{tr}\\,e^{-\\beta H}$ by direct differentiation?",
           "choices": [
             "$\\langle E\\rangle = -\\partial_\\beta \\log Z$.",
             "Helmholtz free energy $F = -\\beta^{-1}\\log Z$.",
@@ -140,7 +140,7 @@
             "$\\rho \\propto e^{-\\beta H/\\mu}$"
           ],
           "answer": 1,
-          "explain": "The reservoir fixes intensive variables $T = 1/(k_B\\beta)$ and $\\mu$ (chemical potential). Maximizing entropy at fixed $\\langle E\\rangle$ and $\\langle N\\rangle$ gives a Boltzmann factor with two Lagrange multipliers: $\\rho \\propto e^{-\\beta H + \\beta\\mu N} = e^{-\\beta(H-\\mu N)}$. The grand partition function is $\\Xi(\\beta,\\mu) = \\tr\\,e^{-\\beta(H-\\mu N)}$ with grand potential $\\Omega = -\\beta^{-1}\\log\\Xi$.",
+          "explain": "The reservoir fixes intensive variables $T = 1/(k_B\\beta)$ and $\\mu$ (chemical potential). Maximizing entropy at fixed $\\langle E\\rangle$ and $\\langle N\\rangle$ gives a Boltzmann factor with two Lagrange multipliers: $\\rho \\propto e^{-\\beta H + \\beta\\mu N} = e^{-\\beta(H-\\mu N)}$. The grand partition function is $\\Xi(\\beta,\\mu) = \\operatorname{tr}\\,e^{-\\beta(H-\\mu N)}$ with grand potential $\\Omega = -\\beta^{-1}\\log\\Xi$.",
           "hint": "Two Lagrange multipliers, one for each conserved expectation."
         },
         {
