@@ -61,6 +61,14 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // it IS resolved against the owning page's declared macros. If --strict ever
 // false-positives on a real KaTeX built-in the whitelist lacks (as \dashrightarrow
 // did before it was added), the fix is one line: add the name to KATEX_MACROS.
+//
+// KNOWN BLIND SPOT: the 6 grandfathered project macros in USER_MACROS (\Spec,
+// \Gal, \Hom, \tr, \ad, \ind) are whitelisted by isKnownMacro() for ALL
+// contexts, so quiz strings using them still leak red in quiz.js yet neither
+// warn nor gate here (~850 corpus occurrences). Closing this means expanding
+// those inline across the quiz banks first, THEN dropping USER_MACROS from the
+// quiz-context known-set — tracked as a dedicated follow-up so this gate's
+// scope stays the macros actually fixed.
 const STRICT = process.argv.includes('--strict');
 
 // True only while walking quiz strings (the global-render, no-page-macro
