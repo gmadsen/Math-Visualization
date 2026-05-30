@@ -226,7 +226,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "In the Atiyah–Singer index theorem, the analytic index $\\ind(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$ is computed as which topological pairing?",
+          "q": "In the Atiyah–Singer index theorem, the analytic index $\\operatorname{ind}(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$ is computed as which topological pairing?",
           "choices": [
             "$\\langle e(TM),[M]\\rangle$",
             "$\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\rangle$",
@@ -235,7 +235,7 @@
           ],
           "answer": 1,
           "hint": "Symbol $\\to$ K-class on $T^*M$, then push to a number via Chern character and the Todd genus.",
-          "explain": "Atiyah–Singer: $\\ind(D)=\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\rangle$. The symbol class $[\\sigma(D)]\\in K^0(T^*M)$ encodes $D$ topologically; Chern character converts to rational cohomology and the Todd class corrects for the integrality."
+          "explain": "Atiyah–Singer: $\\operatorname{ind}(D)=\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\rangle$. The symbol class $[\\sigma(D)]\\in K^0(T^*M)$ encodes $D$ topologically; Chern character converts to rational cohomology and the Todd class corrects for the integrality."
         },
         {
           "type": "mcq",

@@ -75,12 +75,12 @@
           "q": "Why is $K(j(E)) = H$, the Hilbert class field of $K$?",
           "choices": [
             "$j(E)$ is rational, so $K(j(E)) = K$ itself",
-            "Galois action factors through the class group via $\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$, giving $\\Gal(K(j)/K) \\cong \\mathrm{Cl}(\\mathcal{O}_K)$",
+            "Galois action factors through the class group via $\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$, giving $\\operatorname{Gal}(K(j)/K) \\cong \\mathrm{Cl}(\\mathcal{O}_K)$",
             "$K(j(E))/K$ is wildly ramified at $\\mathfrak{p} = (j(E))$",
             "$j(E)$ is transcendental over $K$, so the extension is infinite"
           ],
           "answer": 1,
-          "explain": "By the main theorem of CM, the action of an ideal $\\mathfrak{a}$ on $j$-values factors through the class group. So $\\Gal(K(j)/K)$ surjects onto $\\mathrm{Cl}(\\mathcal{O}_K)$; degree count shows it is an isomorphism. Adjoining $j$ to $K$ gives a Galois extension whose group is the class group — that's the defining property of the Hilbert class field."
+          "explain": "By the main theorem of CM, the action of an ideal $\\mathfrak{a}$ on $j$-values factors through the class group. So $\\operatorname{Gal}(K(j)/K)$ surjects onto $\\mathrm{Cl}(\\mathcal{O}_K)$; degree count shows it is an isomorphism. Adjoining $j$ to $K$ gives a Galois extension whose group is the class group — that's the defining property of the Hilbert class field."
         }
       ]
     },
@@ -145,7 +145,7 @@
           "type": "mcq",
           "q": "How does an ideal $\\mathfrak{a} \\subset \\mathcal{O}_K$ (via Artin reciprocity) act on $j$-values of CM curves?",
           "choices": [
-            "Trivially — $j$ is invariant under all of $\\Gal(\\bar K / K)$",
+            "Trivially — $j$ is invariant under all of $\\operatorname{Gal}(\\bar K / K)$",
             "$\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}\\mathfrak{b})$",
             "$\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/\\mathfrak{a}^{-1}\\mathfrak{b})$",
             "$\\sigma_\\mathfrak{a} \\cdot j(\\mathbb{C}/\\mathfrak{b}) = j(\\mathbb{C}/(\\mathfrak{a} + \\mathfrak{b}))$"
@@ -177,10 +177,10 @@
             "Any imaginary quadratic field",
             "Any totally imaginary number field",
             "A totally imaginary quadratic extension of a totally real number field",
-            "A field $L$ such that $\\Gal(L/\\mathbb{Q})$ is abelian"
+            "A field $L$ such that $\\operatorname{Gal}(L/\\mathbb{Q})$ is abelian"
           ],
           "answer": 2,
-          "explain": "A CM field is by definition a totally imaginary quadratic extension of a totally real subfield $L_0$. Equivalently, complex conjugation lies in the centre of $\\Gal(\\bar L / L_0)$ and acts non-trivially on $L$. Examples: $\\mathbb{Q}(i)$, $\\mathbb{Q}(\\zeta_n)$ for $n \\ge 3$, biquadratic $\\mathbb{Q}(\\sqrt{-2}, \\sqrt{-7})$."
+          "explain": "A CM field is by definition a totally imaginary quadratic extension of a totally real subfield $L_0$. Equivalently, complex conjugation lies in the centre of $\\operatorname{Gal}(\\bar L / L_0)$ and acts non-trivially on $L$. Examples: $\\mathbb{Q}(i)$, $\\mathbb{Q}(\\zeta_n)$ for $n \\ge 3$, biquadratic $\\mathbb{Q}(\\sqrt{-2}, \\sqrt{-7})$."
         },
         {
           "type": "numeric",

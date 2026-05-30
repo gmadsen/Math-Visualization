@@ -349,7 +349,7 @@
             "$\\mathrm{Sp}_{2n}(\\mathbb{C})$"
           ],
           "answer": 1,
-          "explain": "$\\mathrm{GL}_n$ is self-dual under root-datum duality: $\\hat{\\mathrm{GL}}_n = \\mathrm{GL}_n(\\mathbb{C})$. This makes ${}^L\\mathrm{GL}_n = \\mathrm{GL}_n(\\mathbb{C}) \\times \\Gal$ (split case)."
+          "explain": "$\\mathrm{GL}_n$ is self-dual under root-datum duality: $\\hat{\\mathrm{GL}}_n = \\mathrm{GL}_n(\\mathbb{C})$. This makes ${}^L\\mathrm{GL}_n = \\mathrm{GL}_n(\\mathbb{C}) \\times \\operatorname{Gal}$ (split case)."
         },
         {
           "type": "mcq",

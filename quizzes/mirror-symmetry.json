@@ -175,7 +175,7 @@
             "$D^b\\mathrm{Coh}(X) \\cong \\mathrm{Fuk}(Y)$ as triangulated categories.",
             "$\\mathrm{Coh}(X) \\cong \\mathrm{QCoh}(Y)$ as abelian categories.",
             "$\\pi_1(X) \\cong \\pi_1(Y)$ as groups.",
-            "$\\Spec H^*(X) \\cong \\Spec H^*(Y)$ as schemes."
+            "$\\operatorname{Spec} H^*(X) \\cong \\operatorname{Spec} H^*(Y)$ as schemes."
           ],
           "answer": 0,
           "explain": "HMS pairs the bounded derived category of coherent sheaves on the B-side with the (split-closed) Fukaya category on the A-side, both viewed as triangulated (or $A_\\infty$) categories."

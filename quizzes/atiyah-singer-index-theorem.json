@@ -6,7 +6,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "What does the analytic index $\\ind(D)$ of an elliptic operator $D$ count?",
+          "q": "What does the analytic index $\\operatorname{ind}(D)$ of an elliptic operator $D$ count?",
           "choices": [
             "$\\dim\\ker D + \\dim\\mathrm{coker}\\,D$",
             "$\\dim\\ker D - \\dim\\mathrm{coker}\\,D$",
@@ -15,11 +15,11 @@
           ],
           "answer": 1,
           "hint": "It is a signed count of obstructions: solutions minus obstructions to surjectivity.",
-          "explain": "$\\ind(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$. Both summands are finite when $D$ is elliptic on a closed manifold; the difference is a deformation-stable integer."
+          "explain": "$\\operatorname{ind}(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$. Both summands are finite when $D$ is elliptic on a closed manifold; the difference is a deformation-stable integer."
         },
         {
           "type": "mcq",
-          "q": "Atiyah–Singer asserts that $\\ind(D)$ depends only on which datum?",
+          "q": "Atiyah–Singer asserts that $\\operatorname{ind}(D)$ depends only on which datum?",
           "choices": [
             "The lower-order terms of $D$",
             "The boundary values of solutions",
@@ -116,7 +116,7 @@
           ],
           "answer": 1,
           "hint": "The Todd class corrects for K-orientation when integrating over $T^*M$.",
-          "explain": "Atiyah–Singer's index formula: $\\ind_{\\mathrm{top}}(D)=\\int_{T^*M}\\mathrm{ch}([\\sigma(D)])\\cdot\\mathrm{Td}(TM_\\mathbb{C})$. The Todd class is the K-theoretic Thom-class correction translating into ordinary cohomology."
+          "explain": "Atiyah–Singer's index formula: $\\operatorname{ind}_{\\mathrm{top}}(D)=\\int_{T^*M}\\mathrm{ch}([\\sigma(D)])\\cdot\\mathrm{Td}(TM_\\mathbb{C})$. The Todd class is the K-theoretic Thom-class correction translating into ordinary cohomology."
         },
         {
           "type": "mcq",
@@ -147,11 +147,11 @@
           ],
           "answer": 1,
           "hint": "$\\ker(d+d^*)$ on even forms is even-dimensional harmonic cohomology by Hodge theory.",
-          "explain": "$\\ind(d+d^*)=\\sum_k(-1)^k\\dim H^k(M)=\\chi(M)$. The right-hand topological invariant integrates the Pfaffian/Euler form, recovering Gauss–Bonnet–Chern."
+          "explain": "$\\operatorname{ind}(d+d^*)=\\sum_k(-1)^k\\dim H^k(M)=\\chi(M)$. The right-hand topological invariant integrates the Pfaffian/Euler form, recovering Gauss–Bonnet–Chern."
         },
         {
           "type": "mcq",
-          "q": "On a holomorphic vector bundle $E\\to X$ over a closed complex manifold, $\\ind(\\bar\\partial_E)$ equals …",
+          "q": "On a holomorphic vector bundle $E\\to X$ over a closed complex manifold, $\\operatorname{ind}(\\bar\\partial_E)$ equals …",
           "choices": [
             "$\\chi(X,E)=\\sum(-1)^k\\dim H^k(X,E)$",
             "$\\dim H^0(X,E)$",
@@ -160,7 +160,7 @@
           ],
           "answer": 0,
           "hint": "Dolbeault cohomology gives the kernels and cokernels of $\\bar\\partial$ on $(0,k)$-forms with values in $E$.",
-          "explain": "$\\ind(\\bar\\partial_E)=\\sum_k(-1)^k\\dim H^k(X,E)$, the holomorphic Euler characteristic. Atiyah–Singer specialises to $\\chi(X,E)=\\int_X\\mathrm{ch}(E)\\cdot\\mathrm{Td}(TX)$, which is Hirzebruch–Riemann–Roch."
+          "explain": "$\\operatorname{ind}(\\bar\\partial_E)=\\sum_k(-1)^k\\dim H^k(X,E)$, the holomorphic Euler characteristic. Atiyah–Singer specialises to $\\chi(X,E)=\\int_X\\mathrm{ch}(E)\\cdot\\mathrm{Td}(TX)$, which is Hirzebruch–Riemann–Roch."
         },
         {
           "type": "mcq",
@@ -191,7 +191,7 @@
           ],
           "answer": 1,
           "hint": "The $\\hat A$-genus has formal expansion $\\prod (x_i/2)/\\sinh(x_i/2)$.",
-          "explain": "Atiyah–Singer for the Dirac operator: $\\ind(D)=\\int_M\\hat A(TM)$. On a closed spin $4$-manifold, $\\hat A=-p_1/24$, so $\\ind(D)=-\\langle p_1,[M]\\rangle/24$, which equals $-\\sigma(M)/8$ via the signature theorem."
+          "explain": "Atiyah–Singer for the Dirac operator: $\\operatorname{ind}(D)=\\int_M\\hat A(TM)$. On a closed spin $4$-manifold, $\\hat A=-p_1/24$, so $\\operatorname{ind}(D)=-\\langle p_1,[M]\\rangle/24$, which equals $-\\sigma(M)/8$ via the signature theorem."
         },
         {
           "type": "mcq",
@@ -204,19 +204,19 @@
           ],
           "answer": 1,
           "hint": "The Bochner–Weitzenböck formula for $D^2$ has a positive curvature term forcing $\\ker D=0$.",
-          "explain": "Lichnerowicz: $D^2=\\nabla^*\\nabla+\\tfrac{R}{4}$ where $R$ is the scalar curvature. If $R>0$ everywhere, $\\ker D=0$, so $\\ind(D)=-\\dim\\mathrm{coker}\\,D\\le 0$ and dually $\\ge 0$, hence $0$. This obstructs many spin manifolds (e.g. $K3$) from carrying positive-scalar-curvature metrics."
+          "explain": "Lichnerowicz: $D^2=\\nabla^*\\nabla+\\tfrac{R}{4}$ where $R$ is the scalar curvature. If $R>0$ everywhere, $\\ker D=0$, so $\\operatorname{ind}(D)=-\\dim\\mathrm{coker}\\,D\\le 0$ and dually $\\ge 0$, hence $0$. This obstructs many spin manifolds (e.g. $K3$) from carrying positive-scalar-curvature metrics."
         },
         {
           "type": "mcq",
           "q": "Why is the integrality of $\\hat A(M)$ a non-trivial output on a spin manifold?",
           "choices": [
-            "$\\hat A$ is rational a priori; integrality on spin manifolds comes from $\\ind(D)\\in\\mathbb{Z}$",
+            "$\\hat A$ is rational a priori; integrality on spin manifolds comes from $\\operatorname{ind}(D)\\in\\mathbb{Z}$",
             "$\\hat A$ is always integer-valued for any oriented manifold",
             "$\\hat A$ vanishes on simply-connected manifolds",
             "$\\hat A$ equals the Euler class"
           ],
           "answer": 0,
-          "hint": "Without spin, $\\hat A$ would only land in $\\mathbb{Q}$, but $\\ind(D)$ is an integer.",
+          "hint": "Without spin, $\\hat A$ would only land in $\\mathbb{Q}$, but $\\operatorname{ind}(D)$ is an integer.",
           "explain": "The expansion of $\\hat A$ involves rational coefficients. The fact that its integral against $[M]$ is an integer when $M$ is spin is one of the first divisibility theorems that the index theorem produces — directly giving Rokhlin's $\\sigma\\equiv 0\\pmod{8}$ for spin $4$-manifolds (the mod-$16$ strengthening uses the additional quaternionic structure on $S^+$ in dim $4$)."
         }
       ]
@@ -226,12 +226,12 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "The McKean–Singer formula expresses $\\ind(D)$ as which trace?",
+          "q": "The McKean–Singer formula expresses $\\operatorname{ind}(D)$ as which trace?",
           "choices": [
-            "$\\tr(e^{-tD^*D})-\\tr(e^{-tDD^*})$, independent of $t>0$",
-            "$\\tr(D)$",
+            "$\\operatorname{tr}(e^{-tD^*D})-\\operatorname{tr}(e^{-tDD^*})$, independent of $t>0$",
+            "$\\operatorname{tr}(D)$",
             "$\\det(D)$",
-            "$\\lim_{t\\to\\infty}\\tr(e^{-tD})$"
+            "$\\lim_{t\\to\\infty}\\operatorname{tr}(e^{-tD})$"
           ],
           "answer": 0,
           "hint": "Pair off non-zero eigenvalues of $D^*D$ and $DD^*$; only the kernels survive.",
@@ -261,7 +261,7 @@
           ],
           "answer": 0,
           "hint": "$\\int\\mathrm{tr}(F\\wedge F)$ on the gauge bundle.",
-          "explain": "$\\ind(D_A)=\\int_M\\hat A(TM)\\cdot\\mathrm{ch}(E_A)$ — for a $\\mathrm{SU}(N)$ bundle in dim $4$ the leading piece is $\\int_M c_2(E_A)$, the instanton number. The chiral anomaly in physics is exactly this index."
+          "explain": "$\\operatorname{ind}(D_A)=\\int_M\\hat A(TM)\\cdot\\mathrm{ch}(E_A)$ — for a $\\mathrm{SU}(N)$ bundle in dim $4$ the leading piece is $\\int_M c_2(E_A)$, the instanton number. The chiral anomaly in physics is exactly this index."
         }
       ]
     }
