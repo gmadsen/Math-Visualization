@@ -322,6 +322,7 @@ where $\mathbb{S} = \mathrm{Res}_{\mathbb{C}/\mathbb{R}} \mathbb{G}_m$ is the <e
   const out = document.getElementById("w-datum-out");
   function render(){
     const d = data[sel.value];
+    const TX = (function(){var M={'\\le':'≤','\\leq':'≤','\\ge':'≥','\\geq':'≥','\\ne':'≠','\\neq':'≠','\\lt':'<','\\gt':'>','\\equiv':'≡','\\sim':'∼','\\simeq':'≃','\\cong':'≅','\\approx':'≈','\\propto':'∝','\\asymp':'≍','\\subset':'⊂','\\subseteq':'⊆','\\subsetneq':'⊊','\\supset':'⊃','\\supseteq':'⊇','\\in':'∈','\\notin':'∉','\\ni':'∋','\\mid':'∣','\\nmid':'∤','\\models':'⊨','\\vdash':'⊢','\\Vdash':'⊩','\\dashv':'⊣','\\perp':'⊥','\\parallel':'∥','\\bot':'⊥','\\top':'⊤','\\to':'→','\\rightarrow':'→','\\longrightarrow':'→','\\leftarrow':'←','\\longleftarrow':'←','\\Rightarrow':'⇒','\\Leftarrow':'⇐','\\leftrightarrow':'↔','\\Leftrightarrow':'⇔','\\mapsto':'↦','\\longmapsto':'↦','\\hookrightarrow':'↪','\\twoheadrightarrow':'↠','\\xrightarrow':'→','\\rightrightarrows':'⇉','\\times':'×','\\cdot':'·','\\cdots':'⋯','\\ldots':'…','\\dots':'…','\\vdots':'⋮','\\ddots':'⋱','\\circ':'∘','\\ast':'∗','\\star':'⋆','\\bullet':'•','\\otimes':'⊗','\\oplus':'⊕','\\ominus':'⊖','\\odot':'⊙','\\boxtimes':'⊠','\\wedge':'∧','\\vee':'∨','\\land':'∧','\\lor':'∨','\\cap':'∩','\\cup':'∪','\\bigcap':'∩','\\bigcup':'∪','\\sqcup':'⊔','\\sqcap':'⊓','\\setminus':'∖','\\smallsetminus':'∖','\\pm':'±','\\mp':'∓','\\div':'÷','\\nabla':'∇','\\partial':'∂','\\infty':'∞','\\emptyset':'∅','\\varnothing':'∅','\\forall':'∀','\\exists':'∃','\\nexists':'∄','\\neg':'¬','\\lnot':'¬','\\sum':'Σ','\\prod':'∏','\\coprod':'∐','\\int':'∫','\\oint':'∮','\\sqrt':'√','\\angle':'∠','\\triangle':'△','\\square':'□','\\Box':'□','\\Diamond':'◇','\\langle':'⟨','\\rangle':'⟩','\\lfloor':'⌊','\\rfloor':'⌋','\\lceil':'⌈','\\rceil':'⌉','\\ulcorner':'⌜','\\urcorner':'⌝','\\backslash':'\\','\\downarrow':'↓','\\uparrow':'↑','\\Downarrow':'⇓','\\Uparrow':'⇑','\\iff':'⟺','\\implies':'⟹','\\impliedby':'⟸','\\gg':'≫','\\ll':'≪','\\colon':':','\\therefore':'∴','\\because':'∵','\\ell':'ℓ','\\hbar':'ℏ','\\wp':'℘','\\Re':'ℜ','\\Im':'ℑ','\\aleph':'ℵ','\\beth':'ℶ','\\surd':'√','\\flat':'♭','\\sharp':'♯','\\natural':'♮','\\alpha':'α','\\beta':'β','\\gamma':'γ','\\delta':'δ','\\epsilon':'ε','\\varepsilon':'ε','\\zeta':'ζ','\\eta':'η','\\theta':'θ','\\vartheta':'ϑ','\\iota':'ι','\\kappa':'κ','\\lambda':'λ','\\mu':'μ','\\nu':'ν','\\xi':'ξ','\\pi':'π','\\varpi':'ϖ','\\rho':'ρ','\\varrho':'ϱ','\\sigma':'σ','\\varsigma':'ς','\\tau':'τ','\\upsilon':'υ','\\phi':'ϕ','\\varphi':'φ','\\chi':'χ','\\psi':'ψ','\\omega':'ω','\\digamma':'ϝ','\\Gamma':'Γ','\\Delta':'Δ','\\Theta':'Θ','\\Lambda':'Λ','\\Xi':'Ξ','\\Pi':'Π','\\Sigma':'Σ','\\Upsilon':'Υ','\\Phi':'Φ','\\Psi':'Ψ','\\Omega':'Ω'},BB={N:'ℕ',Z:'ℤ',Q:'ℚ',R:'ℝ',C:'ℂ',H:'ℍ',P:'ℙ',F:'𝔽',A:'𝔸',G:'𝔾',D:'𝔻',T:'𝕋',E:'𝔼',S:'𝕊',O:'𝕆',k:'𝕜','1':'𝟙'},AC={bar:'̅',overline:'̅',hat:'̂',widehat:'̂',tilde:'̃',widetilde:'̃',vec:'⃗',overrightarrow:'⃗',dot:'̇',ddot:'̈',check:'̌',acute:'́',grave:'̀'},FO={mathrm:1,mathbf:1,mathsf:1,mathtt:1,mathfrak:1,mathscr:1,mathcal:1,operatorname:1,text:1,textbf:1,textit:1,textrm:1,textsf:1,texttt:1,boldsymbol:1,bm:1,mathop:1,mathbin:1,underline:1},DR={left:1,right:1,big:1,Big:1,bigg:1,Bigg:1,bigl:1,bigr:1,Bigl:1,Bigr:1,displaystyle:1,textstyle:1,scriptstyle:1,limits:1,nolimits:1,mathstrut:1,strut:1,phantom:1,quad:1,qquad:1};return function(s){if(s==null)return s;s=String(s).replace(/\$\$?/g,'').replace(/\\\\/g,' ').replace(/\\([ %&#_$])/g,'$1').replace(/\\[,;:]/g,' ').replace(/\\!/g,'');s=s.replace(/\\(bar|overline|hat|widehat|tilde|widetilde|vec)\s*\{\\mathbb\{([A-Za-z])\}([^{}]*)\}/g,function(m,acc,c,rest){return (BB[c]||c)+AC[acc]+rest;});s=s.replace(/\\([A-Za-z]+)(\s*\{[^{}]*\}|\s*[A-Za-z0-9])?/g,function(m,c,a){var inner=a!==undefined?a.trim().replace(/^\{|\}$/g,''):'';if(AC[c])return inner?inner[0]+AC[c]+inner.slice(1):'';if(c==='mathbb')return BB[inner]||inner;if(FO[c])return inner+'';if(M['\\'+c]!==undefined)return M['\\'+c]+(a?a:'');if(DR[c])return a?a:'';return c+(a?a:'');});return s.replace(/(?<!\\)[{}]/g,'').replace(/\\([{}])/g,'$1').replace(/[ \t]{2,}/g,' ');};})();
     svg.innerHTML = "";
     // diagram: S --h--> G_R, with mu_h on the right
     const W=720,H=280;
@@ -338,14 +339,14 @@ where $\mathbb{S} = \mathrm{Res}_{\mathbb{C}/\mathbb{R}} \mathbb{G}_m$ is the <e
     txt(110,128,"(Deligne torus)",{fs:11,color:"var(--mute)"});
 
     box(290,80,180,60,"var(--panel2)","var(--yellow)");
-    txt(380,108,d.G+"_ℝ",{fs:15,color:"var(--yellow)"});
+    txt(380,108,TX(d.G)+"_ℝ",{fs:15,color:"var(--yellow)"});
     txt(380,128,"reductive over ℝ",{fs:11,color:"var(--mute)"});
 
     drawArrow(svg,[180,110],[290,110],{color:"var(--ink)",label:"h",markerId:"arr-h",pad1:6,pad2:6});
 
     box(540,80,150,60,"var(--panel2)","var(--violet)");
     txt(615,104,"𝔾_{m,ℂ}",{fs:13,color:"var(--violet)"});
-    txt(615,124,"μ_h: "+d.mu,{fs:10,color:"var(--mute)"});
+    txt(615,124,"μ_h: "+TX(d.mu),{fs:10,color:"var(--mute)"});
 
     drawArrow(svg,[470,100],[540,100],{color:"var(--violet)",label:"μ_h",markerId:"arr-mu",pad1:6,pad2:6,curve:0});
 
@@ -357,14 +358,14 @@ where $\mathbb{S} = \mathrm{Res}_{\mathbb{C}/\mathbb{R}} \mathbb{G}_m$ is the <e
 
     box(290,180,180,72,"var(--panel)","var(--pink)");
     txt(380,202,"Hodge type",{fs:12,color:"var(--pink)"});
-    txt(380,224,d.weight,{fs:11,color:"var(--mute)"});
+    txt(380,224,TX(d.weight),{fs:11,color:"var(--mute)"});
 
     box(500,180,190,72,"var(--panel)","var(--blue)");
     txt(595,202,"Reflex field E(G,X)",{fs:12,color:"var(--blue)"});
-    txt(595,224,d.reflex,{fs:13,color:"var(--blue)",attrs:{"font-weight":600}});
+    txt(595,224,TX(d.reflex),{fs:13,color:"var(--blue)",attrs:{"font-weight":600}});
     txt(595,244,"= field of def. of [μ_h]",{fs:10,color:"var(--mute)"});
 
-    out.textContent = d.note;
+    out.textContent = TX(d.note);
   }
   sel.addEventListener("change",render);
   render();

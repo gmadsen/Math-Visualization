@@ -656,6 +656,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
   const text = root.querySelector('#pf-text');
   const btns = root.querySelectorAll('button[data-pf]');
   let mode = 'all';
+  const TX = s => String(s).replace(/[$]/g,'').replace(/\\mu/g,'μ').replace(/\\ell/g,'ℓ').replace(/\\to/g,'→').replace(/\\times/g,'×').replace(/\\widehat\\{([^{}]*)\\}/g,'$1').replace(/\\widehat/g,'').replace(/\\mathbb\\{([A-Za-z])\\}/g,function(m,c){return ({N:'ℕ',Z:'ℤ',Q:'ℚ',R:'ℝ',C:'ℂ',H:'ℍ',P:'ℙ',F:'𝔽',A:'𝔸',G:'𝔾'})[c]||c;}).replace(/\\(?:mathrm|mathcal|mathfrak|text|operatorname)\\{([^}]*)\\}/g,'$1').replace(/\\([A-Za-z]+)/g,'$1').replace(/[{}]/g,'').replace(/ {2,}/g,' ');
 
   const layouts = {
     all: {
@@ -699,7 +700,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
   function render(){
     svg.innerHTML = '';
     const L = layouts[mode];
-    text.textContent = L.text;
+    text.textContent = TX(L.text);
     for(const [from, to] of L.edges){
       const a = L.nodes.find(n=>n.id===from), b = L.nodes.find(n=>n.id===to);
       drawArrow(svg, [a.x, a.y+18], [b.x, b.y-18], {markerId:'pf-arr', color:'var(--line)', pad1:2, pad2:2});

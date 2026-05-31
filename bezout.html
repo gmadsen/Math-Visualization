@@ -264,7 +264,7 @@ function ensureArrow(svg, id, color){
       const xr = Math.sqrt(disc);
       points.push([xr,t],[-xr,t]);
       msg = `two real points: (${xr.toFixed(3)}, ${t.toFixed(3)})  and  (${(-xr).toFixed(3)}, ${t.toFixed(3)})\n`
-          + `intersection count: 2  (matches $1 \\cdot 2 = 2$)`;
+          + `intersection count: 2  (matches 1 · 2 = 2)`;
     } else if(Math.abs(disc) < 1e-6){
       points.push([0,t]);
       msg = `tangent: one real point (0, ${t.toFixed(3)}) — but counted with multiplicity 2.\n`
@@ -272,8 +272,8 @@ function ensureArrow(svg, id, color){
     } else {
       const c1 = Math.sqrt(-disc);
       msg = `no real intersection.\n`
-          + `over $\\mathbb{C}$: two points at  x = ±${c1.toFixed(3)}i, y = ${t.toFixed(3)}.\n`
-          + `intersection count (in $\\mathbb{C}$): 2.`;
+          + `over ℂ: two points at  x = ±${c1.toFixed(3)}i, y = ${t.toFixed(3)}.\n`
+          + `intersection count (in ℂ): 2.`;
     }
     for(const [x,y] of points){
       const px = cx + R*x, pyy = cy - R*y;
@@ -884,7 +884,7 @@ where $I_P(C,D)$ is the intersection multiplicity defined in §3. In particular,
     const complex = 4 - real;
     msg = `real intersections in this affine view: ${real}\n`
         + `complex conjugate pairs (off the real plane): ${complex}\n`
-        + `total in $\\mathbb{P}^2_{\\mathbb{C}}$ with multiplicity: 4  (Bezout: 2 · 2).`;
+        + `total in ℙ^2_ℂ with multiplicity: 4  (Bezout: 2 · 2).`;
     out.textContent = msg;
   }
   [a,b,h,r].forEach(x=>x.addEventListener('input',draw));

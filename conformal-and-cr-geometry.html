@@ -589,7 +589,7 @@ $$Y_g(u) \;=\; \frac{\int_M u\,L_g u\,dV_g}{\Bigl(\int_M u^{2^*}\,dV_g\Bigr)^{2/
     }
     // Title
     svg.appendChild(SVG('text',{x:40, y:20, 'font-size':13, fill:'var(--ink)', 'font-weight':600})).textContent = step.label;
-    out.textContent = step.detail.replace(/\\le/g,'≤').replace(/\\ge/g,'≥').replace(/\\inf/g,'inf').replace(/\\Rightarrow/g,'⇒');
+    out.textContent = step.detail.replace(/\$/g,'').replace(/\\hookrightarrow/g,'↪').replace(/\\Rightarrow/g,'⇒').replace(/\\not\\equiv/g,'≢').replace(/\\equiv/g,'≡').replace(/\\le/g,'≤').replace(/\\ge/g,'≥').replace(/\\to/g,'→').replace(/\\inf/g,'inf').replace(/\\in/g,'∈').replace(/\\varepsilon/g,'ε').replace(/\\mathrm\{([^}]*)\}/g,'$1').replace(/\\[{}]/g,m=>m[1]);
   }
   sIn.addEventListener('input', render);
   render();

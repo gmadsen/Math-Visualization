@@ -574,7 +574,7 @@ $$ \tfrac{1}{K}\, d_X(x, x') - C \;\le\; d_Y(f(x), f(x')) \;\le\; K\, d_X(x, x')
     }
     svg.appendChild(SVG("polyline",{points:pts.join(" "),fill:"none",stroke:"var(--yellow)","stroke-width":2}));
 
-    out.textContent = "candidate: " + pick.options[pick.selectedIndex].text +
+    out.textContent = "candidate: " + pick.options[pick.selectedIndex].text.replace(/\$/g,"").replace(/\\mapsto/g,"↦").replace(/\\lfloor/g,"⌊").replace(/\\rfloor/g,"⌋").replace(/[{}]/g,"") +
       "\n(K, C) = (" + k.toFixed(1) + ", " + c.toFixed(0) + ")\n" +
       "envelope:  " + (1/k).toFixed(2) + "·x − " + c + "  ≤  f(x)  ≤  " + k.toFixed(2) + "·x + " + c + "\n" +
       (inside ? "✓ stays inside the envelope on this window — q.i. likely" : "✗ leaves the envelope — not a quasi-isometry with these K,C");

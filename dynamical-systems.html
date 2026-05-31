@@ -1387,7 +1387,7 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
     // quick numerical volume (via shoelace)
     function area(P){ let s=0; for(let i=0;i<P.length;i++){ const [x1,y1]=P[i], [x2,y2]=P[(i+1)%P.length]; s += x1*y2-x2*y1; } return Math.abs(s)/2; }
     const A0 = area(pts0), A1 = area(pts);
-    out.textContent = `${pick.options[pick.selectedIndex].textContent} · div X = ${F.div}\n`
+    out.textContent = `${pick.options[pick.selectedIndex].textContent.replace(/\$/g,'').replace(/\\dot\s*([A-Za-z])/g,(m,c)=>c+'̇').replace(/\\ /g,' ')} · div X = ${F.div}\n`
       + `vol(U) = ${A0.toFixed(3)} · vol(Φ_T(U)) = ${A1.toFixed(3)} · ratio = ${(A1/A0).toFixed(3)}`;
   }
   [pick,Ts].forEach(el=>el.addEventListener('input',render));

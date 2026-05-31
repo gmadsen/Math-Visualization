@@ -750,11 +750,11 @@ where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the
     const fStr = '('+f.map(v=>yLabel[v]).join(', ')+')';
     const gStr = '('+g.map(v=>yLabel[v]).join(', ')+')';
     if(eq.length===N){
-      out.innerHTML = `<span style="color:var(--green)">Eq(f,g) = X</span> — $f = g$ pointwise, so the equalizer is all of $X$. $f = g = ${fStr}$.`;
+      out.innerHTML = `<span style="color:var(--green)">Eq(f,g) = X</span> — f = g pointwise, so the equalizer is all of X. f = g = ${fStr}.`;
     } else if(eq.length===0){
-      out.innerHTML = `<span style="color:var(--pink)">Eq(f,g) = ∅</span> — $f$ and $g$ disagree everywhere. $f = ${fStr}$, $g = ${gStr}$.`;
+      out.innerHTML = `<span style="color:var(--pink)">Eq(f,g) = ∅</span> — f and g disagree everywhere. f = ${fStr}, g = ${gStr}.`;
     } else {
-      out.innerHTML = `<span style="color:var(--green)">Eq(f,g) = {${eqLabels.join(', ')}}</span> — the subset of $X$ where $f = g$. $f = ${fStr}$, $g = ${gStr}$.`;
+      out.innerHTML = `<span style="color:var(--green)">Eq(f,g) = {${eqLabels.join(', ')}}</span> — the subset of X where f = g. f = ${fStr}, g = ${gStr}.`;
     }
   }
 
@@ -1092,23 +1092,23 @@ Stalks and filtered colimits commute. This is what lets you compute the stalk of
     let msg;
     if(selected==='yellow'){
       if(sAt){
-        msg = `<span style="color:var(--yellow)">s ∈ F([0,7])</span> has germ $s_x = [s]_x$ in the stalk $F_x$ at $x = ${u.toFixed(2)}$. The yellow dot is a point of $\\mathrm{Esp}(F)$ lying over $x$, and $\\pi(s_x) = x$.`;
+        msg = `<span style="color:var(--yellow)">s ∈ F([0,7])</span> has germ s_x = [s]_x in the stalk F_x at x = ${u.toFixed(2)}. The yellow dot is a point of Esp(F) lying over x, and π(s_x) = x.`;
       } else {
-        msg = `<span class="small" style="color:var(--mute)">$x = ${u.toFixed(2)}$ is outside the domain of $s = [0,7]$, so no yellow germ exists over this $x$.</span>`;
+        msg = `<span class="small" style="color:var(--mute)">x = ${u.toFixed(2)} is outside the domain of s = [0,7], so no yellow germ exists over this x.</span>`;
       }
     } else if(selected==='pink'){
       if(tAt){
-        msg = `<span style="color:var(--pink)">t ∈ F([3,10])</span> has germ $t_x$ in $F_x$ at $x = ${u.toFixed(2)}$. The pink dot is a different element of $\\mathrm{Esp}(F)$ lying over $x$.`;
+        msg = `<span style="color:var(--pink)">t ∈ F([3,10])</span> has germ t_x in F_x at x = ${u.toFixed(2)}. The pink dot is a different element of Esp(F) lying over x.`;
       } else {
-        msg = `<span class="small" style="color:var(--mute)">$x = ${u.toFixed(2)}$ is outside the domain of $t = [3,10]$.</span>`;
+        msg = `<span class="small" style="color:var(--mute)">x = ${u.toFixed(2)} is outside the domain of t = [3,10].</span>`;
       }
     } else {
       if(!inBothDomain){
-        msg = `<span class="small" style="color:var(--mute)">$x = ${u.toFixed(2)}$ is not in both domains; germs of both sections are not simultaneously defined here.</span>`;
+        msg = `<span class="small" style="color:var(--mute)">x = ${u.toFixed(2)} is not in both domains; germs of both sections are not simultaneously defined here.</span>`;
       } else if(germsAgreeNbhd){
-        msg = `<span style="color:var(--green)">$s_x = t_x$ in $F_x$</span>: $s$ and $t$ agree on an open neighborhood $(3.8, 5.2) \\ni x$, so their germs coincide — both yellow and pink dots sit at the <em>same</em> point of $\\mathrm{Esp}(F)$ over $x$.`;
+        msg = `<span style="color:var(--green)">s_x = t_x in F_x</span>: s and t agree on an open neighborhood (3.8, 5.2) ∋ x, so their germs coincide — both yellow and pink dots sit at the <em>same</em> point of Esp(F) over x.`;
       } else {
-        msg = `<span style="color:var(--pink)">$s_x \\ne t_x$ in $F_x$</span>: even though both are defined near $x = ${u.toFixed(2)}$, every open nbhd contains a point where $s \\ne t$, so the yellow and pink points of $\\mathrm{Esp}(F)$ over $x$ are distinct.`;
+        msg = `<span style="color:var(--pink)">s_x ≠ t_x in F_x</span>: even though both are defined near x = ${u.toFixed(2)}, every open nbhd contains a point where s ≠ t, so the yellow and pink points of Esp(F) over x are distinct.`;
       }
     }
     out.innerHTML = msg;
@@ -1221,9 +1221,9 @@ Stalks and filtered colimits commute. This is what lets you compute the stalk of
     svg.appendChild(lg);
 
     if(ai){
-      out.innerHTML = `<span style="color:var(--green)">germs agree at $x = ${u.toFixed(2)}$</span>: $f$ and $g$ coincide on the open neighborhood $(${ai[0]}, ${ai[1]})$ of $x$, hence their germs $f_x = g_x$ in the stalk $C^0_{[0,10],x}$.`;
+      out.innerHTML = `<span style="color:var(--green)">germs agree at x = ${u.toFixed(2)}</span>: f and g coincide on the open neighborhood (${ai[0]}, ${ai[1]}) of x, hence their germs f_x = g_x in the stalk C^0_[0,10],x.`;
     } else {
-      out.innerHTML = `<span style="color:var(--pink)">germs disagree at $x = ${u.toFixed(2)}$</span>: every open neighborhood of $x$ contains a point where $f \\ne g$, so $f_x \\ne g_x$ in the stalk.`;
+      out.innerHTML = `<span style="color:var(--pink)">germs disagree at x = ${u.toFixed(2)}</span>: every open neighborhood of x contains a point where f ≠ g, so f_x ≠ g_x in the stalk.`;
     }
   }
 

@@ -1109,7 +1109,7 @@ function drawNode(svg, x, y, label, opts={}){
     render();
     if(lastClick === null){
       out.textContent =
-        `Click any chord. Solid cyan = side (frozen Plücker $p_{i,i+1}$). Dashed yellow = diagonal (mutable Plücker).\n` +
+        `Click any chord. Solid cyan = side (frozen Plücker p_{i,i+1}). Dashed yellow = diagonal (mutable Plücker).\n` +
         `Number of triangulations of the ${n}-gon = ${(function(){
           // C_{n-2}
           let r=1; for(let k=1;k<=n-2;k++) r=r*(n-2+k)/k; return Math.round(r/(n-1));

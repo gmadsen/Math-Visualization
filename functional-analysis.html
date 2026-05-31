@@ -1694,7 +1694,7 @@ $$C(\sigma(T))\hookrightarrow B(H),\qquad f\mapsto f(T)=\int_{\sigma(T)} f(\lamb
     drawLambda(re, im);
     const res = classify(op, re, im);
     out.textContent =
-`operator: ${opSel.options[opSel.selectedIndex].text.replace(/<[^>]+>/g,'')}
+`operator: ${opSel.options[opSel.selectedIndex].text.replace(/<[^>]+>/g,'').replace(/\$/g,'').replace(/\\mathbb\{C\}/g,'ℂ').replace(/\\ell/g,'ℓ').replace(/\\sigma/g,'σ')}
 λ = ${re.toFixed(2)}${im>=0?' + ':' − '}${Math.abs(im).toFixed(2)}i
 
 classification: λ ∈ ${res.part.toUpperCase()}
@@ -2182,7 +2182,7 @@ $$J\colon X\to X^{**},\qquad (Jx)(\ell) = \ell(x)\ \text{for } \ell\in X^*.$$
     const d = data[k];
     const x = sel.options[sel.selectedIndex].text.replace(/<[^>]+>/g,'');
     // strip $...$ markers
-    const xs = x.replace(/\$([^$]*)\$/g, '$1');
+    const xs = x.replace(/\$([^$]*)\$/g, '$1').replace(/\\mathbb\{R\}/g,'ℝ').replace(/\\ell/g,'ℓ').replace(/\\infty/g,'∞').replace(/\\lt/g,'<');
     const badge = d.refl ? '✔ REFLEXIVE' : '✗ NOT REFLEXIVE';
     out.textContent =
 `space X           = ${xs}
