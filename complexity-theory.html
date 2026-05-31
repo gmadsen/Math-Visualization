@@ -816,7 +816,7 @@ function drawNode(svg, x, y, label, opts={}){
     // readout
     if(highlight !== null){
       const e = edges[highlight];
-      out.textContent = `${e.from} ≤_p ${e.to}\n\n${e.text.replace(/\\\\/g,'\\').replace(/\$/g,'')}`;
+      out.textContent = `${e.from} ≤_p ${e.to}\n\n${e.text.replace(/\\bar\s*([A-Za-z])/g,(m,c)=>c+'̅').replace(/\\ell/g,'ℓ').replace(/\\lor/g,'∨').replace(/\\land/g,'∧').replace(/\\equiv/g,'≡').replace(/\\setminus/g,'∖').replace(/\$/g,'')}`;
     } else {
       out.textContent =
         `click an arrow to read the reduction.\n\n` +

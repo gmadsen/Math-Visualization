@@ -916,7 +916,7 @@ function drawNode(svg, x, y, label, opts={}){
       // long name below
       const t2 = SVG('text',{x:n.x, y:n.y+48,'text-anchor':'middle',
         'font-size':10, fill:'var(--mute)'});
-      t2.textContent = n.long.replace(/\$/g,'');
+      t2.textContent = n.long.replace(/\\mathrm\{([^}]*)\}/g,'$1').replace(/\\langle/g,'⟨').replace(/\\rangle/g,'⟩').replace(/\\Sigma/g,'Σ').replace(/\\emptyset/g,'∅').replace(/\\downarrow/g,'↓').replace(/\\iff/g,'⟺').replace(/\\notin/g,'∉').replace(/\\le_m/g,'≤ₘ').replace(/\\in/g,'∈').replace(/\$/g,'');
       svg.appendChild(t2);
     });
     // legend
@@ -927,7 +927,7 @@ function drawNode(svg, x, y, label, opts={}){
     // readout
     const sel = highlight !== null ? edges[highlight] : null;
     out.textContent = sel
-      ? `${sel.from} ≤ₘ ${sel.to}\n\n${sel.text.replace(/\\\\/g,'\\').replace(/\$/g,'')}`
+      ? `${sel.from} ≤ₘ ${sel.to}\n\n${sel.text.replace(/\\mathrm\{([^}]*)\}/g,'$1').replace(/\\langle/g,'⟨').replace(/\\rangle/g,'⟩').replace(/\\Sigma/g,'Σ').replace(/\\emptyset/g,'∅').replace(/\\downarrow/g,'↓').replace(/\\iff/g,'⟺').replace(/\\notin/g,'∉').replace(/\\le_m/g,'≤ₘ').replace(/\\in/g,'∈').replace(/\$/g,'')}`
       : 'click an arrow to see the reduction.\n\nFrom the halting problem H, undecidability flows out along ≤ₘ-arrows to: TM-emptiness, TM-equivalence, totality, Post\'s correspondence problem, and Hilbert\'s tenth problem.';
   }
 
@@ -1007,11 +1007,11 @@ function drawNode(svg, x, y, label, opts={}){
         style:'cursor:pointer','data-id':L.id}));
       const t = SVG('text',{x:cx-w/2+18, y:L.y-2,'font-size':14,'font-weight':700,
         fill:L.color, 'pointer-events':'none'});
-      t.textContent = L.name;
+      t.textContent = clean(L.name);
       svg.appendChild(t);
       const t2 = SVG('text',{x:cx-w/2+18, y:L.y+18,'font-size':12,
         fill:'var(--mute)','pointer-events':'none'});
-      t2.textContent = L.brief.replace(/\$/g,'').replace(/\\ulcorner/g,'⌜').replace(/\\urcorner/g,'⌝');
+      t2.textContent = clean(L.brief);
       svg.appendChild(t2);
       // arrow down to next layer
       if(i < layers.length-1){
@@ -1022,7 +1022,7 @@ function drawNode(svg, x, y, label, opts={}){
       }
     });
     const sel = layers.find(L => L.id === highlight) || layers[3];
-    const cleaned = sel.detail
+    function clean(s){ return s
       .replace(/\$\$/g,'')
       .replace(/\$/g,'')
       .replace(/\\emph\{([^}]*)\}/g,'$1')
@@ -1031,9 +1031,10 @@ function drawNode(svg, x, y, label, opts={}){
       .replace(/\\Sigma_1/g,'Σ₁').replace(/\\neg/g,'¬').replace(/\\vdash/g,'⊢')
       .replace(/\\leftrightarrow/g,'↔').replace(/\\le_m/g,'≤ₘ')
       .replace(/\\exists/g,'∃').replace(/\\forall/g,'∀')
-      .replace(/\\cdot/g,'·').replace(/\\land/g,'∧').replace(/\\to/g,'→')
-      .replace(/\\varphi/g,'φ').replace(/\\mathbb\{N\}/g,'ℕ');
-    out.textContent = `${sel.name}\n\n${cleaned}`;
+      .replace(/\\cdots/g,'⋯').replace(/\\cdot/g,'·').replace(/\\equiv/g,'≡').replace(/\\,/g,' ').replace(/\\land/g,'∧').replace(/\\to/g,'→')
+      .replace(/\\in/g,'∈').replace(/\\varphi/g,'φ').replace(/\\mathbb\{N\}/g,'ℕ'); }
+    const cleaned = clean(sel.detail);
+    out.textContent = `${clean(sel.name)}\n\n${cleaned}`;
   }
 
   svg.addEventListener('click', e=>{

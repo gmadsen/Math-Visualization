@@ -611,7 +611,7 @@ Furthermore $\tau$ is a homomorphism from the smooth knot concordance group $\ma
     const lg1 = SVG('text',{x:30,y:260,'font-size':12,fill:'var(--yellow)'}); lg1.textContent = 'α (bound in U_g)'; svg.appendChild(lg1);
     const lg2 = SVG('text',{x:180,y:260,'font-size':12,fill:'var(--cyan)'}); lg2.textContent = 'β (bound in U_g\')'; svg.appendChild(lg2);
     const lg3 = SVG('text',{x:340,y:260,'font-size':12,fill:'var(--mute)','font-style':'italic'}); lg3.textContent = `g = ${d.g} · |α∩β| = ${d.intersect}`; svg.appendChild(lg3);
-    out.textContent = `${key.toUpperCase()}: ${d.note.replace(/\$/g,'').replace(/\\\\/g,'\\')}  Heegaard genus = ${d.g}; geometric intersection of α and β = ${d.intersect}.`;
+    out.textContent = `${key.toUpperCase()}: ${d.note.replace(/\\widehat\{([^}]*)\}/g,(m,t)=>t.length?t[0]+'̂'+t.slice(1):t).replace(/\\alpha/g,'α').replace(/\\beta/g,'β').replace(/\\cap/g,'∩').replace(/\\ge/g,'≥').replace(/\$/g,'')}  Heegaard genus = ${d.g}; geometric intersection of α and β = ${d.intersect}.`;
   }
   sel.addEventListener('change', draw);
   draw();
