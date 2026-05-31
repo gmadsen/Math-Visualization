@@ -316,7 +316,73 @@ function drawNode(svg, x, y, label, opts={}){
 
 
 
-<div class="quiz" data-concept="paths"></div>
+<div class="widget" id="w-paths">
+  <div class="hd"><div class="ttl">Homotopy of paths</div><div class="hint">deform one path into another, endpoints fixed</div></div>
+  <div class="row">
+    <label for="paths-scn">scenario:</label>
+    <select id="paths-scn"><option value="arcline" selected>arc → straight line</option><option value="updown">arc up → arc down</option><option value="punctured">around a puncture</option></select>
+    <label for="paths-t">deform $t$:</label>
+    <input type="range" id="paths-t" min="0" max="1" step="0.01" value="0">
+    <span id="paths-t-val" class="small">t = 0.00</span>
+  </div>
+  <svg id="paths-svg" viewBox="0 0 720 350" width="720" height="350"><title>Homotopy deforming one path into another</title></svg>
+  <div class="readout" id="paths-out"></div>
+</div>
+<script>
+(function(){
+  const scn = $('#paths-scn'), tSl = $('#paths-t'), tVal = $('#paths-t-val'), svg = $('#paths-svg'), out = $('#paths-out');
+  if(!scn || !tSl || !svg || !out) return;
+  const A={x:90,y:185}, B={x:630,y:185}, N=80;
+  const SC = {
+    arcline:  { a0:100, a1:0,    hole:null,                       hom:true  },
+    updown:   { a0:100, a1:-100, hole:null,                       hom:true  },
+    punctured:{ a0:100, a1:-100, hole:{cx:360,cy:185,r:30},       hom:false },
+  };
+  const amp = (sc,t) => (1-t)*sc.a0 + t*sc.a1;
+  function pt(s,a){ return { x:A.x+s*(B.x-A.x), y:A.y - a*Math.sin(Math.PI*s) }; }
+  function pathD(a){ let d=''; for(let i=0;i<=N;i++){ const p=pt(i/N,a); d+=(i?' L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1); } return d; }
+  function badPt(p,hole){ return hole ? Math.hypot(p.x-hole.cx,p.y-hole.cy) < hole.r : false; }
+  // First t' in [0,t] at which the straight-line homotopy is forced into the puncture (leaves X).
+  function firstCross(sc,t){ const ST=60; for(let k=0;k<=ST;k++){ const tt=t*k/ST; const a=amp(sc,tt); for(let i=0;i<=N;i++){ if(badPt(pt(i/N,a),sc.hole)) return tt; } } return -1; }
+  function render(){
+    const sc = SC[scn.value] || SC.arcline;
+    const t = parseFloat(tSl.value);
+    tVal.textContent = 't = ' + t.toFixed(2);
+    const crossT = firstCross(sc, t);
+    const tainted = crossT >= 0;
+    let s = '';
+    s += '<rect x="40" y="45" width="640" height="280" rx="10" fill="var(--panel)" stroke="var(--mute)" stroke-width="1" opacity="0.55"/>';
+    if(sc.hole){
+      s += '<circle cx="'+sc.hole.cx+'" cy="'+sc.hole.cy+'" r="'+sc.hole.r+'" fill="var(--bg)" stroke="var(--mute)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+      s += '<text x="'+sc.hole.cx+'" y="'+(sc.hole.cy-sc.hole.r-7)+'" text-anchor="middle" font-size="11" fill="var(--mute)">puncture</text>';
+    }
+    [0.25,0.5,0.75].forEach(g=>{ s += '<path d="'+pathD(amp(sc,g))+'" fill="none" stroke="var(--mute)" stroke-width="1" opacity="0.25"/>'; });
+    s += '<path d="'+pathD(sc.a0)+'" fill="none" stroke="var(--cyan)" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.75"/>';
+    s += '<path d="'+pathD(sc.a1)+'" fill="none" stroke="var(--violet)" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.75"/>';
+    const col = tainted ? 'var(--pink)' : 'var(--green)';
+    s += '<path d="'+pathD(amp(sc,t))+'" fill="none" stroke="'+col+'" stroke-width="2.8"/>';
+    [['A',A],['B',B]].forEach(e=>{ const lab=e[0], P=e[1];
+      s += '<circle cx="'+P.x+'" cy="'+P.y+'" r="5" fill="var(--yellow)"/>';
+      s += '<text x="'+P.x+'" y="'+(P.y+22)+'" text-anchor="middle" font-size="13" font-weight="600" fill="var(--yellow)">'+lab+'</text>';
+    });
+    s += '<text x="56" y="66" font-size="12" fill="var(--cyan)">\u03b3\u2080 (start)</text>';
+    s += '<text x="56" y="84" font-size="12" fill="var(--violet)">\u03b3\u2081 (end)</text>';
+    const vc = sc.hom ? 'var(--green)' : 'var(--pink)';
+    const verdict = sc.hom ? '\u03b3\u2080 \u2243 \u03b3\u2081  (homotopic)' : '\u03b3\u2080 \u2241 \u03b3\u2081  (not homotopic)';
+    s += '<rect x="468" y="298" width="206" height="27" rx="7" fill="'+vc+'" fill-opacity="0.18" stroke="'+vc+'"/>';
+    s += '<text x="571" y="316" text-anchor="middle" font-size="13" font-weight="700" fill="'+vc+'">'+verdict+'</text>';
+    svg.innerHTML = s;
+    if(sc.hom){
+      out.textContent = 'Both paths run from A to B. Slide t: the family \u03b3\u209c(s) = (1\u2212t)\u03b3\u2080(s) + t\u00b7\u03b3\u2081(s) deforms \u03b3\u2080 into \u03b3\u2081 continuously while pinning the endpoints A and B. That is a homotopy rel endpoints, so [\u03b3\u2080] = [\u03b3\u2081] \u2014 the two paths are the same up to deformation.';
+    } else {
+      out.textContent = 'A puncture now sits between the paths: \u03b3\u2080 goes above it, \u03b3\u2081 below. Slide t \u2014 the straight-line homotopy is forced across the puncture (red), leaving the space X = \u211d\u00b2 minus a point. No homotopy rel endpoints connects them, so [\u03b3\u2080] \u2260 [\u03b3\u2081]. (Travel out along \u03b3\u2080 and back along \u03b3\u2081 and you trace a loop circling the puncture \u2014 the generator of \u03c0\u2081.)';
+    }
+  }
+  scn.addEventListener('change', render);
+  tSl.addEventListener('input', render);
+  render();
+})();
+</script><div class="quiz" data-concept="paths"></div>
 
 <h3 id="simply-connected">Simply connected spaces</h3>
 <p>A space is simply connected if it is path-connected and every loop contracts to a point, equivalently $\pi_1(X)=0$. This hypothesis appears repeatedly in analysis and geometry (for example, contour integration on simply connected domains).</p>
