@@ -325,7 +325,84 @@ function drawNode(svg, x, y, label, opts={}){
 
 
 
-<div class="quiz" data-concept="simply-connected"></div>
+<div class="widget" id="w-simpconn">
+  <div class="hd"><div class="ttl">Is the space simply connected?</div><div class="hint">pick a space, then slide $t$ to contract a loop</div></div>
+  <div class="row">
+    <label for="sc-space">space:</label>
+    <select id="sc-space"><option value="disk" selected>Disk (D²)</option><option value="annulus">Annulus (one hole)</option><option value="twice">Twice-punctured disk</option></select>
+    <label for="sc-t">contract $t$:</label>
+    <input type="range" id="sc-t" min="0" max="1" step="0.01" value="0">
+    <span id="sc-t-val" class="small">t = 0.00</span>
+  </div>
+  <svg id="sc-svg" viewBox="0 0 720 360" width="720" height="360"><title>Contracting a loop to test simple connectivity</title></svg>
+  <div class="readout" id="sc-out"></div>
+</div>
+<script>
+(function(){
+  const space = $('#sc-space'), tSl = $('#sc-t'), tVal = $('#sc-t-val'), svg = $('#sc-svg'), out = $('#sc-out');
+  if(!space || !tSl || !svg || !out) return;
+  const R = 150, CX = 250, CY = 180, N = 96;
+  const SP = {
+    disk:    { label:'Disk (D\u00b2)',          holes:[],                                            loop:{cx:250,cy:150,r:70}, x0:{x:250,y:250}, pi1:'0',                  sc:true  },
+    annulus: { label:'Annulus',                holes:[{cx:250,cy:180,r:34}],                         loop:{cx:250,cy:180,r:82}, x0:{x:250,y:300}, pi1:'\u2124',             sc:false },
+    twice:   { label:'Twice-punctured disk',   holes:[{cx:212,cy:182,r:25},{cx:298,cy:160,r:25}],    loop:{cx:255,cy:172,r:98}, x0:{x:250,y:312}, pi1:'free group F\u2082', sc:false },
+  };
+  function badPt(x,y,holes){
+    if(Math.hypot(x-CX,y-CY) > R) return true;
+    for(const h of holes) if(Math.hypot(x-h.cx,y-h.cy) < h.r) return true;
+    return false;
+  }
+  function loopPt(sp,i){ const a=2*Math.PI*i/N; return { x:sp.loop.cx+sp.loop.r*Math.cos(a), y:sp.loop.cy+sp.loop.r*Math.sin(a) }; }
+  function ptAt(sp,i,t){ const g=loopPt(sp,i); return { x:g.x+(sp.x0.x-g.x)*t, y:g.y+(sp.x0.y-g.y)*t }; }
+  function firstCross(sp,t){ const STEPS=60; for(let k=0;k<=STEPS;k++){ const tt=t*k/STEPS; for(let i=0;i<N;i++){ const p=ptAt(sp,i,tt); if(badPt(p.x,p.y,sp.holes)) return tt; } } return -1; }
+  function render(){
+    const sp = SP[space.value] || SP.disk;
+    const t = parseFloat(tSl.value);
+    tVal.textContent = 't = ' + t.toFixed(2);
+    const crossT = firstCross(sp, t);
+    const tainted = crossT >= 0;
+    let s = '';
+    s += '<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="var(--panel)" stroke="var(--mute)" stroke-width="1.5"/>';
+    sp.holes.forEach(h=>{
+      s += '<circle cx="'+h.cx+'" cy="'+h.cy+'" r="'+h.r+'" fill="var(--bg)" stroke="var(--mute)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+      s += '<text x="'+h.cx+'" y="'+(h.cy+4)+'" text-anchor="middle" font-size="11" fill="var(--mute)">hole</text>';
+    });
+    let ref='';
+    for(let i=0;i<=N;i++){ const p=loopPt(sp,i); ref += (i?' L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1); }
+    s += '<path d="'+ref+' Z" fill="none" stroke="var(--mute)" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>';
+    const pts=[];
+    for(let i=0;i<=N;i++){ const p=ptAt(sp,i,t); p.bad=badPt(p.x,p.y,sp.holes); pts.push(p); }
+    for(let i=0;i<N;i++){ const p=pts[i],q=pts[i+1]; const bad = p.bad || q.bad || tainted;
+      s += '<line x1="'+p.x.toFixed(1)+'" y1="'+p.y.toFixed(1)+'" x2="'+q.x.toFixed(1)+'" y2="'+q.y.toFixed(1)+'" stroke="'+(bad?'var(--pink)':'var(--green)')+'" stroke-width="2.6"/>'; }
+    s += '<circle cx="'+sp.x0.x+'" cy="'+sp.x0.y+'" r="4.5" fill="var(--yellow)"/>';
+    s += '<text x="'+(sp.x0.x+9)+'" y="'+(sp.x0.y+4)+'" font-size="12" fill="var(--yellow)">x\u2080</text>';
+    const vx=470, vy=72;
+    s += '<text x="'+vx+'" y="'+vy+'" font-size="15" font-weight="600" fill="var(--ink)">'+sp.label+'</text>';
+    s += '<text x="'+vx+'" y="'+(vy+26)+'" font-size="14" fill="var(--mute)">\u03c0\u2081 = '+sp.pi1+'</text>';
+    const verdict = sp.sc ? 'simply connected' : 'NOT simply connected';
+    const vc = sp.sc ? 'var(--green)' : 'var(--pink)';
+    s += '<rect x="'+vx+'" y="'+(vy+44)+'" width="222" height="34" rx="8" fill="'+vc+'" fill-opacity="0.18" stroke="'+vc+'"/>';
+    s += '<text x="'+(vx+111)+'" y="'+(vy+66)+'" text-anchor="middle" font-size="14" font-weight="700" fill="'+vc+'">'+verdict+'</text>';
+    let l1,l2;
+    if(sp.sc){ l1='the loop stays green and'; l2='shrinks to the point x\u2080.'; }
+    else if(tainted){ l1='\u2717 the homotopy left X \u2014 it'; l2='crossed the puncture at t \u2248 '+crossT.toFixed(2)+'.'; }
+    else { l1='slide t \u2192 the loop is being'; l2='pushed toward the puncture.'; }
+    s += '<text x="'+vx+'" y="'+(vy+106)+'" font-size="12.5" fill="'+(tainted?vc:'var(--mute)')+'">'+l1+'</text>';
+    s += '<text x="'+vx+'" y="'+(vy+124)+'" font-size="12.5" fill="'+(tainted?vc:'var(--mute)')+'">'+l2+'</text>';
+    svg.innerHTML = s;
+    if(sp.sc){
+      out.textContent = 'Disk D\u00b2: \u03c0\u2081 = 0. Every loop bounds a disk, so the straight-line homotopy \u03b3\u209c(s) = (1\u2212t)\u03b3(s) + t\u00b7x\u2080 stays inside the space and shrinks the loop to the basepoint. It never turns red \u2014 the loop contracts. Path-connected with trivial \u03c0\u2081, so the space is simply connected.';
+    } else if(space.value==='annulus'){
+      out.textContent = 'Annulus: \u03c0\u2081 = \u2124. The chosen loop winds once around the hole. Slide t: the straight-line contraction is forced across the puncture (the loop turns red and stays red, because that homotopy has left the space). It can still reach the point x\u2080, but only by cheating through the hole \u2014 no honest homotopy contracts a winding-number-1 loop. Not simply connected.';
+    } else {
+      out.textContent = 'Twice-punctured disk: \u03c0\u2081 is the free group on two generators. The loop encircles both punctures, so any straight-line contraction is driven across them (red) and leaves the space. Not simply connected \u2014 there are two independent classes of non-contractible loops.';
+    }
+  }
+  space.addEventListener('change', render);
+  tSl.addEventListener('input', render);
+  render();
+})();
+</script><div class="quiz" data-concept="simply-connected"></div>
 
 
 

@@ -28,6 +28,58 @@
           "html": "\n\n\n"
         },
         {
+          "type": "widget",
+          "slug": "slider-svg-2d",
+          "params": {
+            "widgetId": "w-simpconn",
+            "wrapperHasId": true,
+            "title": "Is the space simply connected?",
+            "hint": "pick a space, then slide $t$ to contract a loop",
+            "controls": [
+              {
+                "type": "select",
+                "id": "sc-space",
+                "label": "space:",
+                "optionsHtml": "<option value=\"disk\" selected>Disk (D²)</option><option value=\"annulus\">Annulus (one hole)</option><option value=\"twice\">Twice-punctured disk</option>"
+              },
+              {
+                "type": "slider",
+                "id": "sc-t",
+                "label": "contract $t$:",
+                "min": 0,
+                "max": 1,
+                "step": "0.01",
+                "value": 0,
+                "format": "separate"
+              },
+              {
+                "type": "span",
+                "id": "sc-t-val",
+                "class": "small",
+                "text": "t = 0.00"
+              }
+            ],
+            "svg": {
+              "id": "sc-svg",
+              "viewBox": "0 0 720 360",
+              "width": 720,
+              "height": 360,
+              "title": "Contracting a loop to test simple connectivity"
+            },
+            "readout": {
+              "id": "sc-out"
+            },
+            "bodyScript": "\n<script>\n(function(){\n  const space = $('#sc-space'), tSl = $('#sc-t'), tVal = $('#sc-t-val'), svg = $('#sc-svg'), out = $('#sc-out');\n  if(!space || !tSl || !svg || !out) return;\n  const R = 150, CX = 250, CY = 180, N = 96;\n  const SP = {\n    disk:    { label:'Disk (D\\u00b2)',          holes:[],                                            loop:{cx:250,cy:150,r:70}, x0:{x:250,y:250}, pi1:'0',                  sc:true  },\n    annulus: { label:'Annulus',                holes:[{cx:250,cy:180,r:34}],                         loop:{cx:250,cy:180,r:82}, x0:{x:250,y:300}, pi1:'\\u2124',             sc:false },\n    twice:   { label:'Twice-punctured disk',   holes:[{cx:212,cy:182,r:25},{cx:298,cy:160,r:25}],    loop:{cx:255,cy:172,r:98}, x0:{x:250,y:312}, pi1:'free group F\\u2082', sc:false },\n  };\n  function badPt(x,y,holes){\n    if(Math.hypot(x-CX,y-CY) > R) return true;\n    for(const h of holes) if(Math.hypot(x-h.cx,y-h.cy) < h.r) return true;\n    return false;\n  }\n  function loopPt(sp,i){ const a=2*Math.PI*i/N; return { x:sp.loop.cx+sp.loop.r*Math.cos(a), y:sp.loop.cy+sp.loop.r*Math.sin(a) }; }\n  function ptAt(sp,i,t){ const g=loopPt(sp,i); return { x:g.x+(sp.x0.x-g.x)*t, y:g.y+(sp.x0.y-g.y)*t }; }\n  function firstCross(sp,t){ const STEPS=60; for(let k=0;k<=STEPS;k++){ const tt=t*k/STEPS; for(let i=0;i<N;i++){ const p=ptAt(sp,i,tt); if(badPt(p.x,p.y,sp.holes)) return tt; } } return -1; }\n  function render(){\n    const sp = SP[space.value] || SP.disk;\n    const t = parseFloat(tSl.value);\n    tVal.textContent = 't = ' + t.toFixed(2);\n    const crossT = firstCross(sp, t);\n    const tainted = crossT >= 0;\n    let s = '';\n    s += '<circle cx=\"'+CX+'\" cy=\"'+CY+'\" r=\"'+R+'\" fill=\"var(--panel)\" stroke=\"var(--mute)\" stroke-width=\"1.5\"/>';\n    sp.holes.forEach(h=>{\n      s += '<circle cx=\"'+h.cx+'\" cy=\"'+h.cy+'\" r=\"'+h.r+'\" fill=\"var(--bg)\" stroke=\"var(--mute)\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/>';\n      s += '<text x=\"'+h.cx+'\" y=\"'+(h.cy+4)+'\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--mute)\">hole</text>';\n    });\n    let ref='';\n    for(let i=0;i<=N;i++){ const p=loopPt(sp,i); ref += (i?' L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1); }\n    s += '<path d=\"'+ref+' Z\" fill=\"none\" stroke=\"var(--mute)\" stroke-width=\"1\" stroke-dasharray=\"3 4\" opacity=\"0.45\"/>';\n    const pts=[];\n    for(let i=0;i<=N;i++){ const p=ptAt(sp,i,t); p.bad=badPt(p.x,p.y,sp.holes); pts.push(p); }\n    for(let i=0;i<N;i++){ const p=pts[i],q=pts[i+1]; const bad = p.bad || q.bad || tainted;\n      s += '<line x1=\"'+p.x.toFixed(1)+'\" y1=\"'+p.y.toFixed(1)+'\" x2=\"'+q.x.toFixed(1)+'\" y2=\"'+q.y.toFixed(1)+'\" stroke=\"'+(bad?'var(--pink)':'var(--green)')+'\" stroke-width=\"2.6\"/>'; }\n    s += '<circle cx=\"'+sp.x0.x+'\" cy=\"'+sp.x0.y+'\" r=\"4.5\" fill=\"var(--yellow)\"/>';\n    s += '<text x=\"'+(sp.x0.x+9)+'\" y=\"'+(sp.x0.y+4)+'\" font-size=\"12\" fill=\"var(--yellow)\">x\\u2080</text>';\n    const vx=470, vy=72;\n    s += '<text x=\"'+vx+'\" y=\"'+vy+'\" font-size=\"15\" font-weight=\"600\" fill=\"var(--ink)\">'+sp.label+'</text>';\n    s += '<text x=\"'+vx+'\" y=\"'+(vy+26)+'\" font-size=\"14\" fill=\"var(--mute)\">\\u03c0\\u2081 = '+sp.pi1+'</text>';\n    const verdict = sp.sc ? 'simply connected' : 'NOT simply connected';\n    const vc = sp.sc ? 'var(--green)' : 'var(--pink)';\n    s += '<rect x=\"'+vx+'\" y=\"'+(vy+44)+'\" width=\"222\" height=\"34\" rx=\"8\" fill=\"'+vc+'\" fill-opacity=\"0.18\" stroke=\"'+vc+'\"/>';\n    s += '<text x=\"'+(vx+111)+'\" y=\"'+(vy+66)+'\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"'+vc+'\">'+verdict+'</text>';\n    let l1,l2;\n    if(sp.sc){ l1='the loop stays green and'; l2='shrinks to the point x\\u2080.'; }\n    else if(tainted){ l1='\\u2717 the homotopy left X \\u2014 it'; l2='crossed the puncture at t \\u2248 '+crossT.toFixed(2)+'.'; }\n    else { l1='slide t \\u2192 the loop is being'; l2='pushed toward the puncture.'; }\n    s += '<text x=\"'+vx+'\" y=\"'+(vy+106)+'\" font-size=\"12.5\" fill=\"'+(tainted?vc:'var(--mute)')+'\">'+l1+'</text>';\n    s += '<text x=\"'+vx+'\" y=\"'+(vy+124)+'\" font-size=\"12.5\" fill=\"'+(tainted?vc:'var(--mute)')+'\">'+l2+'</text>';\n    svg.innerHTML = s;\n    if(sp.sc){\n      out.textContent = 'Disk D\\u00b2: \\u03c0\\u2081 = 0. Every loop bounds a disk, so the straight-line homotopy \\u03b3\\u209c(s) = (1\\u2212t)\\u03b3(s) + t\\u00b7x\\u2080 stays inside the space and shrinks the loop to the basepoint. It never turns red \\u2014 the loop contracts. Path-connected with trivial \\u03c0\\u2081, so the space is simply connected.';\n    } else if(space.value==='annulus'){\n      out.textContent = 'Annulus: \\u03c0\\u2081 = \\u2124. The chosen loop winds once around the hole. Slide t: the straight-line contraction is forced across the puncture (the loop turns red and stays red, because that homotopy has left the space). It can still reach the point x\\u2080, but only by cheating through the hole \\u2014 no honest homotopy contracts a winding-number-1 loop. Not simply connected.';\n    } else {\n      out.textContent = 'Twice-punctured disk: \\u03c0\\u2081 is the free group on two generators. The loop encircles both punctures, so any straight-line contraction is driven across them (red) and leaves the space. Not simply connected \\u2014 there are two independent classes of non-contractible loops.';\n    }\n  }\n  space.addEventListener('change', render);\n  tSl.addEventListener('input', render);\n  render();\n})();\n</script>"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-simpconn",
+          "params": {
+            "bodyScript": ""
+          }
+        },
+        {
           "type": "quiz",
           "concept": "simply-connected",
           "html": "<div class=\"quiz\" data-concept=\"simply-connected\"></div>"
