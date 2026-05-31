@@ -609,6 +609,7 @@ $$L(x,\lambda,\nu) \;=\; f(x) + \sum_{i=1}^m \lambda_i g_i(x) + \sum_{j=1}^p \nu
   const svg=$("#cv-slater-svg"), PV=$("#cv-slater-prev"), PL=$("#cv-slater-play"), NX=$("#cv-slater-next"),
         SC=$("#cv-slater-scrub"), ST=$("#cv-slater-step"), out=$("#cv-slater-out");
   const W=580,H=240;
+  const TX=s=>s.replace(/\$([^$]*)\$/g,'$1').replace(/\\mathbb\{R\}/g,'ℝ').replace(/\\subseteq/g,'⊆').replace(/\\exists/g,'∃').replace(/\\partial/g,'∂').replace(/\\lambda/g,'λ').replace(/\\mu/g,'μ').replace(/\\infty/g,'∞').replace(/\\inf/g,'inf').replace(/\\in/g,'∈').replace(/\\le/g,'≤').replace(/\\ge/g,'≥').replace(/\\ne/g,'≠').replace(/\\to/g,'→').replace(/\\tilde\s*([A-Za-z])/g,(m,c)=>c+'̃').replace(/\\\{/g,'{').replace(/\\\}/g,'}').replace(/\\ /g,' ');
   const STEPS = [
     {t:"1. The cost-constraint image $A$", body:"Form the set $A=\\{(u,t) : \\exists x.\\ g(x)\\le u,\\ f(x)\\le t\\}\\subseteq\\mathbb{R}^2$. Convexity of $f$ and $g$ makes $A$ convex (a 'down-and-right closed' convex set)."},
     {t:"2. The optimum sits on $\\partial A$", body:"$p^*=\\inf f$ subject to $g\\le 0$. The boundary point $(0,p^*)$ lies on $\\partial A$ — moving down or left would strictly improve the primal, which is impossible."},
@@ -675,7 +676,7 @@ $$L(x,\lambda,\nu) \;=\; f(x) + \sum_{i=1}^m \lambda_i g_i(x) + \sum_{j=1}^p \nu
     k=Math.max(0,Math.min(STEPS.length-1,k|0));
     SC.value=k; ST.textContent=`${k+1} / ${STEPS.length}`;
     diagram(k);
-    out.textContent = `Step ${k+1}: ${STEPS[k].t.replace(/\$([^$]+)\$/g,"$1")}\n${STEPS[k].body.replace(/\$([^$]+)\$/g,"$1")}`;
+    out.textContent = `Step ${k+1}: ${TX(STEPS[k].t)}\n${TX(STEPS[k].body)}`;
   }
   SC.addEventListener("input",e=>setK(parseInt(SC.value,10)));
   PV.addEventListener("click",()=>setK(parseInt(SC.value,10)-1));

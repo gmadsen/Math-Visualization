@@ -793,7 +793,7 @@ function drawNode(svg, x, y, label, opts={}){
     svg.appendChild(SVG("text",{x:pad+8,y:-65,"font-size":11,fill:color})).textContent =
       `${key}(t)  —  ${labelTxt}  ·  range [${ymin.toFixed(3)}, ${ymax.toFixed(3)}]`;
     document.getElementById("nt-readout").textContent =
-      `${key} over $t\\in[0,12]$:  min=${ymin.toFixed(3)}, max=${ymax.toFixed(3)}, span=${yrange.toFixed(4)} (${isConserved ? "constant" : "not constant"})`;
+      `${key} over t∈[0,12]:  min=${ymin.toFixed(3)}, max=${ymax.toFixed(3)}, span=${yrange.toFixed(4)} (${isConserved ? "constant" : "not constant"})`;
   }
 
   sysSel.addEventListener("change", draw);

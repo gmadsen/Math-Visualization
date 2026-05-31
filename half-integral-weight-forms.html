@@ -305,12 +305,12 @@ for all $\gamma$ in the level subgroup, plus growth conditions at cusps.</div>
   let mode = 'int';
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    drawNode(svg, 110, 110, '$\\tau$', {r:24, stroke:'var(--blue)'});
-    drawNode(svg, 310, 110, '$\\gamma_2\\tau$', {r:30, stroke:'var(--blue)'});
-    drawNode(svg, 510, 110, '$\\gamma_1\\gamma_2\\tau$', {r:36, stroke:'var(--blue)'});
-    drawArrow(svg, [110,110], [310,110], {color:'var(--yellow)', label:'$\\gamma_2$', markerId:'arr-c-1', curve:-30});
-    drawArrow(svg, [310,110], [510,110], {color:'var(--yellow)', label:'$\\gamma_1$', markerId:'arr-c-2', curve:-30});
-    drawArrow(svg, [110,110], [510,110], {color:'var(--pink)', label:'$\\gamma_1\\gamma_2$', markerId:'arr-c-3', curve:55});
+    drawNode(svg, 110, 110, 'τ', {r:24, stroke:'var(--blue)'});
+    drawNode(svg, 310, 110, 'γ_2τ', {r:30, stroke:'var(--blue)'});
+    drawNode(svg, 510, 110, 'γ_1γ_2τ', {r:36, stroke:'var(--blue)'});
+    drawArrow(svg, [110,110], [310,110], {color:'var(--yellow)', label:'γ_2', markerId:'arr-c-1', curve:-30});
+    drawArrow(svg, [310,110], [510,110], {color:'var(--yellow)', label:'γ_1', markerId:'arr-c-2', curve:-30});
+    drawArrow(svg, [110,110], [510,110], {color:'var(--pink)', label:'γ_1γ_2', markerId:'arr-c-3', curve:55});
     if(mode === 'int'){
       out.innerHTML = '<strong>integer weight:</strong> $j(\\gamma,\\tau) = (c\\tau+d)$. <br>' +
         '$\\;j(\\gamma_1\\gamma_2,\\tau) = j(\\gamma_1,\\gamma_2\\tau)\\cdot j(\\gamma_2,\\tau)$  — exact equality.<br>' +

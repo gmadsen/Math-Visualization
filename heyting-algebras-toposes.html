@@ -364,7 +364,7 @@ Equivalently, $b \Rightarrow c$ is the largest element of $H$ whose meet with $b
       const na = neg(pickA);
       ro.innerHTML = `<strong>a = $${pickA.latex}$</strong> selected. ` +
         `$\\neg a = a \\Rightarrow \\bot = ${na.latex}$. ` +
-        `Now click a second node to compute $a \\wedge b$, $a \\vee b$, $a \\Rightarrow b$.`;
+        `Now click a second node to compute $a \\wedge b$, $a \\vee b$, $a \\Rightarrow b$.`; if(typeof renderMathInElement==='function') renderMathInElement(ro,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
     } else {
       const m = meet(pickA, pickB), j = join(pickA, pickB);
       const ab = imp(pickA, pickB), ba = imp(pickB, pickA);
@@ -377,8 +377,8 @@ Equivalently, $b \Rightarrow c$ is the largest element of $H$ whose meet with $b
         `<div>$\\neg a = ${na.latex}$ &nbsp; · &nbsp; $\\neg b = ${nb.latex}$</div>` +
         `<div>$a \\vee \\neg a = ${lemA.latex}$ &nbsp; ` +
         (lemA.mask === byId.T.mask
-          ? `<span style="color:var(--green)">= \\top — LEM holds for this $a$</span>`
-          : `<span style="color:var(--pink)">≠ \\top — LEM fails for this $a$</span>`) +
+          ? `<span style="color:var(--green)">= $\\top$ — LEM holds for this $a$</span>`
+          : `<span style="color:var(--pink)">≠ $\\top$ — LEM fails for this $a$</span>`) +
         `</div>`;
       if(window.renderMathInElement) renderMathInElement(ro, {
         delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}],
@@ -655,7 +655,7 @@ Notice the asymmetry: $\to$ and $\forall$ quantify over <em>all</em> $f\colon Y\
       {
         title: "Bridge to topos forcing",
         body: "All of the above is the standard Kripke calculus — but it is now <em>derived</em> from the topos-theoretic clauses of Mac Lane–Moerdijk VI.6. The same clauses, applied in $\\mathrm{Sh}(X)$, give 'forcing on a covering family of opens.' The Kripke–Joyal interpretation is the universal forcing semantics for intuitionist logic.",
-        svgInner: "<rect x='40' y='40' width='240' height='100' fill='none' stroke='var(--cyan)' stroke-width='1.5' rx='8'/><text x='160' y='80' text-anchor='middle' font-size='12' fill='var(--ink)'>topos $\\mathcal{E}$  ⟶  Kripke–Joyal $\\Vdash$  ⟶  classical Kripke (presheaves) / opens (sheaves)</text><text x='160' y='110' text-anchor='middle' font-size='11' fill='var(--cyan)'>universal forcing for intuitionist higher-order logic</text>"
+        svgInner: "<rect x='40' y='40' width='240' height='100' fill='none' stroke='var(--cyan)' stroke-width='1.5' rx='8'/><text x='160' y='80' text-anchor='middle' font-size='12' fill='var(--ink)'>topos E ⟶ Kripke–Joyal ⊩ ⟶ classical Kripke (presheaves) / opens (sheaves)</text><text x='160' y='110' text-anchor='middle' font-size='11' fill='var(--cyan)'>universal forcing for intuitionist higher-order logic</text>"
       },
     ],
   });
@@ -714,7 +714,7 @@ Notice the asymmetry: $\to$ and $\forall$ quantify over <em>all</em> $f\colon Y\
       {
         name: '$G$-$\\mathbf{Set}$ (group action)',
         latex: '\\Omega = \\{\\bot, \\top\\} \\text{ with trivial } G\\text{-action}',
-        svgInner: "<circle cx='110' cy='80' r='32' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)' stroke-width='1.5'/><text x='110' y='85' text-anchor='middle' font-size='14' fill='var(--ink)'>⊤</text><circle cx='210' cy='80' r='32' fill='color-mix(in srgb, var(--pink) 25%, var(--panel2))' stroke='var(--pink)' stroke-width='1.5'/><text x='210' y='85' text-anchor='middle' font-size='14' fill='var(--ink)'>⊥</text><text x='160' y='140' text-anchor='middle' font-size='11' fill='var(--mute)'>$\\mathbf{B}G$ is a groupoid ⇒ Boolean topos</text>",
+        svgInner: "<circle cx='110' cy='80' r='32' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)' stroke-width='1.5'/><text x='110' y='85' text-anchor='middle' font-size='14' fill='var(--ink)'>⊤</text><circle cx='210' cy='80' r='32' fill='color-mix(in srgb, var(--pink) 25%, var(--panel2))' stroke='var(--pink)' stroke-width='1.5'/><text x='210' y='85' text-anchor='middle' font-size='14' fill='var(--ink)'>⊥</text><text x='160' y='140' text-anchor='middle' font-size='11' fill='var(--mute)'>BG is a groupoid ⇒ Boolean topos</text>",
         hypotheses: {
           boolean: { pass: true,  note: 'Sieves on the unique object of $\\mathbf{B}G$ are only $\\varnothing$ and $G$, so $\\Omega = \\{\\bot, \\top\\}$ with trivial action; every $G$-stable subset has a $G$-stable complement.' },
           lem:     { pass: true,  note: 'Every subobject of a $G$-set has a $G$-stable complement, so LEM holds.' },
@@ -725,7 +725,7 @@ Notice the asymmetry: $\to$ and $\forall$ quantify over <em>all</em> $f\colon Y\
       {
         name: 'Presheaves $\\widehat{(\\bullet \\to \\bullet)}$',
         latex: '\\widehat{C} \\text{ for } C = (a \\to b)',
-        svgInner: "<circle cx='100' cy='80' r='28' fill='var(--panel2)' stroke='var(--violet)' stroke-width='1.6'/><text x='100' y='84' text-anchor='middle' font-size='13' fill='var(--ink)'>a</text><circle cx='220' cy='80' r='28' fill='var(--panel2)' stroke='var(--violet)' stroke-width='1.6'/><text x='220' y='84' text-anchor='middle' font-size='13' fill='var(--ink)'>b</text><line x1='128' y1='80' x2='192' y2='80' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-pre)'/><defs><marker id='arr-pre' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>$\\Omega(a)$ = sieves on $a$ = $\\{\\varnothing, \\{a\\}, \\{a, a\\to b\\}\\}$</text>",
+        svgInner: "<circle cx='100' cy='80' r='28' fill='var(--panel2)' stroke='var(--violet)' stroke-width='1.6'/><text x='100' y='84' text-anchor='middle' font-size='13' fill='var(--ink)'>a</text><circle cx='220' cy='80' r='28' fill='var(--panel2)' stroke='var(--violet)' stroke-width='1.6'/><text x='220' y='84' text-anchor='middle' font-size='13' fill='var(--ink)'>b</text><line x1='128' y1='80' x2='192' y2='80' stroke='var(--ink)' stroke-width='1.5' marker-end='url(#arr-pre)'/><defs><marker id='arr-pre' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>Ω(a) = sieves on a = ∅, a, a, a→ b</text>",
         hypotheses: {
           boolean: { pass: false, note: '$\\Omega(a)$ has 3 elements (a chain), not a Boolean algebra. The 3-element Heyting algebra $\\{0 < m < 1\\}$ is the simplest non-Boolean example.' },
           lem:     { pass: false, note: 'Take $\\varphi$ classifying the subobject $\\{a\\}$ (true at $a$ but not propagated): $\\varphi \\vee \\neg\\varphi$ omits the middle sieve.' },
@@ -736,7 +736,7 @@ Notice the asymmetry: $\to$ and $\forall$ quantify over <em>all</em> $f\colon Y\
       {
         name: 'Sheaves on $\\mathbb{R}$',
         latex: '\\mathrm{Sh}(\\mathbb{R}) \\text{ — open-set lattice}',
-        svgInner: "<line x1='30' y1='80' x2='290' y2='80' stroke='var(--mute)' stroke-width='1.4'/><circle cx='160' cy='80' r='4' fill='var(--pink)'/><line x1='30' y1='80' x2='160' y2='80' stroke='var(--blue)' stroke-width='3'/><line x1='160' y1='80' x2='290' y2='80' stroke='var(--green)' stroke-width='3'/><text x='90' y='100' text-anchor='middle' font-size='11' fill='var(--blue)'>$U = (-\\infty, 0)$</text><text x='225' y='100' text-anchor='middle' font-size='11' fill='var(--green)'>$\\neg U = (0,\\infty)$</text><text x='160' y='140' text-anchor='middle' font-size='11' fill='var(--pink)'>$U \\vee \\neg U$ misses $\\{0\\}$</text>",
+        svgInner: "<line x1='30' y1='80' x2='290' y2='80' stroke='var(--mute)' stroke-width='1.4'/><circle cx='160' cy='80' r='4' fill='var(--pink)'/><line x1='30' y1='80' x2='160' y2='80' stroke='var(--blue)' stroke-width='3'/><line x1='160' y1='80' x2='290' y2='80' stroke='var(--green)' stroke-width='3'/><text x='90' y='100' text-anchor='middle' font-size='11' fill='var(--blue)'>U = (-∞, 0)</text><text x='225' y='100' text-anchor='middle' font-size='11' fill='var(--green)'>¬ U = (0,∞)</text><text x='160' y='140' text-anchor='middle' font-size='11' fill='var(--pink)'>U ∨ ¬ U misses 0</text>",
         hypotheses: {
           boolean: { pass: false, note: 'Open-set lattice of a non-discrete space is never Boolean (the boundary points sit between $U$ and $\\overline{U}$).' },
           lem:     { pass: false, note: 'Any open whose closure has non-empty boundary witnesses failure: $U \\cup \\mathrm{int}(U^c) \\ne X$.' },
@@ -747,7 +747,7 @@ Notice the asymmetry: $\to$ and $\forall$ quantify over <em>all</em> $f\colon Y\
       {
         name: '$\\neg\\neg$-sheaves of $\\widehat{C}$',
         latex: '\\mathrm{Sh}_{\\neg\\neg}(\\widehat{C})',
-        svgInner: "<circle cx='100' cy='80' r='32' fill='color-mix(in srgb, var(--cyan) 22%, var(--panel2))' stroke='var(--cyan)' stroke-width='1.6'/><text x='100' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>$\\neg\\neg$-stable</text><circle cx='220' cy='80' r='32' fill='color-mix(in srgb, var(--violet) 22%, var(--panel2))' stroke='var(--violet)' stroke-width='1.6'/><text x='220' y='85' text-anchor='middle' font-size='11' fill='var(--ink)'>Boolean</text><line x1='132' y1='80' x2='188' y2='80' stroke='var(--ink)' stroke-width='1.4' marker-end='url(#arr-nn)'/><defs><marker id='arr-nn' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>largest Boolean subtopos of $\\widehat{C}$</text>",
+        svgInner: "<circle cx='100' cy='80' r='32' fill='color-mix(in srgb, var(--cyan) 22%, var(--panel2))' stroke='var(--cyan)' stroke-width='1.6'/><text x='100' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>¬¬-stable</text><circle cx='220' cy='80' r='32' fill='color-mix(in srgb, var(--violet) 22%, var(--panel2))' stroke='var(--violet)' stroke-width='1.6'/><text x='220' y='85' text-anchor='middle' font-size='11' fill='var(--ink)'>Boolean</text><line x1='132' y1='80' x2='188' y2='80' stroke='var(--ink)' stroke-width='1.4' marker-end='url(#arr-nn)'/><defs><marker id='arr-nn' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--ink)'/></marker></defs><text x='160' y='130' text-anchor='middle' font-size='11' fill='var(--mute)'>largest Boolean subtopos of Ĉ</text>",
         hypotheses: {
           boolean: { pass: true,  note: 'By construction the $\\neg\\neg$-topology forces every subobject to have a complement.' },
           lem:     { pass: true,  note: '$\\neg\\neg$-sheaves restore LEM internally — the foundation of Cohen forcing in topos form.' },

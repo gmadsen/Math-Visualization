@@ -562,7 +562,7 @@ function drawNode(svg, x, y, label, opts={}){
     if(which.value==='pred'){
       frames = tracePred(a);
       bIn.disabled = true;
-      summary = `pred(${a}) = ${Math.max(0,a-1)}\nscheme : primitive recursion (no $\\mu$)\ntotal? : yes`;
+      summary = `pred(${a}) = ${Math.max(0,a-1)}\nscheme : primitive recursion (no μ)\ntotal? : yes`;
     } else if(which.value==='add'){
       frames = traceAdd(a, b);
       bIn.disabled = false;
@@ -748,6 +748,7 @@ function drawNode(svg, x, y, label, opts={}){
 /* =========================== Rec-vs-RE Venn widget =========================== */
 (function(){
   const svg=$('#venn-svg'), out=$('#venn-out');
+  const TX = s => s.replace(/\$/g,'').replace(/\\overline\s*([A-Za-z0-9])/g,(m,c)=>c+'̅').replace(/\\mathbb\{N\}/g,'ℕ').replace(/\\(?:mathrm|text)\{([^{}]*)\}/g,'$1').replace(/\\langle\s*/g,'⟨').replace(/\\rangle/g,'⟩').replace(/\\emptyset/g,'∅').replace(/\\subseteq/g,'⊆').replace(/\\Pi/g,'Π').replace(/\\ldots/g,'…').replace(/\\([{}])/g,'$1').replace(/[{}]/g,'');
   // Each problem: id, label, where ('rec','re-only','co-re-only','neither'), blurb
   const problems = [
     {id:'p1', label:'finite sets',          where:'rec',         blurb:'A finite $A\\subseteq\\mathbb{N}$ has a hard-coded decider — list its elements and check.'},
@@ -811,14 +812,14 @@ function drawNode(svg, x, y, label, opts={}){
       const t = SVG('text',{x:slot.x, y:slot.y+5,'text-anchor':'middle',
         'font-size':12, fill: isHL ? 'var(--violet)' : 'var(--ink)',
         'font-weight': isHL ? 700 : 400, 'pointer-events':'none'});
-      t.textContent = p.label;
+      t.textContent = TX(p.label);
       svg.appendChild(t);
     });
 
     // readout
     const sel = problems.find(p=>p.id===highlight);
     out.textContent = sel
-      ? `${sel.label}\n\nclassification: ${({rec:'recursive (decidable)','re-only':'r.e., not recursive','co-re-only':'co-r.e., not recursive', neither:'neither r.e. nor co-r.e.'})[sel.where]}\n\n${sel.blurb}`
+      ? `${TX(sel.label)}\n\nclassification: ${({rec:'recursive (decidable)','re-only':'r.e., not recursive','co-re-only':'co-r.e., not recursive', neither:'neither r.e. nor co-r.e.'})[sel.where]}\n\n${TX(sel.blurb)}`
       : `click any label.\n\nrecursive = decidable = r.e. ∩ co-r.e.\nr.e. only  = halt iff true; loop forever on no\nco-r.e. only = halt iff false (so complement is r.e.)\nneither    = needs ≥ two quantifier alternations`;
   }
 

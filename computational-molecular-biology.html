@@ -488,7 +488,7 @@ function drawNode(svg, x, y, label, opts={}){
       'BWT = '+L+'\n'+
       'F   = '+F+'\n'+
       'C['+Object.keys(C).join(',')+'] = ['+Object.values(C).join(',')+']\n'+
-      (mode==='lf' ? 'LF maps each L-position to its F-mate; iterating LF from $\\$$ reconstructs T.' : 'sorted rotations shown; last column is BWT (cyan), first is F (yellow).');
+      (mode==='lf' ? 'LF maps each L-position to its F-mate; iterating LF from $ reconstructs T.' : 'sorted rotations shown; last column is BWT (cyan), first is F (yellow).');
   }
   xIn.addEventListener('input', render);
   render();

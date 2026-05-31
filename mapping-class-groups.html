@@ -326,6 +326,9 @@ $$1 \longrightarrow \pi_1(S', p) \xrightarrow{\;\text{push}\;} \mathrm{Mod}(S) \
 // ═════ §1 widget · genus calculator ═════
 (function(){
   const sel = $('#mg-pick'), svg = $('#mg-svg'), out = $('#mg-out');
+  const BB={N:'ℕ',Z:'ℤ',Q:'ℚ',R:'ℝ',C:'ℂ',H:'ℍ',P:'ℙ'};
+  const TXMAP={Sigma:'Σ',cong:'≅',ge:'≥',infty:'∞',langle:'⟨',rangle:'⟩',mid:'∣',sim:'∼',xrightarrow:'→',dim:'dim'};
+  const TX=s=>s.replace(/\$\$?/g,'').replace(/\\,/g,' ').replace(/\\[;:]/g,' ').replace(/\\!/g,'').replace(/\\mathbb\{([A-Za-z])\}/g,(m,c)=>BB[c]||c).replace(/\\(?:mathcal|mathrm|mathbf|text|operatorname)\{([^{}]*)\}/g,'$1').replace(/\\([A-Za-z]+)/g,(m,c)=>(c in TXMAP)?TXMAP[c]:c).replace(/[{}]/g,'');
   if(!svg) return;
   const W=720, H=220;
   function torus(cx,cy,a,b){
@@ -369,12 +372,12 @@ $$1 \longrightarrow \pi_1(S', p) \xrightarrow{\;\text{push}\;} \mathrm{Mod}(S) \
     }
     svg.innerHTML = `<title>Surface schematic</title>` + drawing;
     out.textContent =
-      `surface: ${d.name.replace(/\\\\/g,'\\').replace(/\\Sigma/g,'Σ')}\n` +
+      `surface: ${TX(d.name)}\n` +
       `genus  g = ${d.g}\n` +
-      `Mod(S):  ${d.mod}\n` +
-      `presentation:  ${d.presentation}\n` +
-      `Teichmüller dim:  ${d.dim}\n\n` +
-      d.note;
+      `Mod(S):  ${TX(d.mod)}\n` +
+      `presentation:  ${TX(d.presentation)}\n` +
+      `Teichmüller dim:  ${TX(d.dim)}\n\n` +
+      TX(d.note);
   }
   sel.addEventListener('change', render);
   render();

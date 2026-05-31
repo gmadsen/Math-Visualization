@@ -993,7 +993,7 @@ Selmer groups are the bookkeeping device: they count the infinitesimal direction
     if(!state.ord){ dim++; narr.push('drop ordinary condition at p → +1 Selmer dimension'); }
     btns.forEach(b=>{ const k=b.dataset.k; b.textContent = state[k] ? 'on' : 'off'; b.classList.toggle('active', state[k]); });
     out.textContent =
-      narr.map(s=>'• '+s.replace(/\\\$/g,'').replace(/\\\\/g,'')).join('\n') + '\n' +
+      narr.map(s=>'• '+s.replace(/\$/g,'').replace(/\\overline\\rho/g,'ρ̅').replace(/\\rho/g,'ρ').replace(/\\([{}])/g,'$1')).join('\n') + '\n' +
       `Relative Selmer dim (toy count): ${dim}\n`+
       `R_Σ is a quotient of Z_p[[x_1,…,x_${Math.max(dim,1)}]] (dim ≤ ${dim}).`;
   }

@@ -616,14 +616,14 @@ function drawNode(svg, x, y, label, opts={}){
     }
     // header
     const hdr = SVG("text",{x:W/2,y:25,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
-    hdr.textContent = `${d.name} — cube has 2^${n} = ${1<<n} vertices, ${n*(1<<(n-1))} edges`;
+    hdr.textContent = `${d.name.replace(/[$\\]/g,'')} — cube has 2^${n} = ${1<<n} vertices, ${n*(1<<(n-1))} edges`;
     svg.appendChild(hdr);
     // legend
     const lg = SVG("text",{x:W/2,y:H-15,"text-anchor":"middle","font-size":11,fill:"var(--mute)"});
     lg.textContent = "cyan edges = merge (m: A⊗A→A);  pink edges = split (Δ: A→A⊗A)";
     svg.appendChild(lg);
     const total = Object.values(d.vertices).reduce((s,vd)=>s+(1<<vd.circles), 0);
-    out.innerHTML = `<strong>${d.name}</strong>: ${1<<n} resolutions, total chain rank before grading shifts = ${total}.  Each circle contributes a tensor factor of A = ℤ[X]/(X²) (rank 2), so vertex with k circles contributes 2^k.`;
+    out.innerHTML = `<strong>${d.name.replace(/[$\\]/g,'')}</strong>: ${1<<n} resolutions, total chain rank before grading shifts = ${total}.  Each circle contributes a tensor factor of A = ℤ[X]/(X²) (rank 2), so vertex with k circles contributes 2^k.`;
   }
   sel.addEventListener("change", draw);
   draw();
@@ -690,13 +690,13 @@ function drawNode(svg, x, y, label, opts={}){
     }
     // header
     const hdr = SVG("text",{x:W/2, y:25,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
-    hdr.textContent = `${d.name} (n_+ = ${d.np}, n_- = ${d.nm}) — total dim Kh = ${total}`;
+    hdr.textContent = `${d.name.replace(/[$\\]/g,'')} (n_+ = ${d.np}, n_- = ${d.nm}) — total dim Kh = ${total}`;
     svg.appendChild(hdr);
     // Euler characteristic on the side
     let chi = {};
     for(const [i,j,v] of cells){ chi[j] = (chi[j]||0) + ((i%2===0)?v:-v); }
     const polyTerms = Object.entries(chi).filter(([,c])=>c!==0).sort((a,b)=>+a[0]-+b[0]).map(([j,c])=>`${c>0?"+":""}${c}q^${j}`).join("");
-    out.textContent = `Σ (-1)^i q^j dim Kh^{i,j}(${d.name}) = ${polyTerms || "0"}.  This equals (q+q^{-1})·V_L(q²).`;
+    out.textContent = `Σ (-1)^i q^j dim Kh^{i,j}(${d.name.replace(/[$\\]/g,'')}) = ${polyTerms || "0"}.  This equals (q+q^{-1})·V_L(q²).`;
   }
   sel.addEventListener("change", draw);
   draw();
@@ -760,8 +760,8 @@ function drawNode(svg, x, y, label, opts={}){
     drawArrow(svg, [20+colW, H/2], [W/2+10, H/2], {color:"var(--mute)", label:"χ_q", labelSide:1, markerId:"je-arr"});
     // header
     const hdr = SVG("text",{x:W/2,y:18,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
-    hdr.textContent = `${d.name}: graded Euler characteristic recovers Jones`; svg.appendChild(hdr);
-    out.innerHTML = `<strong>${d.name}</strong>:  Khovanov bigraded ranks → graded Euler characteristic χ_q = (q+q^{-1})·V_L(q²) = ${d.khrank}.  Jones polynomial V_L(q) = ${d.jones}.`;
+    hdr.textContent = `${d.name.replace(/[$\\]/g,'')}: graded Euler characteristic recovers Jones`; svg.appendChild(hdr);
+    out.innerHTML = `<strong>${d.name.replace(/[$\\]/g,'')}</strong>:  Khovanov bigraded ranks → graded Euler characteristic χ_q = (q+q^{-1})·V_L(q²) = ${d.khrank}.  Jones polynomial V_L(q) = ${d.jones}.`;
   }
   sel.addEventListener("change", draw);
   draw();
@@ -876,7 +876,7 @@ function drawNode(svg, x, y, label, opts={}){
     else if(d.drawer==="y") drawY(svg);
     else drawBubble(svg);
     const t = SVG("text",{x:W/2, y:25,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
-    t.textContent = d.name; svg.appendChild(t);
+    t.textContent = d.name.replace(/[$\\]/g,''); svg.appendChild(t);
     const r = SVG("text",{x:W/2, y:H-40,"text-anchor":"middle","font-size":12,fill:"var(--cyan)"});
     r.textContent = `relation: ${d.relation.replace(/[$\\]/g,"")}`; svg.appendChild(r);
     out.textContent = d.desc;
