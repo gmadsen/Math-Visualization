@@ -292,7 +292,87 @@ function legendre(a,p){
 <p style="text-align:center">$\Delta_K \;=\; \det\bigl(\sigma_i(\omega_j)\bigr)^2 \;=\; \det\bigl(\mathrm{Tr}_{K/\mathbb{Q}}(\omega_i\omega_j)\bigr)\;\in\;\mathbb{Z}$,</p>
 <p>independent of the choice of basis (different bases change the matrix by $\mathrm{GL}_n(\mathbb{Z})$, whose determinant squares to $1$). Concretely: $\Delta_{\mathbb{Q}(\sqrt{d})}=d$ when $d\equiv 1\pmod 4$ and $4d$ otherwise; $\Delta_{\mathbb{Q}(\zeta_p)}=(-1)^{(p-1)/2}p^{p-2}$ for an odd prime $p$.</p>
 <p>The discriminant is an <em>arithmetic</em> invariant that sees ramification: <strong>a rational prime $p$ ramifies in $K$ iff $p\mid\Delta_K$</strong>. And it is an <em>analytic</em> invariant — it governs the Minkowski bound $M_K\propto\sqrt{|\Delta_K|}$ and the leading term of $\zeta_K(s)$ at $s=1$. The Hermite–Minkowski theorem $|\Delta_K|\ge\bigl(\tfrac{n^n}{n!}\bigr)^2\bigl(\tfrac{\pi}{4}\bigr)^{n}$ in particular forces $|\Delta_K|\to\infty$ as $n\to\infty$ and rules out any unramified extension of $\mathbb{Q}$.</p>
-<div class="quiz" data-concept="discriminant-ant"></div>
+<div class="widget" id="w-disc">
+  <div class="hd"><div class="ttl">Discriminant as ramification fingerprint</div><div class="hint">pick $\mathbb{Q}(\sqrt{d})$ — which primes ramify?</div></div>
+  <div class="row">
+    <label for="disc-d">quadratic field:</label>
+    <select id="disc-d"><option value="-1">d = −1 — ℚ(i), Gaussian</option><option value="-3">d = −3 — Eisenstein</option><option value="5">d = 5</option><option value="-5" selected>d = −5 — class number 2</option><option value="2">d = 2</option><option value="-7">d = −7</option><option value="6">d = 6</option><option value="13">d = 13</option><option value="17">d = 17</option><option value="-23">d = −23 — class number 3</option></select>
+  </div>
+  <svg id="disc-svg" viewBox="0 0 720 280" width="720" height="280"><title>Discriminant and ramified primes</title></svg>
+  <div class="readout" id="disc-out"></div>
+</div>
+<script>
+(function(){
+  const sel = $('#disc-d'), svg = $('#disc-svg'), out = $('#disc-out');
+  if(!sel || !svg || !out) return;
+  const PRIMES = [2,3,5,7,11,13,17,19,23,29,31];
+  const COL = { ram:'var(--pink)', split:'var(--green)', inert:'var(--blue)' };
+  const WORD = { ram:'ramifies', split:'splits', inert:'inert' };
+  const SHAPE = { ram:'(p) = \uD835\uDD2D\u00B2', split:'(p) = \uD835\uDD2D\u00B7\uD835\uDD2D\u2032', inert:'(p) = \uD835\uDD2D' };
+
+  // Legendre symbol (a/p) for an odd prime p with p \u2224 a: +1 if a is a QR, \u22121 otherwise.
+  function legendre(a,p){
+    a = mod(a,p); if(a===0) return 0;
+    let r=1, e=(p-1)/2, b=a;
+    while(e>0){ if(e&1) r=(r*b)%p; b=(b*b)%p; e>>=1; }
+    return r===1 ? 1 : -1;
+  }
+  // Prime factorization of |n| as [[p,e],...].
+  function factor(n){ n=Math.abs(n); const f=[]; for(let p=2;p*p<=n;p++){ if(n%p===0){ let e=0; while(n%p===0){ n/=p; e++; } f.push([p,e]); } } if(n>1) f.push([n,1]); return f; }
+  // p in Q(\u221ad): ramified iff p | \u0394_K; else split/inert by the Kronecker symbol
+  // (odd p: Legendre (d/p); p=2 when 2\u2224\u0394 means d\u22611 mod 4, split iff d\u22611 mod 8).
+  function classify(d, disc, p){
+    if(disc % p === 0) return 'ram';
+    if(p===2) return mod(d,8)===1 ? 'split' : 'inert';
+    return legendre(d,p)===1 ? 'split' : 'inert';
+  }
+  const sup = n => String(n).replace(/[0-9]/g, c => '\u2070\u00B9\u00B2\u00B3\u2074\u2075\u2076\u2077\u2078\u2079'[+c]);
+  function discStr(disc){
+    const sign = disc<0 ? '\u2212' : '';
+    const f = factor(disc).map(([p,e]) => e===1 ? ''+p : p+sup(e)).join('\u00B7');
+    return sign + Math.abs(disc) + ' = ' + sign + f;
+  }
+
+  function render(){
+    const d = parseInt(sel.value,10);
+    const dm4 = mod(d,4);
+    const disc = (dm4===1) ? d : 4*d;
+    let s = '';
+    const BW=60, GAP=4, x0=10, yTop=86, BH=104;
+    // header line
+    s += '<text x="10" y="30" font-size="16" font-weight="600" fill="var(--ink)">K = \u211a(\u221a'+d+')</text>';
+    s += '<text x="10" y="54" font-size="15" fill="var(--mute)">discriminant  \u0394_K = '+discStr(disc)+'   (d \u2261 '+dm4+' mod 4)</text>';
+    const ram = [];
+    PRIMES.forEach((p,i)=>{
+      const st = classify(d, disc, p);
+      if(st==='ram') ram.push(p);
+      const x = x0 + i*(BW+GAP);
+      const c = COL[st];
+      s += '<rect x="'+x+'" y="'+yTop+'" width="'+BW+'" height="'+BH+'" rx="7" fill="'+c+'" fill-opacity="'+(st==='ram'?0.30:0.14)+'" stroke="'+c+'" stroke-width="'+(st==='ram'?2.4:1.2)+'"/>';
+      s += '<text x="'+(x+BW/2)+'" y="'+(yTop+34)+'" text-anchor="middle" font-size="23" font-weight="700" fill="var(--ink)">'+p+'</text>';
+      s += '<text x="'+(x+BW/2)+'" y="'+(yTop+57)+'" text-anchor="middle" font-size="11" fill="'+c+'" font-weight="600">'+WORD[st]+'</text>';
+      s += '<text x="'+(x+BW/2)+'" y="'+(yTop+80)+'" text-anchor="middle" font-size="12" fill="var(--mute)">'+SHAPE[st]+'</text>';
+    });
+    // legend
+    const ly = yTop+BH+34;
+    const leg = [['ram','ramified \u2014 p | \u0394_K'],['split','split'],['inert','inert']];
+    let lx = 10;
+    leg.forEach(([k,lab])=>{
+      s += '<rect x="'+lx+'" y="'+(ly-12)+'" width="16" height="16" rx="3" fill="'+COL[k]+'" fill-opacity="0.30" stroke="'+COL[k]+'"/>';
+      s += '<text x="'+(lx+22)+'" y="'+(ly+1)+'" font-size="12.5" fill="var(--ink)">'+lab+'</text>';
+      lx += 34 + lab.length*7.0;
+    });
+    svg.innerHTML = s;
+    out.textContent = 'The ramified primes are exactly the prime divisors of \u0394_K = '
+      + discStr(disc).split(' = ')[0] + '. Here they are { ' + ram.join(', ') + ' }. '
+      + 'Every other prime is unramified: an odd p splits as (p)=\uD835\uDD2D\uD835\uDD2D\u2032 when d is a square mod p, '
+      + 'and is inert as (p)=\uD835\uDD2D otherwise; here p=2 splits exactly when d ≡ 1 (mod 8). Minkowski: |\u0394_K| > 1 forces at least one ramified prime, '
+      + 'so \u211a has no unramified extension.';
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script><div class="quiz" data-concept="discriminant-ant"></div>
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
