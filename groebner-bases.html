@@ -716,7 +716,7 @@ Equivalently: for every $f\in I\setminus\{0\}$, some $\mathrm{LT}(g_i)$ divides 
       let m=''; if(a>0) m+= (a===1?'x':'x^'+a); if(b>0) m+= (b===1?'y':'y^'+b);
       return m;
     }).join(', ') : `${standard.length} (in window) — extends infinitely`;
-    out.textContent = `selected: ${P.desc.replace(/\$/g,'').replace(/\\\\/g,'')}\n\nstandard monomials (basis of R/I):\n  ${stdStr}\n\ngenerators of <LT(I)>: ${lts.map(([a,b])=>{
+    out.textContent = `selected: ${P.desc.replace(/\\langle/g,'⟨').replace(/\\rangle/g,'⟩').replace(/\\\\/g,'').replace(/\$/g,'')}\n\nstandard monomials (basis of R/I):\n  ${stdStr}\n\ngenerators of <LT(I)>: ${lts.map(([a,b])=>{
       if(a===0 && b===0) return '1';
       let m=''; if(a>0) m+=(a===1?'x':'x^'+a); if(b>0) m+=(b===1?'y':'y^'+b);
       return m;
