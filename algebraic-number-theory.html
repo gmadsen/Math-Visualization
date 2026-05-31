@@ -365,8 +365,8 @@ function legendre(a,p){
     svg.innerHTML = s;
     out.textContent = 'The ramified primes are exactly the prime divisors of \u0394_K = '
       + discStr(disc).split(' = ')[0] + '. Here they are { ' + ram.join(', ') + ' }. '
-      + 'Every other prime is unramified: it splits as (p)=\uD835\uDD2D\uD835\uDD2D\u2032 when d is a square mod p, '
-      + 'and stays inert as (p)=\uD835\uDD2D when it is not. Minkowski: |\u0394_K| > 1 forces at least one ramified prime, '
+      + 'Every other prime is unramified: an odd p splits as (p)=\uD835\uDD2D\uD835\uDD2D\u2032 when d is a square mod p, '
+      + 'and is inert as (p)=\uD835\uDD2D otherwise; here p=2 splits exactly when d ≡ 1 (mod 8). Minkowski: |\u0394_K| > 1 forces at least one ramified prime, '
       + 'so \u211a has no unramified extension.';
   }
   sel.addEventListener('change', render);
