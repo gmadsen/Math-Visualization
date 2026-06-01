@@ -203,6 +203,36 @@ function findHtmlSection(html, anchor, conceptAnchors = null) {
   );
   const m = idRe.exec(html);
   if (!m) return null;
+
+  // Anchor on a sub-heading (<h3 id> etc.) rather than the <section> itself:
+  // the canonical backlinks aside is placed at SECTION granularity by --fix
+  // (upsertFencedBlock keys on the concept's *parent section* id, via
+  // parentSectionIdFor). So a concept is "covered" iff its ENCLOSING <section>
+  // carries the aside — NOT the narrow anchor→next-heading sub-region, which a
+  // sibling concept's section-level aside can legitimately fall outside of.
+  // Without this, giving a concept a distinct <h3 id> anchor (instead of
+  // sharing its section's id) makes the audit report a false MISSING and breaks
+  // the CI gate even though --fix placed the aside correctly. (See also
+  // [[feedback_concept_anchor_must_be_section_id]].)
+  if (m[1].toLowerCase() !== 'section') {
+    const openRe = /<section\b[^>]*>/gi;
+    let enc = null;
+    let om;
+    while ((om = openRe.exec(html)) !== null) {
+      if (om.index > m.index) break;
+      enc = om;
+    }
+    if (enc) {
+      const bodyStart = enc.index + enc[0].length;
+      const closeRe = /<\/section>/gi;
+      closeRe.lastIndex = m.index;
+      const cm = closeRe.exec(html);
+      const bodyEnd = cm ? cm.index : html.length;
+      return { innerStart: bodyStart, innerEnd: bodyEnd, body: html.slice(bodyStart, bodyEnd) };
+    }
+    // No enclosing <section> (shouldn't happen) — fall through to default.
+  }
+
   const innerStart = m.index + m[0].length;
 
   // Walk subsequent boundary candidates in order; skip any whose id isn't a

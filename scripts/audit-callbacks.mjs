@@ -284,9 +284,14 @@ function reparseTopicView(rawHtml) {
 function extractCallbackLis(existingAside) {
   const liByHref = new Map();
   const liOrder = [];
+  // href -> inner text of the first <a> (used to detect anchor renames: a
+  // stale <li> whose page+text matches a current prereq link is the same
+  // concept with a moved anchor, so its href is refreshed in place rather
+  // than leaving the stale <li> + appending a duplicate).
+  const liText = new Map();
   let warning = null;
   if (!existingAside || typeof existingAside !== 'string') {
-    return { liByHref, liOrder, warning };
+    return { liByHref, liOrder, liText, warning };
   }
   // Capture every <li>...</li>, then on each, extract the first href.
   const liRe = /<li>[\s\S]*?<\/li>/gi;
@@ -299,6 +304,8 @@ function extractCallbackLis(existingAside) {
     if (!liByHref.has(href)) {
       liByHref.set(href, liHtml);
       liOrder.push(href);
+      const textMatch = /<a\s+[^>]*>([\s\S]*?)<\/a>/i.exec(liHtml);
+      liText.set(href, textMatch ? textMatch[1].trim() : '');
     }
   }
   // Fidelity check — count opening <li> tags vs matched closed-pair blocks.
@@ -317,7 +324,14 @@ function extractCallbackLis(existingAside) {
       `aside has ${openCount} <li> openings but only ${pairCount} </li> closes — ` +
       `${openCount - pairCount} unclosed item(s) will be silently dropped from the regenerated aside`;
   }
-  return { liByHref, liOrder, warning };
+  return { liByHref, liOrder, liText, warning };
+}
+
+// Page part of a callback href: './page.html#anchor' or 'page.html#anchor'
+// -> 'page.html' (null if no '#'). Used for rename detection.
+function pageOfHref(href) {
+  const m = /^(?:\.\/)?([^#]+)#/.exec(href || '');
+  return m ? m[1] : null;
 }
 
 // Canonical-but-additive regenerator. Behavior:
@@ -340,16 +354,50 @@ function extractCallbackLis(existingAside) {
 // previous version regenerated the aside from scratch, dropping every
 // hand-authored entry that wasn't backed by a prereq edge.
 function buildCallbackHtml(links, existingAside, warningSink) {
-  const { liByHref, liOrder, warning } = extractCallbackLis(existingAside);
+  const { liByHref, liOrder, liText, warning } = extractCallbackLis(existingAside);
   if (warning && warningSink && typeof warningSink.push === 'function') {
     warningSink.push(warning);
   }
   // Helper: for a prereq link, produce both candidate href forms.
   const hrefForms = (l) => [`./${l.page}#${l.anchor}`, `${l.page}#${l.anchor}`];
-  // Build indented <li>s in this order: existing first, then new.
-  const lines = [];
-  for (const href of liOrder) lines.push('    ' + liByHref.get(href));
+
+  // Rename detection. A current prereq link whose exact href is NOT already
+  // present, but which matches an existing <li> on the SAME page with the SAME
+  // link text (only the anchor differs), is the same concept whose anchor
+  // MOVED. Refresh that <li>'s href in place rather than preserving the stale
+  // one and appending a duplicate (the append-only behaviour orphaned the old
+  // <li> on every anchor rename — see PR fixing the anchor-aware tooling gap).
+  // Hand-authored <li>s (prose annotations whose text != the prereq title) and
+  // valid removed-prereq links (page+text don't match any current link) are
+  // still preserved verbatim.
+  const supersededHref = new Map(); // stale href -> fresh link
+  const renamedLinks = new Set();   // links emitted via rename (don't re-append)
   for (const l of links) {
+    const [href1, href2] = hrefForms(l);
+    if (liByHref.has(href1) || liByHref.has(href2)) continue; // exact already present
+    for (const href of liOrder) {
+      if (supersededHref.has(href)) continue;
+      if (pageOfHref(href) !== l.page) continue;
+      if ((liText.get(href) || '') !== String(l.title)) continue;
+      supersededHref.set(href, l);
+      renamedLinks.add(l);
+      break;
+    }
+  }
+
+  // Build indented <li>s: existing in original order (renamed ones refreshed
+  // in place), then any genuinely-new prereq links appended.
+  const lines = [];
+  for (const href of liOrder) {
+    if (supersededHref.has(href)) {
+      const l = supersededHref.get(href);
+      lines.push(`    <li><a href="./${l.page}#${l.anchor}">${l.title}</a></li>`);
+    } else {
+      lines.push('    ' + liByHref.get(href));
+    }
+  }
+  for (const l of links) {
+    if (renamedLinks.has(l)) continue;
     const [href1, href2] = hrefForms(l);
     if (liByHref.has(href1) || liByHref.has(href2)) continue;
     lines.push(`    <li><a href="${href1}">${l.title}</a></li>`);
