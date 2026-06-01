@@ -170,8 +170,21 @@ for (const c of model.concepts.values()) {
   }
 }
 
-// ----- Per-concept coverage: does each concept have a widget in its section? -----
-
+// ----- Per-concept coverage: does each concept have a widget in its span? -----
+//
+// A concept is credited with a toy if a `widget` block appears within its
+// content SPAN — from its anchor to the next concept anchor in reading order —
+// not merely when `anchor === section.id`. The old section-id-equality rule had
+// two failure modes that mis-stated coverage:
+//   - h3-anchored sub-concepts (anchor is an <h3 id> inside a larger section,
+//     e.g. `discriminant`, `paths`) were NEVER credited, even with a widget
+//     sitting right beside their prose.
+//   - concepts SHARING a section's id with a sibling were credited via the
+//     sibling's widget even when their own sub-region had none.
+// Walking the block stream and tracking the most-recent concept anchor fixes
+// both: a widget credits whichever concept's span it falls in. Anchor-sharing
+// siblings (two concepts with the same anchor) are both credited. Non-concept
+// ids (decorative sub-headings, element ids) don't end a span.
 const conceptHasWidget = new Map(); // conceptId -> bool
 for (const f of readdirSync(contentDir)) {
   if (!f.endsWith('.json')) continue;
@@ -179,15 +192,30 @@ for (const f of readdirSync(contentDir)) {
   const topic = model.topics.get(tid);
   if (!topic) continue;
   const j = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
-  // Match widget blocks to concepts via the containing section's id (= anchor).
-  // The content-json "section.id" is the anchor. Find the concept whose .anchor matches.
+
+  const topicConcepts = [...model.concepts.values()].filter((c) => c.topic === tid);
+  const anchorSet = new Set(topicConcepts.map((c) => c.anchor));
+
+  // Reading-order event stream: each concept-anchor occurrence opens a new
+  // span; each widget block credits the open span's concept(s).
+  let currentAnchor = null;
+  const creditCurrent = () => {
+    if (!currentAnchor) return;
+    for (const c of topicConcepts) {
+      if (c.anchor === currentAnchor) conceptHasWidget.set(c.id, true);
+    }
+  };
   for (const s of j.sections || []) {
-    const conceptForSection = [...model.concepts.values()].find(
-      (c) => c.topic === tid && c.anchor === s.id
-    );
-    if (!conceptForSection) continue;
-    const hasWidget = (s.blocks || []).some((b) => b.type === 'widget');
-    if (hasWidget) conceptHasWidget.set(conceptForSection.id, true);
+    if (s.id && anchorSet.has(s.id)) currentAnchor = s.id;
+    for (const b of s.blocks || []) {
+      if (b.type === 'widget') {
+        creditCurrent();
+      } else if (b.type === 'raw' && typeof b.html === 'string') {
+        for (const m of b.html.matchAll(/\bid="([^"]+)"/g)) {
+          if (anchorSet.has(m[1])) currentAnchor = m[1];
+        }
+      }
+    }
   }
 }
 
@@ -333,7 +361,7 @@ ${topics.map(makeTopicSection).join('\n')}
 
 ## Coverage gaps
 
-### Concepts missing a widget in their owning section (top 20)
+### Concepts missing a widget in their span (top 20)
 
 ${
   conceptsMissingWidget.length === 0
@@ -374,7 +402,7 @@ console.log(`# Coverage + type stats
 ${subjects.map(makeSubjectSection).join('\n')}
 ## Coverage gaps
 
-- ${conceptsMissingWidget.length} concepts lack a widget in their section
+- ${conceptsMissingWidget.length} concepts lack a widget in their span
 - ${conceptsMissingHard.length} concepts lack a hard-tier quiz
 
 Full report: audits/coverage-stats.md
