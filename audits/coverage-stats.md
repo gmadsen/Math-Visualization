@@ -6,7 +6,7 @@
 - Widgets: **1594** (registry-driven: 1594, inline: 0)
 - Quizzes: **5458** (v1: 4222, hard: 1223, expert: 13)
 - Quiz types: mcq: 3591, numeric: 1291, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **10**
+- Concepts lacking a widget in their section: **5**
 - Concepts lacking a hard-tier quiz: **984**
 
 ## Per-slug registry adoption
@@ -1040,18 +1040,13 @@ page has wired one in yet.
 
 ## Coverage gaps
 
-### Concepts missing a widget in their owning section (top 20)
+### Concepts missing a widget in their span (top 20)
 
 - `realization-functors` (motives)
 - `hodge-as-realization` (hodge-theory)
 - `global-langlands-gl-n` (langlands-program)
 - `functoriality-langlands-group` (langlands-program)
 - `universal-reciprocity` (langlands-program)
-- `simply-connected` (algebraic-topology)
-- `fundamental-group` (algebraic-topology)
-- `splitting-fields` (galois)
-- `solvability-by-radicals` (galois)
-- `discriminant-ant` (algebraic-number-theory)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
