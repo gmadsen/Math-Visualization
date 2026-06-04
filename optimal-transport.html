@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Optimal transport</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="analysis" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#monge-kantorovich">1&nbsp;The&nbsp;Monge&nbsp;and&nbsp;Kantorovich&nbsp;problems</a>
+  <a href="#duality">2&nbsp;Kantorovich&nbsp;duality</a>
+  <a href="#wasserstein">3&nbsp;Wasserstein&nbsp;distances</a>
+  <a href="#brenier">4&nbsp;Brenier’s&nbsp;theorem&nbsp;and&nbsp;Monge&nbsp;maps</a>
+  <a href="#geodesics">5&nbsp;Wasserstein&nbsp;geodesics&nbsp;and&nbsp;displacement&nbsp;interpolation</a>
+  <a href="#gradient-flows">6&nbsp;Otto&nbsp;calculus&nbsp;and&nbsp;JKO&nbsp;gradient&nbsp;flows</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Optimal transport</h1>
+  <p class="sub">Moving mass at least cost — from Monge’s 1781 earthworks to Kantorovich duality, Wasserstein geometry, Brenier maps, and the gradient-flow view of diffusion.</p>
+</section>
+
+<section id="monge-kantorovich">
+<h2>1. The Monge and Kantorovich problems</h2>
+<p>You have a pile of sand shaped like a measure $\mu$ and a hole shaped like $\nu$, both of unit total mass. Moving a grain from $x$ to $y$ costs $c(x,y)$. <strong>Monge’s problem</strong> (1781) seeks a map $T$ with $T_\#\mu=\nu$ minimizing $\int c(x,T(x))\,d\mu(x)$ — every grain at $x$ goes to the single location $T(x)$.</p>
+<p>The trouble is that a map cannot <em>split</em> mass: if $\mu=\delta_0$ but $\nu=\tfrac12\delta_{-1}+\tfrac12\delta_{1}$, no $T$ exists. <strong>Kantorovich</strong> (1942) relaxes the map to a <em>coupling</em> (transport plan) $\pi\in\Pi(\mu,\nu)$ — a measure on $X\times Y$ whose marginals are $\mu$ and $\nu$ — and minimizes the linear objective $\int c\,d\pi$:</p>
+<p>$$\mathrm{(K)}\qquad \min_{\pi\in\Pi(\mu,\nu)}\ \int_{X\times Y} c(x,y)\,d\pi(x,y).$$</p>
+<p>This is a <em>linear program</em> over the (compact, convex) transportation polytope, so a minimizer always exists. On a finite ground set it is exactly the classical transportation / assignment problem, and — for a convex cost on the line — the optimal plan is the <strong>monotone</strong> one, which you can read off by the north-west-corner rule.</p>
+<div class="widget" id="w-mk">
+  <div class="hd"><div class="ttl">Discrete transport: the monotone optimal plan</div><div class="hint">drag the sliders</div></div>
+  <svg id="mk-svg" viewBox="0 0 640 260" width="640" height="260"><title>Optimal transport plan between two discrete measures</title></svg>
+  <div class="row">
+    <label for="mk-spr">target spread</label>
+    <input type="range" id="mk-spr" min="0.4" max="1.8" step="0.1" value="1.2">
+    <span class="small" id="mk-spr-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="mk-p">cost exponent $p$</label>
+    <input type="range" id="mk-p" min="1" max="2" step="1" value="1">
+    <span class="small" id="mk-p-lbl"></span>
+  </div>
+  <div class="readout" id="mk-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#mk-svg'), out=$('#mk-out');
+  const spr=$('#mk-spr'), sprL=$('#mk-spr-lbl'), pw=$('#mk-p'), pwL=$('#mk-p-lbl');
+  const W=640;
+  const srcPos=[1,2.4,3.6], srcMass=[0.5,0.3,0.2];
+  const tgtMass=[0.2,0.5,0.3];
+  function X(v){ return 60 + v*(W-120)/5; }
+  function render(){
+    svg.innerHTML='';
+    const spread=+spr.value, p=+pw.value;
+    sprL.textContent='target spread = '+spread.toFixed(1);
+    pwL.textContent='cost exponent p = '+p.toFixed(0);
+    const center=2.5;
+    const tgtPos=[center-spread, center, center+spread];
+    let i=0,j=0, ri=srcMass[0], rj=tgtMass[0], cost=0; const arcs=[];
+    while(i<3 && j<3){
+      const m=Math.min(ri,rj);
+      cost += m*Math.pow(Math.abs(srcPos[i]-tgtPos[j]),p);
+      arcs.push([i,j,m]);
+      ri-=m; rj-=m;
+      if(ri<=1e-9){ i++; ri=srcMass[i]||0; }
+      if(rj<=1e-9){ j++; rj=tgtMass[j]||0; }
+    }
+    const ySrc=70, yTgt=200, mid=(ySrc+yTgt)/2;
+    for(const a of arcs){
+      const sx=X(srcPos[a[0]]), tx=X(tgtPos[a[1]]);
+      svg.appendChild(SVG('path',{d:'M'+sx+' '+(ySrc+10)+' C '+sx+' '+mid+' '+tx+' '+mid+' '+tx+' '+(yTgt-10),
+        fill:'none', stroke:'var(--cyan)','stroke-width':Math.max(1,a[2]*26),'stroke-opacity':0.5}));
+    }
+    for(let k=0;k<3;k++) svg.appendChild(SVG('circle',{cx:X(srcPos[k]),cy:ySrc,r:6+srcMass[k]*30,fill:'var(--yellow)'}));
+    for(let k=0;k<3;k++) svg.appendChild(SVG('circle',{cx:X(tgtPos[k]),cy:yTgt,r:6+tgtMass[k]*30,fill:'var(--violet)'}));
+    const lab=function(x,y,t,c){const e=SVG('text',{x:x,y:y,'text-anchor':'middle','font-size':13,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(30,ySrc+5,'μ','var(--yellow)'); lab(30,yTgt+5,'ν','var(--violet)');
+    out.textContent='source masses μ = (0.5, 0.3, 0.2);   target masses ν = (0.2, 0.5, 0.3)\n'
+      +'optimal monotone (north-west-corner) plan uses '+arcs.length+' arcs — some source piles split across several targets, which no Monge map could do\n'
+      +'total cost  Σ πᵢⱼ |xᵢ−yⱼ|^p = '+cost.toFixed(3)+'   (p = '+p.toFixed(0)+')';
+  }
+  spr.addEventListener('input',render); pw.addEventListener('input',render); render();
+
+})();
+</script><p class="note">The arcs that fan out from a single source pile show mass <em>splitting</em> across targets — the move Monge’s formulation forbids and Kantorovich’s allows. Total mass is conserved, and for $p\ge1$ the monotone plan shown is genuinely optimal.</p>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./combinatorial-optimization.html#matching">Matching and assignment</a></li>
+    <li><a href="./measure-theory.html#measurable">Measurable functions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./optimal-transport.html#duality">Optimal transport</a> · Kantorovich duality</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ot-monge-kantorovich"></div></section>
+<section id="duality">
+<h2>2. Kantorovich duality</h2>
+<p>Every linear program has a dual, and transport is no exception. The dual of $\mathrm{(K)}$ maximizes over pairs of <strong>potentials</strong> $(\varphi,\psi)$:</p>
+<p>$$\mathrm{(D)}\qquad \max_{\varphi(x)+\psi(y)\,\le\,c(x,y)}\ \int \varphi\,d\mu + \int \psi\,d\nu.$$</p>
+<p>Strong duality holds: $\min\mathrm{(K)}=\max\mathrm{(D)}$. At the optimum $\psi=\varphi^{c}$ is the $c$-transform of $\varphi$, and <em>complementary slackness</em> forces the inequality $\varphi(x)+\psi(y)\le c(x,y)$ to be an <em>equality</em> precisely on the support of the optimal plan — which is how the dual locates where mass actually moves.</p>
+<p>For the distance cost $c(x,y)=|x-y|$ the dual collapses to a single $1$-Lipschitz function, giving <strong>Kantorovich–Rubinstein</strong>:</p>
+<p>$$W_1(\mu,\nu)=\sup_{\mathrm{Lip}(f)\le 1}\ \int f\,d\mu-\int f\,d\nu.$$</p>
+<p>In one dimension this has the clean closed form $W_1=\int_{\mathbb{R}}|F_\mu(x)-F_\nu(x)|\,dx$, the area between the two cumulative distribution functions — which is exactly what the widget shades.</p>
+<div class="widget" id="w-dual">
+  <div class="hd"><div class="ttl">$W_1$ as the area between CDFs</div><div class="hint">slide ν</div></div>
+  <svg id="du-svg" viewBox="0 0 640 260" width="640" height="260"><title>W1 equals the area between the two cumulative distribution functions</title></svg>
+  <div class="row">
+    <label for="du-m">shift of $\nu$</label>
+    <input type="range" id="du-m" min="-1" max="2" step="0.1" value="0">
+    <span class="small" id="du-m-lbl"></span>
+  </div>
+  <div class="readout" id="du-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#du-svg'), out=$('#du-out');
+  const mv=$('#du-m'), mL=$('#du-m-lbl');
+  const W=640;
+  function render(){
+    svg.innerHTML='';
+    const shift=+mv.value; mL.textContent='shift of ν = '+shift.toFixed(1);
+    const muAt=[[1,0.5],[2,0.5]];
+    const nuAt=[[3+shift,0.5],[4+shift,0.5]];
+    const xmin=-0.5, xmax=7.5, baseY=210, topY=40;
+    const PX=function(x){ return 50 + (x-xmin)*(W-80)/(xmax-xmin); };
+    const PY=function(c){ return baseY - c*(baseY-topY); };
+    const cdf=function(at,x){ let s=0; for(const a of at) if(a[0]<=x) s+=a[1]; return s; };
+    let area=0; const N=600, dx=(xmax-xmin)/N;
+    let pathMu='', pathNu='', fill='';
+    for(let k=0;k<=N;k++){ const x=xmin+k*dx; const fm=cdf(muAt,x), fn=cdf(nuAt,x); area+=Math.abs(fm-fn)*dx;
+      pathMu+=(k?'L':'M')+PX(x)+' '+PY(fm)+' ';
+      pathNu+=(k?'L':'M')+PX(x)+' '+PY(fn)+' ';
+      fill+=(k?'L':'M')+PX(x)+' '+PY(fm)+' ';
+    }
+    for(let k=N;k>=0;k--){ const x=xmin+k*dx; fill+='L'+PX(x)+' '+PY(cdf(nuAt,x))+' '; }
+    fill+='Z';
+    svg.appendChild(SVG('path',{d:fill,fill:'var(--cyan)','fill-opacity':0.16,stroke:'none'}));
+    svg.appendChild(SVG('line',{x1:PX(xmin),y1:baseY,x2:PX(xmax),y2:baseY,stroke:'var(--line)'}));
+    svg.appendChild(SVG('path',{d:pathMu,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    svg.appendChild(SVG('path',{d:pathNu,fill:'none',stroke:'var(--violet)','stroke-width':2}));
+    const lab=function(x,y,t,c){const e=SVG('text',{x:x,y:y,'font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(PX(0.6),topY-4,'Fμ','var(--yellow)'); lab(PX(4.4+shift),topY+14,'Fν','var(--violet)');
+    out.textContent='Kantorovich–Rubinstein (1D):  W₁(μ,ν) = ∫ |Fμ(x) − Fν(x)| dx  =  shaded area between the CDFs\n'
+      +'W₁ = '+area.toFixed(3)+'\n'
+      +'the optimal 1-Lipschitz potential has f′(x) = sign(Fν−Fμ) ∈ {−1,+1} and attains the sup ∫ f d(μ−ν) = W₁.';
+  }
+  mv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./combinatorial-optimization.html#duality">LP duality and min-max theorems</a></li>
+    <li><a href="./convex-optimization.html#convex-sets-functions">Convex sets, functions, and the Legendre–Fenchel transform</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./optimal-transport.html#brenier">Optimal transport</a> · Brenier's theorem and Monge maps</div>
+    <div><a href="./optimal-transport.html#wasserstein">Optimal transport</a> · Wasserstein distances</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ot-kantorovich-duality"></div></section>
+<section id="wasserstein">
+<h2>3. Wasserstein distances</h2>
+<p>Fixing the cost $c(x,y)=|x-y|^p$ turns the optimal value into a <strong>distance</strong> between measures:</p>
+<p>$$W_p(\mu,\nu)=\Big(\inf_{\pi\in\Pi(\mu,\nu)}\int |x-y|^p\,d\pi\Big)^{1/p}.$$</p>
+<p>On the space $\mathcal{P}_p$ of measures with finite $p$-th moment, $W_p$ is a genuine metric: symmetric, zero only when $\mu=\nu$, and the triangle inequality follows from a gluing lemma for couplings. Crucially it <em>metrizes weak convergence</em> (together with convergence of $p$-th moments): $W_p(\mu_n,\mu)\to0$ iff $\mu_n\rightharpoonup\mu$ and moments converge.</p>
+<p>Contrast total variation, which is blind to geometry: $\mathrm{TV}(\delta_0,\delta_\varepsilon)=1$ for every $\varepsilon>0$, while $W_2(\delta_0,\delta_\varepsilon)=\varepsilon\to0$. For two one-dimensional Gaussians there is a closed form, $W_2^2=|m_1-m_2|^2+(\sigma_1-\sigma_2)^2$, separating a translation part from a stretch part.</p>
+<div class="widget" id="w-wass">
+  <div class="hd"><div class="ttl">$W_2$ between two Gaussians</div><div class="hint">move and reshape ν</div></div>
+  <svg id="wa-svg" viewBox="0 0 640 260" width="640" height="260"><title>Closed-form 2-Wasserstein distance between two Gaussians</title></svg>
+  <div class="row">
+    <label for="wa-m">$\nu$ mean $m$</label>
+    <input type="range" id="wa-m" min="-4" max="4" step="0.1" value="3">
+    <span class="small" id="wa-m-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="wa-s">$\nu$ std $\sigma$</label>
+    <input type="range" id="wa-s" min="0.3" max="3" step="0.05" value="1">
+    <span class="small" id="wa-s-lbl"></span>
+  </div>
+  <div class="readout" id="wa-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#wa-svg'), out=$('#wa-out');
+  const mv=$('#wa-m'), mL=$('#wa-m-lbl'), sv=$('#wa-s'), sL=$('#wa-s-lbl');
+  const W=640;
+  function render(){
+    svg.innerHTML='';
+    const m=+mv.value, s=+sv.value;
+    mL.textContent='ν mean m = '+m.toFixed(1); sL.textContent='ν std σ = '+s.toFixed(2);
+    const xmin=-6, xmax=8, baseY=210;
+    const PX=function(x){ return 40+(x-xmin)*(W-60)/(xmax-xmin); };
+    const g=function(x,mu,si){ return Math.exp(-(x-mu)*(x-mu)/(2*si*si))/(si*Math.sqrt(2*Math.PI)); };
+    const scale=150/g(0,0,1); const PY=function(v){ return baseY - v*scale; };
+    let p1='', p2=''; const N=400, dx=(xmax-xmin)/N;
+    for(let k=0;k<=N;k++){ const x=xmin+k*dx; p1+=(k?'L':'M')+PX(x)+' '+PY(g(x,0,1))+' '; p2+=(k?'L':'M')+PX(x)+' '+PY(g(x,m,s))+' '; }
+    svg.appendChild(SVG('line',{x1:PX(xmin),y1:baseY,x2:PX(xmax),y2:baseY,stroke:'var(--line)'}));
+    svg.appendChild(SVG('path',{d:p1,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    svg.appendChild(SVG('path',{d:p2,fill:'none',stroke:'var(--violet)','stroke-width':2}));
+    const lab=function(x,y,t,c){const e=SVG('text',{x:x,y:y,'font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(PX(0)-26,40,'μ=N(0,1)','var(--yellow)'); lab(PX(m)-24,56,'ν','var(--violet)');
+    const w2sq=m*m+(s-1)*(s-1), w2=Math.sqrt(w2sq);
+    out.textContent='μ = N(0,1)  (yellow),   ν = N('+m.toFixed(1)+', '+(s*s).toFixed(2)+')  (violet)\n'
+      +'closed form  W₂² = |m₁−m₂|² + (σ₁−σ₂)² = '+(m*m).toFixed(2)+' + '+((s-1)*(s-1)).toFixed(2)+' = '+w2sq.toFixed(3)+'\n'
+      +'W₂(μ,ν) = '+w2.toFixed(3)+'   — a true metric (≥0, =0 iff μ=ν, triangle inequality); unlike TV it sees how far the mass must travel.';
+  }
+  mv.addEventListener('input',render); sv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#conv">Modes of convergence</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./optimal-transport.html#geodesics">Optimal transport</a> · Wasserstein geodesics and displacement interpolation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ot-wasserstein"></div></section>
+<section id="brenier">
+<h2>4. Brenier’s theorem and Monge maps</h2>
+<p>For the quadratic cost $c(x,y)=\tfrac12|x-y|^2$ and an absolutely continuous source $\mu$, the Kantorovich relaxation does not actually need to split anything: <strong>Brenier’s theorem</strong> says the optimal coupling is induced by a unique map</p>
+<p>$$T=\nabla\varphi,\qquad \varphi\ \text{convex},$$</p>
+<p>so the optimum is a genuine Monge map after all. The potential solves a <strong>Monge–Ampère</strong> equation $\det D^2\varphi(x)=\rho_\mu(x)/\rho_\nu(\nabla\varphi(x))$, expressing conservation of mass under the change of variables $y=\nabla\varphi(x)$.</p>
+<p>In one dimension a convex $\varphi$ has a non-decreasing derivative, so $T$ is the <strong>monotone rearrangement</strong> $T=F_\nu^{-1}\circ F_\mu$: it sends the $q$-quantile of $\mu$ to the $q$-quantile of $\nu$. The local stretching $T'=\rho_\mu/\rho_\nu$ is the 1-D Monge–Ampère relation — the map compresses where the target is dense and stretches where it is sparse.</p>
+<div class="widget" id="w-bren">
+  <div class="hd"><div class="ttl">The monotone Brenier map $T=F_\nu^{-1}\circ F_\mu$</div><div class="hint">reshape the target</div></div>
+  <svg id="br-svg" viewBox="0 0 640 300" width="640" height="300"><title>Brenier map from a uniform source to a step-density target</title></svg>
+  <div class="row">
+    <label for="br-c">breakpoint $c$</label>
+    <input type="range" id="br-c" min="0.2" max="0.8" step="0.05" value="0.5">
+    <span class="small" id="br-c-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="br-mc">target mass on $[0,c]$</label>
+    <input type="range" id="br-mc" min="0.1" max="0.9" step="0.05" value="0.3">
+    <span class="small" id="br-mc-lbl"></span>
+  </div>
+  <div class="readout" id="br-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#br-svg'), out=$('#br-out');
+  const cv=$('#br-c'), cL=$('#br-c-lbl'), mcv=$('#br-mc'), mcL=$('#br-mc-lbl');
+  function render(){
+    svg.innerHTML='';
+    const c=+cv.value, Mc=+mcv.value;
+    cL.textContent='breakpoint c = '+c.toFixed(2);
+    mcL.textContent='target mass on [0,c] = '+Mc.toFixed(2);
+    const h1=Mc/c, h2=(1-Mc)/(1-c);
+    const T=function(x){ return x<=Mc ? c*x/Mc : c+(x-Mc)*(1-c)/(1-Mc); };
+    const ox=70, oy=40, sz=200;
+    const PXx=function(x){ return ox+x*sz; }, PYy=function(y){ return oy+sz-y*sz; };
+    svg.appendChild(SVG('rect',{x:ox,y:oy,width:sz,height:sz,fill:'none',stroke:'var(--line)'}));
+    svg.appendChild(SVG('path',{d:'M'+PXx(0)+' '+PYy(0)+' L '+PXx(1)+' '+PYy(1),stroke:'var(--mute)','stroke-dasharray':'4 4',fill:'none'}));
+    let pm=''; const N=200; for(let k=0;k<=N;k++){ const x=k/N; pm+=(k?'L':'M')+PXx(x)+' '+PYy(T(x))+' '; }
+    svg.appendChild(SVG('path',{d:pm,fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+    const lab=function(x,y,t,c2,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'middle','font-size':12,fill:c2});e.textContent=t;svg.appendChild(e);};
+    lab(ox+sz/2,oy+sz+30,'x   (μ = Unif[0,1])','var(--mute)');
+    lab(ox-46,oy+sz/2,'T(x)','var(--cyan)');
+    const ox2=ox+sz+110, sz2=200, denScale=70;
+    const Ty=function(v){ return oy+sz - v*denScale; };
+    svg.appendChild(SVG('line',{x1:ox2,y1:oy+sz,x2:ox2+sz2,y2:oy+sz,stroke:'var(--line)'}));
+    svg.appendChild(SVG('rect',{x:ox2,y:Ty(h1),width:c*sz2,height:(oy+sz)-Ty(h1),fill:'var(--violet)','fill-opacity':0.4}));
+    svg.appendChild(SVG('rect',{x:ox2+c*sz2,y:Ty(h2),width:(1-c)*sz2,height:(oy+sz)-Ty(h2),fill:'var(--violet)','fill-opacity':0.4}));
+    lab(ox2+sz2/2,oy+sz+30,'y   (target density ν)','var(--mute)');
+    out.textContent='source μ = Unif[0,1];   target ν = step density (height '+h1.toFixed(2)+' on [0,'+c.toFixed(2)+'], '+h2.toFixed(2)+' on ['+c.toFixed(2)+',1])\n'
+      +'Brenier map  T = Fν⁻¹∘Fμ  (cyan) is monotone increasing — the gradient of a convex φ — with a kink where the target density jumps\n'
+      +'slope T′ = ρμ/ρν: where ν is dense T compresses, where ν is sparse T stretches (the 1-D Monge–Ampère relation).';
+  }
+  cv.addEventListener('input',render); mcv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./convex-optimization.html#convex-sets-functions">Convex sets, functions, and the Legendre–Fenchel transform</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./optimal-transport.html#geodesics">Optimal transport</a> · Wasserstein geodesics and displacement interpolation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ot-brenier"></div></section>
+<section id="geodesics">
+<h2>5. Wasserstein geodesics and displacement interpolation</h2>
+<p>Because $(\mathcal{P}_2,W_2)$ is a metric space, one can ask what its <em>geodesics</em> look like. The answer is <strong>McCann’s displacement interpolation</strong>: with $T$ the Brenier map from $\mu$ to $\nu$, the constant-speed geodesic is</p>
+<p>$$\mu_t=\big((1-t)\,\mathrm{id}+t\,T\big)_\#\mu,\qquad t\in[0,1],$$</p>
+<p>which slides each particle along the straight segment from $x$ to $T(x)$. This is utterly different from the <em>linear</em> interpolation $(1-t)\mu+t\nu$, which merely dims one bump while brightening another and is the geodesic for the flat $L^2$ geometry, not for $W_2$.</p>
+<p>Functionals that are convex along these geodesics — <strong>displacement convexity</strong>, due to McCann — include the entropy, potential, and interaction energies. Displacement convexity is the lever behind uniqueness of minimizers and a whole family of functional inequalities (Brunn–Minkowski, log-Sobolev, HWI).</p>
+<div class="widget" id="w-geo">
+  <div class="hd"><div class="ttl">Displacement vs. linear interpolation</div><div class="hint">drag $t$ from 0 to 1</div></div>
+  <svg id="ge-svg" viewBox="0 0 640 260" width="640" height="260"><title>McCann displacement geodesic compared with linear interpolation</title></svg>
+  <div class="row">
+    <label for="ge-t">interpolation time $t$</label>
+    <input type="range" id="ge-t" min="0" max="1" step="0.02" value="0.5">
+    <span class="small" id="ge-t-lbl"></span>
+  </div>
+  <div class="readout" id="ge-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#ge-svg'), out=$('#ge-out');
+  const tv=$('#ge-t'), tL=$('#ge-t-lbl');
+  const W=640;
+  function render(){
+    svg.innerHTML='';
+    const t=+tv.value; tL.textContent='t = '+t.toFixed(2);
+    const m0=-3, m1=3, sig=0.7, xmin=-6, xmax=6, baseY=210;
+    const PX=function(x){ return 40+(x-xmin)*(W-60)/(xmax-xmin); };
+    const g=function(x,mu,si){ return Math.exp(-(x-mu)*(x-mu)/(2*si*si))/(si*Math.sqrt(2*Math.PI)); };
+    const scale=120/g(0,0,sig); const PY=function(v){ return baseY-v*scale; };
+    const curve=function(f){ let p=''; const N=400, dx=(xmax-xmin)/N; for(let k=0;k<=N;k++){ const x=xmin+k*dx; p+=(k?'L':'M')+PX(x)+' '+PY(f(x))+' '; } return p; };
+    const md=(1-t)*m0+t*m1;
+    svg.appendChild(SVG('line',{x1:PX(xmin),y1:baseY,x2:PX(xmax),y2:baseY,stroke:'var(--line)'}));
+    svg.appendChild(SVG('path',{d:curve(function(x){return g(x,m0,sig);}),fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('path',{d:curve(function(x){return g(x,m1,sig);}),fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('path',{d:curve(function(x){return (1-t)*g(x,m0,sig)+t*g(x,m1,sig);}),fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    svg.appendChild(SVG('path',{d:curve(function(x){return g(x,md,sig);}),fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+    const lab=function(x,y,t2,c){const e=SVG('text',{x:x,y:y,'font-size':12,fill:c});e.textContent=t2;svg.appendChild(e);};
+    lab(PX(-5.6),34,'cyan: displacement geodesic μ_t (slides)','var(--cyan)');
+    lab(PX(-5.6),50,'pink: linear interpolation (1−t)μ+tν (fades)','var(--pink)');
+    out.textContent='endpoints  μ = N(−3, '+(sig*sig).toFixed(2)+'),  ν = N(3, '+(sig*sig).toFixed(2)+')\n'
+      +'W₂ displacement geodesic: one bump of constant shape centred at (1−t)(−3)+t(3) = '+md.toFixed(2)+' — the true geodesic\n'
+      +'linear interpolation grows a second bump; it is NOT a W₂ geodesic (its W₂ length strictly exceeds W₂(μ,ν)).';
+  }
+  tv.addEventListener('input',render); render();
+
+})();
+</script><p class="note">Watch the cyan curve <em>slide</em> across as a single bump while the pink curve <em>grows a second peak</em>. Only the sliding one is a $W_2$ geodesic; the fading one is strictly longer in $W_2$.</p>
+<div class="quiz" data-concept="ot-geodesics"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./optimal-transport.html#gradient-flows">Optimal transport</a> · Otto calculus and JKO gradient flows</div>
+</aside>
+<!-- backlinks-auto-end --></section>
+<section id="gradient-flows">
+<h2>6. Otto calculus and JKO gradient flows</h2>
+<p>Otto observed that $(\mathcal{P}_2,W_2)$ behaves like an infinite-dimensional Riemannian manifold, with tangent vectors represented by velocity potentials and a continuity-equation metric. On this manifold many diffusion PDEs turn out to be <strong>gradient flows</strong> of an energy $F$:</p>
+<p>$$\partial_t\rho=\nabla\!\cdot\!\big(\rho\,\nabla F'(\rho)\big).$$</p>
+<p>The <strong>Jordan–Kinderlehrer–Otto</strong> scheme makes this rigorous as a minimizing-movement (implicit Euler) iteration in the Wasserstein metric:</p>
+<p>$$\mu_{k+1}=\arg\min_{\rho}\ \frac{1}{2\tau}\,W_2^2(\rho,\mu_k)+F(\rho),$$</p>
+<p>and as $\tau\to0$ the interpolated steps converge to the flow. For the Boltzmann entropy $F(\rho)=\int\rho\log\rho$ this is <em>exactly the heat equation</em>; adding a confining potential $\int V\rho$ gives the <strong>Fokker–Planck</strong> equation, whose stationary state is the Gibbs measure $\rho_\infty\propto e^{-V}$. The free energy $F(\rho_t)$ decreases monotonically — steepest descent in $W_2$.</p>
+<div class="widget" id="w-flow">
+  <div class="hd"><div class="ttl">Fokker–Planck as a $W_2$ gradient flow</div><div class="hint">advance time</div></div>
+  <svg id="fl-svg" viewBox="0 0 640 260" width="640" height="260"><title>Fokker-Planck flow converging to the Gibbs equilibrium</title></svg>
+  <div class="row">
+    <label for="fl-t">time $t$</label>
+    <input type="range" id="fl-t" min="0" max="3" step="0.05" value="0.6">
+    <span class="small" id="fl-t-lbl"></span>
+  </div>
+  <div class="readout" id="fl-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#fl-svg'), out=$('#fl-out');
+  const tv=$('#fl-t'), tL=$('#fl-t-lbl');
+  const W=640;
+  function render(){
+    svg.innerHTML='';
+    const t=+tv.value; tL.textContent='time t = '+t.toFixed(2);
+    const m0=3.0, s0=0.5;
+    const mt=m0*Math.exp(-t);
+    const vt=s0*s0*Math.exp(-2*t)+(1-Math.exp(-2*t));
+    const st=Math.sqrt(vt);
+    const xmin=-5, xmax=6, baseY=205;
+    const PX=function(x){ return 40+(x-xmin)*(W-60)/(xmax-xmin); };
+    const g=function(x,mu,si){ return Math.exp(-(x-mu)*(x-mu)/(2*si*si))/(si*Math.sqrt(2*Math.PI)); };
+    const scale=120/g(0,0,0.5); const PY=function(v){ return baseY-v*scale; };
+    const curve=function(mu,si){ let p=''; const N=400, dx=(xmax-xmin)/N; for(let k=0;k<=N;k++){ const x=xmin+k*dx; p+=(k?'L':'M')+PX(x)+' '+PY(g(x,mu,si))+' '; } return p; };
+    svg.appendChild(SVG('line',{x1:PX(xmin),y1:baseY,x2:PX(xmax),y2:baseY,stroke:'var(--line)'}));
+    svg.appendChild(SVG('path',{d:curve(0,1),fill:'none',stroke:'var(--mute)','stroke-width':1.5,'stroke-dasharray':'4 4'}));
+    svg.appendChild(SVG('path',{d:curve(mt,st),fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+    const lab=function(x,y,t2,c){const e=SVG('text',{x:x,y:y,'font-size':12,fill:c});e.textContent=t2;svg.appendChild(e);};
+    lab(PX(-4.7),34,'cyan: ρ_t  (Fokker–Planck flow)','var(--cyan)');
+    lab(PX(-4.7),50,'dashed: Gibbs equilibrium ρ∞ ∝ e^(−V)','var(--mute)');
+    const KL=0.5*(vt+mt*mt-1-Math.log(vt));
+    out.textContent='Fokker–Planck  ∂_tρ = Δρ + ∇·(ρ∇V),  V(x)=x²/2  —  the W₂ gradient flow of free energy F(ρ)=∫ρ log ρ + ∫Vρ\n'
+      +'start ρ₀ = N(3, 0.25);   ρ_t = N('+mt.toFixed(2)+', '+vt.toFixed(2)+')  converging to the Gibbs measure N(0,1)\n'
+      +'free-energy gap  F(ρ_t)−F(ρ∞) = KL(ρ_t‖ρ∞) = '+KL.toFixed(3)+'  — decreasing monotonically to 0 (steepest descent in W₂).';
+  }
+  tv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#heat">Heat equation and the heat kernel</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ot-gradient-flows"></div></section>
+<section id="connections">
+<h2>Connections</h2>
+<p>Optimal transport has become a connective tissue across analysis, geometry, probability, and data science. The geometric side feeds curvature bounds on metric-measure spaces (Lott–Villani–Sturm); the variational side underlies a large family of nonlinear PDEs as gradient flows; and the computational side (entropic regularization, Sinkhorn) made $W_2$ a practical loss in machine learning. The hard frontiers are higher-dimensional regularity of Brenier maps, the analysis of multi-marginal and unbalanced transport, and quantitative stability.</p>
+<ul>
+<li><a href="./measure-theory.html#measurable">Measure theory — push-forward measures</a> — the change-of-variables $T_\#\mu$ that defines what a transport map even means.</li>
+<li><a href="./convex-optimization.html#lagrangian-duality">Convex optimization — Lagrangian duality</a> — Kantorovich duality is LP duality on the transportation polytope.</li>
+<li><a href="./partial-differential-equations.html#heat">PDE — the heat equation</a> — revealed here as steepest entropy descent in $W_2$.</li>
+<li><a href="./large-deviations.html#sanov">Large deviations — Sanov’s theorem</a> — entropy as the rate function dovetails with the entropy functional driving the flow.</li>
+<li><a href="./riemannian-geometry.html#ricci">Riemannian geometry — Ricci curvature</a> — synthetic lower Ricci bounds via displacement convexity of entropy.</li>
+</ul>
+</section>
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('optimal-transport'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-06-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

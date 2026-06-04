@@ -199,7 +199,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./combinatorial-optimization.html#flows\">Combinatorial optimization</a> · Network flows: max-flow / min-cut</div>\n    <div><a href=\"./convex-optimization.html#lagrangian-duality\">Convex optimization</a> · Lagrangian duality and the KKT system</div>\n    <div><a href=\"./game-theory.html#minimax\">Game theory</a> · Zero-sum games &amp; the minimax theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./combinatorial-optimization.html#flows\">Combinatorial optimization</a> · Network flows: max-flow / min-cut</div>\n    <div><a href=\"./convex-optimization.html#lagrangian-duality\">Convex optimization</a> · Lagrangian duality and the KKT system</div>\n    <div><a href=\"./game-theory.html#minimax\">Game theory</a> · Zero-sum games &amp; the minimax theorem</div>\n    <div><a href=\"./optimal-transport.html#duality\">Optimal transport</a> · Kantorovich duality</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -353,7 +353,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./combinatorial-optimization.html#polyhedral\">Combinatorial optimization</a> · Polyhedral combinatorics</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./combinatorial-optimization.html#polyhedral\">Combinatorial optimization</a> · Polyhedral combinatorics</div>\n    <div><a href=\"./optimal-transport.html#monge-kantorovich\">Optimal transport</a> · The Monge and Kantorovich problems</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

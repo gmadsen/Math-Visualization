@@ -6,6 +6,7 @@
     "geometric-invariant-theory",
 
     "heegaard-floer",
+    "optimal-transport",
 
     "brill-noether",
     "coding-theory",
@@ -447,6 +448,7 @@
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",
-    "pomdps-and-belief-states": "standard"
+    "pomdps-and-belief-states": "standard",
+    "optimal-transport": "advanced"
   }
 }
