@@ -1,6 +1,14 @@
 {
-  "generated": "2026-06-04T14:32:51.218Z",
+  "generated": "2026-06-04T14:43:45.764Z",
   "entries": [
+    {
+      "slug": "integrable-systems",
+      "title": "Integrable systems",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(integrable-systems): new Mathematical-physics topic — solitons, Lax pairs, IST"
+    },
     {
       "slug": "optimal-transport",
       "title": "Optimal transport",
