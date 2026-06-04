@@ -16,28 +16,22 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
 - **All 13 sections now have content** — Control theory & optimization (section 12) has 9 topics, Learning theory & data science (section 13) has 9.
 
-## Taxonomy & connective follow-ups
-
-The 16-topic breadth-expansion program (locked 2026-05-21) is **complete** — it opened section 13 *Learning theory & data science* (7 topics: statistical-learning-theory, kernel-methods-and-rkhs, probabilistic-graphical-models, deep-learning-theory, information-geometry, diffusion-and-score-based-models, causal-inference), built the Combinatorics foundation layer (graph-theory-fundamentals, ramsey-theory, order-theory-and-lattices, algebraic-combinatorics, polytopes-and-ehrhart), and added Control's decision-making half (markov-decision-processes, game-theory, reinforcement-learning, pomdps-and-belief-states). `git log` is the trail.
-
-- **Arithmetic geometry** is already covered in depth (~18 topics across Number theory + Algebraic geometry + Modular forms, incl. `heights-arithmetic-geometry`). No standalone page needed unless the corpus wants a connective landing.
-
 ## Missing-topic candidates
 
-The five Tier-1 catalog gaps (combinatorial optimization, math finance, optimal control, DT/GW, positive-characteristic AG) all shipped in PRs #173–#177. The "specialty" trio (TDA, mathematical chaos, computational molecular biology) shipped in PRs #180–#181. Beyond the locked breadth-expansion program above, re-prime this list after the next Harvard / Princeton / MIT / Berkeley / Caltech catalog comparison.
+Re-prime this list after the next Harvard / Princeton / MIT / Berkeley / Caltech catalog comparison. Standing notes:
 
-Lone deferred item: **microlocal sheaves and $\mathcal{D}$-modules connections** — partially covered by `d-modules` + `microlocal-analysis`; standalone page only if the corpus pursues a deeper sheaf-theoretic-analysis direction.
+- **Arithmetic geometry** is already covered in depth (~18 topics across Number theory + Algebraic geometry + Modular forms, incl. `heights-arithmetic-geometry`). No standalone page needed unless the corpus wants a connective landing.
+- **Microlocal sheaves and $\mathcal{D}$-modules connections** — partially covered by `d-modules` + `microlocal-analysis`; standalone page only if the corpus pursues a deeper sheaf-theoretic-analysis direction.
+- **Mathematical biology stays under Probability & statistics** (user decision, 2026-05-12). Wright–Fisher / Moran / Kimura diffusion / Kingman coalescent dominate; Lotka–Volterra and replicator dynamics sit as a deterministic detour. The section question is closed.
 
-**Mathematical biology stays under Probability & statistics** (user decision, 2026-05-12). Wright–Fisher / Moran / Kimura diffusion / Kingman coalescent dominate; Lotka–Volterra and replicator dynamics sit as a deterministic detour. The section question is closed.
+## Quality-pass polish tier (advisory)
 
-## Action the quality-pass-2026-05 audit findings
-
-190 per-topic audits sit under `audits/quality-pass-2026-05/` (plus `_SUMMARY.md`). **The "Real bugs (highest priority)" callouts across every section are done** — a 2026-05-29 spot-check found each one already fixed (by the math-correctness pass `ab375106`, the silent-404 sweep #392–#393, and the KaTeX-leak sweep #395–#399). What remains is the lower-severity polish tier: notation drift (`\mathrm` vs `\operatorname`, category-font inconsistency), undefined jargon, raw-ASCII widget readouts (`V_λ`, `pi_1`, `K_0`, `>=` in `.textContent`), and "missing worked examples" for abstract ∞-topos / Langlands concepts (no clean win — don't force). If mining this tier, the per-PR fix loop still applies: verify each claim before editing (~30–50% already-fixed), ship one PR with 3 read-only review agents posting on the PR. **Mine the directory before proposing a new audit pass.**
+190 per-topic audits sit under `audits/quality-pass-2026-05/` (plus `_SUMMARY.md`); the real-bug tier is already actioned. What remains is lower-severity polish: notation drift (`\mathrm` vs `\operatorname`, category-font inconsistency), undefined jargon, raw-ASCII widget readouts (`V_λ`, `pi_1`, `K_0`, `>=` in `.textContent`). **~30–50% of remaining flags are already-fixed false positives — verify each claim before editing.** Mine this directory before proposing any new audit pass.
 
 ## Authoring polish — small
 
-- **Index-card thumb art.** First curation pass replaced the 12 weakest thumbs; new topic-batch PRs ship motif art on every new card. PR #169 cleared the 5 draft cards that had survived prior batches + the Kähler-geometry KaTeX-in-SVG thumb, and **promoted `audit-draft-index-cards.mjs` to a CI gate** so placeholder content can't ship again. Remaining surface is the pre-existing midbody (~15 cards that were judged already-strong but could still be sharpened).
-- **Verbatim widget slugs — migration at its natural end (2026-05-27).** Roughly 66 per-widget verbatim slugs remain on `widgets/_shared/verbatim-renderer.mjs` (opaque `bodyMarkup`/`bodyScript`). Every *structurable* shape was already migrated onto the shared `slider-svg-2d` / `clickable-diagram` renderers (started at 392). The remaining ~66 are uniformly multi-blocker with irregular bodies (readout-before-row, styled rows, leading prose, multi-element legends, empty/missing scripts) where structuring is bespoke per-widget effort with no shared-renderer leverage — correctly left verbatim. **Don't chase a `--normalize`/ordered-block mode for the tail — analysis confirmed it unlocks ~0–2 per attempt.** Full per-cluster breakdown in the `project_verbatim_semantic_migration` memory.
+- **Index-card thumb art.** Placeholder cards are CI-gated (`audit-draft-index-cards.mjs`). Remaining surface is the midbody (~15 cards judged already-strong but could be sharpened).
+- **Verbatim widget slugs — migration at its natural end.** Roughly 66 per-widget verbatim slugs remain on `widgets/_shared/verbatim-renderer.mjs` (opaque `bodyMarkup`/`bodyScript`). Every *structurable* shape was already migrated onto the shared `slider-svg-2d` / `clickable-diagram` renderers. The remaining ~66 are uniformly multi-blocker with irregular bodies (readout-before-row, styled rows, leading prose, multi-element legends, empty/missing scripts) where structuring is bespoke per-widget effort with no shared-renderer leverage — correctly left verbatim. **Don't chase a `--normalize`/ordered-block mode for the tail — analysis confirmed it unlocks ~0–2 per attempt.** Full per-cluster breakdown in the `project_verbatim_semantic_migration` memory.
 
 ## Three.js / Pyodide / alt frontends (long-running)
 
