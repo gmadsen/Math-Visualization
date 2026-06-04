@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-04T14:57:32.863Z",
+  "generated": "2026-06-04T15:20:30.317Z",
   "entries": [
     {
       "slug": "integrable-systems",
@@ -7,7 +7,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-06-04",
-      "message": "fixup(integrable-systems): correct KdV Lax-pair sign convention (Codex P2)"
+      "message": "feat(integrable-systems): new Mathematical-physics topic — solitons, Lax pairs, IST (#425)"
     },
     {
       "slug": "optimal-transport",
