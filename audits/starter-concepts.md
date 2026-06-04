@@ -11,17 +11,17 @@ reach into upstream foundations or stay within their own cluster.
 
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
-| Logic & Foundations | 49 | 67 | 5 | 23 | 0.102 |
+| Logic & Foundations | 49 | 67 | 5 | 24 | 0.102 |
 | Algebra & homological | 148 | 224 | 25 | 100 | 0.169 |
 | Higher categories & toposes | 45 | 68 | 23 | 4 | 0.511 |
-| Analysis | 217 | 376 | 44 | 79 | 0.203 |
+| Analysis | 217 | 376 | 44 | 81 | 0.203 |
 | Probability & statistics | 76 | 124 | 20 | 47 | 0.263 |
 | Geometry & topology | 160 | 268 | 33 | 101 | 0.206 |
 | Number theory | 128 | 180 | 57 | 40 | 0.445 |
 | Modular forms & L-functions | 116 | 172 | 64 | 28 | 0.552 |
 | Algebraic geometry | 213 | 328 | 76 | 35 | 0.357 |
-| Combinatorics & graph theory | 93 | 95 | 36 | 5 | 0.387 |
-| Mathematical physics | 69 | 75 | 40 | 4 | 0.580 |
+| Combinatorics & graph theory | 93 | 95 | 36 | 6 | 0.387 |
+| Mathematical physics | 75 | 81 | 44 | 4 | 0.587 |
 | Control theory & optimization | 58 | 62 | 23 | 9 | 0.397 |
 | Learning theory & data science | 56 | 60 | 30 | 1 | 0.536 |
 

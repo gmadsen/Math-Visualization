@@ -56880,6 +56880,237 @@ window.MVQuizBank = {
       }
     }
   },
+  "quantum-information": {
+    "topic": "quantum-information",
+    "quizzes": {
+      "qi-qubits": {
+        "title": "Qubits and the Bloch sphere",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "A qubit is in the state $|{+}\\rangle=\\tfrac{1}{\\sqrt2}(|0\\rangle+|1\\rangle)$. If measured in the computational basis $\\{|0\\rangle,|1\\rangle\\}$, what is the probability of outcome $0$?",
+            "answer": 0.5,
+            "tol": 0.001,
+            "explain": "By the Born rule $P(0)=|\\langle 0|{+}\\rangle|^2=|\\tfrac{1}{\\sqrt2}|^2=\\tfrac12$. The state $|{+}\\rangle$ sits on the equator of the Bloch sphere ($\\theta=\\pi/2$), equidistant from both poles, so the two outcomes are equally likely."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the physical state space of a single qubit the Bloch sphere $\\mathbb{CP}^1$ rather than all of the unit sphere in $\\mathbb{C}^2$?",
+            "choices": [
+              "A global phase $e^{i\\gamma}|\\psi\\rangle$ is physically unobservable, so states differing only by phase are identified",
+              "Only real amplitudes are allowed, halving the dimension",
+              "Normalization $|\\alpha|^2+|\\beta|^2=1$ already cuts $\\mathbb{C}^2$ down to a sphere of real dimension 2",
+              "The amplitudes must be rational for the state to be preparable"
+            ],
+            "answer": 0,
+            "explain": "The unit sphere in $\\mathbb{C}^2$ is $S^3$ (real dimension 3). Normalization gives $S^3$; quotienting by the unobservable global phase $U(1)$ gives $S^3/U(1)=\\mathbb{CP}^1\\cong S^2$, the Bloch sphere. The remaining two real parameters are exactly $(\\theta,\\varphi)$."
+          },
+          {
+            "type": "mcq",
+            "q": "On the Bloch sphere with $|\\psi\\rangle=\\cos\\tfrac\\theta2|0\\rangle+e^{i\\varphi}\\sin\\tfrac\\theta2|1\\rangle$, where do the basis states $|0\\rangle$ and $|1\\rangle$ and the equal superpositions live?",
+            "choices": [
+              "$|0\\rangle,|1\\rangle$ at the north/south poles ($\\theta=0,\\pi$); equal superpositions on the equator ($\\theta=\\pi/2$)",
+              "$|0\\rangle,|1\\rangle$ on the equator; superpositions at the poles",
+              "all four at the poles, distinguished by $\\varphi$",
+              "$|0\\rangle$ at the centre of the ball, $|1\\rangle$ on the surface"
+            ],
+            "answer": 0,
+            "explain": "$\\theta=0$ gives $|0\\rangle$ (north pole), $\\theta=\\pi$ gives $|1\\rangle$ (south pole, up to phase). At $\\theta=\\pi/2$ the amplitudes have equal magnitude $\\tfrac1{\\sqrt2}$ and $\\varphi$ sweeps the equator (e.g. $|{+}\\rangle,|{-}\\rangle,|{+i}\\rangle,|{-i}\\rangle$)."
+          }
+        ]
+      },
+      "qi-gates": {
+        "title": "Quantum gates and circuits",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why must every (closed-system) quantum gate be a unitary matrix?",
+            "choices": [
+              "Unitarity preserves the norm $\\langle\\psi|\\psi\\rangle=1$, so total probability stays $1$, and it is reversible",
+              "Unitary matrices are the only ones that are diagonalizable",
+              "It guarantees the gate has only real entries",
+              "It forces the determinant to be exactly $1$"
+            ],
+            "answer": 0,
+            "explain": "Schrödinger evolution $U=e^{-iHt}$ with Hermitian $H$ is unitary, and unitaries are exactly the linear maps preserving inner products — hence normalization and total probability. Reversibility ($U^{-1}=U^\\dagger$) is automatic. (Determinant $1$ would be $SU(2)$; gates only need $U(2)$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Apply the Hadamard gate $H=\\tfrac1{\\sqrt2}\\big(\\begin{smallmatrix}1&1\\\\1&-1\\end{smallmatrix}\\big)$ to $|0\\rangle$. What is $H|0\\rangle$?",
+            "choices": [
+              "$\\tfrac1{\\sqrt2}(|0\\rangle+|1\\rangle)=|{+}\\rangle$",
+              "$|1\\rangle$",
+              "$\\tfrac1{\\sqrt2}(|0\\rangle-|1\\rangle)=|{-}\\rangle$",
+              "$|0\\rangle$ (unchanged)"
+            ],
+            "answer": 0,
+            "explain": "$H$ acts on the first column: $H|0\\rangle=\\tfrac1{\\sqrt2}(1,1)^\\top=\\tfrac1{\\sqrt2}(|0\\rangle+|1\\rangle)=|{+}\\rangle$. Hadamard maps the poles to the equator, turning a definite bit into an equal superposition — the first move in most quantum algorithms. ($H|1\\rangle=|{-}\\rangle$.)"
+          },
+          {
+            "type": "mcq",
+            "q": "Compute the composite gate $HZH$ (apply $H$, then $Z$, then $H$), where $Z=\\big(\\begin{smallmatrix}1&0\\\\0&-1\\end{smallmatrix}\\big)$. It equals:",
+            "choices": [
+              "$X$ (the bit-flip $\\big(\\begin{smallmatrix}0&1\\\\1&0\\end{smallmatrix}\\big)$)",
+              "$Z$",
+              "the identity $I$",
+              "$Y$"
+            ],
+            "answer": 0,
+            "explain": "$H$ swaps the $X$ and $Z$ axes of the Bloch sphere, so it conjugates $Z$ into $X$: $HZH=X$. Concretely $HZH=\\tfrac12\\big(\\begin{smallmatrix}1&1\\\\1&-1\\end{smallmatrix}\\big)\\big(\\begin{smallmatrix}1&0\\\\0&-1\\end{smallmatrix}\\big)\\big(\\begin{smallmatrix}1&1\\\\1&-1\\end{smallmatrix}\\big)=\\big(\\begin{smallmatrix}0&1\\\\1&0\\end{smallmatrix}\\big)=X$."
+          }
+        ]
+      },
+      "qi-entanglement": {
+        "title": "Entanglement and Bell states",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of these two-qubit states is entangled (cannot be written as a product $|\\psi\\rangle_A\\otimes|\\phi\\rangle_B$)?",
+            "choices": [
+              "$\\tfrac1{\\sqrt2}(|00\\rangle+|11\\rangle)$",
+              "$\\tfrac12(|00\\rangle+|01\\rangle+|10\\rangle+|11\\rangle)$",
+              "$|01\\rangle$",
+              "$\\tfrac1{\\sqrt2}(|00\\rangle+|01\\rangle)$"
+            ],
+            "answer": 0,
+            "explain": "The Bell state $\\tfrac1{\\sqrt2}(|00\\rangle+|11\\rangle)$ has no product factorization (it would require $\\alpha\\gamma,\\alpha\\delta,\\beta\\gamma,\\beta\\delta$ to match $\\tfrac1{\\sqrt2},0,0,\\tfrac1{\\sqrt2}$, impossible). The others factor: option 2 is $|{+}\\rangle|{+}\\rangle$, option 3 is $|0\\rangle|1\\rangle$, option 4 is $|0\\rangle|{+}\\rangle$."
+          },
+          {
+            "type": "numeric",
+            "q": "For the Bell state $\\tfrac1{\\sqrt2}(|00\\rangle+|11\\rangle)$, the reduced density matrix of qubit $A$ is $\\rho_A=\\tfrac12 I$. What is its entanglement entropy $S(\\rho_A)=-\\operatorname{tr}(\\rho_A\\log_2\\rho_A)$, in bits?",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$\\rho_A=\\tfrac12 I$ has eigenvalues $\\tfrac12,\\tfrac12$, so $S=-(\\tfrac12\\log_2\\tfrac12+\\tfrac12\\log_2\\tfrac12)=1$ bit — the maximum for one qubit. Maximal entanglement means each subsystem alone is completely mixed and carries no definite state."
+          },
+          {
+            "type": "mcq",
+            "q": "If you have one qubit of a Bell pair $\\tfrac1{\\sqrt2}(|00\\rangle+|11\\rangle)$ and never touch the other, what is your qubit's state?",
+            "choices": [
+              "the maximally mixed state $\\rho_A=\\tfrac12 I$ — a classical coin, not a pure superposition",
+              "the pure state $|{+}\\rangle$",
+              "the pure state $|0\\rangle$",
+              "undefined until the other qubit is measured"
+            ],
+            "answer": 0,
+            "explain": "Tracing out qubit $B$ gives $\\rho_A=\\tfrac12|0\\rangle\\langle0|+\\tfrac12|1\\rangle\\langle1|=\\tfrac12 I$. Locally it is indistinguishable from a fair classical coin; all the structure lives in the correlations between the two qubits, not in either one alone."
+          }
+        ]
+      },
+      "qi-measurement": {
+        "title": "Measurement, the Born rule, and no-cloning",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "A qubit is in the state $\\tfrac{\\sqrt3}{2}|0\\rangle+\\tfrac12|1\\rangle$. Measured in the computational basis, what is the probability of outcome $1$?",
+            "answer": 0.25,
+            "tol": 0.001,
+            "explain": "Born rule: $P(1)=|\\tfrac12|^2=\\tfrac14=0.25$ (and $P(0)=|\\tfrac{\\sqrt3}{2}|^2=\\tfrac34$, summing to $1$). The amplitude, not its square, is what appears in the state vector."
+          },
+          {
+            "type": "mcq",
+            "q": "The no-cloning theorem states there is no unitary $U$ with $U(|\\psi\\rangle|0\\rangle)=|\\psi\\rangle|\\psi\\rangle$ for all $|\\psi\\rangle$. What forces this?",
+            "choices": [
+              "Linearity: a $U$ that clones $|0\\rangle$ and $|1\\rangle$ cannot also clone $\\tfrac1{\\sqrt2}(|0\\rangle+|1\\rangle)$, because $U$ acts linearly on the superposition",
+              "Measurement always destroys the original, so there is nothing left to copy",
+              "Cloning would require infinite energy",
+              "The amplitudes are unknown, so they cannot be read off"
+            ],
+            "answer": 0,
+            "explain": "If $U|0\\rangle|0\\rangle=|00\\rangle$ and $U|1\\rangle|0\\rangle=|11\\rangle$, then by linearity $U\\tfrac1{\\sqrt2}(|0\\rangle+|1\\rangle)|0\\rangle=\\tfrac1{\\sqrt2}(|00\\rangle+|11\\rangle)$ — the Bell state — not $|{+}\\rangle|{+}\\rangle=\\tfrac12(|00\\rangle+|01\\rangle+|10\\rangle+|11\\rangle)$ as cloning would demand. Contradiction."
+          },
+          {
+            "type": "mcq",
+            "q": "The state $|{+}\\rangle=\\tfrac1{\\sqrt2}(|0\\rangle+|1\\rangle)$ is measured. What happens in the $Z$ basis $\\{|0\\rangle,|1\\rangle\\}$ versus the $X$ basis $\\{|{+}\\rangle,|{-}\\rangle\\}$?",
+            "choices": [
+              "$Z$: outcomes $0,1$ each with probability $\\tfrac12$; $X$: outcome $+$ with certainty",
+              "both bases give random $\\tfrac12/\\tfrac12$ outcomes",
+              "both bases return $+$ with certainty",
+              "$Z$ gives $+$ with certainty; $X$ is random"
+            ],
+            "answer": 0,
+            "explain": "Measurement statistics depend on the basis. $|{+}\\rangle$ is an equal superposition of $|0\\rangle,|1\\rangle$, so the $Z$ basis gives $\\tfrac12/\\tfrac12$; but $|{+}\\rangle$ is itself a basis vector of the $X$ basis, so an $X$ measurement returns $+$ deterministically. Choosing the right basis turns a random outcome into a certain one."
+          }
+        ]
+      },
+      "qi-algorithms": {
+        "title": "Quantum algorithms: interference and Grover",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Grover's algorithm searches an unstructured database of $N$ items for one marked entry. How many oracle queries does it need, versus a classical search?",
+            "choices": [
+              "$\\Theta(\\sqrt N)$ quantum vs $\\Theta(N)$ classical — a quadratic speedup",
+              "$\\Theta(\\log N)$ quantum vs $\\Theta(N)$ classical — exponential",
+              "$\\Theta(1)$ quantum — constant time regardless of $N$",
+              "$\\Theta(N)$ for both; Grover gives no asymptotic advantage"
+            ],
+            "answer": 0,
+            "explain": "Grover amplifies the marked amplitude by $\\approx\\theta=1/\\sqrt N$ per iteration, reaching probability $\\approx1$ after $\\approx\\tfrac\\pi4\\sqrt N$ iterations. This $\\Theta(\\sqrt N)$ is provably optimal for unstructured search — a quadratic, not exponential, speedup (exponential speedups like Shor's need structure)."
+          },
+          {
+            "type": "numeric",
+            "q": "For Grover search over $N=4$ items, the success probability after $k$ iterations is $\\sin^2((2k+1)\\theta)$ with $\\sin\\theta=1/\\sqrt N$. What is the success probability after exactly $k=1$ iteration?",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$\\sin\\theta=1/\\sqrt4=\\tfrac12$, so $\\theta=\\pi/6$. After $k=1$: $\\sin^2((2\\cdot1+1)\\tfrac\\pi6)=\\sin^2(\\tfrac{3\\pi}{6})=\\sin^2(\\tfrac\\pi2)=1$. For $N=4$ Grover finds the marked item with certainty in a single query — the cleanest demonstration of amplitude amplification."
+          },
+          {
+            "type": "mcq",
+            "q": "Where does the quantum speedup actually come from?",
+            "choices": [
+              "Engineered interference: amplitudes for wrong answers cancel while right answers add — measuring then reveals the answer with high probability",
+              "The computer literally evaluates the function on all $2^n$ inputs in parallel and reads them all out",
+              "Qubits store real numbers, giving exponentially more memory",
+              "Measurement is faster than classical I/O"
+            ],
+            "answer": 0,
+            "explain": "Superposition does evaluate $f$ on all inputs at once, but measurement returns only one random outcome — that alone gives no speedup. The art is to make wrong-answer amplitudes interfere destructively (Grover's reflections, Shor's QFT) so the final measurement is overwhelmingly likely to be useful."
+          }
+        ]
+      },
+      "qi-error-correction": {
+        "title": "Quantum error correction and stabilizers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The 3-qubit bit-flip code encodes $\\alpha|0\\rangle+\\beta|1\\rangle$ as $\\alpha|000\\rangle+\\beta|111\\rangle$. Measuring the stabilizers $Z_0Z_1$ and $Z_1Z_2$ reveals what — and why doesn't it destroy the data?",
+            "choices": [
+              "It reveals the error syndrome (which parities flipped), not $\\alpha,\\beta$ — the stabilizers commute with the logical info, so the encoded superposition survives",
+              "It reveals $\\alpha$ and $\\beta$ directly, then re-prepares the state",
+              "It measures each physical qubit, collapsing the superposition, then guesses",
+              "Nothing — the stabilizers are always $+1$ even with errors"
+            ],
+            "answer": 0,
+            "explain": "$Z_0Z_1$ and $Z_1Z_2$ measure parities between qubits, not the qubits themselves. Both $|000\\rangle$ and $|111\\rangle$ have even parity, so the measurement returns the same syndrome for both and never distinguishes $\\alpha$ from $\\beta$ — the logical superposition is preserved while the error is diagnosed."
+          },
+          {
+            "type": "mcq",
+            "q": "Why can't we protect a qubit just by measuring it periodically to check for errors, the way we might re-read a classical bit?",
+            "choices": [
+              "Measuring in a fixed basis collapses any superposition, destroying the very state we are trying to preserve",
+              "Measurement is too slow to keep up with decoherence",
+              "Qubits cannot be measured at all",
+              "Errors are always larger than the measurement resolution"
+            ],
+            "answer": 0,
+            "explain": "A direct measurement of the data qubit projects $\\alpha|0\\rangle+\\beta|1\\rangle$ onto $|0\\rangle$ or $|1\\rangle$, erasing the amplitudes. Quantum error correction sidesteps this by measuring only joint parities (syndromes), which reveal errors without revealing — and hence without collapsing — the encoded information."
+          },
+          {
+            "type": "mcq",
+            "q": "In the 3-qubit bit-flip code, a syndrome measurement gives $Z_0Z_1=-1$ and $Z_1Z_2=-1$ (both parities flipped). Which qubit was flipped?",
+            "choices": [
+              "qubit 1 (the middle one) — it is the only one shared by both parity checks",
+              "qubit 0",
+              "qubit 2",
+              "no error occurred"
+            ],
+            "answer": 0,
+            "explain": "A flip on qubit 1 changes both $Z_0Z_1$ and $Z_1Z_2$, giving syndrome $(-1,-1)$. A flip on qubit 0 changes only $Z_0Z_1$ $\\to(-1,+1)$; qubit 2 only $Z_1Z_2\\to(+1,-1)$; no error $\\to(+1,+1)$. The four syndromes uniquely locate the single error, which is then undone by reapplying $X$ to qubit 1."
+          }
+        ]
+      }
+    }
+  },
   "quaternions-octonions-and-division-algebras": {
     "topic": "quaternions-octonions-and-division-algebras",
     "quizzes": {

@@ -8,10 +8,10 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 208 topics, 1428 concepts, 34 capstones
+- 209 topics, 1434 concepts, 34 capstones
 - 5 concepts lack a widget in their span (all abstract realization/Langlands concepts already served by an adjacent page-level widget — see `audits/coverage-stats.md`)
-- 1600 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
-- Quiz tiers: v1 = 4240, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- 1606 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
+- Quiz tiers: v1 = 4258, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
 - **All 13 sections now have content** — Control theory & optimization (section 12) has 9 topics, Learning theory & data science (section 13) has 9.
@@ -53,7 +53,7 @@ Quiz items from PR #36 / #37 review (type-variety, hint coverage, trivia rewrite
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
 
-- **Hard-tier quiz authoring** (990 concepts lack hard tier).
+- **Hard-tier quiz authoring** (996 concepts lack hard tier).
 - **Expert-tier authoring** (13 questions corpus-wide).
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.

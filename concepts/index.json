@@ -37,6 +37,7 @@
     "polytopes-and-ehrhart",
 
     "game-theory",
+    "quantum-information",
 
     "kernel-methods-and-rkhs",
     "reinforcement-learning",
@@ -449,6 +450,7 @@
     "game-theory": "standard",
     "reinforcement-learning": "standard",
     "pomdps-and-belief-states": "standard",
-    "optimal-transport": "advanced"
+    "optimal-transport": "advanced",
+    "quantum-information": "advanced"
   }
 }
