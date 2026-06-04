@@ -1,0 +1,236 @@
+{
+  "topic": "ergodic-theory",
+  "quizzes": {
+    "et-measure-preserving": {
+      "title": "Measure-preserving transformations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A transformation $T$ of a probability space $(X,\\mathcal{B},\\mu)$ is measure-preserving when:",
+          "choices": [
+            "$\\mu(T^{-1}A)=\\mu(A)$ for every measurable set $A$",
+            "$T$ is a bijection",
+            "$T$ is continuous",
+            "$\\mu(T(A))=\\mu(A)$ only for open sets $A$"
+          ],
+          "answer": 0,
+          "explain": "The defining condition is $\\mu(T^{-1}A)=\\mu(A)$ for all $A\\in\\mathcal{B}$ — phrased with preimages so it makes sense even when $T$ is non-invertible (like the doubling map). It says $\\mu$ is invariant under the dynamics, which is exactly what makes time averages well-defined."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these is a standard measure-preserving system?",
+          "choices": [
+            "the circle rotation $Tx=x+\\alpha \\bmod 1$ preserving Lebesgue measure",
+            "the map $Tx=2x$ on $\\mathbb{R}$ preserving Lebesgue measure",
+            "the map $Tx=x^2$ on $[0,1]$ preserving Lebesgue measure",
+            "any continuous map of $[0,1]$"
+          ],
+          "answer": 0,
+          "explain": "Rotation by $\\alpha$ just shifts Lebesgue measure to itself, so it is measure-preserving. $Tx=2x$ on $\\mathbb{R}$ doubles lengths (not preserving), and $x^2$ distorts Lebesgue measure on $[0,1]$. (The doubling map $2x\\bmod 1$ on the circle, by contrast, does preserve Lebesgue measure.)"
+        },
+        {
+          "type": "mcq",
+          "q": "The Koopman operator of a measure-preserving system acts on $L^2(\\mu)$ by $Uf=f\\circ T$. What is its key property?",
+          "choices": [
+            "it is an isometry (unitary when $T$ is invertible), because $\\mu$ is $T$-invariant",
+            "it is compact",
+            "it is nilpotent",
+            "it has finite rank"
+          ],
+          "answer": 0,
+          "explain": "Invariance of $\\mu$ gives $\\int|f\\circ T|^2 d\\mu=\\int|f|^2 d\\mu$, so $U$ preserves the $L^2$ norm — an isometry, and unitary if $T$ is invertible. This linearization is the gateway to spectral methods in ergodic theory (and to von Neumann's mean ergodic theorem)."
+        }
+      ]
+    },
+    "et-poincare-recurrence": {
+      "title": "Poincaré recurrence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Poincaré's recurrence theorem guarantees that in a finite measure-preserving system, for any set $A$ with $\\mu(A)>0$:",
+          "choices": [
+            "almost every point of $A$ returns to $A$ — indeed infinitely often",
+            "every point of $A$ returns to $A$ after a bounded number of steps",
+            "no point of $A$ ever leaves $A$",
+            "the orbit of each point of $A$ is dense in $X$"
+          ],
+          "answer": 0,
+          "explain": "Recurrence is an almost-everywhere, infinitely-often statement — but it gives no control on how long the return takes, and it does not say orbits are dense (that is closer to ergodicity). The bound is purely measure-theoretic, not topological."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the essential idea of the proof?",
+          "choices": [
+            "the set of points of $A$ that never return has preimages that are pairwise disjoint, so its measure must be $0$ in a finite space",
+            "$T$ is a contraction, so orbits converge",
+            "the orbit visits every set by continuity",
+            "entropy forces returns"
+          ],
+          "answer": 0,
+          "explain": "Let $B\\subseteq A$ be the points that never come back. Then $B,T^{-1}B,T^{-2}B,\\dots$ are pairwise disjoint and all have measure $\\mu(B)$; in a space of total measure $1$ infinitely many disjoint equal-measure sets force $\\mu(B)=0$. Finite measure is the crucial hypothesis."
+        },
+        {
+          "type": "mcq",
+          "q": "A common misreading of recurrence (e.g. for a gas returning near its initial state) is corrected by which fact?",
+          "choices": [
+            "recurrence times can be astronomically large, so recurrence has no practical thermodynamic consequence",
+            "recurrence actually fails for gases",
+            "the theorem requires the system to be reversible",
+            "recurrence implies the entropy decreases"
+          ],
+          "answer": 0,
+          "explain": "Poincaré recurrence is a genuine theorem, but for a macroscopic gas the recurrence time vastly exceeds the age of the universe. It coexists with the second law precisely because the return, while certain, is unobservably rare — it does not imply any decrease of entropy."
+        }
+      ]
+    },
+    "et-ergodicity": {
+      "title": "Ergodicity and Birkhoff's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A measure-preserving system is ergodic when:",
+          "choices": [
+            "every $T$-invariant measurable set has measure $0$ or $1$",
+            "every point has a dense orbit",
+            "$T$ is a homeomorphism",
+            "the entropy is positive"
+          ],
+          "answer": 0,
+          "explain": "Ergodicity is the indecomposability condition: $T^{-1}A=A$ forces $\\mu(A)\\in\\{0,1\\}$, so the system cannot be split into two invariant pieces of positive measure. Equivalently, $T$-invariant functions are constant almost everywhere."
+        },
+        {
+          "type": "mcq",
+          "q": "Birkhoff's pointwise ergodic theorem states that for an ergodic system and $f\\in L^1(\\mu)$, the time averages $\\frac1N\\sum_{k=0}^{N-1}f(T^kx)$ converge for a.e. $x$ to:",
+          "choices": [
+            "the space average $\\int f\\,d\\mu$",
+            "$f(x)$ itself",
+            "the supremum of $f$",
+            "zero"
+          ],
+          "answer": 0,
+          "explain": "For an ergodic system the limit of the time averages is the $T$-invariant conditional expectation $\\mathbb{E}[f\\mid \\mathcal{I}]$, which is constant ($=\\int f\\,d\\mu$) precisely because the invariant $\\sigma$-algebra $\\mathcal{I}$ is trivial. This is the rigorous “time average = space average,” a dynamical strong law of large numbers."
+        },
+        {
+          "type": "numeric",
+          "q": "Take the irrational rotation $Tx=x+\\alpha\\bmod 1$ (ergodic) and $f=\\mathbf{1}_{[0,0.3)}$, the indicator of an arc of length $0.3$. By Birkhoff, what value does the time average $\\frac1N\\sum_{k=0}^{N-1}f(T^kx)$ converge to?",
+          "answer": 0.3,
+          "tol": 0.001,
+          "explain": "The time average converges to the space average $\\int f\\,d\\mu=\\mu([0,0.3))=0.3$ — the long-run fraction of iterates landing in the arc equals the arc's length. This is exactly Weyl equidistribution of $\\{x+k\\alpha\\}$."
+        }
+      ]
+    },
+    "et-mixing": {
+      "title": "Mixing and the ergodic hierarchy",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A measure-preserving system is (strong) mixing when, for all measurable $A,B$:",
+          "choices": [
+            "$\\mu(T^{-n}A\\cap B)\\to\\mu(A)\\,\\mu(B)$ as $n\\to\\infty$",
+            "$\\mu(T^{-1}A)=\\mu(A)$",
+            "every orbit is dense",
+            "the entropy is zero"
+          ],
+          "answer": 0,
+          "explain": "Mixing says that the evolved set $T^{-n}A$ becomes asymptotically independent of any fixed $B$: the overlap factorizes as $\\mu(A)\\mu(B)$. Intuitively a drop of dye spreads uniformly through the fluid, losing all memory of where it started."
+        },
+        {
+          "type": "mcq",
+          "q": "Which implication holds between mixing and ergodicity?",
+          "choices": [
+            "mixing implies ergodic, but not conversely",
+            "ergodic implies mixing, but not conversely",
+            "they are equivalent",
+            "neither implies the other"
+          ],
+          "answer": 0,
+          "explain": "Mixing is strictly stronger. The irrational rotation is the standard counterexample: it is ergodic (every orbit equidistributes) yet never mixing — an arc rotated by $n\\alpha$ stays an arc of the same length and never spreads out to become independent of a test set."
+        },
+        {
+          "type": "ordering",
+          "q": "Order these conditions from STRONGEST to WEAKEST in the ergodic hierarchy.",
+          "items": ["Bernoulli", "Kolmogorov (K)", "strong mixing", "weak mixing", "ergodic"],
+          "answer": [0, 1, 2, 3, 4],
+          "explain": "The standard ladder is Bernoulli $\\Rightarrow$ K $\\Rightarrow$ strong mixing $\\Rightarrow$ weak mixing $\\Rightarrow$ ergodic, each implication strict. Bernoulli shifts are the most random; ergodicity is the minimal indecomposability assumption at the bottom."
+        }
+      ]
+    },
+    "et-entropy": {
+      "title": "Kolmogorov–Sinai entropy",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Kolmogorov–Sinai entropy $h(T)$ measures:",
+          "choices": [
+            "the asymptotic rate at which the system generates information (orbits become distinguishable under partition refinement)",
+            "the total measure of the space",
+            "the number of fixed points of $T$",
+            "the largest Lyapunov exponent, always exactly"
+          ],
+          "answer": 0,
+          "explain": "KS entropy is the supremum over finite partitions of the per-step growth rate of the Shannon entropy of the refined partition $\\bigvee_{k=0}^{n-1}T^{-k}P$. It quantifies unpredictability — how many bits per step you learn by observing which partition element the orbit visits. (For nice systems Pesin's formula relates it to positive Lyapunov exponents, but they are not identical in general.)"
+        },
+        {
+          "type": "numeric",
+          "q": "The Bernoulli shift on two symbols with probabilities $(p,1-p)$ has KS entropy $h=-p\\log_2 p-(1-p)\\log_2(1-p)$ bits. Evaluate $h$ for the fair shift $p=\\tfrac12$.",
+          "answer": 1,
+          "tol": 0.001,
+          "explain": "$h=-\\tfrac12\\log_2\\tfrac12-\\tfrac12\\log_2\\tfrac12=1$ bit per step — the maximum for a 2-symbol shift, achieved at $p=\\tfrac12$. Each new symbol of a fair coin sequence is one fresh bit of information."
+        },
+        {
+          "type": "mcq",
+          "q": "Ornstein's theorem makes entropy especially powerful for Bernoulli shifts because it shows that:",
+          "choices": [
+            "entropy is a complete invariant — two Bernoulli shifts are measure-theoretically isomorphic if and only if they have equal entropy",
+            "every measure-preserving system is a Bernoulli shift",
+            "entropy is always an integer",
+            "entropy equals the number of symbols"
+          ],
+          "answer": 0,
+          "explain": "Entropy is always a conjugacy invariant; Ornstein proved the deep converse for Bernoulli shifts — equal entropy forces isomorphism. So the Bernoulli$(\\tfrac12,\\tfrac12)$ shift and a Bernoulli shift on more symbols tuned to the same entropy $1$ bit are measure-theoretically the same system, despite different alphabets."
+        }
+      ]
+    },
+    "et-equidistribution": {
+      "title": "Equidistribution and homogeneous dynamics",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does unique ergodicity (exactly one invariant probability measure) buy you that mere ergodicity does not?",
+          "choices": [
+            "$\\textit{every}$ orbit equidistributes with respect to that measure, not just almost every orbit",
+            "the entropy is automatically zero",
+            "the system becomes mixing",
+            "the map becomes invertible"
+          ],
+          "answer": 0,
+          "explain": "Ergodicity gives Birkhoff convergence for almost every starting point; unique ergodicity upgrades this to a uniform statement holding for $\\textbf{every}$ point (with uniform convergence for continuous $f$). The irrational rotation is uniquely ergodic, which is why no orbit is exceptional."
+        },
+        {
+          "type": "mcq",
+          "q": "Weyl's equidistribution theorem states that for irrational $\\alpha$, the sequence $\\{n\\alpha\\bmod 1\\}$ equidistributes in $[0,1)$. The standard proof uses:",
+          "choices": [
+            "the exponential-sum criterion: $\\frac1N\\sum_{n\\le N}e^{2\\pi i k n\\alpha}\\to 0$ for every nonzero integer $k$",
+            "the intermediate value theorem",
+            "induction on $N$",
+            "the prime number theorem"
+          ],
+          "answer": 0,
+          "explain": "Weyl's criterion reduces equidistribution to the decay of exponential sums. For $\\{n\\alpha\\}$ the sum is geometric and bounded by $1/(N\\,|\\sin\\pi k\\alpha|)\\to 0$ since $k\\alpha\\notin\\mathbb{Z}$ — instantly giving equidistribution. Rational $\\alpha$ fails the criterion (the sequence is periodic)."
+        },
+        {
+          "type": "mcq",
+          "q": "Ratner's theorems, the cornerstone of modern homogeneous dynamics, classify the invariant measures and orbit closures for:",
+          "choices": [
+            "unipotent flows on homogeneous spaces $G/\\Gamma$",
+            "arbitrary continuous maps of compact spaces",
+            "hyperbolic toral automorphisms only",
+            "geodesic flows on flat tori"
+          ],
+          "answer": 0,
+          "explain": "Ratner proved that for unipotent flows on $G/\\Gamma$, every orbit closure is a nice homogeneous subset and every invariant measure is algebraic — rigidity with no exotic behaviour. This delivered the Oppenheim conjecture (values of quadratic forms) and underlies much of modern analytic number theory."
+        }
+      ]
+    }
+  }
+}

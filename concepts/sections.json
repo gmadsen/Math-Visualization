@@ -84,7 +84,8 @@
         "variational-methods",
         "fixed-point-theorems",
         "mathematical-chaos",
-        "optimal-transport"
+        "optimal-transport",
+        "ergodic-theory"
       ],
       "color": "p"
     },
