@@ -83,7 +83,8 @@
         "numerical-analysis",
         "variational-methods",
         "fixed-point-theorems",
-        "mathematical-chaos"
+        "mathematical-chaos",
+        "optimal-transport"
       ],
       "color": "p"
     },

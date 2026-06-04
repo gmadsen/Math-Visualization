@@ -290,7 +290,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./measure-theory.html#integral\">Measure theory</a> · Lebesgue integral</div>\n    <div><a href=\"./measure-theory.html#convergence\">Measure theory</a> · Monotone and dominated convergence</div>\n    <div><a href=\"./probability-theory.html#rv\">Probability theory</a> · Random variables</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./measure-theory.html#integral\">Measure theory</a> · Lebesgue integral</div>\n    <div><a href=\"./measure-theory.html#convergence\">Measure theory</a> · Monotone and dominated convergence</div>\n    <div><a href=\"./optimal-transport.html#monge-kantorovich\">Optimal transport</a> · The Monge and Kantorovich problems</div>\n    <div><a href=\"./probability-theory.html#rv\">Probability theory</a> · Random variables</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

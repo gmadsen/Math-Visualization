@@ -50774,6 +50774,227 @@ window.MVQuizBank = {
       }
     }
   },
+  "optimal-transport": {
+    "topic": "optimal-transport",
+    "quizzes": {
+      "ot-monge-kantorovich": {
+        "title": "The Monge and Kantorovich problems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does Kantorovich relax Monge's problem from transport maps to couplings $\\pi\\in\\Pi(\\mu,\\nu)$?",
+            "choices": [
+              "A transport map cannot split the mass sitting at a single point, so a Monge map may fail to exist; couplings allow a source point's mass to be spread over several targets",
+              "Couplings are cheaper to transport than maps for the same configuration",
+              "Maps are not measurable in general, whereas couplings always are",
+              "The Monge cost $\\int c(x,T(x))\\,d\\mu$ is non-linear, while the coupling cost is quadratic"
+            ],
+            "answer": 0,
+            "explain": "A map $T$ sends all the mass at $x$ to the single point $T(x)$. If $\\mu=\\delta_0$ and $\\nu=\\tfrac12\\delta_{-1}+\\tfrac12\\delta_{1}$, no map can push $\\mu$ to $\\nu$ — the atom must split. The Kantorovich coupling $\\pi$ records how much mass goes from $x$ to $y$, so splitting is allowed and the problem (a linear program) always has a minimizer."
+          },
+          {
+            "type": "mcq",
+            "q": "A coupling $\\pi$ on $X\\times Y$ belongs to $\\Pi(\\mu,\\nu)$ exactly when:",
+            "choices": [
+              "its two marginals are $\\mu$ and $\\nu$: $\\pi(A\\times Y)=\\mu(A)$ and $\\pi(X\\times B)=\\nu(B)$",
+              "it is the product measure $\\mu\\otimes\\nu$",
+              "it is supported on the diagonal $\\{x=y\\}$",
+              "it minimizes $\\int c\\,d\\pi$ among all probability measures on $X\\times Y$"
+            ],
+            "answer": 0,
+            "explain": "$\\Pi(\\mu,\\nu)$ is the set of all probability measures on $X\\times Y$ with first marginal $\\mu$ and second marginal $\\nu$ — the transportation polytope. The product measure $\\mu\\otimes\\nu$ is always one such coupling (independent transport), so $\\Pi$ is never empty; optimality is a separate condition."
+          },
+          {
+            "type": "numeric",
+            "q": "Two unit masses sit at sources $s_1,s_2$; two unit sinks $t_1,t_2$ must each receive one unit. The cost matrix is $c=\\begin{pmatrix}1&3\\\\4&2\\end{pmatrix}$ (entry $c_{ij}$ = cost to move $s_i\\to t_j$). What is the minimum total transport cost?",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "With unit masses the optimum is a permutation (Birkhoff: the assignment polytope's vertices are permutation matrices). Compare the identity assignment $c_{11}+c_{22}=1+2=3$ against the swap $c_{12}+c_{21}=3+4=7$. The minimum is $3$."
+          }
+        ]
+      },
+      "ot-kantorovich-duality": {
+        "title": "Kantorovich duality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "At the optimum of the transport LP, the dual potentials satisfy $\\varphi(x)+\\psi(y)\\le c(x,y)$ everywhere. What does complementary slackness say about where this is an equality?",
+            "choices": [
+              "Equality holds exactly on the support of the optimal plan $\\pi$",
+              "Equality holds nowhere unless $\\mu=\\nu$",
+              "Equality holds on the diagonal $x=y$ only",
+              "Equality holds on a set of full $\\mu\\otimes\\nu$ measure"
+            ],
+            "answer": 0,
+            "explain": "Strong duality forces $\\int(\\varphi\\oplus\\psi)\\,d\\pi=\\int c\\,d\\pi$ at the optimum. Since $\\varphi(x)+\\psi(y)\\le c(x,y)$ pointwise and $\\pi$ has the right marginals, the integrands can only agree where $\\varphi(x)+\\psi(y)=c(x,y)$. Hence $\\pi$ is concentrated on that tight set — this is what locates the optimal transport geometrically."
+          },
+          {
+            "type": "mcq",
+            "q": "Kantorovich–Rubinstein duality writes $W_1(\\mu,\\nu)$ as a supremum over which class of test functions?",
+            "choices": [
+              "$1$-Lipschitz functions $f$, maximizing $\\int f\\,d\\mu-\\int f\\,d\\nu$",
+              "bounded continuous functions with $\\|f\\|_\\infty\\le1$",
+              "smooth functions with $\\int f=0$",
+              "convex functions $f$ with $f(0)=0$"
+            ],
+            "answer": 0,
+            "explain": "For the cost $c(x,y)=|x-y|$ the $c$-transform forces $\\psi=-\\varphi$ with $\\varphi$ being $1$-Lipschitz, collapsing the two-potential dual to $W_1(\\mu,\\nu)=\\sup_{\\mathrm{Lip}(f)\\le1}\\int f\\,d(\\mu-\\nu)$. This is why $W_1$ is also called the earth-mover / Kantorovich–Rubinstein distance and appears as the metric dual to Lipschitz functions."
+          },
+          {
+            "type": "numeric",
+            "q": "On the real line with cost $c(x,y)=|x-y|$, let $\\mu=\\delta_0$ and $\\nu=\\delta_3$. What is $W_1(\\mu,\\nu)$?",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "There is only one coupling of two Diracs, so $W_1=\\int|x-y|\\,d\\pi=|0-3|=3$. Dually, the $1$-Lipschitz potential $f(x)=-x$ gives $\\int f\\,d\\mu-\\int f\\,d\\nu=0-(-3)=3$, attaining the bound."
+          }
+        ]
+      },
+      "ot-wasserstein": {
+        "title": "Wasserstein distances",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "In one dimension, $W_2$ between two Gaussians is $W_2^2=|m_1-m_2|^2+(\\sigma_1-\\sigma_2)^2$. Compute $W_2\\big(\\mathcal{N}(0,1),\\mathcal{N}(3,1)\\big)$ (here the second argument is the variance, so $\\sigma=1$ for both).",
+            "answer": 3,
+            "tol": 0.001,
+            "explain": "Means $0$ and $3$, equal standard deviations $\\sigma_1=\\sigma_2=1$. So $W_2^2=(3-0)^2+(1-1)^2=9$ and $W_2=3$. With equal shape, transport is a pure translation and $W_2$ equals the distance the mean moves."
+          },
+          {
+            "type": "numeric",
+            "q": "Same formula, now equal means but different spreads: compute $W_2\\big(\\mathcal{N}(0,1),\\mathcal{N}(0,4)\\big)$ (variances $1$ and $4$, so $\\sigma_1=1,\\sigma_2=2$).",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$W_2^2=(0-0)^2+(1-2)^2=1$, so $W_2=1$. Even with matched means, $W_2$ sees the difference in spread — the optimal map stretches the standard normal by a factor of $2$ about the mean."
+          },
+          {
+            "type": "mcq",
+            "q": "Take $\\mu=\\delta_0$ and $\\mu_\\varepsilon=\\delta_\\varepsilon$ with $\\varepsilon\\to0$. How do total variation and $W_2$ behave?",
+            "choices": [
+              "$\\mathrm{TV}(\\mu,\\mu_\\varepsilon)=1$ for every $\\varepsilon>0$, while $W_2(\\mu,\\mu_\\varepsilon)=\\varepsilon\\to0$",
+              "both tend to $0$ at the same linear rate",
+              "$W_2$ stays $1$ while TV $\\to0$",
+              "both stay equal to $1$ for all $\\varepsilon$"
+            ],
+            "answer": 0,
+            "explain": "Two distinct Diracs are mutually singular, so $\\mathrm{TV}=1$ no matter how close they are — TV is blind to geometry. $W_2$ measures the actual displacement, $W_2(\\delta_0,\\delta_\\varepsilon)=\\varepsilon$, so it $\\to0$. This is exactly why $W_p$ metrizes weak convergence and TV does not."
+          }
+        ]
+      },
+      "ot-brenier": {
+        "title": "Brenier's theorem and Monge maps",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For quadratic cost $\\tfrac12|x-y|^2$ with $\\mu$ absolutely continuous, Brenier's theorem says the optimal transport map has what special form?",
+            "choices": [
+              "$T=\\nabla\\varphi$ for a convex potential $\\varphi$, and this $T$ is unique $\\mu$-a.e.",
+              "$T$ is an orthogonal (distance-preserving) map",
+              "$T$ is the gradient of an arbitrary smooth function",
+              "$T$ is affine, $T(x)=Ax+b$, in general"
+            ],
+            "answer": 0,
+            "explain": "Brenier: the $c$-concave Kantorovich potential $\\psi$ makes $x\\mapsto\\tfrac12|x|^2-\\psi(x)=\\varphi(x)$ convex, and the optimal map is $T=\\nabla\\varphi$, unique $\\mu$-a.e. So the relaxed Kantorovich problem collapses back to a genuine Monge map — but only because the cost is quadratic and $\\mu$ has no atoms."
+          },
+          {
+            "type": "mcq",
+            "q": "In one dimension, the Brenier (quadratic-cost) optimal map from $\\mu$ to $\\nu$ is:",
+            "choices": [
+              "$T=F_\\nu^{-1}\\circ F_\\mu$, the monotone increasing rearrangement",
+              "any measurable bijection matching the supports",
+              "$T(x)=\\mathbb{E}_\\nu[Y]$, a constant map to the target mean",
+              "the decreasing rearrangement $T=F_\\nu^{-1}\\circ(1-F_\\mu)$"
+            ],
+            "answer": 0,
+            "explain": "Convexity of $\\varphi$ in 1D means $T=\\varphi'$ is non-decreasing. The unique non-decreasing map pushing $\\mu$ to $\\nu$ is the quantile coupling $T=F_\\nu^{-1}\\circ F_\\mu$: it sends the $q$-quantile of $\\mu$ to the $q$-quantile of $\\nu$. The decreasing rearrangement is in fact the worst (cost-maximizing) coupling."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mu=\\mathrm{Unif}[0,1]$ and $\\nu=\\mathrm{Unif}[0,3]$. The 1D Brenier map is $T=F_\\nu^{-1}\\circ F_\\mu$. Evaluate $T(0.5)$.",
+            "answer": 1.5,
+            "tol": 0.001,
+            "explain": "$F_\\mu(x)=x$ on $[0,1]$ and $F_\\nu^{-1}(q)=3q$ on $[0,1]$, so $T(x)=3x$. Then $T(0.5)=1.5$ — the map stretches $[0,1]$ uniformly onto $[0,3]$, which is exactly the monotone increasing rearrangement."
+          }
+        ]
+      },
+      "ot-geodesics": {
+        "title": "Wasserstein geodesics and displacement interpolation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which curve is the constant-speed geodesic between $\\mu$ and $\\nu$ in $(\\mathcal{P}_2,W_2)$?",
+            "choices": [
+              "displacement interpolation $\\mu_t=((1-t)\\,\\mathrm{id}+t\\,T)_\\#\\mu$, transporting mass along straight lines",
+              "linear interpolation $\\mu_t=(1-t)\\mu+t\\nu$, fading one measure out and the other in",
+              "the geometric mean of the densities, $\\mu_t\\propto\\rho_\\mu^{1-t}\\rho_\\nu^{t}$",
+              "the heat-flow regularization of $\\mu$ run for time $t$"
+            ],
+            "answer": 0,
+            "explain": "McCann's displacement interpolation uses the Brenier map $T$ and moves each particle along the segment from $x$ to $T(x)$. The linear interpolation $(1-t)\\mu+t\\nu$ is the geodesic for the flat $L^2$/TV geometry, not $W_2$: it just dims one bump and brightens another instead of sliding mass across."
+          },
+          {
+            "type": "mcq",
+            "q": "For two point masses, the $W_2$ geodesic between $\\delta_a$ and $\\delta_b$ is:",
+            "choices": [
+              "$\\delta_{(1-t)a+tb}$ — a single atom travelling along the segment $[a,b]$",
+              "$(1-t)\\delta_a+t\\delta_b$ — two atoms with shifting weights",
+              "a Gaussian centred at $(1-t)a+tb$",
+              "$\\delta_a$ for $t<\\tfrac12$, then $\\delta_b$ for $t>\\tfrac12$"
+            ],
+            "answer": 0,
+            "explain": "The only coupling of two Diracs sends $a\\mapsto b$, so the displacement geodesic is $\\delta_{(1-t)a+tb}$: the atom moves at constant speed along the line. The weighted version $(1-t)\\delta_a+t\\delta_b$ is the (non-geodesic in $W_2$) linear interpolation and has length-mismatched, non-constant Wasserstein speed."
+          },
+          {
+            "type": "numeric",
+            "q": "Displacement interpolation between $\\mathcal{N}(0,1)$ and $\\mathcal{N}(4,1)$ stays Gaussian with linearly interpolated mean and standard deviation. What is the mean of $\\mu_{t}$ at $t=\\tfrac12$?",
+            "answer": 2,
+            "tol": 0.001,
+            "explain": "Means interpolate linearly: $m_t=(1-t)\\cdot0+t\\cdot4=4t$, so $m_{1/2}=2$. The standard deviation stays $1$ throughout (both endpoints have $\\sigma=1$), so $\\mu_{1/2}=\\mathcal{N}(2,1)$ — a single bump that has slid halfway, not two half-height bumps."
+          }
+        ]
+      },
+      "ot-gradient-flows": {
+        "title": "Otto calculus and JKO gradient flows",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Otto's picture, the heat equation $\\partial_t\\rho=\\Delta\\rho$ is the $W_2$ gradient flow of which functional?",
+            "choices": [
+              "the Boltzmann entropy $F(\\rho)=\\int\\rho\\log\\rho$",
+              "the Dirichlet energy $\\int|\\nabla\\rho|^2$",
+              "the second moment $\\int|x|^2\\rho$",
+              "the total mass $\\int\\rho$"
+            ],
+            "answer": 0,
+            "explain": "The general $W_2$ gradient flow of $F$ is $\\partial_t\\rho=\\nabla\\!\\cdot(\\rho\\,\\nabla F'(\\rho))$. For $F(\\rho)=\\int\\rho\\log\\rho$ we have $F'(\\rho)=\\log\\rho+1$, so $\\rho\\nabla F'(\\rho)=\\rho\\,\\nabla\\log\\rho=\\nabla\\rho$ and the flow is $\\partial_t\\rho=\\Delta\\rho$. This is the Jordan–Kinderlehrer–Otto discovery: diffusion = steepest entropy descent in Wasserstein geometry."
+          },
+          {
+            "type": "mcq",
+            "q": "The JKO minimizing-movement scheme builds the flow by iterating which step (time-step $\\tau$)?",
+            "choices": [
+              "$\\mu_{k+1}=\\arg\\min_\\rho\\;\\tfrac{1}{2\\tau}W_2^2(\\rho,\\mu_k)+F(\\rho)$",
+              "$\\mu_{k+1}=\\mu_k-\\tau\\,\\nabla F(\\mu_k)$ in the $L^2$ sense",
+              "$\\mu_{k+1}=\\arg\\min_\\rho\\;\\tfrac{1}{2\\tau}\\|\\rho-\\mu_k\\|_{L^2}^2+F(\\rho)$",
+              "$\\mu_{k+1}=$ heat-kernel convolution of $\\mu_k$ at scale $\\tau$"
+            ],
+            "answer": 0,
+            "explain": "JKO is the implicit Euler / minimizing-movement step but with the metric being $W_2$ instead of an $L^2$ norm: each step trades off proximity to $\\mu_k$ (measured by $W_2^2/2\\tau$) against decreasing the energy $F$. As $\\tau\\to0$ the piecewise-constant interpolation converges to the gradient flow $\\partial_t\\rho=\\nabla\\!\\cdot(\\rho\\nabla F'(\\rho))$."
+          },
+          {
+            "type": "mcq",
+            "q": "Adding a confining potential energy $\\int V\\,\\rho$ to the entropy functional yields which PDE as its $W_2$ gradient flow?",
+            "choices": [
+              "the Fokker–Planck equation $\\partial_t\\rho=\\Delta\\rho+\\nabla\\!\\cdot(\\rho\\,\\nabla V)$",
+              "the wave equation $\\partial_{tt}\\rho=\\Delta\\rho$",
+              "the porous-medium equation $\\partial_t\\rho=\\Delta(\\rho^m)$",
+              "the inviscid transport equation $\\partial_t\\rho+\\nabla\\!\\cdot(\\rho\\,\\nabla V)=0$"
+            ],
+            "answer": 0,
+            "explain": "With $F(\\rho)=\\int\\rho\\log\\rho+\\int V\\rho$, the first variation is $F'(\\rho)=\\log\\rho+1+V$, so $\\rho\\nabla F'(\\rho)=\\nabla\\rho+\\rho\\nabla V$ and the flow is $\\partial_t\\rho=\\Delta\\rho+\\nabla\\!\\cdot(\\rho\\nabla V)$ — the Fokker–Planck equation, whose stationary state is the Gibbs measure $\\rho_\\infty\\propto e^{-V}$. The porous-medium equation comes instead from the nonlinear energy $\\int\\rho^m/(m-1)$."
+          }
+        ]
+      }
+    }
+  },
   "order-theory-and-lattices": {
     "topic": "order-theory-and-lattices",
     "quizzes": {

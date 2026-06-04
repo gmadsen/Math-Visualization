@@ -7,6 +7,7 @@ window.__MVConcepts = {
       "random-matrix-theory",
       "geometric-invariant-theory",
       "heegaard-floer",
+      "optimal-transport",
       "brill-noether",
       "coding-theory",
       "conformal-and-cr-geometry",
@@ -438,7 +439,8 @@ window.__MVConcepts = {
       "markov-decision-processes": "standard",
       "game-theory": "standard",
       "reinforcement-learning": "standard",
-      "pomdps-and-belief-states": "standard"
+      "pomdps-and-belief-states": "standard",
+      "optimal-transport": "advanced"
     }
   },
   "topics": {
@@ -754,6 +756,74 @@ window.__MVConcepts = {
             "classification",
             "completion"
           ]
+        }
+      ]
+    },
+    "optimal-transport": {
+      "topic": "optimal-transport",
+      "title": "Optimal transport",
+      "page": "optimal-transport.html",
+      "concepts": [
+        {
+          "id": "ot-monge-kantorovich",
+          "title": "The Monge and Kantorovich problems",
+          "anchor": "monge-kantorovich",
+          "prereqs": [
+            "measurable-functions",
+            "matching"
+          ],
+          "blurb": "Monge (1781) asks for a map $T$ pushing a source measure $\\mu$ onto a target $\\nu$ at least total cost $\\int c(x,T(x))\\,d\\mu$. The map can fail to exist (mass can't split), so Kantorovich (1942) relaxes to a coupling $\\pi\\in\\Pi(\\mu,\\nu)$ with marginals $\\mu,\\nu$ minimizing $\\int c\\,d\\pi$. The relaxed problem is a linear program: always solvable, and on the discrete side it is exactly an assignment / transportation problem."
+        },
+        {
+          "id": "ot-kantorovich-duality",
+          "title": "Kantorovich duality",
+          "anchor": "duality",
+          "prereqs": [
+            "ot-monge-kantorovich",
+            "lp-duality",
+            "co-convex-sets-functions"
+          ],
+          "blurb": "The transport LP has a dual: maximize $\\int\\varphi\\,d\\mu+\\int\\psi\\,d\\nu$ over potentials with $\\varphi(x)+\\psi(y)\\le c(x,y)$. Strong duality holds, the optimal $\\psi=\\varphi^{c}$ is the $c$-transform of $\\varphi$, and complementary slackness pins the support of the optimal plan to the tight set $\\varphi(x)+\\psi(y)=c(x,y)$. For $c(x,y)=|x-y|$ this is Kantorovich–Rubinstein: $W_1(\\mu,\\nu)=\\sup_{\\mathrm{Lip}(f)\\le1}\\int f\\,d(\\mu-\\nu)$."
+        },
+        {
+          "id": "ot-wasserstein",
+          "title": "Wasserstein distances",
+          "anchor": "wasserstein",
+          "prereqs": [
+            "ot-kantorovich-duality",
+            "convergence-rv"
+          ],
+          "blurb": "The $p$-Wasserstein distance $W_p(\\mu,\\nu)=\\big(\\inf_{\\pi\\in\\Pi}\\int|x-y|^p\\,d\\pi\\big)^{1/p}$ is a genuine metric on probability measures with finite $p$-th moment. It metrizes weak convergence (plus convergence of $p$-th moments), unlike total variation it sees geometry, and for two Gaussians $W_2$ has the closed form $W_2^2=|m_1-m_2|^2+(\\sigma_1-\\sigma_2)^2$ in one dimension."
+        },
+        {
+          "id": "ot-brenier",
+          "title": "Brenier's theorem and Monge maps",
+          "anchor": "brenier",
+          "prereqs": [
+            "ot-kantorovich-duality",
+            "co-convex-sets-functions"
+          ],
+          "blurb": "For quadratic cost $c=\\tfrac12|x-y|^2$ and $\\mu$ absolutely continuous, the optimal coupling is induced by a unique map $T=\\nabla\\varphi$ that is the gradient of a convex function — Brenier's theorem. So the Kantorovich relaxation collapses back to a Monge map, the potential $\\varphi$ solves a Monge–Ampère equation $\\det D^2\\varphi(x)=\\rho_\\mu(x)/\\rho_\\nu(\\nabla\\varphi(x))$, and in 1D $T=F_\\nu^{-1}\\circ F_\\mu$ is monotone increasing."
+        },
+        {
+          "id": "ot-geodesics",
+          "title": "Wasserstein geodesics and displacement interpolation",
+          "anchor": "geodesics",
+          "prereqs": [
+            "ot-brenier",
+            "ot-wasserstein"
+          ],
+          "blurb": "$(\\mathcal{P}_2,W_2)$ is a geodesic space: the constant-speed geodesic from $\\mu$ to $\\nu$ is McCann's displacement interpolation $\\mu_t=((1-t)\\,\\mathrm{id}+t\\,T)_\\#\\mu$, which moves mass along straight lines rather than fading one bump out and another in. Functionals that are convex along these geodesics (displacement convexity) — entropy, potential and interaction energies — are the engine behind uniqueness and functional inequalities."
+        },
+        {
+          "id": "ot-gradient-flows",
+          "title": "Otto calculus and JKO gradient flows",
+          "anchor": "gradient-flows",
+          "prereqs": [
+            "ot-geodesics",
+            "pde-heat-equation"
+          ],
+          "blurb": "Otto's formal Riemannian calculus turns $(\\mathcal{P}_2,W_2)$ into an infinite-dimensional manifold on which many diffusion PDEs are gradient flows of an energy. The Jordan–Kinderlehrer–Otto scheme realizes this: iterating $\\mu_{k+1}=\\arg\\min_\\rho\\,\\tfrac{1}{2\\tau}W_2^2(\\rho,\\mu_k)+F(\\rho)$ converges as $\\tau\\to0$ to the flow $\\partial_t\\rho=\\nabla\\!\\cdot(\\rho\\nabla F'(\\rho))$. For $F=$ entropy this is exactly the heat equation; adding a potential gives Fokker–Planck."
         }
       ]
     },
@@ -20739,7 +20809,8 @@ window.__MVConcepts = {
           "numerical-analysis",
           "variational-methods",
           "fixed-point-theorems",
-          "mathematical-chaos"
+          "mathematical-chaos",
+          "optimal-transport"
         ],
         "color": "p"
       },
@@ -21277,7 +21348,8 @@ window.__MVConcepts = {
     "markov-decision-processes": "standard",
     "game-theory": "standard",
     "reinforcement-learning": "standard",
-    "pomdps-and-belief-states": "standard"
+    "pomdps-and-belief-states": "standard",
+    "optimal-transport": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -21319,17 +21391,17 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 211,
-      "intra": 368,
-      "crossOut": 39,
+      "concepts": 217,
+      "intra": 376,
+      "crossOut": 44,
       "crossIn": 79,
-      "density": 0.1848341232227488
+      "density": 0.20276497695852536
     },
     "Probability & statistics": {
       "concepts": 76,
       "intra": 124,
       "crossOut": 20,
-      "crossIn": 46,
+      "crossIn": 47,
       "density": 0.2631578947368421
     },
     "Geometry & topology": {
@@ -21378,7 +21450,7 @@ window.__MVConcepts = {
       "concepts": 58,
       "intra": 62,
       "crossOut": 23,
-      "crossIn": 5,
+      "crossIn": 9,
       "density": 0.39655172413793105
     },
     "Learning theory & data science": {
