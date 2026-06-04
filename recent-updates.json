@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-04T13:20:24.853Z",
+  "generated": "2026-06-04T13:31:10.005Z",
   "entries": [
     {
       "slug": "optimal-transport",
@@ -8,6 +8,14 @@
       "tag": "",
       "date": "2026-06-04",
       "message": "feat(optimal-transport): new Analysis topic — Monge–Kantorovich to gradient flows (#423)"
+    },
+    {
+      "slug": "quantum-information",
+      "title": "Quantum information",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(quantum-information): new Mathematical-physics topic — qubits to error correction"
     },
     {
       "slug": "infinity-categories",
