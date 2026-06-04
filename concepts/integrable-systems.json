@@ -22,14 +22,14 @@
       "title": "Lax pairs and infinitely many conservation laws",
       "anchor": "lax",
       "prereqs": ["is-kdv"],
-      "blurb": "A $\\textbf{Lax pair}$ writes a nonlinear evolution equation as an isospectral deformation $\\dot L=[P,L]$ of a linear operator $L$. The flow conjugates $L$ by a unitary, $L(t)=U(t)L(0)U(t)^{-1}$, so its spectrum is constant in time — the eigenvalues are conserved quantities. For KdV, $L=-\\partial_x^2+u(x,t)$ is exactly the Schrödinger operator, and $\\dot L=[P,L]$ with $P=-4\\partial_x^3+6u\\partial_x+3u_x$ reproduces KdV, yielding infinitely many conserved integrals."
+      "blurb": "A $\\textbf{Lax pair}$ writes a nonlinear evolution equation as an isospectral deformation $\\dot L=[P,L]$ of a linear operator $L$. The flow conjugates $L$ by a unitary, $L(t)=U(t)L(0)U(t)^{-1}$, so its spectrum is constant in time — the eigenvalues are conserved quantities. For KdV, $L=-\\partial_x^2-u(x,t)$ is the Schrödinger operator, and $\\dot L=[P,L]$ with $P=-4\\partial_x^3-6u\\partial_x-3u_x$ reproduces KdV, yielding infinitely many conserved integrals."
     },
     {
       "id": "is-ist",
       "title": "The inverse scattering transform",
       "anchor": "ist",
       "prereqs": ["is-lax", "se-scattering"],
-      "blurb": "The inverse scattering transform (IST) is a nonlinear Fourier transform: map the initial profile $u(x,0)$ to the $\\textbf{scattering data}$ of the Schrödinger operator $-\\partial_x^2+u$ (reflection coefficient $r(k)$ plus discrete eigenvalues $-\\kappa_n^2$). Under KdV the scattering data evolve $\\textit{linearly}$ and explicitly; one then reconstructs $u(x,t)$ by solving the Gelfand–Levitan–Marchenko integral equation. Solitons correspond exactly to the bound states, and reflectionless potentials ($r\\equiv0$) are pure $N$-soliton solutions."
+      "blurb": "The inverse scattering transform (IST) is a nonlinear Fourier transform: map the initial profile $u(x,0)$ to the $\\textbf{scattering data}$ of the Schrödinger operator $-\\partial_x^2-u$ (reflection coefficient $r(k)$ plus discrete eigenvalues $-\\kappa_n^2$). Under KdV the scattering data evolve $\\textit{linearly}$ and explicitly; one then reconstructs $u(x,t)$ by solving the Gelfand–Levitan–Marchenko integral equation. Solitons correspond exactly to the bound states, and reflectionless potentials ($r\\equiv0$) are pure $N$-soliton solutions."
     },
     {
       "id": "is-toda",

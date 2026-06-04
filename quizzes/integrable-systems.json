@@ -92,13 +92,13 @@
           "type": "mcq",
           "q": "For the KdV equation, the Lax operator $L$ is:",
           "choices": [
-            "the Schrödinger operator $L=-\\partial_x^2+u(x,t)$",
+            "the Schrödinger operator $L=-\\partial_x^2-u(x,t)$",
             "the first-derivative operator $\\partial_x$",
             "multiplication by $u$",
             "the heat operator $\\partial_t-\\partial_x^2$"
           ],
           "answer": 0,
-          "explain": "KdV is the isospectral flow of the 1-D Schrödinger operator $-\\partial_x^2+u$: feeding $L=-\\partial_x^2+u$ and $P=-4\\partial_x^3+6u\\partial_x+3u_x$ into $\\dot L=[P,L]$ reproduces $u_t+6uu_x+u_{xxx}=0$. This is exactly why the inverse scattering transform uses the Schrödinger scattering problem."
+          "explain": "KdV is the isospectral flow of the 1-D Schrödinger operator $-\\partial_x^2-u$: feeding $L=-\\partial_x^2-u$ and $P=-4\\partial_x^3-6u\\partial_x-3u_x$ into $\\dot L=[P,L]$ reproduces $u_t+6uu_x+u_{xxx}=0$. This is exactly why the inverse scattering transform uses the Schrödinger scattering problem."
         },
         {
           "type": "mcq",
@@ -131,7 +131,7 @@
         },
         {
           "type": "mcq",
-          "q": "In the scattering data of the Schrödinger operator $-\\partial_x^2+u$, the solitons of KdV correspond to:",
+          "q": "In the scattering data of the Schrödinger operator $-\\partial_x^2-u$, the solitons of KdV correspond to:",
           "choices": [
             "the discrete eigenvalues (bound states) $-\\kappa_n^2$",
             "the continuous spectrum / reflection coefficient $r(k)$",
