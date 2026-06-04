@@ -300,6 +300,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./integrable-systems.html#ist\">Integrable systems</a> · The inverse scattering transform</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "\n"
         },
         {

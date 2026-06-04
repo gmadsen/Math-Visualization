@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-04T14:02:02.720Z",
+  "generated": "2026-06-04T14:32:51.218Z",
   "entries": [
     {
       "slug": "optimal-transport",
@@ -15,7 +15,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-06-04",
-      "message": "feat(quantum-information): new Mathematical-physics topic — qubits to error correction"
+      "message": "feat(quantum-information): new Mathematical-physics topic — qubits to error correction (#424)"
     },
     {
       "slug": "infinity-categories",

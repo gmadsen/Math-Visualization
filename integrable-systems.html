@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Integrable systems</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="mathematical-physics" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#integrability">1&nbsp;Liouville&nbsp;integrability&nbsp;and&nbsp;action-angle&nbsp;variables</a>
+  <a href="#kdv">2&nbsp;The&nbsp;KdV&nbsp;equation&nbsp;and&nbsp;solitons</a>
+  <a href="#lax">3&nbsp;Lax&nbsp;pairs&nbsp;and&nbsp;infinitely&nbsp;many&nbsp;conservation&nbsp;laws</a>
+  <a href="#ist">4&nbsp;The&nbsp;inverse&nbsp;scattering&nbsp;transform</a>
+  <a href="#toda">5&nbsp;The&nbsp;Toda&nbsp;lattice&nbsp;and&nbsp;finite-dimensional&nbsp;integrability</a>
+  <a href="#soliton-zoo">6&nbsp;The&nbsp;soliton&nbsp;zoo&nbsp;and&nbsp;integrable&nbsp;hierarchies</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Integrable systems</h1>
+  <p class="sub">Exactly solvable nonlinearity: Liouville integrability and action-angle tori, KdV solitons, Lax pairs and isospectral flow, the inverse scattering transform, the Toda lattice, and the soliton zoo.</p>
+</section>
+
+<section id="integrability">
+<h2>1. Liouville integrability and action-angle variables</h2>
+<p>Most Hamiltonian systems are chaotic. A rare and beautiful exception is an <strong>integrable</strong> system: one with $n$ degrees of freedom and $n$ independent conserved quantities $I_1,\dots,I_n$ that are <em>in involution</em>, $\{I_i,I_j\}=0$. The <strong>Liouville–Arnold theorem</strong> says the common level sets are then $n$-dimensional tori, and there are <strong>action-angle</strong> coordinates $(I,\theta)$ in which the dynamics is utterly simple: $\dot I=0$, $\dot\theta=\omega(I)$ — straight-line winding on a torus.</p>
+<p>The pendulum ($n=1$) already shows the picture: its energy $H=\tfrac12 p^2-\cos\theta$ is the single integral, and the phase plane is foliated by its level curves — closed <em>libration</em> orbits inside, unbounded <em>rotation</em> orbits outside, separated by the <em>separatrix</em>. Each closed curve is a 1-torus carrying periodic motion.</p>
+<div class="widget" id="w-int">
+  <div class="hd"><div class="ttl">Pendulum phase portrait: orbits as invariant tori</div><div class="hint">drag the energy</div></div>
+  <svg id="in-svg" viewBox="0 0 640 240" width="640" height="240"><title>Pendulum phase plane foliated by energy level sets</title></svg>
+  <div class="row">
+    <label for="in-e">energy $E$</label>
+    <input type="range" id="in-e" min="-1" max="2.4" step="0.02" value="0.4">
+    <span class="small" id="in-e-lbl"></span>
+  </div>
+  <div class="readout" id="in-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#in-svg'), out=$('#in-out');
+  const ev=$('#in-e'), eL=$('#in-e-lbl');
+  const cx=320, cy=140, sx=42, sy=70; // pixels per unit (theta in [-pi,pi]*?, p)
+  function render(){
+    svg.innerHTML='';
+    const E=+ev.value; eL.textContent='energy E = '+E.toFixed(2);
+    // pendulum H = p^2/2 - cos(theta) = E ; phase plane (theta,p)
+    const PX=function(th){ return cx + th*sx; };
+    const PY=function(p){ return cy - p*sy; };
+    // axes
+    svg.appendChild(SVG('line',{x1:PX(-Math.PI*1.6),y1:cy,x2:PX(Math.PI*1.6),y2:cy,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-110,x2:cx,y2:cy+110,stroke:'var(--line)'}));
+    // background level curves at several energies
+    const levels=[-0.6,0,0.6,1.0,1.6,2.4];
+    const curveFor=function(Elev,stroke,w){
+      // p = ± sqrt(2(Elev+cos theta)); sweep theta
+      const draw=function(sign){
+        let d='', started=false;
+        for(let th=-Math.PI*1.55; th<=Math.PI*1.55; th+=0.02){
+          const val=2*(Elev+Math.cos(th));
+          if(val<0){ started=false; continue; }
+          const p=sign*Math.sqrt(val);
+          d+=(started?'L':'M')+PX(th).toFixed(1)+' '+PY(p).toFixed(1)+' '; started=true;
+        }
+        if(d) svg.appendChild(SVG('path',{d:d,fill:'none',stroke:stroke,'stroke-width':w}));
+      };
+      draw(1); draw(-1);
+    };
+    for(const L of levels) curveFor(L,'var(--line)',1);
+    // separatrix E=1
+    curveFor(1.0,'var(--pink)',1.5);
+    // highlighted current level
+    curveFor(E,'var(--cyan)',2.5);
+    const lab=function(x,y,t,c){const e=SVG('text',{x:x,y:y,'font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(PX(Math.PI*1.6)-10,cy+16,'θ','var(--mute)'); lab(cx+8,cy-104,'p','var(--mute)');
+    let kind; if(Math.abs(E-1)<0.04) kind='the SEPARATRIX (E=1): the boundary orbit, infinite period';
+      else if(E<1) kind='LIBRATION: a closed orbit (1-torus) — the pendulum swings back and forth';
+      else kind='ROTATION: p never vanishes — the pendulum spins over the top';
+    out.textContent='pendulum  H(θ,p) = p²/2 − cos θ = E   (1 degree of freedom, 1 integral H)\n'
+      +'the level set {H = E} is the cyan curve — an invariant 1-torus on which the motion is periodic (Liouville–Arnold)\n'
+      +'→ '+kind;
+  }
+  ev.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hamiltonians-classical-mechanics.html#hamilton-eq">Hamilton's equations</a></li>
+    <li><a href="./hamiltonians-classical-mechanics.html#integrable">Integrable systems and KAM</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./integrable-systems.html#kdv">Integrable systems</a> · The KdV equation and solitons</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="is-integrability"></div></section>
+<section id="kdv">
+<h2>2. The KdV equation and solitons</h2>
+<p>Shallow water waves obey the <strong>Korteweg–de Vries</strong> equation</p>
+<p>$$u_t+6uu_x+u_{xxx}=0.$$</p>
+<p>The term $6uu_x$ steepens a wave (as in a breaking shock); the term $u_{xxx}$ disperses it. KdV is the exact balance, and it supports <strong>solitons</strong> $u=2\kappa^2\operatorname{sech}^2\!\big(\kappa(x-4\kappa^2t-x_0)\big)$ — localized humps whose <em>speed $4\kappa^2$ grows with amplitude $2\kappa^2$</em>. In 1965 Zabusky and Kruskal found numerically that a tall soliton overtaking a short one passes straight through, both surviving intact up to a phase shift — particle-like behaviour that named the soliton and launched the field.</p>
+<div class="widget" id="w-kdv">
+  <div class="hd"><div class="ttl">Two solitons: the tall one overtakes the short one</div><div class="hint">drag t through the collision</div></div>
+  <svg id="kdv-svg" viewBox="0 0 640 220" width="640" height="220"><title>Two KdV solitons of different amplitudes and speeds</title></svg>
+  <div class="row">
+    <label for="kdv-t">time $t$</label>
+    <input type="range" id="kdv-t" min="-8" max="8" step="0.1" value="-5">
+    <span class="small" id="kdv-t-lbl"></span>
+  </div>
+  <div class="readout" id="kdv-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#kdv-svg'), out=$('#kdv-out');
+  const tv=$('#kdv-t'), tL=$('#kdv-t-lbl');
+  const W=640, xmin=-12, xmax=12, baseY=180;
+  const k1=1.0, k2=0.6; // taller (fast) and shorter (slow)
+  function render(){
+    svg.innerHTML='';
+    const t=+tv.value; tL.textContent='time t = '+t.toFixed(1);
+    const PX=function(x){ return 30+(x-xmin)*(W-60)/(xmax-xmin); };
+    const amp1=2*k1*k1, amp2=2*k2*k2, v1=4*k1*k1, v2=4*k2*k2;
+    const x1=v1*t-3, x2=v2*t+3;
+    const scale=26;
+    const PY=function(u){ return baseY-u*scale; };
+    const sol=function(k,amp,x0,stroke){
+      let d='';const N=400,dx=(xmax-xmin)/N;
+      for(let i=0;i<=N;i++){ const x=xmin+i*dx; const s=1/Math.cosh(k*(x-x0)); const u=amp*s*s; d+=(i?'L':'M')+PX(x).toFixed(1)+' '+PY(u).toFixed(1)+' '; }
+      svg.appendChild(SVG('path',{d:d,fill:'none',stroke:stroke,'stroke-width':2}));
+    };
+    svg.appendChild(SVG('line',{x1:PX(xmin),y1:baseY,x2:PX(xmax),y2:baseY,stroke:'var(--line)'}));
+    sol(k2,amp2,x2,'var(--violet)');
+    sol(k1,amp1,x1,'var(--cyan)');
+    const lab=function(x,y,tx,c){const e=SVG('text',{x:x,y:y,'font-size':12,fill:c});e.textContent=tx;svg.appendChild(e);};
+    lab(40,30,'cyan: tall soliton  κ=1.0, amp 2.0, speed 4.0','var(--cyan)');
+    lab(40,46,'violet: short soliton  κ=0.6, amp 0.72, speed 1.44','var(--violet)');
+    out.textContent='KdV solitons  u = 2κ² sech²(κ(x − 4κ²t − x₀)):  amplitude 2κ², speed 4κ² — taller means faster\n'
+      +'tall soliton centre x₁ = '+x1.toFixed(2)+',   short soliton centre x₂ = '+x2.toFixed(2)+'\n'
+      +'drag t through the collision: the fast soliton overtakes the slow one and both re-emerge with their exact shapes (only a phase shift). Shown as separate curves for clarity.';
+  }
+  tv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#classification">Classification: elliptic / parabolic / hyperbolic</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./integrable-systems.html#lax">Integrable systems</a> · Lax pairs and infinitely many conservation laws</div>
+    <div><a href="./integrable-systems.html#soliton-zoo">Integrable systems</a> · The soliton zoo and integrable hierarchies</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="is-kdv"></div></section>
+<section id="lax">
+<h2>3. Lax pairs and infinitely many conservation laws</h2>
+<p>Why is KdV solvable? Lax’s insight: rewrite it as an <strong>isospectral deformation</strong> of a linear operator,</p>
+<p>$$\dot L=[P,L]\quad\Longrightarrow\quad L(t)=U(t)\,L(0)\,U(t)^{-1},$$</p>
+<p>a similarity transformation that <em>preserves the spectrum</em> of $L$. Every eigenvalue is thus a conserved quantity. For KdV the operator is precisely the Schrödinger operator $L=-\partial_x^2+u(x,t)$, with $P=-4\partial_x^3+6u\partial_x+3u_x$; expanding $\dot L=[P,L]$ regenerates the KdV equation and, through the spectral data, an infinite tower of conservation laws. The matrix demo shows the entries churning while the eigenvalues sit perfectly still.</p>
+<div class="widget" id="w-lax">
+  <div class="hd"><div class="ttl">Isospectral flow: entries move, eigenvalues frozen</div><div class="hint">advance the flow</div></div>
+  <svg id="lax-svg" viewBox="0 0 640 240" width="640" height="240"><title>A matrix evolving isospectrally with fixed eigenvalues</title></svg>
+  <div class="row">
+    <label for="lax-t">flow time $t$</label>
+    <input type="range" id="lax-t" min="0" max="6.2832" step="0.02" value="0">
+    <span class="small" id="lax-t-lbl"></span>
+  </div>
+  <div class="readout" id="lax-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#lax-svg'), out=$('#lax-out');
+  const tv=$('#lax-t'), tL=$('#lax-t-lbl');
+  const lam=[3.0,1.0,-2.0]; // fixed eigenvalues
+  function rot(i,jj,c,s,M){ // apply Givens rotation in (i,jj) plane: M -> G M G^T effect handled by building Q
+  }
+  function render(){
+    svg.innerHTML='';
+    const t=+tv.value; tL.textContent='flow time t = '+t.toFixed(2);
+    // Build orthogonal Q(t) as product of three Givens rotations with t-dependent angles
+    const a1=0.7*t, a2=0.5*t+0.3, a3=0.9*t-0.2;
+    function givens(i,jj,ang){ const M=[[1,0,0],[0,1,0],[0,0,1]]; const c=Math.cos(ang),s=Math.sin(ang); M[i][i]=c;M[jj][jj]=c;M[i][jj]=-s;M[jj][i]=s; return M; }
+    function mul(A,B){ const C=[[0,0,0],[0,0,0],[0,0,0]]; for(let i=0;i<3;i++)for(let j=0;j<3;j++){let s=0;for(let k=0;k<3;k++)s+=A[i][k]*B[k][j];C[i][j]=s;} return C; }
+    function transpose(A){ return [[A[0][0],A[1][0],A[2][0]],[A[0][1],A[1][1],A[2][1]],[A[0][2],A[1][2],A[2][2]]]; }
+    let Q=mul(mul(givens(0,1,a1),givens(1,2,a2)),givens(0,2,a3));
+    const D=[[lam[0],0,0],[0,lam[1],0],[0,0,lam[2]]];
+    const L=mul(mul(Q,D),transpose(Q)); // L(t)=Q D Q^T, eigenvalues = lam (exact)
+    // draw matrix
+    const ox=90,oy=70,cw=78,ch=34;
+    const lab=function(x,y,t2,c,anc,sz){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'middle','font-size':sz||13,fill:c});e.textContent=t2;svg.appendChild(e);};
+    lab(ox+1.5*cw,oy-22,'L(t) = Q(t) D Q(t)ᵀ  (entries change…)','var(--cyan)');
+    for(let i=0;i<3;i++)for(let jj=0;jj<3;jj++){
+      lab(ox+jj*cw+cw/2, oy+i*ch+ch/2+4, L[i][jj].toFixed(2), 'var(--ink)');
+    }
+    // eigenvalue number line
+    const baseY=200, x0=80, x1=560;
+    const vmin=-3.5, vmax=3.5;
+    const EX=function(v){ return x0+(v-vmin)*(x1-x0)/(vmax-vmin); };
+    svg.appendChild(SVG('line',{x1:x0,y1:baseY,x2:x1,y2:baseY,stroke:'var(--line)'}));
+    for(const lv of lam){ svg.appendChild(SVG('circle',{cx:EX(lv),cy:baseY,r:6,fill:'var(--yellow)'})); lab(EX(lv),baseY+22,lv.toFixed(1),'var(--yellow)'); }
+    lab(320,baseY-16,'…but the eigenvalues (spectrum) stay fixed','var(--yellow)');
+    out.textContent='isospectral Lax flow  L̇ = [P, L]  ⇒  L(t) = Q(t) L(0) Q(t)ᵀ  (orthogonal conjugation)\n'
+      +'the matrix entries evolve with t, yet the eigenvalues {3, 1, −2} are frozen\n'
+      +'each conserved eigenvalue is a constant of motion — an integrable PDE gets infinitely many this way.';
+  }
+  tv.addEventListener('input',render); render();
+
+})();
+</script><div class="quiz" data-concept="is-lax"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./integrable-systems.html#ist">Integrable systems</a> · The inverse scattering transform</div>
+    <div><a href="./integrable-systems.html#toda">Integrable systems</a> · The Toda lattice and finite-dimensional integrability</div>
+</aside>
+<!-- backlinks-auto-end --></section>
+<section id="ist">
+<h2>4. The inverse scattering transform</h2>
+<p>The <strong>inverse scattering transform</strong> (IST) is a nonlinear Fourier transform. Read the initial profile $u(x,0)$ as the potential of the Schrödinger operator $-\partial_x^2+u$ and compute its <strong>scattering data</strong>: a reflection coefficient $r(k)$ on the continuous spectrum plus discrete eigenvalues $-\kappa_n^2$ (bound states). The magic is that under KdV this data evolves <em>linearly and explicitly</em>; reconstructing $u(x,t)$ is then a (linear) Gelfand–Levitan–Marchenko integral equation.</p>
+<p>The dictionary is exact: each bound state is one soliton of amplitude $2\kappa_n^2$, and a <strong>reflectionless</strong> potential ($r\equiv0$) is a pure $N$-soliton solution. The Pöschl–Teller wells $-N(N+1)\operatorname{sech}^2x$ are exactly reflectionless, with $N$ bound states at $E=-1,-4,\dots,-N^2$.</p>
+<div class="widget" id="w-ist">
+  <div class="hd"><div class="ttl">Reflectionless wells and their bound states</div><div class="hint">choose the soliton number</div></div>
+  <svg id="ist-svg" viewBox="0 0 640 240" width="640" height="240"><title>Poschl-Teller reflectionless potential with N bound states</title></svg>
+  <div class="row">
+    <label for="ist-n">soliton number $N$</label>
+    <input type="range" id="ist-n" min="1" max="4" step="1" value="2">
+    <span class="small" id="ist-n-lbl"></span>
+  </div>
+  <div class="readout" id="ist-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#ist-svg'), out=$('#ist-out');
+  const nv=$('#ist-n'), nL=$('#ist-n-lbl');
+  const W=640, xmin=-5, xmax=5;
+  function render(){
+    svg.innerHTML='';
+    const N=Math.round(+nv.value); nL.textContent='soliton number N = '+N;
+    const depth=N*(N+1); // Poschl-Teller -N(N+1) sech^2 x : reflectionless, N bound states E=-(N-j)^2
+    const baseY=80, eScale=18; // energy axis: 0 at baseY, negative downward
+    const PX=function(x){ return 40+(x-xmin)*(W-70)/(xmax-xmin); };
+    const EY=function(E){ return baseY - E*eScale; }; // E negative -> below baseY... E<0 so -E*scale>0 downward
+    // potential curve V(x) = -depth sech^2 x
+    let d='';const M=400,dx=(xmax-xmin)/M;
+    for(let i=0;i<=M;i++){ const x=xmin+i*dx; const s=1/Math.cosh(x); const V=-depth*s*s; d+=(i?'L':'M')+PX(x).toFixed(1)+' '+EY(V).toFixed(1)+' '; }
+    svg.appendChild(SVG('line',{x1:PX(xmin),y1:EY(0),x2:PX(xmax),y2:EY(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--violet)','stroke-width':2}));
+    const lab=function(x,y,t,c,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'start','font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(PX(xmax)-4,EY(0)-6,'E=0','var(--mute)','end');
+    // bound state levels E_j = -(N-j)^2, j=0..N-1
+    let levels=[];
+    for(let kk=1;kk<=N;kk++){ const E=-(kk*kk); levels.push(E);
+      svg.appendChild(SVG('line',{x1:PX(-3.2),y1:EY(E),x2:PX(3.2),y2:EY(E),stroke:'var(--yellow)','stroke-dasharray':'5 3'}));
+      lab(PX(3.2)+4,EY(E)+4,'E = '+E,'var(--yellow)');
+    }
+    out.textContent='Pöschl–Teller well  V(x) = −N(N+1) sech²x = −'+depth+' sech²x  — a reflectionless potential (r(k) ≡ 0)\n'
+      +'bound-state energies  −'+levels.map(function(e){return Math.abs(e);}).join(', −')+'   ('+N+' of them)\n'
+      +'under KdV this evolves into a pure '+N+'-soliton solution: each bound state −κ² becomes a soliton of amplitude 2κ². No dispersive radiation, because there is no reflection.';
+  }
+  nv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./schrodinger-equation.html#scattering">Scattering states and barrier transmission</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./integrable-systems.html#soliton-zoo">Integrable systems</a> · The soliton zoo and integrable hierarchies</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="is-ist"></div></section>
+<section id="toda">
+<h2>5. The Toda lattice and finite-dimensional integrability</h2>
+<p>Integrability is not only a PDE phenomenon. The <strong>Toda lattice</strong> — point masses on a line coupled by exponential springs $V(r)=e^{-r}+r-1$ — is the discrete cousin of KdV and carries its own compression solitons. In Flaschka’s change of variables it becomes a <strong>Lax flow</strong> $\dot L=[B,L]$ with $L$ a symmetric tridiagonal (Jacobi) matrix, so its eigenvalues are conserved and the finite lattice is Liouville integrable.</p>
+<p>The payoff reaches far: sampling this isospectral tridiagonal flow at integer times reproduces the <strong>QR algorithm</strong> for eigenvalues, and the same structures appear in random matrix theory. Integrable dynamics and numerical linear algebra are, surprisingly, the same story.</p>
+<div class="widget" id="w-toda">
+  <div class="hd"><div class="ttl">A Toda soliton travelling along the chain</div><div class="hint">advance time</div></div>
+  <svg id="toda-svg" viewBox="0 0 640 200" width="640" height="200"><title>A compression soliton moving along the Toda lattice</title></svg>
+  <div class="row">
+    <label for="toda-t">time $t$</label>
+    <input type="range" id="toda-t" min="0" max="12" step="0.1" value="0">
+    <span class="small" id="toda-t-lbl"></span>
+  </div>
+  <div class="readout" id="toda-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#toda-svg'), out=$('#toda-out');
+  const tv=$('#toda-t'), tL=$('#toda-t-lbl');
+  const Np=14, W=640;
+  function render(){
+    svg.innerHTML='';
+    const t=+tv.value; tL.textContent='time t = '+t.toFixed(1);
+    const v=0.9; // soliton speed (sites per unit time)
+    const center=2 + v*t; // moving compression centre (site index)
+    const y=110;
+    // equilibrium spacing
+    const x0=40, dxeq=(W-80)/(Np-1);
+    const lab=function(x,yy,tx,c,anc){const e=SVG('text',{x:x,y:yy,'text-anchor':anc||'middle','font-size':12,fill:c});e.textContent=tx;svg.appendChild(e);};
+    // displacement: beads bunch toward the soliton centre; use derivative of a tanh kink as compression
+    const disp=function(n){ return -0.55*dxeq*Math.tanh(0.9*(n-center)); }; // sigmoid step => local compression
+    for(let n=0;n<Np;n++){
+      const x=x0+n*dxeq+disp(n);
+      const near=1/Math.cosh(0.9*(n-center));
+      svg.appendChild(SVG('circle',{cx:x,cy:y,r:5+3*near*near,fill:'var(--cyan)','fill-opacity':0.5+0.5*near*near}));
+    }
+    lab(W/2,40,'Toda lattice: a localized compression soliton travelling along the chain','var(--cyan)');
+    lab(W/2,y+44,'beads bunch up where the soliton is, then relax — moving at constant speed','var(--mute)');
+    out.textContent='Toda lattice: masses with exponential nearest-neighbour springs  V(r) = e^{−r} + r − 1\n'
+      +'in Flaschka variables the dynamics is a Lax flow  L̇ = [B, L]  with L symmetric tridiagonal (Jacobi)\n'
+      +'→ the eigenvalues of L are conserved, the finite lattice is Liouville integrable, and the same flow drives the QR eigenvalue algorithm.';
+  }
+  tv.addEventListener('input',render); render();
+
+})();
+</script><div class="quiz" data-concept="is-toda"></div></section>
+<section id="soliton-zoo">
+<h2>6. The soliton zoo and integrable hierarchies</h2>
+<p>KdV has many integrable siblings, all solved by the Lax/IST machinery: the focusing <strong>nonlinear Schrödinger</strong> equation (bright envelope solitons in optics and deep water), <strong>sine-Gordon</strong> (topological kinks and oscillating breathers), and <strong>modified KdV</strong>. Each shares the defining features — a Lax pair, infinitely many conservation laws, and clean multi-soliton scattering.</p>
+<p>Moreover each equation is just one rung of an infinite <strong>hierarchy</strong> of commuting flows, generated by a <em>bi-Hamiltonian</em> (Magri) structure: two compatible Poisson brackets whose recursion operator manufactures the higher symmetries and conserved quantities. Integrability, once found, comes in towers.</p>
+<div class="widget" id="w-zoo">
+  <div class="hd"><div class="ttl">The soliton gallery</div><div class="hint">pick an equation, scale κ</div></div>
+  <svg id="zoo-svg" viewBox="0 0 640 180" width="640" height="180"><title>Characteristic soliton profiles of four integrable equations</title></svg>
+  <div class="row">
+    <label for="zoo-k">parameter $\kappa$</label>
+    <input type="range" id="zoo-k" min="0.4" max="2" step="0.05" value="1">
+    <span class="small" id="zoo-k-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="zoo-kdv">KdV</button>
+    <button id="zoo-nls">NLS</button>
+    <button id="zoo-sinegordon">sine-Gordon</button>
+    <button id="zoo-mkdv">mKdV</button>
+  </div>
+  <div class="readout" id="zoo-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#zoo-svg'), out=$('#zoo-out');
+  const kv=$('#zoo-k'), kL=$('#zoo-k-lbl');
+  let eq='KdV';
+  const W=640, xmin=-6, xmax=6, baseY=130;
+  function render(){
+    svg.innerHTML='';
+    const k=+kv.value; kL.textContent='parameter κ = '+k.toFixed(2);
+    const PX=function(x){ return 30+(x-xmin)*(W-60)/(xmax-xmin); };
+    const sc=40;
+    const PY=function(u){ return baseY-u*sc; };
+    let f, desc, prof;
+    if(eq==='KdV'){ f=function(x){ const s=1/Math.cosh(k*x); return 2*k*k*s*s; }; desc='KdV:  u = 2κ² sech²(κx)  — elevation soliton'; }
+    else if(eq==='NLS'){ f=function(x){ const s=1/Math.cosh(k*x); return k*s; }; desc='focusing NLS:  |ψ| = κ sech(κx)  — bright envelope soliton'; }
+    else if(eq==='sine-Gordon'){ f=function(x){ return (4*Math.atan(Math.exp(k*x)))/Math.PI - 1; }; desc='sine-Gordon kink:  u = 4 arctan(e^{κx})  (scaled) — a topological soliton 0→2π'; }
+    else { f=function(x){ const s=1/Math.cosh(k*x); return 2*k*s; }; desc='mKdV:  u = 2κ sech(κx)  — algebraic cousin of KdV'; }
+    svg.appendChild(SVG('line',{x1:PX(xmin),y1:baseY,x2:PX(xmax),y2:baseY,stroke:'var(--line)'}));
+    let d='';const M=400,dx=(xmax-xmin)/M;
+    for(let i=0;i<=M;i++){ const x=xmin+i*dx; d+=(i?'L':'M')+PX(x).toFixed(1)+' '+PY(f(x)).toFixed(1)+' '; }
+    svg.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+    out.textContent=desc+'\n'
+      +'All four are integrable: each has a Lax pair / zero-curvature representation and is solved by the inverse scattering transform.\n'
+      +'They share KdV’s structure — infinitely many conservation laws and clean multi-soliton interaction.';
+  }
+  ['KdV','NLS','sine-Gordon','mKdV'].forEach(function(name){ const id='zoo-'+name.toLowerCase().replace(/[^a-z]/g,''); const b=$('#'+id);
+    if(b) b.addEventListener('click',function(){ eq=name; document.querySelectorAll('[id^=zoo-]').forEach(function(x){ if(x.tagName==='BUTTON') x.classList.remove('active'); }); b.classList.add('active'); render(); }); });
+  const first=$('#zoo-kdv'); if(first) first.classList.add('active');
+  kv.addEventListener('input',render); render();
+
+})();
+</script><div class="quiz" data-concept="is-soliton-zoo"></div></section>
+<section id="connections">
+<h2>Connections</h2>
+<p>Integrable systems are a thin, exactly-solvable thread running through analysis, geometry, and algebra. The frontier is to recognize integrability when it hides — in random matrices, in the KPZ universality class, in supersymmetric gauge theory and the Bethe ansatz — and to understand the near-integrable regime where KAM theory governs the slow onset of chaos.</p>
+<ul>
+<li><a href="./hamiltonians-classical-mechanics.html#integrable">Classical mechanics — integrable systems</a> — the Hamiltonian and action-angle setting this page builds on.</li>
+<li><a href="./partial-differential-equations.html#classification">PDE — classification</a> — KdV and friends as dispersive nonlinear PDEs.</li>
+<li><a href="./schrodinger-equation.html#scattering">Schrödinger equation — scattering</a> — the linear scattering problem the IST inverts.</li>
+<li><a href="./spectral-theory.html#self-adjoint">Spectral theory — self-adjoint operators</a> — isospectral flows preserve exactly this spectrum.</li>
+<li><a href="./dynamical-systems.html#poincare">Dynamical systems — Poincaré sections</a> — how integrability degrades into chaos under perturbation.</li>
+</ul>
+</section>
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('integrable-systems'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-06-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
