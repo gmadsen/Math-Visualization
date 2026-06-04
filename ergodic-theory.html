@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ergodic theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="analysis" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#mpt">1&nbsp;Measure-preserving&nbsp;transformations</a>
+  <a href="#recurrence">2&nbsp;Poincaré&nbsp;recurrence</a>
+  <a href="#ergodicity">3&nbsp;Ergodicity&nbsp;and&nbsp;Birkhoff’s&nbsp;theorem</a>
+  <a href="#mixing">4&nbsp;Mixing&nbsp;and&nbsp;the&nbsp;ergodic&nbsp;hierarchy</a>
+  <a href="#entropy">5&nbsp;Kolmogorov–Sinai&nbsp;entropy</a>
+  <a href="#equidistribution">6&nbsp;Equidistribution&nbsp;and&nbsp;homogeneous&nbsp;dynamics</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Ergodic theory</h1>
+  <p class="sub">The long-run statistics of measure-preserving dynamics: recurrence, ergodicity and Birkhoff’s theorem, the mixing hierarchy, Kolmogorov–Sinai entropy, and Weyl equidistribution.</p>
+</section>
+
+<section id="mpt">
+<h2>1. Measure-preserving transformations</h2>
+<p>Ergodic theory is the study of the long-run statistics of a dynamical system that preserves a measure. The basic object is a <strong>measure-preserving system</strong> $(X,\mathcal{B},\mu,T)$: a probability space together with a map $T$ such that</p>
+<p>$$\mu(T^{-1}A)=\mu(A)\qquad\text{for every measurable }A.$$</p>
+<p>The invariant measure $\mu$ is exactly what makes time averages meaningful. Three running examples: the <em>circle rotation</em> $Tx=x+\alpha\bmod1$, the <em>doubling map</em> $Tx=2x\bmod1$, and the <em>Bernoulli shift</em> on sequences. Linearly, $T$ induces the <strong>Koopman operator</strong> $f\mapsto f\circ T$, a unitary on $L^2(\mu)$ — the bridge to spectral methods.</p>
+<div class="widget" id="w-mpt">
+  <div class="hd"><div class="ttl">A circle rotation orbit</div><div class="hint">rational vs irrational α</div></div>
+  <svg id="mpt-svg" viewBox="0 0 640 240" width="640" height="240"><title>Orbit of a circle rotation, periodic for rational alpha and dense for irrational</title></svg>
+  <div class="row">
+    <label for="mpt-a">rotation $\alpha$</label>
+    <input type="range" id="mpt-a" min="0" max="1" step="0.001" value="0.618">
+    <span class="small" id="mpt-a-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="mpt-n">iterates $N$</label>
+    <input type="range" id="mpt-n" min="1" max="400" step="1" value="120">
+    <span class="small" id="mpt-n-lbl"></span>
+  </div>
+  <div class="readout" id="mpt-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#mpt-svg'), out=$('#mpt-out');
+  const av=$('#mpt-a'), aL=$('#mpt-a-lbl'), nv=$('#mpt-n'), nL=$('#mpt-n-lbl');
+  const cx=320, cy=130, R=100;
+  function nearRational(a){ // detect small-denominator rational
+    for(let q=2;q<=12;q++){ const p=Math.round(a*q); if(Math.abs(a-p/q)<0.004) return p+'/'+q; } return null; }
+  function render(){
+    svg.innerHTML='';
+    const a=+av.value, N=Math.round(+nv.value);
+    aL.textContent='rotation α = '+a.toFixed(3); nL.textContent='iterates N = '+N;
+    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));
+    const seen={};
+    for(let k=0;k<N;k++){ const x=((k*a)%1+1)%1; const key=x.toFixed(3); seen[key]=1;
+      const th=2*Math.PI*x - Math.PI/2;
+      svg.appendChild(SVG('circle',{cx:cx+R*Math.cos(th),cy:cy+R*Math.sin(th),r:3.2,fill:'var(--cyan)','fill-opacity':0.75}));
+    }
+    const rat=nearRational(a), distinct=Object.keys(seen).length;
+    const lab=function(x,y,t,c){const e=SVG('text',{x:x,y:y,'text-anchor':'middle','font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(cx,cy-R-12,'circle  ℝ/ℤ','var(--mute)');
+    out.textContent='circle rotation  Tx = x + α (mod 1)  — preserves Lebesgue measure: μ(T⁻¹A)=μ(A)\n'
+      +'orbit {0, α, 2α, …, (N−1)α} mod 1:  '+distinct+' distinct points among '+N+' iterates\n'
+      +(rat ? 'α ≈ '+rat+' (rational): the orbit is PERIODIC — it lands on finitely many points and never fills the circle.'
+            : 'α looks irrational: the orbit never repeats and fills the circle densely (and equidistributes — see §3, §6).');
+  }
+  av.addEventListener('input',render); nv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#sigma">σ-algebras and measures</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./ergodic-theory.html#ergodicity">Ergodic theory</a> · Ergodicity and Birkhoff's theorem</div>
+    <div><a href="./ergodic-theory.html#recurrence">Ergodic theory</a> · Poincaré recurrence</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="et-measure-preserving"></div></section>
+<section id="recurrence">
+<h2>2. Poincaré recurrence</h2>
+<p>The first theorem of the subject is almost free. <strong>Poincaré recurrence</strong>: in a finite measure-preserving system, for any set $A$ with $\mu(A)>0$, almost every point of $A$ returns to $A$ — in fact infinitely often.</p>
+<p>The proof is a one-liner. Let $B\subseteq A$ be the points that never return. Then $B, T^{-1}B, T^{-2}B,\dots$ are pairwise disjoint and all have measure $\mu(B)$; infinitely many disjoint sets of equal measure cannot fit in a space of total measure $1$ unless $\mu(B)=0$. The conclusion is dramatic — a gas in a box must return arbitrarily close to its initial state — but it controls neither the recurrence time (astronomically long) nor anything topological.</p>
+<div class="widget" id="w-rec">
+  <div class="hd"><div class="ttl">Returns to a set A</div><div class="hint">count the comebacks</div></div>
+  <svg id="rec-svg" viewBox="0 0 640 240" width="640" height="240"><title>Orbit points returning to a marked arc of the circle</title></svg>
+  <div class="row">
+    <label for="rec-a">rotation $\alpha$</label>
+    <input type="range" id="rec-a" min="0" max="1" step="0.001" value="0.618">
+    <span class="small" id="rec-a-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="rec-n">iterates $N$</label>
+    <input type="range" id="rec-n" min="1" max="400" step="1" value="120">
+    <span class="small" id="rec-n-lbl"></span>
+  </div>
+  <div class="readout" id="rec-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#rec-svg'), out=$('#rec-out');
+  const av=$('#rec-a'), aL=$('#rec-a-lbl'), nv=$('#rec-n'), nL=$('#rec-n-lbl');
+  const cx=320, cy=130, R=100, arcLen=0.15;
+  function render(){
+    svg.innerHTML='';
+    const a=+av.value, N=Math.round(+nv.value);
+    aL.textContent='rotation α = '+a.toFixed(3); nL.textContent='iterates N = '+N;
+    // draw arc A = [0,arcLen) as a thick highlighted band
+    const a0=-Math.PI/2, a1=-Math.PI/2+2*Math.PI*arcLen;
+    const ax0=cx+R*Math.cos(a0), ay0=cy+R*Math.sin(a0), ax1=cx+R*Math.cos(a1), ay1=cy+R*Math.sin(a1);
+    svg.appendChild(SVG('path',{d:'M'+ax0+' '+ay0+' A '+R+' '+R+' 0 0 1 '+ax1+' '+ay1,fill:'none',stroke:'var(--yellow)','stroke-width':7,'stroke-opacity':0.5}));
+    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));
+    let returns=0;
+    for(let k=0;k<N;k++){ const x=((k*a)%1+1)%1; const inA=(x<arcLen); if(inA&&k>0) returns++;
+      const th=2*Math.PI*x-Math.PI/2;
+      svg.appendChild(SVG('circle',{cx:cx+R*Math.cos(th),cy:cy+R*Math.sin(th),r:inA?4.5:3,fill:inA?'var(--yellow)':'var(--cyan)','fill-opacity':inA?0.95:0.55}));
+    }
+    const lab=function(x,y,t,c){const e=SVG('text',{x:x,y:y,'text-anchor':'middle','font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(cx,cy-R-12,'set A = [0, 0.15)','var(--yellow)');
+    out.textContent='Poincaré recurrence: starting in A (the yellow arc), the orbit keeps coming back to A — infinitely often for a.e. point.\n'
+      +'returns to A among the first '+N+' iterates:  '+returns+'   (expected ≈ N·μ(A) = '+(N*arcLen).toFixed(1)+', since the rotation is ergodic)\n'
+      +'the theorem only needs finite measure + invariance — it says nothing about how LONG a return takes.';
+  }
+  av.addEventListener('input',render); nv.addEventListener('input',render); render();
+
+})();
+</script><div class="quiz" data-concept="et-poincare-recurrence"></div></section>
+<section id="ergodicity">
+<h2>3. Ergodicity and Birkhoff’s theorem</h2>
+<p>A system is <strong>ergodic</strong> if every $T$-invariant set has measure $0$ or $1$ — it cannot be split into two invariant pieces. The payoff is <strong>Birkhoff’s pointwise ergodic theorem</strong>: for $f\in L^1$ and almost every $x$,</p>
+<p>$$\frac1N\sum_{k=0}^{N-1}f(T^k x)\;\longrightarrow\;\int_X f\,d\mu.$$</p>
+<p>The <em>time average</em> along a single orbit equals the <em>space average</em> over the whole system — a dynamical strong law of large numbers, and the rigorous form of the physicists’ ergodic hypothesis. For the irrational rotation with $f$ the indicator of an arc, the running time average converges to the arc’s length.</p>
+<div class="widget" id="w-birk">
+  <div class="hd"><div class="ttl">Time average → space average</div><div class="hint">grow N, vary the arc</div></div>
+  <svg id="birk-svg" viewBox="0 0 640 210" width="640" height="210"><title>Birkhoff time average converging to the space average</title></svg>
+  <div class="row">
+    <label for="birk-b">arc length $b$</label>
+    <input type="range" id="birk-b" min="0.05" max="0.95" step="0.01" value="0.3">
+    <span class="small" id="birk-b-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="birk-n">steps $N$</label>
+    <input type="range" id="birk-n" min="10" max="3000" step="10" value="800">
+    <span class="small" id="birk-n-lbl"></span>
+  </div>
+  <div class="readout" id="birk-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#birk-svg'), out=$('#birk-out');
+  const bv=$('#birk-b'), bL=$('#birk-b-lbl'), nv=$('#birk-n'), nL=$('#birk-n-lbl');
+  const W=640, ox=60, oy=30, w=540, h=150;
+  const alpha=(Math.sqrt(5)-1)/2; // golden, irrational
+  function render(){
+    svg.innerHTML='';
+    const b=+bv.value, N=Math.round(+nv.value);
+    bL.textContent='arc length b = '+b.toFixed(2); nL.textContent='steps N = '+N;
+    // running time average of indicator [0,b) along orbit kα
+    const PX=function(n){ return ox + (n/N)*w; };
+    const PY=function(v){ return oy + (1-v)*h; };
+    // axes
+    svg.appendChild(SVG('line',{x1:ox,y1:oy+h,x2:ox+w,y2:oy+h,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:ox,y1:oy,x2:ox,y2:oy+h,stroke:'var(--line)'}));
+    // target line at b
+    svg.appendChild(SVG('line',{x1:ox,y1:PY(b),x2:ox+w,y2:PY(b),stroke:'var(--yellow)','stroke-dasharray':'5 4'}));
+    let cnt=0, d='', last=0;
+    for(let k=0;k<N;k++){ const x=((k*alpha)%1+1)%1; if(x<b) cnt++; const avg=cnt/(k+1); last=avg;
+      if(k%Math.max(1,Math.floor(N/400))===0||k===N-1) d+=(d?'L':'M')+PX(k+1).toFixed(1)+' '+PY(avg).toFixed(1)+' ';
+    }
+    svg.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    const lab=function(x,y,t,c,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'start','font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(ox+w-4,PY(b)-6,'space average = b = '+b.toFixed(2),'var(--yellow)','end');
+    lab(ox+4,oy+10,'time average  (1/N)Σ 1[0,b)(kα)','var(--cyan)');
+    out.textContent='Birkhoff:  (1/N) Σ f(Tᵏx) → ∫ f dμ  for a.e. x.   Here T = rotation by the golden ratio (irrational, ergodic),\n'
+      +'f = indicator of [0, '+b.toFixed(2)+'), so the space average is its length b = '+b.toFixed(2)+'.\n'
+      +'time average after N = '+N+' steps:  '+last.toFixed(4)+'   → converging to b.  (Time average = space average.)';
+  }
+  bv.addEventListener('input',render); nv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#lln">Law of large numbers</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./ergodic-theory.html#equidistribution">Ergodic theory</a> · Equidistribution and homogeneous dynamics</div>
+    <div><a href="./ergodic-theory.html#entropy">Ergodic theory</a> · Kolmogorov–Sinai entropy</div>
+    <div><a href="./ergodic-theory.html#mixing">Ergodic theory</a> · Mixing and the ergodic hierarchy</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="et-ergodicity"></div></section>
+<section id="mixing">
+<h2>4. Mixing and the ergodic hierarchy</h2>
+<p>Ergodicity is the weakest of a whole ladder of randomness conditions. A system is <strong>mixing</strong> if</p>
+<p>$$\mu(T^{-n}A\cap B)\;\longrightarrow\;\mu(A)\,\mu(B),$$</p>
+<p>so any set, evolved forward, becomes asymptotically independent of every other — a drop of dye spreads to uniform grey. Mixing implies ergodic but not conversely: the irrational rotation is ergodic yet an arc stays an arc, never spreading. The full hierarchy is Bernoulli $\Rightarrow$ Kolmogorov $\Rightarrow$ mixing $\Rightarrow$ weak mixing $\Rightarrow$ ergodic. Arnold’s cat map $T(x,y)=(2x+y,\,x+y)\bmod1$ sits near the top — watch a clustered blob shred and fill the torus.</p>
+<div class="widget" id="w-mix">
+  <div class="hd"><div class="ttl">Arnold’s cat map mixes the torus</div><div class="hint">iterate and watch it spread</div></div>
+  <svg id="mix-svg" viewBox="0 0 640 260" width="640" height="260"><title>A clustered set spreading over the torus under the cat map</title></svg>
+  <div class="row">
+    <label for="mix-n">iterations $n$</label>
+    <input type="range" id="mix-n" min="0" max="10" step="1" value="0">
+    <span class="small" id="mix-n-lbl"></span>
+  </div>
+  <div class="readout" id="mix-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#mix-svg'), out=$('#mix-out');
+  const nv=$('#mix-n'), nL=$('#mix-n-lbl');
+  const ox=200, oy=20, S=200; // unit square on screen
+  // initial cluster: grid of points in [0.40,0.55]^2
+  const pts0=[]; for(let i=0;i<22;i++)for(let k=0;k<22;k++){ pts0.push([0.40+0.15*i/21, 0.40+0.15*k/21]); }
+  function render(){
+    svg.innerHTML='';
+    const n=Math.round(+nv.value); nL.textContent='cat-map iterations n = '+n;
+    // square outline
+    svg.appendChild(SVG('rect',{x:ox,y:oy,width:S,height:S,fill:'none',stroke:'var(--line)'}));
+    for(const p0 of pts0){ let x=p0[0], y=p0[1];
+      for(let it=0;it<n;it++){ const nx=(2*x+y)%1, ny=(x+y)%1; x=nx; y=ny; }
+      svg.appendChild(SVG('circle',{cx:ox+x*S,cy:oy+(1-y)*S,r:1.6,fill:'var(--cyan)','fill-opacity':0.7}));
+    }
+    const lab=function(x,y,t,c){const e=SVG('text',{x:x,y:y,'text-anchor':'middle','font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(ox+S/2,oy+S+20,'unit torus  [0,1)²','var(--mute)');
+    out.textContent='Arnold’s cat map  T(x,y) = (2x+y, x+y) mod 1 — a mixing (in fact Bernoulli) automorphism of the torus.\n'
+      +'a small clustered blob of '+pts0.length+' points, iterated '+n+' time(s): it stretches along the unstable direction and folds back,\n'
+      +'spreading to fill the torus uniformly. Mixing: μ(T⁻ⁿA ∩ B) → μ(A)μ(B) — all memory of the initial location is lost.';
+  }
+  nv.addEventListener('input',render); render();
+
+})();
+</script><div class="quiz" data-concept="et-mixing"></div></section>
+<section id="entropy">
+<h2>5. Kolmogorov–Sinai entropy</h2>
+<p>How much information does a system generate per step? The <strong>Kolmogorov–Sinai entropy</strong> $h(T)$ answers this: it is the supremum over finite partitions $P$ of</p>
+<p>$$h(T,P)=\lim_{n\to\infty}\frac1n\,H\!\Big(\bigvee_{k=0}^{n-1}T^{-k}P\Big),$$</p>
+<p>built from the Shannon entropy $H$. It measures how fast initially-indistinguishable orbits separate as the partition is refined. The Bernoulli$(p_1,\dots,p_m)$ shift has $h=-\sum p_i\log p_i$, maximal for the uniform distribution. Entropy is a conjugacy invariant — and by <strong>Ornstein’s theorem</strong> a <em>complete</em> one for Bernoulli shifts: equal entropy forces isomorphism.</p>
+<div class="widget" id="w-ent">
+  <div class="hd"><div class="ttl">Entropy of the Bernoulli(p) shift</div><div class="hint">drag p</div></div>
+  <svg id="ent-svg" viewBox="0 0 640 210" width="640" height="210"><title>Binary entropy function, maximal at p = 1/2</title></svg>
+  <div class="row">
+    <label for="ent-p">probability $p$</label>
+    <input type="range" id="ent-p" min="0.01" max="0.99" step="0.01" value="0.5">
+    <span class="small" id="ent-p-lbl"></span>
+  </div>
+  <div class="readout" id="ent-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#ent-svg'), out=$('#ent-out');
+  const pv=$('#ent-p'), pL=$('#ent-p-lbl');
+  const W=640, ox=70, oy=25, w=500, h=150;
+  function H(p){ if(p<=0||p>=1) return 0; return -p*Math.log2(p)-(1-p)*Math.log2(1-p); }
+  function render(){
+    svg.innerHTML='';
+    const p=+pv.value; pL.textContent='Bernoulli p = '+p.toFixed(2);
+    const PX=function(pp){ return ox+pp*w; }, PY=function(v){ return oy+(1-v)*h; };
+    svg.appendChild(SVG('line',{x1:ox,y1:oy+h,x2:ox+w,y2:oy+h,stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:ox,y1:oy,x2:ox,y2:oy+h,stroke:'var(--line)'}));
+    let d='';for(let i=0;i<=200;i++){ const pp=i/200; d+=(i?'L':'M')+PX(pp).toFixed(1)+' '+PY(H(pp)).toFixed(1)+' '; }
+    svg.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    const hp=H(p);
+    svg.appendChild(SVG('line',{x1:PX(p),y1:oy,x2:PX(p),y2:oy+h,stroke:'var(--yellow)','stroke-dasharray':'4 3'}));
+    svg.appendChild(SVG('circle',{cx:PX(p),cy:PY(hp),r:4.5,fill:'var(--yellow)'}));
+    const lab=function(x,y,t,c,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'start','font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(ox,oy-8,'h = H(p) bits','var(--cyan)'); lab(PX(0.5),oy+h+18,'p = 0.5','var(--mute)','middle');
+    lab(ox+w-2,oy+h+18,'p','var(--mute)','end');
+    out.textContent='KS entropy of the Bernoulli(p, 1−p) shift  h = −p log₂p − (1−p)log₂(1−p)\n'
+      +'at p = '+p.toFixed(2)+':  h = '+hp.toFixed(4)+' bits per step\n'
+      +'maximal (1 bit) at p = 0.5 (fair coin, most unpredictable); h → 0 as p → 0 or 1 (deterministic). Entropy is a complete invariant for Bernoulli shifts (Ornstein).';
+  }
+  pv.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./information-theory.html#entropy">Shannon entropy</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="et-entropy"></div></section>
+<section id="equidistribution">
+<h2>6. Equidistribution and homogeneous dynamics</h2>
+<p>When a system is <strong>uniquely ergodic</strong> — it has exactly one invariant probability measure — <em>every</em> orbit equidistributes, with no exceptional starting points. The model case is <strong>Weyl’s theorem</strong>: for irrational $\alpha$ the sequence $\{n\alpha\bmod1\}$ equidistributes in $[0,1)$, proved by the exponential-sum criterion $\frac1N\sum_{n\le N}e^{2\pi i k n\alpha}\to0$ for all $k\neq0$.</p>
+<p>The modern theory lives on homogeneous spaces $G/\Gamma$: <strong>Ratner’s theorems</strong> classify the invariant measures and orbit closures of unipotent flows, an astonishing rigidity that resolved the Oppenheim conjecture on values of quadratic forms and now drives much of analytic number theory.</p>
+<div class="widget" id="w-equi">
+  <div class="hd"><div class="ttl">Weyl equidistribution of {nα}</div><div class="hint">irrational fills, rational clumps</div></div>
+  <svg id="equi-svg" viewBox="0 0 640 210" width="640" height="210"><title>Histogram of fractional parts of n alpha approaching uniform</title></svg>
+  <div class="row">
+    <label for="equi-a">$\alpha$</label>
+    <input type="range" id="equi-a" min="0" max="1" step="0.001" value="0.618">
+    <span class="small" id="equi-a-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="equi-n">terms $N$</label>
+    <input type="range" id="equi-n" min="10" max="4000" step="10" value="1000">
+    <span class="small" id="equi-n-lbl"></span>
+  </div>
+  <div class="readout" id="equi-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#equi-svg'), out=$('#equi-out');
+  const av=$('#equi-a'), aL=$('#equi-a-lbl'), nv=$('#equi-n'), nL=$('#equi-n-lbl');
+  const W=640, ox=50, oy=25, w=540, h=150, bins=20;
+  function nearRational(a){ for(let q=2;q<=12;q++){ const p=Math.round(a*q); if(Math.abs(a-p/q)<0.004) return p+'/'+q; } return null; }
+  function render(){
+    svg.innerHTML='';
+    const a=+av.value, N=Math.round(+nv.value);
+    aL.textContent='α = '+a.toFixed(3); nL.textContent='terms N = '+N;
+    const cnt=new Array(bins).fill(0);
+    for(let n=1;n<=N;n++){ const x=((n*a)%1+1)%1; let b=Math.floor(x*bins); if(b>=bins)b=bins-1; cnt[b]++; }
+    const ideal=N/bins; let maxdev=0;
+    const bw=w/bins;
+    for(let i=0;i<bins;i++){ maxdev=Math.max(maxdev,Math.abs(cnt[i]-ideal)/N);
+      const bh=(cnt[i]/Math.max(1,Math.max.apply(null,cnt)))*h;
+      svg.appendChild(SVG('rect',{x:ox+i*bw+1,y:oy+h-bh,width:bw-2,height:bh,fill:'var(--cyan)','fill-opacity':0.55}));
+    }
+    // ideal level
+    const idealH=(ideal/Math.max(1,Math.max.apply(null,cnt)))*h;
+    svg.appendChild(SVG('line',{x1:ox,y1:oy+h-idealH,x2:ox+w,y2:oy+h-idealH,stroke:'var(--yellow)','stroke-dasharray':'5 4'}));
+    svg.appendChild(SVG('line',{x1:ox,y1:oy+h,x2:ox+w,y2:oy+h,stroke:'var(--line)'}));
+    const lab=function(x,y,t,c,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'start','font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(ox+w-2,oy+h-idealH-6,'uniform level N/'+bins,'var(--yellow)','end');
+    lab(ox,oy-8,'histogram of {nα mod 1}, '+bins+' bins','var(--cyan)');
+    const rat=nearRational(a);
+    out.textContent='Weyl equidistribution: {α, 2α, 3α, …} mod 1 over '+N+' terms, binned into '+bins+' cells.\n'
+      +'max relative bin deviation from uniform: '+(maxdev).toFixed(4)+'\n'
+      +(rat ? 'α ≈ '+rat+' (rational): the sequence is periodic and piles into a few bins — NOT equidistributed.'
+            : 'α irrational: bins level off toward N/'+bins+' as N grows — the sequence equidistributes (Weyl).');
+  }
+  av.addEventListener('input',render); nv.addEventListener('input',render); render();
+
+})();
+</script><div class="quiz" data-concept="et-equidistribution"></div></section>
+<section id="connections">
+<h2>Connections</h2>
+<p>Ergodic theory is the measure-theoretic heart of dynamics, and its reach keeps growing: the multiple ergodic averages behind Szemerédi’s theorem on arithmetic progressions, the rigidity of homogeneous flows, and the spectral and operator-algebraic study of the Koopman operator. The frontier includes effective equidistribution rates, the dynamics of moduli spaces (Teichmüller flow), and connections to the KPZ universality class.</p>
+<ul>
+<li><a href="./measure-theory.html#sigma">Measure theory — σ-algebras and measures</a> — the probability space every system lives on.</li>
+<li><a href="./probability-theory.html#lln">Probability — the law of large numbers</a> — Birkhoff’s theorem is its dynamical generalization.</li>
+<li><a href="./information-theory.html#entropy">Information theory — Shannon entropy</a> — the per-step quantity KS entropy is built from.</li>
+<li><a href="./dynamical-systems.html#ergodic">Dynamical systems — ergodicity and invariant measures</a> — the topological/smooth dynamics this measure theory complements.</li>
+<li><a href="./functional-analysis.html#hilbert">Functional analysis — Hilbert spaces</a> — von Neumann’s mean ergodic theorem is a statement about the Koopman operator on $L^2$.</li>
+</ul>
+</section>
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('ergodic-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-06-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

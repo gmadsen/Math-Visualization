@@ -588,7 +588,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-theory.html#aep\">Information theory</a> · Asymptotic equipartition property</div>\n    <div><a href=\"./large-deviations.html#cramer\">Large deviations</a> · Cramér's theorem</div>\n    <div><a href=\"./statistical-learning-theory.html#erm\">Statistical learning theory</a> · Empirical risk minimization</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./ergodic-theory.html#ergodicity\">Ergodic theory</a> · Ergodicity and Birkhoff's theorem</div>\n    <div><a href=\"./information-theory.html#aep\">Information theory</a> · Asymptotic equipartition property</div>\n    <div><a href=\"./large-deviations.html#cramer\">Large deviations</a> · Cramér's theorem</div>\n    <div><a href=\"./statistical-learning-theory.html#erm\">Statistical learning theory</a> · Empirical risk minimization</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

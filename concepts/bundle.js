@@ -8,6 +8,7 @@ window.__MVConcepts = {
       "geometric-invariant-theory",
       "heegaard-floer",
       "optimal-transport",
+      "ergodic-theory",
       "brill-noether",
       "coding-theory",
       "conformal-and-cr-geometry",
@@ -444,7 +445,8 @@ window.__MVConcepts = {
       "pomdps-and-belief-states": "standard",
       "optimal-transport": "advanced",
       "quantum-information": "advanced",
-      "integrable-systems": "advanced"
+      "integrable-systems": "advanced",
+      "ergodic-theory": "advanced"
     }
   },
   "topics": {
@@ -828,6 +830,69 @@ window.__MVConcepts = {
             "pde-heat-equation"
           ],
           "blurb": "Otto's formal Riemannian calculus turns $(\\mathcal{P}_2,W_2)$ into an infinite-dimensional manifold on which many diffusion PDEs are gradient flows of an energy. The Jordan–Kinderlehrer–Otto scheme realizes this: iterating $\\mu_{k+1}=\\arg\\min_\\rho\\,\\tfrac{1}{2\\tau}W_2^2(\\rho,\\mu_k)+F(\\rho)$ converges as $\\tau\\to0$ to the flow $\\partial_t\\rho=\\nabla\\!\\cdot(\\rho\\nabla F'(\\rho))$. For $F=$ entropy this is exactly the heat equation; adding a potential gives Fokker–Planck."
+        }
+      ]
+    },
+    "ergodic-theory": {
+      "topic": "ergodic-theory",
+      "title": "Ergodic theory",
+      "page": "ergodic-theory.html",
+      "concepts": [
+        {
+          "id": "et-measure-preserving",
+          "title": "Measure-preserving transformations",
+          "anchor": "mpt",
+          "prereqs": [
+            "sigma-algebras"
+          ],
+          "blurb": "Ergodic theory studies a measure-preserving system $(X,\\mathcal{B},\\mu,T)$: a probability space with a map $T$ satisfying $\\mu(T^{-1}A)=\\mu(A)$ for all measurable $A$. The invariant measure $\\mu$ is what makes long-run averages meaningful. Canonical examples are the circle rotation $T x=x+\\alpha$, the doubling map $Tx=2x\\bmod 1$, and the Bernoulli shift on sequences — each preserving Lebesgue or product measure. The Koopman operator $f\\mapsto f\\circ T$ recasts the dynamics as a unitary on $L^2(\\mu)$."
+        },
+        {
+          "id": "et-poincare-recurrence",
+          "title": "Poincaré recurrence",
+          "anchor": "recurrence",
+          "prereqs": [
+            "et-measure-preserving"
+          ],
+          "blurb": "Poincaré's recurrence theorem: in any finite measure-preserving system, for every set $A$ of positive measure, almost every point of $A$ returns to $A$ — in fact infinitely often. The one-line proof: the sets $A\\setminus\\bigcup_{n\\ge1}T^{-n}A$ at different times are disjoint, so in a space of finite measure almost none can escape forever. It is a striking statement — a gas in a box must (measure-theoretically) return arbitrarily close to its initial configuration — tempered by the fact that recurrence times are astronomically long."
+        },
+        {
+          "id": "et-ergodicity",
+          "title": "Ergodicity and Birkhoff's theorem",
+          "anchor": "ergodicity",
+          "prereqs": [
+            "et-measure-preserving",
+            "law-of-large-numbers"
+          ],
+          "blurb": "A system is $\\textbf{ergodic}$ if every $T$-invariant set has measure $0$ or $1$ — the space cannot be split into two invariant pieces. Birkhoff's pointwise ergodic theorem then says that for $f\\in L^1$, the time average along almost every orbit equals the space average: $\\frac1N\\sum_{k=0}^{N-1}f(T^k x)\\to\\int f\\,d\\mu$. This is the dynamical strong law of large numbers and the rigorous form of the physicists' “time average = ensemble average” hypothesis. Von Neumann's mean ergodic theorem is the $L^2$ companion."
+        },
+        {
+          "id": "et-mixing",
+          "title": "Mixing and the ergodic hierarchy",
+          "anchor": "mixing",
+          "prereqs": [
+            "et-ergodicity"
+          ],
+          "blurb": "Ergodicity is the weakest of a hierarchy of chaos conditions. A system is $\\textbf{mixing}$ if $\\mu(T^{-n}A\\cap B)\\to\\mu(A)\\mu(B)$ — any set, evolved forward, spreads to become asymptotically independent of every other. Mixing implies ergodicity but not conversely (an irrational rotation is ergodic but never mixing). The full ladder runs Bernoulli $\\Rightarrow$ Kolmogorov $\\Rightarrow$ mixing $\\Rightarrow$ weak mixing $\\Rightarrow$ ergodic, and Arnold's cat map and the baker's map sit near the top."
+        },
+        {
+          "id": "et-entropy",
+          "title": "Kolmogorov–Sinai entropy",
+          "anchor": "entropy",
+          "prereqs": [
+            "et-ergodicity",
+            "it-shannon-entropy"
+          ],
+          "blurb": "The Kolmogorov–Sinai entropy $h(T)$ measures the rate at which a system generates information — how fast initially-indistinguishable orbits separate under repeated refinement of a partition. It is the supremum over finite partitions $P$ of $\\lim_n \\tfrac1n H\\!\\big(\\bigvee_{k=0}^{n-1}T^{-k}P\\big)$, built from Shannon entropy. The Bernoulli$(p_1,\\dots,p_m)$ shift has $h=-\\sum p_i\\log p_i$; entropy is a conjugacy invariant, and Ornstein's theorem says it is a $\\textbf{complete}$ invariant for Bernoulli shifts."
+        },
+        {
+          "id": "et-equidistribution",
+          "title": "Equidistribution and homogeneous dynamics",
+          "anchor": "equidistribution",
+          "prereqs": [
+            "et-ergodicity"
+          ],
+          "blurb": "Unique ergodicity — exactly one invariant measure — forces $\\textit{every}$ orbit to equidistribute, not just almost every one. Weyl's theorem is the model case: for irrational $\\alpha$ the sequence $\\{n\\alpha\\bmod 1\\}$ equidistributes, proved via the exponential-sum criterion. The modern engine is homogeneous dynamics on $G/\\Gamma$: Ratner's theorems classify invariant measures and orbit closures for unipotent flows, delivering equidistribution results that resolve the Oppenheim conjecture and feed into analytic number theory."
         }
       ]
     },
@@ -20944,7 +21009,8 @@ window.__MVConcepts = {
           "variational-methods",
           "fixed-point-theorems",
           "mathematical-chaos",
-          "optimal-transport"
+          "optimal-transport",
+          "ergodic-theory"
         ],
         "color": "p"
       },
@@ -21487,7 +21553,8 @@ window.__MVConcepts = {
     "pomdps-and-belief-states": "standard",
     "optimal-transport": "advanced",
     "quantum-information": "advanced",
-    "integrable-systems": "advanced"
+    "integrable-systems": "advanced",
+    "ergodic-theory": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -21529,17 +21596,17 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 217,
-      "intra": 376,
-      "crossOut": 44,
+      "concepts": 223,
+      "intra": 382,
+      "crossOut": 46,
       "crossIn": 82,
-      "density": 0.20276497695852536
+      "density": 0.2062780269058296
     },
     "Probability & statistics": {
       "concepts": 76,
       "intra": 124,
       "crossOut": 20,
-      "crossIn": 47,
+      "crossIn": 49,
       "density": 0.2631578947368421
     },
     "Geometry & topology": {

@@ -1,6 +1,14 @@
 {
-  "generated": "2026-06-04T15:20:30.317Z",
+  "generated": "2026-06-04T15:35:48.272Z",
   "entries": [
+    {
+      "slug": "ergodic-theory",
+      "title": "Ergodic theory",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(ergodic-theory): new Analysis topic — recurrence to equidistribution"
+    },
     {
       "slug": "integrable-systems",
       "title": "Integrable systems",

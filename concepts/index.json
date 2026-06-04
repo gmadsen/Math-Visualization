@@ -7,6 +7,7 @@
 
     "heegaard-floer",
     "optimal-transport",
+    "ergodic-theory",
 
     "brill-noether",
     "coding-theory",
@@ -453,6 +454,7 @@
     "pomdps-and-belief-states": "standard",
     "optimal-transport": "advanced",
     "quantum-information": "advanced",
-    "integrable-systems": "advanced"
+    "integrable-systems": "advanced",
+    "ergodic-theory": "advanced"
   }
 }

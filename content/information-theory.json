@@ -32,7 +32,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-theory.html#aep\">Information theory</a> · Asymptotic equipartition property</div>\n    <div><a href=\"./information-theory.html#kl-divergence\">Information theory</a> · Kullback–Leibler divergence</div>\n    <div><a href=\"./information-theory.html#mutual-info\">Information theory</a> · Mutual information</div>\n    <div><a href=\"./information-theory.html#source-coding\">Information theory</a> · Source coding</div>\n    <div><a href=\"./statistical-mechanics.html#entropy-gibbs\">Statistical mechanics</a> · Entropy and the Gibbs distribution</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./ergodic-theory.html#entropy\">Ergodic theory</a> · Kolmogorov–Sinai entropy</div>\n    <div><a href=\"./information-theory.html#aep\">Information theory</a> · Asymptotic equipartition property</div>\n    <div><a href=\"./information-theory.html#kl-divergence\">Information theory</a> · Kullback–Leibler divergence</div>\n    <div><a href=\"./information-theory.html#mutual-info\">Information theory</a> · Mutual information</div>\n    <div><a href=\"./information-theory.html#source-coding\">Information theory</a> · Source coding</div>\n    <div><a href=\"./statistical-mechanics.html#entropy-gibbs\">Statistical mechanics</a> · Entropy and the Gibbs distribution</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
