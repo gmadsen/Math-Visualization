@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1434-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the thirteen sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 34 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1440-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the thirteen sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -235,6 +235,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Dirac equation](./dirac-equation.html) — first-order operator from $E^2=p^2+m^2$, covariant form, spin-½, positive-definite probability current, Dirac sea & antimatter, Pauli equation as the non-relativistic limit
 - [Quantum field theory](./quantum-field-theory.html) — operator-valued distributions, Fock space, Feynman path integral, Feynman diagrams, renormalization and running couplings, gauge fields and the Standard Model
 - [Quantum information](./quantum-information.html) — draft — fill in once the page has real content
+- [Integrable systems](./integrable-systems.html) — draft — fill in once the page has real content
 
 ### Control theory & optimization
 - [Optimal control and dynamic programming](./optimal-control-and-dynamic-programming.html) — Pontryagin's maximum principle, Hamilton–Jacobi–Bellman PDE, linear-quadratic regulator and the Riccati equation, discrete-time Bellman equation with value/policy iteration, stochastic dynamic programming and the Merton portfolio problem.

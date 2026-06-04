@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **209**, concepts: **1434**
-- Widgets: **1606** (registry-driven: 1606, inline: 0)
-- Quizzes: **5494** (v1: 4258, hard: 1223, expert: 13)
-- Quiz types: mcq: 3617, numeric: 1301, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
+- Topics: **210**, concepts: **1440**
+- Widgets: **1612** (registry-driven: 1612, inline: 0)
+- Quizzes: **5512** (v1: 4276, hard: 1223, expert: 13)
+- Quiz types: mcq: 3633, numeric: 1303, multi-select: 277, matching: 107, ordering: 85, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **5**
-- Concepts lacking a hard-tier quiz: **996**
+- Concepts lacking a hard-tier quiz: **1002**
 
 ## Per-slug registry adoption
 
@@ -20,7 +20,7 @@ page has wired one in yet.
 |---|---|---|---|---:|---|
 | `button-stepper` | button-stepper | click | 2d | 393 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-k-theory-foundations, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, brill-noether, bsd, category-theory, class-field-theory, cluster-algebras, cohomology-and-duality, combinatorial-optimization, complex-analysis, condensed-mathematics, conformal-and-cr-geometry, differential-geometry, dirac-equation, dirichlet-series-euler-products, donaldson-thomas-and-gw-invariants, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, gauge-theory, geometric-invariant-theory, hecke-operators, homological, klein-gordon-equation, lie-groups, mathematical-biology, mathematical-chaos, mathematical-finance, measure-theory, mmp-and-birational-geometry, model-categories, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, positivity-and-ample-line-bundles, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, quantum-field-theory, random-matrix-theory, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, several-complex-variables, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, spectral-theory, stacks, statistical-mechanics, theta-functions, toric-varieties, upper-half-plane-hyperbolic, zeta-values |
 | `slider-svg-2d` | slider-readout | slider | 2d | 274 | abelian-varieties, algebraic-k-theory-foundations, algebraic-number-theory, algebraic-topology, arithmetic-statistics, brill-noether, cluster-algebras, cobordism, coding-theory, cohomology-and-duality, combinatorial-optimization, complex-multiplication, computational-molecular-biology, computational-number-theory, condensed-mathematics, conformal-and-cr-geometry, continued-fractions, convex-geometry, convex-optimization, crystalline-cohomology, d-modules, dirac-equation, dirichlet-unit-theorem, donaldson-thomas-and-gw-invariants, elliptic-curves, fixed-point-theorems, gauge-theory, geometric-and-combinatorial-group-theory, geometric-invariant-theory, geometric-measure-theory, groebner-bases, half-integral-weight-forms, heegaard-floer, homotopy-theory, iwasawa-theory, kahler-geometry, kalman-filtering-and-state-estimation, khovanov-homology, klein-gordon-equation, maass-forms, mapping-class-groups, mathematical-biology, mathematical-chaos, mathematical-finance, microlocal-analysis, mmp-and-birational-geometry, model-categories, optimal-control-and-dynamic-programming, positive-characteristic-ag, positivity-and-ample-line-bundles, quantum-field-theory, random-matrix-theory, semigroup-theory-evolution-equations, several-complex-variables, shimura-varieties, special-relativity, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory, surgery-theory, topological-data-analysis, tropical-geometry, wavelets |
-| `parametric-plot` | parametric-plot | slider | 2d | 119 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, expanders, game-theory, graph-theory-fundamentals, information-geometry, kernel-methods-and-rkhs, markov-decision-processes, optimal-transport, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, quantum-information, ramsey-theory, reinforcement-learning, statistical-learning-theory |
+| `parametric-plot` | parametric-plot | slider | 2d | 125 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, expanders, game-theory, graph-theory-fundamentals, information-geometry, integrable-systems, kernel-methods-and-rkhs, markov-decision-processes, optimal-transport, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, quantum-information, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 100 | abelian-varieties, algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, cluster-algebras, conformal-and-cr-geometry, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, gauge-theory, geometric-invariant-theory, homological, kalman-filtering-and-state-estimation, mapping-class-groups, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, positive-characteristic-ag, positivity-and-ample-line-bundles, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, string-theory, topological-data-analysis, toric-varieties, tropical-geometry, wavelets |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
@@ -800,13 +800,13 @@ page has wired one in yet.
 
 ### Mathematical physics
 
-- Topics: **12**, concepts: **75**
-- Widgets: **76** (registry-driven: 76, inline: 0)
-  - by family: slider-readout: 32, schrodinger-figure: 7, parametric-plot: 6, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 76
-  - by gesture: slider: 51, click: 16, interact: 7, drag: 1, select: 1
-- Quizzes: **226** (v1: 226, hard: 0, expert: 0)
-  - by type: mcq: 148, numeric: 30, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
+- Topics: **13**, concepts: **81**
+- Widgets: **82** (registry-driven: 82, inline: 0)
+  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 82
+  - by gesture: slider: 57, click: 16, interact: 7, drag: 1, select: 1
+- Quizzes: **244** (v1: 244, hard: 0, expert: 0)
+  - by type: mcq: 164, numeric: 32, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
 
 ### Control theory & optimization
 
@@ -858,6 +858,7 @@ page has wired one in yet.
 - `polytopes-and-ehrhart` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `game-theory` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `quantum-information` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `integrable-systems` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `kernel-methods-and-rkhs` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `reinforcement-learning` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `pomdps-and-belief-states` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

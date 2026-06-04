@@ -32,6 +32,7 @@ window.__MVConcepts = {
       "polytopes-and-ehrhart",
       "game-theory",
       "quantum-information",
+      "integrable-systems",
       "kernel-methods-and-rkhs",
       "reinforcement-learning",
       "pomdps-and-belief-states",
@@ -442,7 +443,8 @@ window.__MVConcepts = {
       "reinforcement-learning": "standard",
       "pomdps-and-belief-states": "standard",
       "optimal-transport": "advanced",
-      "quantum-information": "advanced"
+      "quantum-information": "advanced",
+      "integrable-systems": "advanced"
     }
   },
   "topics": {
@@ -2923,6 +2925,71 @@ window.__MVConcepts = {
             "ct-linear"
           ],
           "blurb": "Errors cannot be cloned or measured directly without collapse, yet quantum information can still be protected: encode one logical qubit into many physical ones and measure error syndromes that reveal the error without revealing the data. The 3-qubit code $\\alpha|000\\rangle+\\beta|111\\rangle$ corrects a single bit flip via the stabilizers $Z_0Z_1,Z_1Z_2$; Shor's 9-qubit code corrects any single-qubit error. Below a threshold error rate, fault-tolerant computation is possible."
+        }
+      ]
+    },
+    "integrable-systems": {
+      "topic": "integrable-systems",
+      "title": "Integrable systems",
+      "page": "integrable-systems.html",
+      "concepts": [
+        {
+          "id": "is-integrability",
+          "title": "Liouville integrability and action-angle variables",
+          "anchor": "integrability",
+          "prereqs": [
+            "hcm-integrable-systems",
+            "hcm-hamilton-equations"
+          ],
+          "blurb": "A Hamiltonian system with $n$ degrees of freedom is Liouville integrable if it has $n$ functionally independent conserved quantities $I_1,\\dots,I_n$ in involution ($\\{I_i,I_j\\}=0$). The Liouville–Arnold theorem then says the compact level sets $\\{I_k=c_k\\}$ are $n$-tori, and there exist action-angle coordinates $(I,\\theta)$ in which the flow is linear: $\\dot I=0$, $\\dot\\theta=\\omega(I)$. Integrability is rare and fragile — generic perturbations destroy it (KAM)."
+        },
+        {
+          "id": "is-kdv",
+          "title": "The KdV equation and solitons",
+          "anchor": "kdv",
+          "prereqs": [
+            "pde-classification",
+            "is-integrability"
+          ],
+          "blurb": "The Korteweg–de Vries equation $u_t+6uu_x+u_{xxx}=0$ balances nonlinear steepening against dispersion, producing $\\textbf{solitons}$: localized waves $u(x,t)=2\\kappa^2\\operatorname{sech}^2\\!\\big(\\kappa(x-4\\kappa^2 t-x_0)\\big)$ whose speed $4\\kappa^2$ grows with amplitude. Remarkably, taller solitons overtake shorter ones and emerge with their shapes intact — only a phase shift remains — behaving like particles. This 1965 numerical discovery (Zabusky–Kruskal) launched the modern theory."
+        },
+        {
+          "id": "is-lax",
+          "title": "Lax pairs and infinitely many conservation laws",
+          "anchor": "lax",
+          "prereqs": [
+            "is-kdv"
+          ],
+          "blurb": "A $\\textbf{Lax pair}$ writes a nonlinear evolution equation as an isospectral deformation $\\dot L=[P,L]$ of a linear operator $L$. The flow conjugates $L$ by a unitary, $L(t)=U(t)L(0)U(t)^{-1}$, so its spectrum is constant in time — the eigenvalues are conserved quantities. For KdV, $L=-\\partial_x^2-u(x,t)$ is the Schrödinger operator, and $\\dot L=[P,L]$ with $P=-4\\partial_x^3-6u\\partial_x-3u_x$ reproduces KdV, yielding infinitely many conserved integrals."
+        },
+        {
+          "id": "is-ist",
+          "title": "The inverse scattering transform",
+          "anchor": "ist",
+          "prereqs": [
+            "is-lax",
+            "se-scattering"
+          ],
+          "blurb": "The inverse scattering transform (IST) is a nonlinear Fourier transform: map the initial profile $u(x,0)$ to the $\\textbf{scattering data}$ of the Schrödinger operator $-\\partial_x^2-u$ (reflection coefficient $r(k)$ plus discrete eigenvalues $-\\kappa_n^2$). Under KdV the scattering data evolve $\\textit{linearly}$ and explicitly; one then reconstructs $u(x,t)$ by solving the Gelfand–Levitan–Marchenko integral equation. Solitons correspond exactly to the bound states, and reflectionless potentials ($r\\equiv0$) are pure $N$-soliton solutions."
+        },
+        {
+          "id": "is-toda",
+          "title": "The Toda lattice and finite-dimensional integrability",
+          "anchor": "toda",
+          "prereqs": [
+            "is-lax"
+          ],
+          "blurb": "The Toda lattice — particles on a line with exponential nearest-neighbor forces — is the discrete cousin of KdV. In Flaschka's variables it acquires a Lax pair $\\dot L=[B,L]$ with $L$ a symmetric tridiagonal (Jacobi) matrix, so its eigenvalues are conserved and the finite system is Liouville integrable. The same flow underlies the QR eigenvalue algorithm and connects to random matrix theory, showing that integrable structure is not confined to PDEs."
+        },
+        {
+          "id": "is-soliton-zoo",
+          "title": "The soliton zoo and integrable hierarchies",
+          "anchor": "soliton-zoo",
+          "prereqs": [
+            "is-kdv",
+            "is-ist"
+          ],
+          "blurb": "KdV is one member of a large family of integrable PDEs sharing the Lax/IST machinery: the focusing nonlinear Schrödinger equation (envelope solitons in optics and water waves), sine-Gordon (topological kinks and oscillating breathers), and modified KdV. Each KdV flow also sits in an infinite $\\textbf{hierarchy}$ of commuting flows generated by a bi-Hamiltonian (Magri) structure — two compatible Poisson brackets whose recursion operator manufactures the conserved quantities."
         }
       ]
     },
@@ -21069,7 +21136,8 @@ window.__MVConcepts = {
           "statistical-mechanics",
           "gauge-theory",
           "string-theory",
-          "quantum-information"
+          "quantum-information",
+          "integrable-systems"
         ],
         "color": "o"
       },
@@ -21418,7 +21486,8 @@ window.__MVConcepts = {
     "reinforcement-learning": "standard",
     "pomdps-and-belief-states": "standard",
     "optimal-transport": "advanced",
-    "quantum-information": "advanced"
+    "quantum-information": "advanced",
+    "integrable-systems": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -21463,7 +21532,7 @@ window.__MVConcepts = {
       "concepts": 217,
       "intra": 376,
       "crossOut": 44,
-      "crossIn": 81,
+      "crossIn": 82,
       "density": 0.20276497695852536
     },
     "Probability & statistics": {
@@ -21509,11 +21578,11 @@ window.__MVConcepts = {
       "density": 0.3870967741935484
     },
     "Mathematical physics": {
-      "concepts": 75,
-      "intra": 81,
-      "crossOut": 44,
+      "concepts": 81,
+      "intra": 90,
+      "crossOut": 45,
       "crossIn": 4,
-      "density": 0.5866666666666667
+      "density": 0.5555555555555556
     },
     "Control theory & optimization": {
       "concepts": 58,

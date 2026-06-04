@@ -38,6 +38,7 @@
 
     "game-theory",
     "quantum-information",
+    "integrable-systems",
 
     "kernel-methods-and-rkhs",
     "reinforcement-learning",
@@ -451,6 +452,7 @@
     "reinforcement-learning": "standard",
     "pomdps-and-belief-states": "standard",
     "optimal-transport": "advanced",
-    "quantum-information": "advanced"
+    "quantum-information": "advanced",
+    "integrable-systems": "advanced"
   }
 }

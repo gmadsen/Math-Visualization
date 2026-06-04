@@ -1,6 +1,14 @@
 {
-  "generated": "2026-06-04T14:25:40.602Z",
+  "generated": "2026-06-04T14:57:32.863Z",
   "entries": [
+    {
+      "slug": "integrable-systems",
+      "title": "Integrable systems",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "fixup(integrable-systems): correct KdV Lax-pair sign convention (Codex P2)"
+    },
     {
       "slug": "optimal-transport",
       "title": "Optimal transport",

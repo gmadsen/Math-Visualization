@@ -36907,6 +36907,247 @@ window.MVQuizBank = {
       }
     }
   },
+  "integrable-systems": {
+    "topic": "integrable-systems",
+    "quizzes": {
+      "is-integrability": {
+        "title": "Liouville integrability and action-angle variables",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Hamiltonian system with $n$ degrees of freedom is Liouville integrable when it possesses:",
+            "choices": [
+              "$n$ functionally independent conserved quantities $I_1,\\dots,I_n$ that pairwise Poisson-commute, $\\{I_i,I_j\\}=0$",
+              "at least one conserved quantity (the energy $H$)",
+              "$2n$ conserved quantities, one per phase-space coordinate",
+              "a stable fixed point surrounded by closed orbits"
+            ],
+            "answer": 0,
+            "explain": "Integrability requires a maximal set of $n$ independent integrals in involution. Involution ($\\{I_i,I_j\\}=0$) is what lets their joint flows commute and define action-angle coordinates; energy conservation alone ($n=1$ worth) is far from enough for $n>1$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the Liouville–Arnold theorem conclude about the compact common level sets $\\{I_1=c_1,\\dots,I_n=c_n\\}$?",
+            "choices": [
+              "They are $n$-dimensional tori, and the motion on them is quasi-periodic in action-angle variables $(I,\\theta)$",
+              "They are isolated points (equilibria)",
+              "They are $2n$-dimensional symplectic submanifolds",
+              "They are chaotic strange attractors"
+            ],
+            "answer": 0,
+            "explain": "When the level set is compact and connected, Liouville–Arnold gives a diffeomorphism to $\\mathbb{T}^n$ with coordinates $\\theta$ on which $\\dot\\theta=\\omega(I)$ is constant — linear (quasi-periodic) flow. The actions $I$ label the torus; the angles $\\theta$ wind around it."
+          },
+          {
+            "type": "numeric",
+            "q": "How many functionally independent conserved quantities in involution does a Liouville-integrable Hamiltonian system with $2$ degrees of freedom (a $4$-dimensional phase space) require?",
+            "answer": 2,
+            "tol": 0.001,
+            "explain": "It needs $n=2$ integrals in involution (half the phase-space dimension). The two commuting flows foliate the $4$-dimensional phase space by $2$-tori — the $n=2$ case of Liouville–Arnold."
+          }
+        ]
+      },
+      "is-kdv": {
+        "title": "The KdV equation and solitons",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In KdV $u_t+6uu_x+u_{xxx}=0$, the soliton arises from a balance between which two effects?",
+            "choices": [
+              "nonlinear steepening (the $6uu_x$ term) and dispersion (the $u_{xxx}$ term)",
+              "diffusion and advection",
+              "damping and forcing",
+              "gravity and surface tension only"
+            ],
+            "answer": 0,
+            "explain": "The convective term $6uu_x$ alone would steepen a wave into a shock; the dispersive term $u_{xxx}$ alone would spread it out. KdV is exactly the regime where they balance, locking a permanent localized profile — the soliton."
+          },
+          {
+            "type": "numeric",
+            "q": "A KdV soliton has the form $u=2\\kappa^2\\operatorname{sech}^2(\\kappa(x-4\\kappa^2 t-x_0))$, so its speed is $4\\kappa^2$. What is the speed of the soliton with $\\kappa=2$?",
+            "answer": 16,
+            "tol": 0.001,
+            "explain": "Speed $=4\\kappa^2=4\\cdot4=16$. Since the amplitude is $2\\kappa^2=8$, taller solitons travel faster — the defining feature that lets a tall soliton overtake a short one."
+          },
+          {
+            "type": "mcq",
+            "q": "When a tall (fast) KdV soliton overtakes a short (slow) one, what happens after the collision?",
+            "choices": [
+              "both emerge with their original shapes and speeds, shifted only in phase (position) — they behave like particles",
+              "they merge into a single larger soliton",
+              "they annihilate, radiating away as dispersive waves",
+              "they scatter into a continuous spectrum of small waves"
+            ],
+            "answer": 0,
+            "explain": "The hallmark of solitons (and the origin of the name) is elastic interaction: nonlinearity would suggest messy mixing, but the integrable structure forces each soliton to re-emerge unchanged except for a forward/backward phase shift. This particle-like persistence is what Zabusky and Kruskal observed in 1965."
+          }
+        ]
+      },
+      "is-lax": {
+        "title": "Lax pairs and infinitely many conservation laws",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If an evolution can be written as a Lax equation $\\dot L=[P,L]$, what is true of the spectrum of $L$ as time evolves?",
+            "choices": [
+              "it is constant in time (the flow is isospectral), so every eigenvalue is a conserved quantity",
+              "it grows linearly in time",
+              "it collapses to a single point",
+              "it is constant only if $P$ is self-adjoint and $L$ is not"
+            ],
+            "answer": 0,
+            "explain": "$\\dot L=[P,L]$ integrates to $L(t)=U(t)L(0)U(t)^{-1}$ with $\\dot U=PU$, a similarity (indeed unitary, for anti-Hermitian $P$) transformation. Similar operators share eigenvalues, so the spectrum is frozen — an infinite supply of conserved quantities."
+          },
+          {
+            "type": "mcq",
+            "q": "For the KdV equation, the Lax operator $L$ is:",
+            "choices": [
+              "the Schrödinger operator $L=-\\partial_x^2-u(x,t)$",
+              "the first-derivative operator $\\partial_x$",
+              "multiplication by $u$",
+              "the heat operator $\\partial_t-\\partial_x^2$"
+            ],
+            "answer": 0,
+            "explain": "KdV is the isospectral flow of the 1-D Schrödinger operator $-\\partial_x^2-u$: feeding $L=-\\partial_x^2-u$ and $P=-4\\partial_x^3-6u\\partial_x-3u_x$ into $\\dot L=[P,L]$ reproduces $u_t+6uu_x+u_{xxx}=0$. This is exactly why the inverse scattering transform uses the Schrödinger scattering problem."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Lax (isospectral) structure produce conserved quantities for the PDE?",
+            "choices": [
+              "because the eigenvalues of $L$ are time-independent, each one (and any symmetric function of them) is a constant of the motion",
+              "because $[P,L]$ is always zero",
+              "because $L$ becomes diagonal at $t=\\infty$",
+              "because $P$ is a conserved quantity itself"
+            ],
+            "answer": 0,
+            "explain": "Isospectrality means the eigenvalues $\\lambda_n$ of $L(t)$ never change. Each $\\lambda_n$ is therefore a conserved functional of $u$; expanding the spectral data produces an infinite hierarchy of independent conservation laws, the signature of an integrable PDE."
+          }
+        ]
+      },
+      "is-ist": {
+        "title": "The inverse scattering transform",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The inverse scattering transform is best described as:",
+            "choices": [
+              "a nonlinear analogue of the Fourier transform: it maps the field to scattering data on which the flow becomes linear, then maps back",
+              "a numerical finite-difference scheme for KdV",
+              "a perturbative expansion in the soliton amplitude",
+              "a change of variables that diagonalizes the Hamiltonian matrix"
+            ],
+            "answer": 0,
+            "explain": "Just as the Fourier transform linearizes constant-coefficient linear PDEs, the IST linearizes integrable nonlinear PDEs: transform $u(x,0)$ to scattering data, evolve that data by simple explicit (linear) ODEs, then invert (via Gelfand–Levitan–Marchenko) to recover $u(x,t)$."
+          },
+          {
+            "type": "mcq",
+            "q": "In the scattering data of the Schrödinger operator $-\\partial_x^2-u$, the solitons of KdV correspond to:",
+            "choices": [
+              "the discrete eigenvalues (bound states) $-\\kappa_n^2$",
+              "the continuous spectrum / reflection coefficient $r(k)$",
+              "the poles of the transmission coefficient at $k=\\infty$",
+              "the zeros of the potential $u$"
+            ],
+            "answer": 0,
+            "explain": "Each bound state $-\\kappa_n^2$ of the Schrödinger operator becomes one soliton of amplitude $2\\kappa_n^2$ and speed $4\\kappa_n^2$. The continuous spectrum (reflection coefficient) carries the dispersive radiation instead."
+          },
+          {
+            "type": "mcq",
+            "q": "A reflectionless potential — one whose reflection coefficient $r(k)\\equiv0$ — evolves under KdV into:",
+            "choices": [
+              "a pure $N$-soliton solution, with $N$ the number of bound states and no dispersive tail",
+              "a single dispersive wave packet that spreads out",
+              "a shock wave",
+              "the zero solution"
+            ],
+            "answer": 0,
+            "explain": "With no reflection, the scattering data are entirely discrete: the $N$ bound states give exactly $N$ solitons and nothing else. Reflectionless potentials are therefore the exact $N$-soliton solutions, computable in closed form from the GLM equation."
+          }
+        ]
+      },
+      "is-toda": {
+        "title": "The Toda lattice and finite-dimensional integrability",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Flaschka's variables, the Toda lattice becomes a Lax flow $\\dot L=[B,L]$ where $L$ is:",
+            "choices": [
+              "a symmetric tridiagonal (Jacobi) matrix",
+              "a full dense symmetric matrix",
+              "a diagonal matrix",
+              "an arbitrary skew-symmetric matrix"
+            ],
+            "answer": 0,
+            "explain": "The exponential nearest-neighbor interaction makes only adjacent couplings appear, so $L$ is symmetric tridiagonal. Its $\\dot L=[B,L]$ flow is isospectral, giving the conserved eigenvalues that make the finite Toda lattice Liouville integrable."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the Toda flow conserve?",
+            "choices": [
+              "the eigenvalues of the Jacobi matrix $L$",
+              "the off-diagonal entries of $L$",
+              "the trace of $B$ only",
+              "the position of the first particle"
+            ],
+            "answer": 0,
+            "explain": "Because $\\dot L=[B,L]$ is isospectral, the eigenvalues of $L$ are constants of motion — and there are exactly enough of them (in involution) to make the lattice integrable. The matrix entries themselves evolve; the spectrum does not."
+          },
+          {
+            "type": "mcq",
+            "q": "The continuous-time Toda flow is closely related to which numerical linear-algebra algorithm?",
+            "choices": [
+              "the QR algorithm for computing eigenvalues",
+              "Gaussian elimination",
+              "the fast Fourier transform",
+              "the simplex method"
+            ],
+            "answer": 0,
+            "explain": "Symes showed the Toda flow, sampled at integer times, reproduces the QR algorithm: both are isospectral tridiagonal flows that drive $L$ toward a diagonal matrix of its eigenvalues. Integrable dynamics and eigenvalue algorithms turn out to be the same object."
+          }
+        ]
+      },
+      "is-soliton-zoo": {
+        "title": "The soliton zoo and integrable hierarchies",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of these equations is generally NOT an integrable soliton equation solvable by inverse scattering?",
+            "choices": [
+              "a generic reaction–diffusion equation $u_t=u_{xx}+f(u)$ with arbitrary nonlinearity $f$",
+              "the focusing nonlinear Schrödinger equation",
+              "the sine-Gordon equation",
+              "the modified KdV equation"
+            ],
+            "answer": 0,
+            "explain": "NLS, sine-Gordon, and mKdV all admit Lax pairs and are solved by IST. A generic reaction–diffusion equation has no such structure — integrability is a highly non-generic property; only special nonlinearities (often arising from a zero-curvature/Lax condition) qualify."
+          },
+          {
+            "type": "mcq",
+            "q": "The sine-Gordon equation $u_{tt}-u_{xx}+\\sin u=0$ is famous for supporting which special solutions?",
+            "choices": [
+              "topological kinks (solitons interpolating between vacua) and oscillating breathers",
+              "shock fronts and rarefaction fans",
+              "only constant solutions",
+              "self-similar blow-up profiles"
+            ],
+            "answer": 0,
+            "explain": "Sine-Gordon kinks are topological solitons carrying a winding number between adjacent minima of $\\cos u$; the breather is a bound kink–antikink pair that oscillates in place. Both are exact solutions delivered by its IST."
+          },
+          {
+            "type": "mcq",
+            "q": "A bi-Hamiltonian (Magri) structure — two compatible Poisson brackets — provides an integrable PDE with:",
+            "choices": [
+              "a recursion operator that generates an infinite hierarchy of commuting flows and conserved quantities",
+              "a single additional conserved quantity, the second Hamiltonian",
+              "a proof that the equation is linear",
+              "a unique soliton solution"
+            ],
+            "answer": 0,
+            "explain": "Magri's theorem: two compatible Poisson structures yield a recursion operator $R$ whose powers, applied to a seed symmetry, manufacture the whole hierarchy of mutually commuting flows (the KdV, fifth-order KdV, …) and their conserved quantities — the algebraic engine behind integrability."
+          }
+        ]
+      }
+    }
+  },
   "intersection-theory-chow": {
     "topic": "intersection-theory-chow",
     "quizzes": {

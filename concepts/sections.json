@@ -276,7 +276,8 @@
         "statistical-mechanics",
         "gauge-theory",
         "string-theory",
-        "quantum-information"
+        "quantum-information",
+        "integrable-systems"
       ],
       "color": "o"
     },
