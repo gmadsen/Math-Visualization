@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-04T12:48:44.403Z",
+  "generated": "2026-06-04T13:10:23.833Z",
   "entries": [
     {
       "slug": "optimal-transport",
@@ -7,7 +7,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-06-04",
-      "message": "feat(optimal-transport): new Analysis topic — Monge–Kantorovich to gradient flows"
+      "message": "feat(optimal-transport): new Analysis topic — Monge–Kantorovich to gradient flows (#423)"
     },
     {
       "slug": "infinity-categories",
