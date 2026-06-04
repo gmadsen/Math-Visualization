@@ -275,7 +275,8 @@
         "three-body-problem",
         "statistical-mechanics",
         "gauge-theory",
-        "string-theory"
+        "string-theory",
+        "quantum-information"
       ],
       "color": "o"
     },

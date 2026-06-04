@@ -120,7 +120,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./coding-theory.html#hamming\">Coding theory &amp; error-correcting codes</a> · Hamming codes</div>\n    <div><a href=\"./coding-theory.html#lattices\">Coding theory &amp; error-correcting codes</a> · Lattice codes and sphere packings</div>\n    <div><a href=\"./coding-theory.html#ldpc\">Coding theory &amp; error-correcting codes</a> · LDPC codes and belief propagation</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./coding-theory.html#hamming\">Coding theory &amp; error-correcting codes</a> · Hamming codes</div>\n    <div><a href=\"./coding-theory.html#lattices\">Coding theory &amp; error-correcting codes</a> · Lattice codes and sphere packings</div>\n    <div><a href=\"./coding-theory.html#ldpc\">Coding theory &amp; error-correcting codes</a> · LDPC codes and belief propagation</div>\n    <div><a href=\"./quantum-information.html#error-correction\">Quantum information</a> · Quantum error correction and stabilizers</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

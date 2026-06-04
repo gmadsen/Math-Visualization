@@ -87,7 +87,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#np-complete\">Complexity theory</a> · NP-completeness and Cook–Levin</div>\n    <div><a href=\"./computational-number-theory.html#factoring\">Computational number theory</a> · Integer factoring</div>\n    <div><a href=\"./mathematics-and-cryptography.html#dlog\">Mathematics and cryptography</a> · Discrete logarithm and Diffie–Hellman</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complexity-theory.html#np-complete\">Complexity theory</a> · NP-completeness and Cook–Levin</div>\n    <div><a href=\"./computational-number-theory.html#factoring\">Computational number theory</a> · Integer factoring</div>\n    <div><a href=\"./mathematics-and-cryptography.html#dlog\">Mathematics and cryptography</a> · Discrete logarithm and Diffie–Hellman</div>\n    <div><a href=\"./quantum-information.html#algorithms\">Quantum information</a> · Quantum algorithms: interference and Grover</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

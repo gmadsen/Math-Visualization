@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Quantum information</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      strict:(c)=>c==='unicodeTextInMathMode'?'ignore':'warn',
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script src="./js/section-map.js"></script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="mathematical-physics" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#qubits">1&nbsp;Qubits&nbsp;and&nbsp;the&nbsp;Bloch&nbsp;sphere</a>
+  <a href="#gates">2&nbsp;Quantum&nbsp;gates&nbsp;and&nbsp;circuits</a>
+  <a href="#entanglement">3&nbsp;Entanglement&nbsp;and&nbsp;Bell&nbsp;states</a>
+  <a href="#measurement">4&nbsp;Measurement,&nbsp;the&nbsp;Born&nbsp;rule,&nbsp;and&nbsp;no-cloning</a>
+  <a href="#algorithms">5&nbsp;Quantum&nbsp;algorithms:&nbsp;interference&nbsp;and&nbsp;Grover</a>
+  <a href="#error-correction">6&nbsp;Quantum&nbsp;error&nbsp;correction&nbsp;and&nbsp;stabilizers</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Quantum information</h1>
+  <p class="sub">Computing with vectors in $\mathbb{C}^2$: qubits and the Bloch sphere, unitary gates, entanglement, the Born rule and no-cloning, Grover-style interference, and error correction by stabilizers.</p>
+</section>
+
+<section id="qubits">
+<h2>1. Qubits and the Bloch sphere</h2>
+<p>A classical bit is $0$ or $1$. A <strong>qubit</strong> is a unit vector in $\mathbb{C}^2$,</p>
+<p>$$|\psi\rangle=\alpha|0\rangle+\beta|1\rangle,\qquad |\alpha|^2+|\beta|^2=1,\quad \alpha,\beta\in\mathbb{C}.$$</p>
+<p>A global phase $e^{i\gamma}|\psi\rangle$ produces identical measurement statistics, so it is physically meaningless. Quotienting it out collapses the unit sphere $S^3\subset\mathbb{C}^2$ to $\mathbb{CP}^1$, which is geometrically a $2$-sphere — the <strong>Bloch sphere</strong>. Writing $|\psi\rangle=\cos\tfrac\theta2|0\rangle+e^{i\varphi}\sin\tfrac\theta2|1\rangle$, the state sits at $(\sin\theta\cos\varphi,\sin\theta\sin\varphi,\cos\theta)$: $|0\rangle$ and $|1\rangle$ at the poles, equal superpositions on the equator.</p>
+<div class="widget" id="w-qubit">
+  <div class="hd"><div class="ttl">The Bloch sphere</div><div class="hint">drag θ and φ</div></div>
+  <svg id="qb-svg" viewBox="0 0 640 300" width="640" height="300"><title>A qubit state on the Bloch sphere</title></svg>
+  <div class="row">
+    <label for="qb-th">polar angle $\theta$</label>
+    <input type="range" id="qb-th" min="0" max="3.1416" step="0.02" value="1">
+    <span class="small" id="qb-th-lbl"></span>
+  </div>
+  <div class="row">
+    <label for="qb-ph">azimuth $\varphi$</label>
+    <input type="range" id="qb-ph" min="0" max="6.2832" step="0.02" value="0.6">
+    <span class="small" id="qb-ph-lbl"></span>
+  </div>
+  <div class="readout" id="qb-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#qb-svg'), out=$('#qb-out');
+  const th=$('#qb-th'), thL=$('#qb-th-lbl'), ph=$('#qb-ph'), phL=$('#qb-ph-lbl');
+  const cx=320, cy=150, R=110;
+  function render(){
+    svg.innerHTML='';
+    const theta=+th.value, phi=+ph.value;
+    thL.textContent='θ = '+(theta/Math.PI).toFixed(2)+'π';
+    phL.textContent='φ = '+(phi/Math.PI).toFixed(2)+'π';
+    // sphere outline + equator ellipse + axes
+    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:R,fill:'none',stroke:'var(--line)','stroke-width':1.5}));
+    svg.appendChild(SVG('ellipse',{cx:cx,cy:cy,rx:R,ry:R*0.32,fill:'none',stroke:'var(--line)','stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-R-12,x2:cx,y2:cy+R+12,stroke:'var(--line)'}));
+    const lab=function(x,y,t,c,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'middle','font-size':13,fill:c});e.textContent=t;svg.appendChild(e);};
+    lab(cx,cy-R-18,'|0⟩','var(--yellow)'); lab(cx,cy+R+24,'|1⟩','var(--yellow)');
+    // oblique projection of the Bloch vector (x right, z up, y into-page via 0.32 tilt)
+    const x=Math.sin(theta)*Math.cos(phi), y=Math.sin(theta)*Math.sin(phi), z=Math.cos(theta);
+    const px=cx + R*x, py=cy - R*z + R*y*0.32;
+    svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:px,y2:py,stroke:'var(--cyan)','stroke-width':2.5}));
+    svg.appendChild(SVG('circle',{cx:px,cy:py,r:5,fill:'var(--cyan)'}));
+    const c2=Math.cos(theta/2), s2=Math.sin(theta/2);
+    out.textContent='|ψ⟩ = cos(θ/2)|0⟩ + e^{iφ} sin(θ/2)|1⟩\n'
+      +'      = '+c2.toFixed(3)+' |0⟩ + ('+ (Math.cos(phi)*s2).toFixed(3)+' + '+(Math.sin(phi)*s2).toFixed(3)+'i)|1⟩\n'
+      +'Bloch vector (x,y,z) = ('+x.toFixed(2)+', '+y.toFixed(2)+', '+z.toFixed(2)+')\n'
+      +'measurement probabilities:  P(0) = cos²(θ/2) = '+(c2*c2).toFixed(3)+',   P(1) = sin²(θ/2) = '+(s2*s2).toFixed(3);
+  }
+  th.addEventListener('input',render); ph.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#hilbert">Banach and Hilbert spaces</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-information.html#measurement">Quantum information</a> · Measurement, the Born rule, and no-cloning</div>
+    <div><a href="./quantum-information.html#gates">Quantum information</a> · Quantum gates and circuits</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="qi-qubits"></div></section>
+<section id="gates">
+<h2>2. Quantum gates and circuits</h2>
+<p>Because evolution of a closed quantum system is unitary, every <strong>gate</strong> is a unitary matrix $U$ (so $U^\dagger U=I$): it preserves the norm, conserves total probability, and is reversible. The single-qubit workhorses are the Paulis $X,Y,Z$, the <strong>Hadamard</strong> $H=\tfrac1{\sqrt2}\big(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\big)$ that builds superposition, and the phase gates $S,T$. On the Bloch sphere each is a rotation.</p>
+<p>Add one entangling two-qubit gate (CNOT) and a small set such as $\{H,T,\text{CNOT}\}$ becomes <em>universal</em>: any unitary is approximated to arbitrary accuracy (Solovay–Kitaev). Build a circuit below and watch the amplitudes move.</p>
+<div class="widget" id="w-gates">
+  <div class="hd"><div class="ttl">Single-qubit gate sandbox</div><div class="hint">set input θ, then click gates</div></div>
+  <svg id="gt-svg" viewBox="0 0 640 200" width="640" height="200"><title>Applying single-qubit gates to a qubit</title></svg>
+  <div class="row">
+    <label for="gt-th">input state $\theta$</label>
+    <input type="range" id="gt-th" min="0" max="3.1416" step="0.02" value="0">
+    <span class="small" id="gt-th-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="gt-x">X</button>
+    <button id="gt-h">H</button>
+    <button id="gt-z">Z</button>
+    <button id="gt-s">S</button>
+    <button id="gt-t">T</button>
+    <button id="gt-reset">reset</button>
+  </div>
+  <div class="readout" id="gt-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#gt-svg'), out=$('#gt-out');
+  const th=$('#gt-th'), thL=$('#gt-th-lbl');
+  const R2=Math.SQRT1_2;
+  // state = [re0,im0,re1,im1]
+  let st=[1,0,0,0], hist=[];
+  function prepare(){ const t=+th.value; thL.textContent='input |ψ⟩: θ = '+(t/Math.PI).toFixed(2)+'π'; st=[Math.cos(t/2),0,Math.sin(t/2),0]; hist=[]; render(); }
+  function applyU(name){
+    const a=[st[0],st[1]], b=[st[2],st[3]];
+    let na=a.slice(), nb=b.slice();
+    if(name==='X'){ na=b.slice(); nb=a.slice(); }
+    else if(name==='Z'){ nb=[-b[0],-b[1]]; }
+    else if(name==='H'){ na=[(a[0]+b[0])*R2,(a[1]+b[1])*R2]; nb=[(a[0]-b[0])*R2,(a[1]-b[1])*R2]; }
+    else if(name==='S'){ nb=[-b[1],b[0]]; }                 // multiply b by i
+    else if(name==='T'){ const c=Math.cos(Math.PI/4),s=Math.sin(Math.PI/4); nb=[b[0]*c-b[1]*s, b[0]*s+b[1]*c]; }
+    if(name==='reset'){ prepare(); return; }
+    st=[na[0],na[1],nb[0],nb[1]];
+    hist.push(name);
+    render();
+  }
+  function fmt(re,im){ const r=Math.abs(re)<1e-9?0:re, i=Math.abs(im)<1e-9?0:im;
+    return r.toFixed(3)+(i>=0?' + ':' - ')+Math.abs(i).toFixed(3)+'i'; }
+  function render(){
+    svg.innerHTML='';
+    const p0=st[0]*st[0]+st[1]*st[1], p1=st[2]*st[2]+st[3]*st[3];
+    // amplitude bars
+    const bx=120, bw=120, base=150, h=110;
+    const lab=function(x,y,t,c,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'middle','font-size':12,fill:c});e.textContent=t;svg.appendChild(e);};
+    svg.appendChild(SVG('rect',{x:bx,y:base-p0*h,width:bw,height:p0*h,fill:'var(--yellow)','fill-opacity':0.55}));
+    svg.appendChild(SVG('rect',{x:bx+200,y:base-p1*h,width:bw,height:p1*h,fill:'var(--violet)','fill-opacity':0.55}));
+    svg.appendChild(SVG('line',{x1:60,y1:base,x2:560,y2:base,stroke:'var(--line)'}));
+    lab(bx+bw/2,base+18,'|0⟩','var(--yellow)'); lab(bx+200+bw/2,base+18,'|1⟩','var(--violet)');
+    lab(bx+bw/2,base-p0*h-6,'P='+p0.toFixed(3),'var(--mute)'); lab(bx+200+bw/2,base-p1*h-6,'P='+p1.toFixed(3),'var(--mute)');
+    lab(300,28,'circuit:  |ψ₀⟩ — '+(hist.length?hist.join(' — '):'(no gates)'),'var(--cyan)');
+    out.textContent='state vector:\n  α = '+fmt(st[0],st[1])+'   (amplitude of |0⟩)\n  β = '+fmt(st[2],st[3])+'   (amplitude of |1⟩)\n'
+      +'probabilities:  P(0) = '+p0.toFixed(3)+',  P(1) = '+p1.toFixed(3)+'   (sum = '+(p0+p1).toFixed(3)+')\n'
+      +'gates applied: '+(hist.length?hist.join(', '):'none yet — input state set by the θ slider');
+  }
+  ['X','H','Z','S','T','reset'].forEach(function(g){ const btn=$('#gt-'+g.toLowerCase()); if(btn) btn.addEventListener('click',function(){applyU(g);}); });
+  th.addEventListener('input',prepare); prepare();
+
+})();
+</script><p class="note">Try <strong>H then Z then H</strong> starting from $|0\rangle$: you land on $|1\rangle$, because $HZH=X$ — Hadamard swaps the $X$ and $Z$ axes of the sphere.</p>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#adjoint">Adjoint operator on Hilbert space</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-information.html#entanglement">Quantum information</a> · Entanglement and Bell states</div>
+    <div><a href="./quantum-information.html#algorithms">Quantum information</a> · Quantum algorithms: interference and Grover</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="qi-gates"></div></section>
+<section id="entanglement">
+<h2>3. Entanglement and Bell states</h2>
+<p>A two-qubit state is <strong>entangled</strong> when it cannot be written as a product $|\psi\rangle_A\otimes|\phi\rangle_B$. The family $\cos\theta\,|00\rangle+\sin\theta\,|11\rangle$ runs from a product state at $\theta=0$ to the maximally entangled <strong>Bell state</strong> $\tfrac1{\sqrt2}(|00\rangle+|11\rangle)$ at $\theta=\tfrac\pi4$.</p>
+<p>Entanglement is measured by the <strong>entanglement entropy</strong> $S(\rho_A)=-\operatorname{tr}\rho_A\log_2\rho_A$ of the reduced state $\rho_A=\operatorname{tr}_B|\psi\rangle\langle\psi|=\operatorname{diag}(\cos^2\theta,\sin^2\theta)$. At the Bell point $\rho_A=\tfrac12 I$ and $S=1$ bit: each qubit alone looks completely random, yet the pair is in a definite pure state. This nonlocal correlation is the resource behind teleportation, superdense coding, and Bell-inequality violations.</p>
+<div class="widget" id="w-ent">
+  <div class="hd"><div class="ttl">From product to Bell state</div><div class="hint">drag θ</div></div>
+  <svg id="en-svg" viewBox="0 0 640 260" width="640" height="260"><title>Two-qubit entanglement as a function of the mixing angle</title></svg>
+  <div class="row">
+    <label for="en-th">mixing angle $\theta$</label>
+    <input type="range" id="en-th" min="0" max="1.5708" step="0.01" value="0.5">
+    <span class="small" id="en-th-lbl"></span>
+  </div>
+  <div class="readout" id="en-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#en-svg'), out=$('#en-out');
+  const th=$('#en-th'), thL=$('#en-th-lbl');
+  function render(){
+    svg.innerHTML='';
+    const theta=+th.value; thL.textContent='θ = '+(theta/Math.PI).toFixed(3)+'π';
+    const c=Math.cos(theta), s=Math.sin(theta);
+    const amps=[c,0,0,s], labs=['|00⟩','|01⟩','|10⟩','|11⟩'];
+    const base=150, h=110, x0=120, gap=110, bw=70;
+    const lab=function(x,y,t,col,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'middle','font-size':12,fill:col});e.textContent=t;svg.appendChild(e);};
+    svg.appendChild(SVG('line',{x1:80,y1:base,x2:560,y2:base,stroke:'var(--line)'}));
+    for(let i=0;i<4;i++){ const p=amps[i]*amps[i];
+      svg.appendChild(SVG('rect',{x:x0+i*gap,y:base-p*h,width:bw,height:p*h,fill:'var(--cyan)','fill-opacity':0.5}));
+      lab(x0+i*gap+bw/2,base+18,labs[i],'var(--mute)');
+      lab(x0+i*gap+bw/2,base-p*h-6,p.toFixed(2),'var(--mute)');
+    }
+    const l0=c*c, l1=s*s;
+    const ent=function(p){ return p<=1e-12?0:-p*Math.log2(p); };
+    const S=ent(l0)+ent(l1);
+    const conc=Math.abs(Math.sin(2*theta));
+    let verdict; if(theta<1e-3||Math.abs(theta-Math.PI/2)<1e-3) verdict='PRODUCT state (separable, S=0)';
+      else if(Math.abs(theta-Math.PI/4)<1e-3) verdict='maximally entangled Bell state (S=1 bit)';
+      else verdict='partially entangled';
+    out.textContent='|ψ⟩ = cos θ |00⟩ + sin θ |11⟩\n'
+      +'reduced state of qubit A:  ρ_A = diag(cos²θ, sin²θ) = diag('+l0.toFixed(3)+', '+l1.toFixed(3)+')\n'
+      +'entanglement entropy  S(ρ_A) = '+S.toFixed(3)+' bits;   concurrence |sin 2θ| = '+conc.toFixed(3)+'\n'
+      +'→ '+verdict;
+  }
+  th.addEventListener('input',render); render();
+
+})();
+</script><div class="quiz" data-concept="qi-entanglement"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-information.html#error-correction">Quantum information</a> · Quantum error correction and stabilizers</div>
+</aside>
+<!-- backlinks-auto-end --></section>
+<section id="measurement">
+<h2>4. Measurement, the Born rule, and no-cloning</h2>
+<p>Measuring $|\psi\rangle$ in an orthonormal basis $\{|e_k\rangle\}$ returns outcome $k$ with probability $|\langle e_k|\psi\rangle|^2$ — the <strong>Born rule</strong> — and collapses the state onto $|e_k\rangle$. Measurement is irreversible and <em>basis-dependent</em>: the equal superposition $|{+}\rangle$ is random in the $Z$ basis but certain in the $X$ basis.</p>
+<p>Linearity has a sharp consequence — the <strong>no-cloning theorem</strong>: no unitary can map $|\psi\rangle|0\rangle\mapsto|\psi\rangle|\psi\rangle$ for every $|\psi\rangle$. A copier that works on $|0\rangle$ and $|1\rangle$ produces the Bell state on $|{+}\rangle$, not $|{+}\rangle|{+}\rangle$. Unknown quantum states cannot be copied — the bedrock of quantum key distribution.</p>
+<div class="widget" id="w-meas">
+  <div class="hd"><div class="ttl">Born rule and the measurement basis</div><div class="hint">drag θ, toggle basis</div></div>
+  <svg id="ms-svg" viewBox="0 0 640 220" width="640" height="220"><title>Born-rule probabilities and sampled outcomes in two bases</title></svg>
+  <div class="row">
+    <label for="ms-th">polar angle $\theta$</label>
+    <input type="range" id="ms-th" min="0" max="3.1416" step="0.02" value="1.5708">
+    <span class="small" id="ms-th-lbl"></span>
+  </div>
+  <div class="row">
+    <button id="ms-bz">Z basis</button>
+    <button id="ms-bx">X basis</button>
+  </div>
+  <div class="readout" id="ms-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#ms-svg'), out=$('#ms-out');
+  const th=$('#ms-th'), thL=$('#ms-th-lbl');
+  let basis='Z';
+  function render(){
+    svg.innerHTML='';
+    const theta=+th.value; thL.textContent='θ = '+(theta/Math.PI).toFixed(2)+'π';
+    const a=Math.cos(theta/2), b=Math.sin(theta/2);   // real state cos|0>+sin|1>
+    let p0,p1,l0,l1;
+    if(basis==='Z'){ p0=a*a; p1=b*b; l0='0'; l1='1'; }
+    else { const pp=(a+b)/Math.SQRT2, pm=(a-b)/Math.SQRT2; p0=pp*pp; p1=pm*pm; l0='+'; l1='−'; }
+    // simulate N draws
+    const N=400; let c0=0; for(let i=0;i<N;i++) if(Math.random()<p0) c0++; const c1=N-c0;
+    const base=160, h=110, lab=function(x,y,t,col,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'middle','font-size':12,fill:col});e.textContent=t;svg.appendChild(e);};
+    svg.appendChild(SVG('line',{x1:80,y1:base,x2:560,y2:base,stroke:'var(--line)'}));
+    // Born prob bars (outline) + sampled fraction (filled)
+    const draw=function(x,p,frac,labtxt){
+      svg.appendChild(SVG('rect',{x:x,y:base-p*h,width:120,height:p*h,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+      svg.appendChild(SVG('rect',{x:x,y:base-frac*h,width:120,height:frac*h,fill:'var(--cyan)','fill-opacity':0.45}));
+      lab(x+60,base+18,labtxt,'var(--mute)');
+      lab(x+60,base-Math.max(p,frac)*h-6,'P='+p.toFixed(3),'var(--mute)');
+    };
+    draw(160,p0,c0/N,'|'+l0+'⟩'); draw(360,p1,c1/N,'|'+l1+'⟩');
+    lab(300,28,'measuring in the '+basis+' basis   (yellow outline = Born P, cyan = '+N+' samples)','var(--cyan)');
+    out.textContent='state |ψ⟩ = cos(θ/2)|0⟩ + sin(θ/2)|1⟩,  measured in the '+basis+' basis\n'
+      +'Born-rule probabilities:  P(|'+l0+'⟩) = '+p0.toFixed(3)+',   P(|'+l1+'⟩) = '+p1.toFixed(3)+'\n'
+      +'sampled frequencies ('+N+' shots):  '+(c0/N).toFixed(3)+' / '+(c1/N).toFixed(3)+'\n'
+      +'no-cloning: you cannot copy |ψ⟩ to learn these amplitudes from one shot — each run yields a single collapsed outcome.';
+  }
+  th.addEventListener('input',render);
+  const bz=$('#ms-bz'), bx=$('#ms-bx');
+  if(bz) bz.addEventListener('click',function(){basis='Z'; bz.classList.add('active'); if(bx)bx.classList.remove('active'); render();});
+  if(bx) bx.addEventListener('click',function(){basis='X'; bx.classList.add('active'); if(bz)bz.classList.remove('active'); render();});
+  if(bz) bz.classList.add('active');
+  render();
+
+})();
+</script><div class="quiz" data-concept="qi-measurement"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-information.html#algorithms">Quantum information</a> · Quantum algorithms: interference and Grover</div>
+</aside>
+<!-- backlinks-auto-end --></section>
+<section id="algorithms">
+<h2>5. Quantum algorithms: interference and Grover</h2>
+<p>The popular picture — "a quantum computer tries all inputs at once" — is misleading. Superposition does evaluate $f$ on every input, but a measurement returns only <em>one</em> random outcome. Speedups come from arranging <strong>interference</strong> so that amplitudes for wrong answers cancel and right answers reinforce before you measure.</p>
+<p><strong>Grover’s search</strong> finds a marked item among $N$ by repeatedly reflecting the state, rotating it toward the target by an angle $\theta$ with $\sin\theta=1/\sqrt N$ each step. After $k$ iterations the success probability is $\sin^2\!\big((2k+1)\theta\big)$, peaking near $k\approx\tfrac\pi4\sqrt N$ — a quadratic speedup over the classical $\Theta(N)$, and provably optimal. <strong>Shor’s algorithm</strong> goes further, factoring integers in polynomial time via quantum period-finding.</p>
+<div class="widget" id="w-grover">
+  <div class="hd"><div class="ttl">Grover amplitude amplification</div><div class="hint">step through iterations</div></div>
+  <svg id="gr-svg" viewBox="0 0 640 240" width="640" height="240"><title>Grover success probability versus number of iterations</title></svg>
+  <div class="row">
+    <label for="gr-k">iterations $k$</label>
+    <input type="range" id="gr-k" min="0" max="8" step="1" value="0">
+    <span class="small" id="gr-k-lbl"></span>
+  </div>
+  <div class="readout" id="gr-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#gr-svg'), out=$('#gr-out');
+  const kk=$('#gr-k'), kL=$('#gr-k-lbl');
+  const N=16, theta=Math.asin(1/Math.sqrt(N));
+  function render(){
+    svg.innerHTML='';
+    const k=Math.round(+kk.value); kL.textContent='Grover iterations k = '+k;
+    const base=170, h=120, x0=70, gap=58, bw=40;
+    const lab=function(x,y,t,col,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'middle','font-size':11,fill:col});e.textContent=t;svg.appendChild(e);};
+    svg.appendChild(SVG('line',{x1:50,y1:base,x2:560,y2:base,stroke:'var(--line)'}));
+    let best=0,bestp=0;
+    for(let i=0;i<=8;i++){ const p=Math.pow(Math.sin((2*i+1)*theta),2); if(p>bestp){bestp=p;best=i;}
+      svg.appendChild(SVG('rect',{x:x0+i*gap,y:base-p*h,width:bw,height:p*h,fill:(i===k?'var(--yellow)':'var(--violet)'),'fill-opacity':(i===k?0.85:0.4)}));
+      lab(x0+i*gap+bw/2,base+16,i,'var(--mute)');
+    }
+    lab(300,26,'success probability sin²((2k+1)θ) over Grover iterations  (N = 16)','var(--cyan)');
+    lab(300,base+34,'iterations k','var(--mute)');
+    const p=Math.pow(Math.sin((2*k+1)*theta),2);
+    out.textContent='unstructured search over N = '+N+' items, one marked;  sin θ = 1/√N = '+(1/Math.sqrt(N)).toFixed(4)+'\n'
+      +'success probability after k = '+k+' iterations:  sin²((2k+1)θ) = '+p.toFixed(4)+'\n'
+      +'optimal k ≈ (π/4)√N − 1/2 = '+((Math.PI/4)*Math.sqrt(N)-0.5).toFixed(2)+'  → best integer k = '+best+' (P = '+bestp.toFixed(4)+')\n'
+      +'classical search needs ~N/2 = '+(N/2)+' queries on average; Grover needs Θ(√N) — a quadratic speedup.';
+  }
+  kk.addEventListener('input',render); render();
+
+})();
+</script><p class="note">Over-rotation is real: past the optimal $k$ the success probability <em>falls</em> again (the state rotates past the target). For $N=16$ the peak is at $k=3$.</p>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complexity-theory.html#p-np">P and NP</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="qi-algorithms"></div></section>
+<section id="error-correction">
+<h2>6. Quantum error correction and stabilizers</h2>
+<p>Quantum information is fragile, and the obstacles are exactly the features above: you cannot clone a state to make backups, and you cannot measure it to check for errors without collapsing it. The escape is to <strong>encode</strong> one logical qubit in several physical ones and measure only joint parities — <em>syndromes</em> — that reveal an error without revealing the data.</p>
+<p>The 3-qubit bit-flip code stores $\alpha|0\rangle+\beta|1\rangle$ as $\alpha|000\rangle+\beta|111\rangle$ and uses the <strong>stabilizers</strong> $Z_0Z_1$ and $Z_1Z_2$. Both logical words have even parity, so a syndrome measurement returns $(+1,+1)$ with no error and a distinct pattern for each single bit-flip — locating it without touching $\alpha,\beta$. Shor’s 9-qubit code extends this to <em>any</em> single-qubit error, and below a threshold error rate, fault-tolerant computation becomes possible.</p>
+<div class="widget" id="w-qec">
+  <div class="hd"><div class="ttl">3-qubit bit-flip code: syndrome decoding</div><div class="hint">slide the error location</div></div>
+  <svg id="qec-svg" viewBox="0 0 640 210" width="640" height="210"><title>Syndrome measurement locating a single bit-flip error</title></svg>
+  <div class="row">
+    <label for="qec-e">error location (0=none, 1–3 = qubit)</label>
+    <input type="range" id="qec-e" min="0" max="3" step="1" value="0">
+    <span class="small" id="qec-e-lbl"></span>
+  </div>
+  <div class="readout" id="qec-out">&nbsp;</div>
+</div><script>
+(function(){
+
+  const svg=$('#qec-svg'), out=$('#qec-out');
+  const ev=$('#qec-e'), evL=$('#qec-e-lbl');
+  let err=-1; // -1 none, else flipped qubit index
+  function syndrome(e){ // returns [s01, s12] in {+1,-1}; bit-flip on qubit e flips physical bits
+    const flip=[0,0,0]; if(e>=0) flip[e]=1;
+    const s01=(flip[0]^flip[1])?-1:1;
+    const s12=(flip[1]^flip[2])?-1:1;
+    return [s01,s12];
+  }
+  function diagnose(s){ const a=s[0],b=s[1];
+    if(a===1&&b===1) return -1; if(a===-1&&b===1) return 0; if(a===-1&&b===-1) return 1; return 2; }
+  function render(){
+    svg.innerHTML='';
+    err=Math.round(+ev.value)-1; // 0->none(-1), 1->q0, 2->q1, 3->q2
+    evL.textContent = (err<0?'error: none':'error: bit-flip on q'+err);
+    const lab=function(x,y,t,col,anc){const e=SVG('text',{x:x,y:y,'text-anchor':anc||'middle','font-size':13,fill:col});e.textContent=t;svg.appendChild(e);};
+    const xs=[160,320,480], y=110;
+    for(let i=0;i<3;i++){
+      const flipped=(err===i);
+      svg.appendChild(SVG('circle',{cx:xs[i],cy:y,r:26,fill:flipped?'var(--pink)':'var(--panel2)',stroke:flipped?'var(--pink)':'var(--cyan)','stroke-width':2}));
+      lab(xs[i],y+5,'q'+i,'#fff'); lab(xs[i],y-40,flipped?'flipped':'ok',flipped?'var(--pink)':'var(--mute)');
+    }
+    const s=syndrome(err), diag=diagnose(s);
+    lab(240,180,'Z₀Z₁ = '+(s[0]>0?'+1':'−1'),'var(--yellow)');
+    lab(400,180,'Z₁Z₂ = '+(s[1]>0?'+1':'−1'),'var(--yellow)');
+    out.textContent='logical qubit encoded as  α|000⟩ + β|111⟩  (3-qubit bit-flip code)\n'
+      +'syndrome  (Z₀Z₁, Z₁Z₂) = ('+(s[0]>0?'+1':'−1')+', '+(s[1]>0?'+1':'−1')+')\n'
+      +(err<0 ? 'diagnosis: no error detected — logical state intact.'
+             : 'diagnosis: bit-flip on qubit '+diag+' → reapply X on q'+diag+' to correct. Logical α,β never measured, so the superposition survives.');
+  }
+  ev.addEventListener('input',render); render();
+
+})();
+</script><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./coding-theory.html#linear">Linear codes: generator, parity-check, syndrome</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="qi-error-correction"></div></section>
+<section id="connections">
+<h2>Connections</h2>
+<p>Quantum information sits where linear algebra, probability, complexity, and physics meet. The open frontiers are practical: building enough physical qubits to get one reliable logical qubit (the error-correction threshold), finding algorithms with provable speedups beyond the known families, and pinning down where the quantum/classical boundary really lies for computation.</p>
+<ul>
+<li><a href="./functional-analysis.html#hilbert">Functional analysis — Hilbert spaces</a> — state vectors, inner products, and unitary/self-adjoint operators are the entire arena.</li>
+<li><a href="./complexity-theory.html#p-np">Complexity theory — P and NP</a> — the class BQP and the question of where quantum speedups can and cannot exist.</li>
+<li><a href="./coding-theory.html#linear">Coding theory — linear codes</a> — stabilizer codes are the quantum analogue of classical linear codes, with parity checks becoming syndromes.</li>
+<li><a href="./information-theory.html#entropy">Information theory — Shannon entropy</a> — von Neumann entropy $S(\rho)$ generalizes it and quantifies entanglement.</li>
+<li><a href="./representation-theory.html#def">Representation theory — group representations</a> — single-qubit gates are the group $U(2)$ acting on $\mathbb{C}^2$.</li>
+</ul>
+</section>
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('quantum-information'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-06-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

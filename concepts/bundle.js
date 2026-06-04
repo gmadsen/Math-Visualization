@@ -31,6 +31,7 @@ window.__MVConcepts = {
       "algebraic-combinatorics",
       "polytopes-and-ehrhart",
       "game-theory",
+      "quantum-information",
       "kernel-methods-and-rkhs",
       "reinforcement-learning",
       "pomdps-and-belief-states",
@@ -440,7 +441,8 @@ window.__MVConcepts = {
       "game-theory": "standard",
       "reinforcement-learning": "standard",
       "pomdps-and-belief-states": "standard",
-      "optimal-transport": "advanced"
+      "optimal-transport": "advanced",
+      "quantum-information": "advanced"
     }
   },
   "topics": {
@@ -2856,6 +2858,71 @@ window.__MVConcepts = {
             "gt-nash"
           ],
           "blurb": "Mechanism design engineers the rules so that self-interested play yields a desired outcome. In a second-price (Vickrey) auction — a single-item VCG mechanism — bidding your true valuation is a dominant strategy, unlike the first-price auction where bidders shade their bids."
+        }
+      ]
+    },
+    "quantum-information": {
+      "topic": "quantum-information",
+      "title": "Quantum information",
+      "page": "quantum-information.html",
+      "concepts": [
+        {
+          "id": "qi-qubits",
+          "title": "Qubits and the Bloch sphere",
+          "anchor": "qubits",
+          "prereqs": [
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "A qubit is a unit vector in $\\mathbb{C}^2$, $|\\psi\\rangle=\\alpha|0\\rangle+\\beta|1\\rangle$ with $|\\alpha|^2+|\\beta|^2=1$. Global phase is unphysical, so the state space is the projective line $\\mathbb{CP}^1$, identified with the Bloch sphere: $|\\psi\\rangle=\\cos\\tfrac\\theta2\\,|0\\rangle+e^{i\\varphi}\\sin\\tfrac\\theta2\\,|1\\rangle$ sits at the point $(\\sin\\theta\\cos\\varphi,\\sin\\theta\\sin\\varphi,\\cos\\theta)$. The poles are $|0\\rangle,|1\\rangle$; the equator holds the equal-superposition states."
+        },
+        {
+          "id": "qi-gates",
+          "title": "Quantum gates and circuits",
+          "anchor": "gates",
+          "prereqs": [
+            "qi-qubits",
+            "adjoint-hilbert"
+          ],
+          "blurb": "Closed-system evolution is unitary, so quantum gates are unitary matrices: $X,Y,Z$ (Pauli/rotations by $\\pi$), the Hadamard $H=\\tfrac1{\\sqrt2}\\big(\\begin{smallmatrix}1&1\\\\1&-1\\end{smallmatrix}\\big)$ creating superposition, and phase gates $S,T$. On the Bloch sphere each gate is a rotation. Multi-qubit gates like CNOT entangle; a small set ($H$, $T$, CNOT) is universal — any unitary is approximated to arbitrary precision (Solovay–Kitaev)."
+        },
+        {
+          "id": "qi-entanglement",
+          "title": "Entanglement and Bell states",
+          "anchor": "entanglement",
+          "prereqs": [
+            "qi-gates"
+          ],
+          "blurb": "A two-qubit state is entangled when it does not factor as $|\\psi\\rangle_A\\otimes|\\phi\\rangle_B$. The Bell state $\\tfrac1{\\sqrt2}(|00\\rangle+|11\\rangle)$ is the canonical example: each qubit alone is maximally mixed ($\\rho_A=\\tfrac12 I$), yet the pair is pure. The entanglement entropy $S(\\rho_A)=-\\operatorname{tr}\\rho_A\\log\\rho_A$ quantifies it; entanglement is the resource behind teleportation, superdense coding, and Bell-inequality violation."
+        },
+        {
+          "id": "qi-measurement",
+          "title": "Measurement, the Born rule, and no-cloning",
+          "anchor": "measurement",
+          "prereqs": [
+            "qi-qubits"
+          ],
+          "blurb": "Measuring $|\\psi\\rangle$ in an orthonormal basis $\\{|e_k\\rangle\\}$ returns outcome $k$ with probability $|\\langle e_k|\\psi\\rangle|^2$ (the Born rule) and collapses the state to $|e_k\\rangle$. Measurement is irreversible and basis-dependent. Linearity of quantum mechanics forbids a universal copier: the no-cloning theorem says no unitary can map $|\\psi\\rangle|0\\rangle\\mapsto|\\psi\\rangle|\\psi\\rangle$ for all $|\\psi\\rangle$ — the foundation of quantum key distribution."
+        },
+        {
+          "id": "qi-algorithms",
+          "title": "Quantum algorithms: interference and Grover",
+          "anchor": "algorithms",
+          "prereqs": [
+            "qi-gates",
+            "qi-measurement",
+            "cx-p-and-np"
+          ],
+          "blurb": "Quantum speedups come from arranging amplitudes to interfere — destructively on wrong answers, constructively on right ones — not from trying all inputs at once. Grover's search amplifies the marked amplitude by repeated reflection, finding a needle among $N$ in $\\Theta(\\sqrt N)$ queries (optimal); the success probability is $\\sin^2((2k+1)\\theta)$ with $\\sin\\theta=1/\\sqrt N$. Shor's algorithm factors in polynomial time via the quantum Fourier transform and period-finding."
+        },
+        {
+          "id": "qi-error-correction",
+          "title": "Quantum error correction and stabilizers",
+          "anchor": "error-correction",
+          "prereqs": [
+            "qi-entanglement",
+            "ct-linear"
+          ],
+          "blurb": "Errors cannot be cloned or measured directly without collapse, yet quantum information can still be protected: encode one logical qubit into many physical ones and measure error syndromes that reveal the error without revealing the data. The 3-qubit code $\\alpha|000\\rangle+\\beta|111\\rangle$ corrects a single bit flip via the stabilizers $Z_0Z_1,Z_1Z_2$; Shor's 9-qubit code corrects any single-qubit error. Below a threshold error rate, fault-tolerant computation is possible."
         }
       ]
     },
@@ -21001,7 +21068,8 @@ window.__MVConcepts = {
           "three-body-problem",
           "statistical-mechanics",
           "gauge-theory",
-          "string-theory"
+          "string-theory",
+          "quantum-information"
         ],
         "color": "o"
       },
@@ -21349,7 +21417,8 @@ window.__MVConcepts = {
     "game-theory": "standard",
     "reinforcement-learning": "standard",
     "pomdps-and-belief-states": "standard",
-    "optimal-transport": "advanced"
+    "optimal-transport": "advanced",
+    "quantum-information": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -21373,7 +21442,7 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 67,
       "crossOut": 5,
-      "crossIn": 23,
+      "crossIn": 24,
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
@@ -21394,7 +21463,7 @@ window.__MVConcepts = {
       "concepts": 217,
       "intra": 376,
       "crossOut": 44,
-      "crossIn": 79,
+      "crossIn": 81,
       "density": 0.20276497695852536
     },
     "Probability & statistics": {
@@ -21436,15 +21505,15 @@ window.__MVConcepts = {
       "concepts": 93,
       "intra": 95,
       "crossOut": 36,
-      "crossIn": 5,
+      "crossIn": 6,
       "density": 0.3870967741935484
     },
     "Mathematical physics": {
-      "concepts": 69,
-      "intra": 75,
-      "crossOut": 40,
+      "concepts": 75,
+      "intra": 81,
+      "crossOut": 44,
       "crossIn": 4,
-      "density": 0.5797101449275363
+      "density": 0.5866666666666667
     },
     "Control theory & optimization": {
       "concepts": 58,
