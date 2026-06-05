@@ -73,6 +73,37 @@
           "html": "\n\n<p>Drag the sliders: as you rotate the objective vector, the optimal vertex jumps from one corner to the next. The polytope is fixed; only the indifference line $c^\\top x = \\text{const}$ pivots, and the optimum is whichever corner it touches last as you sweep it across the feasible region.</p>\n\n"
         },
         {
+          "type": "widget",
+          "slug": "animated-svg-2d",
+          "params": {
+            "widgetId": "w-simplex-anim",
+            "svgId": "simplex-anim-svg",
+            "outputId": "simplex-anim-out",
+            "title": "The simplex walk: vertex to vertex toward the optimum",
+            "hint": "press play — the simplex method starts at a vertex of the feasible polytope and pivots along edges to an adjacent vertex that increases c·x (violet = the objective level line through the current vertex), stopping when no neighbour improves — the LP optimum",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "steps": 3,
+            "durationMs": 3600,
+            "loop": true,
+            "outputInitial": "press ▶ to run the simplex pivots",
+            "bodyScript": "const V=[[1,0],[3,0],[4,2],[2.5,3.5],[0.5,2.5],[0,1]];\nconst adj=[[1,5],[0,2],[1,3],[2,4],[3,5],[4,0]];\nconst c=[1,1.2];\nfunction obj(i){return c[0]*V[i][0]+c[1]*V[i][1];}\nconst PATH=[0];(function(){var cur=0;while(true){var best=cur,bv=obj(cur);for(var n=0;n<adj[cur].length;n++){var nb=adj[cur][n];if(obj(nb)>bv+1e-9){bv=obj(nb);best=nb;}}if(best===cur)break;PATH.push(best);cur=best;}})();\nconst K=PATH.length-1;\nfunction px(x){return 140+x*82;}function py(y){return 325-y*82;}\nfunction frame(t){\n  while(G.firstChild)G.removeChild(G.firstChild);\n  var k=Math.round(t*K);\n  var pd='';for(var i=0;i<V.length;i++)pd+=(i?'L':'M')+px(V[i][0]).toFixed(1)+' '+py(V[i][1]).toFixed(1)+' ';pd+='Z';\n  G.appendChild(SVG('path',{d:pd,fill:'var(--cyan)','fill-opacity':0.10,stroke:'var(--mute)','stroke-width':1.5}));\n  for(var i=0;i<V.length;i++)G.appendChild(SVG('circle',{cx:px(V[i][0]),cy:py(V[i][1]),r:3,fill:'var(--mute)'}));\n  var cv=V[PATH[k]];\n  var dlx=-c[1],dly=c[0],s=2.4;\n  G.appendChild(SVG('line',{x1:px(cv[0]-dlx*s),y1:py(cv[1]-dly*s),x2:px(cv[0]+dlx*s),y2:py(cv[1]+dly*s),stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:0.85}));\n  var wd='';for(var i=0;i<=k;i++)wd+=(i?'L':'M')+px(V[PATH[i]][0]).toFixed(1)+' '+py(V[PATH[i]][1]).toFixed(1)+' ';\n  if(k>0)G.appendChild(SVG('path',{d:wd,fill:'none',stroke:'var(--yellow)','stroke-width':3,'stroke-linejoin':'round'}));\n  for(var i=0;i<=k;i++)G.appendChild(SVG('circle',{cx:px(V[PATH[i]][0]),cy:py(V[PATH[i]][1]),r:5,fill:'var(--yellow)'}));\n  G.appendChild(SVG('circle',{cx:px(cv[0]),cy:py(cv[1]),r:7,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':1.5}));\n  var bx=0.15,by=2.7;\n  G.appendChild(SVG('line',{x1:px(bx),y1:py(by),x2:px(bx+c[0]*0.5),y2:py(by+c[1]*0.5),stroke:'var(--green)','stroke-width':2.5}));\n  var al=SVG('text',{x:px(bx+c[0]*0.5)+6,y:py(by+c[1]*0.5),'font-size':13,fill:'var(--green)'});al.textContent='max c\\u00b7x';G.appendChild(al);\n  var optimal=(k===K);\n  out.innerHTML='pivot '+k+' / '+K+' &nbsp;\\u00b7&nbsp; vertex ('+cv[0]+', '+cv[1]+') &nbsp;\\u00b7&nbsp; c\\u00b7x = '+obj(PATH[k]).toFixed(2)+' &nbsp;\\u00b7&nbsp; '+(optimal?'optimal \\u2014 no adjacent vertex improves c\\u00b7x':'climbing to a better adjacent vertex');\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-simplex-anim"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
