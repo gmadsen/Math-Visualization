@@ -10,7 +10,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 211 topics, 1446 concepts, 34 capstones
 - 5 concepts lack a widget in their *own* span (langlands `global`/`functoriality`/`capstone`, motives `realization-functors`, hodge `hodge-as-realization`) — genuine gaps under the span-based metric (a sibling concept's widget sits elsewhere on the page); close with a correspondence/dictionary widget. See `audits/coverage-stats.md`.
-- 1628 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
+- 1629 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
 - Quiz tiers: v1 = 4294, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
@@ -37,8 +37,9 @@ Re-prime this list after the next Harvard / Princeton / MIT / Berkeley / Caltech
 
 The corpus is gesture-skewed: ~83% click/slider, 99% 2D (`audits/coverage-stats.md` per-slug table). Goal: add new gesture *types* and deploy them across concepts to break the monotony (many pages — e.g. `dynamical-systems`, `probability-theory` — are ~all `button-stepper`).
 
-- **`animated-svg-2d` (play gesture) — shipped.** Self-contained play/pause + scrub timeline engine (author supplies `frame(t)`, `t∈[0,1]`). First home: `convex-optimization §gradient-proximal`. Roll out to more "watch it evolve" concepts (random-walk path growth, Newton iteration, power iteration, heat diffusion, replicator/limit-cycle trajectories) where it isn't duplicative of an existing toy.
-- **Next gesture types to consider:** a "draw the input" sketch engine (draw `f(x)`, see derivative/integral/running-sup); a click-to-seed phase-field/trajectory integrator; a graph-edit (add/remove node+edge) engine. Each as a self-contained shared renderer, jsdom-safe (no rAF/getScreenCTM at init), pattern per `widgets/draggable-points-2d` / `widgets/surface-3d`.
+- **`animated-svg-2d` (play gesture) — shipped** (#429). Self-contained play/pause + scrub timeline engine (author supplies `frame(t)`, `t∈[0,1]`). Homes: `convex-optimization §gradient-proximal` (#429), `markov-decision-processes §value-iteration` (#430). Roll out to more "watch it evolve" concepts where it isn't duplicative — note: parametric-plot time-sliders already *are* manual animations, so prefer concepts whose existing toy is static/structural/algebraic.
+- **`sketch-curve-2d` (draw gesture) — shipped.** Self-contained "draw the input" engine: drag to sketch `f(x)`, a live transform responds (author supplies `draw(ys)`). First home: `real-analysis §bounded-variation` (draw a curve → running total variation). Roll out to derivative / running-integral (FTC) / running-sup transforms.
+- **Next gesture types to consider:** a click-to-seed phase-field/trajectory integrator; a graph-edit (add/remove node+edge) engine. Each a self-contained shared renderer, jsdom-safe (no rAF/getScreenCTM at init), pattern per `widgets/animated-svg-2d` / `widgets/sketch-curve-2d`.
 - **Close the 5 span-gaps** (above) with a correspondence/dictionary widget while broadening adoption of the existing `draggable-points-2d` (3 instances) and `surface-3d` (5) renderers.
 
 ## Three.js / Pyodide / alt frontends (long-running)

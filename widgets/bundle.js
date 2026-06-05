@@ -12376,6 +12376,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "sketch-curve-2d",
+    "family": "sketch-curve-2d",
+    "dimension": "2d",
+    "gesture": "draw",
+    "role": "explore",
+    "title": "sketch-curve-2d widget params",
+    "description": "A self-contained 'draw the input' engine: the reader drags the pointer across the plot to sketch a function y = f(x), sampled at `samples` evenly spaced x-points; the engine then calls the author's draw(ys) to render the curve and any live transform of it (derivative, running integral, total variation, …). The renderer owns the sketch gesture (pointer→sample array, drag interpolation, a Reset button) and the data↔pixel mapping helpers X(i)/Y(v)/xv(i)/Yinv(py); the author writes only draw(ys) in params.bodyScript. The gesture is 'draw' — a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"draw the input\"** engine — the corpus's `draw` gesture. The reader sketches a function `y = f(x)` by dragging the pointer across the plot; the curve is stored as `samples` evenly spaced y-values and a live transform of it updates as they draw.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "slider-svg-2d",
     "family": "slider-readout",
     "dimension": "2d",
