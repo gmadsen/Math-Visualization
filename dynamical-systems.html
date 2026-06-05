@@ -605,7 +605,7 @@ function rk4Step(f, t, y, h){
   const DT=0.02, STEPS=600, GNX=21, GNY=13;
   const _vb=(svg.getAttribute('viewBox')||'0 0 640 420').split(/\s+/).map(Number);
   const W=_vb[2], Hh=_vb[3];
-  const bx0=40, bx1=W-20, by0=Hh-36, by1=20;
+  const bx0=_vb[0]+40, bx1=_vb[0]+W-20, by0=_vb[1]+Hh-36, by1=_vb[1]+20;
   function PX(x){ return bx0+(bx1-bx0)*(x-X0)/(X1-X0); }
   function PY(y){ return by0+(by1-by0)*(y-Y0)/(Y1-Y0); }
   function XV(px){ return X0+(X1-X0)*(px-bx0)/(bx1-bx0); }
@@ -648,10 +648,11 @@ function decorate(BG){
     if(y0p!=null) BG.appendChild(SVG('line',{x1:bx0,y1:y0p,x2:bx1,y2:y0p,stroke:'var(--line)','stroke-width':1,opacity:0.7}));
     if(x0p!=null) BG.appendChild(SVG('line',{x1:x0p,y1:by1,x2:x0p,y2:by0,stroke:'var(--line)','stroke-width':1,opacity:0.7})); }
   function drawField(){ if(GNX<=0||GNY<=0) return; const L=10;
+    const sx=(bx1-bx0)/(X1-X0), sy=(by0-by1)/(Y1-Y0);
     for(let i=0;i<GNX;i++){ for(let j=0;j<GNY;j++){
       const x=X0+(X1-X0)*(i+0.5)/GNX, y=Y0+(Y1-Y0)*(j+0.5)/GNY; const v=field(x,y);
-      const sp=Math.hypot(v.dx,v.dy); if(sp<1e-9) continue; const ux=v.dx/sp, uy=v.dy/sp;
-      const px=PX(x), py=PY(y); const ex=px+L*ux, ey=py-L*uy;
+      const pdx=v.dx*sx, pdy=-v.dy*sy; const sp=Math.hypot(pdx,pdy); if(sp<1e-9) continue;
+      const px=PX(x), py=PY(y); const ex=px+L*pdx/sp, ey=py+L*pdy/sp;
       BG.appendChild(SVG('line',{x1:px,y1:py,x2:ex,y2:ey,stroke:'var(--mute)','stroke-width':1,opacity:0.4}));
       BG.appendChild(SVG('circle',{cx:ex,cy:ey,r:1.4,fill:'var(--mute)',opacity:0.5})); } } }
   function seedAll(){ while(TR.firstChild) TR.removeChild(TR.firstChild); let last='';

@@ -70,7 +70,7 @@ export function renderScript(params) {
     `  const DT=${dt}, STEPS=${steps}, GNX=${gridNX}, GNY=${gridNY};\n` +
     `  const _vb=(svg.getAttribute('viewBox')||'0 0 640 420').split(/\\s+/).map(Number);\n` +
     `  const W=_vb[2], Hh=_vb[3];\n` +
-    `  const bx0=${padL}, bx1=W-${padR}, by0=Hh-${padB}, by1=${padT};\n` +
+    `  const bx0=_vb[0]+${padL}, bx1=_vb[0]+W-${padR}, by0=_vb[1]+Hh-${padB}, by1=_vb[1]+${padT};\n` +
     `  function PX(x){ return bx0+(bx1-bx0)*(x-X0)/(X1-X0); }\n` +
     `  function PY(y){ return by0+(by1-by0)*(y-Y0)/(Y1-Y0); }\n` +
     `  function XV(px){ return X0+(X1-X0)*(px-bx0)/(bx1-bx0); }\n` +
@@ -104,10 +104,11 @@ export function renderScript(params) {
     `    if(y0p!=null) BG.appendChild(SVG('line',{x1:bx0,y1:y0p,x2:bx1,y2:y0p,stroke:'var(--line)','stroke-width':1,opacity:0.7}));\n` +
     `    if(x0p!=null) BG.appendChild(SVG('line',{x1:x0p,y1:by1,x2:x0p,y2:by0,stroke:'var(--line)','stroke-width':1,opacity:0.7})); }\n` +
     `  function drawField(){ if(GNX<=0||GNY<=0) return; const L=10;\n` +
+    `    const sx=(bx1-bx0)/(X1-X0), sy=(by0-by1)/(Y1-Y0);\n` +
     `    for(let i=0;i<GNX;i++){ for(let j=0;j<GNY;j++){\n` +
     `      const x=X0+(X1-X0)*(i+0.5)/GNX, y=Y0+(Y1-Y0)*(j+0.5)/GNY; const v=field(x,y);\n` +
-    `      const sp=Math.hypot(v.dx,v.dy); if(sp<1e-9) continue; const ux=v.dx/sp, uy=v.dy/sp;\n` +
-    `      const px=PX(x), py=PY(y); const ex=px+L*ux, ey=py-L*uy;\n` +
+    `      const pdx=v.dx*sx, pdy=-v.dy*sy; const sp=Math.hypot(pdx,pdy); if(sp<1e-9) continue;\n` +
+    `      const px=PX(x), py=PY(y); const ex=px+L*pdx/sp, ey=py+L*pdy/sp;\n` +
     `      BG.appendChild(SVG('line',{x1:px,y1:py,x2:ex,y2:ey,stroke:'var(--mute)','stroke-width':1,opacity:0.4}));\n` +
     `      BG.appendChild(SVG('circle',{cx:ex,cy:ey,r:1.4,fill:'var(--mute)',opacity:0.5})); } } }\n` +
     `  function seedAll(){ while(TR.firstChild) TR.removeChild(TR.firstChild); let last='';\n` +
