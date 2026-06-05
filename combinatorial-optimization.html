@@ -408,7 +408,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Drag the sliders: as you rotate the objective vector, the optimal vertex jumps from one corner to the next. The polytope is fixed; only the indifference line $c^\top x = \text{const}$ pivots, and the optimum is whichever corner it touches last as you sweep it across the feasible region.</p>
 
 <div class="widget" id="w-simplex-anim">
-  <div class="hd"><div class="ttl">The simplex walk: vertex to vertex toward the optimum</div><div class="hint">press play — the simplex method starts at a vertex of the feasible polytope and pivots along edges to an adjacent vertex that increases c·x (violet = the objective level line through the current vertex), stopping when no neighbour improves — the LP optimum</div></div>
+  <div class="hd"><div class="ttl">The simplex walk: vertex to vertex toward the optimum</div><div class="hint">press play — the simplex method starts at a vertex of the feasible polytope and pivots along edges to an adjacent vertex that increases the objective cᵀx (violet = the cᵀx level line through the current vertex; green = the increasing direction), stopping when no neighbour improves — the LP optimum</div></div>
   <svg id="simplex-anim-svg" viewBox="0 0 640 360" width="640" height="360"><title>The simplex walk: vertex to vertex toward the optimum</title></svg>
   <div class="row">
     <button id="w-simplex-anim-play" type="button" aria-pressed="false">▶ Play</button>
@@ -435,18 +435,20 @@ function frame(t){
   var pd='';for(var i=0;i<V.length;i++)pd+=(i?'L':'M')+px(V[i][0]).toFixed(1)+' '+py(V[i][1]).toFixed(1)+' ';pd+='Z';
   G.appendChild(SVG('path',{d:pd,fill:'var(--cyan)','fill-opacity':0.10,stroke:'var(--mute)','stroke-width':1.5}));
   for(var i=0;i<V.length;i++)G.appendChild(SVG('circle',{cx:px(V[i][0]),cy:py(V[i][1]),r:3,fill:'var(--mute)'}));
+  var sl=SVG('text',{x:px(V[0][0]),y:py(V[0][1])+18,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});sl.textContent='start';G.appendChild(sl);
   var cv=V[PATH[k]];
-  var dlx=-c[1],dly=c[0],s=2.4;
+  var dlx=-c[1],dly=c[0],s=1.1;
   G.appendChild(SVG('line',{x1:px(cv[0]-dlx*s),y1:py(cv[1]-dly*s),x2:px(cv[0]+dlx*s),y2:py(cv[1]+dly*s),stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:0.85}));
   var wd='';for(var i=0;i<=k;i++)wd+=(i?'L':'M')+px(V[PATH[i]][0]).toFixed(1)+' '+py(V[PATH[i]][1]).toFixed(1)+' ';
   if(k>0)G.appendChild(SVG('path',{d:wd,fill:'none',stroke:'var(--yellow)','stroke-width':3,'stroke-linejoin':'round'}));
   for(var i=0;i<=k;i++)G.appendChild(SVG('circle',{cx:px(V[PATH[i]][0]),cy:py(V[PATH[i]][1]),r:5,fill:'var(--yellow)'}));
   G.appendChild(SVG('circle',{cx:px(cv[0]),cy:py(cv[1]),r:7,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':1.5}));
+  if(k===K){var ol=SVG('text',{x:px(cv[0])+12,y:py(cv[1])-8,'font-size':13,fill:'var(--cyan)','font-weight':600});ol.textContent='\u2713 optimum';G.appendChild(ol);}
   var bx=0.15,by=2.7;
   G.appendChild(SVG('line',{x1:px(bx),y1:py(by),x2:px(bx+c[0]*0.5),y2:py(by+c[1]*0.5),stroke:'var(--green)','stroke-width':2.5}));
-  var al=SVG('text',{x:px(bx+c[0]*0.5)+6,y:py(by+c[1]*0.5),'font-size':13,fill:'var(--green)'});al.textContent='max c\u00b7x';G.appendChild(al);
+  var al=SVG('text',{x:px(bx+c[0]*0.5)+6,y:py(by+c[1]*0.5),'font-size':13,fill:'var(--green)'});al.textContent='max c\u1d40x';G.appendChild(al);
   var optimal=(k===K);
-  out.innerHTML='pivot '+k+' / '+K+' &nbsp;\u00b7&nbsp; vertex ('+cv[0]+', '+cv[1]+') &nbsp;\u00b7&nbsp; c\u00b7x = '+obj(PATH[k]).toFixed(2)+' &nbsp;\u00b7&nbsp; '+(optimal?'optimal \u2014 no adjacent vertex improves c\u00b7x':'climbing to a better adjacent vertex');
+  out.innerHTML='pivot '+k+' / '+K+' &nbsp;\u00b7&nbsp; vertex ('+cv[0]+', '+cv[1]+') &nbsp;\u00b7&nbsp; c\u1d40x = '+obj(PATH[k]).toFixed(2)+' &nbsp;\u00b7&nbsp; '+(optimal?'optimal \u2014 no adjacent vertex improves c\u1d40x':'climbing to a better adjacent vertex');
 }
   // ---- play engine (supplied by animated-svg-2d) ----
   const playBtn=$('#w-simplex-anim-play'), scrub=$('#w-simplex-anim-scrub');
