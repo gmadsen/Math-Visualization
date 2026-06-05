@@ -638,6 +638,68 @@ function drawNode(svg, x, y, label, opts={}){
   doReset();
 })();
 </script>
+<div class="widget" id="w-vi-anim">
+  <div class="hd"><div class="ttl">Value iteration converging to V*</div><div class="hint">press play — value iteration V ← TV on the §4 worked MDP; bars V_k rise to the fixed point V* (yellow), the sup-error runs 14.56, 13.10, 8.84, … contracting by a factor ≤ γ each sweep</div></div>
+  <svg id="vi-anim-svg" viewBox="0 0 640 360" width="640" height="360"><title>Value iteration converging to V*</title></svg>
+  <div class="row">
+    <button id="w-vi-anim-play" type="button" aria-pressed="false">▶ Play</button>
+    <input id="w-vi-anim-scrub" type="range" min="0" max="45" value="0" step="1" aria-label="Scrub timeline" style="flex:1">
+  </div>
+  <div class="readout" id="vi-anim-out">press ▶ to run the backups</div>
+</div>
+<script>
+(function(){
+  const svg=$('#vi-anim-svg'), out=$('#vi-anim-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const STEPS=45, DUR=6200, LOOP=true;
+  // ---- author frame(t), t in [0,1] (clears+fills G, writes out) ----
+const N=3,gam=0.9,K=45;
+const R=[[0,5,1],[0,-1,1]];
+const P=[[[0,1,0],[0.2,0,0.8],[0,0,1]],[[1,0,0],[0,1,0],[0,0,1]]];
+function bell(V){var nv=new Array(N);for(var s=0;s<N;s++){var best=-1e9;for(var a=0;a<2;a++){var q=R[a][s];for(var sp=0;sp<N;sp++)q+=gam*P[a][s][sp]*V[sp];if(q>best)best=q;}nv[s]=best;}return nv;}
+var Vs=new Array(N).fill(0);for(var i=0;i<600;i++)Vs=bell(Vs);
+const VK=[];var v=new Array(N).fill(0);VK.push(v.slice());for(var k=1;k<=K;k++){v=bell(v);VK.push(v.slice());}
+var vmax=0;for(var s2=0;s2<N;s2++)if(Vs[s2]>vmax)vmax=Vs[s2];
+const A=160,bw=160,base=300,H=(base-78)/(vmax||1);
+const NAME=['s0','s1','s2 (goal)'];
+function frame(t){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  var k=Math.round(t*K);
+  G.appendChild(SVG('line',{x1:80,y1:base,x2:560,y2:base,stroke:'var(--mute)','stroke-width':1,opacity:0.5}));
+  G.appendChild(SVG('rect',{x:392,y:30,width:15,height:11,fill:'var(--cyan)','fill-opacity':0.45,stroke:'var(--cyan)','stroke-width':0.8}));
+  var lk=SVG('text',{x:412,y:40,'font-size':12,fill:'var(--mute)'});lk.textContent='V_k';G.appendChild(lk);
+  G.appendChild(SVG('line',{x1:452,y1:36,x2:474,y2:36,stroke:'var(--yellow)','stroke-width':2.5}));
+  var ls=SVG('text',{x:480,y:40,'font-size':12,fill:'var(--mute)'});ls.textContent='V*';G.appendChild(ls);
+  for(var s=0;s<N;s++){var x=A+s*bw;
+    var hk=VK[k][s]*H; G.appendChild(SVG('rect',{x:x-34,y:base-hk,width:68,height:hk,fill:'var(--cyan)','fill-opacity':0.45,stroke:'var(--cyan)','stroke-width':0.8}));
+    var yv=base-Vs[s]*H; G.appendChild(SVG('line',{x1:x-42,y1:yv,x2:x+42,y2:yv,stroke:'var(--yellow)','stroke-width':2.5}));
+    var lab=SVG('text',{x:x,y:base+18,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});lab.textContent=NAME[s];G.appendChild(lab);}
+  var nm=0;for(var s3=0;s3<N;s3++){var dd=Math.abs(VK[k][s3]-Vs[s3]);if(dd>nm)nm=dd;}
+  var prev=0;if(k>0){for(var s4=0;s4<N;s4++){var d2=Math.abs(VK[k-1][s4]-Vs[s4]);if(d2>prev)prev=d2;}}
+  var ratio=(k>0&&prev>1e-9)?(nm/prev):0;
+  out.innerHTML='sweep k = '+k+' / '+K+' &nbsp;\u00b7&nbsp; \u2016V<sub>k</sub> \u2212 V*\u2016\u221e = '+nm.toFixed(2)+(k>0?' &nbsp;\u00b7&nbsp; ratio = '+ratio.toFixed(2)+' (\u2264 \u03b3 = 0.90)':'');
+}
+  // ---- play engine (supplied by animated-svg-2d) ----
+  const playBtn=$('#w-vi-anim-play'), scrub=$('#w-vi-anim-scrub');
+  const PLAY="▶ Play", PAUSE="⏸ Pause";
+  const hasRAF=typeof window.requestAnimationFrame==='function';
+  const raf=hasRAF?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};
+  const craf=hasRAF&&typeof window.cancelAnimationFrame==='function'?window.cancelAnimationFrame.bind(window):clearTimeout;
+  let t=0, playing=false, id=0, last=0;
+  function setT(v){ t=Math.max(0,Math.min(1,v)); scrub.value=Math.round(t*STEPS); frame(t); }
+  function tick(now){ if(!playing) return; if(!last) last=now;
+    const dt=(now-last)/DUR; last=now; let nt=t+dt;
+    if(nt>=1){ if(LOOP){ nt=nt-Math.floor(nt); } else { setT(1); pause(); return; } }
+    setT(nt); id=raf(tick); }
+  function play(){ if(playing) return; if(t>=1) t=0; playing=true; last=0;
+    playBtn.textContent=PAUSE; playBtn.setAttribute('aria-pressed','true'); id=raf(tick); }
+  function pause(){ if(!playing) return; playing=false; if(id) craf(id);
+    playBtn.textContent=PLAY; playBtn.setAttribute('aria-pressed','false'); }
+  playBtn.addEventListener('click',function(){ playing?pause():play(); });
+  scrub.addEventListener('input',function(){ pause(); setT((+scrub.value)/STEPS); });
+  setT(0);
+})();
+</script>
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
