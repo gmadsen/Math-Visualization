@@ -69,7 +69,8 @@ export function renderScript(params) {
     `  function xv(i){ return X0+(X1-X0)*i/(M-1); }\n` +
     `  function Y(v){ let tt=(v-YMIN)/(YMAX-YMIN); if(tt<0)tt=0; if(tt>1)tt=1; return by0+(by1-by0)*tt; }\n` +
     `  function Yinv(py){ let tt=(py-by0)/(by1-by0); return YMIN+(YMAX-YMIN)*tt; }\n` +
-    `  const INIT=${initialJson}; const DEFAULT=INIT?INIT.slice():new Array(M).fill(0);\n` +
+    `  const INIT=${initialJson};\n` +
+    `  const DEFAULT=INIT?Array.from({length:M},function(_,i){return typeof INIT[i]==='number'?INIT[i]:0;}):new Array(M).fill(0);\n` +
     `  const ys=DEFAULT.slice();\n` +
     `  // ---- author draw(ys) (clears+fills G, writes out) ----\n` +
     bodyScript + `\n` +
