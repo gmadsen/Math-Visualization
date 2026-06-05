@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1629** (registry-driven: 1629, inline: 0)
+- Widgets: **1630** (registry-driven: 1630, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -39,6 +39,7 @@ page has wired one in yet.
 | `animated-svg-2d` | animated-svg-2d | play | 2d | 2 | convex-optimization, markov-decision-processes |
 | `counterexample-explorer` | counterexample-explorer | select | 2d | 2 | heights-arithmetic-geometry, point-set-topology |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 2 | dynamical-systems, mathematical-chaos |
+| `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 2 | convex-optimization, real-analysis |
 | `aca-bergman-kernel-disk` | aca-figure | click | 2d | 1 | advanced-complex-analysis |
 | `aca-bloch-disk` | aca-figure | slider | 2d | 1 | advanced-complex-analysis |
 | `aca-hartogs-shell` | aca-figure | slider | 2d | 1 | advanced-complex-analysis |
@@ -618,7 +619,6 @@ page has wired one in yet.
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
 | `singular-cubics-minimal-model` | singular-cubics-minimal-model | slider | 2d | 1 | singular-cubics-reduction |
-| `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 1 | real-analysis |
 | `sm-manifold-gallery` | sm-manifold-gallery | click | 2d | 1 | smooth-manifolds |
 | `sobolev-embedding-exponent` | sobolev-embedding-exponent | slider | 2d | 1 | sobolev-spaces-distributions |
 | `sobolev-fractional-power` | sobolev-fractional-power | slider | 2d | 1 | sobolev-spaces-distributions |
@@ -815,10 +815,10 @@ page has wired one in yet.
 ### Control theory & optimization
 
 - Topics: **9**, concepts: **58**
-- Widgets: **61** (registry-driven: 61, inline: 0)
-  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, animated-svg-2d: 2, inline-code-cell: 1, clickable-diagram: 1
-  - by dimension: 2d: 61
-  - by gesture: slider: 49, click: 6, select: 2, play: 2, scrub: 1, edit: 1
+- Widgets: **62** (registry-driven: 62, inline: 0)
+  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, animated-svg-2d: 2, sketch-curve-2d: 1, inline-code-cell: 1, clickable-diagram: 1
+  - by dimension: 2d: 62
+  - by gesture: slider: 49, click: 6, select: 2, play: 2, scrub: 1, draw: 1, edit: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)
   - by type: mcq: 116, numeric: 36, multi-select: 14, matching: 4, spot-the-error: 2, ordering: 2
 
@@ -850,7 +850,7 @@ page has wired one in yet.
 - `mathematical-finance` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `donaldson-thomas-and-gw-invariants` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `positive-characteristic-ag` (Algebraic geometry) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
-- `convex-optimization` (Control theory & optimization) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
+- `convex-optimization` (Control theory & optimization) — concepts=7, widgets=10 (slug=10), quiz=21 (v1=21, hard=0, expert=0)
 - `convex-geometry` (Geometry & topology) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
 - `topological-data-analysis` (Learning theory & data science) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
