@@ -82,7 +82,7 @@
             "svgId": "comp-build-svg",
             "outputId": "comp-build-out",
             "title": "Build a graph: dim ker L = number of components",
-            "hint": "build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. Vertices recolour by connected component; the kernel dimension dim ker L equals the number of colours, however you rewire. (Add an edge bridging two colours and watch them merge into one.)",
+            "hint": "build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. Vertices recolour by connected component; the kernel dimension $\\dim\\ker L$ equals the number of colours, however you rewire. (Add an edge bridging two colours and watch them merge into one.)",
             "svgTitle": "Editable graph; vertices are coloured by connected component, illustrating dim ker L = number of components.",
             "viewBox": "0 0 640 380",
             "svgWidth": 640,
