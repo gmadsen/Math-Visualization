@@ -4,13 +4,13 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. Don't keep a "Shipped recently" log — `git log` is the audit trail. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-06-04)
+## Corpus snapshot (2026-06-05)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 211 topics, 1446 concepts, 34 capstones
-- 5 concepts lack a widget in their span (all abstract realization/Langlands concepts already served by an adjacent page-level widget — see `audits/coverage-stats.md`)
-- 1626 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
+- 5 concepts lack a widget in their *own* span (langlands `global`/`functoriality`/`capstone`, motives `realization-functors`, hodge `hodge-as-realization`) — genuine gaps under the span-based metric (a sibling concept's widget sits elsewhere on the page); close with a correspondence/dictionary widget. See `audits/coverage-stats.md`.
+- 1627 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
 - Quiz tiers: v1 = 4294, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
@@ -32,6 +32,14 @@ Re-prime this list after the next Harvard / Princeton / MIT / Berkeley / Caltech
 
 - **Index-card thumb art.** Placeholder cards are CI-gated (`audit-draft-index-cards.mjs`). Remaining surface is the midbody (~15 cards judged already-strong but could be sharpened).
 - **Verbatim widget slugs — migration at its natural end.** Roughly 66 per-widget verbatim slugs remain on `widgets/_shared/verbatim-renderer.mjs` (opaque `bodyMarkup`/`bodyScript`). Every *structurable* shape was already migrated onto the shared `slider-svg-2d` / `clickable-diagram` renderers. The remaining ~66 are uniformly multi-blocker with irregular bodies (readout-before-row, styled rows, leading prose, multi-element legends, empty/missing scripts) where structuring is bespoke per-widget effort with no shared-renderer leverage — correctly left verbatim. **Don't chase a `--normalize`/ordered-block mode for the tail — analysis confirmed it unlocks ~0–2 per attempt.** Full per-cluster breakdown in the `project_verbatim_semantic_migration` memory.
+
+## Widget-variety program (in progress, 2026-06-05)
+
+The corpus is gesture-skewed: ~83% click/slider, 99% 2D (`audits/coverage-stats.md` per-slug table). Goal: add new gesture *types* and deploy them across concepts to break the monotony (many pages — e.g. `dynamical-systems`, `probability-theory` — are ~all `button-stepper`).
+
+- **`animated-svg-2d` (play gesture) — shipped.** Self-contained play/pause + scrub timeline engine (author supplies `frame(t)`, `t∈[0,1]`). First home: `convex-optimization §gradient-proximal`. Roll out to more "watch it evolve" concepts (random-walk path growth, Newton iteration, power iteration, heat diffusion, replicator/limit-cycle trajectories) where it isn't duplicative of an existing toy.
+- **Next gesture types to consider:** a "draw the input" sketch engine (draw `f(x)`, see derivative/integral/running-sup); a click-to-seed phase-field/trajectory integrator; a graph-edit (add/remove node+edge) engine. Each as a self-contained shared renderer, jsdom-safe (no rAF/getScreenCTM at init), pattern per `widgets/draggable-points-2d` / `widgets/surface-3d`.
+- **Close the 5 span-gaps** (above) with a correspondence/dictionary widget while broadening adoption of the existing `draggable-points-2d` (3 instances) and `surface-3d` (5) renderers.
 
 ## Three.js / Pyodide / alt frontends (long-running)
 

@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/animated-svg-2d/schema.json",
+  "title": "animated-svg-2d widget params",
+  "description": "A self-contained play/pause animation engine. The renderer supplies a Play/Pause button, a scrub slider, and a requestAnimationFrame loop that advances a normalized time t in [0,1] and calls the author's frame(t); the author writes only the per-frame math + redraw into params.bodyScript (it receives the SVG group G, the svg node, the readout `out`, and the page-global $/SVG helpers). The gesture is 'play' — a dimension the corpus otherwise lacks. A non-HTML frontend can ignore renderScript and drive its own clock from the schema (steps/durationMs/loop).",
+  "meta": {
+    "family": "animated-svg-2d",
+    "dimension": "2d",
+    "gesture": "play",
+    "role": "demo"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. The play button and scrub slider derive their ids from it (widgetId+'-play', widgetId+'-scrub')."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <svg> canvas the author draws into."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the .readout element the author writes per-frame text into."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "svgTitle": {
+      "type": "string",
+      "description": "Accessible <title> inside the SVG. Defaults to title."
+    },
+    "viewBox": {
+      "type": "string",
+      "description": "SVG viewBox. Defaults to '0 0 640 380'.",
+      "default": "0 0 640 380"
+    },
+    "svgWidth": {
+      "type": "integer",
+      "description": "SVG width attribute. Defaults to 640.",
+      "default": 640
+    },
+    "svgHeight": {
+      "type": "integer",
+      "description": "SVG height attribute. Defaults to 380.",
+      "default": 380
+    },
+    "steps": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 2000,
+      "description": "Number of discrete scrub positions (slider granularity). Defaults to 120.",
+      "default": 120
+    },
+    "durationMs": {
+      "type": "integer",
+      "minimum": 200,
+      "maximum": 60000,
+      "description": "Wall-clock duration of one full t:0->1 play pass. Defaults to 4000.",
+      "default": 4000
+    },
+    "loop": {
+      "type": "boolean",
+      "description": "Whether play wraps from t=1 back to t=0. Defaults to true.",
+      "default": true
+    },
+    "autoplay": {
+      "type": "boolean",
+      "description": "Start playing on load (only if requestAnimationFrame is available). Defaults to false.",
+      "default": false
+    },
+    "playLabel": {
+      "type": "string",
+      "description": "Text for the play control in the paused state. Defaults to '▶ Play'.",
+      "default": "▶ Play"
+    },
+    "pauseLabel": {
+      "type": "string",
+      "description": "Text for the play control in the playing state. Defaults to '⏸ Pause'.",
+      "default": "⏸ Pause"
+    },
+    "outputInitial": {
+      "type": "string",
+      "description": "Initial readout HTML before the first frame paints. Defaults to a non-breaking space."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS defining `function frame(t){ ... }` with t in [0,1]. It clears+fills the SVG group `G`, writes `out`, and may use the page-global $/SVG helpers and the constant STEPS. Runs once at t=0 on load; then on every rAF tick and scrub. Must not start its own timers."
+    }
+  }
+}

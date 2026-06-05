@@ -878,6 +878,60 @@ $$x_{k+1} \;=\; \mathrm{prox}_{\alpha g}\bigl(x_k - \alpha\nabla f(x_k)\bigr)$$
 })();
 </script>
 
+<div class="widget" id="w-gd-anim">
+  <div class="hd"><div class="ttl">Gradient descent on an ill-conditioned bowl</div><div class="hint">press play — fixed step η, condition number κ = 4: fast down the steep wall, slow along the valley floor</div></div>
+  <svg id="gd-anim-svg" viewBox="0 0 640 380" width="640" height="380"><title>Gradient descent on an ill-conditioned bowl</title></svg>
+  <div class="row">
+    <button id="w-gd-anim-play" type="button" aria-pressed="false">▶ Play</button>
+    <input id="w-gd-anim-scrub" type="range" min="0" max="40" value="0" step="1" aria-label="Scrub timeline" style="flex:1">
+  </div>
+  <div class="readout" id="gd-anim-out">press ▶ to run the iteration</div>
+</div>
+<script>
+(function(){
+  const svg=$('#gd-anim-svg'), out=$('#gd-anim-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const STEPS=40, DUR=5200, LOOP=true;
+  // ---- author frame(t), t in [0,1] (clears+fills G, writes out) ----
+const A=320,B=190,sx=52,sy=40,gam=0.25,eta=0.32,N=40;
+function px(x){return A+x*sx;} function py(y){return B-y*sy;}
+function f(x,y){return 0.5*(x*x+gam*y*y);}
+const P=[]; (function(){let x=4.2,y=3.2;P.push([x,y]);for(let k=0;k<N;k++){x=x-eta*x;y=y-eta*gam*y;P.push([x,y]);}})();
+function frame(t){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  const k=Math.round(t*N);
+  G.appendChild(SVG('line',{x1:px(-5),y1:B,x2:px(5.6),y2:B,stroke:'var(--mute)','stroke-width':1,opacity:0.35}));
+  G.appendChild(SVG('line',{x1:A,y1:py(-4.4),x2:A,y2:py(4.4),stroke:'var(--mute)','stroke-width':1,opacity:0.35}));
+  [0.3,0.9,1.8].forEach(function(c){G.appendChild(SVG('ellipse',{cx:A,cy:B,rx:Math.sqrt(2*c)*sx,ry:Math.sqrt(2*c/gam)*sy,fill:'none',stroke:'var(--line)','stroke-width':1.2}));});
+  G.appendChild(SVG('circle',{cx:A,cy:B,r:4,fill:'var(--green)'}));
+  let d='';for(let i=0;i<=k;i++){d+=(i?'L':'M')+px(P[i][0]).toFixed(1)+' '+py(P[i][1]).toFixed(1)+' ';}
+  if(k>0)G.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-linejoin':'round'}));
+  for(let i=0;i<=k;i++){G.appendChild(SVG('circle',{cx:px(P[i][0]),cy:py(P[i][1]),r:2.4,fill:'var(--yellow)'}));}
+  const c=P[k];
+  G.appendChild(SVG('circle',{cx:px(c[0]),cy:py(c[1]),r:6,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':1.5}));
+  const gx=c[0],gy=gam*c[1],gn=Math.sqrt(gx*gx+gy*gy);
+  out.innerHTML='step k = '+k+' / '+N+' &nbsp;\u00b7&nbsp; x<sub>k</sub> = ('+c[0].toFixed(2)+', '+c[1].toFixed(2)+') &nbsp;\u00b7&nbsp; f = '+f(c[0],c[1]).toFixed(3)+' &nbsp;\u00b7&nbsp; \u2016\u2207f\u2016 = '+gn.toFixed(3);
+}
+  // ---- play engine (supplied by animated-svg-2d) ----
+  const playBtn=$('#w-gd-anim-play'), scrub=$('#w-gd-anim-scrub');
+  const PLAY="▶ Play", PAUSE="⏸ Pause";
+  const raf=window.requestAnimationFrame?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};
+  const craf=window.cancelAnimationFrame?window.cancelAnimationFrame.bind(window):clearTimeout;
+  let t=0, playing=false, id=0, last=0;
+  function setT(v){ t=Math.max(0,Math.min(1,v)); scrub.value=Math.round(t*STEPS); frame(t); }
+  function tick(now){ if(!playing) return; if(!last) last=now;
+    const dt=(now-last)/DUR; last=now; let nt=t+dt;
+    if(nt>=1){ if(LOOP){ nt=nt-Math.floor(nt); } else { setT(1); pause(); return; } }
+    setT(nt); id=raf(tick); }
+  function play(){ if(playing) return; if(t>=1) t=0; playing=true; last=0;
+    playBtn.textContent=PAUSE; playBtn.setAttribute('aria-pressed','true'); id=raf(tick); }
+  function pause(){ if(!playing) return; playing=false; if(id) craf(id);
+    playBtn.textContent=PLAY; playBtn.setAttribute('aria-pressed','false'); }
+  playBtn.addEventListener('click',function(){ playing?pause():play(); });
+  scrub.addEventListener('input',function(){ pause(); setT((+scrub.value)/STEPS); });
+  setT(0);
+})();
+</script>
 <div class="quiz" data-concept="co-gradient-proximal"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
