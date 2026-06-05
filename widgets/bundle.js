@@ -13791,6 +13791,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "vector-field-flow-2d",
+    "family": "vector-field-flow-2d",
+    "dimension": "2d",
+    "gesture": "click-seed",
+    "role": "explore",
+    "title": "vector-field-flow-2d widget params",
+    "description": "A self-contained 'click to seed a trajectory' engine for 2D autonomous flows. The author supplies a vector field via `function field(x,y){ return {dx, dy}; }` (data coordinates); the engine draws a faint normalised direction field over the plot, and on every click it integrates a streamline through the seed point (RK4, forward and backward) and draws it, reporting where the forward orbit settles. The reader builds up a phase portrait by clicking. The renderer owns the click→data mapping, the RK4 integration, the direction-field grid, trajectory drawing and Reset; the author writes only field(x,y) and an optional decorate(BG) for static overlays (fixed points, nullclines, labels) using the exposed PX(x)/PY(y) data→pixel helpers. The gesture is 'click-seed' — a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the click handler, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"click to seed a trajectory\"** engine — the corpus's `click-seed` gesture. The reader clicks anywhere in the plane to release a trajectory of a 2D autonomous flow $\\dot x = f(x,y)$; the engine integrates the streamline (RK4, forward *and* backward through the seed) and draws it, so a phase portrait builds up click by click over a faint direction field. First home: `dynamical-systems §phase` (a bistable flow whose two basins of attraction are separated by the $y$-axis).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "voa-axiom-map",
     "family": "voa-axiom-map",
     "dimension": "2d",

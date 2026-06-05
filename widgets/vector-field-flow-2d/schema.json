@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/vector-field-flow-2d/schema.json",
+  "title": "vector-field-flow-2d widget params",
+  "description": "A self-contained 'click to seed a trajectory' engine for 2D autonomous flows. The author supplies a vector field via `function field(x,y){ return {dx, dy}; }` (data coordinates); the engine draws a faint normalised direction field over the plot, and on every click it integrates a streamline through the seed point (RK4, forward and backward) and draws it, reporting where the forward orbit settles. The reader builds up a phase portrait by clicking. The renderer owns the click→data mapping, the RK4 integration, the direction-field grid, trajectory drawing and Reset; the author writes only field(x,y) and an optional decorate(BG) for static overlays (fixed points, nullclines, labels) using the exposed PX(x)/PY(y) data→pixel helpers. The gesture is 'click-seed' — a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the click handler, never at init.",
+  "meta": {
+    "family": "vector-field-flow-2d",
+    "dimension": "2d",
+    "gesture": "click-seed",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <svg> drawing surface."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the .readout the author writes-into / the engine reports the seed and fate into."
+    },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to click in the plane to release a trajectory." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 640 420'.", "default": "0 0 640 420" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 640.", "default": 640 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 420.", "default": 420 },
+    "padL": { "type": "integer", "description": "Left plot padding (px). Default 40.", "default": 40 },
+    "padR": { "type": "integer", "description": "Right plot padding (px). Default 20.", "default": 20 },
+    "padT": { "type": "integer", "description": "Top plot padding (px). Default 20.", "default": 20 },
+    "padB": { "type": "integer", "description": "Bottom plot padding (px). Default 36.", "default": 36 },
+    "x0": { "type": "number", "description": "Data x at the left edge. Default -2.", "default": -2 },
+    "x1": { "type": "number", "description": "Data x at the right edge. Default 2.", "default": 2 },
+    "y0": { "type": "number", "description": "Data y at the bottom edge. Default -1.5.", "default": -1.5 },
+    "y1": { "type": "number", "description": "Data y at the top edge. Default 1.5.", "default": 1.5 },
+    "dt": { "type": "number", "description": "RK4 step size. Default 0.02.", "default": 0.02 },
+    "steps": { "type": "integer", "description": "Max integration steps per direction. Default 600.", "default": 600 },
+    "gridNX": { "type": "integer", "description": "Direction-field columns. Default 21. Set 0 to disable the field.", "default": 21 },
+    "gridNY": { "type": "integer", "description": "Direction-field rows. Default 13.", "default": 13 },
+    "initialSeeds": {
+      "type": "array",
+      "description": "Trajectories drawn at load and restored on Reset, as [x, y] data pairs.",
+      "items": {
+        "type": "array",
+        "items": { "type": "number" },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Clear'.", "default": "↺ Clear" },
+    "outputInitial": { "type": "string", "description": "Initial readout HTML. Default '&nbsp;'.", "default": "&nbsp;" },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS defining `function field(x,y){ return {dx, dy}; }` (the 2D vector field in data coordinates) and, optionally, `function decorate(BG){ ... }` to draw static overlays (fixed points, nullclines, labels) into the background group `BG` using the engine helpers PX(x)/PY(y) (data→pixel) and the page-global $/SVG. Must not start a timer; the engine integrates synchronously on click."
+    }
+  }
+}
