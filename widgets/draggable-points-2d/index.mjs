@@ -52,7 +52,7 @@ export function renderScript(params) {
     `  const handles=[]; let drag=null;\n` +
     `  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }\n` +
     `  pts.forEach(function(p){ const r=p.r||7;\n` +
-    `    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'#0b0f16','stroke-width':1.5});\n` +
+    `    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'var(--bg)','stroke-width':1.5});\n` +
     `    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);\n` +
     `    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }\n` +
     `    handles.push({h:h,lab:lab,p:p,r:r});\n` +
