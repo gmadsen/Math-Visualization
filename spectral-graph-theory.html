@@ -559,7 +559,85 @@ function sgtJacobi(A0){
     <span class="small">graph: two triangles joined by a bridge — sever it and watch the spectrum.</span>
   </div>
   <div class="readout" id="comp-out"></div>
+</div><div class="widget" id="w-comp-build">
+  <div class="hd"><div class="ttl">Build a graph: dim ker L = number of components</div><div class="hint">build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. Vertices recolour by connected component; the kernel dimension $\dim\ker L$ equals the number of colours, however you rewire. (Add an edge bridging two colours and watch them merge into one.)</div></div>
+  <svg id="comp-build-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:pointer"><title>Editable graph; vertices are coloured by connected component, illustrating dim ker L = number of components.</title></svg>
+  <div class="row">
+    <button id="w-comp-build-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="comp-build-out">3 components to start — a triangle, an edge, and an isolated vertex</div>
 </div>
+<script>
+(function(){
+  const svg=$('#comp-build-svg'), out=$('#comp-build-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=15, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[160,120],[120,250],[235,235],[430,150],[540,240],[470,335]], E0=[[0,1],[1,2],[2,0],[3,4]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+function draw(g){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  var byId={}; g.nodes.forEach(function(n){byId[n.id]=n;});
+  var comp={},k=0;
+  g.nodes.forEach(function(nd){
+    if(comp[nd.id]===undefined){ k++; var st=[nd.id]; comp[nd.id]=k;
+      while(st.length){ var u=st.pop(); g.adj[u].forEach(function(v){ if(comp[v]===undefined){comp[v]=k; st.push(v);} }); } }
+  });
+  var pal=['var(--cyan)','var(--yellow)','var(--pink)','var(--green)','var(--violet)','var(--orange)','var(--blue)'];
+  g.edges.forEach(function(e){ var a=byId[e.u], b=byId[e.v]; if(a&&b) G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'var(--line)','stroke-width':2.5})); });
+  g.nodes.forEach(function(nd){ var c=pal[(comp[nd.id]-1)%pal.length];
+    G.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:g.R,fill:c,stroke:'var(--ink)','stroke-width':1.5})); });
+  if(g.n===0){ out.innerHTML='empty graph \u2014 click empty space to add a vertex'; return; }
+  out.innerHTML=g.n+' vertices \u00b7 '+g.m+' edges \u00b7 <b>'+k+'</b> connected component'+(k===1?'':'s')+' &nbsp;\u21d2&nbsp; dim&nbsp;ker&nbsp;L = '+k;
+}
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-comp-build-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script>
+
 
 <div class="quiz" data-concept="kernel-and-components"></div><!-- backlinks-auto-begin -->
 <aside class="related">

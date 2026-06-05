@@ -6073,6 +6073,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "graph-edit-2d",
+    "family": "graph-edit-2d",
+    "dimension": "2d",
+    "gesture": "graph-edit",
+    "role": "explore",
+    "title": "graph-edit-2d widget params",
+    "description": "A self-contained 'build the graph' engine: the reader edits a small graph in place — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it — and the author's draw(g) re-renders the graph and any live graph invariant (connected components, a greedy colouring, degree sequence, a spanning forest, the Laplacian spectrum, …) after every edit. The renderer owns the edit gesture (pointer hit-testing, the rubber-band edge drag, add/delete/toggle, a Reset button) and the data model; the author writes only draw(g) in params.bodyScript and reads g.nodes / g.edges / g.adj / g.deg(id) / g.n / g.m / g.R. The gesture is 'graph-edit' — a direct-manipulation dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"build the graph\"** engine — the corpus's `graph-edit` gesture. The reader edits a small graph by direct manipulation and an author-supplied live invariant updates after every edit. First home: `spectral-graph-theory §components` (build a graph, watch its connected components recolour — the combinatorial face of $\\dim\\ker L = \\#\\text{components}$).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "grothendieck-topologies-sites-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",
