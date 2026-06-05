@@ -184,6 +184,77 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "vector-field-flow-2d",
+          "params": {
+            "widgetId": "w-phase-flow",
+            "svgId": "phase-flow-svg",
+            "outputId": "phase-flow-out",
+            "title": "Phase portrait: click to release a trajectory",
+            "hint": "click anywhere to drop a particle into the flow $\\dot x = x - x^3,\\ \\dot y = -y$ and watch its trajectory (integrated both ways through your click). Every start with $x>0$ flows to the sink $(1,0)$ and every $x<0$ to $(-1,0)$ — the dashed $y$-axis is the separatrix (the saddle's stable manifold) dividing the two basins of attraction.",
+            "svgTitle": "Phase portrait of the bistable flow x' = x - x^3, y' = -y; click to integrate a trajectory through the seed.",
+            "viewBox": "0 0 640 420",
+            "svgWidth": 640,
+            "svgHeight": 420,
+            "x0": -2,
+            "x1": 2,
+            "y0": -1.5,
+            "y1": 1.5,
+            "dt": 0.02,
+            "steps": 600,
+            "gridNX": 21,
+            "gridNY": 13,
+            "initialSeeds": [
+              [
+                -1.7,
+                1.2
+              ],
+              [
+                -1.7,
+                -1.2
+              ],
+              [
+                1.7,
+                1.2
+              ],
+              [
+                1.7,
+                -1.2
+              ],
+              [
+                -0.15,
+                1.35
+              ],
+              [
+                0.15,
+                1.35
+              ],
+              [
+                -0.7,
+                1.4
+              ],
+              [
+                0.7,
+                -1.4
+              ]
+            ],
+            "outputInitial": "click in the plane to release a trajectory — or watch the seeded ones settle into the two sinks",
+            "bodyScript": "function field(x,y){ return {dx: x - x*x*x, dy: -y}; }\nfunction decorate(BG){\n  BG.appendChild(SVG('line',{x1:PX(0),y1:PY(Y0),x2:PX(0),y2:PY(Y1),stroke:'var(--pink)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:0.75}));\n  BG.appendChild(SVG('circle',{cx:PX(1),cy:PY(0),r:5,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5}));\n  BG.appendChild(SVG('circle',{cx:PX(-1),cy:PY(0),r:5,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5}));\n  BG.appendChild(SVG('circle',{cx:PX(0),cy:PY(0),r:5,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n  var t1=SVG('text',{x:PX(1),y:PY(0)+22,'font-size':12,fill:'var(--mute)','text-anchor':'middle'}); t1.textContent='(1,0) sink'; BG.appendChild(t1);\n  var t2=SVG('text',{x:PX(-1),y:PY(0)+22,'font-size':12,fill:'var(--mute)','text-anchor':'middle'}); t2.textContent='(\\u22121,0) sink'; BG.appendChild(t2);\n  var t3=SVG('text',{x:PX(0),y:PY(0)-12,'font-size':12,fill:'var(--pink)','text-anchor':'middle'}); t3.textContent='(0,0) saddle'; BG.appendChild(t3);\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-phase-flow"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
