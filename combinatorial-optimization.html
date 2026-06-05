@@ -407,6 +407,70 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Drag the sliders: as you rotate the objective vector, the optimal vertex jumps from one corner to the next. The polytope is fixed; only the indifference line $c^\top x = \text{const}$ pivots, and the optimum is whichever corner it touches last as you sweep it across the feasible region.</p>
 
+<div class="widget" id="w-simplex-anim">
+  <div class="hd"><div class="ttl">The simplex walk: vertex to vertex toward the optimum</div><div class="hint">press play — the simplex method starts at a vertex of the feasible polytope and pivots along edges to an adjacent vertex that increases the objective cᵀx (violet = the cᵀx level line through the current vertex; green = the increasing direction), stopping when no neighbour improves — the LP optimum</div></div>
+  <svg id="simplex-anim-svg" viewBox="0 0 640 360" width="640" height="360"><title>The simplex walk: vertex to vertex toward the optimum</title></svg>
+  <div class="row">
+    <button id="w-simplex-anim-play" type="button" aria-pressed="false">▶ Play</button>
+    <input id="w-simplex-anim-scrub" type="range" min="0" max="3" value="0" step="1" aria-label="Scrub timeline" style="flex:1">
+  </div>
+  <div class="readout" id="simplex-anim-out">press ▶ to run the simplex pivots</div>
+</div>
+<script>
+(function(){
+  const svg=$('#simplex-anim-svg'), out=$('#simplex-anim-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const STEPS=3, DUR=3600, LOOP=true;
+  // ---- author frame(t), t in [0,1] (clears+fills G, writes out) ----
+const V=[[1,0],[3,0],[4,2],[2.5,3.5],[0.5,2.5],[0,1]];
+const adj=[[1,5],[0,2],[1,3],[2,4],[3,5],[4,0]];
+const c=[1,1.2];
+function obj(i){return c[0]*V[i][0]+c[1]*V[i][1];}
+const PATH=[0];(function(){var cur=0;while(true){var best=cur,bv=obj(cur);for(var n=0;n<adj[cur].length;n++){var nb=adj[cur][n];if(obj(nb)>bv+1e-9){bv=obj(nb);best=nb;}}if(best===cur)break;PATH.push(best);cur=best;}})();
+const K=PATH.length-1;
+function px(x){return 140+x*82;}function py(y){return 325-y*82;}
+function frame(t){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  var k=Math.round(t*K);
+  var pd='';for(var i=0;i<V.length;i++)pd+=(i?'L':'M')+px(V[i][0]).toFixed(1)+' '+py(V[i][1]).toFixed(1)+' ';pd+='Z';
+  G.appendChild(SVG('path',{d:pd,fill:'var(--cyan)','fill-opacity':0.10,stroke:'var(--mute)','stroke-width':1.5}));
+  for(var i=0;i<V.length;i++)G.appendChild(SVG('circle',{cx:px(V[i][0]),cy:py(V[i][1]),r:3,fill:'var(--mute)'}));
+  var sl=SVG('text',{x:px(V[0][0]),y:py(V[0][1])+18,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});sl.textContent='start';G.appendChild(sl);
+  var cv=V[PATH[k]];
+  var dlx=-c[1],dly=c[0],s=1.1;
+  G.appendChild(SVG('line',{x1:px(cv[0]-dlx*s),y1:py(cv[1]-dly*s),x2:px(cv[0]+dlx*s),y2:py(cv[1]+dly*s),stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:0.85}));
+  var wd='';for(var i=0;i<=k;i++)wd+=(i?'L':'M')+px(V[PATH[i]][0]).toFixed(1)+' '+py(V[PATH[i]][1]).toFixed(1)+' ';
+  if(k>0)G.appendChild(SVG('path',{d:wd,fill:'none',stroke:'var(--yellow)','stroke-width':3,'stroke-linejoin':'round'}));
+  for(var i=0;i<=k;i++)G.appendChild(SVG('circle',{cx:px(V[PATH[i]][0]),cy:py(V[PATH[i]][1]),r:5,fill:'var(--yellow)'}));
+  G.appendChild(SVG('circle',{cx:px(cv[0]),cy:py(cv[1]),r:7,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':1.5}));
+  if(k===K){var ol=SVG('text',{x:px(cv[0])+12,y:py(cv[1])-8,'font-size':13,fill:'var(--cyan)','font-weight':600});ol.textContent='\u2713 optimum';G.appendChild(ol);}
+  var bx=0.15,by=2.7;
+  G.appendChild(SVG('line',{x1:px(bx),y1:py(by),x2:px(bx+c[0]*0.5),y2:py(by+c[1]*0.5),stroke:'var(--green)','stroke-width':2.5}));
+  var al=SVG('text',{x:px(bx+c[0]*0.5)+6,y:py(by+c[1]*0.5),'font-size':13,fill:'var(--green)'});al.textContent='max c\u1d40x';G.appendChild(al);
+  var optimal=(k===K);
+  out.innerHTML='pivot '+k+' / '+K+' &nbsp;\u00b7&nbsp; vertex ('+cv[0]+', '+cv[1]+') &nbsp;\u00b7&nbsp; c\u1d40x = '+obj(PATH[k]).toFixed(2)+' &nbsp;\u00b7&nbsp; '+(optimal?'optimal \u2014 no adjacent vertex improves c\u1d40x':'climbing to a better adjacent vertex');
+}
+  // ---- play engine (supplied by animated-svg-2d) ----
+  const playBtn=$('#w-simplex-anim-play'), scrub=$('#w-simplex-anim-scrub');
+  const PLAY="▶ Play", PAUSE="⏸ Pause";
+  const hasRAF=typeof window.requestAnimationFrame==='function';
+  const raf=hasRAF?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};
+  const craf=hasRAF&&typeof window.cancelAnimationFrame==='function'?window.cancelAnimationFrame.bind(window):clearTimeout;
+  let t=0, playing=false, id=0, last=0;
+  function setT(v){ t=Math.max(0,Math.min(1,v)); scrub.value=Math.round(t*STEPS); frame(t); }
+  function tick(now){ if(!playing) return; if(!last) last=now;
+    const dt=(now-last)/DUR; last=now; let nt=t+dt;
+    if(nt>=1){ if(LOOP){ nt=nt-Math.floor(nt); } else { setT(1); pause(); return; } }
+    setT(nt); id=raf(tick); }
+  function play(){ if(playing) return; if(t>=1) t=0; playing=true; last=0;
+    playBtn.textContent=PAUSE; playBtn.setAttribute('aria-pressed','true'); id=raf(tick); }
+  function pause(){ if(!playing) return; playing=false; if(id) craf(id);
+    playBtn.textContent=PLAY; playBtn.setAttribute('aria-pressed','false'); }
+  playBtn.addEventListener('click',function(){ playing?pause():play(); });
+  scrub.addEventListener('input',function(){ pause(); setT((+scrub.value)/STEPS); });
+  setT(0);
+})();
+</script>
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
