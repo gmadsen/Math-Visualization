@@ -879,7 +879,7 @@ $$x_{k+1} \;=\; \mathrm{prox}_{\alpha g}\bigl(x_k - \alpha\nabla f(x_k)\bigr)$$
 </script>
 
 <div class="widget" id="w-gd-anim">
-  <div class="hd"><div class="ttl">Gradient descent on an ill-conditioned bowl</div><div class="hint">press play — fixed step η, condition number κ = 4: fast down the steep wall, slow along the valley floor</div></div>
+  <div class="hd"><div class="ttl">Gradient descent on an ill-conditioned bowl</div><div class="hint">press play — fixed step α, condition number κ = L/μ = 4: fast down the steep wall, slow along the shallow valley</div></div>
   <svg id="gd-anim-svg" viewBox="0 0 640 380" width="640" height="380"><title>Gradient descent on an ill-conditioned bowl</title></svg>
   <div class="row">
     <button id="w-gd-anim-play" type="button" aria-pressed="false">▶ Play</button>
@@ -904,6 +904,7 @@ function frame(t){
   G.appendChild(SVG('line',{x1:A,y1:py(-4.4),x2:A,y2:py(4.4),stroke:'var(--mute)','stroke-width':1,opacity:0.35}));
   [0.3,0.9,1.8].forEach(function(c){G.appendChild(SVG('ellipse',{cx:A,cy:B,rx:Math.sqrt(2*c)*sx,ry:Math.sqrt(2*c/gam)*sy,fill:'none',stroke:'var(--line)','stroke-width':1.2}));});
   G.appendChild(SVG('circle',{cx:A,cy:B,r:4,fill:'var(--green)'}));
+  const cap=SVG('text',{x:px(-4.7),y:py(-3.7),'font-size':12,fill:'var(--mute)'});cap.textContent='\u03ba = L/\u03bc = 1 / \u00bc = 4   \u2014   ellipse aspect \u221a\u03ba = 2';G.appendChild(cap);
   let d='';for(let i=0;i<=k;i++){d+=(i?'L':'M')+px(P[i][0]).toFixed(1)+' '+py(P[i][1]).toFixed(1)+' ';}
   if(k>0)G.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-linejoin':'round'}));
   for(let i=0;i<=k;i++){G.appendChild(SVG('circle',{cx:px(P[i][0]),cy:py(P[i][1]),r:2.4,fill:'var(--yellow)'}));}
@@ -915,8 +916,9 @@ function frame(t){
   // ---- play engine (supplied by animated-svg-2d) ----
   const playBtn=$('#w-gd-anim-play'), scrub=$('#w-gd-anim-scrub');
   const PLAY="▶ Play", PAUSE="⏸ Pause";
-  const raf=window.requestAnimationFrame?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};
-  const craf=window.cancelAnimationFrame?window.cancelAnimationFrame.bind(window):clearTimeout;
+  const hasRAF=typeof window.requestAnimationFrame==='function';
+  const raf=hasRAF?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};
+  const craf=hasRAF&&typeof window.cancelAnimationFrame==='function'?window.cancelAnimationFrame.bind(window):clearTimeout;
   let t=0, playing=false, id=0, last=0;
   function setT(v){ t=Math.max(0,Math.min(1,v)); scrub.value=Math.round(t*STEPS); frame(t); }
   function tick(now){ if(!playing) return; if(!last) last=now;

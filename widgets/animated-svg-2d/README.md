@@ -43,12 +43,16 @@ bar, power iteration rotating onto the dominant eigenvector.
 
 ## Usage
 
-Add a `widget` block (markup) and a paired `widget-script` block (the IIFE) to
-`content/<topic>.json`, both carrying the same `params`:
+Add a `widget` block (markup) and a paired `widget-script` block to
+`content/<topic>.json`. The script block references the widget **by `ref`** (its
+`widgetId`) — `render-doc.mjs` looks the params up from the matching widget block
+and calls `renderScript`. Do **not** repeat `slug`/`params` on the script block:
+a `widget-script` without a `ref` renders nothing, so the play/scrub controls
+would be inert.
 
 ```json
 { "type": "widget",        "slug": "animated-svg-2d", "params": { "widgetId": "w-foo", "svgId": "foo-svg", "outputId": "foo-out", "title": "…", "bodyScript": "function frame(t){ /* … */ }" } },
-{ "type": "widget-script", "slug": "animated-svg-2d", "params": { "widgetId": "w-foo", "svgId": "foo-svg", "outputId": "foo-out", "title": "…", "bodyScript": "function frame(t){ /* … */ }" } }
+{ "type": "widget-script", "ref": "w-foo" }
 ```
 
 Then `node scripts/rebuild.mjs --only widget-params` (AJV) and

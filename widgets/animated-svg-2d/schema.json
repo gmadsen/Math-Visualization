@@ -97,7 +97,8 @@
     },
     "outputInitial": {
       "type": "string",
-      "description": "Initial readout HTML before the first frame paints. Defaults to a non-breaking space."
+      "description": "Initial readout HTML before the first frame paints. Defaults to a non-breaking space.",
+      "default": "&nbsp;"
     },
     "bodyScript": {
       "type": "string",

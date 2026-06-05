@@ -64,8 +64,9 @@ export function renderScript(params) {
     `  // ---- play engine (supplied by animated-svg-2d) ----\n` +
     `  const playBtn=$('#${widgetId}-play'), scrub=$('#${widgetId}-scrub');\n` +
     `  const PLAY=${JSON.stringify(playLabel)}, PAUSE=${JSON.stringify(pauseLabel)};\n` +
-    `  const raf=window.requestAnimationFrame?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};\n` +
-    `  const craf=window.cancelAnimationFrame?window.cancelAnimationFrame.bind(window):clearTimeout;\n` +
+    `  const hasRAF=typeof window.requestAnimationFrame==='function';\n` +
+    `  const raf=hasRAF?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};\n` +
+    `  const craf=hasRAF&&typeof window.cancelAnimationFrame==='function'?window.cancelAnimationFrame.bind(window):clearTimeout;\n` +
     `  let t=0, playing=false, id=0, last=0;\n` +
     `  function setT(v){ t=Math.max(0,Math.min(1,v)); scrub.value=Math.round(t*STEPS); frame(t); }\n` +
     `  function tick(now){ if(!playing) return; if(!last) last=now;\n` +
@@ -79,7 +80,7 @@ export function renderScript(params) {
     `  playBtn.addEventListener('click',function(){ playing?pause():play(); });\n` +
     `  scrub.addEventListener('input',function(){ pause(); setT((+scrub.value)/STEPS); });\n` +
     `  setT(0);\n` +
-    (autoplay ? `  if(window.requestAnimationFrame) play();\n` : ``) +
+    (autoplay ? `  if(hasRAF) play();\n` : ``) +
     `})();\n` +
     `</script>`
   );
