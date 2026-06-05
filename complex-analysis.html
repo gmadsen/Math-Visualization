@@ -533,7 +533,65 @@ const C = {
   </div>
   <svg id="mob-svg" viewBox="0 0 760 360" width="760" height="360"><title>Möbius transformation playground</title></svg>
   <div class="readout" id="mob-readout"></div>
-</div><div class="quiz" data-concept="mobius-transformations"></div><!-- backlinks-auto-begin -->
+</div><p>A Möbius transformation is rigid enough to be pinned down by where it sends three points, yet supple enough to bend the plane into a disk. Drag $z$ across the left plane and watch its image $w=f(z)$ move in the disk — and watch the upper half-plane map exactly onto the interior.</p>
+<div class="widget" id="w-mobius-drag">
+  <div class="hd"><div class="ttl">Möbius map: drag z, watch w = f(z)</div><div class="hint">drag the point z</div></div>
+  <svg id="mobdrag-svg" viewBox="0 0 640 300" width="640" height="300"><title>Dragging z and seeing its Mobius image in the disk</title></svg>
+  <div class="readout" id="mobdrag-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#mobdrag-svg'), out=$('#mobdrag-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const pts=[{"id":"z","x":175,"y":100,"color":"var(--cyan)","label":"z"}];
+  pts.byId={}; for(const p of pts) pts.byId[p.id]=p;
+  // ---- author draw() (reads pts, clears+fills G, writes out) ----
+
+  function draw(){
+    G.innerHTML='';
+    const Lx=175,Ly=150,sc=52, Rx=475,Ry=150,Rr=95;
+    G.appendChild(SVG('line',{x1:Lx-115,y1:Ly,x2:Lx+115,y2:Ly,stroke:'var(--line)'}));
+    G.appendChild(SVG('line',{x1:Lx,y1:Ly-120,x2:Lx,y2:Ly+120,stroke:'var(--line)'}));
+    G.appendChild(SVG('circle',{cx:Rx,cy:Ry,r:Rr,fill:'none',stroke:'var(--line)','stroke-width':1.5}));
+    G.appendChild(SVG('line',{x1:Rx-Rr,y1:Ry,x2:Rx+Rr,y2:Ry,stroke:'var(--line)'}));
+    G.appendChild(SVG('line',{x1:Rx,y1:Ry-Rr,x2:Rx,y2:Ry+Rr,stroke:'var(--line)'}));
+    const zp=pts.byId.z; const zx=(zp.x-Lx)/sc, zy=-(zp.y-Ly)/sc;
+    const ar=zx, ai=zy-1, br=zx, bi=zy+1; const den=br*br+bi*bi||1e-9;
+    const wr=(ar*br+ai*bi)/den, wi=(ai*br-ar*bi)/den;
+    const wpx=Rx+wr*Rr, wpy=Ry-wi*Rr;
+    G.appendChild(SVG('circle',{cx:wpx,cy:wpy,r:5,fill:'var(--yellow)'}));
+    const lab=function(x,yy,t,c){const e=SVG('text',{x:x,y:yy,'text-anchor':'middle','font-size':12,fill:c});e.textContent=t;G.appendChild(e);};
+    lab(Lx,Ly+135,'z-plane','var(--mute)'); lab(Rx,Ry+Rr+24,'w-disk:  f(z) = (z−i)/(z+i)','var(--mute)'); lab(wpx,wpy-10,'w','var(--yellow)');
+    const mod=Math.sqrt(wr*wr+wi*wi);
+    out.textContent='Möbius map  f(z) = (z − i)/(z + i)  sends the upper half-plane to the unit disk.\n'
+      +'z = '+zx.toFixed(2)+' + '+zy.toFixed(2)+'i   ↦   w = '+wr.toFixed(3)+' + '+wi.toFixed(3)+'i,   |w| = '+mod.toFixed(3)+'\n'
+      +(zy>0.001?'Im z > 0  ⟹  |w| < 1 (w lands inside the disk).':(zy<-0.001?'Im z < 0  ⟹  |w| > 1 (w lands outside the disk).':'Im z = 0 (real axis)  ⟹  |w| = 1 (w on the boundary circle).'));
+  }
+
+  // ---- drag engine (supplied by draggable-points-2d) ----
+  const HL=SVG('g'); svg.appendChild(HL);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const vb={x:_vb[0],y:_vb[1],width:_vb[2],height:_vb[3]};
+  function clampPt(p){ const r=p.r||7;
+    const lo_x=(p.minX!=null?p.minX:vb.x+r), hi_x=(p.maxX!=null?p.maxX:vb.x+vb.width-r);
+    const lo_y=(p.minY!=null?p.minY:vb.y+r), hi_y=(p.maxY!=null?p.maxY:vb.y+vb.height-r);
+    if(!p.lockX) p.x=Math.max(lo_x,Math.min(hi_x,p.x));
+    if(!p.lockY) p.y=Math.max(lo_y,Math.min(hi_y,p.y));
+  }
+  const handles=[]; let drag=null;
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  pts.forEach(function(p){ const r=p.r||7;
+    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'#0b0f16','stroke-width':1.5});
+    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);
+    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }
+    handles.push({h:h,lab:lab,p:p,r:r});
+    h.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drag=p; h.style.cursor='grabbing'; try{h.setPointerCapture(ev.pointerId);}catch(e){} });
+  });
+  window.addEventListener('pointermove',function(ev){ if(!drag) return; const q=toSvg(ev); if(!drag.lockX)drag.x=q.x; if(!drag.lockY)drag.y=q.y; clampPt(drag); render(); });
+  window.addEventListener('pointerup',function(){ drag=null; for(const o of handles) o.h.style.cursor='grab'; });
+  function render(){ draw(); for(const o of handles){ o.h.setAttribute('cx',o.p.x); o.h.setAttribute('cy',o.p.y); if(o.lab){ o.lab.setAttribute('x',o.p.x+o.r+5); o.lab.setAttribute('y',o.p.y-o.r-3); } } }
+  pts.forEach(clampPt); render();
+})();
+</script><div class="quiz" data-concept="mobius-transformations"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./complex-analysis.html#conformal-map">Complex Analysis</a> · Conformal maps</div>

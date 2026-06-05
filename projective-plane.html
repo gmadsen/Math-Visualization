@@ -1085,7 +1085,55 @@ For instance $[0,1;2,3] = \dfrac{(-2)(-2)}{(-3)(-1)} = \dfrac{4}{3}$. The cross-
 </aside>
 <!-- callback-auto-end -->
 
-<div class="quiz" data-concept="cross-ratio"></div>
+<p>The <strong>cross-ratio</strong> of four collinear points is the one number that survives every projective transformation. Drag the four points along the line and watch it hold its value under your eye’s own perspective.</p>
+<div class="widget" id="w-cr-drag">
+  <div class="hd"><div class="ttl">Cross-ratio of four points</div><div class="hint">drag A, B, C, D along the line</div></div>
+  <svg id="cr-svg" viewBox="0 0 640 200" width="640" height="200"><title>Four draggable collinear points and their cross-ratio</title></svg>
+  <div class="readout" id="cr-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#cr-svg'), out=$('#cr-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const pts=[{"id":"A","x":120,"y":130,"color":"var(--cyan)","label":"A","lockY":true},{"id":"B","x":250,"y":130,"color":"var(--violet)","label":"B","lockY":true},{"id":"C","x":390,"y":130,"color":"var(--yellow)","label":"C","lockY":true},{"id":"D","x":520,"y":130,"color":"var(--green)","label":"D","lockY":true}];
+  pts.byId={}; for(const p of pts) pts.byId[p.id]=p;
+  // ---- author draw() (reads pts, clears+fills G, writes out) ----
+
+  function draw(){
+    G.innerHTML='';
+    const y=130;
+    G.appendChild(SVG('line',{x1:40,y1:y,x2:600,y2:y,stroke:'var(--line)','stroke-width':1.5}));
+    const A=pts.byId.A.x,B=pts.byId.B.x,C=pts.byId.C.x,D=pts.byId.D.x;
+    const cr=((C-A)*(D-B))/(((C-B)*(D-A))||1e-9);
+    out.textContent='Four points on a line — drag them along it (their pixel x are affine coordinates).\n'
+      +'cross-ratio (A,B;C,D) = (CA·DB)/(CB·DA) = '+cr.toFixed(3)+'\n'
+      +'this single number is invariant under every projective transformation — the fundamental invariant of projective geometry, and it is what a perspective drawing preserves.';
+  }
+
+  // ---- drag engine (supplied by draggable-points-2d) ----
+  const HL=SVG('g'); svg.appendChild(HL);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const vb={x:_vb[0],y:_vb[1],width:_vb[2],height:_vb[3]};
+  function clampPt(p){ const r=p.r||7;
+    const lo_x=(p.minX!=null?p.minX:vb.x+r), hi_x=(p.maxX!=null?p.maxX:vb.x+vb.width-r);
+    const lo_y=(p.minY!=null?p.minY:vb.y+r), hi_y=(p.maxY!=null?p.maxY:vb.y+vb.height-r);
+    if(!p.lockX) p.x=Math.max(lo_x,Math.min(hi_x,p.x));
+    if(!p.lockY) p.y=Math.max(lo_y,Math.min(hi_y,p.y));
+  }
+  const handles=[]; let drag=null;
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  pts.forEach(function(p){ const r=p.r||7;
+    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'#0b0f16','stroke-width':1.5});
+    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);
+    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }
+    handles.push({h:h,lab:lab,p:p,r:r});
+    h.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drag=p; h.style.cursor='grabbing'; try{h.setPointerCapture(ev.pointerId);}catch(e){} });
+  });
+  window.addEventListener('pointermove',function(ev){ if(!drag) return; const q=toSvg(ev); if(!drag.lockX)drag.x=q.x; if(!drag.lockY)drag.y=q.y; clampPt(drag); render(); });
+  window.addEventListener('pointerup',function(){ drag=null; for(const o of handles) o.h.style.cursor='grab'; });
+  function render(){ draw(); for(const o of handles){ o.h.setAttribute('cx',o.p.x); o.h.setAttribute('cy',o.p.y); if(o.lab){ o.lab.setAttribute('x',o.p.x+o.r+5); o.lab.setAttribute('y',o.p.y-o.r-3); } } }
+  pts.forEach(clampPt); render();
+})();
+</script><div class="quiz" data-concept="cross-ratio"></div>
 </section>
 
 <section id="why">

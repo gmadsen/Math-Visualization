@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/draggable-points-2d/schema.json",
+  "title": "draggable-points-2d widget params",
+  "description": "A shared renderer for direct-manipulation widgets: the reader drags one or more handle points on an SVG and the diagram + readout update live. The renderer supplies the drag engine (pointer capture, viewBox/per-point clamping, handle rendering); the author supplies only a draw() function in `bodyScript` that reads the live handle positions `pts` and redraws into the base group `G`. Coordinates are SVG/pixel coordinates within the viewBox.",
+  "meta": {
+    "family": "draggable-points-2d",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "viewBox",
+    "svgWidth",
+    "svgHeight",
+    "points",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id of the <svg> element."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id of the .readout div."
+    },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional short hint in .hd > .hint." },
+    "viewBox": { "type": "string", "description": "SVG viewBox attribute, e.g. '0 0 640 320'." },
+    "svgWidth": { "type": "integer", "description": "SVG width attribute (px)." },
+    "svgHeight": { "type": "integer", "description": "SVG height attribute (px)." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> for the SVG (defaults to title)." },
+    "outputInitial": { "type": "string", "description": "Initial innerHTML of the readout (default '&nbsp;')." },
+    "points": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Draggable handle points, in SVG/pixel coordinates within the viewBox.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "x", "y"],
+        "properties": {
+          "id": { "type": "string", "description": "Identifier; the live position is exposed in pts by index and by id." },
+          "x": { "type": "number", "description": "Initial x (SVG px)." },
+          "y": { "type": "number", "description": "Initial y (SVG px)." },
+          "color": { "type": "string", "description": "Handle fill (palette token, e.g. var(--cyan)). Default var(--cyan)." },
+          "label": { "type": "string", "description": "Optional short label drawn beside the handle." },
+          "r": { "type": "number", "description": "Handle radius (px). Default 7." },
+          "lockX": { "type": "boolean", "description": "If true, x is fixed (vertical-only drag)." },
+          "lockY": { "type": "boolean", "description": "If true, y is fixed (horizontal-only drag)." },
+          "minX": { "type": "number" },
+          "maxX": { "type": "number" },
+          "minY": { "type": "number" },
+          "maxY": { "type": "number" }
+        }
+      }
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author-supplied JS body (ARTIFACT). Runs inside the IIFE; must define `function draw(){ ... }` that clears the base group G (G.innerHTML='') and redraws from the live `pts` array, writing the readout `out`. The drag engine calls draw() on init and after every drag. Available in scope: `svg`, `out`, `G` (base <g> below the handles), `pts` (live [{id,x,y}], also indexable via pts.byId[id]), plus page globals `$`, `SVG`."
+    }
+  }
+}

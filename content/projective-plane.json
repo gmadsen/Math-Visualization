@@ -437,6 +437,65 @@
           "html": "\n\n"
         },
         {
+          "type": "raw",
+          "html": "<p>The <strong>cross-ratio</strong> of four collinear points is the one number that survives every projective transformation. Drag the four points along the line and watch it hold its value under your eye’s own perspective.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "draggable-points-2d",
+          "params": {
+            "widgetId": "w-cr-drag",
+            "svgId": "cr-svg",
+            "outputId": "cr-out",
+            "title": "Cross-ratio of four points",
+            "hint": "drag A, B, C, D along the line",
+            "viewBox": "0 0 640 200",
+            "svgWidth": 640,
+            "svgHeight": 200,
+            "svgTitle": "Four draggable collinear points and their cross-ratio",
+            "points": [
+              {
+                "id": "A",
+                "x": 120,
+                "y": 130,
+                "color": "var(--cyan)",
+                "label": "A",
+                "lockY": true
+              },
+              {
+                "id": "B",
+                "x": 250,
+                "y": 130,
+                "color": "var(--violet)",
+                "label": "B",
+                "lockY": true
+              },
+              {
+                "id": "C",
+                "x": 390,
+                "y": 130,
+                "color": "var(--yellow)",
+                "label": "C",
+                "lockY": true
+              },
+              {
+                "id": "D",
+                "x": 520,
+                "y": 130,
+                "color": "var(--green)",
+                "label": "D",
+                "lockY": true
+              }
+            ],
+            "bodyScript": "\n  function draw(){\n    G.innerHTML='';\n    const y=130;\n    G.appendChild(SVG('line',{x1:40,y1:y,x2:600,y2:y,stroke:'var(--line)','stroke-width':1.5}));\n    const A=pts.byId.A.x,B=pts.byId.B.x,C=pts.byId.C.x,D=pts.byId.D.x;\n    const cr=((C-A)*(D-B))/(((C-B)*(D-A))||1e-9);\n    out.textContent='Four points on a line — drag them along it (their pixel x are affine coordinates).\\n'\n      +'cross-ratio (A,B;C,D) = (CA·DB)/(CB·DA) = '+cr.toFixed(3)+'\\n'\n      +'this single number is invariant under every projective transformation — the fundamental invariant of projective geometry, and it is what a perspective drawing preserves.';\n  }\n",
+            "outputInitial": "&nbsp;"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cr-drag"
+        },
+        {
           "type": "quiz",
           "concept": "cross-ratio",
           "html": "<div class=\"quiz\" data-concept=\"cross-ratio\"></div>"
