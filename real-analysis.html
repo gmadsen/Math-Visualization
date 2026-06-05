@@ -2235,7 +2235,7 @@ $$ V_a^b(f) \;=\; \sup_{P} V(f,P), $$
   render();
 })();
 </script><div class="widget" id="w-bv-sketch">
-  <div class="hd"><div class="ttl">Total variation: draw a curve, watch its vertical travel</div><div class="hint">drag to sketch f(x) — the dashed curve is the running total variation V(x) = Σ|Δf|, the total up-and-down distance your pen travels; monotone ⇒ V = |f(b) − f(a)|, every wiggle adds more</div></div>
+  <div class="hd"><div class="ttl">Total variation: draw a curve, watch its vertical travel</div><div class="hint">drag to sketch f(x) — the dashed curve is the running total variation V(x) = Σ|Δf|, the total up-and-down distance your pen travels; monotone ⇒ V = |f(b) − f(a)|, every wiggle adds more. (V is exact for the 64-point polyline you draw — you can’t sketch an infinite-TV curve like x·sin(1/x).)</div></div>
   <svg id="bv-sketch-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:crosshair"><title>Total variation: draw a curve, watch its vertical travel</title></svg>
   <div class="row">
     <button id="w-bv-sketch-reset" type="button">↺ Reset</button>
@@ -2269,7 +2269,7 @@ function draw(ys){
   G.appendChild(SVG('line',{x1:X(2),y1:Y(0.92),x2:X(2)+22,y2:Y(0.92),stroke:'var(--cyan)','stroke-width':2.5}));
   var l1=SVG('text',{x:X(2)+28,y:Y(0.92)+4,'font-size':12,fill:'var(--mute)'});l1.textContent='f(x) you draw';G.appendChild(l1);
   G.appendChild(SVG('line',{x1:X(2),y1:Y(0.78),x2:X(2)+22,y2:Y(0.78),stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'5 3'}));
-  var l2=SVG('text',{x:X(2)+28,y:Y(0.78)+4,'font-size':12,fill:'var(--mute)'});l2.textContent='running TV(x), scaled';G.appendChild(l2);
+  var l2=SVG('text',{x:X(2)+28,y:Y(0.78)+4,'font-size':12,fill:'var(--mute)'});l2.textContent='running TV(x) \u2014 shape, renormalized';G.appendChild(l2);
   var jump=Math.abs(ys[M-1]-ys[0]);var mono=tv<=jump*1.001+1e-6;
   out.innerHTML='total variation V<sub>a</sub><sup>b</sup>(f) = '+tv.toFixed(2)+' &nbsp;\u00b7&nbsp; |f(b) \u2212 f(a)| = '+jump.toFixed(2)+' &nbsp;\u00b7&nbsp; '+(mono?'monotone \u2192 V = |f(b)\u2212f(a)|':'V &gt; |f(b)\u2212f(a)| \u2014 the up-and-down wiggles add length');
 }
