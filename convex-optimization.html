@@ -378,7 +378,7 @@ $$f^{**}(x) \;=\; f(x), \qquad f^*(y) \;:=\; \sup_{x\in\mathbb{R}^n}\,\bigl\{\la
     <div><a href="./pomdps-and-belief-states.html#value-function">POMDPs and belief states</a> · Piecewise-linear convex value</div>
 </aside>
 <!-- backlinks-auto-end --><div class="widget" id="w-cvx-sketch">
-  <div class="hd"><div class="ttl">Convexity test: draw a function, check its chords</div><div class="hint">drag to sketch f(x) — the dashed yellow curve is its convex envelope (greatest convex minorant); where f rises above it (pink) a chord dips below the graph, so f is not convex there</div></div>
+  <div class="hd"><div class="ttl">Convexity test: draw a function, check its chords</div><div class="hint">drag to sketch f(x) — the dashed yellow curve is its convex envelope (greatest convex minorant); where f rises above it (pink) a chord dips below the graph, so f is not convex there. (Tests the polyline you draw, tolerance ≈ 0.03.)</div></div>
   <svg id="cvx-sketch-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:crosshair"><title>Convexity test: draw a function, check its chords</title></svg>
   <div class="row">
     <button id="w-cvx-sketch-reset" type="button">↺ Reset</button>
@@ -397,7 +397,7 @@ $$f^{**}(x) \;=\; f(x), \qquad f^*(y) \;:=\; \sup_{x\in\mathbb{R}^n}\,\bigl\{\la
   function xv(i){ return X0+(X1-X0)*i/(M-1); }
   function Y(v){ let tt=(v-YMIN)/(YMAX-YMIN); if(tt<0)tt=0; if(tt>1)tt=1; return by0+(by1-by0)*tt; }
   function Yinv(py){ let tt=(py-by0)/(by1-by0); return YMIN+(YMAX-YMIN)*tt; }
-  const INIT=[2.1,1.9072,1.7216,1.543,1.3717,1.2074,1.0503,0.9004,0.7576,0.6219,0.4934,0.372,0.2578,0.1506,0.0507,-0.0421,-0.1278,-0.2064,-0.2778,-0.342,-0.3992,-0.4492,-0.492,-0.5277,-0.5563,-0.5777,-0.592,-0.5991,-0.5991,-0.592,-0.5777,-0.5563,-0.5277,-0.492,-0.4492,-0.3992,-0.342,-0.2778,-0.2064,-0.1278,-0.0421,0.0507,0.1506,0.2578,0.372,0.4934,0.6219,0.7576,0.9004,1.0503,1.2074,1.3717,1.543,1.7216,1.9072,2.1];
+  const INIT=[2.1,1.9072,1.7216,1.543,1.3717,1.2074,1.0503,0.9004,0.7576,0.6219,0.4934,0.372,0.2578,0.1506,0.0507,-0.0421,-0.1278,-0.2064,-0.2778,-0.342,-0.3992,-0.4491,-0.4917,-0.5267,-0.5533,-0.5697,-0.5725,-0.556,-0.5125,-0.4336,-0.3146,-0.1588,0.0182,0.1897,0.3248,0.3998,0.4078,0.362,0.29,0.2222,0.1823,0.1816,0.22,0.2912,0.3867,0.4992,0.624,0.7583,0.9006,1.0504,1.2075,1.3717,1.543,1.7216,1.9072,2.1];
   const DEFAULT=INIT?Array.from({length:M},function(_,i){return typeof INIT[i]==='number'?INIT[i]:0;}):new Array(M).fill(0);
   const ys=DEFAULT.slice();
   // ---- author draw(ys) (clears+fills G, writes out) ----
@@ -421,7 +421,7 @@ function draw(ys){
   G.appendChild(SVG('line',{x1:X(2),y1:Y(2.7),x2:X(2)+22,y2:Y(2.7),stroke:'var(--cyan)','stroke-width':2.6}));
   var l1=SVG('text',{x:X(2)+28,y:Y(2.7)+4,'font-size':12,fill:'var(--mute)'});l1.textContent='f (convex here)';G.appendChild(l1);
   G.appendChild(SVG('line',{x1:X(2),y1:Y(2.4),x2:X(2)+22,y2:Y(2.4),stroke:'var(--pink)','stroke-width':2.6}));
-  var l2=SVG('text',{x:X(2)+28,y:Y(2.4)+4,'font-size':12,fill:'var(--mute)'});l2.textContent='f above a chord';G.appendChild(l2);
+  var l2=SVG('text',{x:X(2)+28,y:Y(2.4)+4,'font-size':12,fill:'var(--mute)'});l2.textContent='non-convex (f > envelope)';G.appendChild(l2);
   G.appendChild(SVG('line',{x1:X(2),y1:Y(2.1),x2:X(2)+22,y2:Y(2.1),stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'5 3'}));
   var l3=SVG('text',{x:X(2)+28,y:Y(2.1)+4,'font-size':12,fill:'var(--mute)'});l3.textContent='convex envelope';G.appendChild(l3);
   var convex=maxgap<=0.03;
