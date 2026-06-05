@@ -78,8 +78,8 @@ export function renderScript(params) {
     `      const ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2], wx=e[0]-a[0],wy=e[1]-a[1],wz=e[2]-a[2];\n` +
     `      const nx=uy*wz-uz*wy, ny=uz*wx-ux*wz, nz=ux*wy-uy*wx; const rn=rotv([nx,ny,nz]);\n` +
     `      const nl=Math.hypot(rn[0],rn[1],rn[2])||1; const lam=0.30+0.62*Math.abs(rn[1])/nl;\n` +
-    `      const um=U0+(U1-U0)*(i+0.5)/su, vm=V0+(V1-V0)*(j+0.5)/sv;\n` +
-    `      const col=(typeof colorOf==='function')?colorOf(um,vm,a):DEFCOLOR;\n` +
+    `      const uc=U0+(U1-U0)*i/su, vc=V0+(V1-V0)*j/sv;\n` +
+    `      const col=(typeof colorOf==='function')?colorOf(uc,vc,a):DEFCOLOR;\n` +
     `      faces.push({pts:[pa,pb,pc,pe], depth:depth, op:lam.toFixed(3), col:col});\n` +
     `    }\n` +
     `    faces.sort(function(f,g){ return g.depth-f.depth; });\n` +
