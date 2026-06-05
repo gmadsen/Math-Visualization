@@ -414,6 +414,60 @@
           "html": "\n\n"
         },
         {
+          "type": "raw",
+          "html": "<p>Gaussian curvature is the <em>intrinsic</em> bending of a surface — the quantity a flat paper map can never fake. Drag the surface to look around, and use the sliders to morph between a bowl ($K>0$), a saddle ($K<0$), and a flat trough ($K=0$).</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "surface-3d",
+          "params": {
+            "widgetId": "w-curv-3d",
+            "svgId": "cv-svg",
+            "outputId": "cv-out",
+            "title": "Gaussian curvature: drag to rotate",
+            "hint": "rotate · set a, b",
+            "viewBox": "0 0 600 360",
+            "svgWidth": 600,
+            "svgHeight": 360,
+            "svgTitle": "A quadric surface coloured by the sign of its Gaussian curvature",
+            "uRange": [
+              -1.3,
+              1.3
+            ],
+            "vRange": [
+              -1.3,
+              1.3
+            ],
+            "nu": 26,
+            "nv": 26,
+            "initialYaw": 0.7,
+            "initialPitch": 0.5,
+            "sliders": [
+              {
+                "id": "cv-a",
+                "label": "curvature $a$",
+                "min": -1,
+                "max": 1,
+                "step": 0.1,
+                "init": 1
+              },
+              {
+                "id": "cv-b",
+                "label": "curvature $b$",
+                "min": -1,
+                "max": 1,
+                "step": 0.1,
+                "init": 1
+              }
+            ],
+            "bodyScript": "\n  function surf(u,v){ const a=+$('#cv-a').value, b=+$('#cv-b').value; return [u, v, a*u*u + b*v*v]; }\n  function colorOf(u,v,p){ const a=+$('#cv-a').value, b=+$('#cv-b').value, k=a*b; return k>0.03?'var(--cyan)':(k<-0.03?'var(--pink)':'var(--yellow)'); }\n  function readoutText(){ const a=+$('#cv-a').value, b=+$('#cv-b').value, k=a*b;\n    const kind = k>0.03?'POSITIVE curvature (sphere-like / elliptic): the surface bends the same way in both directions':(k<-0.03?'NEGATIVE curvature (saddle / hyperbolic): it bends opposite ways':'ZERO curvature (parabolic / flat): it bends in at most one direction');\n    return 'quadric  z = a·u² + b·v²   with a = '+a.toFixed(1)+', b = '+b.toFixed(1)+'\\nGaussian curvature has the sign of a·b = '+(a*b).toFixed(2)+'  →  '+kind+'.\\nGaussian curvature is intrinsic: it is what a flat map of the surface can never hide.'; }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-curv-3d"
+        },
+        {
           "type": "quiz",
           "concept": "riemann-curvature-tensor",
           "html": "<div class=\"quiz\" data-concept=\"riemann-curvature-tensor\"></div>"

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/surface-3d/schema.json",
+  "title": "surface-3d widget params",
+  "description": "A self-contained shared renderer for drag-to-rotate 3D parametric surfaces. The renderer bundles its OWN 3D engine (rotation, orthographic projection, painter's-algorithm depth sort, Lambert shading via fill-opacity, auto-fit, and mesh decimation while dragging) — it does NOT depend on the page-global make3DDraggable/proj3 helpers, so any topic can adopt it. The author supplies only a `surf(u,v)` returning model coordinates [x,y,z] (plus optional sliders, colorOf, and readoutText) in bodyScript; the engine builds and renders the mesh.",
+  "meta": {
+    "family": "surface-3d",
+    "dimension": "3d",
+    "gesture": "drag",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "viewBox",
+    "svgWidth",
+    "svgHeight",
+    "uRange",
+    "vRange",
+    "nu",
+    "nv",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer .widget wrapper." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id of the <svg>." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id of the .readout div." },
+    "title": { "type": "string" },
+    "hint": { "type": "string" },
+    "viewBox": { "type": "string" },
+    "svgWidth": { "type": "integer" },
+    "svgHeight": { "type": "integer" },
+    "svgTitle": { "type": "string" },
+    "outputInitial": { "type": "string" },
+    "uRange": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" }, "description": "[u0,u1] parameter range for the first surface coordinate." },
+    "vRange": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" }, "description": "[v0,v1] parameter range for the second surface coordinate." },
+    "nu": { "type": "integer", "minimum": 4, "maximum": 80, "description": "Mesh resolution along u (halved while dragging)." },
+    "nv": { "type": "integer", "minimum": 4, "maximum": 80, "description": "Mesh resolution along v (halved while dragging)." },
+    "initialYaw": { "type": "number", "description": "Initial yaw (radians). Default 0.6." },
+    "initialPitch": { "type": "number", "description": "Initial pitch (radians). Default 0.5." },
+    "color": { "type": "string", "description": "Default face fill (palette token). Default var(--cyan)." },
+    "sliders": {
+      "type": "array",
+      "description": "Optional range controls; surf()/readoutText() read them via $('#id').value.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "min", "max", "step", "init"],
+        "properties": {
+          "id": { "type": "string" }, "outId": { "type": "string" }, "label": { "type": "string" },
+          "min": { "type": "number" }, "max": { "type": "number" }, "step": { "type": "number" }, "init": { "type": "number" }
+        }
+      }
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author-supplied JS body (ARTIFACT). Must define `function surf(u,v){ return [x,y,z]; }` in model coordinates (auto-fit handles scaling). May define `function colorOf(u,v,p){ return 'var(--token)'; }` and `function readoutText(){ return '...'; }`. In scope: `$`, `SVG`, plus the slider elements by id. The engine handles all projection, rotation, shading, and decimation."
+    }
+  }
+}

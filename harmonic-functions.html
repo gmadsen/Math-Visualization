@@ -707,7 +707,61 @@ function heatColor(t){
 })();
 </script>
 
-<div class="quiz" data-concept="hf-maximum-principle"></div><!-- backlinks-auto-begin -->
+<p>A harmonic function has no interior peaks or pits: by the mean-value property its value at a point is the average over any surrounding sphere, so it can only reach its extremes on the boundary. Drag the harmonic surface $z=\operatorname{Re}(e^{u+iv})$ around and look for an interior summit — there is none.</p>
+<div class="widget" id="w-harm-3d">
+  <div class="hd"><div class="ttl">The maximum principle, in 3D</div><div class="hint">rotate and look underneath</div></div>
+  <svg id="hm-svg" viewBox="0 0 600 360" width="600" height="360" style="cursor:grab;touch-action:none"><title>A harmonic surface with no interior extremum</title></svg>
+  <div class="readout" id="hm-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#hm-svg'), out=$('#hm-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const W=_vb[2], H=_vb[3], cx=_vb[0]+W/2, cy=_vb[1]+H/2;
+  const U0=-1.2, U1=1.2, V0=-2.6, V1=2.6, NU=24, NV=40;
+  const DEFCOLOR="var(--cyan)";
+  let yaw=0.7, pitch=0.5, dragging=false, lx=0, ly=0;
+  // ---- author surf(u,v)[, colorOf, readoutText] ----
+
+  function surf(u,v){ return [u, v, Math.exp(u)*Math.cos(v)]; }
+  function colorOf(u,v,p){ return p[2]>0?'var(--cyan)':'var(--pink)'; }
+  function readoutText(){ return 'A harmonic surface  z = e^u cos v = Re(e^{u+iv})  (Δz = 0).\nDrag to look underneath: there is NO interior peak or pit — a harmonic function attains its max and min only on the boundary.\nThat is the maximum principle, a direct consequence of the mean-value property.'; }
+
+  // ---- 3D engine (supplied by surface-3d) ----
+  function rotv(p){ const ca=Math.cos(yaw),sa=Math.sin(yaw),cb=Math.cos(pitch),sb=Math.sin(pitch);
+    const X=p[0]*ca-p[1]*sa, Y=p[0]*sa+p[1]*ca, Z=p[2]; return [X, Y*cb-Z*sb, Y*sb+Z*cb]; }
+  function render(){
+    G.innerHTML='';
+    const su=dragging?Math.max(6,NU>>1):NU, sv=dragging?Math.max(6,NV>>1):NV;
+    const P=[]; let maxr=1e-6;
+    for(let i=0;i<=su;i++){ P[i]=[]; const u=U0+(U1-U0)*i/su;
+      for(let j=0;j<=sv;j++){ const v=V0+(V1-V0)*j/sv; const q=surf(u,v); P[i][j]=q;
+        const r=Math.hypot(q[0],q[1],q[2]); if(r>maxr)maxr=r; } }
+    const scale=0.44*Math.min(W,H)/maxr;
+    const proj=function(p){ const r=rotv(p); return {x:cx+scale*r[0], y:cy-scale*r[2], d:r[1]}; };
+    const faces=[];
+    for(let i=0;i<su;i++)for(let j=0;j<sv;j++){
+      const a=P[i][j], b=P[i+1][j], c=P[i+1][j+1], e=P[i][j+1];
+      const pa=proj(a),pb=proj(b),pc=proj(c),pe=proj(e);
+      const depth=(pa.d+pb.d+pc.d+pe.d)/4;
+      const ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2], wx=e[0]-a[0],wy=e[1]-a[1],wz=e[2]-a[2];
+      const nx=uy*wz-uz*wy, ny=uz*wx-ux*wz, nz=ux*wy-uy*wx; const rn=rotv([nx,ny,nz]);
+      const nl=Math.hypot(rn[0],rn[1],rn[2])||1; const lam=0.30+0.62*Math.abs(rn[1])/nl;
+      const um=U0+(U1-U0)*(i+0.5)/su, vm=V0+(V1-V0)*(j+0.5)/sv;
+      const col=(typeof colorOf==='function')?colorOf(um,vm,a):DEFCOLOR;
+      faces.push({pts:[pa,pb,pc,pe], depth:depth, op:lam.toFixed(3), col:col});
+    }
+    faces.sort(function(f,g){ return g.depth-f.depth; });
+    for(const f of faces){ const d='M'+f.pts.map(function(p){return p.x.toFixed(1)+' '+p.y.toFixed(1);}).join(' L ')+' Z';
+      G.appendChild(SVG('path',{d:d, fill:f.col, 'fill-opacity':f.op, stroke:'var(--bg)', 'stroke-width':0.4, 'stroke-opacity':0.5})); }
+    out.textContent=(typeof readoutText==='function')?readoutText():('drag to rotate · yaw '+(yaw*180/Math.PI).toFixed(0)+'°, pitch '+(pitch*180/Math.PI).toFixed(0)+'°');
+  }
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); dragging=true; lx=ev.clientX; ly=ev.clientY; svg.style.cursor='grabbing'; });
+  window.addEventListener('pointermove',function(ev){ if(!dragging) return; yaw+=(ev.clientX-lx)*0.01; pitch+=(ev.clientY-ly)*0.01; pitch=Math.max(-1.5,Math.min(1.5,pitch)); lx=ev.clientX; ly=ev.clientY; render(); });
+  window.addEventListener('pointerup',function(){ if(dragging){ dragging=false; svg.style.cursor='grab'; render(); } });
+  render();
+})();
+</script><div class="quiz" data-concept="hf-maximum-principle"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./harmonic-functions.html#subharmonic">Harmonic functions</a> · Subharmonic functions and Perron's method</div>

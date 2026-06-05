@@ -140,6 +140,52 @@
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#kerr\">General relativity</a> · Kerr metric and rotating black holes</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
+          "type": "raw",
+          "html": "<p>The Schwarzschild geometry around a spherical mass can be pictured by an <strong>embedding diagram</strong>: Flamm’s paraboloid, the curved 2-surface whose intrinsic geometry matches an equatorial slice of space. Drag to rotate the funnel; the throat is the horizon at $r=2M$.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "surface-3d",
+          "params": {
+            "widgetId": "w-flamm-3d",
+            "svgId": "fl-svg",
+            "outputId": "fl-out",
+            "title": "Flamm’s paraboloid (Schwarzschild embedding)",
+            "hint": "rotate · vary the mass",
+            "viewBox": "0 0 600 380",
+            "svgWidth": 600,
+            "svgHeight": 380,
+            "svgTitle": "Flamm paraboloid embedding diagram of the Schwarzschild slice",
+            "uRange": [
+              0,
+              1
+            ],
+            "vRange": [
+              0,
+              6.2832
+            ],
+            "nu": 22,
+            "nv": 40,
+            "initialYaw": 0.6,
+            "initialPitch": 0.7,
+            "sliders": [
+              {
+                "id": "fl-m",
+                "label": "mass $M$",
+                "min": 0.3,
+                "max": 1.2,
+                "step": 0.05,
+                "init": 0.7
+              }
+            ],
+            "bodyScript": "\n  function surf(u,v){ const M=+$('#fl-m').value, rs=2*M; const r=rs+5*u; const z=2*Math.sqrt(Math.max(0,rs*(r-rs))); return [r*Math.cos(v), r*Math.sin(v), -z]; }\n  function readoutText(){ const M=+$('#fl-m').value; return 'Flamm’s paraboloid — the embedding diagram of a Schwarzschild spatial slice.\\nSchwarzschild radius  r_s = 2M = '+(2*M).toFixed(2)+' (mass M = '+M.toFixed(2)+').\\nThe throat at r = r_s is the horizon; the deeper the funnel, the stronger the curvature of space around the mass.'; }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-flamm-3d"
+        },
+        {
           "type": "quiz",
           "concept": "gr-schwarzschild",
           "html": "<div class=\"quiz\" data-concept=\"gr-schwarzschild\"></div>"

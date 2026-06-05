@@ -1178,7 +1178,70 @@ $$YM(A) \;=\; \int_M |F_A|^2\,d\mathrm{vol}$$
     <li><a href="./partial-differential-equations.html#regularity">Lax–Milgram, elliptic regularity, embedding</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="vm-applications"></div>
+<!-- callback-auto-end --><p>Minimal surfaces — the shapes soap films take — are the critical points of area, solutions of the Euler–Lagrange equation for the area functional ($H=0$). The catenoid and the helicoid are the same minimal surface bent through an isometric family. Drag $\theta$ to morph one into the other.</p>
+<div class="widget" id="w-minimal-3d">
+  <div class="hd"><div class="ttl">Catenoid ↔ helicoid (minimal surfaces)</div><div class="hint">rotate · deform θ</div></div>
+  <svg id="mn-svg" viewBox="0 0 600 380" width="600" height="380" style="cursor:grab;touch-action:none"><title>The catenoid-helicoid associate family of minimal surfaces</title></svg>
+  <div class="row">
+    <label for="mn-t">deformation $\theta$</label>
+    <input type="range" id="mn-t" min="0" max="1.5708" step="0.02" value="0">
+  </div>
+  <div class="readout" id="mn-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#mn-svg'), out=$('#mn-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const W=_vb[2], H=_vb[3], cx=_vb[0]+W/2, cy=_vb[1]+H/2;
+  const U0=-3.14159, U1=3.14159, V0=-1, V1=1, NU=44, NV=16;
+  const DEFCOLOR="var(--cyan)";
+  let yaw=0.5, pitch=0.45, dragging=false, lx=0, ly=0;
+  // ---- author surf(u,v)[, colorOf, readoutText] ----
+
+  function surf(u,v){ const t=+$('#mn-t').value, ct=Math.cos(t), st=Math.sin(t);
+    const X=ct*Math.sinh(v)*Math.sin(u)+st*Math.cosh(v)*Math.cos(u);
+    const Y=-ct*Math.sinh(v)*Math.cos(u)+st*Math.cosh(v)*Math.sin(u);
+    const Z=u*ct+v*st; return [X,Y,Z]; }
+  function readoutText(){ const t=+$('#mn-t').value, deg=(t*180/Math.PI).toFixed(0);
+    const lbl = t<0.08?'the HELICOID (a spiral ramp)':(Math.abs(t-Math.PI/2)<0.08?'the CATENOID (a soap-film between two rings)':'an intermediate associate surface');
+    return 'The catenoid–helicoid associate family, deformation angle θ = '+deg+'°  →  '+lbl+'.\nEvery surface in this family is MINIMAL (mean curvature H = 0) and they are all locally isometric —\nbending a soap film through them never stretches it. Minimal surfaces are the critical points of area.'; }
+
+  // ---- 3D engine (supplied by surface-3d) ----
+  function rotv(p){ const ca=Math.cos(yaw),sa=Math.sin(yaw),cb=Math.cos(pitch),sb=Math.sin(pitch);
+    const X=p[0]*ca-p[1]*sa, Y=p[0]*sa+p[1]*ca, Z=p[2]; return [X, Y*cb-Z*sb, Y*sb+Z*cb]; }
+  function render(){
+    G.innerHTML='';
+    const su=dragging?Math.max(6,NU>>1):NU, sv=dragging?Math.max(6,NV>>1):NV;
+    const P=[]; let maxr=1e-6;
+    for(let i=0;i<=su;i++){ P[i]=[]; const u=U0+(U1-U0)*i/su;
+      for(let j=0;j<=sv;j++){ const v=V0+(V1-V0)*j/sv; const q=surf(u,v); P[i][j]=q;
+        const r=Math.hypot(q[0],q[1],q[2]); if(r>maxr)maxr=r; } }
+    const scale=0.44*Math.min(W,H)/maxr;
+    const proj=function(p){ const r=rotv(p); return {x:cx+scale*r[0], y:cy-scale*r[2], d:r[1]}; };
+    const faces=[];
+    for(let i=0;i<su;i++)for(let j=0;j<sv;j++){
+      const a=P[i][j], b=P[i+1][j], c=P[i+1][j+1], e=P[i][j+1];
+      const pa=proj(a),pb=proj(b),pc=proj(c),pe=proj(e);
+      const depth=(pa.d+pb.d+pc.d+pe.d)/4;
+      const ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2], wx=e[0]-a[0],wy=e[1]-a[1],wz=e[2]-a[2];
+      const nx=uy*wz-uz*wy, ny=uz*wx-ux*wz, nz=ux*wy-uy*wx; const rn=rotv([nx,ny,nz]);
+      const nl=Math.hypot(rn[0],rn[1],rn[2])||1; const lam=0.30+0.62*Math.abs(rn[1])/nl;
+      const um=U0+(U1-U0)*(i+0.5)/su, vm=V0+(V1-V0)*(j+0.5)/sv;
+      const col=(typeof colorOf==='function')?colorOf(um,vm,a):DEFCOLOR;
+      faces.push({pts:[pa,pb,pc,pe], depth:depth, op:lam.toFixed(3), col:col});
+    }
+    faces.sort(function(f,g){ return g.depth-f.depth; });
+    for(const f of faces){ const d='M'+f.pts.map(function(p){return p.x.toFixed(1)+' '+p.y.toFixed(1);}).join(' L ')+' Z';
+      G.appendChild(SVG('path',{d:d, fill:f.col, 'fill-opacity':f.op, stroke:'var(--bg)', 'stroke-width':0.4, 'stroke-opacity':0.5})); }
+    out.textContent=(typeof readoutText==='function')?readoutText():('drag to rotate · yaw '+(yaw*180/Math.PI).toFixed(0)+'°, pitch '+(pitch*180/Math.PI).toFixed(0)+'°');
+  }
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); dragging=true; lx=ev.clientX; ly=ev.clientY; svg.style.cursor='grabbing'; });
+  window.addEventListener('pointermove',function(ev){ if(!dragging) return; yaw+=(ev.clientX-lx)*0.01; pitch+=(ev.clientY-ly)*0.01; pitch=Math.max(-1.5,Math.min(1.5,pitch)); lx=ev.clientX; ly=ev.clientY; render(); });
+  window.addEventListener('pointerup',function(){ if(dragging){ dragging=false; svg.style.cursor='grab'; render(); } });
+  $('#mn-t').addEventListener('input',render);
+  render();
+})();
+</script><div class="quiz" data-concept="vm-applications"></div>
 
 <script>
 /* ============================ §6 geodesic widget ============================ */
