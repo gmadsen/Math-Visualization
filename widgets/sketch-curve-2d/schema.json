@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sketch-curve-2d/schema.json",
+  "title": "sketch-curve-2d widget params",
+  "description": "A self-contained 'draw the input' engine: the reader drags the pointer across the plot to sketch a function y = f(x), sampled at `samples` evenly spaced x-points; the engine then calls the author's draw(ys) to render the curve and any live transform of it (derivative, running integral, total variation, …). The renderer owns the sketch gesture (pointer→sample array, drag interpolation, a Reset button) and the data↔pixel mapping helpers X(i)/Y(v)/xv(i)/Yinv(py); the author writes only draw(ys) in params.bodyScript. The gesture is 'draw' — a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside pointer handlers, never at init.",
+  "meta": {
+    "family": "sketch-curve-2d",
+    "dimension": "2d",
+    "gesture": "draw",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <svg> drawing surface."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the .readout the author writes into."
+    },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 640 380'.", "default": "0 0 640 380" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 640.", "default": 640 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 380.", "default": 380 },
+    "padL": { "type": "integer", "description": "Left plot padding (px). Default 48.", "default": 48 },
+    "padR": { "type": "integer", "description": "Right plot padding (px). Default 24.", "default": 24 },
+    "padT": { "type": "integer", "description": "Top plot padding (px). Default 24.", "default": 24 },
+    "padB": { "type": "integer", "description": "Bottom plot padding (px). Default 40.", "default": 40 },
+    "x0": { "type": "number", "description": "Data x at the left edge of the plot. Default 0.", "default": 0 },
+    "x1": { "type": "number", "description": "Data x at the right edge. Default 1.", "default": 1 },
+    "ymin": { "type": "number", "description": "Data y at the bottom of the plot. Default -1.", "default": -1 },
+    "ymax": { "type": "number", "description": "Data y at the top of the plot. Default 1.", "default": 1 },
+    "samples": {
+      "type": "integer",
+      "minimum": 8,
+      "maximum": 400,
+      "description": "Number of evenly spaced x sample points the curve is stored at. Default 60.",
+      "default": 60
+    },
+    "initialY": {
+      "type": "array",
+      "items": { "type": "number" },
+      "description": "Initial sampled y-values (length should equal `samples`). If omitted, the curve starts flat at y=0 (the midline). Reset restores this."
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" },
+    "outputInitial": { "type": "string", "description": "Initial readout HTML. Default '&nbsp;'.", "default": "&nbsp;" },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS defining `function draw(ys){ ... }`. `ys` is the live sample array (length `samples`). It clears+redraws the SVG group `G`, writes `out`, and may use the engine helpers X(i) (pixel x of sample i), xv(i) (data x of sample i), Y(v) (pixel y of value v), Yinv(py) (data value of pixel y), the constant M (=samples), and the page-global $/SVG. Called once at init and on every pointer edit and Reset. Must not start a timer."
+    }
+  }
+}

@@ -2234,7 +2234,66 @@ $$ V_a^b(f) \;=\; \sup_{P} V(f,P), $$
   fam.addEventListener('change',render); sn.addEventListener('input',render);
   render();
 })();
+</script><div class="widget" id="w-bv-sketch">
+  <div class="hd"><div class="ttl">Total variation: draw a curve, watch its vertical travel</div><div class="hint">drag to sketch f(x) — the dashed curve is the running total variation V(x) = Σ|Δf|, the total up-and-down distance your pen travels; monotone ⇒ V = |f(b) − f(a)|, every wiggle adds more</div></div>
+  <svg id="bv-sketch-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:crosshair"><title>Total variation: draw a curve, watch its vertical travel</title></svg>
+  <div class="row">
+    <button id="w-bv-sketch-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="bv-sketch-out">drag across the plot to draw a function</div>
+</div>
+<script>
+(function(){
+  const svg=$('#bv-sketch-svg'), out=$('#bv-sketch-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const M=64, X0=0, X1=1, YMIN=-1, YMAX=1;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const bx0=48, bx1=W-24, by0=Hh-40, by1=24;
+  function X(i){ return bx0+(bx1-bx0)*i/(M-1); }
+  function xv(i){ return X0+(X1-X0)*i/(M-1); }
+  function Y(v){ let tt=(v-YMIN)/(YMAX-YMIN); if(tt<0)tt=0; if(tt>1)tt=1; return by0+(by1-by0)*tt; }
+  function Yinv(py){ let tt=(py-by0)/(by1-by0); return YMIN+(YMAX-YMIN)*tt; }
+  const INIT=[0,0.1189,0.2331,0.338,0.4295,0.504,0.5585,0.5909,0.5998,0.585,0.5469,0.4872,0.4081,0.3129,0.2052,0.0894,-0.0299,-0.1481,-0.2603,-0.3623,-0.4499,-0.5196,-0.5688,-0.5953,-0.5983,-0.5776,-0.5339,-0.4691,-0.3857,-0.287,-0.1769,-0.0597,0.0597,0.1769,0.287,0.3857,0.4691,0.5339,0.5776,0.5983,0.5953,0.5688,0.5196,0.4499,0.3623,0.2603,0.1481,0.0299,-0.0894,-0.2052,-0.3129,-0.4081,-0.4872,-0.5469,-0.585,-0.5998,-0.5909,-0.5585,-0.504,-0.4295,-0.338,-0.2331,-0.1189,0]; const DEFAULT=INIT?INIT.slice():new Array(M).fill(0);
+  const ys=DEFAULT.slice();
+  // ---- author draw(ys) (clears+fills G, writes out) ----
+function draw(ys){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  G.appendChild(SVG('line',{x1:X(0),y1:Y(0),x2:X(M-1),y2:Y(0),stroke:'var(--mute)','stroke-width':1,opacity:0.35}));
+  var d='';for(var i=0;i<M;i++)d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(ys[i]).toFixed(1)+' ';
+  G.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+  var tv=0,T=[0];for(var i2=1;i2<M;i2++){tv+=Math.abs(ys[i2]-ys[i2-1]);T.push(tv);}
+  var tvmax=tv||1e-6;function tvData(v){return -0.95+1.9*(v/tvmax);}
+  var dt='';for(var i3=0;i3<M;i3++)dt+=(i3?'L':'M')+X(i3).toFixed(1)+' '+Y(tvData(T[i3])).toFixed(1)+' ';
+  G.appendChild(SVG('path',{d:dt,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'5 3'}));
+  G.appendChild(SVG('line',{x1:X(2),y1:Y(0.92),x2:X(2)+22,y2:Y(0.92),stroke:'var(--cyan)','stroke-width':2.5}));
+  var l1=SVG('text',{x:X(2)+28,y:Y(0.92)+4,'font-size':12,fill:'var(--mute)'});l1.textContent='f(x) you draw';G.appendChild(l1);
+  G.appendChild(SVG('line',{x1:X(2),y1:Y(0.78),x2:X(2)+22,y2:Y(0.78),stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'5 3'}));
+  var l2=SVG('text',{x:X(2)+28,y:Y(0.78)+4,'font-size':12,fill:'var(--mute)'});l2.textContent='running TV(x), scaled';G.appendChild(l2);
+  var jump=Math.abs(ys[M-1]-ys[0]);var mono=tv<=jump*1.001+1e-6;
+  out.innerHTML='total variation V<sub>a</sub><sup>b</sup>(f) = '+tv.toFixed(2)+' &nbsp;\u00b7&nbsp; |f(b) \u2212 f(a)| = '+jump.toFixed(2)+' &nbsp;\u00b7&nbsp; '+(mono?'monotone \u2192 V = |f(b)\u2212f(a)|':'V &gt; |f(b)\u2212f(a)| \u2014 the up-and-down wiggles add length');
+}
+  // ---- sketch engine (supplied by sketch-curve-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  let drawing=false, lastI=null;
+  function edit(pt){
+    let i=Math.round((pt.x-bx0)/(bx1-bx0)*(M-1)); if(i<0)i=0; if(i>=M)i=M-1;
+    let py=Math.max(Math.min(by0,by1),Math.min(Math.max(by0,by1),pt.y));
+    const v=Yinv(py);
+    if(lastI!==null && Math.abs(i-lastI)>1){ const a=Math.min(lastI,i), b=Math.max(lastI,i);
+      const va=(a===lastI)?ys[lastI]:v, vb=(b===lastI)?ys[lastI]:v;
+      for(let j=a;j<=b;j++) ys[j]=va+(vb-va)*(j-a)/(b-a||1); }
+    else ys[i]=v;
+    lastI=i; draw(ys);
+  }
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drawing=true; lastI=null; try{svg.setPointerCapture(ev.pointerId);}catch(e){} edit(toSvg(ev)); });
+  window.addEventListener('pointermove',function(ev){ if(drawing) edit(toSvg(ev)); });
+  window.addEventListener('pointerup',function(){ drawing=false; lastI=null; });
+  const rb=$('#w-bv-sketch-reset'); if(rb) rb.addEventListener('click',function(){ for(let i=0;i<M;i++) ys[i]=DEFAULT[i]; draw(ys); });
+  draw(ys);
+})();
 </script>
+
 
 <h3>Jordan decomposition</h3>
 
