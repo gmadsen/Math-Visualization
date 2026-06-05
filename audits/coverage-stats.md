@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1626** (registry-driven: 1626, inline: 0)
+- Widgets: **1627** (registry-driven: 1627, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **5**
+- Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
 
 ## Per-slug registry adoption
@@ -72,6 +72,7 @@ page has wired one in yet.
 | `algebraic-spaces-morphisms-diagram` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-scheme-stack-hierarchy` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-why-scrubber` | proof-scrubber | scrub | 2d | 1 | algebraic-spaces |
+| `animated-svg-2d` | animated-svg-2d | play | 2d | 1 | convex-optimization |
 | `ant-bombieri-vinogradov` | ant-bombieri-vinogradov | slider | 2d | 1 | analytic-number-theory |
 | `ant-dirichlet-residue-wheel` | ant-dirichlet-residue-wheel | slider | 2d | 1 | analytic-number-theory |
 | `ant-explicit-formula` | ant-explicit-formula | slider | 2d | 1 | analytic-number-theory |
@@ -813,10 +814,10 @@ page has wired one in yet.
 ### Control theory & optimization
 
 - Topics: **9**, concepts: **58**
-- Widgets: **59** (registry-driven: 59, inline: 0)
-  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, inline-code-cell: 1, clickable-diagram: 1
-  - by dimension: 2d: 59
-  - by gesture: slider: 49, click: 6, select: 2, scrub: 1, edit: 1
+- Widgets: **60** (registry-driven: 60, inline: 0)
+  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, inline-code-cell: 1, animated-svg-2d: 1, clickable-diagram: 1
+  - by dimension: 2d: 60
+  - by gesture: slider: 49, click: 6, select: 2, scrub: 1, edit: 1, play: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)
   - by type: mcq: 116, numeric: 36, multi-select: 14, matching: 4, spot-the-error: 2, ordering: 2
 
@@ -848,7 +849,7 @@ page has wired one in yet.
 - `mathematical-finance` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `donaldson-thomas-and-gw-invariants` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `positive-characteristic-ag` (Algebraic geometry) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
-- `convex-optimization` (Control theory & optimization) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
+- `convex-optimization` (Control theory & optimization) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
 - `convex-geometry` (Geometry & topology) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
 - `topological-data-analysis` (Learning theory & data science) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)

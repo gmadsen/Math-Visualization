@@ -673,6 +673,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "animated-svg-2d",
+    "family": "animated-svg-2d",
+    "dimension": "2d",
+    "gesture": "play",
+    "role": "demo",
+    "title": "animated-svg-2d widget params",
+    "description": "A self-contained play/pause animation engine. The renderer supplies a Play/Pause button, a scrub slider, and a requestAnimationFrame loop that advances a normalized time t in [0,1] and calls the author's frame(t); the author writes only the per-frame math + redraw into params.bodyScript (it receives the SVG group G, the svg node, the readout `out`, and the page-global $/SVG helpers). The gesture is 'play' — a dimension the corpus otherwise lacks. A non-HTML frontend can ignore renderScript and drive its own clock from the schema (steps/durationMs/loop).",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **play/pause animation** engine — the corpus's \"play\" gesture. The renderer owns the clock (Play/Pause button, scrub slider, `requestAnimationFrame` loop, looping); the author writes only a per-frame redraw.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ant-bombieri-vinogradov",
     "family": "ant-bombieri-vinogradov",
     "dimension": "2d",

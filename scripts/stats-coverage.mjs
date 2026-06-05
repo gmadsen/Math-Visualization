@@ -329,7 +329,7 @@ const summary = `# Coverage + type stats — widgets & quizzes
 - Widgets: **${totalWidgets}** (registry-driven: ${totalRegistry}, inline: ${totalInline})
 - Quizzes: **${totalQuizzes}** (v1: ${tierTotals.v1}, hard: ${tierTotals.hard}, expert: ${tierTotals.expert})
 - Quiz types: ${fmtMap(typeTotals)}
-- Concepts lacking a widget in their section: **${conceptsMissingWidget.length}**
+- Concepts lacking a widget in their span: **${conceptsMissingWidget.length}** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **${conceptsMissingHard.length}**
 
 ## Per-slug registry adoption
