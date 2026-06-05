@@ -48,6 +48,85 @@
           "ref": "w-turan"
         },
         {
+          "type": "widget",
+          "slug": "graph-edit-2d",
+          "params": {
+            "widgetId": "w-mantel",
+            "svgId": "mantel-svg",
+            "outputId": "mantel-out",
+            "title": "Build a triangle-free graph: race Mantel's bound ⌊n²/4⌋",
+            "hint": "build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. A triangle turns its three vertices pink; while you stay triangle-free, Mantel's theorem (Turán with $r=2$) caps you at $\\lfloor n^2/4\\rfloor$ edges, attained by the balanced complete bipartite graph. Try to beat it.",
+            "svgTitle": "Editable graph; triangles are highlighted, and the edge count is compared to Mantel's bound floor(n^2/4).",
+            "viewBox": "0 0 640 380",
+            "svgWidth": 640,
+            "svgHeight": 380,
+            "nodeRadius": 15,
+            "pad": 24,
+            "initialNodes": [
+              [
+                180,
+                140
+              ],
+              [
+                180,
+                260
+              ],
+              [
+                460,
+                90
+              ],
+              [
+                460,
+                200
+              ],
+              [
+                460,
+                310
+              ]
+            ],
+            "initialEdges": [
+              [
+                0,
+                2
+              ],
+              [
+                0,
+                3
+              ],
+              [
+                0,
+                4
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                4
+              ]
+            ],
+            "outputInitial": "start: K(2,3), triangle-free with 6 = ⌊25/4⌋ edges — the extremal graph",
+            "bodyScript": "function draw(g){\n  while(G.firstChild)G.removeChild(G.firstChild);\n  var byId={}; g.nodes.forEach(function(n){byId[n.id]=n;});\n  var S={}; g.nodes.forEach(function(n){S[n.id]={};});\n  g.edges.forEach(function(e){ S[e.u][e.v]=1; S[e.v][e.u]=1; });\n  var tri=null;\n  for(var i=0;i<g.edges.length && !tri;i++){ var e=g.edges[i];\n    for(var w in S[e.u]){ if(S[e.v][w]){ tri={}; tri[e.u]=1; tri[e.v]=1; tri[w]=1; break; } } }\n  g.edges.forEach(function(e){ var a=byId[e.u],b=byId[e.v]; if(!a||!b)return;\n    var hot=tri&&tri[e.u]&&tri[e.v];\n    G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:hot?'var(--pink)':'var(--line)','stroke-width':hot?3.5:2.5})); });\n  g.nodes.forEach(function(nd){ var hot=tri&&tri[nd.id];\n    G.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:g.R,fill:hot?'var(--pink)':'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5})); });\n  var n=g.n, m=g.m, B=Math.floor(n*n/4);\n  if(n===0){ out.innerHTML='empty graph \\u2014 click empty space to add a vertex'; return; }\n  if(tri){ out.innerHTML=n+' vertices \\u00b7 '+m+' edges \\u00b7 <b style=\\\"color:var(--pink)\\\">contains a triangle</b> \\u00b7 Mantel caps a triangle-free graph at \\u230An\\u00b2/4\\u230B = '+B+' edges'; }\n  else { out.innerHTML=n+' vertices \\u00b7 '+m+' edges \\u00b7 <b style=\\\"color:var(--cyan)\\\">triangle-free</b> \\u00b7 Mantel bound \\u230An\\u00b2/4\\u230B = '+B+(m===B&&m>0?' \\u00b7 <b>extremal \\u2014 you hit the bound</b>':''); }\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-mantel"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },

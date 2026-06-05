@@ -6087,7 +6087,7 @@ window.__MVWidgets = [
       "title",
       "bodyScript"
     ],
-    "readmeExcerpt": "Self-contained **\"build the graph\"** engine — the corpus's `graph-edit` gesture. The reader edits a small graph by direct manipulation and an author-supplied live invariant updates after every edit. First home: `spectral-graph-theory §components` (build a graph, watch its connected components recolour — the combinatorial face of $\\dim\\ker L = \\#\\text{components}$).",
+    "readmeExcerpt": "Self-contained **\"build the graph\"** engine — the corpus's `graph-edit` gesture. The reader edits a small graph by direct manipulation and an author-supplied live invariant updates after every edit. First home: `spectral-graph-theory §kernel-components` (build a graph, watch its connected components recolour — the combinatorial face of $\\dim\\ker L = \\#\\text{components}$).",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
