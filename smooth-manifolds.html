@@ -575,7 +575,66 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
 })();
 </script>
 
-<div class="quiz" data-concept="smooth-manifold-examples"></div>
+<p>The torus $T^2=S^1\times S^1$ is the friendliest non-trivial smooth manifold. No single coordinate chart covers it, but a few overlapping ones do — the checkerboard below is a cartoon of those coordinate patches. Drag to rotate.</p>
+<div class="widget" id="w-torus-3d">
+  <div class="hd"><div class="ttl">The torus as a 2-manifold</div><div class="hint">rotate · vary the tube</div></div>
+  <svg id="tr-svg" viewBox="0 0 600 360" width="600" height="360" style="cursor:grab;touch-action:none"><title>A torus shown with coordinate-chart checkerboard</title></svg>
+  <div class="row">
+    <label for="tr-r">tube radius $r$</label>
+    <input type="range" id="tr-r" min="0.2" max="0.7" step="0.02" value="0.42">
+  </div>
+  <div class="readout" id="tr-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#tr-svg'), out=$('#tr-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const W=_vb[2], H=_vb[3], cx=_vb[0]+W/2, cy=_vb[1]+H/2;
+  const U0=0, U1=6.2832, V0=0, V1=6.2832, NU=42, NV=26;
+  const DEFCOLOR="var(--cyan)";
+  let yaw=0.6, pitch=0.5, dragging=false, lx=0, ly=0;
+  // ---- author surf(u,v)[, colorOf, readoutText] ----
+
+  function surf(u,v){ const r=+$('#tr-r').value, R=1; return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)]; }
+  function colorOf(u,v,p){ const cu=Math.floor(u/(Math.PI/3)), cv=Math.floor(v/(Math.PI/3)); return ((cu+cv)&1)?'var(--cyan)':'var(--violet)'; }
+  function readoutText(){ const r=+$('#tr-r').value; return 'The torus T² = S¹ × S¹, a compact 2-manifold (tube radius r = '+r.toFixed(2)+', major radius 1).\nThe checkerboard shows coordinate patches: no single chart covers T², but a handful of overlapping (u,v) charts do.\nThat is the whole point of a manifold — locally like ℝ², glued by smooth transition maps.'; }
+
+  // ---- 3D engine (supplied by surface-3d) ----
+  function rotv(p){ const ca=Math.cos(yaw),sa=Math.sin(yaw),cb=Math.cos(pitch),sb=Math.sin(pitch);
+    const X=p[0]*ca-p[1]*sa, Y=p[0]*sa+p[1]*ca, Z=p[2]; return [X, Y*cb-Z*sb, Y*sb+Z*cb]; }
+  function render(){
+    G.innerHTML='';
+    const su=dragging?Math.max(6,NU>>1):NU, sv=dragging?Math.max(6,NV>>1):NV;
+    const P=[]; let maxr=1e-6;
+    for(let i=0;i<=su;i++){ P[i]=[]; const u=U0+(U1-U0)*i/su;
+      for(let j=0;j<=sv;j++){ const v=V0+(V1-V0)*j/sv; const q=surf(u,v); P[i][j]=q;
+        const r=Math.hypot(q[0],q[1],q[2]); if(r>maxr)maxr=r; } }
+    const scale=0.44*Math.min(W,H)/maxr;
+    const proj=function(p){ const r=rotv(p); return {x:cx+scale*r[0], y:cy-scale*r[2], d:r[1]}; };
+    const faces=[];
+    for(let i=0;i<su;i++)for(let j=0;j<sv;j++){
+      const a=P[i][j], b=P[i+1][j], c=P[i+1][j+1], e=P[i][j+1];
+      const pa=proj(a),pb=proj(b),pc=proj(c),pe=proj(e);
+      const depth=(pa.d+pb.d+pc.d+pe.d)/4;
+      const ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2], wx=e[0]-a[0],wy=e[1]-a[1],wz=e[2]-a[2];
+      const nx=uy*wz-uz*wy, ny=uz*wx-ux*wz, nz=ux*wy-uy*wx; const rn=rotv([nx,ny,nz]);
+      const nl=Math.hypot(rn[0],rn[1],rn[2])||1; const lam=0.30+0.62*Math.abs(rn[1])/nl;
+      const uc=U0+(U1-U0)*i/su, vc=V0+(V1-V0)*j/sv;
+      const col=(typeof colorOf==='function')?colorOf(uc,vc,a):DEFCOLOR;
+      faces.push({pts:[pa,pb,pc,pe], depth:depth, op:lam.toFixed(3), col:col});
+    }
+    faces.sort(function(f,g){ return g.depth-f.depth; });
+    for(const f of faces){ const d='M'+f.pts.map(function(p){return p.x.toFixed(1)+' '+p.y.toFixed(1);}).join(' L ')+' Z';
+      G.appendChild(SVG('path',{d:d, fill:f.col, 'fill-opacity':f.op, stroke:'var(--bg)', 'stroke-width':0.4, 'stroke-opacity':0.5})); }
+    out.textContent=(typeof readoutText==='function')?readoutText():('drag to rotate · yaw '+(yaw*180/Math.PI).toFixed(0)+'°, pitch '+(pitch*180/Math.PI).toFixed(0)+'°');
+  }
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); dragging=true; lx=ev.clientX; ly=ev.clientY; svg.style.cursor='grabbing'; });
+  window.addEventListener('pointermove',function(ev){ if(!dragging) return; yaw+=(ev.clientX-lx)*0.01; pitch+=(ev.clientY-ly)*0.01; pitch=Math.max(-1.5,Math.min(1.5,pitch)); lx=ev.clientX; ly=ev.clientY; render(); });
+  window.addEventListener('pointerup',function(){ if(dragging){ dragging=false; svg.style.cursor='grab'; render(); } });
+  $('#tr-r').addEventListener('input',render);
+  render();
+})();
+</script><div class="quiz" data-concept="smooth-manifold-examples"></div>
 </section>
 
 <section id="maps">

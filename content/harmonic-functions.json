@@ -135,6 +135,42 @@
           "html": "\n\n"
         },
         {
+          "type": "raw",
+          "html": "<p>A harmonic function has no interior peaks or pits: by the mean-value property its value at a point is the average over any surrounding sphere, so it can only reach its extremes on the boundary. Drag the harmonic surface $z=\\operatorname{Re}(e^{u+iv})$ around and look for an interior summit — there is none.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "surface-3d",
+          "params": {
+            "widgetId": "w-harm-3d",
+            "svgId": "hm-svg",
+            "outputId": "hm-out",
+            "title": "The maximum principle, in 3D",
+            "hint": "rotate and look underneath",
+            "viewBox": "0 0 600 360",
+            "svgWidth": 600,
+            "svgHeight": 360,
+            "svgTitle": "A harmonic surface with no interior extremum",
+            "uRange": [
+              -1.2,
+              1.2
+            ],
+            "vRange": [
+              -2.6,
+              2.6
+            ],
+            "nu": 24,
+            "nv": 40,
+            "initialYaw": 0.7,
+            "initialPitch": 0.5,
+            "bodyScript": "\n  function surf(u,v){ return [u, v, Math.exp(u)*Math.cos(v)]; }\n  function colorOf(u,v,p){ return p[2]>0?'var(--cyan)':'var(--pink)'; }\n  function readoutText(){ return 'A harmonic surface  z = e^u cos v = Re(e^{u+iv})  (Δz = 0).\\nDrag to look underneath: there is NO interior peak or pit — a harmonic function attains its max and min only on the boundary.\\nThat is the maximum principle, a direct consequence of the mean-value property.'; }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-harm-3d"
+        },
+        {
           "type": "quiz",
           "concept": "hf-maximum-principle",
           "html": "<div class=\"quiz\" data-concept=\"hf-maximum-principle\"></div>"

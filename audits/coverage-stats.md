@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1621** (registry-driven: 1621, inline: 0)
+- Widgets: **1626** (registry-driven: 1626, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **5**
@@ -28,6 +28,7 @@ page has wired one in yet.
 | `inline-code-cell` | inline-code-cell | edit | 2d | 6 | analytic-number-theory, convex-optimization, heights-arithmetic-geometry, mathematical-chaos, p-adic-numbers |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
+| `surface-3d` | surface-3d | drag | 3d | 5 | general-relativity, harmonic-functions, riemannian-geometry, smooth-manifolds, variational-methods |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
@@ -732,10 +733,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **24**, concepts: **223**
-- Widgets: **237** (registry-driven: 237, inline: 0)
-  - by family: slider-readout: 44, button-stepper: 43, clickable-diagram: 42, parametric-plot: 12, verbatim: 6, aca-figure: 5, recurrence-plotter: 2, advanced-complex-analysis-picard: 2, inline-code-cell: 1, proof-scrubber: 1, several-complex-variables-reinhardt-pseudoconvex: 1, advanced-complex-analysis-landscape: 1, advanced-complex-analysis-weierstrass: 1, advanced-complex-analysis-mittag-leffler: 1, advanced-complex-analysis-phragmen-lindelof: 1, advanced-complex-analysis-three-circles: 1, advanced-complex-analysis-hardy-spaces: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, mt-sigma-algebra: 1, complex-analysis-arithmetic: 1, complex-analysis-riemann-sphere: 1, draggable-points-2d: 1, complex-analysis-conformal-map: 1, complex-analysis-conformal-grid: 1, complex-analysis-cauchy-theorem: 1, complex-analysis-cauchy-formula: 1, complex-analysis-liouville: 1, complex-analysis-fta: 1, complex-analysis-max-modulus: 1, complex-analysis-open-mapping: 1, complex-analysis-schwarz-lemma: 1, complex-analysis-laurent: 1, complex-analysis-singularity-zoo: 1, complex-analysis-residue-real-integral: 1, complex-analysis-argument-principle: 1, complex-analysis-disk-automorphism: 1, complex-analysis-normal-families: 1, complex-analysis-riemann-mapping: 1, complex-analysis-harmonic: 1, complex-analysis-monodromy: 1, functional-analysis-bounded-continuous: 1, functional-analysis-bigfour: 1, functional-analysis-riesz: 1, functional-analysis-weak-convergence: 1, functional-analysis-banach-alaoglu: 1, functional-analysis-krein-milman: 1, operator-algebras-cstar: 1, operator-algebras-funccalc: 1, operator-algebras-positive: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-schwartz: 1, harmonic-uncertainty: 1, harmonic-poisson: 1, harmonic-heat-evolution: 1, harmonic-pontryagin: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 236, 3d: 1
-  - by gesture: click: 94, slider: 90, interact: 35, select: 8, drag: 6, edit: 1, timeline: 1, step: 1, static: 1
+- Widgets: **239** (registry-driven: 239, inline: 0)
+  - by family: slider-readout: 44, button-stepper: 43, clickable-diagram: 42, parametric-plot: 12, verbatim: 6, aca-figure: 5, recurrence-plotter: 2, advanced-complex-analysis-picard: 2, surface-3d: 2, inline-code-cell: 1, proof-scrubber: 1, several-complex-variables-reinhardt-pseudoconvex: 1, advanced-complex-analysis-landscape: 1, advanced-complex-analysis-weierstrass: 1, advanced-complex-analysis-mittag-leffler: 1, advanced-complex-analysis-phragmen-lindelof: 1, advanced-complex-analysis-three-circles: 1, advanced-complex-analysis-hardy-spaces: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, mt-sigma-algebra: 1, complex-analysis-arithmetic: 1, complex-analysis-riemann-sphere: 1, draggable-points-2d: 1, complex-analysis-conformal-map: 1, complex-analysis-conformal-grid: 1, complex-analysis-cauchy-theorem: 1, complex-analysis-cauchy-formula: 1, complex-analysis-liouville: 1, complex-analysis-fta: 1, complex-analysis-max-modulus: 1, complex-analysis-open-mapping: 1, complex-analysis-schwarz-lemma: 1, complex-analysis-laurent: 1, complex-analysis-singularity-zoo: 1, complex-analysis-residue-real-integral: 1, complex-analysis-argument-principle: 1, complex-analysis-disk-automorphism: 1, complex-analysis-normal-families: 1, complex-analysis-riemann-mapping: 1, complex-analysis-harmonic: 1, complex-analysis-monodromy: 1, functional-analysis-bounded-continuous: 1, functional-analysis-bigfour: 1, functional-analysis-riesz: 1, functional-analysis-weak-convergence: 1, functional-analysis-banach-alaoglu: 1, functional-analysis-krein-milman: 1, operator-algebras-cstar: 1, operator-algebras-funccalc: 1, operator-algebras-positive: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-schwartz: 1, harmonic-uncertainty: 1, harmonic-poisson: 1, harmonic-heat-evolution: 1, harmonic-pontryagin: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 236, 3d: 3
+  - by gesture: click: 94, slider: 90, interact: 35, select: 8, drag: 8, edit: 1, timeline: 1, step: 1, static: 1
 - Quizzes: **813** (v1: 628, hard: 185, expert: 0)
   - by type: mcq: 514, numeric: 170, multi-select: 40, matching: 29, ordering: 23, complex: 14, spot-the-error: 11, proof-completion: 10, construction: 1, guess-my-rule: 1
 
@@ -752,10 +753,10 @@ page has wired one in yet.
 ### Geometry & topology
 
 - Topics: **25**, concepts: **160**
-- Widgets: **180** (registry-driven: 180, inline: 0)
-  - by family: slider-readout: 46, button-stepper: 36, verbatim: 12, clickable-diagram: 6, surface-viewer: 6, clickable-graph: 2, svg-illustration: 2, draggable-points-2d: 1, cohomology-stiefel-whitney-rpn: 1, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, knot-polynomials-vassiliev: 1, knot-polynomials-khovanov: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, sm-manifold-gallery: 1, diff-forms-integration: 1, diff-forms-pullback: 1, diff-geom-surface-patch: 1, diff-geom-fundamental-forms: 1, rg-ricci-curvature: 1, rg-volume-form: 1, lie-algebra-tangent: 1, lie-adjoint-killing: 1, riemann-surfaces-chart-atlas: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
-  - by dimension: 2d: 173, 3d: 7
-  - by gesture: click: 77, slider: 54, select: 25, drag: 9, button-stepper: 6, step: 3, pick: 2, static: 2, interact: 1, timeline: 1
+- Widgets: **182** (registry-driven: 182, inline: 0)
+  - by family: slider-readout: 46, button-stepper: 36, verbatim: 12, clickable-diagram: 6, surface-viewer: 6, surface-3d: 2, clickable-graph: 2, svg-illustration: 2, draggable-points-2d: 1, cohomology-stiefel-whitney-rpn: 1, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, knot-polynomials-vassiliev: 1, knot-polynomials-khovanov: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, sm-manifold-gallery: 1, diff-forms-integration: 1, diff-forms-pullback: 1, diff-geom-surface-patch: 1, diff-geom-fundamental-forms: 1, rg-ricci-curvature: 1, rg-volume-form: 1, lie-algebra-tangent: 1, lie-adjoint-killing: 1, riemann-surfaces-chart-atlas: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 173, 3d: 9
+  - by gesture: click: 77, slider: 54, select: 25, drag: 11, button-stepper: 6, step: 3, pick: 2, static: 2, interact: 1, timeline: 1
 - Quizzes: **622** (v1: 480, hard: 142, expert: 0)
   - by type: mcq: 410, numeric: 160, multi-select: 22, matching: 10, ordering: 7, complex: 7, spot-the-error: 3, proof-completion: 3
 
@@ -802,10 +803,10 @@ page has wired one in yet.
 ### Mathematical physics
 
 - Topics: **13**, concepts: **81**
-- Widgets: **82** (registry-driven: 82, inline: 0)
-  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 82
-  - by gesture: slider: 57, click: 16, interact: 7, drag: 1, select: 1
+- Widgets: **83** (registry-driven: 83, inline: 0)
+  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 82, 3d: 1
+  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, select: 1
 - Quizzes: **244** (v1: 244, hard: 0, expert: 0)
   - by type: mcq: 164, numeric: 32, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
 
@@ -911,7 +912,7 @@ page has wired one in yet.
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computational-number-theory` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `variational-methods` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `variational-methods` (Analysis) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `fixed-point-theorems` (Analysis) — concepts=8, widgets=9 (slug=9), quiz=24 (v1=24, hard=0, expert=0)
 - `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -919,7 +920,7 @@ page has wired one in yet.
 - `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `general-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `general-relativity` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `three-body-problem` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -969,7 +970,7 @@ page has wired one in yet.
 - `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
 - `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `harmonic-functions` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `harmonic-functions` (Analysis) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `spectral-theory` (Analysis) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
 - `probability-theory` (Probability & statistics) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=24, expert=13)
 - `stochastic-processes-and-martingales` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -979,10 +980,10 @@ page has wired one in yet.
 - `large-deviations` (Probability & statistics) — concepts=5, widgets=5 (slug=5), quiz=15 (v1=15, hard=0, expert=0)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
 - `algebraic-topology` (Geometry & topology) — concepts=6, widgets=8 (slug=8), quiz=32 (v1=18, hard=14, expert=0)
-- `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=10 (slug=10), quiz=59 (v1=30, hard=29, expert=0)
+- `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=11 (slug=11), quiz=59 (v1=30, hard=29, expert=0)
 - `differential-forms` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `differential-geometry` (Geometry & topology) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
-- `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
+- `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=8 (slug=8), quiz=42 (v1=21, hard=21, expert=0)
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `characteristic-classes` (Geometry & topology) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)

@@ -557,7 +557,65 @@ $$ds^2 \;=\; -\Big(1-\tfrac{2M}{r}\Big)dt^2 \;+\; \Big(1-\tfrac{2M}{r}\Big)^{-1}
   <div class="ttl">Used in</div>
     <div><a href="./general-relativity.html#kerr">General relativity</a> · Kerr metric and rotating black holes</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="gr-schwarzschild"></div>
+<!-- backlinks-auto-end --><p>The Schwarzschild geometry around a spherical mass can be pictured by an <strong>embedding diagram</strong>: Flamm’s paraboloid, the curved 2-surface whose intrinsic geometry matches an equatorial slice of space. Drag to rotate the funnel; the throat is the horizon at $r=2M$.</p>
+<div class="widget" id="w-flamm-3d">
+  <div class="hd"><div class="ttl">Flamm’s paraboloid (Schwarzschild embedding)</div><div class="hint">rotate · vary the mass</div></div>
+  <svg id="fl-svg" viewBox="0 0 600 380" width="600" height="380" style="cursor:grab;touch-action:none"><title>Flamm paraboloid embedding diagram of the Schwarzschild slice</title></svg>
+  <div class="row">
+    <label for="fl-m">mass $M$</label>
+    <input type="range" id="fl-m" min="0.3" max="1.2" step="0.05" value="0.7">
+  </div>
+  <div class="readout" id="fl-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#fl-svg'), out=$('#fl-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const W=_vb[2], H=_vb[3], cx=_vb[0]+W/2, cy=_vb[1]+H/2;
+  const U0=0, U1=1, V0=0, V1=6.2832, NU=22, NV=40;
+  const DEFCOLOR="var(--cyan)";
+  let yaw=0.6, pitch=0.7, dragging=false, lx=0, ly=0;
+  // ---- author surf(u,v)[, colorOf, readoutText] ----
+
+  function surf(u,v){ const M=+$('#fl-m').value, rs=2*M; const r=rs+5*u; const z=2*Math.sqrt(Math.max(0,rs*(r-rs))); return [r*Math.cos(v), r*Math.sin(v), -z]; }
+  function readoutText(){ const M=+$('#fl-m').value; return 'Flamm’s paraboloid — the embedding diagram of a Schwarzschild spatial slice.\nSchwarzschild radius  r_s = 2M = '+(2*M).toFixed(2)+' (mass M = '+M.toFixed(2)+').\nThe throat at r = r_s is the horizon; the deeper the funnel, the stronger the curvature of space around the mass.'; }
+
+  // ---- 3D engine (supplied by surface-3d) ----
+  function rotv(p){ const ca=Math.cos(yaw),sa=Math.sin(yaw),cb=Math.cos(pitch),sb=Math.sin(pitch);
+    const X=p[0]*ca-p[1]*sa, Y=p[0]*sa+p[1]*ca, Z=p[2]; return [X, Y*cb-Z*sb, Y*sb+Z*cb]; }
+  function render(){
+    G.innerHTML='';
+    const su=dragging?Math.max(6,NU>>1):NU, sv=dragging?Math.max(6,NV>>1):NV;
+    const P=[]; let maxr=1e-6;
+    for(let i=0;i<=su;i++){ P[i]=[]; const u=U0+(U1-U0)*i/su;
+      for(let j=0;j<=sv;j++){ const v=V0+(V1-V0)*j/sv; const q=surf(u,v); P[i][j]=q;
+        const r=Math.hypot(q[0],q[1],q[2]); if(r>maxr)maxr=r; } }
+    const scale=0.44*Math.min(W,H)/maxr;
+    const proj=function(p){ const r=rotv(p); return {x:cx+scale*r[0], y:cy-scale*r[2], d:r[1]}; };
+    const faces=[];
+    for(let i=0;i<su;i++)for(let j=0;j<sv;j++){
+      const a=P[i][j], b=P[i+1][j], c=P[i+1][j+1], e=P[i][j+1];
+      const pa=proj(a),pb=proj(b),pc=proj(c),pe=proj(e);
+      const depth=(pa.d+pb.d+pc.d+pe.d)/4;
+      const ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2], wx=e[0]-a[0],wy=e[1]-a[1],wz=e[2]-a[2];
+      const nx=uy*wz-uz*wy, ny=uz*wx-ux*wz, nz=ux*wy-uy*wx; const rn=rotv([nx,ny,nz]);
+      const nl=Math.hypot(rn[0],rn[1],rn[2])||1; const lam=0.30+0.62*Math.abs(rn[1])/nl;
+      const uc=U0+(U1-U0)*i/su, vc=V0+(V1-V0)*j/sv;
+      const col=(typeof colorOf==='function')?colorOf(uc,vc,a):DEFCOLOR;
+      faces.push({pts:[pa,pb,pc,pe], depth:depth, op:lam.toFixed(3), col:col});
+    }
+    faces.sort(function(f,g){ return g.depth-f.depth; });
+    for(const f of faces){ const d='M'+f.pts.map(function(p){return p.x.toFixed(1)+' '+p.y.toFixed(1);}).join(' L ')+' Z';
+      G.appendChild(SVG('path',{d:d, fill:f.col, 'fill-opacity':f.op, stroke:'var(--bg)', 'stroke-width':0.4, 'stroke-opacity':0.5})); }
+    out.textContent=(typeof readoutText==='function')?readoutText():('drag to rotate · yaw '+(yaw*180/Math.PI).toFixed(0)+'°, pitch '+(pitch*180/Math.PI).toFixed(0)+'°');
+  }
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); dragging=true; lx=ev.clientX; ly=ev.clientY; svg.style.cursor='grabbing'; });
+  window.addEventListener('pointermove',function(ev){ if(!dragging) return; yaw+=(ev.clientX-lx)*0.01; pitch+=(ev.clientY-ly)*0.01; pitch=Math.max(-1.5,Math.min(1.5,pitch)); lx=ev.clientX; ly=ev.clientY; render(); });
+  window.addEventListener('pointerup',function(){ if(dragging){ dragging=false; svg.style.cursor='grab'; render(); } });
+  $('#fl-m').addEventListener('input',render);
+  render();
+})();
+</script><div class="quiz" data-concept="gr-schwarzschild"></div>
 </section>
 
 <section id="kerr">

@@ -12997,6 +12997,34 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "surface-3d",
+    "family": "surface-3d",
+    "dimension": "3d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "surface-3d widget params",
+    "description": "A self-contained shared renderer for drag-to-rotate 3D parametric surfaces. The renderer bundles its OWN 3D engine (rotation, orthographic projection, painter's-algorithm depth sort, Lambert shading via fill-opacity, auto-fit, and mesh decimation while dragging) — it does NOT depend on the page-global make3DDraggable/proj3 helpers, so any topic can adopt it. The author supplies only a `surf(u,v)` returning model coordinates [x,y,z] (plus optional sliders, colorOf, and readoutText) in bodyScript; the engine builds and renders the mesh.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "viewBox",
+      "svgWidth",
+      "svgHeight",
+      "uRange",
+      "vRange",
+      "nu",
+      "nv",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "A **self-contained shared** renderer for drag-to-rotate 3D parametric surfaces. It is the registry's answer to the *dimension* monoculture (the corpus was ~99% 2D): any topic can drop in a rotatable surface without the page-global `make3DDraggable`/`proj3` helpers that the older `surface-viewer` slug requires.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "surface-viewer",
     "family": "surface-viewer",
     "dimension": "3d",

@@ -110,6 +110,52 @@
           "html": "\n\n"
         },
         {
+          "type": "raw",
+          "html": "<p>The torus $T^2=S^1\\times S^1$ is the friendliest non-trivial smooth manifold. No single coordinate chart covers it, but a few overlapping ones do — the checkerboard below is a cartoon of those coordinate patches. Drag to rotate.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "surface-3d",
+          "params": {
+            "widgetId": "w-torus-3d",
+            "svgId": "tr-svg",
+            "outputId": "tr-out",
+            "title": "The torus as a 2-manifold",
+            "hint": "rotate · vary the tube",
+            "viewBox": "0 0 600 360",
+            "svgWidth": 600,
+            "svgHeight": 360,
+            "svgTitle": "A torus shown with coordinate-chart checkerboard",
+            "uRange": [
+              0,
+              6.2832
+            ],
+            "vRange": [
+              0,
+              6.2832
+            ],
+            "nu": 42,
+            "nv": 26,
+            "initialYaw": 0.6,
+            "initialPitch": 0.5,
+            "sliders": [
+              {
+                "id": "tr-r",
+                "label": "tube radius $r$",
+                "min": 0.2,
+                "max": 0.7,
+                "step": 0.02,
+                "init": 0.42
+              }
+            ],
+            "bodyScript": "\n  function surf(u,v){ const r=+$('#tr-r').value, R=1; return [(R+r*Math.cos(v))*Math.cos(u), (R+r*Math.cos(v))*Math.sin(u), r*Math.sin(v)]; }\n  function colorOf(u,v,p){ const cu=Math.floor(u/(Math.PI/3)), cv=Math.floor(v/(Math.PI/3)); return ((cu+cv)&1)?'var(--cyan)':'var(--violet)'; }\n  function readoutText(){ const r=+$('#tr-r').value; return 'The torus T² = S¹ × S¹, a compact 2-manifold (tube radius r = '+r.toFixed(2)+', major radius 1).\\nThe checkerboard shows coordinate patches: no single chart covers T², but a handful of overlapping (u,v) charts do.\\nThat is the whole point of a manifold — locally like ℝ², glued by smooth transition maps.'; }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-torus-3d"
+        },
+        {
           "type": "quiz",
           "concept": "smooth-manifold-examples",
           "html": "<div class=\"quiz\" data-concept=\"smooth-manifold-examples\"></div>"

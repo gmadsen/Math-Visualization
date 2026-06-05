@@ -269,6 +269,52 @@
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./partial-differential-equations.html#regularity\">Lax–Milgram, elliptic regularity, embedding</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
+          "type": "raw",
+          "html": "<p>Minimal surfaces — the shapes soap films take — are the critical points of area, solutions of the Euler–Lagrange equation for the area functional ($H=0$). The catenoid and the helicoid are the same minimal surface bent through an isometric family. Drag $\\theta$ to morph one into the other.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "surface-3d",
+          "params": {
+            "widgetId": "w-minimal-3d",
+            "svgId": "mn-svg",
+            "outputId": "mn-out",
+            "title": "Catenoid ↔ helicoid (minimal surfaces)",
+            "hint": "rotate · deform θ",
+            "viewBox": "0 0 600 380",
+            "svgWidth": 600,
+            "svgHeight": 380,
+            "svgTitle": "The catenoid-helicoid associate family of minimal surfaces",
+            "uRange": [
+              -3.14159,
+              3.14159
+            ],
+            "vRange": [
+              -1,
+              1
+            ],
+            "nu": 44,
+            "nv": 16,
+            "initialYaw": 0.5,
+            "initialPitch": 0.45,
+            "sliders": [
+              {
+                "id": "mn-t",
+                "label": "deformation $\\theta$",
+                "min": 0,
+                "max": 1.5708,
+                "step": 0.02,
+                "init": 0
+              }
+            ],
+            "bodyScript": "\n  function surf(u,v){ const t=+$('#mn-t').value, ct=Math.cos(t), st=Math.sin(t);\n    const X=ct*Math.sinh(v)*Math.sin(u)+st*Math.cosh(v)*Math.cos(u);\n    const Y=-ct*Math.sinh(v)*Math.cos(u)+st*Math.cosh(v)*Math.sin(u);\n    const Z=u*ct+v*st; return [X,Y,Z]; }\n  function readoutText(){ const t=+$('#mn-t').value, deg=(t*180/Math.PI).toFixed(0);\n    const lbl = t<0.08?'the HELICOID (a spiral ramp)':(Math.abs(t-Math.PI/2)<0.08?'the CATENOID (a soap-film between two rings)':'an intermediate associate surface');\n    return 'The catenoid–helicoid associate family, deformation angle θ = '+deg+'°  →  '+lbl+'.\\nEvery surface in this family is MINIMAL (mean curvature H = 0) and they are all locally isometric —\\nbending a soap film through them never stretches it. Minimal surfaces are the critical points of area.'; }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-minimal-3d"
+        },
+        {
           "type": "quiz",
           "concept": "vm-applications",
           "html": "<div class=\"quiz\" data-concept=\"vm-applications\"></div>"
