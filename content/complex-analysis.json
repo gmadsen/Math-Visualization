@@ -167,6 +167,40 @@
           }
         },
         {
+          "type": "raw",
+          "html": "<p>A Möbius transformation is rigid enough to be pinned down by where it sends three points, yet supple enough to bend the plane into a disk. Drag $z$ across the left plane and watch its image $w=f(z)$ move in the disk — and watch the upper half-plane map exactly onto the interior.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "draggable-points-2d",
+          "params": {
+            "widgetId": "w-mobius-drag",
+            "svgId": "mobdrag-svg",
+            "outputId": "mobdrag-out",
+            "title": "Möbius map: drag z, watch w = f(z)",
+            "hint": "drag the point z",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Dragging z and seeing its Mobius image in the disk",
+            "points": [
+              {
+                "id": "z",
+                "x": 175,
+                "y": 100,
+                "color": "var(--cyan)",
+                "label": "z"
+              }
+            ],
+            "bodyScript": "\n  function draw(){\n    G.innerHTML='';\n    const Lx=175,Ly=150,sc=52, Rx=475,Ry=150,Rr=95;\n    G.appendChild(SVG('line',{x1:Lx-115,y1:Ly,x2:Lx+115,y2:Ly,stroke:'var(--line)'}));\n    G.appendChild(SVG('line',{x1:Lx,y1:Ly-120,x2:Lx,y2:Ly+120,stroke:'var(--line)'}));\n    G.appendChild(SVG('circle',{cx:Rx,cy:Ry,r:Rr,fill:'none',stroke:'var(--line)','stroke-width':1.5}));\n    G.appendChild(SVG('line',{x1:Rx-Rr,y1:Ry,x2:Rx+Rr,y2:Ry,stroke:'var(--line)'}));\n    G.appendChild(SVG('line',{x1:Rx,y1:Ry-Rr,x2:Rx,y2:Ry+Rr,stroke:'var(--line)'}));\n    const zp=pts.byId.z; const zx=(zp.x-Lx)/sc, zy=-(zp.y-Ly)/sc;\n    const ar=zx, ai=zy-1, br=zx, bi=zy+1; const den=br*br+bi*bi||1e-9;\n    const wr=(ar*br+ai*bi)/den, wi=(ai*br-ar*bi)/den;\n    const wpx=Rx+wr*Rr, wpy=Ry-wi*Rr;\n    G.appendChild(SVG('circle',{cx:wpx,cy:wpy,r:5,fill:'var(--yellow)'}));\n    const lab=function(x,yy,t,c){const e=SVG('text',{x:x,y:yy,'text-anchor':'middle','font-size':12,fill:c});e.textContent=t;G.appendChild(e);};\n    lab(Lx,Ly+135,'z-plane','var(--mute)'); lab(Rx,Ry+Rr+24,'w-disk:  f(z) = (z−i)/(z+i)','var(--mute)'); lab(wpx,wpy-10,'w','var(--yellow)');\n    const mod=Math.sqrt(wr*wr+wi*wi);\n    out.textContent='Möbius map  f(z) = (z − i)/(z + i)  sends the upper half-plane to the unit disk.\\n'\n      +'z = '+zx.toFixed(2)+' + '+zy.toFixed(2)+'i   ↦   w = '+wr.toFixed(3)+' + '+wi.toFixed(3)+'i,   |w| = '+mod.toFixed(3)+'\\n'\n      +(zy>0.001?'Im z > 0  ⟹  |w| < 1 (w lands inside the disk).':(zy<-0.001?'Im z < 0  ⟹  |w| > 1 (w lands outside the disk).':'Im z = 0 (real axis)  ⟹  |w| = 1 (w on the boundary circle).'));\n  }\n",
+            "outputInitial": "&nbsp;"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-mobius-drag"
+        },
+        {
           "type": "quiz",
           "concept": "mobius-transformations",
           "html": "<div class=\"quiz\" data-concept=\"mobius-transformations\"></div>"

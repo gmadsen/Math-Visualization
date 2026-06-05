@@ -65,6 +65,75 @@
           "html": "\n\n<p>Drag the angle slider: the dashed supporting line $\\{x:\\langle u,x\\rangle=h_K(u)\\}$ rolls around the boundary of $K$, hitting a single point in smooth directions and a whole edge or vertex in degenerate ones. The plot of $h_K$ on $S^{n-1}$ is exactly the dual description of $K$ — once you know it for every $u$, you know the body.</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "<p>Every convex body is the convex hull of its extreme points. Drag the points below: pull one outward and it becomes a vertex; push it inside the others and it drops out of the boundary entirely.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "draggable-points-2d",
+          "params": {
+            "widgetId": "w-hull-drag",
+            "svgId": "hull-svg",
+            "outputId": "hull-out",
+            "title": "The convex hull (drag the points)",
+            "hint": "drag any point",
+            "viewBox": "0 0 640 300",
+            "svgWidth": 640,
+            "svgHeight": 300,
+            "svgTitle": "Convex hull of draggable points updating live",
+            "points": [
+              {
+                "id": "p0",
+                "x": 180,
+                "y": 90,
+                "color": "var(--cyan)"
+              },
+              {
+                "id": "p1",
+                "x": 430,
+                "y": 80,
+                "color": "var(--cyan)"
+              },
+              {
+                "id": "p2",
+                "x": 520,
+                "y": 170,
+                "color": "var(--cyan)"
+              },
+              {
+                "id": "p3",
+                "x": 400,
+                "y": 240,
+                "color": "var(--cyan)"
+              },
+              {
+                "id": "p4",
+                "x": 180,
+                "y": 230,
+                "color": "var(--cyan)"
+              },
+              {
+                "id": "p5",
+                "x": 110,
+                "y": 160,
+                "color": "var(--cyan)"
+              },
+              {
+                "id": "p6",
+                "x": 320,
+                "y": 160,
+                "color": "var(--yellow)"
+              }
+            ],
+            "bodyScript": "\n  function hull(P){\n    const s=P.slice().sort(function(a,b){return a.x-b.x||a.y-b.y;});\n    if(s.length<3) return s;\n    const cross=function(o,a,b){return (a.x-o.x)*(b.y-o.y)-(a.y-o.y)*(b.x-o.x);};\n    const lo=[]; for(const p of s){ while(lo.length>=2&&cross(lo[lo.length-2],lo[lo.length-1],p)<=0)lo.pop(); lo.push(p);}\n    const up=[]; for(let i=s.length-1;i>=0;i--){ const p=s[i]; while(up.length>=2&&cross(up[up.length-2],up[up.length-1],p)<=0)up.pop(); up.push(p);}\n    lo.pop(); up.pop(); return lo.concat(up);\n  }\n  function draw(){\n    G.innerHTML='';\n    const H=hull(pts);\n    if(H.length>=3){ let d='M'+H[0].x.toFixed(1)+' '+H[0].y.toFixed(1); for(let i=1;i<H.length;i++)d+=' L'+H[i].x.toFixed(1)+' '+H[i].y.toFixed(1); d+=' Z';\n      G.appendChild(SVG('path',{d:d,fill:'var(--cyan)','fill-opacity':0.12,stroke:'var(--cyan)','stroke-width':2})); }\n    const interior=pts.length-H.length;\n    out.textContent='The convex hull is the smallest convex set containing the points — drag a point outward to push the boundary, or inward to drop it from the hull.\\n'\n      +'points: '+pts.length+',   hull vertices (extreme points): '+H.length+',   interior points: '+interior+'\\n'\n      +'a point is a vertex of the hull iff it is NOT in the convex hull of the others — that is exactly what it means to be an extreme point.';\n  }\n",
+            "outputInitial": "&nbsp;"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-hull-drag"
+        },
+        {
           "type": "quiz",
           "concept": "cg-convex-bodies",
           "html": "<div class=\"quiz\" data-concept=\"cg-convex-bodies\"></div>"

@@ -370,7 +370,63 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Drag the angle slider: the dashed supporting line $\{x:\langle u,x\rangle=h_K(u)\}$ rolls around the boundary of $K$, hitting a single point in smooth directions and a whole edge or vertex in degenerate ones. The plot of $h_K$ on $S^{n-1}$ is exactly the dual description of $K$ — once you know it for every $u$, you know the body.</p>
 
-<div class="quiz" data-concept="cg-convex-bodies"></div><!-- backlinks-auto-begin -->
+<p>Every convex body is the convex hull of its extreme points. Drag the points below: pull one outward and it becomes a vertex; push it inside the others and it drops out of the boundary entirely.</p>
+<div class="widget" id="w-hull-drag">
+  <div class="hd"><div class="ttl">The convex hull (drag the points)</div><div class="hint">drag any point</div></div>
+  <svg id="hull-svg" viewBox="0 0 640 300" width="640" height="300"><title>Convex hull of draggable points updating live</title></svg>
+  <div class="readout" id="hull-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#hull-svg'), out=$('#hull-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const pts=[{"id":"p0","x":180,"y":90,"color":"var(--cyan)"},{"id":"p1","x":430,"y":80,"color":"var(--cyan)"},{"id":"p2","x":520,"y":170,"color":"var(--cyan)"},{"id":"p3","x":400,"y":240,"color":"var(--cyan)"},{"id":"p4","x":180,"y":230,"color":"var(--cyan)"},{"id":"p5","x":110,"y":160,"color":"var(--cyan)"},{"id":"p6","x":320,"y":160,"color":"var(--yellow)"}];
+  pts.byId={}; for(const p of pts) pts.byId[p.id]=p;
+  // ---- author draw() (reads pts, clears+fills G, writes out) ----
+
+  function hull(P){
+    const s=P.slice().sort(function(a,b){return a.x-b.x||a.y-b.y;});
+    if(s.length<3) return s;
+    const cross=function(o,a,b){return (a.x-o.x)*(b.y-o.y)-(a.y-o.y)*(b.x-o.x);};
+    const lo=[]; for(const p of s){ while(lo.length>=2&&cross(lo[lo.length-2],lo[lo.length-1],p)<=0)lo.pop(); lo.push(p);}
+    const up=[]; for(let i=s.length-1;i>=0;i--){ const p=s[i]; while(up.length>=2&&cross(up[up.length-2],up[up.length-1],p)<=0)up.pop(); up.push(p);}
+    lo.pop(); up.pop(); return lo.concat(up);
+  }
+  function draw(){
+    G.innerHTML='';
+    const H=hull(pts);
+    if(H.length>=3){ let d='M'+H[0].x.toFixed(1)+' '+H[0].y.toFixed(1); for(let i=1;i<H.length;i++)d+=' L'+H[i].x.toFixed(1)+' '+H[i].y.toFixed(1); d+=' Z';
+      G.appendChild(SVG('path',{d:d,fill:'var(--cyan)','fill-opacity':0.12,stroke:'var(--cyan)','stroke-width':2})); }
+    const interior=pts.length-H.length;
+    out.textContent='The convex hull is the smallest convex set containing the points — drag a point outward to push the boundary, or inward to drop it from the hull.\n'
+      +'points: '+pts.length+',   hull vertices (extreme points): '+H.length+',   interior points: '+interior+'\n'
+      +'a point is a vertex of the hull iff it is NOT in the convex hull of the others — that is exactly what it means to be an extreme point.';
+  }
+
+  // ---- drag engine (supplied by draggable-points-2d) ----
+  const HL=SVG('g'); svg.appendChild(HL);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const vb={x:_vb[0],y:_vb[1],width:_vb[2],height:_vb[3]};
+  function clampPt(p){ const r=p.r||7;
+    const lo_x=(p.minX!=null?p.minX:vb.x+r), hi_x=(p.maxX!=null?p.maxX:vb.x+vb.width-r);
+    const lo_y=(p.minY!=null?p.minY:vb.y+r), hi_y=(p.maxY!=null?p.maxY:vb.y+vb.height-r);
+    if(!p.lockX) p.x=Math.max(lo_x,Math.min(hi_x,p.x));
+    if(!p.lockY) p.y=Math.max(lo_y,Math.min(hi_y,p.y));
+  }
+  const handles=[]; let drag=null;
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  pts.forEach(function(p){ const r=p.r||7;
+    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'var(--bg)','stroke-width':1.5});
+    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);
+    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }
+    handles.push({h:h,lab:lab,p:p,r:r});
+    h.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drag=p; h.style.cursor='grabbing'; try{h.setPointerCapture(ev.pointerId);}catch(e){} });
+  });
+  window.addEventListener('pointermove',function(ev){ if(!drag) return; const q=toSvg(ev); if(!drag.lockX)drag.x=q.x; if(!drag.lockY)drag.y=q.y; clampPt(drag); render(); });
+  window.addEventListener('pointerup',function(){ drag=null; for(const o of handles) o.h.style.cursor='grab'; });
+  function render(){ draw(); for(const o of handles){ o.h.setAttribute('cx',o.p.x); o.h.setAttribute('cy',o.p.y); if(o.lab){ o.lab.setAttribute('x',o.p.x+o.r+5); o.lab.setAttribute('y',o.p.y-o.r-3); } } }
+  pts.forEach(clampPt); render();
+})();
+</script><div class="quiz" data-concept="cg-convex-bodies"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./convex-geometry.html#john">Convex geometry</a> · John's ellipsoid &amp; Banach–Mazur distance</div>

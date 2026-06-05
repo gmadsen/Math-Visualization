@@ -4292,6 +4292,31 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "draggable-points-2d",
+    "family": "draggable-points-2d",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "draggable-points-2d widget params",
+    "description": "A shared renderer for direct-manipulation widgets: the reader drags one or more handle points on an SVG and the diagram + readout update live. The renderer supplies the drag engine (pointer capture, viewBox/per-point clamping, handle rendering); the author supplies only a draw() function in `bodyScript` that reads the live handle positions `pts` and redraws into the base group `G`. Coordinates are SVG/pixel coordinates within the viewBox.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "viewBox",
+      "svgWidth",
+      "svgHeight",
+      "points",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "A **shared** renderer for direct-manipulation widgets: the reader grabs one or more handle points on an SVG and the diagram + readout update live. This is the registry's answer to the gesture gap — most corpus widgets are click/slider, and this slug supplies genuine *drag the object itself* interaction.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ec-disc",
     "family": "ec-disc",
     "dimension": "2d",

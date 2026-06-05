@@ -10,7 +10,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 211 topics, 1446 concepts, 34 capstones
 - 5 concepts lack a widget in their span (all abstract realization/Langlands concepts already served by an adjacent page-level widget — see `audits/coverage-stats.md`)
-- 1618 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
+- 1621 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
 - Quiz tiers: v1 = 4294, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
