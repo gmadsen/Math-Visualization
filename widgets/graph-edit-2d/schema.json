@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/graph-edit-2d/schema.json",
+  "title": "graph-edit-2d widget params",
+  "description": "A self-contained 'build the graph' engine: the reader edits a small graph in place — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it — and the author's draw(g) re-renders the graph and any live graph invariant (connected components, a greedy colouring, degree sequence, a spanning forest, the Laplacian spectrum, …) after every edit. The renderer owns the edit gesture (pointer hit-testing, the rubber-band edge drag, add/delete/toggle, a Reset button) and the data model; the author writes only draw(g) in params.bodyScript and reads g.nodes / g.edges / g.adj / g.deg(id) / g.n / g.m / g.R. The gesture is 'graph-edit' — a direct-manipulation dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside pointer handlers, never at init.",
+  "meta": {
+    "family": "graph-edit-2d",
+    "dimension": "2d",
+    "gesture": "graph-edit",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <svg> drawing surface."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the .readout the author writes into."
+    },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should explain the three gestures (add vertex / toggle edge / delete vertex)." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 640 380'.", "default": "0 0 640 380" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 640.", "default": 640 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 380.", "default": 380 },
+    "nodeRadius": {
+      "type": "integer",
+      "minimum": 6,
+      "maximum": 40,
+      "description": "Vertex radius in px, used for both hit-testing and as the helper g.R the author draws with. Default 16.",
+      "default": 16
+    },
+    "pad": {
+      "type": "integer",
+      "description": "Inner padding (px) added vertices are clamped to. Default 24.",
+      "default": 24
+    },
+    "initialNodes": {
+      "type": "array",
+      "description": "Initial vertices as [x, y] pixel pairs in viewBox coordinates. Reset restores these.",
+      "items": {
+        "type": "array",
+        "items": { "type": "number" },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "initialEdges": {
+      "type": "array",
+      "description": "Initial edges as [i, j] pairs of indices into initialNodes. Reset restores these.",
+      "items": {
+        "type": "array",
+        "items": { "type": "integer", "minimum": 0 },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" },
+    "outputInitial": { "type": "string", "description": "Initial readout HTML. Default '&nbsp;'.", "default": "&nbsp;" },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS defining `function draw(g){ ... }`. It clears+redraws the SVG group `G`, writes `out`, and reads the live model: g.nodes ([{id,x,y}] in pixel coords), g.edges ([{u,v}] with vertex ids), g.adj ({id:[neighbourId,…]}), g.deg(id), g.n, g.m, and g.R (vertex radius). It may use the page-global $/SVG. Called once at init and after every edit and Reset. Must not start a timer."
+    }
+  }
+}
