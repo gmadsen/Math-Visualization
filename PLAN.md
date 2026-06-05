@@ -10,7 +10,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 211 topics, 1446 concepts, 34 capstones
 - 5 concepts lack a widget in their *own* span (langlands `global`/`functoriality`/`capstone`, motives `realization-functors`, hodge `hodge-as-realization`) — genuine gaps under the span-based metric (a sibling concept's widget sits elsewhere on the page); close with a correspondence/dictionary widget. See `audits/coverage-stats.md`.
-- 1631 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
+- 1632 widgets, 100% registry-driven. Interactive baseline gated via `audits/static-widgets-baseline.json`
 - Quiz tiers: v1 = 4294, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: 99.1% across all 12 populated sections; tagging effort effectively complete
 - 11 narrative-tour story pages on disk, all wired into Tours 1–11
@@ -38,7 +38,7 @@ Re-prime this list after the next Harvard / Princeton / MIT / Berkeley / Caltech
 The corpus is gesture-skewed: ~83% click/slider, 99% 2D (`audits/coverage-stats.md` per-slug table). Goal: add new gesture *types* and deploy them across concepts to break the monotony (many pages — e.g. `dynamical-systems`, `probability-theory` — are ~all `button-stepper`).
 
 - **`animated-svg-2d` (play gesture) — shipped** (#429). Self-contained play/pause + scrub timeline engine (author supplies `frame(t)`, `t∈[0,1]`). Homes: `convex-optimization §gradient-proximal` (#429), `markov-decision-processes §value-iteration` (#430), `combinatorial-optimization §lp-simplex` (simplex walk). Roll out to more "watch it evolve" concepts where it isn't duplicative — note: parametric-plot time-sliders already *are* manual animations, so prefer concepts whose existing toy is static/structural/algebraic.
-- **`sketch-curve-2d` (draw gesture) — shipped.** Self-contained "draw the input" engine: drag to sketch `f(x)`, a live transform responds (author supplies `draw(ys)`). Homes: `real-analysis §bounded-variation` (running total variation, #431), `convex-optimization §convex-sets-functions` (convexity test / convex envelope, #432). Roll out to derivative / running-integral (FTC) / running-sup transforms.
+- **`sketch-curve-2d` (draw gesture) — shipped.** Self-contained "draw the input" engine: drag to sketch `f(x)`, a live transform responds (author supplies `draw(ys)`). Homes: `real-analysis §bounded-variation` (running total variation, #431), `convex-optimization §convex-sets-functions` (convexity test / convex envelope, #432), `real-analysis §ftc-both-parts` (running integral F(x)=∫₀ˣ f at true scale, F′=f live). Still open: derivative and running-sup transforms.
 - **Next gesture types to consider:** a click-to-seed phase-field/trajectory integrator; a graph-edit (add/remove node+edge) engine. Each a self-contained shared renderer, jsdom-safe (no rAF/getScreenCTM at init), pattern per `widgets/animated-svg-2d` / `widgets/sketch-curve-2d`.
 - **Close the 5 span-gaps** (above) with a correspondence/dictionary widget while broadening adoption of the existing `draggable-points-2d` (3 instances) and `surface-3d` (5) renderers.
 
