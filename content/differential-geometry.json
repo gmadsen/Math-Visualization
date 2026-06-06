@@ -85,7 +85,7 @@
             "svgId": "osc-circle-svg",
             "outputId": "osc-circle-out",
             "title": "The osculating circle: drag along the curve, watch the curvature",
-            "hint": "drag the point $P$ around the ellipse. The pink <strong>osculating circle</strong> is the circle that best hugs the curve at $P$ — it matches the position, tangent, and curvature there (second-order contact). Its radius is the <strong>radius of curvature</strong> $\\rho = 1/|\\kappa|$: small where the curve bends sharply (the pointed ends of the major axis), large where it flattens (the broad top and bottom), and $\\infty$ on a straight line. The centre of the circle is the <strong>centre of curvature</strong>; as $P$ moves, that centre traces the curve's <em>evolute</em>.",
+            "hint": "drag the point $P$ around the ellipse. The pink <strong>osculating circle</strong> is the circle that best hugs the curve at $P$ — it matches the position, tangent, and curvature there (second-order contact). Its radius is the <strong>radius of curvature</strong> $\\rho = 1/|\\kappa|$: small where the curve bends sharply (the pointed ends of the major axis), large where it flattens (the broad top and bottom), and $\\infty$ on a straight line. The centre of the circle is the <strong>centre of curvature</strong>; the violet dashed curve is its locus over all of $P$ — the curve's <em>evolute</em> (here an astroid).",
             "svgTitle": "Drag a point along an ellipse; the osculating circle (radius 1/|kappa|) grows and shrinks with the curvature.",
             "viewBox": "0 0 600 460",
             "svgWidth": 600,
@@ -98,6 +98,7 @@
             "t1": 6.283185307179586,
             "closed": true,
             "initialT": 0.7,
+            "showEvolute": true,
             "bodyScript": "function curve(t){ return [2*Math.cos(t), 1.2*Math.sin(t)]; }"
           }
         },

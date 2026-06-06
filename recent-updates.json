@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06T08:56:51.139Z",
+  "generated": "2026-06-06T09:07:28.074Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -15,7 +15,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-06-06",
-      "message": "feat(widgets): eigenvector-explorer-2d — a new \"find the eigenvectors by dragging\" gesture (#453)"
+      "message": "feat(widgets): osculating-circle-2d — a new \"drag along a curve, watch κ\" gesture"
     },
     {
       "slug": "elliptic-curves",

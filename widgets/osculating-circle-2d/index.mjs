@@ -38,14 +38,14 @@ export function renderScript(params) {
     widgetId, svgId, outputId, bodyScript,
     x0 = -3.2, x1 = 3.2, y0 = -2.6, y1 = 2.6,
     t0 = 0, t1 = 6.283185307179586,
-    closed = true, initialT = 0.6,
+    closed = true, initialT = 0.6, showEvolute = false,
   } = params;
   return (
     `<script>\n` +
     `(function(){\n` +
     `  const svg=$('#${svgId}'), out=$('#${outputId}');\n` +
     `  const G=SVG('g'); svg.appendChild(G);\n` +
-    `  const X0=${x0}, X1=${x1}, Y0=${y0}, Y1=${y1}, T0=${t0}, T1=${t1}, CLOSED=${closed};\n` +
+    `  const X0=${x0}, X1=${x1}, Y0=${y0}, Y1=${y1}, T0=${t0}, T1=${t1}, CLOSED=${closed}, SHOWEVOLUTE=${showEvolute};\n` +
     `  const _vb=(svg.getAttribute('viewBox')||'0 0 600 460').split(/\\s+/).map(Number);\n` +
     `  const W=_vb[2], Hh=_vb[3], padL=14, padR=14, padT=12, padB=12;\n` +
     `  const bx0=padL, bx1=W-padR, by0=Hh-padB, by1=padT;\n` +
@@ -65,8 +65,17 @@ export function renderScript(params) {
     `    const ddx=(pp[0]-2*p[0]+pm[0])/(h*h), ddy=(pp[1]-2*p[1]+pm[1])/(h*h);\n` +
     `    const sp=Math.hypot(dx,dy), kap=(dx*ddy-dy*ddx)/Math.pow(sp,3);\n` +
     `    return {p:p, dx:dx, dy:dy, sp:sp, kap:kap}; }\n` +
+    `  function centreOfCurv(t){ const gg=geom(t); if(!isFinite(gg.kap)||Math.abs(gg.kap)<1e-6) return null;\n` +
+    `    const ux=gg.dx/gg.sp, uy=gg.dy/gg.sp; return [gg.p[0]+(1/gg.kap)*(-uy), gg.p[1]+(1/gg.kap)*ux]; }\n` +
     `  function render(){\n` +
     `    while(G.firstChild)G.removeChild(G.firstChild);\n` +
+    `    // evolute (locus of centres of curvature) — drawn faint, broken where it flies off (inflections)\n` +
+    `    if(SHOWEVOLUTE){ let ed='', pen=false, M=600, mx=(X1-X0), my=(Y1-Y0);\n` +
+    `      for(let i=0;i<=M;i++){ const t=T0+(T1-T0)*i/M, c=centreOfCurv(t);\n` +
+    `        if(c && c[0]>X0-mx && c[0]<X1+mx && c[1]>Y0-my && c[1]<Y1+my){ ed+=(pen?'L':'M')+PX(c[0]).toFixed(1)+' '+PY(c[1]).toFixed(1)+' '; pen=true; } else pen=false; }\n` +
+    `      if(ed) G.appendChild(SVG('path',{d:ed,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'2 4',opacity:0.8}));\n` +
+    `      var le=SVG('text',{x:PX(cxD)+4,y:PY(cyD)-6,'font-size':12,fill:'var(--violet)',opacity:0.9}); le.textContent='evolute'; G.appendChild(le);\n` +
+    `    }\n` +
     `    // curve\n` +
     `    let d='', N=480; for(let i=0;i<=N;i++){ const t=T0+(T1-T0)*i/N, q=curve(t); d+=(i?'L':'M')+PX(q[0]).toFixed(1)+' '+PY(q[1]).toFixed(1)+' '; } if(CLOSED) d+='Z';\n` +
     `    G.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--green)','stroke-width':2.5}));\n` +
@@ -74,7 +83,6 @@ export function renderScript(params) {
     `    const tx=g.dx/sp, ty=g.dy/sp, nx=-ty, ny=tx; // unit tangent + left normal\n` +
     `    // osculating circle: centre = P + (1/kappa)*N_left (signed)\n` +
     `    const ccx=p[0]+(1/kap)*nx, ccy=p[1]+(1/kap)*ny;\n` +
-    `    const Rpx=rho*(bx1-bx0)/(X1-X0); // pixel radius (x and y scales equal if window aspect matches viewbox)\n` +
     `    if(isFinite(rho) && rho<40){\n` +
     `      G.appendChild(SVG('circle',{cx:PX(ccx),cy:PY(ccy),r:Math.abs(PX(ccx+rho)-PX(ccx)),fill:'var(--pink)','fill-opacity':0.06,stroke:'var(--pink)','stroke-width':2}));\n` +
     `      G.appendChild(SVG('circle',{cx:PX(ccx),cy:PY(ccy),r:3,fill:'var(--pink)'}));\n` +

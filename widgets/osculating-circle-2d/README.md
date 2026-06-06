@@ -43,6 +43,7 @@ second-order contact of the best-fit circle.
 | `t0` / `t1` | | 0 / 2π | curve parameter range |
 | `closed` | | true | whether to close the drawn curve path |
 | `initialT` | | 0.6 | initial parameter of the draggable point |
+| `showEvolute` | | false | trace the evolute (locus of centres of curvature) as a faint violet dashed curve, broken near inflections |
 | `resetLabel` | | `↺ Reset` | Reset control label |
 
 ## Usage

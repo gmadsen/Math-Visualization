@@ -36,6 +36,7 @@
     "t1": { "type": "number", "description": "Curve parameter at the end. Default 6.283185307179586 (2 pi).", "default": 6.283185307179586 },
     "closed": { "type": "boolean", "description": "Whether the curve is closed (t0 and t1 join). Affects drawing only. Default true.", "default": true },
     "initialT": { "type": "number", "description": "Initial parameter of the draggable point. Default 0.6.", "default": 0.6 },
+    "showEvolute": { "type": "boolean", "description": "Whether to trace the evolute — the locus of centres of curvature as P sweeps the whole curve — as a faint dashed violet curve. The path is broken where the centre flies off (near inflections). Default false.", "default": false },
     "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" },
     "bodyScript": {
       "type": "string",

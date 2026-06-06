@@ -775,7 +775,7 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
 <p>A simple closed plane curve has at least four <strong>vertices</strong> — points where $\kappa'(s) = 0$, i.e. local extrema of $\kappa$. The classical version (Mukhopadhyaya, 1909) covers convex ovals; Osserman (1985) extended it to <em>all</em> simple closed plane curves, convex or not. Circles achieve infinitely many (every point is a vertex); generic ovals have exactly four. The vertex theorem is an early example of a <em>global</em> geometric statement: local behaviour of curvature constrained by the topology of being a simple closed curve.</p>
 
 <div class="widget" id="w-osc-circle">
-  <div class="hd"><div class="ttl">The osculating circle: drag along the curve, watch the curvature</div><div class="hint">drag the point $P$ around the ellipse. The pink <strong>osculating circle</strong> is the circle that best hugs the curve at $P$ — it matches the position, tangent, and curvature there (second-order contact). Its radius is the <strong>radius of curvature</strong> $\rho = 1/|\kappa|$: small where the curve bends sharply (the pointed ends of the major axis), large where it flattens (the broad top and bottom), and $\infty$ on a straight line. The centre of the circle is the <strong>centre of curvature</strong>; as $P$ moves, that centre traces the curve's <em>evolute</em>.</div></div>
+  <div class="hd"><div class="ttl">The osculating circle: drag along the curve, watch the curvature</div><div class="hint">drag the point $P$ around the ellipse. The pink <strong>osculating circle</strong> is the circle that best hugs the curve at $P$ — it matches the position, tangent, and curvature there (second-order contact). Its radius is the <strong>radius of curvature</strong> $\rho = 1/|\kappa|$: small where the curve bends sharply (the pointed ends of the major axis), large where it flattens (the broad top and bottom), and $\infty$ on a straight line. The centre of the circle is the <strong>centre of curvature</strong>; the violet dashed curve is its locus over all of $P$ — the curve's <em>evolute</em> (here an astroid).</div></div>
   <svg id="osc-circle-svg" viewBox="0 0 600 460" width="600" height="460" style="touch-action:none;cursor:grab;max-width:600px;overflow:hidden"><title>Drag a point along an ellipse; the osculating circle (radius 1/|kappa|) grows and shrinks with the curvature.</title></svg>
   <div class="row">
     <button id="w-osc-circle-reset" type="button">↺ Reset</button>
@@ -786,7 +786,7 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
 (function(){
   const svg=$('#osc-circle-svg'), out=$('#osc-circle-out');
   const G=SVG('g'); svg.appendChild(G);
-  const X0=-3.2, X1=3.2, Y0=-2.45, Y1=2.45, T0=0, T1=6.283185307179586, CLOSED=true;
+  const X0=-3.2, X1=3.2, Y0=-2.45, Y1=2.45, T0=0, T1=6.283185307179586, CLOSED=true, SHOWEVOLUTE=true;
   const _vb=(svg.getAttribute('viewBox')||'0 0 600 460').split(/\s+/).map(Number);
   const W=_vb[2], Hh=_vb[3], padL=14, padR=14, padT=12, padB=12;
   const bx0=padL, bx1=W-padR, by0=Hh-padB, by1=padT;
@@ -806,8 +806,17 @@ function curve(t){ return [2*Math.cos(t), 1.2*Math.sin(t)]; }
     const ddx=(pp[0]-2*p[0]+pm[0])/(h*h), ddy=(pp[1]-2*p[1]+pm[1])/(h*h);
     const sp=Math.hypot(dx,dy), kap=(dx*ddy-dy*ddx)/Math.pow(sp,3);
     return {p:p, dx:dx, dy:dy, sp:sp, kap:kap}; }
+  function centreOfCurv(t){ const gg=geom(t); if(!isFinite(gg.kap)||Math.abs(gg.kap)<1e-6) return null;
+    const ux=gg.dx/gg.sp, uy=gg.dy/gg.sp; return [gg.p[0]+(1/gg.kap)*(-uy), gg.p[1]+(1/gg.kap)*ux]; }
   function render(){
     while(G.firstChild)G.removeChild(G.firstChild);
+    // evolute (locus of centres of curvature) — drawn faint, broken where it flies off (inflections)
+    if(SHOWEVOLUTE){ let ed='', pen=false, M=600, mx=(X1-X0), my=(Y1-Y0);
+      for(let i=0;i<=M;i++){ const t=T0+(T1-T0)*i/M, c=centreOfCurv(t);
+        if(c && c[0]>X0-mx && c[0]<X1+mx && c[1]>Y0-my && c[1]<Y1+my){ ed+=(pen?'L':'M')+PX(c[0]).toFixed(1)+' '+PY(c[1]).toFixed(1)+' '; pen=true; } else pen=false; }
+      if(ed) G.appendChild(SVG('path',{d:ed,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'2 4',opacity:0.8}));
+      var le=SVG('text',{x:PX(cxD)+4,y:PY(cyD)-6,'font-size':12,fill:'var(--violet)',opacity:0.9}); le.textContent='evolute'; G.appendChild(le);
+    }
     // curve
     let d='', N=480; for(let i=0;i<=N;i++){ const t=T0+(T1-T0)*i/N, q=curve(t); d+=(i?'L':'M')+PX(q[0]).toFixed(1)+' '+PY(q[1]).toFixed(1)+' '; } if(CLOSED) d+='Z';
     G.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--green)','stroke-width':2.5}));
@@ -815,7 +824,6 @@ function curve(t){ return [2*Math.cos(t), 1.2*Math.sin(t)]; }
     const tx=g.dx/sp, ty=g.dy/sp, nx=-ty, ny=tx; // unit tangent + left normal
     // osculating circle: centre = P + (1/kappa)*N_left (signed)
     const ccx=p[0]+(1/kap)*nx, ccy=p[1]+(1/kap)*ny;
-    const Rpx=rho*(bx1-bx0)/(X1-X0); // pixel radius (x and y scales equal if window aspect matches viewbox)
     if(isFinite(rho) && rho<40){
       G.appendChild(SVG('circle',{cx:PX(ccx),cy:PY(ccy),r:Math.abs(PX(ccx+rho)-PX(ccx)),fill:'var(--pink)','fill-opacity':0.06,stroke:'var(--pink)','stroke-width':2}));
       G.appendChild(SVG('circle',{cx:PX(ccx),cy:PY(ccy),r:3,fill:'var(--pink)'}));
