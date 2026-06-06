@@ -1388,7 +1388,66 @@ the characteristic function of $\mathcal{N}(0,1)$. Apply Lévy's continuity theo
     <button id="clt-resample">resample 2000 trials</button>
   </div>
   <div class="readout" id="clt-out"></div>
+</div><div class="widget" id="w-dml">
+  <div class="hd"><div class="ttl">de Moivre–Laplace: the binomial becomes the bell</div><div class="hint">press play to grow the number of fair coin flips $n$. The cyan bars are the exact distribution of the standardized count $\frac{S_n - n/2}{\sqrt{n}/2}$ for $S_n\sim\mathrm{Binomial}(n,\tfrac12)$; the yellow curve is the standard normal $\mathcal N(0,1)$. As $n$ grows the bars settle onto the bell — de Moivre–Laplace (1733), the original central limit theorem. (This is the *exact* discrete distribution converging, the deterministic complement to the sampling simulator above.)</div></div>
+  <svg id="dml-svg" viewBox="0 0 640 380" width="640" height="380"><title>Animated de Moivre–Laplace: standardized Binomial(n,1/2) PMF converging to the standard normal as n grows.</title></svg>
+  <div class="row">
+    <button id="w-dml-play" type="button" aria-pressed="false">▶ Play</button>
+    <input id="w-dml-scrub" type="range" min="0" max="38" value="0" step="1" aria-label="Scrub timeline" style="flex:1">
+  </div>
+  <div class="readout" id="dml-out">press play to grow n and watch the binomial standardize to the bell</div>
 </div>
+<script>
+(function(){
+  const svg=$('#dml-svg'), out=$('#dml-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const STEPS=38, DUR=6000, LOOP=true;
+  // ---- author frame(t), t in [0,1] (clears+fills G, writes out) ----
+function frame(t){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  var W=640,H=380,bx0=50,bx1=W-20,by0=H-40,by1=24;
+  var ZMIN=-4,ZMAX=4,DMAX=0.46;
+  function PX(z){ return bx0+(bx1-bx0)*(z-ZMIN)/(ZMAX-ZMIN); }
+  function PY(dn){ return by0+(by1-by0)*dn/DMAX; }
+  G.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by0,stroke:'var(--mute)','stroke-width':1,opacity:0.5}));
+  G.appendChild(SVG('line',{x1:PX(0),y1:by0,x2:PX(0),y2:by1,stroke:'var(--mute)','stroke-width':1,opacity:0.25}));
+  var n=2+Math.round(t*38), sigma=Math.sqrt(n)/2, mu=n/2;
+  var P=new Array(n+1); P[0]=Math.pow(0.5,n);
+  for(var k=1;k<=n;k++) P[k]=P[k-1]*(n-k+1)/k;
+  var pxPerZ=(bx1-bx0)/(ZMAX-ZMIN), bw=pxPerZ/sigma;
+  for(var k2=0;k2<=n;k2++){ var z=(k2-mu)/sigma; if(z<ZMIN||z>ZMAX) continue;
+    var hh=P[k2]*sigma, px=PX(z), py=PY(hh);
+    G.appendChild(SVG('rect',{x:(px-bw/2).toFixed(1),y:py.toFixed(1),width:Math.max(bw-1,1).toFixed(1),height:(by0-py).toFixed(1),fill:'var(--cyan)',opacity:0.55})); }
+  var dp='';for(var i=0;i<=120;i++){ var zz=ZMIN+(ZMAX-ZMIN)*i/120, dn=Math.exp(-zz*zz/2)/Math.sqrt(2*Math.PI); dp+=(i?'L':'M')+PX(zz).toFixed(1)+' '+PY(dn).toFixed(1)+' '; }
+  G.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--yellow)','stroke-width':2.5}));
+  G.appendChild(SVG('line',{x1:bx1-150,y1:by1+6,x2:bx1-128,y2:by1+6,stroke:'var(--cyan)','stroke-width':6,opacity:0.55}));
+  var lg1=SVG('text',{x:bx1-122,y:by1+10,'font-size':12,fill:'var(--mute)'});lg1.textContent='Binomial(n,\u00bd) standardized';G.appendChild(lg1);
+  G.appendChild(SVG('line',{x1:bx1-150,y1:by1+24,x2:bx1-128,y2:by1+24,stroke:'var(--yellow)','stroke-width':2.5}));
+  var lg2=SVG('text',{x:bx1-122,y:by1+28,'font-size':12,fill:'var(--mute)'});lg2.textContent='\ud835\udca9(0,1)';G.appendChild(lg2);
+  out.innerHTML='n = '+n+' fair coin flips \u00b7 exact standardized Binomial(n,\u00bd) bars vs \ud835\udca9(0,1) \u2014 de Moivre\u2013Laplace, the original CLT';
+}
+  // ---- play engine (supplied by animated-svg-2d) ----
+  const playBtn=$('#w-dml-play'), scrub=$('#w-dml-scrub');
+  const PLAY="▶ Play", PAUSE="⏸ Pause";
+  const hasRAF=typeof window.requestAnimationFrame==='function';
+  const raf=hasRAF?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};
+  const craf=hasRAF&&typeof window.cancelAnimationFrame==='function'?window.cancelAnimationFrame.bind(window):clearTimeout;
+  let t=0, playing=false, id=0, last=0;
+  function setT(v){ t=Math.max(0,Math.min(1,v)); scrub.value=Math.round(t*STEPS); frame(t); }
+  function tick(now){ if(!playing) return; if(!last) last=now;
+    const dt=(now-last)/DUR; last=now; let nt=t+dt;
+    if(nt>=1){ if(LOOP){ nt=nt-Math.floor(nt); } else { setT(1); pause(); return; } }
+    setT(nt); id=raf(tick); }
+  function play(){ if(playing) return; if(t>=1) t=0; playing=true; last=0;
+    playBtn.textContent=PAUSE; playBtn.setAttribute('aria-pressed','true'); id=raf(tick); }
+  function pause(){ if(!playing) return; playing=false; if(id) craf(id);
+    playBtn.textContent=PLAY; playBtn.setAttribute('aria-pressed','false'); }
+  playBtn.addEventListener('click',function(){ playing?pause():play(); });
+  scrub.addEventListener('input',function(){ pause(); setT((+scrub.value)/STEPS); });
+  setT(0);
+})();
+</script>
+
 
 <div class="quiz" data-concept="central-limit-theorem"></div>
 <!-- backlinks-auto-begin -->

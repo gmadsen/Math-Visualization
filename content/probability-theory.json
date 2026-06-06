@@ -650,6 +650,39 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "animated-svg-2d",
+          "params": {
+            "widgetId": "w-dml",
+            "svgId": "dml-svg",
+            "outputId": "dml-out",
+            "title": "de Moivre–Laplace: the binomial becomes the bell",
+            "hint": "press play to grow the number of fair coin flips $n$. The cyan bars are the exact distribution of the standardized count $\\frac{S_n - n/2}{\\sqrt{n}/2}$ for $S_n\\sim\\mathrm{Binomial}(n,\\tfrac12)$; the yellow curve is the standard normal $\\mathcal N(0,1)$. As $n$ grows the bars settle onto the bell — de Moivre–Laplace (1733), the original central limit theorem. (This is the *exact* discrete distribution converging, the deterministic complement to the sampling simulator above.)",
+            "svgTitle": "Animated de Moivre–Laplace: standardized Binomial(n,1/2) PMF converging to the standard normal as n grows.",
+            "viewBox": "0 0 640 380",
+            "svgWidth": 640,
+            "svgHeight": 380,
+            "steps": 38,
+            "durationMs": 6000,
+            "loop": true,
+            "autoplay": false,
+            "outputInitial": "press play to grow n and watch the binomial standardize to the bell",
+            "bodyScript": "function frame(t){\n  while(G.firstChild)G.removeChild(G.firstChild);\n  var W=640,H=380,bx0=50,bx1=W-20,by0=H-40,by1=24;\n  var ZMIN=-4,ZMAX=4,DMAX=0.46;\n  function PX(z){ return bx0+(bx1-bx0)*(z-ZMIN)/(ZMAX-ZMIN); }\n  function PY(dn){ return by0+(by1-by0)*dn/DMAX; }\n  G.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by0,stroke:'var(--mute)','stroke-width':1,opacity:0.5}));\n  G.appendChild(SVG('line',{x1:PX(0),y1:by0,x2:PX(0),y2:by1,stroke:'var(--mute)','stroke-width':1,opacity:0.25}));\n  var n=2+Math.round(t*38), sigma=Math.sqrt(n)/2, mu=n/2;\n  var P=new Array(n+1); P[0]=Math.pow(0.5,n);\n  for(var k=1;k<=n;k++) P[k]=P[k-1]*(n-k+1)/k;\n  var pxPerZ=(bx1-bx0)/(ZMAX-ZMIN), bw=pxPerZ/sigma;\n  for(var k2=0;k2<=n;k2++){ var z=(k2-mu)/sigma; if(z<ZMIN||z>ZMAX) continue;\n    var hh=P[k2]*sigma, px=PX(z), py=PY(hh);\n    G.appendChild(SVG('rect',{x:(px-bw/2).toFixed(1),y:py.toFixed(1),width:Math.max(bw-1,1).toFixed(1),height:(by0-py).toFixed(1),fill:'var(--cyan)',opacity:0.55})); }\n  var dp='';for(var i=0;i<=120;i++){ var zz=ZMIN+(ZMAX-ZMIN)*i/120, dn=Math.exp(-zz*zz/2)/Math.sqrt(2*Math.PI); dp+=(i?'L':'M')+PX(zz).toFixed(1)+' '+PY(dn).toFixed(1)+' '; }\n  G.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--yellow)','stroke-width':2.5}));\n  G.appendChild(SVG('line',{x1:bx1-150,y1:by1+6,x2:bx1-128,y2:by1+6,stroke:'var(--cyan)','stroke-width':6,opacity:0.55}));\n  var lg1=SVG('text',{x:bx1-122,y:by1+10,'font-size':12,fill:'var(--mute)'});lg1.textContent='Binomial(n,\\u00bd) standardized';G.appendChild(lg1);\n  G.appendChild(SVG('line',{x1:bx1-150,y1:by1+24,x2:bx1-128,y2:by1+24,stroke:'var(--yellow)','stroke-width':2.5}));\n  var lg2=SVG('text',{x:bx1-122,y:by1+28,'font-size':12,fill:'var(--mute)'});lg2.textContent='\\ud835\\udca9(0,1)';G.appendChild(lg2);\n  out.innerHTML='n = '+n+' fair coin flips \\u00b7 exact standardized Binomial(n,\\u00bd) bars vs \\ud835\\udca9(0,1) \\u2014 de Moivre\\u2013Laplace, the original CLT';\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-dml"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
