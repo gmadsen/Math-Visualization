@@ -43,7 +43,7 @@
         "required": ["label", "expr", "mu0", "mu1"],
         "properties": {
           "label": { "type": "string", "description": "Dropdown label, e.g. 'saddle-node:  x' = mu - x^2'. Plain text (no LaTeX $) so the native <option> renders it." },
-          "expr": { "type": "string", "description": "JS expression for f(x; mu) in terms of `x` and `mu`, e.g. 'mu - x*x', 'mu*x - x*x', 'mu*x - x*x*x'. Compiled with new Function at render time." },
+          "expr": { "type": "string", "description": "A JavaScript expression (NOT LaTeX or Python) for f(x; mu) in terms of the variables `x` and `mu`, evaluated with Math.* in scope — e.g. 'mu - x*x', 'mu*x - x*x', 'mu*x - x*x*x', 'mu*Math.sin(x) - x'. Compiled with new Function at render time; author/build-time content only, never runtime user input." },
           "mu0": { "type": "number", "description": "Left edge of the mu-axis." },
           "mu1": { "type": "number", "description": "Right edge of the mu-axis." },
           "muInit": { "type": "number", "description": "Initial mu (defaults to the midpoint of [mu0, mu1])." },
