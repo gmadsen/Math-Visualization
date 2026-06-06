@@ -653,7 +653,62 @@ The error is $O(h^2)$: doubling $n$ shrinks it by $4$. <strong>Simpson's rule</s
   sel.addEventListener("change", render);
   render();
 })();
+</script><div class="widget" id="w-quad-anim">
+  <div class="hd"><div class="ttl">Watch quadrature converge: trapezoids filling the area</div><div class="hint">press play to add panels. The yellow trapezoids approximate $\int_0^1 \sin(\pi x)\,dx = 2/\pi$; as the number of panels $n$ grows they hug the curve and the sum converges. The error falls like $1/n^2$ for the trapezoid rule — the second-order accuracy the log–log plot above measures.</div></div>
+  <svg id="quad-anim-svg" viewBox="0 0 640 380" width="640" height="380"><title>Animated trapezoid-rule quadrature of sin(pi x) on [0,1]; panels refine and the sum converges to 2/pi as n grows.</title></svg>
+  <div class="row">
+    <button id="w-quad-anim-play" type="button" aria-pressed="false">▶ Play</button>
+    <input id="w-quad-anim-scrub" type="range" min="0" max="23" value="0" step="1" aria-label="Scrub timeline" style="flex:1">
+  </div>
+  <div class="readout" id="quad-anim-out">press play to add panels and watch the trapezoid sum converge to 2/π</div>
+</div>
+<script>
+(function(){
+  const svg=$('#quad-anim-svg'), out=$('#quad-anim-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const STEPS=23, DUR=5000, LOOP=true;
+  // ---- author frame(t), t in [0,1] (clears+fills G, writes out) ----
+function frame(t){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  var W=640,H=380,bx0=46,bx1=W-20,by0=H-36,by1=24;
+  var A=0,B=1,YMAX=1.12;
+  function f(x){ return Math.sin(Math.PI*x); }
+  function PX(x){ return bx0+(bx1-bx0)*(x-A)/(B-A); }
+  function PY(y){ return by0+(by1-by0)*y/YMAX; }
+  G.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by0,stroke:'var(--mute)','stroke-width':1,opacity:0.5}));
+  var n=1+Math.round(t*23), h=(B-A)/n;
+  var Tsum=0;
+  for(var i=0;i<n;i++){ var xa=A+i*h, xb=xa+h, ya=f(xa), yb=f(xb);
+    Tsum+=0.5*(ya+yb)*h;
+    var d='M'+PX(xa).toFixed(1)+' '+PY(0).toFixed(1)+' L'+PX(xa).toFixed(1)+' '+PY(ya).toFixed(1)+' L'+PX(xb).toFixed(1)+' '+PY(yb).toFixed(1)+' L'+PX(xb).toFixed(1)+' '+PY(0).toFixed(1)+' Z';
+    G.appendChild(SVG('path',{d:d,fill:'var(--yellow)','fill-opacity':0.22,stroke:'var(--yellow)','stroke-width':1})); }
+  var cp='';for(var k=0;k<=160;k++){ var x=A+(B-A)*k/160; cp+=(k?'L':'M')+PX(x).toFixed(1)+' '+PY(f(x)).toFixed(1)+' '; }
+  G.appendChild(SVG('path',{d:cp,fill:'none',stroke:'var(--cyan)','stroke-width':2.5}));
+  var TRUE=2/Math.PI, err=Math.abs(Tsum-TRUE);
+  out.innerHTML='n = '+n+' panel'+(n===1?'':'s')+' \u00b7 trapezoid \u2248 <b>'+Tsum.toFixed(5)+'</b> \u00b7 true \u222b\u2080\u00b9 sin(\u03c0x) dx = 2/\u03c0 \u2248 0.63662 \u00b7 error \u2248 '+err.toExponential(1)+' (falls like 1/n\u00b2)';
+}
+  // ---- play engine (supplied by animated-svg-2d) ----
+  const playBtn=$('#w-quad-anim-play'), scrub=$('#w-quad-anim-scrub');
+  const PLAY="▶ Play", PAUSE="⏸ Pause";
+  const hasRAF=typeof window.requestAnimationFrame==='function';
+  const raf=hasRAF?window.requestAnimationFrame.bind(window):function(cb){return setTimeout(function(){cb(Date.now());},16);};
+  const craf=hasRAF&&typeof window.cancelAnimationFrame==='function'?window.cancelAnimationFrame.bind(window):clearTimeout;
+  let t=0, playing=false, id=0, last=0;
+  function setT(v){ t=Math.max(0,Math.min(1,v)); scrub.value=Math.round(t*STEPS); frame(t); }
+  function tick(now){ if(!playing) return; if(!last) last=now;
+    const dt=(now-last)/DUR; last=now; let nt=t+dt;
+    if(nt>=1){ if(LOOP){ nt=nt-Math.floor(nt); } else { setT(1); pause(); return; } }
+    setT(nt); id=raf(tick); }
+  function play(){ if(playing) return; if(t>=1) t=0; playing=true; last=0;
+    playBtn.textContent=PAUSE; playBtn.setAttribute('aria-pressed','true'); id=raf(tick); }
+  function pause(){ if(!playing) return; playing=false; if(id) craf(id);
+    playBtn.textContent=PLAY; playBtn.setAttribute('aria-pressed','false'); }
+  playBtn.addEventListener('click',function(){ playing?pause():play(); });
+  scrub.addEventListener('input',function(){ pause(); setT((+scrub.value)/STEPS); });
+  setT(0);
+})();
 </script>
+
 
 <p>Trapezoid lines have slope $-2$ on the log–log plot — confirming the $O(h^2) = O(N^{-2})$ rate. Simpson's slope is $-4$. Gauss–Legendre with $n$ nodes integrates polynomials of degree $\le 2n-1$ exactly, so on $x^4$ (degree $4$), $n=4$ Gauss nodes nail it to machine precision while trapezoid still has $\sim 10^{-5}$ error at $N=1024$. The Gaussian advantage is worth a thousand panels.</p>
 
