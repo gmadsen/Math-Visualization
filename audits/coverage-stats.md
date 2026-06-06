@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1638** (registry-driven: 1638, inline: 0)
+- Widgets: **1639** (registry-driven: 1639, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -32,13 +32,13 @@ page has wired one in yet.
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
+| `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 4 | dynamical-systems, mathematical-biology |
 | `animated-svg-2d` | animated-svg-2d | play | 2d | 3 | combinatorial-optimization, convex-optimization, markov-decision-processes |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | additive-number-theory, category-theory |
 | `draggable-points-2d` | draggable-points-2d | drag | 2d | 3 | complex-analysis, convex-geometry, projective-plane |
 | `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 3 | extremal-combinatorics, spectral-graph-theory |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 3 | algebraic-topology, analytic-number-theory, mathematical-chaos |
 | `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 3 | convex-optimization, real-analysis |
-| `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 3 | dynamical-systems |
 | `advanced-complex-analysis-picard` | advanced-complex-analysis-picard | interact | 2d | 2 | advanced-complex-analysis |
 | `counterexample-explorer` | counterexample-explorer | select | 2d | 2 | heights-arithmetic-geometry, point-set-topology |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 2 | dynamical-systems, mathematical-chaos |
@@ -747,10 +747,10 @@ page has wired one in yet.
 ### Probability & statistics
 
 - Topics: **11**, concepts: **76**
-- Widgets: **76** (registry-driven: 76, inline: 0)
-  - by family: slider-readout: 16, button-stepper: 15, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, prob-convergence-modes: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, info-aep-typical-set: 1, info-cramer-rao: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
-  - by dimension: 2d: 76
-  - by gesture: slider: 44, click: 22, step: 5, input: 2, button: 2, toggle: 1
+- Widgets: **77** (registry-driven: 77, inline: 0)
+  - by family: slider-readout: 16, button-stepper: 15, vector-field-flow-2d: 1, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, prob-convergence-modes: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, info-aep-typical-set: 1, info-cramer-rao: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
+  - by dimension: 2d: 77
+  - by gesture: slider: 44, click: 22, step: 5, input: 2, button: 2, click-seed: 1, toggle: 1
 - Quizzes: **265** (v1: 228, hard: 24, expert: 13)
   - by type: mcq: 167, numeric: 70, multi-select: 10, matching: 5, spot-the-error: 5, ordering: 3, proof-completion: 3, construction: 1, complex: 1
 
@@ -844,7 +844,7 @@ page has wired one in yet.
 - `brill-noether` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `coding-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `conformal-and-cr-geometry` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `mathematical-biology` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `mathematical-biology` (Probability & statistics) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
 - `spectral-methods-data` (Learning theory & data science) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `computational-molecular-biology` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `optimal-control-and-dynamic-programming` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
