@@ -43,7 +43,7 @@
         "required": ["label", "key"],
         "properties": {
           "label": { "type": "string", "description": "Button text, e.g. 'observe Heads'." },
-          "key": { "type": "string", "description": "Identifier passed to like(key, theta), e.g. 'H'." },
+          "key": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$", "description": "Identifier passed to like(key, theta), e.g. 'H'. Restricted to selector-safe characters [A-Za-z0-9_-] because it is interpolated into the action button's DOM id." },
           "color": { "type": "string", "description": "Optional CSS color token for the button accent / tally." }
         }
       }
