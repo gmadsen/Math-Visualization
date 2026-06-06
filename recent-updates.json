@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06T16:54:15.613Z",
+  "generated": "2026-06-06T21:47:09.880Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -23,7 +23,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-06-06",
-      "message": "feat(widgets): bifurcation-1d — a new \"turn the dial\" gesture for 1-D normal forms"
+      "message": "feat(widgets): bifurcation-1d — a new \"turn the dial\" gesture for 1-D normal forms (#456)"
     },
     {
       "slug": "elliptic-curves",
