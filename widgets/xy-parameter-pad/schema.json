@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/xy-parameter-pad/schema.json",
+  "title": "xy-parameter-pad widget params",
+  "description": "A self-contained 'two-parameter scrub' engine: the reader drags ONE puck across a labeled 2D pad that drives two coupled parameters at once, over an author-defined regime map. The engine grid-samples an author `classify(x,y)` over the pad to paint the discrete regime regions (so the codim-1 walls between regimes — which two sequential sliders can never land on — are visible at a glance), draws optional author overlays (critical points, phase boundaries) via `decorate(D)`, draws the draggable puck, and writes the live (x,y), the current regime label, and an optional author `readout(x,y)` (e.g. a derived order parameter) into the readout. This replaces the corpus's pervasive two-coupled-slider pattern with direct manipulation of parameter space as a surface. The renderer owns the grid shading, overlay hosting, the drag gesture, and the readout; the regimes/classification/derived quantities are author-supplied. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+  "meta": {
+    "family": "xy-parameter-pad",
+    "dimension": "2d",
+    "gesture": "two-param-scrub",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "regimes",
+    "bodyScript",
+    "x0",
+    "x1",
+    "y0",
+    "y1"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout the engine writes (x,y), regime, and derived quantities into." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the puck across the pad." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 560 440'.", "default": "0 0 560 440" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 560.", "default": 560 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 440.", "default": 440 },
+    "x0": { "type": "number", "description": "Left edge value of the x-parameter." },
+    "x1": { "type": "number", "description": "Right edge value of the x-parameter." },
+    "y0": { "type": "number", "description": "Bottom edge value of the y-parameter." },
+    "y1": { "type": "number", "description": "Top edge value of the y-parameter." },
+    "xLabel": { "type": "string", "description": "Axis label for the x-parameter (plain text / simple symbols).", "default": "x" },
+    "yLabel": { "type": "string", "description": "Axis label for the y-parameter.", "default": "y" },
+    "xInit": { "type": "number", "description": "Initial x of the puck (defaults to midpoint)." },
+    "yInit": { "type": "number", "description": "Initial y of the puck (defaults to midpoint)." },
+    "grid": { "type": "integer", "description": "Number of shading cells along the longer axis (the other is scaled to keep cells ~square). Default 56.", "default": 56 },
+    "legendPos": { "type": "string", "enum": ["tr", "tl", "br", "bl", "none"], "description": "Where to anchor the regime legend inside the pad: top-right (default), top-left, bottom-right, bottom-left, or none. Move it off whichever corner your shaded regimes occupy.", "default": "tr" },
+    "regimes": {
+      "type": "array",
+      "description": "The regime palette, indexed by the integer classify(x,y) returns. Each {label, color}.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "color"],
+        "properties": {
+          "label": { "type": "string", "description": "Regime name shown in the readout." },
+          "color": { "type": "string", "description": "A CSS color token, e.g. var(--cyan). Used at low opacity to shade the region and at full strength in the readout." }
+        }
+      }
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS. MUST define `function classify(x,y){ return regimeIndex; }` (an integer index into `regimes`). MAY define `function value(x,y){ return number; }` (a derived quantity for the readout, computed however the author likes — closed form, iteration, etc.), `function readout(x,y){ return 'html'; }` (custom readout fragment, overrides the default value line), and `function decorate(D){ ... }` to draw static overlays where D = { add(el), SVG, PX(x), PY(y), x0,x1,y0,y1 } (e.g. critical points, phase boundaries). Evaluated once at render; must not start a timer."
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" }
+  }
+}

@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1654** (registry-driven: 1654, inline: 0)
+- Widgets: **1655** (registry-driven: 1655, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -699,6 +699,7 @@ page has wired one in yet.
 | `wav-db` | verbatim | click | 2d | 1 | wavelets |
 | `wav-dwt` | verbatim | click | 2d | 1 | wavelets |
 | `wav-tile` | verbatim | click | 2d | 1 | wavelets |
+| `xy-parameter-pad` | xy-parameter-pad | two-param-scrub | 2d | 1 | statistical-mechanics |
 | `zeta-values-mahler-measure` | zeta-values-mahler-measure | click | 2d | 1 | zeta-values |
 | `zeta-values-multiple-zeta` | zeta-values-multiple-zeta | slider | 2d | 1 | zeta-values |
 | `zfc-aleph-ladder` | zfc-aleph-ladder | slider | 2d | 1 | zfc-and-ordinals |
@@ -814,10 +815,10 @@ page has wired one in yet.
 ### Mathematical physics
 
 - Topics: **13**, concepts: **81**
-- Widgets: **83** (registry-driven: 83, inline: 0)
-  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 82, 3d: 1
-  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, select: 1
+- Widgets: **84** (registry-driven: 84, inline: 0)
+  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, xy-parameter-pad: 1, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 83, 3d: 1
+  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, two-param-scrub: 1, select: 1
 - Quizzes: **244** (v1: 244, hard: 0, expert: 0)
   - by type: mcq: 164, numeric: 32, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
 
@@ -917,7 +918,7 @@ page has wired one in yet.
 - `iwasawa-theory` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `quantum-field-theory` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `toric-varieties` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=13 (slug=13), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
