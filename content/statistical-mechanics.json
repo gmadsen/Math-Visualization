@@ -392,6 +392,41 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "xy-parameter-pad",
+          "params": {
+            "widgetId": "w-ising-pad",
+            "svgId": "ising-pad-svg",
+            "outputId": "ising-pad-out",
+            "title": "Mean-field phase diagram: scrub the (T, h) plane",
+            "hint": "drag the puck across the $(T,h)$ plane (temperature $T$ in units of $T_c$, external field $h$). The shaded regions are the <strong>phases</strong>: a high-$T$ <strong>paramagnet</strong> (no spontaneous order) and, below $T_c$, two <strong>ferromagnetic</strong> phases. The bold line at $h=0,\\ T\\lt T_c$ is the <strong>first-order coexistence line</strong> — there the two magnetized states $\\pm m_0$ are both stable, so the spontaneous magnetization jumps as you cross it; it ends at the <strong>critical point</strong> $(T_c,0)$, where the transition turns continuous. The readout reports the self-consistent mean-field magnetization $m=\\tanh\\!\\big((m+h)/T\\big)$ at the puck.",
+            "svgTitle": "Drag a puck across the temperature-field plane of the mean-field Ising model; phases are shaded, with the coexistence line and critical point marked.",
+            "x0": 0.15,
+            "x1": 2.5,
+            "y0": -1.2,
+            "y1": 1.2,
+            "xInit": 0.6,
+            "yInit": 0,
+            "xLabel": "T / Tc",
+            "yLabel": "field h",
+            "regimes": [
+              {
+                "label": "paramagnet (disordered)",
+                "color": "var(--mute)"
+              },
+              {
+                "label": "ferromagnet ↑",
+                "color": "var(--pink)"
+              },
+              {
+                "label": "ferromagnet ↓",
+                "color": "var(--cyan)"
+              }
+            ],
+            "bodyScript": "function classify(T,h){ if(T>=1) return 0; return h>=0?1:2; }\nfunction value(T,h){ var m=h>0?0.95:(h<0?-0.95:0.95); for(var i=0;i<2000;i++){ var mn=Math.tanh((m+h)/T); if(Math.abs(mn-m)<1e-7){ m=mn; break; } m=mn; } return m; }\nfunction readout(T,h){ var m=value(T,h); return 'mean-field magnetization m \\u2248 <b style=\"color:var(--yellow)\">'+(m<0?'\\u2212':'')+Math.abs(m).toFixed(3)+'</b>'; }\nfunction decorate(D){\n  D.add(D.SVG('line',{x1:D.PX(D.x0),y1:D.PY(0),x2:D.PX(1),y2:D.PY(0),stroke:'var(--ink)','stroke-width':2.5}));\n  D.add(D.SVG('circle',{cx:D.PX(1),cy:D.PY(0),r:5,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.4}));\n  var t=D.SVG('text',{x:D.PX(1)+8,y:D.PY(0)-7,'font-size':11,fill:'var(--ink)'}); t.textContent='critical point (Tc,0)'; D.add(t);\n  var t2=D.SVG('text',{x:D.PX((D.x0+1)/2),y:D.PY(0)-6,'font-size':10,fill:'var(--mute)','text-anchor':'middle'}); t2.textContent='coexistence line (1st-order)'; D.add(t2);\n}"
+          }
+        },
+        {
           "type": "raw",
           "html": "\n<p class=\"small\">A $24\\times 24$ square lattice with periodic boundary conditions, $J = 1$, $h = 0$. Each frame performs $\\sim N$ Metropolis updates. Below $T_c\\approx 2.27$ the system spontaneously magnetizes — large monochrome domains form. Above $T_c$ the spins look uncorrelated. Watch the magnetization fluctuate near $T_c$ — those critical fluctuations are what mean-field misses.</p>\n\n"
         },
@@ -411,6 +446,10 @@
         {
           "type": "widget-script",
           "ref": "w-ising"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ising-pad"
         },
         {
           "type": "raw",

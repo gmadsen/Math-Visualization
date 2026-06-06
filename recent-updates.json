@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06T21:47:09.880Z",
+  "generated": "2026-06-06T22:41:12.452Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -23,7 +23,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-06-06",
-      "message": "feat(widgets): bifurcation-1d — a new \"turn the dial\" gesture for 1-D normal forms (#456)"
+      "message": "feat(dynamical-systems): eigenvector-explorer-2d on §fixed — the linearization's invariant directions (#457)"
     },
     {
       "slug": "elliptic-curves",

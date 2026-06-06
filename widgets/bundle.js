@@ -14146,6 +14146,32 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "xy-parameter-pad",
+    "family": "xy-parameter-pad",
+    "dimension": "2d",
+    "gesture": "two-param-scrub",
+    "role": "explore",
+    "title": "xy-parameter-pad widget params",
+    "description": "A self-contained 'two-parameter scrub' engine: the reader drags ONE puck across a labeled 2D pad that drives two coupled parameters at once, over an author-defined regime map. The engine grid-samples an author `classify(x,y)` over the pad to paint the discrete regime regions (so the codim-1 walls between regimes — which two sequential sliders can never land on — are visible at a glance), draws optional author overlays (critical points, phase boundaries) via `decorate(D)`, draws the draggable puck, and writes the live (x,y), the current regime label, and an optional author `readout(x,y)` (e.g. a derived order parameter) into the readout. This replaces the corpus's pervasive two-coupled-slider pattern with direct manipulation of parameter space as a surface. The renderer owns the grid shading, overlay hosting, the drag gesture, and the readout; the regimes/classification/derived quantities are author-supplied. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "regimes",
+      "bodyScript",
+      "x0",
+      "x1",
+      "y0",
+      "y1"
+    ],
+    "readmeExcerpt": "Self-contained **\"two-parameter scrub\"** engine — the corpus's `two-param-scrub` gesture. The reader drags **one puck** across a labeled 2D pad that drives two coupled parameters at once over an author-defined **regime map**. The engine grid-samples the author's `classify(x,y)` to paint the discrete regime regions, so the codim-1 *walls* between regimes — which two sequential sliders can never land on — are visible at a glance and reachable by a single diagonal drag. First home: `statistical-mechanics §ising-phase-transitions` (the mean-field $(T,h)$ phase diagram).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "zeta-values-mahler-measure",
     "family": "zeta-values-mahler-measure",
     "dimension": "2d",
