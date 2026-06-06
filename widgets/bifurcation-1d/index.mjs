@@ -75,11 +75,20 @@ export function renderScript(params) {
     `        for(let j=0;j<60;j++){ const mdv=(a+b)/2, fm=g(mdv); if(fa*fm<=0){b=mdv;} else {a=mdv;fa=fm;} }\n` +
     `        out.push((a+b)/2); } xp=xc; vp=vc; }\n` +
     `    out.sort(function(a,b){return a-b;}); const r=[]; out.forEach(function(v){ if(!r.length||Math.abs(v-r[r.length-1])>1e-4) r.push(v); }); return r; }\n` +
-    `  function fixedPts(m){ const g=function(x){return CASES[ci].f(x,m);};\n` +
-    `    return rootsOf(g).map(function(x){ const h=1e-4, d=(CASES[ci].f(x+h,m)-CASES[ci].f(x-h,m))/(2*h);\n` +
-    `      return {x:x, d:d, stable:d<0, marginal:Math.abs(d)<MARG}; }); }\n` +
+    `  // classify a fixed point. Hyperbolic (|f'|>=MARG): stable iff f'<0. Nonhyperbolic\n` +
+    `  // (f'~0, e.g. the pitchfork x=0 at mu=0, or a saddle-node fold): linearization is\n` +
+    `  // inconclusive, so read the flow on both sides — attracting both sides => stable\n` +
+    `  // (the pitchfork's -x^3 is attracting), repelling both => unstable, one of each =>\n` +
+    `  // semistable (the saddle-node/transcritical collision point).\n` +
+    `  function fixedPts(m){ const g=function(x){return CASES[ci].f(x,m);}; const xs=rootsOf(g);\n` +
+    `    return xs.map(function(x,idx){ const h=1e-4, d=(g(x+h)-g(x-h))/(2*h); var kind;\n` +
+    `      if(Math.abs(d)>=MARG){ kind = d<0?'stable':'unstable'; }\n` +
+    `      else { var gap=1e9; for(var j=0;j<xs.length;j++){ if(j!==idx) gap=Math.min(gap,Math.abs(xs[j]-x)); }\n` +
+    `        var del=Math.max(0.01,Math.min(0.06,0.4*gap)), fL=g(x-del), fR=g(x+del);\n` +
+    `        kind = (fL>0&&fR<0)?'stable' : (fL<0&&fR>0)?'unstable' : 'semistable'; }\n` +
+    `      return {x:x, d:d, kind:kind, stable:kind==='stable'}; }); }\n` +
     `  function fmt(n){ return (n<0?'\\u2212':'')+Math.abs(n).toFixed(2); }\n` +
-    `  function colOf(p){ return p.marginal?'var(--yellow)':(p.stable?'var(--green)':'var(--pink)'); }\n` +
+    `  function colOf(p){ return p.kind==='semistable'?'var(--yellow)':(p.kind==='stable'?'var(--green)':'var(--pink)'); }\n` +
     `  function clear(g){ while(g.firstChild)g.removeChild(g.firstChild); }\n` +
     `  // ===== static layer: the bifurcation diagram (rebuild on case change only) =====\n` +
     `  function drawDiagram(){\n` +
@@ -117,14 +126,13 @@ export function renderScript(params) {
     `      G2.appendChild(SVG('line',{x1:ax0,y1:phaseY,x2:ax1,y2:phaseY,stroke:'var(--cyan)','stroke-width':2}));\n` +
     `      G2.appendChild(SVG('line',{x1:ax1,y1:phaseY,x2:ax1-dir*5,y2:phaseY-4,stroke:'var(--cyan)','stroke-width':2}));\n` +
     `      G2.appendChild(SVG('line',{x1:ax1,y1:phaseY,x2:ax1-dir*5,y2:phaseY+4,stroke:'var(--cyan)','stroke-width':2})); }\n` +
-    `    // fixed-point dots (filled = stable, hollow = unstable, yellow = marginal)\n` +
+    `    // fixed-point dots (filled = stable, hollow pink = unstable, hollow yellow = semistable)\n` +
     `    pts.forEach(function(p){ var col=colOf(p);\n` +
-    `      G2.appendChild(SVG('circle',{cx:PX(p.x),cy:phaseY,r:6,fill:(p.stable&&!p.marginal)?col:'var(--panel)',stroke:col,'stroke-width':2.2})); });\n` +
+    `      G2.appendChild(SVG('circle',{cx:PX(p.x),cy:phaseY,r:6,fill:p.kind==='stable'?col:'var(--panel)',stroke:col,'stroke-width':2.2})); });\n` +
     `    // readout\n` +
     `    var desc;\n` +
     `    if(!pts.length){ desc='<b>no fixed points</b> — the flow sweeps straight through'; }\n` +
-    `    else { desc=pts.map(function(p){ var lbl=p.marginal?'marginal':(p.stable?'stable':'unstable');\n` +
-    `        return 'x*='+fmt(p.x)+' <span style=\\"color:'+colOf(p)+'\\">('+lbl+')</span>'; }).join(' &nbsp; '); }\n` +
+    `    else { desc=pts.map(function(p){ return 'x*='+fmt(p.x)+' <span style=\\"color:'+colOf(p)+'\\">('+p.kind+')</span>'; }).join(' &nbsp; '); }\n` +
     `    var crit='';\n` +
     `    if(c.muCrit!=null){ var span=(c.mu1-c.mu0); if(Math.abs(mu-c.muCrit)<0.02*span) crit=' &nbsp;\\u00b7&nbsp; <b style=\\"color:var(--yellow)\\">at the bifurcation ('+MUVAR+'='+fmt(c.muCrit)+')</b>'; }\n` +
     `    out.innerHTML=MUVAR+' = <b>'+fmt(mu)+'</b> &nbsp;\\u00b7&nbsp; '+pts.length+' fixed point'+(pts.length===1?'':'s')+': '+desc+crit;\n` +
