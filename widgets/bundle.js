@@ -3082,6 +3082,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "contour-residue-2d",
+    "family": "contour-residue-2d",
+    "dimension": "2d",
+    "gesture": "drag-contour",
+    "role": "explore",
+    "title": "contour-residue-2d widget params",
+    "description": "A self-contained 'drag the contour' engine for the residue theorem. A meromorphic function is represented by its simple poles, each marked with its residue, in the complex plane. The reader drags a circular contour (move its centre, drag the rim to resize); the poles it encloses light up, and the readout evaluates the contour integral via the residue theorem: the counterclockwise integral around C equals 2*pi*i times the sum of the residues of the enclosed poles. The renderer owns the two-handle drag gesture (centre + rim), the data<->pixel mapping, the inside/outside test, the highlight, the integral readout, and Reset; the poles and initial contour are param-driven. The gesture is 'drag-contour' — direct manipulation of an enclosing region, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "poles"
+    ],
+    "readmeExcerpt": "Self-contained **\"drag the contour\"** engine — the corpus's `drag-contour` gesture, for the **residue theorem**. A meromorphic function is represented by its simple poles, each marked with its residue. The reader drags a circular contour (move its centre, drag the yellow rim handle to resize); the poles it encloses glow pink, and the readout evaluates $\\oint_C f\\,dz = 2\\pi i \\sum_{\\text{poles inside } C} \\operatorname{Res}(f)$. Slide the contour across a pole and the integral jumps by $2\\pi i$ times that residue. First home: `complex-analysis §residue-theorem`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "counterexample-explorer",
     "family": "counterexample-explorer",
     "dimension": "2d",

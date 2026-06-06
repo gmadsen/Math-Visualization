@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/contour-residue-2d/schema.json",
+  "title": "contour-residue-2d widget params",
+  "description": "A self-contained 'drag the contour' engine for the residue theorem. A meromorphic function is represented by its simple poles, each marked with its residue, in the complex plane. The reader drags a circular contour (move its centre, drag the rim to resize); the poles it encloses light up, and the readout evaluates the contour integral via the residue theorem: the counterclockwise integral around C equals 2*pi*i times the sum of the residues of the enclosed poles. The renderer owns the two-handle drag gesture (centre + rim), the data<->pixel mapping, the inside/outside test, the highlight, the integral readout, and Reset; the poles and initial contour are param-driven. The gesture is 'drag-contour' — direct manipulation of an enclosing region, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+  "meta": {
+    "family": "contour-residue-2d",
+    "dimension": "2d",
+    "gesture": "drag-contour",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "poles"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout the engine writes the integral into." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the contour's centre / rim." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 560 520'.", "default": "0 0 560 520" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 560.", "default": 560 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 520.", "default": 520 },
+    "range": { "type": "number", "description": "Half-width of the data window: both axes span [-range, range]. Default 2.6.", "default": 2.6 },
+    "poles": {
+      "type": "array",
+      "description": "The simple poles of the meromorphic function: each {x, y, res, label}. `res` is the (real) residue at that pole; the integral is 2*pi*i * sum of enclosed residues.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["x", "y", "res"],
+        "properties": {
+          "x": { "type": "number" },
+          "y": { "type": "number" },
+          "res": { "type": "number" },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "contour": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Initial contour circle. Reset restores it.",
+      "properties": {
+        "cx": { "type": "number", "default": 0 },
+        "cy": { "type": "number", "default": 0 },
+        "r": { "type": "number", "default": 1.5 }
+      }
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" }
+  }
+}
