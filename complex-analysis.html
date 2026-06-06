@@ -2016,7 +2016,69 @@ function f(x,y){ return [x*x - y*y, 2*x*y]; }
   sel.addEventListener('change', draw);
   draw();
 })();
+</script><div class="widget" id="w-res-contour">
+  <div class="hd"><div class="ttl">The residue theorem: drag the contour, count the residues</div><div class="hint">drag the cyan contour — move its centre, or drag the yellow handle to resize. The crosses are the simple poles of a meromorphic $f$, each labelled with its residue. The residue theorem says the counterclockwise integral picks up exactly the poles you enclose: $\oint_C f\,dz = 2\pi i \sum_{\text{poles inside }C} \operatorname{Res}(f)$. Enclosed poles glow pink; slide the contour across a pole and watch the integral jump by $2\pi i$ times that residue. Deform the contour without crossing a pole and nothing changes.</div></div>
+  <svg id="res-contour-svg" viewBox="0 0 560 520" width="560" height="520" style="touch-action:none;cursor:grab;max-width:560px"><title>Drag a circular contour over the poles of a meromorphic function; the integral equals 2*pi*i times the sum of enclosed residues.</title></svg>
+  <div class="row">
+    <button id="w-res-contour-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="res-contour-out">&nbsp;</div>
+</div>
+<script>
+(function(){
+  const svg=$('#res-contour-svg'), out=$('#res-contour-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=2.6, POLES=[{"x":-1.4,"y":0.5,"res":1,"label":"a"},{"x":1.3,"y":0.7,"res":-2,"label":"b"},{"x":0.2,"y":-1.3,"res":0.5,"label":"c"},{"x":1.7,"y":-0.6,"res":1.5,"label":"d"}];
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 520').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], cx0=W/2, cy0=Hh/2, S=(Math.min(W,Hh)/2-16)/R;
+  function PX(x){ return cx0 + x*S; }
+  function PY(y){ return cy0 - y*S; }
+  function XV(px){ return (px-cx0)/S; }
+  function YV(py){ return (cy0-py)/S; }
+  let cxv=0, cyv=0, rr=1.5;
+  function fmtRes(v){ return (v>=0?'+':'\u2212')+Math.abs(v); }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    G.appendChild(SVG('line',{x1:PX(-R),y1:PY(0),x2:PX(R),y2:PY(0),stroke:'var(--mute)','stroke-width':1,opacity:0.3}));
+    G.appendChild(SVG('line',{x1:PX(0),y1:PY(-R),x2:PX(0),y2:PY(R),stroke:'var(--mute)','stroke-width':1,opacity:0.3}));
+    // contour disk + circle
+    G.appendChild(SVG('circle',{cx:PX(cxv),cy:PY(cyv),r:rr*S,fill:'var(--cyan)','fill-opacity':0.08,stroke:'var(--cyan)','stroke-width':2.5}));
+    // ccw arrow hint on the rim (a small arc-tip at the top)
+    var tipx=PX(cxv), tipy=PY(cyv)-rr*S;
+    G.appendChild(SVG('line',{x1:tipx,y1:tipy,x2:tipx-9,y2:tipy-7,stroke:'var(--cyan)','stroke-width':2.5}));
+    G.appendChild(SVG('line',{x1:tipx,y1:tipy,x2:tipx-9,y2:tipy+7,stroke:'var(--cyan)','stroke-width':2.5}));
+    // poles
+    var sum=0, nin=0, parts=[];
+    POLES.forEach(function(p){ var inside=Math.hypot(p.x-cxv,p.y-cyv)<rr; if(inside){ sum+=p.res; nin++; parts.push(fmtRes(p.res)); }
+      var col=inside?'var(--pink)':'var(--mute)', sz=inside?8:6;
+      G.appendChild(SVG('line',{x1:PX(p.x)-sz,y1:PY(p.y)-sz,x2:PX(p.x)+sz,y2:PY(p.y)+sz,stroke:col,'stroke-width':inside?3:2}));
+      G.appendChild(SVG('line',{x1:PX(p.x)-sz,y1:PY(p.y)+sz,x2:PX(p.x)+sz,y2:PY(p.y)-sz,stroke:col,'stroke-width':inside?3:2}));
+      var lab=(p.label?p.label+': ':'')+'res '+fmtRes(p.res);
+      var t=SVG('text',{x:PX(p.x)+11,y:PY(p.y)-9,'font-size':12,fill:col,'font-weight':inside?600:400}); t.textContent=lab; G.appendChild(t); });
+    // centre + rim drag handles
+    G.appendChild(SVG('circle',{cx:PX(cxv),cy:PY(cyv),r:5,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.4}));
+    G.appendChild(SVG('circle',{cx:PX(cxv+rr),cy:PY(cyv),r:6,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.4}));
+    // readout
+    var twoPi=(2*Math.PI*sum);
+    var sumStr = nin===0 ? '0' : (nin===1 ? parts[0].replace(/^\+/,'') : parts.join(' ').replace(/^\+/,'') + ' = ' + (sum>=0?'':'\u2212')+Math.abs(sum));
+    var val = nin===0 ? '0' : (Math.abs(twoPi)<1e-9?'0':( (twoPi>=0?'':'\u2212')+Math.abs(twoPi).toFixed(2)+'i'));
+    out.innerHTML='\u222e<sub>C</sub> f dz = 2\u03c0i \u00b7 (\u03a3 enclosed residues) = 2\u03c0i\u00b7('+sumStr+') = <b style=\"color:var(--pink)\">'+val+'</b> &nbsp;\u00b7&nbsp; '+nin+' pole'+(nin===1?'':'s')+' enclosed';
+  }
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }
+  let mode=null;
+  svg.addEventListener('pointerdown',function(ev){ const pt=toData(ev);
+    const dRim=Math.hypot(pt.x-(cxv+rr),pt.y-cyv), dCen=Math.hypot(pt.x-cxv,pt.y-cyv);
+    if(dRim<0.28) mode='rim'; else if(dCen<rr+0.15) mode='move'; else mode=null;
+    if(mode){ ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} } });
+  window.addEventListener('pointermove',function(ev){ if(!mode)return; const pt=toData(ev);
+    if(mode==='rim'){ rr=Math.max(0.15,Math.min(2*R,Math.hypot(pt.x-cxv,pt.y-cyv))); }
+    else { cxv=Math.max(-R,Math.min(R,pt.x)); cyv=Math.max(-R,Math.min(R,pt.y)); } render(); });
+  window.addEventListener('pointerup',function(){ mode=null; });
+  const rb=$('#w-res-contour-reset'); if(rb) rb.addEventListener('click',function(){ cxv=0;cyv=0;rr=1.5; render(); });
+  render();
+})();
 </script>
+
 
 <div class="quiz" data-concept="residue-theorem"></div><!-- backlinks-auto-begin -->
 <aside class="related">

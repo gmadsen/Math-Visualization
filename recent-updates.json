@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06T08:12:29.568Z",
+  "generated": "2026-06-06T08:24:43.428Z",
   "entries": [
     {
       "slug": "differential-geometry",
@@ -7,7 +7,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-06-06",
-      "message": "feat(widgets): eigenvector-explorer-2d — a new \"find the eigenvectors by dragging\" gesture"
+      "message": "feat(widgets): eigenvector-explorer-2d — a new \"find the eigenvectors by dragging\" gesture (#453)"
     },
     {
       "slug": "elliptic-curves",
