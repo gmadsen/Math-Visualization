@@ -1101,7 +1101,67 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
   </div>
   <svg id="kh-svg" viewBox="-240 -180 480 360" width="100%" style="max-width:640px;height:auto"><title>Gaussian curvature heatmap</title></svg>
   <div class="readout" id="kh-out"></div>
+</div><div class="widget" id="w-shape-eig">
+  <div class="hd"><div class="ttl">Principal directions: drag a tangent direction to find the eigenvectors of the shape operator</div><div class="hint">the shape operator $S$ at a surface point is a symmetric $2\times2$ map of the tangent plane. Drag the cyan unit vector $v$: its image $Sv$ (pink) generally points elsewhere, but at two special <strong>principal directions</strong> $Sv$ is parallel to $v$ — those are the <strong>eigenvectors</strong>, and the eigenvalues are the <strong>principal curvatures</strong> $\kappa_1,\kappa_2$. Their product is the Gaussian curvature $K = \det S = \kappa_1\kappa_2$ and their average is the mean curvature. Because $S$ is symmetric, the two principal directions are always orthogonal.</div></div>
+  <svg id="shape-eig-svg" viewBox="0 0 520 520" width="520" height="520" style="touch-action:none;cursor:grab;max-width:520px"><title>Drag a tangent direction; where Sv is parallel to v are the principal directions (eigenvectors of the shape operator), with eigenvalues the principal curvatures.</title></svg>
+  <div class="row">
+    <button id="w-shape-eig-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="shape-eig-out">&nbsp;</div>
 </div>
+<script>
+(function(){
+  const svg=$('#shape-eig-svg'), out=$('#shape-eig-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=2.6, A=1.6, B=0.5, C=0.5, D=0.7, ELABEL="principal curvature";
+  const _vb=(svg.getAttribute('viewBox')||'0 0 520 520').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], cx=W/2, cy=Hh/2, S=(Math.min(W,Hh)/2-16)/R;
+  function PX(x){ return cx + x*S; }
+  function PY(y){ return cy - y*S; }
+  function XV(px){ return (px-cx)/S; }
+  function YV(py){ return (cy-py)/S; }
+  function mul(x,y){ return [A*x+B*y, C*x+D*y]; }
+  let th=65*Math.PI/180;
+  const tr=A+D, det=A*D-B*C, disc=tr*tr-4*det;
+  const realEig = disc>=-1e-9, sq=Math.sqrt(Math.abs(disc));
+  const l1 = realEig ? (tr+sq)/2 : tr/2, l2 = realEig ? (tr-sq)/2 : tr/2, imp = realEig ? 0 : sq/2;
+  function eigvec(l){ var vx=B, vy=l-A; if(Math.hypot(vx,vy)<1e-7){ vx=l-D; vy=C; } if(Math.hypot(vx,vy)<1e-7){ vx=1; vy=0; } var n=Math.hypot(vx,vy); return [vx/n, vy/n]; }
+  function arrow(x1,y1,col,wd){
+    G.appendChild(SVG('line',{x1:PX(0),y1:PY(0),x2:PX(x1),y2:PY(y1),stroke:col,'stroke-width':wd||2.5}));
+    const ang=Math.atan2(PY(y1)-PY(0),PX(x1)-PX(0)), hl=10;
+    for(const s of [-1,1]){ const aa=ang+Math.PI+s*0.4; G.appendChild(SVG('line',{x1:PX(x1),y1:PY(y1),x2:PX(x1)+hl*Math.cos(aa),y2:PY(y1)+hl*Math.sin(aa),stroke:col,'stroke-width':wd||2.5})); } }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    G.appendChild(SVG('line',{x1:PX(-R),y1:PY(0),x2:PX(R),y2:PY(0),stroke:'var(--mute)','stroke-width':1,opacity:0.35}));
+    G.appendChild(SVG('line',{x1:PX(0),y1:PY(-R),x2:PX(0),y2:PY(R),stroke:'var(--mute)','stroke-width':1,opacity:0.35}));
+    G.appendChild(SVG('circle',{cx:PX(0),cy:PY(0),r:S,fill:'none',stroke:'var(--line)','stroke-width':1,opacity:0.5}));
+    // real eigendirection guide lines
+    if(realEig){ [eigvec(l1),eigvec(l2)].forEach(function(e,i){ const col=i===0?'var(--green)':'var(--violet)';
+      G.appendChild(SVG('line',{x1:PX(-R*e[0]),y1:PY(-R*e[1]),x2:PX(R*e[0]),y2:PY(R*e[1]),stroke:col,'stroke-width':1.5,'stroke-dasharray':'6 5',opacity:0.7})); }); }
+    const vx=Math.cos(th), vy=Math.sin(th), Av=mul(vx,vy);
+    const cross=vx*Av[1]-vy*Av[0], avn=Math.hypot(Av[0],Av[1]);
+    const aligned = realEig && avn>1e-6 && Math.abs(cross)/avn < 0.02;
+    arrow(Av[0],Av[1],'var(--pink)',2.5); G.appendChild(SVG('text',{x:PX(Av[0])+8,y:PY(Av[1])-6,'font-size':12,fill:'var(--pink)'})).textContent='Av';
+    arrow(vx,vy, aligned?'var(--yellow)':'var(--cyan)',3);
+    G.appendChild(SVG('text',{x:PX(vx)+8,y:PY(vy)-6,'font-size':12,fill:aligned?'var(--yellow)':'var(--cyan)'})).textContent='v';
+    G.appendChild(SVG('circle',{cx:PX(vx),cy:PY(vy),r:7,fill:aligned?'var(--yellow)':'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5}));
+    function f(n){ return (n>=0?'':'\u2212')+Math.abs(n).toFixed(2); }
+    const enoun = ELABEL ? ELABEL+'s' : 'eigenvalues';
+    const eigStr = realEig ? (enoun+' \u03bb\u2081 = '+f(l1)+', \u03bb\u2082 = '+f(l2)) : ('complex '+enoun+' '+f(tr/2)+' \u00b1 '+imp.toFixed(2)+'i \u2014 no real eigenvector (a rotation)');
+    const lam = vx*Av[0]+vy*Av[1];
+    const tail = aligned ? ' &nbsp;\u00b7&nbsp; <b style=\"color:var(--yellow)\">v is an eigenvector! Av = '+f(lam)+'\u00b7v</b>' : (realEig?' &nbsp;\u00b7&nbsp; rotate v onto a dashed line to find an eigenvector':'');
+    out.innerHTML='v = ('+f(vx)+', '+f(vy)+') &nbsp;\u00b7&nbsp; Av = ('+f(Av[0])+', '+f(Av[1])+') &nbsp;\u00b7&nbsp; '+eigStr+' &nbsp;\u00b7&nbsp; det = '+f(det)+', tr = '+f(tr)+tail;
+  }
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }
+  let drag=false;
+  svg.addEventListener('pointerdown',function(ev){ const pt=toData(ev); const vx=Math.cos(th), vy=Math.sin(th); if(Math.hypot(pt.x-vx,pt.y-vy)<0.5){ drag=true; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} } });
+  window.addEventListener('pointermove',function(ev){ if(!drag)return; const pt=toData(ev); if(Math.hypot(pt.x,pt.y)>1e-3){ th=Math.atan2(pt.y,pt.x); render(); } });
+  window.addEventListener('pointerup',function(){ drag=false; });
+  const rb=$('#w-shape-eig-reset'); if(rb) rb.addEventListener('click',function(){ th=65*Math.PI/180; render(); });
+  render();
+})();
+</script>
+
 
 <div class="quiz" data-concept="gauss-map"></div>
 <!-- backlinks-auto-begin -->

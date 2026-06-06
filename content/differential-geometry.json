@@ -243,6 +243,46 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "eigenvector-explorer-2d",
+          "params": {
+            "widgetId": "w-shape-eig",
+            "svgId": "shape-eig-svg",
+            "outputId": "shape-eig-out",
+            "title": "Principal directions: drag a tangent direction to find the eigenvectors of the shape operator",
+            "hint": "the shape operator $S$ at a surface point is a symmetric $2\\times2$ map of the tangent plane. Drag the cyan unit vector $v$: its image $Sv$ (pink) generally points elsewhere, but at two special <strong>principal directions</strong> $Sv$ is parallel to $v$ — those are the <strong>eigenvectors</strong>, and the eigenvalues are the <strong>principal curvatures</strong> $\\kappa_1,\\kappa_2$. Their product is the Gaussian curvature $K = \\det S = \\kappa_1\\kappa_2$ and their average is the mean curvature. Because $S$ is symmetric, the two principal directions are always orthogonal.",
+            "svgTitle": "Drag a tangent direction; where Sv is parallel to v are the principal directions (eigenvectors of the shape operator), with eigenvalues the principal curvatures.",
+            "viewBox": "0 0 520 520",
+            "svgWidth": 520,
+            "svgHeight": 520,
+            "range": 2.6,
+            "matrix": [
+              [
+                1.6,
+                0.5
+              ],
+              [
+                0.5,
+                0.7
+              ]
+            ],
+            "initialAngleDeg": 65,
+            "eigenLabel": "principal curvature"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-shape-eig"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },

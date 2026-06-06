@@ -1,6 +1,14 @@
 {
-  "generated": "2026-06-06T07:52:47.010Z",
+  "generated": "2026-06-06T08:12:29.568Z",
   "entries": [
+    {
+      "slug": "differential-geometry",
+      "title": "Differential geometry",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-06",
+      "message": "feat(widgets): eigenvector-explorer-2d — a new \"find the eigenvectors by dragging\" gesture"
+    },
     {
       "slug": "elliptic-curves",
       "title": "Elliptic curves",
@@ -1568,14 +1576,6 @@
       "tag": "",
       "date": "2026-05-14",
       "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
-    },
-    {
-      "slug": "differential-geometry",
-      "title": "Differential geometry",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — third batch (15 more topics)"
     },
     {
       "slug": "etale-cohomology",
