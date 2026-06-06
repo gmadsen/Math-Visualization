@@ -10719,6 +10719,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "osculating-circle-2d",
+    "family": "osculating-circle-2d",
+    "dimension": "2d",
+    "gesture": "drag-along-curve",
+    "role": "explore",
+    "title": "osculating-circle-2d widget params",
+    "description": "A self-contained 'drag a point along a curve, watch the osculating circle' engine. The author supplies a parametric plane curve via `function curve(t){ return [x,y]; }`. The reader drags a point P along the curve; the engine computes the curvature kappa(t) by central finite differences, draws the osculating circle (the circle of radius 1/|kappa| centred at the centre of curvature, that best hugs the curve at P) along with the tangent and normal, and reports t, kappa, and the radius of curvature rho = 1/|kappa|. The circle shrinks where the curve bends sharply and grows toward a straight line where it flattens. The renderer owns the curve sampling, the drag-to-nearest-t projection, the curvature/osculating-circle geometry, the readout, and Reset; the curve is author-supplied. The gesture is 'drag-along-curve' — direct manipulation of a point constrained to a curve, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"drag a point along a curve, watch the osculating circle\"** engine — the corpus's `drag-along-curve` gesture. The author supplies a parametric plane curve `function curve(t){ return [x,y]; }`. The reader drags a point $P$ along the curve; the engine computes the curvature $\\kappa(t)$ by central finite differences and draws the **osculating circle** — the circle of radius $1/|\\kappa|$ centred at the centre of curvature that matches the curve's position, tangent, and curvature at $P$ — plus the tangent line. The readout gives $\\kappa$ and the **radius of curvature** $\\rho = 1/|\\kappa|$: tiny where the curve bends sharply, large where it flattens, $\\infty$ on a straight line. First home: `differential-geometry §osculating`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "padic-newton-polygon",
     "family": "padic-newton-polygon",
     "dimension": "2d",

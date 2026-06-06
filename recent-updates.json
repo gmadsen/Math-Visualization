@@ -1,13 +1,21 @@
 {
-  "generated": "2026-06-06T08:24:43.428Z",
+  "generated": "2026-06-06T09:19:12.597Z",
   "entries": [
+    {
+      "slug": "complex-analysis",
+      "title": "Complex analysis",
+      "color": "y",
+      "tag": "",
+      "date": "2026-06-06",
+      "message": "feat(widgets): contour-residue-2d — a new \"drag the contour\" residue-theorem gesture (#454)"
+    },
     {
       "slug": "differential-geometry",
       "title": "Differential geometry",
       "color": "v",
       "tag": "",
       "date": "2026-06-06",
-      "message": "feat(widgets): eigenvector-explorer-2d — a new \"find the eigenvectors by dragging\" gesture (#453)"
+      "message": "fixup: trace the evolute + drop dead Rpx (review follow-ups)"
     },
     {
       "slug": "elliptic-curves",
@@ -24,14 +32,6 @@
       "tag": "",
       "date": "2026-06-05",
       "message": "feat(comb-opt): animated simplex walk — 3rd animated-svg-2d home (#433)"
-    },
-    {
-      "slug": "complex-analysis",
-      "title": "Complex analysis",
-      "color": "y",
-      "tag": "",
-      "date": "2026-06-05",
-      "message": "feat(widgets): complex-map-2d — a new \"drag the probe through a complex map\" gesture (#450)"
     },
     {
       "slug": "convex-optimization",
