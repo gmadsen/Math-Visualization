@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1643** (registry-driven: 1643, inline: 0)
+- Widgets: **1644** (registry-driven: 1644, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -30,12 +30,12 @@ page has wired one in yet.
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
 | `animated-svg-2d` | animated-svg-2d | play | 2d | 5 | combinatorial-optimization, convex-optimization, markov-decision-processes, numerical-analysis, probability-theory |
 | `surface-3d` | surface-3d | drag | 3d | 5 | general-relativity, harmonic-functions, riemannian-geometry, smooth-manifolds, variational-methods |
+| `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 5 | deep-learning-theory, dynamical-systems, mathematical-biology |
 | `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 4 | extremal-combinatorics, graph-theory-fundamentals, spectral-graph-theory |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
 | `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 4 | convex-optimization, real-analysis |
-| `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 4 | dynamical-systems, mathematical-biology |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | additive-number-theory, category-theory |
 | `draggable-points-2d` | draggable-points-2d | drag | 2d | 3 | complex-analysis, convex-geometry, projective-plane |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 3 | algebraic-topology, analytic-number-theory, mathematical-chaos |
@@ -827,10 +827,10 @@ page has wired one in yet.
 ### Learning theory & data science
 
 - Topics: **9**, concepts: **56**
-- Widgets: **56** (registry-driven: 56, inline: 0)
-  - by family: parametric-plot: 42, slider-readout: 10, clickable-diagram: 2, tda-interval-decomposition: 1, verbatim: 1
-  - by dimension: 2d: 56
-  - by gesture: slider: 53, click: 3
+- Widgets: **57** (registry-driven: 57, inline: 0)
+  - by family: parametric-plot: 42, slider-readout: 10, clickable-diagram: 2, tda-interval-decomposition: 1, verbatim: 1, vector-field-flow-2d: 1
+  - by dimension: 2d: 57
+  - by gesture: slider: 53, click: 3, click-seed: 1
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)
   - by type: mcq: 117, numeric: 25, multi-select: 17, ordering: 6, matching: 1
 
@@ -870,7 +870,7 @@ page has wired one in yet.
 - `reinforcement-learning` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `pomdps-and-belief-states` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `probabilistic-graphical-models` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=16 (v1=16, hard=0, expert=0)
-- `deep-learning-theory` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `deep-learning-theory` (Learning theory & data science) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `information-geometry` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `diffusion-and-score-based-models` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `causal-inference` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
