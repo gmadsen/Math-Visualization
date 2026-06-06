@@ -4446,6 +4446,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "eigenvector-explorer-2d",
+    "family": "eigenvector-explorer-2d",
+    "dimension": "2d",
+    "gesture": "drag-direction",
+    "role": "explore",
+    "title": "eigenvector-explorer-2d widget params",
+    "description": "A self-contained 'find the eigenvectors by dragging' engine for a 2x2 matrix A. The reader drags a unit vector v around the unit circle; the engine draws v and its image Av, and the eigenvectors reveal themselves as the directions where Av stays parallel to v (Av = lambda v). The real eigendirections are drawn as faint guide lines; the readout reports v, Av, the eigenvalues lambda1, lambda2 (real, or a complex conjugate pair when the map rotates with no invariant real direction), det, trace, and whether the current v is an eigenvector. The matrix is param-driven. The gesture is 'drag-direction' — direct manipulation of a direction through a linear map, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "Self-contained **\"find the eigenvectors by dragging\"** engine — the corpus's `drag-direction` gesture. The reader drags a unit vector $v$ around the unit circle and watches its image $Av$; the **eigenvectors reveal themselves** as the directions where $Av$ stays parallel to $v$ (i.e. $Av = \\lambda v$ — the handle turns yellow and the readout reports $\\lambda$). The real eigendirections are drawn as faint guide lines; a matrix with complex eigenvalues has **no real eigenvector** (the readout says so — the map is a rotation). First home: `differential-geometry §gauss`, where $A$ is the **shape operator**: its eigenvectors are the principal directions and its eigenvalues the principal curvatures $\\kappa_1,\\kappa_2$ (with $K=\\det = \\kappa_1\\kappa_2$).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "elementary-topos-theory-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",

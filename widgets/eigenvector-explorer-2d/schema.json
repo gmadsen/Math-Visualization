@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/eigenvector-explorer-2d/schema.json",
+  "title": "eigenvector-explorer-2d widget params",
+  "description": "A self-contained 'find the eigenvectors by dragging' engine for a 2x2 matrix A. The reader drags a unit vector v around the unit circle; the engine draws v and its image Av, and the eigenvectors reveal themselves as the directions where Av stays parallel to v (Av = lambda v). The real eigendirections are drawn as faint guide lines; the readout reports v, Av, the eigenvalues lambda1, lambda2 (real, or a complex conjugate pair when the map rotates with no invariant real direction), det, trace, and whether the current v is an eigenvector. The matrix is param-driven. The gesture is 'drag-direction' — direct manipulation of a direction through a linear map, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+  "meta": {
+    "family": "eigenvector-explorer-2d",
+    "dimension": "2d",
+    "gesture": "drag-direction",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout the engine writes v, Av, eigenvalues into." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the direction handle." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 520 520'.", "default": "0 0 520 520" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 520.", "default": 520 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 520.", "default": 520 },
+    "range": { "type": "number", "description": "Half-width of the data window: axes span [-range, range]. Default 2.6.", "default": 2.6 },
+    "matrix": {
+      "type": "array",
+      "description": "The 2x2 matrix A = [[a,b],[c,d]]. Default [[1.6,0.5],[0.5,0.7]] (a symmetric matrix — e.g. a shape operator). Reset keeps it.",
+      "items": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+      "minItems": 2, "maxItems": 2
+    },
+    "initialAngleDeg": { "type": "number", "description": "Initial direction of v in degrees. Default 25.", "default": 25 },
+    "eigenLabel": { "type": "string", "description": "Optional noun for the eigenvalues in the readout (e.g. 'principal curvature'). Default '' (plain 'eigenvalue')." },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" }
+  }
+}
