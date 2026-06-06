@@ -1153,6 +1153,28 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "bayes-mass-updater",
+    "family": "bayes-mass-updater",
+    "dimension": "2d",
+    "gesture": "pour-update",
+    "role": "explore",
+    "title": "bayes-mass-updater widget params",
+    "description": "A self-contained 'pour-and-update' engine for sequential Bayesian inference over a 1-D parameter. The posterior density over a parameter theta is drawn as a bar chart; the reader (1) sculpts the PRIOR by dragging across the bars and (2) feeds data one datum at a time via author-defined action buttons. Each datum multiplies the posterior by the author's likelihood like(key, theta) and renormalizes, so the probability mass visibly pours toward the theta values consistent with the evidence. The faint outline is the sculpted prior, the solid bars are the current posterior, and a marker tracks the posterior mean; the readout reports the mean / MAP / data counts and an optional author summary (e.g. the conjugate Beta(a,b) the bars equal). The renderer owns the bar chart, the drag-to-sculpt-prior gesture, the per-datum Bayesian update + renormalization, the mean/MAP readout, and Reset; the parameter range, the data actions, and the likelihood are author-supplied. The gesture is 'pour-update' — reshaping a distribution under sequential evidence, which the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "actions",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"pour-and-update\"** engine for sequential Bayesian inference over a 1-D parameter — the corpus's `pour-update` gesture. The posterior density over a parameter $\\theta$ is drawn as a bar chart; the reader **(1) sculpts the prior** by dragging across the bars and **(2) feeds data one datum at a time** via author-defined action buttons. Each datum multiplies the posterior by the author's `like(key, theta)` and renormalizes, so probability mass visibly **pours** toward the $\\theta$ consistent with the evidence. First home: `probability-theory §bayes` (a coin's bias under sequential Heads/Tails).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "bezout-cayley-bacharach",
     "family": "bezout-cayley-bacharach",
     "dimension": "2d",

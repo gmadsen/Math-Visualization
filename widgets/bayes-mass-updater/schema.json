@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/bayes-mass-updater/schema.json",
+  "title": "bayes-mass-updater widget params",
+  "description": "A self-contained 'pour-and-update' engine for sequential Bayesian inference over a 1-D parameter. The posterior density over a parameter theta is drawn as a bar chart; the reader (1) sculpts the PRIOR by dragging across the bars and (2) feeds data one datum at a time via author-defined action buttons. Each datum multiplies the posterior by the author's likelihood like(key, theta) and renormalizes, so the probability mass visibly pours toward the theta values consistent with the evidence. The faint outline is the sculpted prior, the solid bars are the current posterior, and a marker tracks the posterior mean; the readout reports the mean / MAP / data counts and an optional author summary (e.g. the conjugate Beta(a,b) the bars equal). The renderer owns the bar chart, the drag-to-sculpt-prior gesture, the per-datum Bayesian update + renormalization, the mean/MAP readout, and Reset; the parameter range, the data actions, and the likelihood are author-supplied. The gesture is 'pour-update' — reshaping a distribution under sequential evidence, which the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+  "meta": {
+    "family": "bayes-mass-updater",
+    "dimension": "2d",
+    "gesture": "pour-update",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "actions",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset / Reset-prior buttons and each action button derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout the engine writes the posterior summary into." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag to sculpt the prior and click the data buttons." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 600 360'.", "default": "0 0 600 360" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 600.", "default": 600 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 360.", "default": 360 },
+    "paramLabel": { "type": "string", "description": "Axis label for the parameter (plain text / simple symbol). Default the Greek theta.", "default": "θ" },
+    "x0": { "type": "number", "description": "Smallest parameter value. Default 0.", "default": 0 },
+    "x1": { "type": "number", "description": "Largest parameter value. Default 1.", "default": 1 },
+    "bars": { "type": "integer", "description": "Number of discretization bars over [x0, x1]. Default 30.", "minimum": 4, "default": 30 },
+    "actions": {
+      "type": "array",
+      "description": "The data buttons. Each datum, when clicked, multiplies the posterior by like(key, theta). Each {label, key, color?}.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "key"],
+        "properties": {
+          "label": { "type": "string", "description": "Button text, e.g. 'observe Heads'." },
+          "key": { "type": "string", "description": "Identifier passed to like(key, theta), e.g. 'H'." },
+          "color": { "type": "string", "description": "Optional CSS color token for the button accent / tally." }
+        }
+      }
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS. MUST define `function like(key, theta){ return P(datum=key | theta); }` (the likelihood of a single datum at parameter theta; need not be normalized in theta). MAY define `function prior0(theta){ return density; }` (the initial prior shape before the reader sculpts it — defaults to uniform) and `function summary(s){ return 'html'; }` where s = { mean, map, n, counts } (counts is a {key: count} object), to add a custom readout fragment (e.g. the conjugate posterior). Evaluated once at render; must not start a timer."
+    },
+    "resetLabel": { "type": "string", "description": "Label for the button that clears the observed data (posterior -> prior). Default '↺ Clear data'.", "default": "↺ Clear data" },
+    "resetPriorLabel": { "type": "string", "description": "Label for the button that resets the sculpted prior to prior0. Default 'Reset prior'.", "default": "Reset prior" }
+  }
+}
