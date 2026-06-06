@@ -31,7 +31,7 @@ export function renderMarkup(params) {
     `    <label for="${selectId}">normal form:</label>\n` +
     `    <select id="${selectId}">${opts}</select>\n` +
     `  </div>\n` +
-    `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}" style="touch-action:none;cursor:ew-resize;max-width:${svgWidth}px"><title>${svgTitle}</title></svg>\n` +
+    `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}" style="touch-action:none;cursor:ew-resize;width:100%;max-width:${svgWidth}px;height:auto"><title>${svgTitle}</title></svg>\n` +
     `  <div class="readout" id="${outputId}">&nbsp;</div>\n` +
     `</div>`
   );

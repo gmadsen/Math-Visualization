@@ -626,7 +626,7 @@ const C = {
   <div class="readout" id="amp-readout"></div>
 </div><div class="widget" id="w-zmap">
   <div class="hd"><div class="ttl">The amplitwist: drag z, watch the local amplify-and-twist</div><div class="hint">drag the cyan probe $z$ — its image $w=f(z)$ (pink) and the little pink cross (the image of a tiny $+$ at $z$) follow, here for $f(z)=z^2$. Needham's <strong>amplitwist</strong>: near $z$ a holomorphic map acts like a single complex number $f'(z)$ — it <strong>amplifies</strong> lengths by $|f'(z)|$ and <strong>twists</strong> directions by $\arg f'(z)$. Watch the cross stay a right-angled cross while it rotates and rescales as you move $z$ (so angles are preserved — conformality), and shrink to nothing at the origin, where $f'(0)=0$ and the amplitwist vanishes.</div></div>
-  <svg id="zmap-svg" viewBox="0 0 560 560" width="560" height="560" style="touch-action:none;cursor:grab;max-width:560px;overflow:hidden"><title>Drag a probe z through w=z^2; the local image-cross shows Needham's amplitwist — amplification |f'| and twist arg f'.</title></svg>
+  <svg id="zmap-svg" viewBox="0 0 560 560" width="560" height="560" style="touch-action:none;cursor:grab;width:100%;max-width:560px;height:auto;overflow:hidden"><title>Drag a probe z through w=z^2; the local image-cross shows Needham's amplitwist — amplification |f'| and twist arg f'.</title></svg>
   <div class="row">
     <button id="w-zmap-reset" type="button">↺ Reset</button>
   </div>
@@ -2018,7 +2018,7 @@ function f(x,y){ return [x*x - y*y, 2*x*y]; }
 })();
 </script><div class="widget" id="w-res-contour">
   <div class="hd"><div class="ttl">The residue theorem: drag the contour, count the residues</div><div class="hint">drag the cyan contour — move its centre, or drag the yellow handle to resize. The crosses are the simple poles of a meromorphic $f$, each labelled with its residue. The residue theorem says the counterclockwise integral picks up exactly the poles you enclose: $\oint_C f\,dz = 2\pi i \sum_{\text{poles inside }C} \operatorname{Res}(f)$. Enclosed poles glow pink; slide the contour across a pole and watch the integral jump by $2\pi i$ times that residue. Deform the contour without crossing a pole and nothing changes.</div></div>
-  <svg id="res-contour-svg" viewBox="0 0 560 520" width="560" height="520" style="touch-action:none;cursor:grab;max-width:560px"><title>Drag a circular contour over the poles of a meromorphic function; the integral equals 2*pi*i times the sum of enclosed residues.</title></svg>
+  <svg id="res-contour-svg" viewBox="0 0 560 520" width="560" height="520" style="touch-action:none;cursor:grab;width:100%;max-width:560px;height:auto"><title>Drag a circular contour over the poles of a meromorphic function; the integral equals 2*pi*i times the sum of enclosed residues.</title></svg>
   <div class="row">
     <button id="w-res-contour-reset" type="button">↺ Reset</button>
   </div>

@@ -24,7 +24,7 @@ export function renderMarkup(params) {
   return (
     `<div class="widget" id="${widgetId}">\n` +
     `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
-    `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}" style="touch-action:none;cursor:grab;max-width:${svgWidth}px"><title>${svgTitle}</title></svg>\n` +
+    `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}" style="touch-action:none;cursor:grab;width:100%;max-width:${svgWidth}px;height:auto"><title>${svgTitle}</title></svg>\n` +
     `  <div class="row">\n` +
     `    <button id="${widgetId}-reset" type="button">${resetLabel}</button>\n` +
     `  </div>\n` +
