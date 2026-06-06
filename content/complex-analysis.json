@@ -253,6 +253,40 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "complex-map-2d",
+          "params": {
+            "widgetId": "w-zmap",
+            "svgId": "zmap-svg",
+            "outputId": "zmap-out",
+            "title": "The amplitwist: drag z, watch the local amplify-and-twist",
+            "hint": "drag the cyan probe $z$ — its image $w=f(z)$ (pink) and the little pink cross (the image of a tiny $+$ at $z$) follow, here for $f(z)=z^2$. Needham's <strong>amplitwist</strong>: near $z$ a holomorphic map acts like a single complex number $f'(z)$ — it <strong>amplifies</strong> lengths by $|f'(z)|$ and <strong>twists</strong> directions by $\\arg f'(z)$. Watch the cross stay a right-angled cross while it rotates and rescales as you move $z$ (so angles are preserved — conformality), and shrink to nothing at the origin, where $f'(0)=0$ and the amplitwist vanishes.",
+            "svgTitle": "Drag a probe z through w=z^2; the local image-cross shows Needham's amplitwist — amplification |f'| and twist arg f'.",
+            "viewBox": "0 0 560 560",
+            "svgWidth": 560,
+            "svgHeight": 560,
+            "range": 2.5,
+            "gridExtent": 3,
+            "initialZ": [
+              1,
+              0.6
+            ],
+            "bodyScript": "function f(x,y){ return [x*x - y*y, 2*x*y]; }"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-zmap"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n<p>The widget above shows a small grid of points $z_0 + \\varepsilon\\{(\\pm 1,\\pm 1)\\}$ on the left, and $f$ of those points on the right. When $f$ is holomorphic, the right grid is a <em>rotated, scaled, possibly translated</em> copy of the left — angles preserved. For $\\overline{z}$, the right grid is reflected.</p>\n<p>Compare: the map $z\\mapsto \\bar z$ is real-differentiable but not holomorphic. Its Jacobian is a reflection, not a rotation+scaling. Reflections reverse orientation, so $\\bar z$ is \"anti-conformal\" — it preserves angle magnitudes but flips signs.</p>\n"
         },
