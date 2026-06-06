@@ -55,6 +55,71 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "linear-transform-2d",
+          "params": {
+            "widgetId": "w-lintrans",
+            "svgId": "lintrans-svg",
+            "outputId": "lintrans-out",
+            "title": "Drag the basis vectors: the determinant is the signed area",
+            "hint": "drag the two handles — the tips of where $\\hat\\imath$ (cyan) and $\\hat\\jmath$ (yellow) land. Their images are the columns of the matrix $M$, and the whole grid follows, shearing into parallelograms. The wedge $dx\\wedge dy$ on the two image vectors is exactly $\\det M = ad-bc$: the <strong>signed area</strong> of the unit parallelogram, and the factor by which $M$ scales <em>every</em> area. Drag until the area hits zero (the columns line up — singular) or goes negative (the orientation flips and the L-shape mirrors).",
+            "svgTitle": "Drag the images of the basis vectors; the 2x2 matrix transforms the grid and det M is the signed-area scaling factor.",
+            "viewBox": "0 0 560 560",
+            "svgWidth": 560,
+            "svgHeight": 560,
+            "range": 5,
+            "gridExtent": 6,
+            "initialMatrix": [
+              [
+                1.5,
+                0.5
+              ],
+              [
+                0.5,
+                1.5
+              ]
+            ],
+            "shapePoints": [
+              [
+                0,
+                0
+              ],
+              [
+                1.5,
+                0
+              ],
+              [
+                1.5,
+                0.6
+              ],
+              [
+                0.6,
+                0.6
+              ],
+              [
+                0.6,
+                1.8
+              ],
+              [
+                0,
+                1.8
+              ]
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-lintrans"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n"
         },

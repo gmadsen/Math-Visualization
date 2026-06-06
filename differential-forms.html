@@ -486,7 +486,74 @@ function drawNode(svg, x, y, label, opts={}){
 <svg id="w2-svg" viewBox="0 0 520 340" style="background:#0b0f16;border-radius:8px"><title>Widget · 2-form on a parallelogram</title></svg>
 <div class="row"><div class="readout" id="w2-out" style="width:100%"></div></div>
 <div class="small" style="margin-top:.4rem">The parallelogram is filled with a color whose <em>sign</em> reflects $\omega(v,w)$: green if positive, pink if negative. The magnitude $|\omega(v,w)|$ is the scalar-multiple of the unsigned parallelogram area. Swapping $v\leftrightarrow w$ flips the sign.</div>
+</div><div class="widget" id="w-lintrans">
+  <div class="hd"><div class="ttl">Drag the basis vectors: the determinant is the signed area</div><div class="hint">drag the two handles — the tips of where $\hat\imath$ (cyan) and $\hat\jmath$ (yellow) land. Their images are the columns of the matrix $M$, and the whole grid follows, shearing into parallelograms. The wedge $dx\wedge dy$ on the two image vectors is exactly $\det M = ad-bc$: the <strong>signed area</strong> of the unit parallelogram, and the factor by which $M$ scales <em>every</em> area. Drag until the area hits zero (the columns line up — singular) or goes negative (the orientation flips and the L-shape mirrors).</div></div>
+  <svg id="lintrans-svg" viewBox="0 0 560 560" width="560" height="560" style="touch-action:none;cursor:grab;max-width:560px"><title>Drag the images of the basis vectors; the 2x2 matrix transforms the grid and det M is the signed-area scaling factor.</title></svg>
+  <div class="row">
+    <button id="w-lintrans-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="lintrans-out">&nbsp;</div>
 </div>
+<script>
+(function(){
+  const svg=$('#lintrans-svg'), out=$('#lintrans-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=5, EXT=6;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 560').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const cx=W/2, cy=Hh/2, S=(Math.min(W,Hh)/2-18)/R;
+  function PX(x){ return cx + x*S; }
+  function PY(y){ return cy - y*S; }
+  function XV(px){ return (px-cx)/S; }
+  function YV(py){ return (cy-py)/S; }
+  let a=1.5, b=0.5, c=0.5, d=1.5;
+  const SHAPE=[[0,0],[1.5,0],[1.5,0.6],[0.6,0.6],[0.6,1.8],[0,1.8]];
+  function ap(x,y){ return [a*x+b*y, c*x+d*y]; }
+  
+  function arrow(x1,y1,col){
+    G.appendChild(SVG('line',{x1:PX(0),y1:PY(0),x2:PX(x1),y2:PY(y1),stroke:col,'stroke-width':2.5}));
+    const ang=Math.atan2(PY(y1)-PY(0), PX(x1)-PX(0)), hl=10;
+    for(const s of [-1,1]){ const aa=ang+Math.PI+s*0.4;
+      G.appendChild(SVG('line',{x1:PX(x1),y1:PY(y1),x2:PX(x1)+hl*Math.cos(aa),y2:PY(y1)+hl*Math.sin(aa),stroke:col,'stroke-width':2.5})); } }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    const det=a*d-b*c;
+    // faint reference grid (untransformed)
+    for(let k=-EXT;k<=EXT;k++){
+      G.appendChild(SVG('line',{x1:PX(k),y1:PY(-EXT),x2:PX(k),y2:PY(EXT),stroke:'var(--line)','stroke-width':1,opacity:0.18}));
+      G.appendChild(SVG('line',{x1:PX(-EXT),y1:PY(k),x2:PX(EXT),y2:PY(k),stroke:'var(--line)','stroke-width':1,opacity:0.18})); }
+    // transformed grid
+    for(let k=-EXT;k<=EXT;k++){
+      const p1=ap(k,-EXT), p2=ap(k,EXT), q1=ap(-EXT,k), q2=ap(EXT,k);
+      G.appendChild(SVG('line',{x1:PX(p1[0]),y1:PY(p1[1]),x2:PX(p2[0]),y2:PY(p2[1]),stroke:'var(--cyan)','stroke-width':k===0?2:1,opacity:k===0?0.7:0.3}));
+      G.appendChild(SVG('line',{x1:PX(q1[0]),y1:PY(q1[1]),x2:PX(q2[0]),y2:PY(q2[1]),stroke:'var(--yellow)','stroke-width':k===0?2:1,opacity:k===0?0.7:0.3})); }
+    // transformed unit square — colour by orientation
+    const o=ap(0,0), pi=ap(1,0), pij=ap(1,1), pj=ap(0,1);
+    const sq='M'+PX(o[0]).toFixed(1)+' '+PY(o[1]).toFixed(1)+' L'+PX(pi[0]).toFixed(1)+' '+PY(pi[1]).toFixed(1)+' L'+PX(pij[0]).toFixed(1)+' '+PY(pij[1]).toFixed(1)+' L'+PX(pj[0]).toFixed(1)+' '+PY(pj[1]).toFixed(1)+' Z';
+    G.appendChild(SVG('path',{d:sq,fill:det>=0?'var(--cyan)':'var(--pink)','fill-opacity':0.2,stroke:'none'}));
+    if(SHAPE){ let sp=''; for(let n=0;n<SHAPE.length;n++){ const t=ap(SHAPE[n][0],SHAPE[n][1]); sp+=(n?'L':'M')+PX(t[0]).toFixed(1)+' '+PY(t[1]).toFixed(1)+' '; } sp+='Z';
+      G.appendChild(SVG('path',{d:sp,fill:'var(--violet)','fill-opacity':0.25,stroke:'var(--violet)','stroke-width':1.5})); }
+    arrow(a,c,'var(--cyan)'); arrow(b,d,'var(--yellow)');
+    const ti=SVG('text',{x:PX(a)+10,y:PY(c)-8,'font-size':13,fill:'var(--cyan)','font-style':'italic'}); ti.textContent='\u0131\u0302'; G.appendChild(ti);
+    const tj=SVG('text',{x:PX(b)+10,y:PY(d)-8,'font-size':13,fill:'var(--yellow)','font-style':'italic'}); tj.textContent='\u0237\u0302'; G.appendChild(tj);
+    G.appendChild(SVG('circle',{cx:PX(a),cy:PY(c),r:7,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5}));
+    G.appendChild(SVG('circle',{cx:PX(b),cy:PY(d),r:7,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.5}));
+    if(typeof decorate==='function'){ decorate({a:a,b:b,c:c,d:d,det:det},{G:G,PX:PX,PY:PY,ap:ap}); }
+    const EPS=5e-3, inv=Math.abs(det)>=EPS;
+    const orient = det>=EPS?'orientation preserved':(det<=-EPS?'orientation <b style=\"color:var(--pink)\">flipped</b>':'<b style=\"color:var(--pink)\">collapsed to a line</b>');
+    out.innerHTML='M = ['+a.toFixed(2)+'\u2009'+b.toFixed(2)+'; '+c.toFixed(2)+'\u2009'+d.toFixed(2)+'] &nbsp;\u00b7&nbsp; det = <b>'+det.toFixed(2)+'</b> \u2192 areas \u00d7'+Math.abs(det).toFixed(2)+' &nbsp;\u00b7&nbsp; '+orient+' &nbsp;\u00b7&nbsp; '+(inv?'invertible':'<b style=\"color:var(--pink)\">singular</b>'); }
+  // ---- drag engine (supplied by linear-transform-2d) ----
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }
+  let drag=null;
+  function hit(pt){ const di=Math.hypot(pt.x-a,pt.y-c), dj=Math.hypot(pt.x-b,pt.y-d), r=16/S; if(di<r&&di<=dj) return 'i'; if(dj<r) return 'j'; return null; }
+  svg.addEventListener('pointerdown',function(ev){ const pt=toData(ev); drag=hit(pt); if(drag){ ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} } });
+  window.addEventListener('pointermove',function(ev){ if(!drag)return; const pt=toData(ev); let x=Math.max(-R,Math.min(R,pt.x)), y=Math.max(-R,Math.min(R,pt.y)); if(drag==='i'){a=x;c=y;} else {b=x;d=y;} render(); });
+  window.addEventListener('pointerup',function(){ drag=null; });
+  const rb=$('#w-lintrans-reset'); if(rb) rb.addEventListener('click',function(){ a=1.5;b=0.5;c=0.5;d=1.5; render(); });
+  render();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

@@ -9014,6 +9014,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "linear-transform-2d",
+    "family": "linear-transform-2d",
+    "dimension": "2d",
+    "gesture": "drag-basis",
+    "role": "explore",
+    "title": "linear-transform-2d widget params",
+    "description": "A self-contained 'drag the basis vectors' engine for 2D linear maps. The reader drags the two coloured handles — the tips of where the standard basis vectors î and ĵ land — and the 2x2 matrix M = [[a,b],[c,d]] whose columns are those images carries the whole integer grid to a sheared lattice, transforms the unit square (and an optional shape), and the readout reports M, det M = ad-bc (the signed-area scaling factor / the value of dx wedge dy on the image vectors), orientation, and invertibility. The renderer owns the drag gesture, the data<->pixel mapping, the grid/arrow drawing and Reset; the widget is fully param-driven (initialMatrix, optional shapePoints) with an optional bodyScript decorate hook for extras. The gesture is 'drag-basis' — a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "Self-contained **\"drag the basis vectors\"** engine — the corpus's `drag-basis` gesture. The reader drags the two coloured handles, which are the tips of where the standard basis vectors $\\hat\\imath, \\hat\\jmath$ land. The $2\\times2$ matrix $M=\\bigl(\\begin{smallmatrix}a&b\\\\c&d\\end{smallmatrix}\\bigr)$ whose **columns are those images** carries the whole integer grid to a sheared lattice of parallelograms; the readout reports $M$, $\\det M = ad-bc$ (the signed-area scaling factor — the value of $dx\\wedge dy$ on the two image vectors), orientation, and invertibility. First home: `differential-forms §wedge` (the $2$-form as signed area = determinant).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "maass-forms-w2",
     "family": "verbatim",
     "dimension": "2d",
