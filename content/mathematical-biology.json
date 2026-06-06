@@ -382,6 +382,57 @@
           "ref": "w-lv"
         },
         {
+          "type": "widget",
+          "slug": "vector-field-flow-2d",
+          "params": {
+            "widgetId": "w-lv-flow",
+            "svgId": "lv-flow-svg",
+            "outputId": "lv-flow-out",
+            "title": "Lotka–Volterra: click to release a predator–prey cycle",
+            "hint": "click anywhere in the positive quadrant to release a trajectory of the Lotka–Volterra system $\\dot x = x(1-y),\\ \\dot y = y(x-1)$ — prey $x$, predator $y$. The quantity $V = x - \\ln x + y - \\ln y$ is conserved, so populations cycle on closed orbits around the coexistence point $(1,1)$: a prey boom is chased by a predator boom that crashes the prey, then the predators starve and the cycle repeats. Bigger loops mean wilder swings.",
+            "svgTitle": "Lotka–Volterra predator–prey phase portrait; click to integrate a closed population cycle around (1,1).",
+            "viewBox": "0 0 640 420",
+            "svgWidth": 640,
+            "svgHeight": 420,
+            "x0": 0,
+            "x1": 4.5,
+            "y0": 0,
+            "y1": 3.5,
+            "dt": 0.02,
+            "steps": 1100,
+            "gridNX": 21,
+            "gridNY": 13,
+            "initialSeeds": [
+              [
+                1.6,
+                1
+              ],
+              [
+                2.4,
+                1
+              ],
+              [
+                3.2,
+                1
+              ]
+            ],
+            "outputInitial": "click in the quadrant to release a population cycle around (1,1)",
+            "bodyScript": "function field(x,y){ return {dx: x*(1-y), dy: y*(x-1)}; }\nfunction decorate(BG){\n  BG.appendChild(SVG('line',{x1:PX(1),y1:PY(Y0),x2:PX(1),y2:PY(Y1),stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'4 4',opacity:0.6}));\n  BG.appendChild(SVG('line',{x1:PX(X0),y1:PY(1),x2:PX(X1),y2:PY(1),stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'4 4',opacity:0.6}));\n  BG.appendChild(SVG('circle',{cx:PX(1),cy:PY(1),r:4,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.2}));\n  var t=SVG('text',{x:PX(1)+9,y:PY(1)-7,'font-size':12,fill:'var(--mute)'}); t.textContent='coexistence (1,1)'; BG.appendChild(t);\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-lv-flow"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n<div class=\"bad\"><strong>Why centres are biologically suspicious.</strong> A centre is a non-generic structure: arbitrarily small perturbations turn it into a spiral (either inward — stable focus — or outward — unstable focus). Adding a self-limitation term $-\\varepsilon x^2$ to the prey equation collapses the closed orbits into a stable spiral converging to a new equilibrium. So the conserved-orbit picture is a structurally unstable artefact of the conservation law; real predator-prey dynamics seldom show truly periodic boom-bust cycles — but the qualitative phase-lag prediction (prey peak slightly before predators) survives generically.</div>\n\n"
         },
