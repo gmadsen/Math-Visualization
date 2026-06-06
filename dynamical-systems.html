@@ -561,7 +561,7 @@ function decorate(BG){
   <div class="readout" id="nullcline-flow-out">click to release a trajectory — fixed points are where the nullclines cross</div>
 </div><div class="widget" id="w-lin-eig">
   <div class="hd"><div class="ttl">Invariant directions: drag a direction to find the eigenvectors of the linearization</div><div class="hint">near a hyperbolic fixed point the flow is governed by the linearization $A=Df$. Drag the cyan unit vector $v$: its image $Av$ (pink) usually points elsewhere, but along an <strong>eigenvector</strong> $Av$ is parallel to $v$ — those are the <strong>invariant directions</strong>, tangent to the stable and unstable manifolds. The eigenvalues are the exponential rates: $\lambda>0$ repels (unstable direction), $\lambda<0$ attracts (stable direction). This $A$ is a <em>saddle</em> ($\lambda=+1,-1$) and is <strong>not</strong> symmetric, so unlike the principal directions of a shape operator the two invariant lines are <em>not</em> orthogonal.</div></div>
-  <svg id="lin-eig-svg" viewBox="0 0 520 520" width="520" height="520" style="touch-action:none;cursor:grab;max-width:520px"><title>Drag a direction v; where Av is parallel to v are the eigenvectors of the linearization (tangents to the stable/unstable manifolds).</title></svg>
+  <svg id="lin-eig-svg" viewBox="0 0 520 520" width="520" height="520" style="touch-action:none;cursor:grab;width:100%;max-width:520px;height:auto"><title>Drag a direction v; where Av is parallel to v are the eigenvectors of the linearization (tangents to the stable/unstable manifolds).</title></svg>
   <div class="row">
     <button id="w-lin-eig-reset" type="button">↺ Reset</button>
   </div>
@@ -1540,7 +1540,7 @@ function decorate(BG){
     <label for="bifdial-sel">normal form:</label>
     <select id="bifdial-sel"><option value="0">saddle-node:  x' = μ − x²</option><option value="1">transcritical:  x' = μx − x²</option><option value="2">pitchfork (super):  x' = μx − x³</option></select>
   </div>
-  <svg id="bifdial-svg" viewBox="0 0 600 460" width="600" height="460" style="touch-action:none;cursor:ew-resize;max-width:600px"><title>Bifurcation diagram and phase line for 1-D normal forms; drag the mu-line.</title></svg>
+  <svg id="bifdial-svg" viewBox="0 0 600 460" width="600" height="460" style="touch-action:none;cursor:ew-resize;width:100%;max-width:600px;height:auto"><title>Bifurcation diagram and phase line for 1-D normal forms; drag the mu-line.</title></svg>
   <div class="readout" id="bifdial-out">&nbsp;</div>
 </div><div class="widget" id="w-bif">
   <div class="hd"><div class="ttl">Logistic bifurcation diagram</div><div class="hint">slide $r$ to pin a vertical line · watch the attractor change</div></div>
