@@ -322,6 +322,61 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "vector-field-flow-2d",
+          "params": {
+            "widgetId": "w-vdp-flow",
+            "svgId": "vdp-flow-svg",
+            "outputId": "vdp-flow-out",
+            "title": "Van der Pol: click to watch orbits wind onto the limit cycle",
+            "hint": "click anywhere to release a trajectory of the Van der Pol oscillator $\\dot x = y,\\ \\dot y = \\mu(1-x^2)\\,y - x$ (here $\\mu=1$). Every orbit except the unstable spiral at the origin winds onto the same closed curve — the limit cycle. Seed inside and it spirals out; seed outside and it spirals in. (Each orbit is integrated forward and backward through your click; for a seed inside the cycle the backward half unwinds back toward the origin.)",
+            "svgTitle": "Phase portrait of the Van der Pol oscillator x'=y, y'=(1-x^2)y-x; click to integrate an orbit that winds onto the limit cycle.",
+            "viewBox": "0 0 640 420",
+            "svgWidth": 640,
+            "svgHeight": 420,
+            "x0": -3.2,
+            "x1": 3.2,
+            "y0": -3.6,
+            "y1": 3.6,
+            "dt": 0.02,
+            "steps": 900,
+            "gridNX": 21,
+            "gridNY": 13,
+            "initialSeeds": [
+              [
+                0.5,
+                0
+              ],
+              [
+                -0.5,
+                0
+              ],
+              [
+                2.7,
+                0
+              ],
+              [
+                -2.7,
+                0
+              ]
+            ],
+            "outputInitial": "click in the plane to release an orbit — watch it spiral onto the limit cycle",
+            "bodyScript": "function field(x,y){ var mu=1; return {dx: y, dy: mu*(1-x*x)*y - x}; }\nfunction decorate(BG){\n  BG.appendChild(SVG('circle',{cx:PX(0),cy:PY(0),r:5,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n  var t=SVG('text',{x:PX(0)+10,y:PY(0)-8,'font-size':12,fill:'var(--pink)'}); t.textContent='unstable focus'; BG.appendChild(t);\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-vdp-flow"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
