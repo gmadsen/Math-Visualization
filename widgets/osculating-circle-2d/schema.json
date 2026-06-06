@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/osculating-circle-2d/schema.json",
+  "title": "osculating-circle-2d widget params",
+  "description": "A self-contained 'drag a point along a curve, watch the osculating circle' engine. The author supplies a parametric plane curve via `function curve(t){ return [x,y]; }`. The reader drags a point P along the curve; the engine computes the curvature kappa(t) by central finite differences, draws the osculating circle (the circle of radius 1/|kappa| centred at the centre of curvature, that best hugs the curve at P) along with the tangent and normal, and reports t, kappa, and the radius of curvature rho = 1/|kappa|. The circle shrinks where the curve bends sharply and grows toward a straight line where it flattens. The renderer owns the curve sampling, the drag-to-nearest-t projection, the curvature/osculating-circle geometry, the readout, and Reset; the curve is author-supplied. The gesture is 'drag-along-curve' — direct manipulation of a point constrained to a curve, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+  "meta": {
+    "family": "osculating-circle-2d",
+    "dimension": "2d",
+    "gesture": "drag-along-curve",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout the engine writes t, kappa, rho into." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the point along the curve." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 600 460'.", "default": "0 0 600 460" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 600.", "default": 600 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 460.", "default": 460 },
+    "x0": { "type": "number", "description": "Data x at the left edge. Default -3.2.", "default": -3.2 },
+    "x1": { "type": "number", "description": "Data x at the right edge. Default 3.2.", "default": 3.2 },
+    "y0": { "type": "number", "description": "Data y at the bottom edge. Default -2.6.", "default": -2.6 },
+    "y1": { "type": "number", "description": "Data y at the top edge. Default 2.6.", "default": 2.6 },
+    "t0": { "type": "number", "description": "Curve parameter at the start. Default 0.", "default": 0 },
+    "t1": { "type": "number", "description": "Curve parameter at the end. Default 6.283185307179586 (2 pi).", "default": 6.283185307179586 },
+    "closed": { "type": "boolean", "description": "Whether the curve is closed (t0 and t1 join). Affects drawing only. Default true.", "default": true },
+    "initialT": { "type": "number", "description": "Initial parameter of the draggable point. Default 0.6.", "default": 0.6 },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS defining `function curve(t){ return [x, y]; }` — a parametric plane curve in data coordinates over t in [t0, t1]. The engine samples it to draw the curve and computes curvature by central finite differences. Must not start a timer."
+    }
+  }
+}
