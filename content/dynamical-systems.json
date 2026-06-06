@@ -223,6 +223,31 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "eigenvector-explorer-2d",
+          "params": {
+            "widgetId": "w-lin-eig",
+            "svgId": "lin-eig-svg",
+            "outputId": "lin-eig-out",
+            "title": "Invariant directions: drag a direction to find the eigenvectors of the linearization",
+            "hint": "near a hyperbolic fixed point the flow is governed by the linearization $A=Df$. Drag the cyan unit vector $v$: its image $Av$ (pink) usually points elsewhere, but along an <strong>eigenvector</strong> $Av$ is parallel to $v$ — those are the <strong>invariant directions</strong>, tangent to the stable and unstable manifolds. The eigenvalues are the exponential rates: $\\lambda>0$ repels (unstable direction), $\\lambda<0$ attracts (stable direction). This $A$ is a <em>saddle</em> ($\\lambda=+1,-1$) and is <strong>not</strong> symmetric, so unlike the principal directions of a shape operator the two invariant lines are <em>not</em> orthogonal.",
+            "svgTitle": "Drag a direction v; where Av is parallel to v are the eigenvectors of the linearization (tangents to the stable/unstable manifolds).",
+            "range": 2.6,
+            "matrix": [
+              [
+                1,
+                1
+              ],
+              [
+                0,
+                -1
+              ]
+            ],
+            "initialAngleDeg": 34,
+            "eigenLabel": "rate"
+          }
+        },
+        {
           "type": "raw",
           "html": "\n"
         },
@@ -258,6 +283,10 @@
         {
           "type": "widget-script",
           "ref": "w-lin"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-lin-eig"
         },
         {
           "type": "raw",
