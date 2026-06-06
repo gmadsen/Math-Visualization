@@ -1476,7 +1476,15 @@ function decorate(BG){
 <p style="text-align:center">$\delta = \lim_{n\to\infty}\dfrac{r_{n-1}-r_{n-2}}{r_n-r_{n-1}} \approx 4.66920\ldots$</p>
 <p>is universal: it appears in any smooth one-parameter family of unimodal maps with quadratic maximum.</p>
 
-<div class="widget" id="w-bif">
+<div class="widget" id="w-bifdial">
+  <div class="hd"><div class="ttl">Turn the bifurcation dial: the codimension-one normal forms</div><div class="hint">pick a normal form, then <strong>drag the yellow $\mu$-line</strong> across the diagram. Watch the fixed points (roots of $\dot x=f(x;\mu)$) collide, exchange stability, or split as $\mu$ crosses $0$ — the phase line below shows the flow.</div></div>
+  <div class="row">
+    <label for="bifdial-sel">normal form:</label>
+    <select id="bifdial-sel"><option value="0">saddle-node:  x' = μ − x²</option><option value="1">transcritical:  x' = μx − x²</option><option value="2">pitchfork (super):  x' = μx − x³</option></select>
+  </div>
+  <svg id="bifdial-svg" viewBox="0 0 600 460" width="600" height="460" style="touch-action:none;cursor:ew-resize;max-width:600px"><title>Bifurcation diagram and phase line for 1-D normal forms; drag the mu-line.</title></svg>
+  <div class="readout" id="bifdial-out">&nbsp;</div>
+</div><div class="widget" id="w-bif">
   <div class="hd"><div class="ttl">Logistic bifurcation diagram</div><div class="hint">slide $r$ to pin a vertical line · watch the attractor change</div></div>
   <div class="row">
     <label for="bi-r">r:</label><input type="range" id="bi-r" min="2.8" max="4" step="0.002" value="3.56"><span class="small" id="bi-rval">r=3.560</span>
@@ -1523,6 +1531,95 @@ function decorate(BG){
       + `(1=fixed point · 2=2-cycle · 4=4-cycle · many=chaotic window)`;
   }
   rs.addEventListener('input', render); render();
+})();
+</script><script>
+(function(){
+  const svg=$('#bifdial-svg'), out=$('#bifdial-out'), sel=$('#bifdial-sel');
+  const G=SVG('g'); svg.appendChild(G);
+  const XMIN=-1.8, XMAX=1.8, MUVAR="μ";
+  const CASES=[{"label":"saddle-node:  x' = μ − x²","expr":"mu - x*x","mu0":-1.5,"mu1":1.5,"muInit":-0.8,"muCrit":0},{"label":"transcritical:  x' = μx − x²","expr":"mu*x - x*x","mu0":-1.5,"mu1":1.5,"muInit":-0.8,"muCrit":0},{"label":"pitchfork (super):  x' = μx − x³","expr":"mu*x - x*x*x","mu0":-1.5,"mu1":1.5,"muInit":-0.8,"muCrit":0}];
+  CASES.forEach(function(c){ c.f=new Function('x','mu','return ('+c.expr+');');
+    if(c.muInit==null) c.muInit=(c.mu0+c.mu1)/2; });
+  // ---- panel geometry (viewBox 600x460) ----
+  const L=64, Rt=584, dTop=34, dBot=278;   // bifurcation diagram box
+  const phaseY=388, phaseTop=330;          // phase-line baseline + label band
+  let ci=0, mu=CASES[0].muInit;
+  function f(x){ return CASES[ci].f(x,mu); }
+  function fp(x){ const h=1e-4; return (CASES[ci].f(x+h,mu)-CASES[ci].f(x-h,mu))/(2*h); }
+  function MX(m){ const c=CASES[ci]; return L+(m-c.mu0)/(c.mu1-c.mu0)*(Rt-L); }
+  function MXinv(px){ const c=CASES[ci]; return c.mu0+(px-L)/(Rt-L)*(c.mu1-c.mu0); }
+  function MY(x){ return dBot-(x-XMIN)/(XMAX-XMIN)*(dBot-dTop); }
+  function PX(x){ return L+(x-XMIN)/(XMAX-XMIN)*(Rt-L); }
+  // ---- root finding for x'=g(x): roots of g over [XMIN,XMAX] ----
+  function rootsOf(g){ const K=420, out=[]; let xp=XMIN, vp=g(xp);
+    for(let i=1;i<=K;i++){ const xc=XMIN+(XMAX-XMIN)*i/K, vc=g(xc);
+      if(vp===0){ out.push(xp); } else if(vp*vc<0){ let a=xp,b=xc,fa=vp;
+        for(let j=0;j<60;j++){ const mdv=(a+b)/2, fm=g(mdv); if(fa*fm<=0){b=mdv;} else {a=mdv;fa=fm;} }
+        out.push((a+b)/2); } xp=xc; vp=vc; }
+    // dedup near-equal roots
+    out.sort(function(a,b){return a-b;}); const r=[]; out.forEach(function(v){ if(!r.length||Math.abs(v-r[r.length-1])>1e-4) r.push(v); }); return r; }
+  function fixedPts(m){ const g=function(x){return CASES[ci].f(x,m);};
+    return rootsOf(g).map(function(x){ const h=1e-4, d=(CASES[ci].f(x+h,m)-CASES[ci].f(x-h,m))/(2*h);
+      return {x:x, stable:d<0, d:d}; }); }
+  function fmt(n){ return (n<0?'\u2212':'')+Math.abs(n).toFixed(2); }
+  function clearG(){ while(G.firstChild)G.removeChild(G.firstChild); }
+  function render(){
+    clearG(); const c=CASES[ci];
+    // ===== top: bifurcation diagram =====
+    // axes
+    G.appendChild(SVG('line',{x1:L,y1:dBot,x2:Rt,y2:dBot,stroke:'var(--mute)','stroke-width':1,opacity:0.5}));
+    G.appendChild(SVG('line',{x1:L,y1:dTop,x2:L,y2:dBot,stroke:'var(--mute)','stroke-width':1,opacity:0.5}));
+    if(XMIN<0&&XMAX>0){ var y0=MY(0); G.appendChild(SVG('line',{x1:L,y1:y0,x2:Rt,y2:y0,stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'2 4',opacity:0.4})); }
+    var ax=SVG('text',{x:Rt,y:dBot+16,'font-size':12,fill:'var(--mute)','text-anchor':'end'}); ax.textContent=MUVAR+' (parameter)'; G.appendChild(ax);
+    var ay=SVG('text',{x:L-8,y:dTop+4,'font-size':12,fill:'var(--mute)','text-anchor':'end'}); ay.textContent='x*'; G.appendChild(ay);
+    // branches: scan mu across the axis, plot each fixed point coloured by stability
+    var COLS=260;
+    for(var k=0;k<=COLS;k++){ var mm=c.mu0+(c.mu1-c.mu0)*k/COLS, px=MX(mm), pts=fixedPts(mm);
+      for(var p=0;p<pts.length;p++){ if(pts[p].x<XMIN||pts[p].x>XMAX) continue;
+        G.appendChild(SVG('circle',{cx:px,cy:MY(pts[p].x),r:1.3,fill:pts[p].stable?'var(--green)':'var(--pink)'})); } }
+    // legend
+    G.appendChild(SVG('circle',{cx:Rt-150,cy:dTop+6,r:4,fill:'var(--green)'}));
+    var lg1=SVG('text',{x:Rt-142,y:dTop+10,'font-size':11,fill:'var(--mute)'}); lg1.textContent='stable'; G.appendChild(lg1);
+    G.appendChild(SVG('circle',{cx:Rt-90,cy:dTop+6,r:4,fill:'var(--pink)'}));
+    var lg2=SVG('text',{x:Rt-82,y:dTop+10,'font-size':11,fill:'var(--mute)'}); lg2.textContent='unstable'; G.appendChild(lg2);
+    // draggable mu-line
+    var mx=MX(mu);
+    G.appendChild(SVG('line',{x1:mx,y1:dTop-4,x2:mx,y2:dBot+4,stroke:'var(--yellow)','stroke-width':2}));
+    G.appendChild(SVG('circle',{cx:mx,cy:dTop-4,r:5,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.4}));
+    var ml=SVG('text',{x:mx,y:dTop-12,'font-size':12,fill:'var(--yellow)','text-anchor':'middle'}); ml.textContent=MUVAR+'='+fmt(mu); G.appendChild(ml);
+    // ===== bottom: phase line at current mu =====
+    var pts=fixedPts(mu);
+    var eqn=c.label.indexOf(':')>=0 ? c.label.slice(c.label.indexOf(':')+1).trim() : c.expr;
+    var hd=SVG('text',{x:L,y:phaseTop,'font-size':12,fill:'var(--ink)'}); hd.textContent='phase line   '+eqn; G.appendChild(hd);
+    G.appendChild(SVG('line',{x1:L,y1:phaseY,x2:Rt,y2:phaseY,stroke:'var(--ink)','stroke-width':1.5}));
+    if(XMIN<0&&XMAX>0){ G.appendChild(SVG('line',{x1:PX(0),y1:phaseY-5,x2:PX(0),y2:phaseY+5,stroke:'var(--mute)','stroke-width':1})); var z=SVG('text',{x:PX(0),y:phaseY+18,'font-size':10,fill:'var(--mute)','text-anchor':'middle'}); z.textContent='0'; G.appendChild(z); }
+    // flow arrows: sample sign of f between consecutive fixed points (and the outer regions)
+    var bounds=[XMIN].concat(pts.map(function(p){return p.x;})).concat([XMAX]);
+    for(var b=0;b<bounds.length-1;b++){ var lo=bounds[b], hi=bounds[b+1]; if(hi-lo<1e-3) continue;
+      var xm=(lo+hi)/2, dir=f(xm)>0?1:-1, ax0=PX(xm)-dir*11, ax1=PX(xm)+dir*11;
+      G.appendChild(SVG('line',{x1:ax0,y1:phaseY,x2:ax1,y2:phaseY,stroke:'var(--cyan)','stroke-width':2}));
+      G.appendChild(SVG('line',{x1:ax1,y1:phaseY,x2:ax1-dir*5,y2:phaseY-4,stroke:'var(--cyan)','stroke-width':2}));
+      G.appendChild(SVG('line',{x1:ax1,y1:phaseY,x2:ax1-dir*5,y2:phaseY+4,stroke:'var(--cyan)','stroke-width':2})); }
+    // fixed-point dots
+    pts.forEach(function(p){ var col=p.stable?'var(--green)':'var(--pink)';
+      G.appendChild(SVG('circle',{cx:PX(p.x),cy:phaseY,r:6,fill:p.stable?col:'var(--panel)',stroke:col,'stroke-width':2.2})); });
+    // ===== readout =====
+    var desc;
+    if(!pts.length){ desc='<b>no fixed points</b> — the flow sweeps straight through'; }
+    else { desc=pts.map(function(p){ return 'x*='+fmt(p.x)+' <span style=\"color:'+(p.stable?'var(--green)':'var(--pink)')+'\">('+(p.stable?'stable':'unstable')+')</span>'; }).join(' &nbsp; '); }
+    var crit='';
+    if(c.muCrit!=null){ var span=(c.mu1-c.mu0); if(Math.abs(mu-c.muCrit)<0.02*span) crit=' &nbsp;\u00b7&nbsp; <b style=\"color:var(--yellow)\">at the bifurcation ('+MUVAR+'='+fmt(c.muCrit)+')</b>'; }
+    out.innerHTML=MUVAR+' = <b>'+fmt(mu)+'</b> &nbsp;\u00b7&nbsp; '+pts.length+' fixed point'+(pts.length===1?'':'s')+': '+desc+crit;
+  }
+  // ---- drag the mu-line (the dial) ----
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return p; }
+  function setMuFrom(px){ const c=CASES[ci]; mu=Math.max(c.mu0,Math.min(c.mu1,MXinv(px))); render(); }
+  let drag=false;
+  svg.addEventListener('pointerdown',function(ev){ const p=toData(ev); if(p.y<=dBot+10){ drag=true; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} setMuFrom(p.x); } });
+  window.addEventListener('pointermove',function(ev){ if(!drag)return; setMuFrom(toData(ev).x); });
+  window.addEventListener('pointerup',function(){ drag=false; });
+  sel.addEventListener('change',function(){ ci=+sel.value; mu=CASES[ci].muInit; render(); });
+  render();
 })();
 </script>
 
