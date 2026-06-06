@@ -38,6 +38,65 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "vector-field-flow-2d",
+          "params": {
+            "widgetId": "w-spiral-flow",
+            "svgId": "spiral-flow-svg",
+            "outputId": "spiral-flow-out",
+            "title": "Release a particle: watch the orbit spiral in",
+            "hint": "click anywhere to release a particle into the flow $\\dot x = -ax - y,\\ \\dot y = x - ay$ (here $a=0.35$). The Jacobian has complex eigenvalues $-a \\pm i$ — a negative real part means every orbit spirals inward, and the imaginary part is the rotation: a damped oscillator. The origin is a stable focus that swallows every trajectory.",
+            "svgTitle": "Phase portrait of a damped linear oscillator; click to integrate an orbit that spirals into the stable focus at the origin.",
+            "viewBox": "0 0 640 420",
+            "svgWidth": 640,
+            "svgHeight": 420,
+            "x0": -2.5,
+            "x1": 2.5,
+            "y0": -2.5,
+            "y1": 2.5,
+            "dt": 0.02,
+            "steps": 1300,
+            "gridNX": 21,
+            "gridNY": 21,
+            "initialSeeds": [
+              [
+                2.1,
+                0
+              ],
+              [
+                -2.1,
+                0
+              ],
+              [
+                0,
+                2.1
+              ],
+              [
+                0,
+                -2.1
+              ],
+              [
+                1.6,
+                1.6
+              ]
+            ],
+            "outputInitial": "click to release a particle — its orbit spirals into the stable focus at the origin",
+            "bodyScript": "function field(x,y){ var a=0.35; return {dx: -a*x - y, dy: x - a*y}; }\nfunction decorate(BG){\n  BG.appendChild(SVG('circle',{cx:PX(0),cy:PY(0),r:5,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.2}));\n  var t=SVG('text',{x:PX(0)+9,y:PY(0)-7,'font-size':12,fill:'var(--mute)'}); t.textContent='stable focus'; BG.appendChild(t);\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-spiral-flow"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n<p>Things to notice:</p>\n<ul>\n  <li>The <em>linear sink</em> pulls every orbit toward the origin along the slow direction.</li>\n  <li>The <em>pendulum</em> is conservative: orbits are level sets of the energy $H=\\tfrac{1}{2}y^2 -\\cos x$. Small-amplitude orbits are ellipses; large-amplitude ones whip over the top.</li>\n  <li>The <em>predator–prey</em> Lotka–Volterra system has closed orbits around $(1,1)$: both populations cycle.</li>\n</ul>\n\n"
         },
