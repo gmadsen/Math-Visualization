@@ -1483,7 +1483,81 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
   </div>
   <svg id="dv-svg" viewBox="-4 -4 8 8" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Volume evolution of a blob of ICs under three 2D flows</title></svg>
   <div class="readout" id="dv-out"></div>
+</div><div class="widget" id="w-pend-flow">
+  <div class="hd"><div class="ttl">Pendulum: click to release an orbit — energy is conserved</div><div class="hint">click anywhere to release an orbit of the undamped pendulum $\dot x = y,\ \dot y = -\sin x$ (angle $x$, angular velocity $y$). Energy $H=\tfrac12 y^2-\cos x$ is conserved, so every orbit is a closed level curve — there are no attractors, the hallmark of a conservative flow. Inside the separatrix the pendulum swings back and forth (libration, closed loops around the center); push it harder and it goes over the top (rotation, the angle running off the edge). The saddles sit at $(\pm\pi,0)$.</div></div>
+  <svg id="pend-flow-svg" viewBox="0 0 640 420" width="640" height="420" style="touch-action:none;cursor:crosshair"><title>Phase portrait of the undamped pendulum x'=y, y'=-sin x; click to integrate a closed energy level-curve.</title></svg>
+  <div class="row">
+    <button id="w-pend-flow-reset" type="button">↺ Clear</button>
+  </div>
+  <div class="readout" id="pend-flow-out">click in the plane to release an orbit — closed loops (libration) inside the separatrix</div>
 </div>
+<script>
+(function(){
+  const svg=$('#pend-flow-svg'), out=$('#pend-flow-out');
+  const BG=SVG('g'); svg.appendChild(BG);
+  const TR=SVG('g'); svg.appendChild(TR);
+  const X0=-3.6, X1=3.6, Y0=-3, Y1=3;
+  const DT=0.02, STEPS=1000, GNX=23, GNY=13;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 420').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const bx0=_vb[0]+40, bx1=_vb[0]+W-20, by0=_vb[1]+Hh-36, by1=_vb[1]+20;
+  function PX(x){ return bx0+(bx1-bx0)*(x-X0)/(X1-X0); }
+  function PY(y){ return by0+(by1-by0)*(y-Y0)/(Y1-Y0); }
+  function XV(px){ return X0+(X1-X0)*(px-bx0)/(bx1-bx0); }
+  function YV(py){ return Y0+(Y1-Y0)*(py-by0)/(by1-by0); }
+  const SEEDS=[[0.6,0],[1.4,0],[2.2,0],[2.9,0],[0,1.5]];
+  // ---- author field(x,y) + optional decorate(BG) ----
+function field(x,y){ return {dx: y, dy: -Math.sin(x)}; }
+function decorate(BG){
+  var pi=Math.PI;
+  BG.appendChild(SVG('circle',{cx:PX(0),cy:PY(0),r:4,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.2}));
+  var tc=SVG('text',{x:PX(0)+9,y:PY(0)-7,'font-size':12,fill:'var(--mute)'}); tc.textContent='center'; BG.appendChild(tc);
+  [pi,-pi].forEach(function(xs){
+    BG.appendChild(SVG('circle',{cx:PX(xs),cy:PY(0),r:5,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    var ts=SVG('text',{x:PX(xs),y:PY(0)+22,'font-size':12,fill:'var(--pink)','text-anchor':'middle'}); ts.textContent=(xs>0?'(\u03c0,0)':'(\u2212\u03c0,0)')+' saddle'; BG.appendChild(ts); });
+}
+  // ---- flow engine (supplied by vector-field-flow-2d) ----
+  function inBox(x,y){ return x>=X0-1e-9 && x<=X1+1e-9 && y>=Y0-1e-9 && y<=Y1+1e-9; }
+  function rk4(x,y,h){ const a=field(x,y); const k1x=a.dx,k1y=a.dy;
+    const b=field(x+0.5*h*k1x,y+0.5*h*k1y); const k2x=b.dx,k2y=b.dy;
+    const c=field(x+0.5*h*k2x,y+0.5*h*k2y); const k3x=c.dx,k3y=c.dy;
+    const d=field(x+h*k3x,y+h*k3y); const k4x=d.dx,k4y=d.dy;
+    return [x+h/6*(k1x+2*k2x+2*k3x+k4x), y+h/6*(k1y+2*k2y+2*k3y+k4y)]; }
+  function integrate(x,y,sign){ const pts=[[x,y]]; let cx=x,cy=y;
+    for(let i=0;i<STEPS;i++){ const v=field(cx,cy); if(Math.hypot(v.dx,v.dy)<1e-4) break;
+      const n=rk4(cx,cy,sign*DT); cx=n[0]; cy=n[1]; if(!inBox(cx,cy)){ pts.push([cx,cy]); break; } pts.push([cx,cy]); }
+    return pts; }
+  function pathOf(pts){ let d=''; for(let i=0;i<pts.length;i++){ d+=(i?'L':'M')+PX(pts[i][0]).toFixed(1)+' '+PY(pts[i][1]).toFixed(1)+' '; } return d; }
+  function fmt(v){ var r=Number(v.toFixed(2)); if(r===0) r=0; return r.toFixed(2); }
+  function streamline(x,y){ const fwd=integrate(x,y,1), bwd=integrate(x,y,-1);
+    const full=bwd.slice().reverse().concat(fwd.slice(1));
+    TR.appendChild(SVG('path',{d:pathOf(full),fill:'none',stroke:'var(--cyan)','stroke-width':2,opacity:0.9}));
+    TR.appendChild(SVG('circle',{cx:PX(x),cy:PY(y),r:3,fill:'var(--yellow)'}));
+    const e=fwd[fwd.length-1], v=field(e[0],e[1]);
+    if(!inBox(e[0],e[1])) return 'seed ('+fmt(x)+', '+fmt(y)+') \u2192 escapes the window';
+    if(Math.hypot(v.dx,v.dy)<1e-3) return 'seed ('+fmt(x)+', '+fmt(y)+') \u2192 settles near ('+fmt(e[0])+', '+fmt(e[1])+')';
+    return 'seed ('+fmt(x)+', '+fmt(y)+') \u2192 still moving at ('+fmt(e[0])+', '+fmt(e[1])+')'; }
+  function drawAxes(){ const y0p=(Y0<=0&&Y1>=0)?PY(0):null, x0p=(X0<=0&&X1>=0)?PX(0):null;
+    BG.appendChild(SVG('rect',{x:bx0,y:by1,width:bx1-bx0,height:by0-by1,fill:'none',stroke:'var(--line)','stroke-width':1,opacity:0.5}));
+    if(y0p!=null) BG.appendChild(SVG('line',{x1:bx0,y1:y0p,x2:bx1,y2:y0p,stroke:'var(--line)','stroke-width':1,opacity:0.7}));
+    if(x0p!=null) BG.appendChild(SVG('line',{x1:x0p,y1:by1,x2:x0p,y2:by0,stroke:'var(--line)','stroke-width':1,opacity:0.7})); }
+  function drawField(){ if(GNX<=0||GNY<=0) return; const L=10;
+    const sx=(bx1-bx0)/(X1-X0), sy=(by0-by1)/(Y1-Y0);
+    for(let i=0;i<GNX;i++){ for(let j=0;j<GNY;j++){
+      const x=X0+(X1-X0)*(i+0.5)/GNX, y=Y0+(Y1-Y0)*(j+0.5)/GNY; const v=field(x,y);
+      const pdx=v.dx*sx, pdy=-v.dy*sy; const sp=Math.hypot(pdx,pdy); if(sp<1e-9) continue;
+      const px=PX(x), py=PY(y); const ex=px+L*pdx/sp, ey=py+L*pdy/sp;
+      BG.appendChild(SVG('line',{x1:px,y1:py,x2:ex,y2:ey,stroke:'var(--mute)','stroke-width':1,opacity:0.4}));
+      BG.appendChild(SVG('circle',{cx:ex,cy:ey,r:1.4,fill:'var(--mute)',opacity:0.5})); } } }
+  function seedAll(){ while(TR.firstChild) TR.removeChild(TR.firstChild); let last='';
+    for(let i=0;i<SEEDS.length;i++){ last=streamline(SEEDS[i][0],SEEDS[i][1]); } return last; }
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }
+  svg.addEventListener('click',function(ev){ const d=toData(ev); if(!inBox(d.x,d.y)) return; const msg=streamline(d.x,d.y); out.innerHTML=msg; });
+  const rb=$('#w-pend-flow-reset'); if(rb) rb.addEventListener('click',function(){ const m=seedAll(); out.innerHTML=m||'cleared \u2014 click in the plane to release a trajectory'; });
+  drawAxes(); drawField(); if(typeof decorate==='function') decorate(BG); seedAll();
+})();
+</script>
+
 
 <!-- callback-auto-begin -->
 <aside class="callback">
