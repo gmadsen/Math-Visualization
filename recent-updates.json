@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06T09:07:28.074Z",
+  "generated": "2026-06-06T09:19:12.597Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -15,7 +15,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-06-06",
-      "message": "feat(widgets): osculating-circle-2d — a new \"drag along a curve, watch κ\" gesture"
+      "message": "fixup: trace the evolute + drop dead Rpx (review follow-ups)"
     },
     {
       "slug": "elliptic-curves",

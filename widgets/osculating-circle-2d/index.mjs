@@ -60,9 +60,14 @@ export function renderScript(params) {
     bodyScript + `\n` +
     `  // ---- osculating-circle engine ----\n` +
     `  let tt=${initialT};\n` +
-    `  function geom(t){ const h=1e-3, p=curve(t), pp=curve(t+h), pm=curve(t-h);\n` +
+    `  function geom(t){ const h=1e-3, p=curve(t);\n` +
+    `    // derivative stencil: for an open curve, clamp the 3-point window inside [T0,T1] so\n` +
+    `    // curve(t\\u00b1h) is never evaluated outside its declared domain (NaN guard); the point P\n` +
+    `    // stays at curve(t). Closed/periodic curves keep te=t (curve handles the wrap itself).\n` +
+    `    const te = CLOSED ? t : Math.min(Math.max(t, T0+h), T1-h);\n` +
+    `    const c=curve(te), pp=curve(te+h), pm=curve(te-h);\n` +
     `    const dx=(pp[0]-pm[0])/(2*h), dy=(pp[1]-pm[1])/(2*h);\n` +
-    `    const ddx=(pp[0]-2*p[0]+pm[0])/(h*h), ddy=(pp[1]-2*p[1]+pm[1])/(h*h);\n` +
+    `    const ddx=(pp[0]-2*c[0]+pm[0])/(h*h), ddy=(pp[1]-2*c[1]+pm[1])/(h*h);\n` +
     `    const sp=Math.hypot(dx,dy), kap=(dx*ddy-dy*ddx)/Math.pow(sp,3);\n` +
     `    return {p:p, dx:dx, dy:dy, sp:sp, kap:kap}; }\n` +
     `  function centreOfCurv(t){ const gg=geom(t); if(!isFinite(gg.kap)||Math.abs(gg.kap)<1e-6) return null;\n` +
