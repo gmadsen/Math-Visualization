@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06T22:52:03.081Z",
+  "generated": "2026-06-06T23:45:17.590Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -32,6 +32,14 @@
       "tag": "",
       "date": "2026-06-06",
       "message": "feat(widgets): elliptic-group-law-2d — a new \"feel the group law\" drag-on-curve gesture (#451)"
+    },
+    {
+      "slug": "probability-theory",
+      "title": "Probability theory",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-06",
+      "message": "feat(widgets): bayes-mass-updater — a new \"pour-and-update\" gesture (brainstorm pick #2)"
     },
     {
       "slug": "statistical-mechanics",
@@ -112,14 +120,6 @@
       "tag": "",
       "date": "2026-06-05",
       "message": "feat(numerical-analysis): animated trapezoid quadrature (animated-svg-2d) (#445)"
-    },
-    {
-      "slug": "probability-theory",
-      "title": "Probability theory",
-      "color": "b",
-      "tag": "",
-      "date": "2026-06-05",
-      "message": "feat(probability): de Moivre–Laplace animation (animated-svg-2d play gesture) (#443)"
     },
     {
       "slug": "real-analysis",

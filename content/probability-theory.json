@@ -155,6 +155,35 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "bayes-mass-updater",
+          "params": {
+            "widgetId": "w-bayes-mass",
+            "svgId": "bayes-mass-svg",
+            "outputId": "bayes-mass-out",
+            "title": "Pour-and-update: a coin’s bias, one flip at a time",
+            "hint": "the bars are your belief about a coin’s bias $\\theta=\\mathbb{P}(\\text{heads})$. <strong>Drag across the chart</strong> to draw your <em>prior</em> (one sweep paints the whole shape; leave it flat for an uninformative prior); then click <strong>Heads</strong> or <strong>Tails</strong> to feed one flip at a time. Each flip multiplies the posterior by the likelihood ($\\theta$ for heads, $1-\\theta$ for tails) and renormalizes, so the mass <em>pours</em> toward the consistent $\\theta$. Starting from a flat prior, $H$ heads in $n$ flips gives the conjugate posterior $\\mathrm{Beta}(1+H,\\,1+T)$ with mean $(H+1)/(n+2)$ — Laplace’s rule of succession.",
+            "svgTitle": "A bar chart of belief about a coin’s bias; drag to set the prior, click Heads/Tails to update the posterior by Bayes’ rule.",
+            "paramLabel": "θ = P(heads)",
+            "x0": 0,
+            "x1": 1,
+            "bars": 30,
+            "actions": [
+              {
+                "label": "flip → Heads",
+                "key": "H",
+                "color": "var(--pink)"
+              },
+              {
+                "label": "flip → Tails",
+                "key": "T",
+                "color": "var(--violet)"
+              }
+            ],
+            "bodyScript": "function like(key,theta){ return key==='H' ? theta : 1-theta; }\nfunction prior0(theta){ return 1; }\nfunction summary(s){ var H=s.counts.H||0, T=s.counts.T||0; return 'with a flat prior this is \\u2261 Beta('+(1+H)+', '+(1+T)+'), mean (H+1)/(n+2) = '+((H+1)/(H+T+2)).toFixed(3); }"
+          }
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
@@ -178,6 +207,10 @@
         {
           "type": "widget-script",
           "ref": "w-bayes"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bayes-mass"
         },
         {
           "type": "raw",
