@@ -357,7 +357,7 @@
             "svgId": "bip-build-svg",
             "outputId": "bip-build-out",
             "title": "Two-colour the graph: is it bipartite?",
-            "hint": "build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. A BFS 2-colouring runs live: the graph is bipartite iff it has no odd cycle, i.e. iff the two colour classes never clash. Add a chord to the even cycle to forge an odd one and watch the conflict edge turn pink. (Bipartite ⇔ the spectrum is symmetric about $0$, the companion fact in this section.)",
+            "hint": "build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. A BFS 2-colouring runs live: the graph is bipartite iff it has no odd cycle, i.e. iff the two colour classes never clash. Add a chord to the even cycle to forge an odd one and watch the conflict edge turn pink. (Bipartite ⇔ the largest normalised-Laplacian eigenvalue $\\nu_n = 2$ — the companion spectral fact in this section.)",
             "svgTitle": "Editable graph with a live BFS 2-colouring; a same-colour edge (odd cycle) marks it non-bipartite.",
             "viewBox": "0 0 640 380",
             "svgWidth": 640,
