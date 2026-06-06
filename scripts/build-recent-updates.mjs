@@ -85,7 +85,7 @@ const MECHANICAL_GREPS = [
 function runGitLog(paths, invert) {
   const pathArgs = paths.map((p) => `"${p}"`).join(' ');
   const grepArgs = invert
-    ? '--invert-grep ' + MECHANICAL_GREPS.map((g) => `--grep="${g}"`).join(' ') + ' '
+    ? '-i --invert-grep ' + MECHANICAL_GREPS.map((g) => `--grep="${g}"`).join(' ') + ' '
     : '';
   return execSync(
     `git log -1 ${grepArgs}--format=%ad%x09%s --date=short -- ${pathArgs}`,
