@@ -176,6 +176,65 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "vector-field-flow-2d",
+          "params": {
+            "widgetId": "w-nullcline-flow",
+            "svgId": "nullcline-flow-svg",
+            "outputId": "nullcline-flow-out",
+            "title": "Nullclines locate the fixed points: click to release a trajectory",
+            "hint": "a nonlinear flow $\\dot x = y - x^2,\\ \\dot y = x - y$. The fixed points sit where the two nullclines cross: the $\\dot x=0$ curve $y=x^2$ (yellow) and the $\\dot y=0$ line $y=x$ (violet) meet at $(0,0)$ and $(1,1)$. Linearising there classifies them — $(0,0)$ is a saddle, $(1,1)$ a stable node. Click anywhere to release a trajectory and watch the flow respect the nullclines (it crosses the yellow curve vertically and the violet line horizontally).",
+            "svgTitle": "Nonlinear phase portrait with nullclines y=x^2 and y=x; their intersections are the fixed points (0,0) saddle and (1,1) stable node.",
+            "viewBox": "0 0 640 420",
+            "svgWidth": 640,
+            "svgHeight": 420,
+            "x0": -1.4,
+            "x1": 2.2,
+            "y0": -1.4,
+            "y1": 2.2,
+            "dt": 0.02,
+            "steps": 1100,
+            "gridNX": 21,
+            "gridNY": 21,
+            "initialSeeds": [
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                0.4
+              ],
+              [
+                0.4,
+                2
+              ],
+              [
+                1.7,
+                1.7
+              ],
+              [
+                -0.5,
+                1.5
+              ]
+            ],
+            "outputInitial": "click to release a trajectory — fixed points are where the nullclines cross",
+            "bodyScript": "function field(x,y){ return {dx: y - x*x, dy: x - y}; }\nfunction decorate(BG){\n  // x-nullcline (dx=0): y = x^2 (parabola)\n  var dp='',pen=false;for(var i=0;i<=160;i++){ var x=X0+(X1-X0)*i/160, y=x*x; if(y>=Y0&&y<=Y1){ dp+=(pen?'L':'M')+PX(x).toFixed(1)+' '+PY(y).toFixed(1)+' '; pen=true; } else pen=false; }\n  BG.appendChild(SVG('path',{d:dp,fill:'none',stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:0.8}));\n  // y-nullcline (dy=0): y = x (line)\n  var xa=Math.max(X0,Y0), xb=Math.min(X1,Y1);\n  BG.appendChild(SVG('line',{x1:PX(xa),y1:PY(xa),x2:PX(xb),y2:PY(xb),stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'5 4',opacity:0.8}));\n  // fixed points at intersections: (0,0) saddle, (1,1) stable node\n  BG.appendChild(SVG('circle',{cx:PX(0),cy:PY(0),r:5,fill:'none',stroke:'var(--pink)','stroke-width':2}));\n  var t0=SVG('text',{x:PX(0)+9,y:PY(0)+16,'font-size':12,fill:'var(--pink)'}); t0.textContent='(0,0) saddle'; BG.appendChild(t0);\n  BG.appendChild(SVG('circle',{cx:PX(1),cy:PY(1),r:5,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.2}));\n  var t1=SVG('text',{x:PX(1)+9,y:PY(1)-7,'font-size':12,fill:'var(--mute)'}); t1.textContent='(1,1) stable node'; BG.appendChild(t1);\n  // legend\n  BG.appendChild(SVG('line',{x1:PX(X0)+14,y1:PY(Y1)-2,x2:PX(X0)+34,y2:PY(Y1)-2,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'5 4'}));\n  var lg1=SVG('text',{x:PX(X0)+40,y:PY(Y1)+2,'font-size':12,fill:'var(--mute)'});lg1.textContent='x-nullcline (\\u1e8b=0): y=x\\u00b2';BG.appendChild(lg1);\n  BG.appendChild(SVG('line',{x1:PX(X0)+14,y1:PY(Y1)-18,x2:PX(X0)+34,y2:PY(Y1)-18,stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'5 4'}));\n  var lg2=SVG('text',{x:PX(X0)+40,y:PY(Y1)-14,'font-size':12,fill:'var(--mute)'});lg2.textContent='y-nullcline (\\u1e8f=0): y=x';BG.appendChild(lg2);\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-nullcline-flow"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
