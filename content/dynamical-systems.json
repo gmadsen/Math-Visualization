@@ -329,7 +329,7 @@
             "svgId": "vdp-flow-svg",
             "outputId": "vdp-flow-out",
             "title": "Van der Pol: click to watch orbits wind onto the limit cycle",
-            "hint": "click anywhere to release a trajectory of the Van der Pol oscillator $\\dot x = y,\\ \\dot y = \\mu(1-x^2)\\,y - x$ (here $\\mu=1$). Every orbit except the unstable spiral at the origin winds onto the same closed curve — the limit cycle. Seed inside and it spirals out; seed outside and it spirals in. (Each orbit is integrated forward and backward, so the backward half unwinds toward the origin.)",
+            "hint": "click anywhere to release a trajectory of the Van der Pol oscillator $\\dot x = y,\\ \\dot y = \\mu(1-x^2)\\,y - x$ (here $\\mu=1$). Every orbit except the unstable spiral at the origin winds onto the same closed curve — the limit cycle. Seed inside and it spirals out; seed outside and it spirals in. (Each orbit is integrated forward and backward through your click; for a seed inside the cycle the backward half unwinds back toward the origin.)",
             "svgTitle": "Phase portrait of the Van der Pol oscillator x'=y, y'=(1-x^2)y-x; click to integrate an orbit that winds onto the limit cycle.",
             "viewBox": "0 0 640 420",
             "svgWidth": 640,

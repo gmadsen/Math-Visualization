@@ -762,7 +762,7 @@ function decorate(BG){
   <svg id="vd-svg" viewBox="-4 -4 8 8" width="100%" style="max-width:520px;aspect-ratio:1/1"><title>Van der Pol oscillator phase portrait and limit cycle</title></svg>
   <div class="readout" id="vd-out"></div>
 </div><div class="widget" id="w-vdp-flow">
-  <div class="hd"><div class="ttl">Van der Pol: click to watch orbits wind onto the limit cycle</div><div class="hint">click anywhere to release a trajectory of the Van der Pol oscillator $\dot x = y,\ \dot y = \mu(1-x^2)\,y - x$ (here $\mu=1$). Every orbit except the unstable spiral at the origin winds onto the same closed curve — the limit cycle. Seed inside and it spirals out; seed outside and it spirals in. (Each orbit is integrated forward and backward, so the backward half unwinds toward the origin.)</div></div>
+  <div class="hd"><div class="ttl">Van der Pol: click to watch orbits wind onto the limit cycle</div><div class="hint">click anywhere to release a trajectory of the Van der Pol oscillator $\dot x = y,\ \dot y = \mu(1-x^2)\,y - x$ (here $\mu=1$). Every orbit except the unstable spiral at the origin winds onto the same closed curve — the limit cycle. Seed inside and it spirals out; seed outside and it spirals in. (Each orbit is integrated forward and backward through your click; for a seed inside the cycle the backward half unwinds back toward the origin.)</div></div>
   <svg id="vdp-flow-svg" viewBox="0 0 640 420" width="640" height="420" style="touch-action:none;cursor:crosshair"><title>Phase portrait of the Van der Pol oscillator x'=y, y'=(1-x^2)y-x; click to integrate an orbit that winds onto the limit cycle.</title></svg>
   <div class="row">
     <button id="w-vdp-flow-reset" type="button">↺ Clear</button>
