@@ -1,8 +1,17 @@
 #!/usr/bin/env node
 // Generates `recent-updates.js` (and a sibling `.json` mirror) by inspecting
-// git log on `quizzes/<slug>.json`. Quiz banks are touched only by real
-// content edits — no injector script writes them — so their git timestamp is
-// a faithful proxy for "last meaningful update to this topic".
+// git log on a topic's `content/<slug>.json` AND `quizzes/<slug>.json` — the
+// most recent commit touching either is the "last update" date. Mechanical
+// churn (injector / rebuild / auto commits that rewrite content JSON without a
+// real authoring change) is excluded by subject pattern, so the timestamp
+// stays a faithful proxy for "last meaningful update to this topic" while still
+// catching widget deploys, prose edits, and quiz edits.
+//
+// (Previously this keyed only off `quizzes/<slug>.json`, on the assumption that
+// quiz banks are the one file no injector touches. That made the feed blind to
+// widget/content work — a topic that gained an interactive widget but no quiz
+// edit never resurfaced. Querying content too, with the mechanical-commit
+// filter, fixes that without reintroducing injector-churn noise.)
 //
 // The browser consumes `recent-updates.js`, which exposes
 //   window.MV_RECENT_UPDATES = { generated, entries: [...] };
@@ -64,23 +73,41 @@ function loadCardMeta() {
   return map;
 }
 
-function lastCommitFor(file) {
-  // git log -1 --format='%ad\t%s' --date=short -- <file>
-  // Empty stdout (no history yet for this file) is normal — return null. A
-  // non-zero git exit (corrupt repo, not a git checkout, permissions) is
-  // not — log a warning so we don't quietly emit an empty manifest. Throws
-  // are also surfaced for the same reason.
+// Commit-subject patterns that mark mechanical churn (injectors, rebuild,
+// auto-commits) rather than a real authoring change. The latest commit matching
+// any of these is skipped when dating a topic, so a `chore(auto): refresh …` or
+// an `inject-…`/`re-extract` sweep doesn't masquerade as a fresh update.
+const MECHANICAL_GREPS = [
+  'chore', 'recent-updates', 'inject', 're-extract', 'roundtrip',
+  'changelog', 'Refresh every', 'a11y', 'color-var',
+];
+
+function runGitLog(paths, invert) {
+  const pathArgs = paths.map((p) => `"${p}"`).join(' ');
+  const grepArgs = invert
+    ? '-i --invert-grep ' + MECHANICAL_GREPS.map((g) => `--grep="${g}"`).join(' ') + ' '
+    : '';
+  return execSync(
+    `git log -1 ${grepArgs}--format=%ad%x09%s --date=short -- ${pathArgs}`,
+    { cwd: repoRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
+  ).trim();
+}
+
+function lastCommitFor(paths) {
+  // Most recent *meaningful* commit touching any of `paths`. We first ask git
+  // to skip mechanical-churn subjects; if that filters everything out (a topic
+  // whose only history is mechanical), we fall back to the unfiltered latest so
+  // the topic still surfaces. Empty stdout (no history) returns null; a git
+  // failure logs a warning and returns null so we don't emit a silent gap.
   try {
-    const out = execSync(
-      `git log -1 --format=%ad%x09%s --date=short -- "${file}"`,
-      { cwd: repoRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
-    ).trim();
+    let out = runGitLog(paths, true);
+    if (!out) out = runGitLog(paths, false);
     if (!out) return null;
     const tab = out.indexOf('\t');
     if (tab < 0) return { date: out, message: '' };
     return { date: out.slice(0, tab), message: out.slice(tab + 1) };
   } catch (err) {
-    console.warn(`build-recent-updates: git log failed for ${file}: ${err.message}`);
+    console.warn(`build-recent-updates: git log failed for ${paths.join(', ')}: ${err.message}`);
     return null;
   }
 }
@@ -109,7 +136,7 @@ function main() {
     const slug = f.replace(/\.json$/, '');
     const meta = cardMeta.get(slug);
     if (!meta) continue; // topics without an index card are not surfaced
-    const log = lastCommitFor(`quizzes/${f}`);
+    const log = lastCommitFor([`content/${slug}.json`, `quizzes/${f}`]);
     if (!log) continue;
     entries.push({
       slug,
