@@ -738,7 +738,70 @@ const C = {
   sel.addEventListener('change', draw);
   draw();
 })();
+</script><div class="widget" id="w-zmap">
+  <div class="hd"><div class="ttl">Drag z through w = z²: holomorphic ⇒ conformal</div><div class="hint">drag the cyan probe $z$ — its image $w=z^2$ (pink) and the little pink cross (the image of a tiny $+$ at $z$) follow. Because $z^2$ is holomorphic, the Cauchy–Riemann equations make the local map a pure rotation-and-scaling: the cross stays a right-angled cross, so <strong>angles are preserved</strong> — that is conformality. The grid's image (cyan = vertical lines, yellow = horizontal lines) still meets at $90°$ everywhere except the origin, where $f'(0)=0$ and angles double instead.</div></div>
+  <svg id="zmap-svg" viewBox="0 0 560 560" width="560" height="560" style="touch-action:none;cursor:grab;max-width:560px;overflow:hidden"><title>Drag a probe z through the holomorphic map w=z^2; the image grid and local frame show conformality (angle preservation) where f' is nonzero.</title></svg>
+  <div class="row">
+    <button id="w-zmap-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="zmap-out">&nbsp;</div>
+</div>
+<script>
+(function(){
+  const svg=$('#zmap-svg'), out=$('#zmap-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=2.5, EXT=3;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 560').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const cx=W/2, cy=Hh/2, S=(Math.min(W,Hh)/2-14)/R;
+  function PX(x){ return cx + x*S; }
+  function PY(y){ return cy - y*S; }
+  function XV(px){ return (px-cx)/S; }
+  function YV(py){ return (cy-py)/S; }
+  let zx=1, zy=0.6;
+  // ---- author f(x,y) -> [u,v] ----
+function f(x,y){ return [x*x - y*y, 2*x*y]; }
+  // ---- complex-map engine (supplied by complex-map-2d) ----
+  function mappedLine(fixed,isVert){ let d=''; const N=64;
+    for(let i=0;i<=N;i++){ const t=-EXT+2*EXT*i/N; const p=isVert?f(fixed,t):f(t,fixed); d+=(i?'L':'M')+PX(p[0]).toFixed(1)+' '+PY(p[1]).toFixed(1)+' '; } return d; }
+  function deriv(x,y){ const h=1e-3, a=f(x+h,y), b=f(x-h,y); return [(a[0]-b[0])/(2*h), (a[1]-b[1])/(2*h)]; }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    // faint source grid + axes (reference)
+    for(let k=-EXT;k<=EXT;k++){
+      G.appendChild(SVG('line',{x1:PX(k),y1:PY(-EXT),x2:PX(k),y2:PY(EXT),stroke:'var(--line)','stroke-width':1,opacity:0.13}));
+      G.appendChild(SVG('line',{x1:PX(-EXT),y1:PY(k),x2:PX(EXT),y2:PY(k),stroke:'var(--line)','stroke-width':1,opacity:0.13})); }
+    // image of the grid under f (the warped / conformal grid)
+    for(let k=-EXT;k<=EXT;k++){
+      G.appendChild(SVG('path',{d:mappedLine(k,true),fill:'none',stroke:'var(--cyan)','stroke-width':k===0?2:1,opacity:k===0?0.75:0.38}));
+      G.appendChild(SVG('path',{d:mappedLine(k,false),fill:'none',stroke:'var(--yellow)','stroke-width':k===0?2:1,opacity:k===0?0.75:0.38})); }
+    const w=f(zx,zy), fp=deriv(zx,zy), s=Math.hypot(fp[0],fp[1]), ang=Math.atan2(fp[1],fp[0]);
+    // image of a small cross at z (drawn at w) — shows local rotation+scale
+    const e=0.32;
+    const cxp=f(zx+e,zy), cxm=f(zx-e,zy), cyp=f(zx,zy+e), cym=f(zx,zy-e);
+    G.appendChild(SVG('line',{x1:PX(cxm[0]),y1:PY(cxm[1]),x2:PX(cxp[0]),y2:PY(cxp[1]),stroke:'var(--pink)','stroke-width':2.5}));
+    G.appendChild(SVG('line',{x1:PX(cym[0]),y1:PY(cym[1]),x2:PX(cyp[0]),y2:PY(cyp[1]),stroke:'var(--pink)','stroke-width':2.5}));
+    // arrow z -> w
+    G.appendChild(SVG('line',{x1:PX(zx),y1:PY(zy),x2:PX(w[0]),y2:PY(w[1]),stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 4',opacity:0.6}));
+    // probe z and image w
+    G.appendChild(SVG('circle',{cx:PX(w[0]),cy:PY(w[1]),r:5,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1.2}));
+    const lw=SVG('text',{x:PX(w[0])+9,y:PY(w[1])-7,'font-size':12,fill:'var(--pink)'}); lw.textContent='w=f(z)'; G.appendChild(lw);
+    G.appendChild(SVG('circle',{cx:PX(zx),cy:PY(zy),r:7,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5}));
+    const lz=SVG('text',{x:PX(zx)+9,y:PY(zy)-7,'font-size':12,fill:'var(--cyan)'}); lz.textContent='z'; G.appendChild(lz);
+    function cpx(re,im){ const ai=Math.abs(im); return re.toFixed(2)+(im>=0?' + ':' \u2212 ')+ai.toFixed(2)+'i'; }
+    const conf = s>1e-3 ? 'angles preserved (conformal)' : '<b style=\"color:var(--pink)\">f\u2032\u22480: angles not preserved here</b>';
+    out.innerHTML='z = '+cpx(zx,zy)+' &nbsp;\u00b7&nbsp; w = f(z) = '+cpx(w[0],w[1])+' &nbsp;\u00b7&nbsp; |f\u2032(z)| \u2248 '+s.toFixed(2)+' (local stretch), arg f\u2032 \u2248 '+(ang*180/Math.PI).toFixed(0)+'\u00b0 &nbsp;\u00b7&nbsp; '+conf;
+  }
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }
+  let drag=false;
+  svg.addEventListener('pointerdown',function(ev){ const pt=toData(ev); if(Math.hypot(pt.x-zx,pt.y-zy)<18/S){ drag=true; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} } });
+  window.addEventListener('pointermove',function(ev){ if(!drag)return; const pt=toData(ev); zx=Math.max(-R,Math.min(R,pt.x)); zy=Math.max(-R,Math.min(R,pt.y)); render(); });
+  window.addEventListener('pointerup',function(){ drag=false; });
+  const rb=$('#w-zmap-reset'); if(rb) rb.addEventListener('click',function(){ zx=1; zy=0.6; render(); });
+  render();
+})();
 </script>
+
 
 <div class="quiz" data-concept="cauchy-riemann"></div><!-- backlinks-auto-begin -->
 <aside class="related">

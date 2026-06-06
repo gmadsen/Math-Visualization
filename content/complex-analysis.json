@@ -344,6 +344,40 @@
           "ref": "w-conformal"
         },
         {
+          "type": "widget",
+          "slug": "complex-map-2d",
+          "params": {
+            "widgetId": "w-zmap",
+            "svgId": "zmap-svg",
+            "outputId": "zmap-out",
+            "title": "Drag z through w = z²: holomorphic ⇒ conformal",
+            "hint": "drag the cyan probe $z$ — its image $w=z^2$ (pink) and the little pink cross (the image of a tiny $+$ at $z$) follow. Because $z^2$ is holomorphic, the Cauchy–Riemann equations make the local map a pure rotation-and-scaling: the cross stays a right-angled cross, so <strong>angles are preserved</strong> — that is conformality. The grid's image (cyan = vertical lines, yellow = horizontal lines) still meets at $90°$ everywhere except the origin, where $f'(0)=0$ and angles double instead.",
+            "svgTitle": "Drag a probe z through the holomorphic map w=z^2; the image grid and local frame show conformality (angle preservation) where f' is nonzero.",
+            "viewBox": "0 0 560 560",
+            "svgWidth": 560,
+            "svgHeight": 560,
+            "range": 2.5,
+            "gridExtent": 3,
+            "initialZ": [
+              1,
+              0.6
+            ],
+            "bodyScript": "function f(x,y){ return [x*x - y*y, 2*x*y]; }"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-zmap"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/complex-map-2d/schema.json",
+  "title": "complex-map-2d widget params",
+  "description": "A self-contained 'drag the probe through a complex map' engine. The author supplies a complex function via `function f(x,y){ return [u,v]; }` (z = x+iy maps to w = u+iv). The engine draws the image of the coordinate grid under f (the warped conformal grid) and a draggable probe point z; as the reader drags z, the image w = f(z) and a small image-of-a-cross at z update live, with the readout reporting z, w, the local stretch |f'(z)| and rotation arg f'(z) (central finite difference), and whether angles are preserved (conformal where f' != 0). The gesture is 'drag-probe' — direct manipulation of a point through a holomorphic map, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+  "meta": {
+    "family": "complex-map-2d",
+    "dimension": "2d",
+    "gesture": "drag-probe",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <svg> drawing surface."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the .readout the engine writes z / w / |f'| into."
+    },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the probe point." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 560 560'.", "default": "0 0 560 560" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 560.", "default": 560 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 560.", "default": 560 },
+    "range": { "type": "number", "description": "Half-width of the data window: both axes span [-range, range]. Default 2.5.", "default": 2.5 },
+    "gridExtent": { "type": "number", "description": "Coordinate grid lines drawn from -gridExtent to +gridExtent at unit spacing. Default 3.", "default": 3 },
+    "initialZ": {
+      "type": "array",
+      "description": "Initial probe point [x, y] in data coords. Reset restores it. Default [1, 0.6].",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS defining `function f(x,y){ return [u, v]; }` — the complex map z = x+iy ↦ w = u+iv (data coordinates). The engine calls it to draw the image grid, the probe image, and the local frame. Must not start a timer."
+    }
+  }
+}

@@ -2655,6 +2655,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "complex-map-2d",
+    "family": "complex-map-2d",
+    "dimension": "2d",
+    "gesture": "drag-probe",
+    "role": "explore",
+    "title": "complex-map-2d widget params",
+    "description": "A self-contained 'drag the probe through a complex map' engine. The author supplies a complex function via `function f(x,y){ return [u,v]; }` (z = x+iy maps to w = u+iv). The engine draws the image of the coordinate grid under f (the warped conformal grid) and a draggable probe point z; as the reader drags z, the image w = f(z) and a small image-of-a-cross at z update live, with the readout reporting z, w, the local stretch |f'(z)| and rotation arg f'(z) (central finite difference), and whether angles are preserved (conformal where f' != 0). The gesture is 'drag-probe' — direct manipulation of a point through a holomorphic map, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"drag the probe through a complex map\"** engine — the corpus's `drag-probe` gesture. The author supplies a complex function `function f(x,y){ return [u,v]; }` ($z=x+iy \\mapsto w=u+iv$); the engine draws the **image of the coordinate grid** under $f$ (the warped conformal grid) and a draggable probe point $z$. As the reader drags $z$, the image $w=f(z)$, a small **image-of-a-cross** at $z$ (showing the local rotation + scaling), and the readout — $z$, $w$, $|f'(z)|$ (local stretch), $\\arg f'(z)$ (local rotation), and whether angles are preserved — all update live. First home: `complex-analysis §cauchy-riemann` (CR ⟺ the map is conformal).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "complex-multiplication-w1",
     "family": "verbatim",
     "dimension": "2d",
