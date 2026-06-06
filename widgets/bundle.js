@@ -4572,6 +4572,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "elliptic-group-law-2d",
+    "family": "elliptic-group-law-2d",
+    "dimension": "2d",
+    "gesture": "drag-on-curve",
+    "role": "explore",
+    "title": "elliptic-group-law-2d widget params",
+    "description": "A self-contained 'feel the group law' engine for a real elliptic curve y^2 = x^3 + a x + b. The reader drags two points P and Q constrained to the curve; the engine draws the chord through them (or the tangent when P = Q), finds its third intersection R with the cubic, reflects R across the x-axis to give P + Q, and reports the coordinates of P, Q and P+Q. Vertical chords (Q = -P) give the point at infinity O (the identity). The renderer owns the curve sampling, the on-curve drag (pointer x -> nearest curve point on the chosen branch), the chord/tangent construction, the group-law arithmetic, and Reset; the curve is param-driven (a, b, initial point x-coordinates). The gesture is 'drag-on-curve' — direct manipulation of points pinned to a curve, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "Self-contained **\"feel the group law\"** engine — the corpus's `drag-on-curve` gesture. The reader drags two points $P$ and $Q$ pinned to a real elliptic curve $y^2 = x^3 + ax + b$; the engine draws the **chord** through them (the **tangent** when $P=Q$), finds its third intersection $R$ with the cubic, **reflects $R$ across the $x$-axis** to give $P+Q$, and reports the coordinates of $P$, $Q$, $P+Q$. A vertical chord ($Q=-P$, including the 2-torsion case $y=0$) gives the point at infinity $\\mathcal O$ — the identity. First home: `elliptic-curves §group`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "enumerative-combinatorics-bijection",
     "family": "enumerative-combinatorics-bijection",
     "dimension": "2d",

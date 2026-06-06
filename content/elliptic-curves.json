@@ -146,6 +146,41 @@
           "ref": "gl"
         },
         {
+          "type": "widget",
+          "slug": "elliptic-group-law-2d",
+          "params": {
+            "widgetId": "w-gl-drag",
+            "svgId": "gl-drag-svg",
+            "outputId": "gl-drag-out",
+            "title": "Drag P and Q: the chord–tangent group law",
+            "hint": "drag the two points $P$ (cyan) and $Q$ (yellow) along the curve $y^2 = x^3 - x + 1$. The violet line through them — the <strong>chord</strong>, or the <strong>tangent</strong> when you slide $Q$ onto $P$ — meets the cubic in a third point $R$; reflecting $R$ across the $x$-axis gives $P+Q$. That reflection is what makes the operation associative with identity the point at infinity $\\mathcal O$. Slide $Q$ to the mirror image of $P$ and the chord goes vertical: $P + (-P) = \\mathcal O$.",
+            "svgTitle": "Drag two points on the elliptic curve y^2=x^3-x+1; the chord-and-tangent construction builds P+Q.",
+            "viewBox": "0 0 600 460",
+            "svgWidth": 600,
+            "svgHeight": 460,
+            "a": -1,
+            "b": 1,
+            "x0": -2.2,
+            "x1": 3,
+            "y0": -3.6,
+            "y1": 3.6,
+            "initialP": -0.6,
+            "initialQ": 1.4
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-gl-drag"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n\n<p>The widget above lets you see a concrete instance: pick $P$ and $Q$ on the curve and watch the chord hit a third point, whose reflection is $P+Q$. When $P = Q$ the chord becomes the tangent line, implementing the \"doubling\" formula. When $Q = -P$ the chord is vertical and $P + Q = O$; you see this as the line escaping to the top and bottom of the frame.</p>\n\n<h3>Scalar multiplication and repeated addition</h3>\n\n<p>For $n \\in \\mathbb{Z}$ one defines $[n] : E \\to E$ by $[0] P = O$, $[n+1] P = [n] P + P$, and $[-n] P = -[n] P$. This is a morphism of group schemes, called the <em>multiplication-by-$n$</em> map. Its degree is $n^2$, a number-theoretically decisive fact: the kernel $E[n]$, the <em>$n$-torsion subgroup</em>, has $n^2$ geometric points over $\\bar k$ (when $\\operatorname{char}(k) \\nmid n$), and is isomorphic as an abstract group to $(\\mathbb{Z}/n)^2$.</p>\n\n"
         },
