@@ -1243,7 +1243,90 @@ $$\liminf_{n\to\infty} \lambda_2(A_{G_n})\;\ge\; 2\sqrt{d-1}.$$</div>
   </div>
   <svg id="bip-svg" viewBox="0 0 720 280" width="720" height="280"><title>Bipartite spectrum</title></svg>
   <div class="readout" id="bip-out"></div>
+</div><div class="widget" id="w-bip-build">
+  <div class="hd"><div class="ttl">Two-colour the graph: is it bipartite?</div><div class="hint">build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. A BFS 2-colouring runs live: the graph is bipartite iff it has no odd cycle, i.e. iff the two colour classes never clash. Add a chord to the even cycle to forge an odd one and watch the conflict edge turn pink. (Bipartite ⇔ the largest normalised-Laplacian eigenvalue $\nu_n = 2$ — the companion spectral fact in this section.)</div></div>
+  <svg id="bip-build-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:pointer"><title>Editable graph with a live BFS 2-colouring; a same-colour edge (odd cycle) marks it non-bipartite.</title></svg>
+  <div class="row">
+    <button id="w-bip-build-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="bip-build-out">a 6-cycle to start — bipartite; add a chord to make an odd cycle</div>
 </div>
+<script>
+(function(){
+  const svg=$('#bip-build-svg'), out=$('#bip-build-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=15, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[450,190],[385,303],[255,303],[190,190],[255,77],[385,77]], E0=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+function draw(g){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  var byId={}; g.nodes.forEach(function(n){byId[n.id]=n;});
+  var col={}, bad=null;
+  g.nodes.forEach(function(s){
+    if(col[s.id]!==undefined) return; col[s.id]=0; var q=[s.id];
+    while(q.length){ var u=q.shift();
+      g.adj[u].forEach(function(v){
+        if(col[v]===undefined){ col[v]=col[u]^1; q.push(v); }
+        else if(col[v]===col[u] && !bad){ bad={u:u,v:v}; } }); } });
+  var bip=!bad, pal=['var(--cyan)','var(--yellow)'];
+  g.edges.forEach(function(e){ var a=byId[e.u],b=byId[e.v]; if(!a||!b)return;
+    var hot=bad && ((bad.u===e.u&&bad.v===e.v)||(bad.u===e.v&&bad.v===e.u));
+    G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:hot?'var(--pink)':'var(--line)','stroke-width':hot?3.5:2.5})); });
+  g.nodes.forEach(function(nd){ var c=pal[col[nd.id]||0];
+    G.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:g.R,fill:c,stroke:'var(--ink)','stroke-width':1.5})); });
+  if(g.n===0){ out.innerHTML='empty graph \u2014 click empty space to add a vertex'; return; }
+  if(bip) out.innerHTML=g.n+' vertices \u00b7 '+g.m+' edges \u00b7 <b style=\"color:var(--cyan)\">bipartite</b> \u2014 a valid 2-colouring exists (no odd cycle)';
+  else out.innerHTML=g.n+' vertices \u00b7 '+g.m+' edges \u00b7 <b style=\"color:var(--pink)\">not bipartite</b> \u2014 the pink edge joins two vertices of one colour, so an odd cycle exists';
+}
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-bip-build-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script>
+
 
 <div class="quiz" data-concept="bipartite-and-expanders"></div><!-- backlinks-auto-begin -->
 <aside class="related">
