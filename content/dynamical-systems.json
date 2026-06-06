@@ -692,6 +692,48 @@
         },
         {
           "type": "widget",
+          "slug": "bifurcation-1d",
+          "params": {
+            "widgetId": "w-bifdial",
+            "svgId": "bifdial-svg",
+            "outputId": "bifdial-out",
+            "selectId": "bifdial-sel",
+            "title": "Turn the bifurcation dial: the codimension-one normal forms",
+            "hint": "pick a normal form, then <strong>drag the yellow $\\mu$-line</strong> across the diagram. Watch the fixed points (roots of $\\dot x=f(x;\\mu)$) collide, exchange stability, or split as $\\mu$ crosses $0$ — the phase line below shows the flow.",
+            "svgTitle": "Bifurcation diagram and phase line for 1-D normal forms; drag the mu-line.",
+            "xmin": -1.8,
+            "xmax": 1.8,
+            "muVar": "μ",
+            "cases": [
+              {
+                "label": "saddle-node:  x' = μ − x²",
+                "expr": "mu - x*x",
+                "mu0": -1.5,
+                "mu1": 1.5,
+                "muInit": -0.8,
+                "muCrit": 0
+              },
+              {
+                "label": "transcritical:  x' = μx − x²",
+                "expr": "mu*x - x*x",
+                "mu0": -1.5,
+                "mu1": 1.5,
+                "muInit": -0.8,
+                "muCrit": 0
+              },
+              {
+                "label": "pitchfork (super):  x' = μx − x³",
+                "expr": "mu*x - x*x*x",
+                "mu0": -1.5,
+                "mu1": 1.5,
+                "muInit": -0.8,
+                "muCrit": 0
+              }
+            ]
+          }
+        },
+        {
+          "type": "widget",
           "id": "w-bif",
           "slug": "button-stepper",
           "params": {
@@ -739,6 +781,10 @@
         {
           "type": "widget-script",
           "ref": "w-bif"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bifdial"
         },
         {
           "type": "raw",

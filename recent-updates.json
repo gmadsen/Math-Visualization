@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06T09:19:12.597Z",
+  "generated": "2026-06-06T16:54:15.613Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -15,7 +15,15 @@
       "color": "v",
       "tag": "",
       "date": "2026-06-06",
-      "message": "fixup: trace the evolute + drop dead Rpx (review follow-ups)"
+      "message": "feat(widgets): osculating-circle-2d — a new \"drag along a curve, watch κ\" gesture (#455)"
+    },
+    {
+      "slug": "dynamical-systems",
+      "title": "Dynamical systems",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-06",
+      "message": "feat(widgets): bifurcation-1d — a new \"turn the dial\" gesture for 1-D normal forms"
     },
     {
       "slug": "elliptic-curves",
@@ -56,14 +64,6 @@
       "tag": "",
       "date": "2026-06-05",
       "message": "feat(widgets): linear-transform-2d — a new \"drag the basis vectors\" gesture (#449)"
-    },
-    {
-      "slug": "dynamical-systems",
-      "title": "Dynamical systems",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-05",
-      "message": "feat(dynamical-systems): nullcline-geometry home for vector-field-flow-2d (#448)"
     },
     {
       "slug": "extremal-combinatorics",

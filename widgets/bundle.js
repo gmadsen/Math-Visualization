@@ -1207,6 +1207,28 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "bifurcation-1d",
+    "family": "bifurcation-1d",
+    "dimension": "2d",
+    "gesture": "dial",
+    "role": "explore",
+    "title": "bifurcation-1d widget params",
+    "description": "A self-contained 'turn the bifurcation dial' engine for one-parameter families of 1-D flows x' = f(x; mu). The reader picks a normal form from a dropdown and drags a vertical mu-line across the bifurcation diagram (the dial gesture); the engine root-finds the fixed points of f(x; mu)=0 at every mu (sign-change bracketing + bisection), classifies each as stable (df/dx < 0) or unstable (df/dx > 0), and renders two linked panels: (top) the bifurcation diagram x* vs mu with stable branches solid-green and unstable branches dashed-pink, and (bottom) the live phase line at the current mu — fixed points as filled (stable) / hollow (unstable) dots with flow arrows showing the sign of f between them. The readout names the fixed points, their stability, and flags the bifurcation as mu crosses the critical value. The cases (normal forms) are param-driven via author JS expressions in x and mu; the renderer owns the root-finding, stability test, diagram, phase line, drag gesture, and readout. The gesture is 'dial' — dragging a parameter value and watching the qualitative phase portrait change, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "selectId",
+      "title",
+      "cases"
+    ],
+    "readmeExcerpt": "Self-contained **\"turn the bifurcation dial\"** engine — the corpus's `dial` gesture. The reader picks a one-parameter normal form $\\dot x = f(x;\\mu)$ from a dropdown and **drags a vertical $\\mu$-line** across the bifurcation diagram. The engine root-finds the fixed points of $f(x;\\mu)=0$ at every $\\mu$ (sign-change bracketing + bisection), classifies each as **stable** ($\\partial f/\\partial x < 0$) or **unstable** ($\\partial f/\\partial x > 0$), and shows two linked panels:",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "branching-proof-scrubber",
     "family": "branching-proof-scrubber",
     "dimension": "2d",

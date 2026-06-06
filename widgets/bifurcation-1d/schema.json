@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/bifurcation-1d/schema.json",
+  "title": "bifurcation-1d widget params",
+  "description": "A self-contained 'turn the bifurcation dial' engine for one-parameter families of 1-D flows x' = f(x; mu). The reader picks a normal form from a dropdown and drags a vertical mu-line across the bifurcation diagram (the dial gesture); the engine root-finds the fixed points of f(x; mu)=0 at every mu (sign-change bracketing + bisection), classifies each as stable (df/dx < 0) or unstable (df/dx > 0), and renders two linked panels: (top) the bifurcation diagram x* vs mu with stable branches solid-green and unstable branches dashed-pink, and (bottom) the live phase line at the current mu — fixed points as filled (stable) / hollow (unstable) dots with flow arrows showing the sign of f between them. The readout names the fixed points, their stability, and flags the bifurcation as mu crosses the critical value. The cases (normal forms) are param-driven via author JS expressions in x and mu; the renderer owns the root-finding, stability test, diagram, phase line, drag gesture, and readout. The gesture is 'dial' — dragging a parameter value and watching the qualitative phase portrait change, a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+  "meta": {
+    "family": "bifurcation-1d",
+    "dimension": "2d",
+    "gesture": "dial",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "selectId",
+    "title",
+    "cases"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface (both panels)." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout the engine writes the fixed points / stability into." },
+    "selectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <select> normal-form picker." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to pick a form and drag the mu-line." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 600 460'.", "default": "0 0 600 460" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 600.", "default": 600 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 460.", "default": 460 },
+    "xmin": { "type": "number", "description": "Smallest x (state) shown / scanned for roots. Default -2.2.", "default": -2.2 },
+    "xmax": { "type": "number", "description": "Largest x (state). Default 2.2.", "default": 2.2 },
+    "muVar": { "type": "string", "description": "Symbol shown for the parameter in the readout/axis. Default the Greek mu.", "default": "μ" },
+    "cases": {
+      "type": "array",
+      "description": "The normal forms offered in the dropdown. Each gives a label, a JS expression `expr` in `x` and `mu` for f(x; mu), and the mu-window [mu0, mu1] with an optional initial/critical mu.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "expr", "mu0", "mu1"],
+        "properties": {
+          "label": { "type": "string", "description": "Dropdown label, e.g. 'saddle-node:  x' = mu - x^2'. Plain text (no LaTeX $) so the native <option> renders it." },
+          "expr": { "type": "string", "description": "A JavaScript expression (NOT LaTeX or Python) for f(x; mu) in terms of the variables `x` and `mu`, evaluated with Math.* in scope — e.g. 'mu - x*x', 'mu*x - x*x', 'mu*x - x*x*x', 'mu*Math.sin(x) - x'. Compiled with new Function at render time; author/build-time content only, never runtime user input." },
+          "mu0": { "type": "number", "description": "Left edge of the mu-axis." },
+          "mu1": { "type": "number", "description": "Right edge of the mu-axis." },
+          "muInit": { "type": "number", "description": "Initial mu (defaults to the midpoint of [mu0, mu1])." },
+          "muCrit": { "type": "number", "description": "Optional critical mu where the bifurcation occurs (for the readout flag). Usually 0." }
+        }
+      }
+    }
+  }
+}
