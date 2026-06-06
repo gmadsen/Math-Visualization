@@ -440,7 +440,86 @@ function drawNode(svg, x, y, label, opts={}){
   sample.addEventListener('click',()=>{ randomTree(); render(); });
   randomTree(); render();
 })();
+</script><div class="widget" id="w-forest">
+  <div class="hd"><div class="ttl">Spanning forest: which edges close a cycle?</div><div class="hint">build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. Green edges form a spanning forest (a maximal acyclic subgraph, $n-c$ edges for $n$ vertices in $c$ components); each pink dashed edge closes a cycle. The graph is a forest exactly when no edge is pink — this is the graphic matroid, where independent sets are the forests and the rank is $n-c$.</div></div>
+  <svg id="forest-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:pointer"><title>Editable graph with its spanning forest highlighted green and cycle-closing edges pink; rank = n - c.</title></svg>
+  <div class="row">
+    <button id="w-forest-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="forest-out">a triangle + a pendant + an isolated vertex — one edge closes a cycle</div>
+</div>
+<script>
+(function(){
+  const svg=$('#forest-svg'), out=$('#forest-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=15, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[200,120],[140,260],[285,250],[365,120],[470,290]], E0=[[0,1],[1,2],[2,0],[0,3]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+function draw(g){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  var byId={}; g.nodes.forEach(function(n){byId[n.id]=n;});
+  var parent={}; g.nodes.forEach(function(n){parent[n.id]=n.id;});
+  function find(a){ while(parent[a]!==a){ parent[a]=parent[parent[a]]; a=parent[a]; } return a; }
+  var tree=[],cyc=[];
+  g.edges.forEach(function(e){ var ra=find(e.u),rb=find(e.v); if(ra!==rb){ parent[ra]=rb; tree.push(e); } else cyc.push(e); });
+  var roots={}; g.nodes.forEach(function(n){ roots[find(n.id)]=1; }); var c=0; for(var k in roots) c++;
+  g.edges.forEach(function(e){ var a=byId[e.u],b=byId[e.v]; if(!a||!b)return;
+    var isCyc=cyc.indexOf(e)>=0;
+    G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:isCyc?'var(--pink)':'var(--green)','stroke-width':isCyc?2:3,'stroke-dasharray':isCyc?'5 4':'none'})); });
+  g.nodes.forEach(function(nd){ G.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:g.R,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5})); });
+  if(g.n===0){ out.innerHTML='empty graph \u2014 click empty space to add a vertex'; return; }
+  var rank=tree.length, forest=cyc.length===0;
+  out.innerHTML=g.n+' vertices \u00b7 '+c+' component'+(c===1?'':'s')+' \u00b7 spanning forest = <b style=\"color:var(--green)\">'+rank+'</b> edges (rank = n\u2212c) \u00b7 '+(forest?'<b style=\"color:var(--green)\">acyclic \u2014 a forest</b>':('<b style=\"color:var(--pink)\">'+(cyc.length===1?'1 edge closes':cyc.length+' edges close')+' a cycle</b>'));
+}
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-forest-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
 </script>
+
 <div class="quiz" data-concept="gtf-trees"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

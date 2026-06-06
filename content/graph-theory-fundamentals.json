@@ -123,6 +123,77 @@
           "ref": "w-tree"
         },
         {
+          "type": "widget",
+          "slug": "graph-edit-2d",
+          "params": {
+            "widgetId": "w-forest",
+            "svgId": "forest-svg",
+            "outputId": "forest-out",
+            "title": "Spanning forest: which edges close a cycle?",
+            "hint": "build any graph — click empty space to add a vertex, drag between two vertices to toggle an edge, click a vertex to delete it. Green edges form a spanning forest (a maximal acyclic subgraph, $n-c$ edges for $n$ vertices in $c$ components); each pink dashed edge closes a cycle. The graph is a forest exactly when no edge is pink — this is the graphic matroid, where independent sets are the forests and the rank is $n-c$.",
+            "svgTitle": "Editable graph with its spanning forest highlighted green and cycle-closing edges pink; rank = n - c.",
+            "viewBox": "0 0 640 380",
+            "svgWidth": 640,
+            "svgHeight": 380,
+            "nodeRadius": 15,
+            "pad": 24,
+            "initialNodes": [
+              [
+                200,
+                120
+              ],
+              [
+                140,
+                260
+              ],
+              [
+                285,
+                250
+              ],
+              [
+                365,
+                120
+              ],
+              [
+                470,
+                290
+              ]
+            ],
+            "initialEdges": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                0,
+                3
+              ]
+            ],
+            "outputInitial": "a triangle + a pendant + an isolated vertex — one edge closes a cycle",
+            "bodyScript": "function draw(g){\n  while(G.firstChild)G.removeChild(G.firstChild);\n  var byId={}; g.nodes.forEach(function(n){byId[n.id]=n;});\n  var parent={}; g.nodes.forEach(function(n){parent[n.id]=n.id;});\n  function find(a){ while(parent[a]!==a){ parent[a]=parent[parent[a]]; a=parent[a]; } return a; }\n  var tree=[],cyc=[];\n  g.edges.forEach(function(e){ var ra=find(e.u),rb=find(e.v); if(ra!==rb){ parent[ra]=rb; tree.push(e); } else cyc.push(e); });\n  var roots={}; g.nodes.forEach(function(n){ roots[find(n.id)]=1; }); var c=0; for(var k in roots) c++;\n  g.edges.forEach(function(e){ var a=byId[e.u],b=byId[e.v]; if(!a||!b)return;\n    var isCyc=cyc.indexOf(e)>=0;\n    G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:isCyc?'var(--pink)':'var(--green)','stroke-width':isCyc?2:3,'stroke-dasharray':isCyc?'5 4':'none'})); });\n  g.nodes.forEach(function(nd){ G.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:g.R,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5})); });\n  if(g.n===0){ out.innerHTML='empty graph \\u2014 click empty space to add a vertex'; return; }\n  var rank=tree.length, forest=cyc.length===0;\n  out.innerHTML=g.n+' vertices \\u00b7 '+c+' component'+(c===1?'':'s')+' \\u00b7 spanning forest = <b style=\\\"color:var(--green)\\\">'+rank+'</b> edges (rank = n\\u2212c) \\u00b7 '+(forest?'<b style=\\\"color:var(--green)\\\">acyclic \\u2014 a forest</b>':('<b style=\\\"color:var(--pink)\\\">'+(cyc.length===1?'1 edge closes':cyc.length+' edges close')+' a cycle</b>'));\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-forest"
+        },
+        {
+          "type": "raw",
+          "html": "\n"
+        },
+        {
           "type": "raw",
           "html": "\n"
         },
