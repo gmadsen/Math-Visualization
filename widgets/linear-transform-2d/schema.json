@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/linear-transform-2d/schema.json",
+  "title": "linear-transform-2d widget params",
+  "description": "A self-contained 'drag the basis vectors' engine for 2D linear maps. The reader drags the two coloured handles — the tips of where the standard basis vectors î and ĵ land — and the 2x2 matrix M = [[a,b],[c,d]] whose columns are those images carries the whole integer grid to a sheared lattice, transforms the unit square (and an optional shape), and the readout reports M, det M = ad-bc (the signed-area scaling factor / the value of dx wedge dy on the image vectors), orientation, and invertibility. The renderer owns the drag gesture, the data<->pixel mapping, the grid/arrow drawing and Reset; the widget is fully param-driven (initialMatrix, optional shapePoints) with an optional bodyScript decorate hook for extras. The gesture is 'drag-basis' — a dimension the corpus otherwise lacks. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers, never at init.",
+  "meta": {
+    "family": "linear-transform-2d",
+    "dimension": "2d",
+    "gesture": "drag-basis",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it (widgetId+'-reset')."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <svg> drawing surface."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the .readout the engine writes M / det / orientation into."
+    },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the two coloured handles." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 560 560'.", "default": "0 0 560 560" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 560.", "default": 560 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 560.", "default": 560 },
+    "range": { "type": "number", "description": "Half-width of the data window: axes span [-range, range]. Default 5.", "default": 5 },
+    "gridExtent": { "type": "integer", "description": "Integer grid lines drawn from -gridExtent to +gridExtent. Default 6.", "default": 6 },
+    "initialMatrix": {
+      "type": "array",
+      "description": "Initial 2x2 matrix [[a,b],[c,d]] (columns = images of î and ĵ). Reset restores it. Default [[1,0],[0,1]].",
+      "items": {
+        "type": "array",
+        "items": { "type": "number" },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "shapePoints": {
+      "type": "array",
+      "description": "Optional polygon (in data coords) drawn and transformed alongside the unit square, e.g. to show how a figure deforms. Closed automatically.",
+      "items": {
+        "type": "array",
+        "items": { "type": "number" },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" },
+    "bodyScript": {
+      "type": "string",
+      "description": "Optional author JS defining `function decorate(m, helpers){ ... }` for extra overlays (eigenvectors, annotations). `m` is {a,b,c,d,det}; helpers exposes G (the SVG group, redrawn each frame), PX/PY (data->pixel), ap(x,y) (apply M), and the page-global $/SVG. Called at the end of every redraw. Must not start a timer."
+    }
+  }
+}
