@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06T23:45:17.590Z",
+  "generated": "2026-06-07T00:05:51.320Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -39,7 +39,7 @@
       "color": "b",
       "tag": "",
       "date": "2026-06-06",
-      "message": "feat(widgets): bayes-mass-updater — a new \"pour-and-update\" gesture (brainstorm pick #2)"
+      "message": "feat(widgets): bayes-mass-updater — a new \"pour-and-update\" gesture (brainstorm pick #2) (#460)"
     },
     {
       "slug": "statistical-mechanics",

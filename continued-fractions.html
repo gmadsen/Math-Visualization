@@ -293,6 +293,15 @@ where $\beta_k\in[0,1)$ is the tail. So consecutive convergents straddle $\alpha
     <tbody></tbody>
   </table>
   <div class="readout" id="cf-out">…</div>
+</div><div class="widget" id="w-cf-step">
+  <div class="hd"><div class="ttl">Step the algorithm: the continued fraction of π, one convergent at a time</div><div class="hint">press <strong>Step</strong> to run Euclid’s algorithm on $\pi$ one term at a time. Each step takes the integer part $a_n=\lfloor\alpha_n\rfloor$, builds the convergent $p_n/q_n$ from the recurrence $p_n=a_np_{n-1}+p_{n-2}$ (shown in the $p_n$ column), and inverts the leftover $\alpha_{n+1}=1/(\alpha_n-a_n)$. Watch the record approximations appear: $a_1=7$ gives $22/7$, and $a_3=1$ gives $355/113$ — accurate to seven digits. The error column shows each convergent beating all smaller denominators.</div></div>
+  <div id="cf-step-table" class="algo-trace" style="overflow-x:auto"></div>
+  <div class="row">
+    <button id="w-cf-step-step" type="button">Step ▸</button>
+    <button id="w-cf-step-run" type="button">Run ⏭</button>
+    <button id="w-cf-step-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="cf-step-out">&nbsp;</div>
 </div>
 
 <div class="ok"><strong>Lagrange (1770).</strong> The continued fraction of $\alpha\in\mathbb{R}$ is eventually periodic if and only if $\alpha$ is a real quadratic irrational, i.e. satisfies $a\alpha^2+b\alpha+c=0$ with $a,b,c\in\mathbb{Z}$ and $b^2-4ac>0$ not a square. Examples: $\sqrt{2}=[1;\overline{2}]$, $\sqrt{3}=[1;\overline{1,2}]$, $\varphi=[\overline{1}]$. The continued-fraction expansions of $\pi,\,e^2,\,\sqrt[3]{2}$ have no known pattern.</div>
@@ -382,6 +391,40 @@ where $\beta_k\in[0,1)$ is the tail. So consecutive convergents straddle $\alpha
   inp.addEventListener('input', render);
   depth.addEventListener('input', render);
   render();
+})();
+</script><script>
+(function(){
+  const host=$('#cf-step-table'), out=$('#cf-step-out');
+  const COLS=["n","aₙ","pₙ = aₙpₙ₋₁+pₙ₋₂","qₙ","pₙ/qₙ","|π − pₙ/qₙ|"], MAX=6;
+  // ---- author hooks: initial()/step(state)/row(state) required; note(state) optional ----
+function initial(){ var a=Math.PI, a0=Math.floor(a); return {n:0,x:a,an:a0,p:a0,q:1,p1:1,p2:0,q1:0,q2:1,xn:(a-a0>1e-9?1/(a-a0):null),al:a}; }
+function step(s){ if(s.xn==null) return null; var x=s.xn, an=Math.floor(x), p=an*s.p+s.p1, q=an*s.q+s.q1, f=x-an; return {n:s.n+1,x:x,an:an,p:p,q:q,p1:s.p,p2:s.p1,q1:s.q,q2:s.q1,xn:(f>1e-9?1/f:null),al:s.al}; }
+function row(s){ var err=Math.abs(s.al-s.p/s.q); var rec=(s.n===0)?(s.an+"\u00b71+0"):(s.an+"\u00b7"+s.p1+"+"+s.p2); return [s.n, s.an, rec+" = "+s.p, s.q, (s.p/s.q).toFixed(8), err.toExponential(2)]; }
+function note(s){ return "convergent <b style=\"color:var(--cyan)\">"+s.p+"/"+s.q+"</b> = "+(s.p/s.q).toFixed(7)+" &nbsp; (\u03c0 = 3.1415927)"; }
+  var hasNote=(typeof note==='function');
+  var states=[], halted=false;
+  function reset(){ states=[initial()]; halted=false; render(); }
+  function doStep(){ if(halted||states.length>MAX) return false; var nx=step(states[states.length-1]);
+    if(nx==null){ halted=true; render(); return false; } states.push(nx); if(states.length>MAX) halted=true; render(); return true; }
+  function run(){ var guard=0; while(doStep() && guard++<MAX){} }
+  function cell(c){ return '<td style=\"padding:3px 10px;text-align:right;font-variant-numeric:tabular-nums\">'+c+'</td>'; }
+  function render(){
+    var h='<table style=\"border-collapse:collapse;font-size:13px;margin:0 auto\"><thead><tr>';
+    for(var c=0;c<COLS.length;c++){ h+='<th style=\"padding:3px 10px;text-align:right;color:var(--mute);border-bottom:1px solid var(--line)\">'+COLS[c]+'</th>'; }
+    h+='</tr></thead><tbody>';
+    for(var i=0;i<states.length;i++){ var last=(i===states.length-1);
+      h+='<tr style=\"'+(last?'background:color-mix(in srgb,var(--cyan) 16%,transparent)':'')+'\">';
+      var r=row(states[i]); for(var k=0;k<COLS.length;k++){ h+=cell(r[k]!=null?r[k]:''); } h+='</tr>'; }
+    h+='</tbody></table>'; host.innerHTML=h;
+    var status = halted ? '<b style=\"color:var(--green)\">halted</b> after '+(states.length-1)+' step'+(states.length-1===1?'':'s') : (states.length-1)+' step'+(states.length-1===1?'':'s')+' \u00b7 press <b>Step</b>';
+    var nt = hasNote ? note(states[states.length-1]) : '';
+    out.innerHTML = status + (nt?(' &nbsp;\u00b7&nbsp; '+nt):'');
+    var sb=$('#w-cf-step-step'), rnb=$('#w-cf-step-run'); if(sb) sb.disabled=halted; if(rnb) rnb.disabled=halted;
+  }
+  var sb=$('#w-cf-step-step'); if(sb) sb.addEventListener('click',doStep);
+  var rnb=$('#w-cf-step-run'); if(rnb) rnb.addEventListener('click',run);
+  var rb=$('#w-cf-step-reset'); if(rb) rb.addEventListener('click',reset);
+  reset();
 })();
 </script>
 

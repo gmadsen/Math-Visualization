@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/algorithm-stepper/schema.json",
+  "title": "algorithm-stepper widget params",
+  "description": "A self-contained 'step-the-algorithm' engine. Where button-stepper shows static prebuilt frames, this drives an author-supplied transition function over evolving STATE and renders the running trace as a table: press Step and one more row appears (the pivot moves, the remainder shrinks, the convergent forms), with the latest row highlighted and an invariant readout. The author defines initial() (the start state), step(state) (returns the next state, or null when the algorithm halts), and row(state) (the table cells for a state); optional note(state) adds an invariant/commentary line. The renderer owns the Step / Run / Reset controls, the state history, the table rendering + highlight, and the halt detection; the algorithm itself is author-supplied, so one engine unifies the corpus's per-topic bespoke steppers (Euclid / continued fractions, Gaussian elimination, Gram-Schmidt, simplex, Dijkstra, Buchberger, RSK, ...). The gesture is 'step-state' — advancing a live computation one transition at a time. Pure DOM/table rendering; jsdom-safe (no getScreenCTM/rAF).",
+  "meta": {
+    "family": "algorithm-stepper",
+    "dimension": "2d",
+    "gesture": "step-state",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "tableId",
+    "outputId",
+    "title",
+    "columns",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Step / Run / Reset buttons derive their ids from it." },
+    "tableId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <div> the engine fills with the trace <table>." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout the engine writes the invariant / status into." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to press Step." },
+    "columns": {
+      "type": "array",
+      "description": "Header labels for the trace table columns, left to right. Each row returned by row(state) must have this many cells. Plain text / simple symbols (rendered as table headers, not KaTeX).",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "maxSteps": { "type": "integer", "description": "Hard cap on the number of steps (halts the algorithm even if step() keeps returning states). Default 40.", "default": 40 },
+    "stepLabel": { "type": "string", "description": "Label for the Step button. Default 'Step ▸'.", "default": "Step ▸" },
+    "runLabel": { "type": "string", "description": "Label for the Run-to-halt button. Default 'Run ⏭'.", "default": "Run ⏭" },
+    "resetLabel": { "type": "string", "description": "Label for the Reset button. Default '↺ Reset'.", "default": "↺ Reset" },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS. MUST define `function initial(){ return state0; }` (the starting state object), `function step(state){ return nextState_or_null; }` (the transition; return null/undefined when the algorithm halts), and `function row(state){ return [cell0, cell1, ...]; }` (one table row's cells, length === columns.length; cells may be HTML strings). MAY define `function note(state){ return 'html'; }` (an invariant/status line for the readout, called with the latest state). Evaluated once at render; must not start a timer or mutate the DOM."
+    }
+  }
+}
