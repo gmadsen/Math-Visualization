@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/shatter-arena/schema.json",
+  "title": "shatter-arena widget params",
+  "description": "A self-contained 'construct-to-break' arena for VC dimension / shattering. The reader places points in the plane and tries to SHATTER them with a hypothesis class: the engine enumerates all 2^m labelings (dichotomies), asks the author's realizes(plus, minus) predicate whether each can be realized by the class, and renders the verdict — SHATTERED if every labeling is realizable, otherwise it highlights the FORCED WITNESS (the actual ± split that no hypothesis can produce). Unlike a passive counterexample gallery, it evaluates the reader's OWN construction against a live predicate; placing a 4th point and discovering you can never shatter it is how the reader feels VC(half-planes in R^2) = 3. The renderer owns point placement (click to add, drag to move, click to delete), the all-dichotomies check, the witness highlight, the verdict + counts, and Reset; the hypothesis class is author-supplied via realizes(plus, minus). The gesture is 'construct-to-break' — building a configuration to break (or saturate) a claim against a live check. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers.",
+  "meta": {
+    "family": "shatter-arena",
+    "dimension": "2d",
+    "gesture": "construct-to-break",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Reset button derives its id from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (dichotomy counts, verdict)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to place points and try to shatter them." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 560 420'.", "default": "0 0 560 420" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 560.", "default": 560 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 420.", "default": 420 },
+    "className": { "type": "string", "description": "Display name of the hypothesis class, e.g. 'a half-plane'. Used in the verdict sentence.", "default": "a hypothesis" },
+    "vcDim": { "type": "integer", "description": "Optional VC dimension of the class. When the reader has more than vcDim points and cannot shatter, the readout states the theorem (no set of that size can be shattered)." },
+    "maxPoints": { "type": "integer", "description": "Maximum points the reader may place (caps the 2^m enumeration). Default 6.", "minimum": 1, "maximum": 8, "default": 6 },
+    "initialPoints": {
+      "type": "array",
+      "description": "Initial point positions in DATA coords (each [x, y]); the data window is [-range, range] on both axes. Default a single triangle of 3 points.",
+      "items": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 }
+    },
+    "range": { "type": "number", "description": "Half-width of the square data window: both axes span [-range, range]. Default 5.", "default": 5 },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS. MUST define `function realizes(plus, minus){ return bool; }` — given the + and - point arrays (each an array of [x,y] in data coords) of one dichotomy, return whether some hypothesis in the class realizes it (e.g. for half-planes: whether plus and minus are linearly separable). Must return true when plus or minus is empty (the all-one-label dichotomies are always realizable). Evaluated once at render; must not start a timer or touch the DOM."
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" }
+  }
+}

@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1658** (registry-driven: 1658, inline: 0)
+- Widgets: **1659** (registry-driven: 1659, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -612,6 +612,7 @@ page has wired one in yet.
 | `schemes-specialization` | schemes-specialization | interact | 2d | 1 | schemes |
 | `schemes-stalk` | schemes-stalk | interact | 2d | 1 | schemes |
 | `several-complex-variables-reinhardt-pseudoconvex` | several-complex-variables-reinhardt-pseudoconvex | slider | 2d | 1 | several-complex-variables |
+| `shatter-arena` | shatter-arena | construct-to-break | 2d | 1 | statistical-learning-theory |
 | `sheaf-cohomology-acyclic` | sheaf-cohomology-acyclic | select | 2d | 1 | sheaf-cohomology |
 | `sheaf-cohomology-leray` | sheaf-cohomology-leray | select | 2d | 1 | sheaf-cohomology |
 | `sheaf-cohomology-nerve` | sheaf-cohomology-nerve | interact | 2d | 1 | sheaf-cohomology |
@@ -838,10 +839,10 @@ page has wired one in yet.
 ### Learning theory & data science
 
 - Topics: **9**, concepts: **56**
-- Widgets: **57** (registry-driven: 57, inline: 0)
-  - by family: parametric-plot: 42, slider-readout: 10, clickable-diagram: 2, tda-interval-decomposition: 1, verbatim: 1, vector-field-flow-2d: 1
-  - by dimension: 2d: 57
-  - by gesture: slider: 53, click: 3, click-seed: 1
+- Widgets: **58** (registry-driven: 58, inline: 0)
+  - by family: parametric-plot: 42, slider-readout: 10, clickable-diagram: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1, vector-field-flow-2d: 1
+  - by dimension: 2d: 58
+  - by gesture: slider: 53, click: 3, construct-to-break: 1, click-seed: 1
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)
   - by type: mcq: 117, numeric: 25, multi-select: 17, ordering: 6, matching: 1
 
@@ -868,7 +869,7 @@ page has wired one in yet.
 - `topological-data-analysis` (Learning theory & data science) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
 - `kalman-filtering-and-state-estimation` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `statistical-learning-theory` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `statistical-learning-theory` (Learning theory & data science) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `markov-decision-processes` (Control theory & optimization) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `ramsey-theory` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `order-theory-and-lattices` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
