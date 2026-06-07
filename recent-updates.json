@@ -1,6 +1,14 @@
 {
-  "generated": "2026-06-07T21:13:49.635Z",
+  "generated": "2026-06-07T21:26:37.977Z",
   "entries": [
+    {
+      "slug": "cohomology-and-duality",
+      "title": "Cohomology and duality",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(widgets): cup-product-grid — a new \"drag-multiply\" gesture (cohomology ring table)"
+    },
     {
       "slug": "probability-theory",
       "title": "Probability theory",
@@ -552,14 +560,6 @@
       "tag": "",
       "date": "2026-05-27",
       "message": "feat(slider-svg-2d): select (dropdown) control + 14 byte-identical migrations (#378)"
-    },
-    {
-      "slug": "cohomology-and-duality",
-      "title": "Cohomology and duality",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
       "slug": "commutative-algebra",

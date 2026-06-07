@@ -1,4 +1,4 @@
-// cup-product-grid widget — shared registry renderer for the "drag-multiply"
+// cup-product-grid widget — shared registry renderer for the "click-multiply"
 // gesture: a graded ring's multiplication table (the cup product). The reader
 // picks a space and clicks a cell of the basis x basis grid; the engine shows
 // the product, the degrees adding, the graded-commutativity sign (-1)^{pq}

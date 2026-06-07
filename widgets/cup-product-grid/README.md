@@ -1,7 +1,7 @@
 # cup-product-grid
 
-Self-contained **"drag-and-multiply"** engine for a graded ring's multiplication
-table — the corpus's `drag-multiply` gesture, built for **cohomology rings** (the
+Self-contained **"click-to-multiply"** engine for a graded ring's multiplication
+table — the corpus's `click-multiply` gesture, built for **cohomology rings** (the
 cup product). The reader picks a space from a dropdown and **clicks a cell** of
 the basis × basis grid; the engine shows the product $\alpha\smile\beta$ as an
 element of the ring, with the **degrees adding** ($H^p\times H^q\to H^{p+q}$), the
