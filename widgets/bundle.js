@@ -673,6 +673,28 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "algorithm-stepper",
+    "family": "algorithm-stepper",
+    "dimension": "2d",
+    "gesture": "step-state",
+    "role": "explore",
+    "title": "algorithm-stepper widget params",
+    "description": "A self-contained 'step-the-algorithm' engine. Where button-stepper shows static prebuilt frames, this drives an author-supplied transition function over evolving STATE and renders the running trace as a table: press Step and one more row appears (the pivot moves, the remainder shrinks, the convergent forms), with the latest row highlighted and an invariant readout. The author defines initial() (the start state), step(state) (returns the next state, or null when the algorithm halts), and row(state) (the table cells for a state); optional note(state) adds an invariant/commentary line. The renderer owns the Step / Run / Reset controls, the state history, the table rendering + highlight, and the halt detection; the algorithm itself is author-supplied, so one engine unifies the corpus's per-topic bespoke steppers (Euclid / continued fractions, Gaussian elimination, Gram-Schmidt, simplex, Dijkstra, Buchberger, RSK, ...). The gesture is 'step-state' — advancing a live computation one transition at a time. Pure DOM/table rendering; jsdom-safe (no getScreenCTM/rAF).",
+    "requiredParams": [
+      "widgetId",
+      "tableId",
+      "outputId",
+      "title",
+      "columns",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"step-the-algorithm\"** engine — the corpus's `step-state` gesture. Where `button-stepper` shows static prebuilt frames, this drives an **author transition function over evolving state** and renders the running trace as a table: press **Step** and one more row appears (the pivot moves, the remainder shrinks, the convergent forms), with the latest row highlighted and an invariant readout. **Run** plays to the halt; **Reset** restarts. First home: `continued-fractions §convergents` (Euclid's algorithm / the continued fraction of $\\pi$, one convergent at a time).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "animated-svg-2d",
     "family": "animated-svg-2d",
     "dimension": "2d",
