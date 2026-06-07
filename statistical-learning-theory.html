@@ -566,6 +566,13 @@ function drawNode(svg, x, y, label, opts={}){
     <button id="vc-reset">reset points</button>
   </div>
   <div class="readout" id="vc-out"></div>
+</div><div class="widget" id="w-vc-shatter">
+  <div class="hd"><div class="ttl">Try to shatter it: the VC dimension of half-planes is 3</div><div class="hint">a set of points is <strong>shattered</strong> by half-planes if <em>every</em> $\pm$ labeling can be cut off by a straight line. <strong>Click</strong> to place a point, <strong>drag</strong> to move one, <strong>click a point</strong> to delete it. Three points in general position <em>can</em> be shattered — all $2^3=8$ labelings work. Now add a fourth and try: you can’t. Some split (the “diagonal”/XOR labeling) always resists, no matter where you put the points. That impossibility is exactly $\mathrm{VC}(\text{half-planes in }\mathbb{R}^2)=3$.</div></div>
+  <svg id="vc-shatter-svg" viewBox="0 0 560 420" width="560" height="420" style="touch-action:none;cursor:crosshair;width:100%;max-width:560px;height:auto"><title>Place points and try to shatter them with half-planes; the widget enumerates all labelings and highlights any that cannot be linearly separated.</title></svg>
+  <div class="row">
+    <button id="w-vc-shatter-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="vc-shatter-out">&nbsp;</div>
 </div><script>
 (function(){
   const svg=$('#vc-svg'), out=$('#vc-out'), cls=$('#vc-class'), reset=$('#vc-reset');
@@ -659,6 +666,63 @@ function drawNode(svg, x, y, label, opts={}){
   cls.addEventListener('change',()=>{ defaults(cls.value); render(); });
   reset.addEventListener('click',()=>{ defaults(cls.value); render(); });
   defaults('halfplane'); render();
+})();
+</script><script>
+(function(){
+  const svg=$('#vc-shatter-svg'), out=$('#vc-shatter-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=5, MAXP=5, CLS="a half-plane";
+  const HASVC=true, VC=3, INIT=[[-2.4,-1.8],[2.4,-1.8],[0,2.6]];
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 420').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], pad=24, S=(Math.min(W,Hh)-2*pad)/(2*R), cx=W/2, cy=Hh/2;
+  function PX(x){ return cx + x*S; }
+  function PY(y){ return cy - y*S; }
+  function XV(p){ return (p-cx)/S; }
+  function YV(p){ return (cy-p)/S; }
+  // ---- author hook: realizes(plus, minus) ----
+function realizes(plus,minus){ if(!plus.length||!minus.length) return true; var all=plus.concat(minus); for(var i=0;i<all.length;i++)for(var j=i+1;j<all.length;j++){ var wx=-(all[i][1]-all[j][1]), wy=(all[i][0]-all[j][0]); if(!wx&&!wy)continue; var pm=1e9,pM=-1e9,mm=1e9,mM=-1e9; for(var a=0;a<plus.length;a++){ var d=wx*plus[a][0]+wy*plus[a][1]; if(d<pm)pm=d; if(d>pM)pM=d; } for(var b=0;b<minus.length;b++){ var d=wx*minus[b][0]+wy*minus[b][1]; if(d<mm)mm=d; if(d>mM)mM=d; } var e=1e-7*(Math.abs(wx)+Math.abs(wy)); if(pM<mm-e||mM<pm-e) return true; } return false; }
+  var pts=INIT.map(function(p){ return {x:p[0], y:p[1]}; });
+  // ---- shattering test: enumerate all 2^m dichotomies ----
+  function analyze(){ var m=pts.length, total=(1<<m), realized=0, witness=null;
+    for(var k=0;k<total;k++){ var plus=[], minus=[];
+      for(var b=0;b<m;b++){ if(k&(1<<b)) plus.push([pts[b].x,pts[b].y]); else minus.push([pts[b].x,pts[b].y]); }
+      if(realizes(plus,minus)) realized++; else if(witness==null) witness=k; }
+    return {m:m, total:total, realized:realized, shattered:(realized===total), witness:witness}; }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    // frame
+    G.appendChild(SVG('rect',{x:PX(-R),y:PY(R),width:2*R*S,height:2*R*S,fill:'none',stroke:'var(--line)','stroke-width':1}));
+    var a=analyze();
+    // points: coloured by the witness split if not shattered, else neutral
+    for(var i=0;i<pts.length;i++){ var col='var(--cyan)', fill='var(--cyan)';
+      if(a.witness!=null){ var isPlus=(a.witness&(1<<i))!==0; col=isPlus?'var(--pink)':'var(--blue)'; fill=isPlus?'var(--pink)':'var(--panel)'; }
+      G.appendChild(SVG('circle',{cx:PX(pts[i].x),cy:PY(pts[i].y),r:9,fill:fill,stroke:col,'stroke-width':2.4})); }
+    // verdict text inside the frame
+    var banner;
+    if(pts.length===0){ banner='click to place points'; }
+    else if(a.shattered){ banner='\u2713 SHATTERED'; }
+    else { banner='\u2717 cannot be shattered'; }
+    var bt=SVG('text',{x:W/2,y:PY(R)+22,'font-size':15,'font-weight':600,fill:a.shattered?'var(--green)':'var(--pink)','text-anchor':'middle'}); bt.textContent=banner; G.appendChild(bt);
+    if(a.witness!=null){ var leg=SVG('text',{x:W/2,y:PY(R)+40,'font-size':11,fill:'var(--mute)','text-anchor':'middle'}); leg.textContent='this split (pink vs hollow) cannot be cut off by '+CLS+' \u2014 the forced witness'; G.appendChild(leg); }
+    // readout
+    var verdict;
+    if(pts.length===0){ verdict='place points by clicking; drag to move, click a point to delete'; }
+    else if(a.shattered){ verdict='<b style=\"color:var(--green)\">SHATTERED</b> \u2014 all '+a.total+' labelings of these '+a.m+' points are realizable by '+CLS+(HASVC?' (so VC \u2265 '+a.m+')':''); }
+    else { verdict='<b style=\"color:var(--pink)\">not shattered</b> \u2014 only '+a.realized+' of '+a.total+' labelings realizable; the highlighted \u00b1 split cannot be cut off by '+CLS;
+      if(HASVC && a.m>VC){ verdict+='. <b>No</b> '+a.m+'-point set can be shattered: VC = '+VC+'.'; } }
+    out.innerHTML=verdict+' &nbsp;\u00b7&nbsp; '+pts.length+'/'+MAXP+' points';
+  }
+  // ---- placement: click empty = add, drag = move, click point = delete ----
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }
+  function hit(d){ for(var i=0;i<pts.length;i++){ if(Math.hypot(pts[i].x-d.x,pts[i].y-d.y)<0.5) return i; } return -1; }
+  var drag=-1, moved=false;
+  svg.addEventListener('pointerdown',function(ev){ var d=toData(ev); var i=hit(d);
+    if(i>=0){ drag=i; moved=false; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} }
+    else if(pts.length<MAXP && Math.abs(d.x)<=R && Math.abs(d.y)<=R){ pts.push({x:d.x,y:d.y}); render(); } });
+  window.addEventListener('pointermove',function(ev){ if(drag<0)return; var d=toData(ev); pts[drag].x=Math.max(-R,Math.min(R,d.x)); pts[drag].y=Math.max(-R,Math.min(R,d.y)); moved=true; render(); });
+  window.addEventListener('pointerup',function(){ if(drag>=0 && !moved){ pts.splice(drag,1); render(); } drag=-1; });
+  var rb=$('#w-vc-shatter-reset'); if(rb) rb.addEventListener('click',function(){ pts=INIT.map(function(p){ return {x:p[0],y:p[1]}; }); render(); });
+  render();
 })();
 </script>
 <div class="quiz" data-concept="slt-vc"></div><!-- backlinks-auto-begin -->

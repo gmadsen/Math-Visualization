@@ -12243,6 +12243,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "shatter-arena",
+    "family": "shatter-arena",
+    "dimension": "2d",
+    "gesture": "construct-to-break",
+    "role": "explore",
+    "title": "shatter-arena widget params",
+    "description": "A self-contained 'construct-to-break' arena for VC dimension / shattering. The reader places points in the plane and tries to SHATTER them with a hypothesis class: the engine enumerates all 2^m labelings (dichotomies), asks the author's realizes(plus, minus) predicate whether each can be realized by the class, and renders the verdict — SHATTERED if every labeling is realizable, otherwise it highlights the FORCED WITNESS (the actual ± split that no hypothesis can produce). Unlike a passive counterexample gallery, it evaluates the reader's OWN construction against a live predicate; placing a 4th point and discovering you can never shatter it is how the reader feels VC(half-planes in R^2) = 3. The renderer owns point placement (click to add, drag to move, click to delete), the all-dichotomies check, the witness highlight, the verdict + counts, and Reset; the hypothesis class is author-supplied via realizes(plus, minus). The gesture is 'construct-to-break' — building a configuration to break (or saturate) a claim against a live check. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"construct-to-break\"** arena for VC dimension / shattering — the corpus's `construct-to-break` gesture. The reader **places points** and tries to **shatter** them with a hypothesis class: the engine enumerates all $2^m$ labelings, asks the author's `realizes(plus, minus)` whether each is realizable, and renders the verdict — **SHATTERED** if every labeling is realizable, else it highlights the **forced witness** (the actual $\\pm$ split no hypothesis can produce). First home: `statistical-learning-theory §vc` (half-planes in $\\mathbb{R}^2$ — you can shatter 3 points but never 4, so $\\mathrm{VC}=3$).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "sheaf-cohomology-acyclic",
     "family": "sheaf-cohomology-acyclic",
     "dimension": "2d",

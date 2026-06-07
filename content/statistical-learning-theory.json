@@ -219,8 +219,43 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "shatter-arena",
+          "params": {
+            "widgetId": "w-vc-shatter",
+            "svgId": "vc-shatter-svg",
+            "outputId": "vc-shatter-out",
+            "title": "Try to shatter it: the VC dimension of half-planes is 3",
+            "hint": "a set of points is <strong>shattered</strong> by half-planes if <em>every</em> $\\pm$ labeling can be cut off by a straight line. <strong>Click</strong> to place a point, <strong>drag</strong> to move one, <strong>click a point</strong> to delete it. Three points in general position <em>can</em> be shattered — all $2^3=8$ labelings work. Now add a fourth and try: you can’t. Some split (the “diagonal”/XOR labeling) always resists, no matter where you put the points. That impossibility is exactly $\\mathrm{VC}(\\text{half-planes in }\\mathbb{R}^2)=3$.",
+            "svgTitle": "Place points and try to shatter them with half-planes; the widget enumerates all labelings and highlights any that cannot be linearly separated.",
+            "className": "a half-plane",
+            "vcDim": 3,
+            "maxPoints": 5,
+            "range": 5,
+            "initialPoints": [
+              [
+                -2.4,
+                -1.8
+              ],
+              [
+                2.4,
+                -1.8
+              ],
+              [
+                0,
+                2.6
+              ]
+            ],
+            "bodyScript": "function realizes(plus,minus){ if(!plus.length||!minus.length) return true; var all=plus.concat(minus); for(var i=0;i<all.length;i++)for(var j=i+1;j<all.length;j++){ var wx=-(all[i][1]-all[j][1]), wy=(all[i][0]-all[j][0]); if(!wx&&!wy)continue; var pm=1e9,pM=-1e9,mm=1e9,mM=-1e9; for(var a=0;a<plus.length;a++){ var d=wx*plus[a][0]+wy*plus[a][1]; if(d<pm)pm=d; if(d>pM)pM=d; } for(var b=0;b<minus.length;b++){ var d=wx*minus[b][0]+wy*minus[b][1]; if(d<mm)mm=d; if(d>mM)mM=d; } var e=1e-7*(Math.abs(wx)+Math.abs(wy)); if(pM<mm-e||mM<pm-e) return true; } return false; }"
+          }
+        },
+        {
           "type": "widget-script",
           "ref": "w-vc"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-vc-shatter"
         },
         {
           "type": "raw",
