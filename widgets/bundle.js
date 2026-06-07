@@ -3580,6 +3580,29 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "cup-product-grid",
+    "family": "cup-product-grid",
+    "dimension": "2d",
+    "gesture": "drag-multiply",
+    "role": "explore",
+    "title": "cup-product-grid widget params",
+    "description": "A self-contained 'drag-and-multiply' engine for a graded ring's multiplication table — built for cohomology rings (the cup product). The reader picks a space from a dropdown and clicks a cell of the basis x basis grid; the engine shows the product alpha . beta as an element of the ring, with the degrees ADDING (deg p + deg q = deg p+q), the graded-commutativity sign (-1)^{pq} relating the cell to its transpose, and products that vanish (x^{n+1}=0 past the top dimension, a^2=0 in an exterior algebra) shown as 0. It turns 'cohomology is a ring' from a sentence into a table you can read off. The renderer owns the grid rendering, the ring dropdown, the cell selection + highlight (including the transpose/sign partner), and the readout; the rings (basis + product rule) are author-supplied. The gesture is 'drag-multiply' — multiplying two graded classes and watching degree + sign bookkeeping. Pure DOM/table rendering; jsdom-safe (no getScreenCTM/rAF).",
+    "requiredParams": [
+      "widgetId",
+      "gridId",
+      "outputId",
+      "selectId",
+      "title",
+      "cases",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"drag-and-multiply\"** engine for a graded ring's multiplication table — the corpus's `drag-multiply` gesture, built for **cohomology rings** (the cup product). The reader picks a space from a dropdown and **clicks a cell** of the basis × basis grid; the engine shows the product $\\alpha\\smile\\beta$ as an element of the ring, with the **degrees adding** ($H^p\\times H^q\\to H^{p+q}$), the **graded-commutativity sign** $(-1)^{pq}$ relating the cell to its transpose, and products that **vanish** ($x^{n+1}=0$ past the top dimension, $a^2=0$ in an exterior algebra) shown as $0$. It turns \"cohomology is a ring\" from a sentence into a table you can read off. First home: `cohomology-and-duality §cohomology-cup`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "cv-w-slater",
     "family": "verbatim",
     "dimension": "2d",

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/cup-product-grid/schema.json",
+  "title": "cup-product-grid widget params",
+  "description": "A self-contained 'drag-and-multiply' engine for a graded ring's multiplication table — built for cohomology rings (the cup product). The reader picks a space from a dropdown and clicks a cell of the basis x basis grid; the engine shows the product alpha . beta as an element of the ring, with the degrees ADDING (deg p + deg q = deg p+q), the graded-commutativity sign (-1)^{pq} relating the cell to its transpose, and products that vanish (x^{n+1}=0 past the top dimension, a^2=0 in an exterior algebra) shown as 0. It turns 'cohomology is a ring' from a sentence into a table you can read off. The renderer owns the grid rendering, the ring dropdown, the cell selection + highlight (including the transpose/sign partner), and the readout; the rings (basis + product rule) are author-supplied. The gesture is 'drag-multiply' — multiplying two graded classes and watching degree + sign bookkeeping. Pure DOM/table rendering; jsdom-safe (no getScreenCTM/rAF).",
+  "meta": {
+    "family": "cup-product-grid",
+    "dimension": "2d",
+    "gesture": "drag-multiply",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "gridId",
+    "outputId",
+    "selectId",
+    "title",
+    "cases",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper." },
+    "gridId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <div> the engine fills with the multiplication <table>." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout the engine writes the selected product into." },
+    "selectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <select> space/ring picker." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to pick a space and click a cell." },
+    "cases": {
+      "type": "array",
+      "description": "The rings offered in the dropdown. Each carries a `label` (dropdown text) and optional `ringLabel` (the ring presentation shown in the readout). The basis and product rule for case index ci come from ring(ci) in bodyScript.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label"],
+        "properties": {
+          "label": { "type": "string", "description": "Dropdown label, plain text." },
+          "ringLabel": { "type": "string", "description": "Optional ring presentation shown in the readout (plain text / simple symbols)." }
+        }
+      }
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS. MUST define `function ring(ci){ return { basis: [{name, deg}, ...], prod: function(i, j){ return {c, k} | null; } }; }` where ci is the selected case index, `basis` lists the ring's additive basis (name string + integer degree), and `prod(i,j)` returns the product of basis[i] and basis[j] as a coefficient `c` times basis element index `k` (or null for 0). Must respect graded-commutativity (prod(i,j) and prod(j,i) differ by (-1)^{deg_i*deg_j}). Evaluated once at render; must not start a timer or touch the DOM."
+    },
+    "resetLabel": { "type": "string", "description": "Optional label for a button that clears the selection. Default '↺ Clear'.", "default": "↺ Clear" }
+  }
+}
