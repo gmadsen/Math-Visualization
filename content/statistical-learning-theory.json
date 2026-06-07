@@ -246,7 +246,7 @@
                 2.6
               ]
             ],
-            "bodyScript": "function realizes(plus,minus){ if(!plus.length||!minus.length) return true; var all=plus.concat(minus); for(var i=0;i<all.length;i++)for(var j=i+1;j<all.length;j++){ var wx=-(all[i][1]-all[j][1]), wy=(all[i][0]-all[j][0]); if(!wx&&!wy)continue; var pm=1e9,pM=-1e9,mm=1e9,mM=-1e9; for(var a=0;a<plus.length;a++){ var d=wx*plus[a][0]+wy*plus[a][1]; if(d<pm)pm=d; if(d>pM)pM=d; } for(var b=0;b<minus.length;b++){ var d=wx*minus[b][0]+wy*minus[b][1]; if(d<mm)mm=d; if(d>mM)mM=d; } var e=1e-7*(Math.abs(wx)+Math.abs(wy)); if(pM<mm-e||mM<pm-e) return true; } return false; }"
+            "bodyScript": "function realizes(plus,minus){ if(!plus.length||!minus.length) return true; var all=plus.concat(minus); function sep(wx,wy){ if(!wx&&!wy) return false; var pm=1e9,pM=-1e9,mm=1e9,mM=-1e9; for(var a=0;a<plus.length;a++){ var d=wx*plus[a][0]+wy*plus[a][1]; if(d<pm)pm=d; if(d>pM)pM=d; } for(var b=0;b<minus.length;b++){ var d=wx*minus[b][0]+wy*minus[b][1]; if(d<mm)mm=d; if(d>mM)mM=d; } var e=1e-7*(Math.abs(wx)+Math.abs(wy)); return pM<mm-e||mM<pm-e; } for(var i=0;i<all.length;i++)for(var j=i+1;j<all.length;j++){ var dx=all[i][0]-all[j][0], dy=all[i][1]-all[j][1]; if(sep(-dy,dx) || sep(dx,dy)) return true; } return false; }"
           }
         },
         {

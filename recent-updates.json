@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-07T01:00:35.396Z",
+  "generated": "2026-06-07T01:18:57.157Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -48,6 +48,14 @@
       "tag": "",
       "date": "2026-06-06",
       "message": "feat(widgets): sampling-box — a new \"shake-sample\" gesture (brainstorm pick) (#462)"
+    },
+    {
+      "slug": "statistical-learning-theory",
+      "title": "Statistical learning theory",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-06",
+      "message": "feat(widgets): shatter-arena — a new \"construct-to-break\" gesture (brainstorm pick, VC-shatter)"
     },
     {
       "slug": "statistical-mechanics",
@@ -1336,14 +1344,6 @@
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: placement (taxonomy) audit — relocate 3 topics to better-fitting sections (#265)"
-    },
-    {
-      "slug": "statistical-learning-theory",
-      "title": "Statistical learning theory",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: diffusion-and-score-based-models — Wave 3 (Learning theory) (#263)"
     },
     {
       "slug": "stochastic-calculus",

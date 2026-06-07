@@ -680,7 +680,7 @@ function drawNode(svg, x, y, label, opts={}){
   function XV(p){ return (p-cx)/S; }
   function YV(p){ return (cy-p)/S; }
   // ---- author hook: realizes(plus, minus) ----
-function realizes(plus,minus){ if(!plus.length||!minus.length) return true; var all=plus.concat(minus); for(var i=0;i<all.length;i++)for(var j=i+1;j<all.length;j++){ var wx=-(all[i][1]-all[j][1]), wy=(all[i][0]-all[j][0]); if(!wx&&!wy)continue; var pm=1e9,pM=-1e9,mm=1e9,mM=-1e9; for(var a=0;a<plus.length;a++){ var d=wx*plus[a][0]+wy*plus[a][1]; if(d<pm)pm=d; if(d>pM)pM=d; } for(var b=0;b<minus.length;b++){ var d=wx*minus[b][0]+wy*minus[b][1]; if(d<mm)mm=d; if(d>mM)mM=d; } var e=1e-7*(Math.abs(wx)+Math.abs(wy)); if(pM<mm-e||mM<pm-e) return true; } return false; }
+function realizes(plus,minus){ if(!plus.length||!minus.length) return true; var all=plus.concat(minus); function sep(wx,wy){ if(!wx&&!wy) return false; var pm=1e9,pM=-1e9,mm=1e9,mM=-1e9; for(var a=0;a<plus.length;a++){ var d=wx*plus[a][0]+wy*plus[a][1]; if(d<pm)pm=d; if(d>pM)pM=d; } for(var b=0;b<minus.length;b++){ var d=wx*minus[b][0]+wy*minus[b][1]; if(d<mm)mm=d; if(d>mM)mM=d; } var e=1e-7*(Math.abs(wx)+Math.abs(wy)); return pM<mm-e||mM<pm-e; } for(var i=0;i<all.length;i++)for(var j=i+1;j<all.length;j++){ var dx=all[i][0]-all[j][0], dy=all[i][1]-all[j][1]; if(sep(-dy,dx) || sep(dx,dy)) return true; } return false; }
   var pts=INIT.map(function(p){ return {x:p[0], y:p[1]}; });
   // ---- shattering test: enumerate all 2^m dichotomies ----
   function analyze(){ var m=pts.length, total=(1<<m), realized=0, witness=null;
@@ -709,17 +709,17 @@ function realizes(plus,minus){ if(!plus.length||!minus.length) return true; var 
     if(pts.length===0){ verdict='place points by clicking; drag to move, click a point to delete'; }
     else if(a.shattered){ verdict='<b style=\"color:var(--green)\">SHATTERED</b> \u2014 all '+a.total+' labelings of these '+a.m+' points are realizable by '+CLS+(HASVC?' (so VC \u2265 '+a.m+')':''); }
     else { verdict='<b style=\"color:var(--pink)\">not shattered</b> \u2014 only '+a.realized+' of '+a.total+' labelings realizable; the highlighted \u00b1 split cannot be cut off by '+CLS;
-      if(HASVC && a.m>VC){ verdict+='. <b>No</b> '+a.m+'-point set can be shattered: VC = '+VC+'.'; } }
+      if(HASVC && a.m>VC){ verdict+='. This is not just your placement \u2014 VC = '+VC+', so <b>no</b> '+a.m+' points can ever be shattered (see the convex-hull argument above).'; } }
     out.innerHTML=verdict+' &nbsp;\u00b7&nbsp; '+pts.length+'/'+MAXP+' points';
   }
   // ---- placement: click empty = add, drag = move, click point = delete ----
   function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }
   function hit(d){ for(var i=0;i<pts.length;i++){ if(Math.hypot(pts[i].x-d.x,pts[i].y-d.y)<0.5) return i; } return -1; }
-  var drag=-1, moved=false;
+  var drag=-1, moved=false, pressX=0, pressY=0;
   svg.addEventListener('pointerdown',function(ev){ var d=toData(ev); var i=hit(d);
-    if(i>=0){ drag=i; moved=false; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} }
+    if(i>=0){ drag=i; moved=false; pressX=d.x; pressY=d.y; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} }
     else if(pts.length<MAXP && Math.abs(d.x)<=R && Math.abs(d.y)<=R){ pts.push({x:d.x,y:d.y}); render(); } });
-  window.addEventListener('pointermove',function(ev){ if(drag<0)return; var d=toData(ev); pts[drag].x=Math.max(-R,Math.min(R,d.x)); pts[drag].y=Math.max(-R,Math.min(R,d.y)); moved=true; render(); });
+  window.addEventListener('pointermove',function(ev){ if(drag<0)return; var d=toData(ev); pts[drag].x=Math.max(-R,Math.min(R,d.x)); pts[drag].y=Math.max(-R,Math.min(R,d.y)); if(Math.hypot(d.x-pressX,d.y-pressY)>0.12) moved=true; render(); });
   window.addEventListener('pointerup',function(){ if(drag>=0 && !moved){ pts.splice(drag,1); render(); } drag=-1; });
   var rb=$('#w-vc-shatter-reset'); if(rb) rb.addEventListener('click',function(){ pts=INIT.map(function(p){ return {x:p[0],y:p[1]}; }); render(); });
   render();

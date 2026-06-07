@@ -85,17 +85,17 @@ export function renderScript(params) {
     `    if(pts.length===0){ verdict='place points by clicking; drag to move, click a point to delete'; }\n` +
     `    else if(a.shattered){ verdict='<b style=\\"color:var(--green)\\">SHATTERED</b> \\u2014 all '+a.total+' labelings of these '+a.m+' points are realizable by '+CLS+(HASVC?' (so VC \\u2265 '+a.m+')':''); }\n` +
     `    else { verdict='<b style=\\"color:var(--pink)\\">not shattered</b> \\u2014 only '+a.realized+' of '+a.total+' labelings realizable; the highlighted \\u00b1 split cannot be cut off by '+CLS;\n` +
-    `      if(HASVC && a.m>VC){ verdict+='. <b>No</b> '+a.m+'-point set can be shattered: VC = '+VC+'.'; } }\n` +
+    `      if(HASVC && a.m>VC){ verdict+='. This is not just your placement \\u2014 VC = '+VC+', so <b>no</b> '+a.m+' points can ever be shattered (see the convex-hull argument above).'; } }\n` +
     `    out.innerHTML=verdict+' &nbsp;\\u00b7&nbsp; '+pts.length+'/'+MAXP+' points';\n` +
     `  }\n` +
     `  // ---- placement: click empty = add, drag = move, click point = delete ----\n` +
     `  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }\n` +
     `  function hit(d){ for(var i=0;i<pts.length;i++){ if(Math.hypot(pts[i].x-d.x,pts[i].y-d.y)<0.5) return i; } return -1; }\n` +
-    `  var drag=-1, moved=false;\n` +
+    `  var drag=-1, moved=false, pressX=0, pressY=0;\n` +
     `  svg.addEventListener('pointerdown',function(ev){ var d=toData(ev); var i=hit(d);\n` +
-    `    if(i>=0){ drag=i; moved=false; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} }\n` +
+    `    if(i>=0){ drag=i; moved=false; pressX=d.x; pressY=d.y; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} }\n` +
     `    else if(pts.length<MAXP && Math.abs(d.x)<=R && Math.abs(d.y)<=R){ pts.push({x:d.x,y:d.y}); render(); } });\n` +
-    `  window.addEventListener('pointermove',function(ev){ if(drag<0)return; var d=toData(ev); pts[drag].x=Math.max(-R,Math.min(R,d.x)); pts[drag].y=Math.max(-R,Math.min(R,d.y)); moved=true; render(); });\n` +
+    `  window.addEventListener('pointermove',function(ev){ if(drag<0)return; var d=toData(ev); pts[drag].x=Math.max(-R,Math.min(R,d.x)); pts[drag].y=Math.max(-R,Math.min(R,d.y)); if(Math.hypot(d.x-pressX,d.y-pressY)>0.12) moved=true; render(); });\n` +
     `  window.addEventListener('pointerup',function(){ if(drag>=0 && !moved){ pts.splice(drag,1); render(); } drag=-1; });\n` +
     `  var rb=$('#${widgetId}-reset'); if(rb) rb.addEventListener('click',function(){ pts=INIT.map(function(p){ return {x:p[0],y:p[1]}; }); render(); });\n` +
     `  render();\n` +
