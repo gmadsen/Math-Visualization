@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sampling-box/schema.json",
+  "title": "sampling-box widget params",
+  "description": "A self-contained 'shake-the-box' engine for the emergence of frequencies from repetition (the law of large numbers / Monte-Carlo intuition). The reader presses Draw to pull i.i.d. samples from an author-supplied source; the samples accumulate into a running histogram that fills toward the true density, while the running sample mean visibly converges to the true mean mu. This makes tangible the one idea the Probability section names everywhere but never shows: a random mechanism, repeated, produces a stable shape. The renderer owns the binning, the histogram + density-overlay rendering, the running-mean marker, the Draw/Reset controls, and the readout; the source distribution (sample) and the limiting density are author-supplied. The gesture is 'shake-sample' — accumulating random draws and watching structure emerge. jsdom-safe: Math.random is called only inside the Draw handler, never at init.",
+  "meta": {
+    "family": "sampling-box",
+    "dimension": "2d",
+    "gesture": "shake-sample",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "xMin",
+    "xMax",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Draw / Reset buttons derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (sample count, running mean, comparison to mu)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to press Draw and watch the histogram / mean settle." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 600 360'.", "default": "0 0 600 360" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 600.", "default": 600 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 360.", "default": 360 },
+    "xMin": { "type": "number", "description": "Left edge of the histogram axis (samples outside [xMin,xMax] are still counted in the running mean but binned into the nearest edge)." },
+    "xMax": { "type": "number", "description": "Right edge of the histogram axis." },
+    "bins": { "type": "integer", "description": "Number of histogram bins. Default 40.", "minimum": 4, "default": 40 },
+    "xLabel": { "type": "string", "description": "Axis label. Default 'x'.", "default": "x" },
+    "mu": { "type": "number", "description": "Optional true mean to mark with a guideline and compare the running sample mean against." },
+    "muLabel": { "type": "string", "description": "Label for the mu guideline. Default the Greek mu.", "default": "μ" },
+    "drawSizes": {
+      "type": "array",
+      "description": "The batch sizes offered as Draw buttons (one button per entry, labelled '+N'). Default [1, 100, 1000].",
+      "items": { "type": "integer", "minimum": 1 },
+      "default": [1, 100, 1000]
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Author JS. MUST define `function sample(){ return oneDraw; }` (returns one i.i.d. observation; may use Math.random and Math.log/cos for Box-Muller etc.). MAY define `function density(x){ return f(x); }` (the true pdf, drawn as the limiting overlay the histogram should match). Evaluated once at render; sample() is called only on Draw, never at init."
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" }
+  }
+}

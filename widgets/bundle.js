@@ -12068,6 +12068,29 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "sampling-box",
+    "family": "sampling-box",
+    "dimension": "2d",
+    "gesture": "shake-sample",
+    "role": "explore",
+    "title": "sampling-box widget params",
+    "description": "A self-contained 'shake-the-box' engine for the emergence of frequencies from repetition (the law of large numbers / Monte-Carlo intuition). The reader presses Draw to pull i.i.d. samples from an author-supplied source; the samples accumulate into a running histogram that fills toward the true density, while the running sample mean visibly converges to the true mean mu. This makes tangible the one idea the Probability section names everywhere but never shows: a random mechanism, repeated, produces a stable shape. The renderer owns the binning, the histogram + density-overlay rendering, the running-mean marker, the Draw/Reset controls, and the readout; the source distribution (sample) and the limiting density are author-supplied. The gesture is 'shake-sample' — accumulating random draws and watching structure emerge. jsdom-safe: Math.random is called only inside the Draw handler, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "xMin",
+      "xMax",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Self-contained **\"shake-the-box\"** engine — the corpus's `shake-sample` gesture. The reader presses **Draw** to pull i.i.d. samples from an author-supplied source; they pile into a running **histogram** that fills toward the true density (pink overlay), while the running **sample mean** $\\bar X_N$ (yellow) visibly converges to the true mean $\\mu$. It makes tangible the idea the Probability section names everywhere but never shows: *a random mechanism, repeated, produces a stable shape*. First home: `probability-theory §lln` (the law of large numbers, with a bimodal source so $\\mu$ sits in the valley between the humps — where almost no single sample lands).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "schemes-dimension",
     "family": "schemes-dimension",
     "dimension": "2d",

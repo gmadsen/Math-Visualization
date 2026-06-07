@@ -611,6 +611,30 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "sampling-box",
+          "params": {
+            "widgetId": "w-lln-box",
+            "svgId": "lln-box-svg",
+            "outputId": "lln-box-out",
+            "title": "Shake the box: the law of large numbers, one draw at a time",
+            "hint": "each <strong>draw</strong> pulls one i.i.d. sample from a <em>bimodal</em> source (two humps at $\\pm1.2$). The cyan histogram piles toward the true density (pink), and the yellow running sample mean $\\bar X_N$ settles onto $\\mu=0$ — which sits in the <em>valley</em> between the humps, where almost no single sample ever lands. That is the law of large numbers: $\\bar X_N\\to\\mu$ even when no individual outcome is anywhere near $\\mu$. Draw a few, then a few hundred, and watch both the shape and the mean stabilize.",
+            "svgTitle": "Draw i.i.d. samples from a bimodal source; the histogram fills toward the true density and the running sample mean converges to mu = 0.",
+            "xMin": -3,
+            "xMax": 3,
+            "bins": 40,
+            "mu": 0,
+            "muLabel": "μ",
+            "xLabel": "x",
+            "drawSizes": [
+              1,
+              25,
+              500
+            ],
+            "bodyScript": "function g(){ var u1=Math.random(), u2=Math.random(); return Math.sqrt(-2*Math.log(u1+1e-12))*Math.cos(2*Math.PI*u2); }\nfunction sample(){ return (Math.random()<0.5?-1.2:1.2) + 0.45*g(); }\nfunction density(x){ var s=0.45, p=function(z){ return Math.exp(-z*z/2)/Math.sqrt(2*Math.PI); }; return 0.5*p((x+1.2)/s)/s + 0.5*p((x-1.2)/s)/s; }"
+          }
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
@@ -630,6 +654,10 @@
         {
           "type": "widget-script",
           "ref": "w-lln"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-lln-box"
         },
         {
           "type": "raw",
