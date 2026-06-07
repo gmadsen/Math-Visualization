@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-07T00:14:15.378Z",
+  "generated": "2026-06-07T00:34:02.351Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -15,7 +15,7 @@
       "color": "y",
       "tag": "",
       "date": "2026-06-06",
-      "message": "feat(widgets): algorithm-stepper — a new \"step-state\" gesture (brainstorm pick)"
+      "message": "feat(widgets): algorithm-stepper — a new \"step-state\" gesture (broadest-reuse brainstorm pick) (#461)"
     },
     {
       "slug": "differential-geometry",
