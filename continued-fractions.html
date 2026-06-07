@@ -402,10 +402,11 @@ function step(s){ if(s.xn==null) return null; var x=s.xn, an=Math.floor(x), p=an
 function row(s){ var err=Math.abs(s.al-s.p/s.q); var rec=(s.n===0)?(s.an+"\u00b71+0"):(s.an+"\u00b7"+s.p1+"+"+s.p2); return [s.n, s.an, rec+" = "+s.p, s.q, (s.p/s.q).toFixed(8), err.toExponential(2)]; }
 function note(s){ return "convergent <b style=\"color:var(--cyan)\">"+s.p+"/"+s.q+"</b> = "+(s.p/s.q).toFixed(7)+" &nbsp; (\u03c0 = 3.1415927)"; }
   var hasNote=(typeof note==='function');
-  var states=[], halted=false;
-  function reset(){ states=[initial()]; halted=false; render(); }
-  function doStep(){ if(halted||states.length>MAX) return false; var nx=step(states[states.length-1]);
-    if(nx==null){ halted=true; render(); return false; } states.push(nx); if(states.length>MAX) halted=true; render(); return true; }
+  var states=[], halted=false, haltReason=null;   // haltReason: 'done' (step returned null) | 'cap' (hit maxSteps)
+  function reset(){ states=[initial()]; halted=false; haltReason=null; render(); }
+  function doStep(){ if(halted) return false; var nx=step(states[states.length-1]);
+    if(nx==null){ halted=true; haltReason='done'; render(); return false; }
+    states.push(nx); if(states.length-1>=MAX){ halted=true; haltReason='cap'; } render(); return true; }
   function run(){ var guard=0; while(doStep() && guard++<MAX){} }
   function cell(c){ return '<td style=\"padding:3px 10px;text-align:right;font-variant-numeric:tabular-nums\">'+c+'</td>'; }
   function render(){
@@ -416,7 +417,10 @@ function note(s){ return "convergent <b style=\"color:var(--cyan)\">"+s.p+"/"+s.
       h+='<tr style=\"'+(last?'background:color-mix(in srgb,var(--cyan) 16%,transparent)':'')+'\">';
       var r=row(states[i]); for(var k=0;k<COLS.length;k++){ h+=cell(r[k]!=null?r[k]:''); } h+='</tr>'; }
     h+='</tbody></table>'; host.innerHTML=h;
-    var status = halted ? '<b style=\"color:var(--green)\">halted</b> after '+(states.length-1)+' step'+(states.length-1===1?'':'s') : (states.length-1)+' step'+(states.length-1===1?'':'s')+' \u00b7 press <b>Step</b>';
+    var ns=states.length-1, status;
+    if(haltReason==='done') status='<b style=\"color:var(--green)\">finished</b> after '+ns+' step'+(ns===1?'':'s')+' \u2014 the algorithm halted';
+    else if(haltReason==='cap') status='stopped at the <b>step cap</b> ('+MAX+') \u2014 this run did not terminate within the cap';
+    else status=ns+' step'+(ns===1?'':'s')+' \u00b7 press <b>Step</b>';
     var nt = hasNote ? note(states[states.length-1]) : '';
     out.innerHTML = status + (nt?(' &nbsp;\u00b7&nbsp; '+nt):'');
     var sb=$('#w-cf-step-step'), rnb=$('#w-cf-step-run'); if(sb) sb.disabled=halted; if(rnb) rnb.disabled=halted;

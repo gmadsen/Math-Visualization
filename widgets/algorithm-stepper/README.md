@@ -9,9 +9,15 @@ invariant readout. **Run** plays to the halt; **Reset** restarts. First home:
 `continued-fractions §convergents` (Euclid's algorithm / the continued fraction
 of $\pi$, one convergent at a time).
 
-One engine unifies the corpus's per-topic bespoke steppers: Euclid / continued
-fractions, Gaussian elimination, Gram–Schmidt, the simplex method, Dijkstra,
-Buchberger, RSK — any algorithm whose lesson is *watching its state evolve*.
+One engine unifies the corpus's per-topic bespoke **table-traceable** steppers:
+Euclid / continued fractions, Gaussian elimination, Gram–Schmidt, the simplex
+*tableau*, Buchberger, RSK — algorithms whose lesson reads off a row of evolving
+quantities. **Limitation:** the trace is a table only. Algorithms whose lesson
+is *geometric or graph-structural* — Dijkstra (the graph lighting up), the
+simplex *polytope walk* (already shipped as `animated-svg-2d` on
+`combinatorial-optimization §lp-simplex`) — want a visual the table can't give;
+those need a future optional `frame(state) -> SVG` hook before this engine
+subsumes them.
 
 ## The gesture
 

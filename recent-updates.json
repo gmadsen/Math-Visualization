@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-07T00:05:51.320Z",
+  "generated": "2026-06-07T00:14:15.378Z",
   "entries": [
     {
       "slug": "complex-analysis",
@@ -8,6 +8,14 @@
       "tag": "",
       "date": "2026-06-06",
       "message": "feat(widgets): contour-residue-2d — a new \"drag the contour\" residue-theorem gesture (#454)"
+    },
+    {
+      "slug": "continued-fractions",
+      "title": "Continued fractions",
+      "color": "y",
+      "tag": "",
+      "date": "2026-06-06",
+      "message": "feat(widgets): algorithm-stepper — a new \"step-state\" gesture (brainstorm pick)"
     },
     {
       "slug": "differential-geometry",
@@ -568,14 +576,6 @@
       "tag": "",
       "date": "2026-05-27",
       "message": "feat(slider-svg-2d): nested-form select + select style attr; normalize 10 more select widgets (#382)"
-    },
-    {
-      "slug": "continued-fractions",
-      "title": "Continued fractions",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
       "slug": "convex-geometry",

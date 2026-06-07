@@ -44,10 +44,11 @@ export function renderScript(params) {
     `  // ---- author hooks: initial()/step(state)/row(state) required; note(state) optional ----\n` +
     bodyScript + `\n` +
     `  var hasNote=(typeof note==='function');\n` +
-    `  var states=[], halted=false;\n` +
-    `  function reset(){ states=[initial()]; halted=false; render(); }\n` +
-    `  function doStep(){ if(halted||states.length>MAX) return false; var nx=step(states[states.length-1]);\n` +
-    `    if(nx==null){ halted=true; render(); return false; } states.push(nx); if(states.length>MAX) halted=true; render(); return true; }\n` +
+    `  var states=[], halted=false, haltReason=null;   // haltReason: 'done' (step returned null) | 'cap' (hit maxSteps)\n` +
+    `  function reset(){ states=[initial()]; halted=false; haltReason=null; render(); }\n` +
+    `  function doStep(){ if(halted) return false; var nx=step(states[states.length-1]);\n` +
+    `    if(nx==null){ halted=true; haltReason='done'; render(); return false; }\n` +
+    `    states.push(nx); if(states.length-1>=MAX){ halted=true; haltReason='cap'; } render(); return true; }\n` +
     `  function run(){ var guard=0; while(doStep() && guard++<MAX){} }\n` +
     `  function cell(c){ return '<td style=\\"padding:3px 10px;text-align:right;font-variant-numeric:tabular-nums\\">'+c+'</td>'; }\n` +
     `  function render(){\n` +
@@ -58,7 +59,10 @@ export function renderScript(params) {
     `      h+='<tr style=\\"'+(last?'background:color-mix(in srgb,var(--cyan) 16%,transparent)':'')+'\\">';\n` +
     `      var r=row(states[i]); for(var k=0;k<COLS.length;k++){ h+=cell(r[k]!=null?r[k]:''); } h+='</tr>'; }\n` +
     `    h+='</tbody></table>'; host.innerHTML=h;\n` +
-    `    var status = halted ? '<b style=\\"color:var(--green)\\">halted</b> after '+(states.length-1)+' step'+(states.length-1===1?'':'s') : (states.length-1)+' step'+(states.length-1===1?'':'s')+' \\u00b7 press <b>Step</b>';\n` +
+    `    var ns=states.length-1, status;\n` +
+    `    if(haltReason==='done') status='<b style=\\"color:var(--green)\\">finished</b> after '+ns+' step'+(ns===1?'':'s')+' \\u2014 the algorithm halted';\n` +
+    `    else if(haltReason==='cap') status='stopped at the <b>step cap</b> ('+MAX+') \\u2014 this run did not terminate within the cap';\n` +
+    `    else status=ns+' step'+(ns===1?'':'s')+' \\u00b7 press <b>Step</b>';\n` +
     `    var nt = hasNote ? note(states[states.length-1]) : '';\n` +
     `    out.innerHTML = status + (nt?(' &nbsp;\\u00b7&nbsp; '+nt):'');\n` +
     `    var sb=$('#${widgetId}-step'), rnb=$('#${widgetId}-run'); if(sb) sb.disabled=halted; if(rnb) rnb.disabled=halted;\n` +
