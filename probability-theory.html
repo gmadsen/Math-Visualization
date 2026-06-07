@@ -1546,6 +1546,16 @@ the characteristic function of $\mathcal{N}(0,1)$. Apply Lévy's continuity theo
     <input id="w-dml-scrub" type="range" min="0" max="38" value="0" step="1" aria-label="Scrub timeline" style="flex:1">
   </div>
   <div class="readout" id="dml-out">press play to grow n and watch the binomial standardize to the bell</div>
+</div><div class="widget" id="w-clt-box">
+  <div class="hd"><div class="ttl">The CLT in action: standardized means of a skewed source pile into 𝒩(0,1)</div><div class="hint">each <strong>draw</strong> is the <em>standardized sample mean</em> of $10$ i.i.d. draws from a heavily <strong>skewed</strong> source — an Exponential (mean $1$), which looks nothing like a bell. Yet the histogram of these standardized means piles onto the standard normal $\mathcal{N}(0,1)$ (pink), exactly as the central limit theorem promises: $\sqrt{N}\,(\bar X_N-\mu)/\sigma\xrightarrow{d}\mathcal{N}(0,1)$ regardless of the source’s shape. The sample mean of these standardized values sits at $0$.</div></div>
+  <svg id="clt-box-svg" viewBox="0 0 600 360" width="600" height="360" style="touch-action:none;width:100%;max-width:600px;height:auto"><title>Draw standardized means of 10 exponential samples; the histogram converges to the standard normal, illustrating the central limit theorem.</title></svg>
+  <div class="row">
+    <button id="w-clt-box-draw-1" type="button" data-n="1">draw +1</button>
+    <button id="w-clt-box-draw-25" type="button" data-n="25">draw +25</button>
+    <button id="w-clt-box-draw-500" type="button" data-n="500">draw +500</button>
+    <button id="w-clt-box-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="clt-box-out">&nbsp;</div>
 </div>
 <script>
 (function(){
@@ -1701,6 +1711,62 @@ function frame(t){
   sl.addEventListener('input',draw);
   $('#clt-resample').addEventListener('click',draw);
   draw();
+})();
+</script><script>
+(function(){
+  const svg=$('#clt-box-svg'), out=$('#clt-box-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const X0=-4, X1=4, NB=40, XLAB="standardized mean √N(X̄−μ)/σ";
+  const HASMU=true, MU=0, MULAB="μ";
+  const _vb=(svg.getAttribute('viewBox')||'0 0 600 360').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], padL=20, padR=16, padT=18, padB=42;
+  const bx0=padL, bx1=W-padR, by0=Hh-padB, by1=padT;
+  function PX(x){ return bx0+(x-X0)/(X1-X0)*(bx1-bx0); }
+  // ---- author hooks: sample() required; density(x) optional ----
+function sample(){ var t=0; for(var i=0;i<10;i++){ t += -Math.log(Math.random()+1e-12); } return (t/10 - 1)*Math.sqrt(10); }
+function density(x){ return Math.exp(-x*x/2)/Math.sqrt(2*Math.PI); }
+  var hasDensity=(typeof density==='function');
+  var hist=new Array(NB), N=0, sum=0; for(var i=0;i<NB;i++) hist[i]=0;
+  function reset(){ for(var i=0;i<NB;i++) hist[i]=0; N=0; sum=0; render(); }
+  function draw(k){ for(var t=0;t<k;t++){ var x=sample(); sum+=x; N++;
+    var bi=Math.floor((x-X0)/(X1-X0)*NB); if(bi<0)bi=0; if(bi>=NB)bi=NB-1; hist[bi]++; } render(); }
+  function fmt(n){ return (n<0?'\u2212':'')+Math.abs(n).toFixed(3); }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    var bw=(X1-X0)/NB;
+    // peak for vertical scaling: max of empirical density and the overlay
+    var pk=1e-9; for(var i=0;i<NB;i++){ var d=N>0?hist[i]/N/bw:0; if(d>pk)pk=d; }
+    if(hasDensity){ for(var s=0;s<=120;s++){ var xx=X0+(X1-X0)*s/120, dv=density(xx); if(dv>pk)pk=dv; } }
+    pk*=1.08;
+    // histogram bars (empirical density = count/N/binwidth)
+    var pw=(bx1-bx0)/NB;
+    for(var i=0;i<NB;i++){ if(!hist[i])continue; var d=hist[i]/N/bw, h=d/pk*(by0-by1);
+      G.appendChild(SVG('rect',{x:(bx0+i*pw+0.6).toFixed(2),y:(by0-h).toFixed(2),width:(pw-1.2).toFixed(2),height:h.toFixed(2),fill:'var(--cyan)','fill-opacity':0.5,stroke:'var(--cyan)','stroke-width':0.8})); }
+    // true-density overlay
+    if(hasDensity){ var dd='M'; for(var s=0;s<=160;s++){ var xx=X0+(X1-X0)*s/160; dd+=(s?'L':'')+PX(xx).toFixed(1)+' '+(by0-density(xx)/pk*(by0-by1)).toFixed(1)+' '; }
+      G.appendChild(SVG('path',{d:dd,fill:'none',stroke:'var(--pink)','stroke-width':2.2})); }
+    // axis
+    G.appendChild(SVG('line',{x1:bx0,y1:by0,x2:bx1,y2:by0,stroke:'var(--ink)','stroke-width':1.2}));
+    function xt(v){ var px=PX(v); G.appendChild(SVG('line',{x1:px,y1:by0,x2:px,y2:by0+4,stroke:'var(--mute)','stroke-width':1})); var t=SVG('text',{x:px,y:by0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'}); t.textContent=(''+(+v.toFixed(2))); G.appendChild(t); }
+    xt(X0); xt((X0+X1)/2); xt(X1);
+    var xl=SVG('text',{x:(bx0+bx1)/2,y:Hh-6,'font-size':12,fill:'var(--ink)','text-anchor':'middle'}); xl.textContent=XLAB; G.appendChild(xl);
+    // mu guideline + running-mean marker
+    if(HASMU){ G.appendChild(SVG('line',{x1:PX(MU),y1:by1,x2:PX(MU),y2:by0,stroke:'var(--mute)','stroke-width':1.5,'stroke-dasharray':'5 4'}));
+      var mt=SVG('text',{x:PX(MU),y:by1-4,'font-size':11,fill:'var(--mute)','text-anchor':'middle'}); mt.textContent=MULAB+' = '+fmt(MU); G.appendChild(mt); }
+    if(N>0){ var xbar=sum/N; G.appendChild(SVG('line',{x1:PX(xbar),y1:by1+4,x2:PX(xbar),y2:by0,stroke:'var(--yellow)','stroke-width':2}));
+      G.appendChild(SVG('circle',{cx:PX(xbar),cy:by1+4,r:4,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.2})); }
+    // legend
+    if(hasDensity){ G.appendChild(SVG('line',{x1:bx1-150,y1:by1+6,x2:bx1-132,y2:by1+6,stroke:'var(--pink)','stroke-width':2.2})); var lt=SVG('text',{x:bx1-128,y:by1+10,'font-size':11,fill:'var(--pink)'}); lt.textContent='true density'; G.appendChild(lt); }
+    // readout
+    if(N===0){ out.innerHTML='press <b>draw</b> to pull samples \u2014 the histogram fills toward the true density and the sample mean settles on '+(HASMU?MULAB:'its limit'); return; }
+    var xbar=sum/N, extra= HASMU ? (' &nbsp;\u00b7&nbsp; sample mean <b style=\"color:var(--yellow)\">x\u0304 = '+fmt(xbar)+'</b> vs '+MULAB+' = '+fmt(MU)+' &nbsp;(|x\u0304\u2212'+MULAB+'| = '+fmt(Math.abs(xbar-MU))+')') : (' &nbsp;\u00b7&nbsp; sample mean x\u0304 = <b style=\"color:var(--yellow)\">'+fmt(xbar)+'</b>');
+    out.innerHTML='<b>'+N.toLocaleString()+'</b> sample'+(N===1?'':'s')+extra;
+  }
+  (function(){ var b=$('#w-clt-box-draw-1'); if(b) b.addEventListener('click',function(){ draw(1); }); })();
+  (function(){ var b=$('#w-clt-box-draw-25'); if(b) b.addEventListener('click',function(){ draw(25); }); })();
+  (function(){ var b=$('#w-clt-box-draw-500'); if(b) b.addEventListener('click',function(){ draw(500); }); })();
+  var rb=$('#w-clt-box-reset'); if(rb) rb.addEventListener('click',reset);
+  render();
 })();
 </script>
 
