@@ -52,12 +52,43 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "cup-product-grid",
+          "params": {
+            "widgetId": "w-cup-grid",
+            "gridId": "cup-grid-table",
+            "outputId": "cup-grid-out",
+            "selectId": "cup-grid-sel",
+            "title": "The cup product is a multiplication: read off the cohomology ring",
+            "hint": "pick a space, then <strong>click a cell</strong> to read off the cup product $\\alpha\\smile\\beta$ of two basis classes. The degrees <strong>add</strong> ($H^p\\times H^q\\to H^{p+q}$); products land at $0$ once they pass the top dimension ($x^4=0$ on $\\mathbb{CP}^3$, $a^2=0$ on the torus); and the <strong>graded-commutativity sign</strong> $\\alpha\\smile\\beta=(-1)^{pq}\\beta\\smile\\alpha$ shows up — on $T^2$ the odd-degree classes <em>anti</em>commute ($ab=-ba$), but on $S^2\\times S^2$ the even-degree classes commute outright.",
+            "cases": [
+              {
+                "label": "ℂP³  (truncated polynomial)",
+                "ringLabel": "H*(ℂP³) = ℤ[x]/(x⁴), |x| = 2"
+              },
+              {
+                "label": "T²  (exterior algebra)",
+                "ringLabel": "H*(T²) = Λ(a, b), |a| = |b| = 1"
+              },
+              {
+                "label": "S²×S²  (even generators)",
+                "ringLabel": "H*(S²×S²) = ℤ[α,β]/(α², β²), |α| = |β| = 2"
+              }
+            ],
+            "bodyScript": "function ring(ci){\n  if(ci===0) return { basis:[{name:'1',deg:0},{name:'x',deg:2},{name:'x\\u00b2',deg:4},{name:'x\\u00b3',deg:6}], prod:function(i,j){ return (i+j<=3)?{c:1,k:i+j}:null; } };\n  if(ci===1) return { basis:[{name:'1',deg:0},{name:'a',deg:1},{name:'b',deg:1},{name:'ab',deg:2}], prod:function(i,j){ if(i===0)return{c:1,k:j}; if(j===0)return{c:1,k:i}; if(i===1&&j===2)return{c:1,k:3}; if(i===2&&j===1)return{c:-1,k:3}; return null; } };\n  return { basis:[{name:'1',deg:0},{name:'\\u03b1',deg:2},{name:'\\u03b2',deg:2},{name:'\\u03b1\\u03b2',deg:4}], prod:function(i,j){ if(i===0)return{c:1,k:j}; if(j===0)return{c:1,k:i}; if((i===1&&j===2)||(i===2&&j===1))return{c:1,k:3}; return null; } };\n}"
+          }
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
         {
           "type": "widget-script",
           "ref": "w-cup"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cup-grid"
         },
         {
           "type": "raw",

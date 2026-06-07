@@ -1,6 +1,22 @@
 {
-  "generated": "2026-06-07T20:48:08.586Z",
+  "generated": "2026-06-07T21:26:37.977Z",
   "entries": [
+    {
+      "slug": "cohomology-and-duality",
+      "title": "Cohomology and duality",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(widgets): cup-product-grid — a new \"drag-multiply\" gesture (cohomology ring table)"
+    },
+    {
+      "slug": "probability-theory",
+      "title": "Probability theory",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(probability-theory): sampling-box on §clt — the CLT shown by Monte-Carlo (#464)"
+    },
     {
       "slug": "statistical-learning-theory",
       "title": "Statistical learning theory",
@@ -48,14 +64,6 @@
       "tag": "",
       "date": "2026-06-06",
       "message": "feat(widgets): elliptic-group-law-2d — a new \"feel the group law\" drag-on-curve gesture (#451)"
-    },
-    {
-      "slug": "probability-theory",
-      "title": "Probability theory",
-      "color": "b",
-      "tag": "",
-      "date": "2026-06-06",
-      "message": "feat(widgets): sampling-box — a new \"shake-sample\" gesture (brainstorm pick) (#462)"
     },
     {
       "slug": "statistical-mechanics",
@@ -552,14 +560,6 @@
       "tag": "",
       "date": "2026-05-27",
       "message": "feat(slider-svg-2d): select (dropdown) control + 14 byte-identical migrations (#378)"
-    },
-    {
-      "slug": "cohomology-and-duality",
-      "title": "Cohomology and duality",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
       "slug": "commutative-algebra",

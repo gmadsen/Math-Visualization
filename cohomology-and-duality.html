@@ -297,6 +297,15 @@ function drawNode(svg, x, y, label, opts={}){
     <button id="cup-reset">reset</button>
     <span class="small">classes shown: $1\in H^0$, $\alpha,\beta\in H^1$, $\alpha\smile\beta\in H^2$. Try $\alpha\smile\alpha$ and $\beta\smile\alpha$.</span>
   </div>
+</div><div class="widget" id="w-cup-grid">
+  <div class="hd"><div class="ttl">The cup product is a multiplication: read off the cohomology ring</div><div class="hint">pick a space, then <strong>click a cell</strong> to read off the cup product $\alpha\smile\beta$ of two basis classes. The degrees <strong>add</strong> ($H^p\times H^q\to H^{p+q}$); products land at $0$ once they pass the top dimension ($x^4=0$ on $\mathbb{CP}^3$, $a^2=0$ on the torus); and the <strong>graded-commutativity sign</strong> $\alpha\smile\beta=(-1)^{pq}\beta\smile\alpha$ shows up — on $T^2$ the odd-degree classes <em>anti</em>commute ($ab=-ba$), but on $S^2\times S^2$ the even-degree classes commute outright.</div></div>
+  <div class="row">
+    <label for="cup-grid-sel">space:</label>
+    <select id="cup-grid-sel"><option value="0">ℂP³  (truncated polynomial)</option><option value="1">T²  (exterior algebra)</option><option value="2">S²×S²  (even generators)</option></select>
+    <button id="w-cup-grid-clear" type="button">↺ Clear</button>
+  </div>
+  <div id="cup-grid-table" class="cup-grid" style="overflow-x:auto"></div>
+  <div class="readout" id="cup-grid-out">&nbsp;</div>
 </div>
 
 <script>
@@ -387,6 +396,50 @@ function drawNode(svg, x, y, label, opts={}){
   });
   resetBtn.addEventListener('click', ()=>{ picks = []; update(); });
   update();
+})();
+</script><script>
+(function(){
+  const host=$('#cup-grid-table'), out=$('#cup-grid-out'), sel=$('#cup-grid-sel');
+  const CASES=[{"label":"ℂP³  (truncated polynomial)","ringLabel":"H*(ℂP³) = ℤ[x]/(x⁴), |x| = 2"},{"label":"T²  (exterior algebra)","ringLabel":"H*(T²) = Λ(a, b), |a| = |b| = 1"},{"label":"S²×S²  (even generators)","ringLabel":"H*(S²×S²) = ℤ[α,β]/(α², β²), |α| = |β| = 2"}];
+  // ---- author hook: ring(ci) -> { basis:[{name,deg}], prod(i,j) } ----
+function ring(ci){
+  if(ci===0) return { basis:[{name:'1',deg:0},{name:'x',deg:2},{name:'x\u00b2',deg:4},{name:'x\u00b3',deg:6}], prod:function(i,j){ return (i+j<=3)?{c:1,k:i+j}:null; } };
+  if(ci===1) return { basis:[{name:'1',deg:0},{name:'a',deg:1},{name:'b',deg:1},{name:'ab',deg:2}], prod:function(i,j){ if(i===0)return{c:1,k:j}; if(j===0)return{c:1,k:i}; if(i===1&&j===2)return{c:1,k:3}; if(i===2&&j===1)return{c:-1,k:3}; return null; } };
+  return { basis:[{name:'1',deg:0},{name:'\u03b1',deg:2},{name:'\u03b2',deg:2},{name:'\u03b1\u03b2',deg:4}], prod:function(i,j){ if(i===0)return{c:1,k:j}; if(j===0)return{c:1,k:i}; if((i===1&&j===2)||(i===2&&j===1))return{c:1,k:3}; return null; } };
+}
+  var ci=0, selI=-1, selJ=-1;
+  function termHtml(t){ if(t==null) return '0'; var c=t.c, nm=R.basis[t.k].name;
+    if(c===1) return nm; if(c===-1) return '\u2212'+nm; return (c<0?'\u2212':'')+Math.abs(c)+nm; }
+  var R=null;
+  function load(){ R=ring(ci); selI=-1; selJ=-1; render(); }
+  function render(){
+    var m=R.basis.length;
+    var h='<table style=\"border-collapse:collapse;font-size:13px;margin:6px auto;font-variant-numeric:tabular-nums\"><thead><tr>';
+    h+='<th style=\"padding:4px 9px;color:var(--mute)\">\u2323</th>';
+    for(var j=0;j<m;j++){ h+='<th style=\"padding:4px 9px;border-bottom:1px solid var(--line);color:var(--cyan)\">'+R.basis[j].name+'<span style=\"color:var(--mute);font-size:10px\"> ('+R.basis[j].deg+')</span></th>'; }
+    h+='</tr></thead><tbody>';
+    for(var i=0;i<m;i++){ h+='<tr><th style=\"padding:4px 9px;border-right:1px solid var(--line);text-align:right;color:var(--cyan)\">'+R.basis[i].name+'<span style=\"color:var(--mute);font-size:10px\"> ('+R.basis[i].deg+')</span></th>';
+      for(var j=0;j<m;j++){ var t=R.prod(i,j); var isSel=(i===selI&&j===selJ); var isPartner=(i===selJ&&j===selI&&!(selI===selJ));
+        var bg=isSel?'color-mix(in srgb,var(--cyan) 26%,transparent)':(isPartner?'color-mix(in srgb,var(--pink) 18%,transparent)':'transparent');
+        var fg=(t==null)?'var(--mute)':'var(--ink)';
+        h+='<td data-i=\"'+i+'\" data-j=\"'+j+'\" style=\"padding:4px 11px;text-align:center;cursor:pointer;background:'+bg+';color:'+fg+'\">'+termHtml(t)+'</td>'; }
+      h+='</tr>'; }
+    h+='</tbody></table>'; host.innerHTML=h;
+    [].forEach.call(host.querySelectorAll('td[data-i]'),function(td){ td.addEventListener('click',function(){ selI=+td.getAttribute('data-i'); selJ=+td.getAttribute('data-j'); render(); }); });
+    writeOut();
+  }
+  function writeOut(){ var rl=CASES[ci].ringLabel? (' &nbsp;\u00b7&nbsp; <span style=\"color:var(--mute)\">'+CASES[ci].ringLabel+'</span>'):'';
+    if(selI<0){ out.innerHTML='click a cell to read off a cup product \u03b1\u2323\u03b2'+rl; return; }
+    var A=R.basis[selI], B=R.basis[selJ], t=R.prod(selI,selJ), tT=R.prod(selJ,selI);
+    var sign=(((A.deg*B.deg)%2)===0)?'+':'\u2212';
+    var comm = (selI===selJ)?'' : ' &nbsp;\u00b7&nbsp; graded-commutativity: '+B.name+'\u2323'+A.name+' = '+(sign==='+'?'+':'\u2212')+'('+A.name+'\u2323'+B.name+') = '+termHtml(tT)+' &nbsp;<span style=\"color:var(--mute)\">[sign ('+'\u22121)^{'+A.deg+'\u00b7'+B.deg+'} = '+sign+'1]</span>';
+    var prodStr='<b style=\"color:'+((t==null)?'var(--mute)':'var(--cyan)')+'\">'+A.name+' \u2323 '+B.name+' = '+termHtml(t)+'</b>';
+    var degStr=' &nbsp;\u00b7&nbsp; degrees add: '+A.deg+' + '+B.deg+' = '+(A.deg+B.deg)+(t==null?' (but this lands above the top dimension / is killed by a relation, so the product is 0)':'');
+    out.innerHTML=prodStr+degStr+comm+rl;
+  }
+  sel.addEventListener('change',function(){ ci=+sel.value; load(); });
+  var cb=$('#w-cup-grid-clear'); if(cb) cb.addEventListener('click',function(){ selI=-1; selJ=-1; render(); });
+  load();
 })();
 </script>
 
