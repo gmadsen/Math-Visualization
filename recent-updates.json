@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-07T21:26:37.977Z",
+  "generated": "2026-06-08T01:40:20.085Z",
   "entries": [
     {
       "slug": "cohomology-and-duality",
@@ -7,7 +7,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-06-07",
-      "message": "feat(widgets): cup-product-grid — a new \"drag-multiply\" gesture (cohomology ring table)"
+      "message": "feat(widgets): cup-product-grid — a new \"drag-multiply\" gesture (cohomology ring table) (#465)"
     },
     {
       "slug": "probability-theory",

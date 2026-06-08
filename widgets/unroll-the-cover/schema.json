@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/unroll-the-cover/schema.json",
+  "title": "unroll-the-cover widget params",
+  "description": "A self-contained 'wind-loop' engine for the universal cover p : R -> S^1, t |-> e^{2 pi i t}. The reader drags a point around the base circle S^1; the engine tracks the UNWRAPPED (continuous) angle, so going around once raises the lift by one. A second panel shows the cover R as a vertical real line whose integer ticks are exactly the fibre Z over the basepoint, with the lifted path climbing and its endpoint landing on an integer once the loop closes — that integer IS the winding number, the element of pi_1(S^1) = Z. Drag clockwise to wind the other way (negative integers). Turns continuous loop data into a single integer, which is the whole point of the cover. The renderer owns the drag-to-wind gesture (with angle unwrapping), the base circle + swept trail, the cover line + climbing lift, the close-the-loop snap, and the readout. The gesture is 'wind-loop' — accumulating turns around a circle and watching them lift to an integer. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers.",
+  "meta": {
+    "family": "unroll-the-cover",
+    "dimension": "2d",
+    "gesture": "wind-loop",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The Close-loop / Reset buttons derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (turns, lift, winding number)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the point around the circle." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 600 420'.", "default": "0 0 600 420" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 600.", "default": 600 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 420.", "default": 420 },
+    "maxTurns": { "type": "integer", "description": "How many integer levels of the cover R to show above and below 0 (the visible window is [-maxTurns, maxTurns]). Default 3.", "minimum": 1, "default": 3 },
+    "closeLabel": { "type": "string", "description": "Label for the button that snaps the loop closed (point back to the basepoint, lift to the nearest integer). Default 'Close the loop'.", "default": "Close the loop" },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" }
+  }
+}
