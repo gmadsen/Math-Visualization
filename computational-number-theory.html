@@ -394,6 +394,18 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <div class="readout" id="exp-out"></div>
 </div>
+<h3>The extended Euclidean algorithm</h3>
+<p>The second primitive every modular routine leans on is the <strong>modular inverse</strong>: given $b$ coprime to the modulus $m$, find $b^{-1}$ with $b\,b^{-1}\equiv 1\pmod m$. The extended Euclidean algorithm computes $\gcd(a,b)$ <em>and</em>, alongside it, integers $s_k,t_k$ with the running invariant $s_k a + t_k b = r_k$ (Bézout). When the remainder $r_k$ reaches the gcd, that identity <em>is</em> Bézout’s lemma; and if $\gcd=1$, reducing $t_k$ modulo $a$ hands you $b^{-1}$ directly — no search, $O(\log a)$ steps.</p>
+<div class="widget" id="w-eea">
+  <div class="hd"><div class="ttl">Extended Euclidean algorithm: gcd, Bézout coefficients, and a modular inverse</div><div class="hint">press <strong>Step</strong> to advance the algorithm on $a=101$ (prime) and $b=23$. The last column recomputes $s_k\cdot101 + t_k\cdot23$ — it tracks $r_k$ exactly, every row, which <em>is</em> the Bézout invariant. When $r_k$ hits $\gcd=1$, the coefficient $t_k$ (reduced mod $101$) is $23^{-1}\bmod 101$.</div></div>
+  <div id="eea-table" class="algo-trace" style="overflow-x:auto"></div>
+  <div class="row">
+    <button id="w-eea-step" type="button">Step ▸</button>
+    <button id="w-eea-run" type="button">Run ⏭</button>
+    <button id="w-eea-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="eea-out">&nbsp;</div>
+</div>
 
 <h3>Tonelli–Shanks: square roots mod $p$</h3>
 <p>Given $a$ with $\left(\tfrac{a}{p}\right) = 1$, find $r$ with $r^2 \equiv a \pmod p$. The easy case $p\equiv 3\pmod 4$: take $r = a^{(p+1)/4}$, since $r^2 = a \cdot a^{(p-1)/2} \equiv a$. For $p\equiv 1\pmod 4$, factor $p-1 = 2^s Q$ with $Q$ odd, pick a non-residue $z$, and chase $r$ down through powers of a $2^s$-th root of unity.</p>
@@ -413,7 +425,60 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="ttl">Used in</div>
     <div><a href="./computational-number-theory.html#ec-comp">Computational number theory</a> · Schoof &amp; point counting</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="cnt-modular-arithmetic-algorithms"></div>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="cnt-modular-arithmetic-algorithms"></div><script>
+(function(){
+  const host=$('#eea-table'), out=$('#eea-out');
+  const COLS=["k","qₖ","rₖ","sₖ","tₖ","sₖ·101 + tₖ·23"], MAX=24;
+  // ---- author hooks: initial()/step(state)/row(state) required; note(state) optional ----
+var A=101, B=23;
+function initial(){ return {k:0,q:null,r:A,s:1,t:0,pr:B,ps:0,pt:1,seeded:false}; }
+function step(st){
+  if(!st.seeded){ return {k:1,q:null,r:st.pr,s:st.ps,t:st.pt,pr:st.r,ps:st.s,pt:st.t,seeded:true}; }
+  var q=Math.floor(st.pr/st.r), nr=st.pr-q*st.r;
+  if(nr===0) return null;
+  return {k:st.k+1,q:q,r:nr,s:st.ps-q*st.s,t:st.pt-q*st.t,pr:st.r,ps:st.s,pt:st.t,seeded:true};
+}
+function row(st){ return [st.k,(st.q==null?'\u2014':st.q),st.r,st.s,st.t,(st.s*A+st.t*B)]; }
+function note(st){
+  var inv=((st.t%A)+A)%A, sum=st.s*A+st.t*B;
+  if(st.q!=null && A%st.r===0 && B%st.r===0){
+    var sgn=(st.t<0?'\u2212 '+(-st.t):'+ '+st.t);
+    var txt='gcd('+A+', '+B+') = <b style="color:var(--cyan)">'+st.r+'</b> = '+st.s+'\u00b7'+A+' '+sgn+'\u00b7'+B;
+    if(st.r===1) txt+=' &nbsp;\u21d2&nbsp; '+B+'\u207b\u00b9 \u2261 <b style="color:var(--green)">'+inv+'</b> (mod '+A+')';
+    return txt;
+  }
+  return 'invariant s\u00b7'+A+' + t\u00b7'+B+' = <b>'+sum+'</b> = r\u2096';
+}
+  var hasNote=(typeof note==='function');
+  var states=[], halted=false, haltReason=null;   // haltReason: 'done' (step returned null) | 'cap' (hit maxSteps)
+  function reset(){ states=[initial()]; halted=false; haltReason=null; render(); }
+  function doStep(){ if(halted) return false; var nx=step(states[states.length-1]);
+    if(nx==null){ halted=true; haltReason='done'; render(); return false; }
+    states.push(nx); if(states.length-1>=MAX){ halted=true; haltReason='cap'; } render(); return true; }
+  function run(){ var guard=0; while(doStep() && guard++<MAX){} }
+  function cell(c){ return '<td style=\"padding:3px 10px;text-align:right;font-variant-numeric:tabular-nums\">'+c+'</td>'; }
+  function render(){
+    var h='<table style=\"border-collapse:collapse;font-size:13px;margin:0 auto\"><thead><tr>';
+    for(var c=0;c<COLS.length;c++){ h+='<th style=\"padding:3px 10px;text-align:right;color:var(--mute);border-bottom:1px solid var(--line)\">'+COLS[c]+'</th>'; }
+    h+='</tr></thead><tbody>';
+    for(var i=0;i<states.length;i++){ var last=(i===states.length-1);
+      h+='<tr style=\"'+(last?'background:color-mix(in srgb,var(--cyan) 16%,transparent)':'')+'\">';
+      var r=row(states[i]); for(var k=0;k<COLS.length;k++){ h+=cell(r[k]!=null?r[k]:''); } h+='</tr>'; }
+    h+='</tbody></table>'; host.innerHTML=h;
+    var ns=states.length-1, status;
+    if(haltReason==='done') status='<b style=\"color:var(--green)\">finished</b> after '+ns+' step'+(ns===1?'':'s')+' \u2014 the algorithm halted';
+    else if(haltReason==='cap') status='stopped at the <b>step cap</b> ('+MAX+') \u2014 this run did not terminate within the cap';
+    else status=ns+' step'+(ns===1?'':'s')+' \u00b7 press <b>Step</b>';
+    var nt = hasNote ? note(states[states.length-1]) : '';
+    out.innerHTML = status + (nt?(' &nbsp;\u00b7&nbsp; '+nt):'');
+    var sb=$('#w-eea-step'), rnb=$('#w-eea-run'); if(sb) sb.disabled=halted; if(rnb) rnb.disabled=halted;
+  }
+  var sb=$('#w-eea-step'); if(sb) sb.addEventListener('click',doStep);
+  var rnb=$('#w-eea-run'); if(rnb) rnb.addEventListener('click',run);
+  var rb=$('#w-eea-reset'); if(rb) rb.addEventListener('click',reset);
+  reset();
+})();
+</script>
 </section>
 
 <section id="ec-comp">
