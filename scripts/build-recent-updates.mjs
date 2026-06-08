@@ -74,38 +74,52 @@ function loadCardMeta() {
 }
 
 // Commit-subject patterns that mark mechanical churn (injectors, rebuild,
-// auto-commits) rather than a real authoring change. The latest commit matching
-// any of these is skipped when dating a topic, so a `chore(auto): refresh …` or
-// an `inject-…`/`re-extract` sweep doesn't masquerade as a fresh update.
+// auto-commits) rather than a real authoring change. The latest commit whose
+// SUBJECT matches any of these is skipped when dating a topic, so a
+// `chore(auto): refresh …` or an `inject-…`/`re-extract` sweep doesn't
+// masquerade as a fresh update.
 const MECHANICAL_GREPS = [
   'chore', 'recent-updates', 'inject', 're-extract', 'roundtrip',
   'changelog', 'Refresh every', 'a11y', 'color-var',
 ];
 
-function runGitLog(paths, invert) {
+// Match the mechanical patterns against the commit SUBJECT only. We deliberately
+// do NOT use `git log --grep`, which matches the entire message (subject + body):
+// a squash-merge folds subordinate commit subjects into the body, so a feature
+// commit whose body happens to mention e.g. "recent-updates" (a perfectly normal
+// thing to note in a fixup line) would be misclassified as mechanical and the
+// topic would silently fall back to an unrelated older cross-touch. Filtering on
+// the subject line is what "mechanical churn" actually means.
+const MECHANICAL_RE = new RegExp(
+  MECHANICAL_GREPS.map((g) => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'),
+  'i'
+);
+
+function recentCommits(paths, n = 40) {
   const pathArgs = paths.map((p) => `"${p}"`).join(' ');
-  const grepArgs = invert
-    ? '-i --invert-grep ' + MECHANICAL_GREPS.map((g) => `--grep="${g}"`).join(' ') + ' '
-    : '';
-  return execSync(
-    `git log -1 ${grepArgs}--format=%ad%x09%s --date=short -- ${pathArgs}`,
+  const out = execSync(
+    `git log -n ${n} --format=%ad%x09%s --date=short -- ${pathArgs}`,
     { cwd: repoRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
   ).trim();
+  if (!out) return [];
+  return out.split('\n').map((line) => {
+    const tab = line.indexOf('\t');
+    return tab < 0
+      ? { date: line, message: '' }
+      : { date: line.slice(0, tab), message: line.slice(tab + 1) };
+  });
 }
 
 function lastCommitFor(paths) {
-  // Most recent *meaningful* commit touching any of `paths`. We first ask git
-  // to skip mechanical-churn subjects; if that filters everything out (a topic
-  // whose only history is mechanical), we fall back to the unfiltered latest so
-  // the topic still surfaces. Empty stdout (no history) returns null; a git
-  // failure logs a warning and returns null so we don't emit a silent gap.
+  // Most recent *meaningful* commit touching any of `paths`: the newest whose
+  // subject isn't mechanical churn. If every commit in the window is mechanical
+  // (a topic whose only recent history is sweeps), we fall back to the latest so
+  // the topic still surfaces. No history returns null; a git failure logs a
+  // warning and returns null so we don't emit a silent gap.
   try {
-    let out = runGitLog(paths, true);
-    if (!out) out = runGitLog(paths, false);
-    if (!out) return null;
-    const tab = out.indexOf('\t');
-    if (tab < 0) return { date: out, message: '' };
-    return { date: out.slice(0, tab), message: out.slice(tab + 1) };
+    const commits = recentCommits(paths);
+    if (!commits.length) return null;
+    return commits.find((c) => !MECHANICAL_RE.test(c.message)) || commits[0];
   } catch (err) {
     console.warn(`build-recent-updates: git log failed for ${paths.join(', ')}: ${err.message}`);
     return null;

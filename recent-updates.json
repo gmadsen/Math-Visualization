@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T04:23:36.295Z",
+  "generated": "2026-06-08T04:35:55.784Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -23,7 +23,15 @@
       "color": "y",
       "tag": "",
       "date": "2026-06-07",
-      "message": "feat(comp-nt): extended-Euclid algorithm-stepper — gcd, Bézout, modular inverse"
+      "message": "fixup: unify EEA intro on modulus a (PR #470 pedagogy review)"
+    },
+    {
+      "slug": "first-order-logic-and-completeness",
+      "title": "First order logic and completeness",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(fol): build-a-formula — compose-evaluate, the 21st gesture engine (#469)"
     },
     {
       "slug": "lie-algebras",
@@ -186,9 +194,73 @@
       "message": "feat(spectral-graph): bipartite 2-colouring graph-edit home (#439)"
     },
     {
+      "slug": "coding-theory",
+      "title": "Coding theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(quantum-information): new Mathematical-physics topic — qubits to error correction (#424)"
+    },
+    {
+      "slug": "complexity-theory",
+      "title": "Complexity theory",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(quantum-information): new Mathematical-physics topic — qubits to error correction (#424)"
+    },
+    {
+      "slug": "convex-geometry",
+      "title": "Convex geometry",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(widgets): draggable-points-2d shared renderer — a new direct-manipulation gesture (#427)"
+    },
+    {
       "slug": "ergodic-theory",
       "title": "Ergodic theory",
       "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(ergodic-theory): new Analysis topic — recurrence to equidistribution (#426)"
+    },
+    {
+      "slug": "functional-analysis",
+      "title": "Functional analysis",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(quantum-information): new Mathematical-physics topic — qubits to error correction (#424)"
+    },
+    {
+      "slug": "general-relativity",
+      "title": "General relativity & Einstein equations",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(widgets): self-contained surface-3d renderer — 3D surfaces in any topic (#428)"
+    },
+    {
+      "slug": "hamiltonians-classical-mechanics",
+      "title": "Hamiltonians & classical mechanics",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(integrable-systems): new Mathematical-physics topic — solitons, Lax pairs, IST (#425)"
+    },
+    {
+      "slug": "harmonic-functions",
+      "title": "Harmonic functions",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(widgets): self-contained surface-3d renderer — 3D surfaces in any topic (#428)"
+    },
+    {
+      "slug": "information-theory",
+      "title": "Information theory",
+      "color": "g",
       "tag": "",
       "date": "2026-06-04",
       "message": "feat(ergodic-theory): new Analysis topic — recurrence to equidistribution (#426)"
@@ -202,6 +274,22 @@
       "message": "feat(integrable-systems): new Mathematical-physics topic — solitons, Lax pairs, IST (#425)"
     },
     {
+      "slug": "mathematical-chaos",
+      "title": "Mathematical chaos",
+      "color": "c",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(ergodic-theory): new Analysis topic — recurrence to equidistribution (#426)"
+    },
+    {
+      "slug": "measure-theory",
+      "title": "Measure theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(ergodic-theory): new Analysis topic — recurrence to equidistribution (#426)"
+    },
+    {
       "slug": "optimal-transport",
       "title": "Optimal transport",
       "color": "p",
@@ -210,12 +298,60 @@
       "message": "feat(optimal-transport): new Analysis topic — Monge–Kantorovich to gradient flows (#423)"
     },
     {
+      "slug": "partial-differential-equations",
+      "title": "Partial differential equations",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(integrable-systems): new Mathematical-physics topic — solitons, Lax pairs, IST (#425)"
+    },
+    {
+      "slug": "projective-plane",
+      "title": "Projective plane",
+      "color": "y",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(widgets): draggable-points-2d shared renderer — a new direct-manipulation gesture (#427)"
+    },
+    {
       "slug": "quantum-information",
       "title": "Quantum information",
       "color": "p",
       "tag": "",
       "date": "2026-06-04",
       "message": "feat(quantum-information): new Mathematical-physics topic — qubits to error correction (#424)"
+    },
+    {
+      "slug": "riemannian-geometry",
+      "title": "Riemannian geometry",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(widgets): self-contained surface-3d renderer — 3D surfaces in any topic (#428)"
+    },
+    {
+      "slug": "schrodinger-equation",
+      "title": "Schrödinger equation",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(integrable-systems): new Mathematical-physics topic — solitons, Lax pairs, IST (#425)"
+    },
+    {
+      "slug": "smooth-manifolds",
+      "title": "Smooth manifolds",
+      "color": "y",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(widgets): self-contained surface-3d renderer — 3D surfaces in any topic (#428)"
+    },
+    {
+      "slug": "variational-methods",
+      "title": "Variational methods",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-04",
+      "message": "feat(widgets): self-contained surface-3d renderer — 3D surfaces in any topic (#428)"
     },
     {
       "slug": "algebraic-number-theory",
@@ -253,14 +389,6 @@
       "slug": "cluster-algebras",
       "title": "Cluster algebras",
       "color": "y",
-      "tag": "",
-      "date": "2026-05-30",
-      "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
-    },
-    {
-      "slug": "complexity-theory",
-      "title": "Complexity theory",
-      "color": "b",
       "tag": "",
       "date": "2026-05-30",
       "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
@@ -306,14 +434,6 @@
       "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
     },
     {
-      "slug": "functional-analysis",
-      "title": "Functional analysis",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-30",
-      "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
-    },
-    {
       "slug": "galois-representations",
       "title": "Galois representations",
       "color": "y",
@@ -349,14 +469,6 @@
       "slug": "half-integral-weight-forms",
       "title": "Half-integral weight forms",
       "color": "c",
-      "tag": "",
-      "date": "2026-05-30",
-      "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
-    },
-    {
-      "slug": "hamiltonians-classical-mechanics",
-      "title": "Hamiltonians & classical mechanics",
-      "color": "p",
       "tag": "",
       "date": "2026-05-30",
       "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
@@ -450,6 +562,62 @@
       "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
     },
     {
+      "slug": "infinity-categories",
+      "title": "∞-categories (quasi-categories)",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "algebra",
+      "title": "Abstract algebra",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "adeles-and-ideles",
+      "title": "Adèles & idèles",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "algebraic-de-rham-cohomology",
+      "title": "Algebraic de Rham cohomology",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "algebraic-spaces",
+      "title": "Algebraic spaces",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "atiyah-singer-index-theorem",
+      "title": "Atiyah–Singer index theorem",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "automorphic-forms-adelic",
+      "title": "Automorphic forms (adelic)",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
       "slug": "bsd",
       "title": "Birch & Swinnerton-Dyer",
       "color": "p",
@@ -466,12 +634,196 @@
       "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
     },
     {
+      "slug": "calabi-yau-manifolds",
+      "title": "Calabi–Yau manifolds",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "feat(validate-katex): walk content/*.json raw blocks for doubled-backslash + structural bugs (#210) (#403)"
+    },
+    {
+      "slug": "category-theory",
+      "title": "Category theory",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "class-field-theory",
+      "title": "Class field theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "cocartesian-fibrations",
+      "title": "Cocartesian fibrations",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "commutative-algebra",
+      "title": "Commutative algebra",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
       "slug": "complex-multiplication",
       "title": "Complex multiplication",
       "color": "y",
       "tag": "",
       "date": "2026-05-29",
-      "message": "feat(validate-katex): per-page macro awareness; drop bogus 'Sha' whitelist (#196) (#405)"
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "deformation-theory",
+      "title": "Deformation theory",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "derived-categories",
+      "title": "Derived categories",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "elementary-topos-theory",
+      "title": "Elementary topos theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "etale-cohomology",
+      "title": "Étale cohomology",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "etale-fundamental-group",
+      "title": "Étale fundamental group",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "frobenius-and-reciprocity",
+      "title": "Frobenius & reciprocity",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "functor-of-points",
+      "title": "Functor of points",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "galois-cohomology-and-brauer",
+      "title": "Galois cohomology and Brauer groups",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "galois",
+      "title": "Galois theory & the quintic",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "gauge-theory",
+      "title": "Gauge theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "grothendieck-topologies-sites",
+      "title": "Grothendieck topologies & sites",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "group-cohomology",
+      "title": "Group cohomology",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "harmonic-analysis-fourier",
+      "title": "Harmonic analysis & Fourier theory",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "heights-arithmetic-geometry",
+      "title": "Heights in arithmetic geometry",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "homological",
+      "title": "Homological algebra",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "intersection-theory-chow",
+      "title": "Intersection theory & Chow groups",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "iwasawa-theory",
+      "title": "Iwasawa theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "k-theory",
+      "title": "K-theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
     },
     {
       "slug": "langlands-program",
@@ -479,7 +831,63 @@
       "color": "c",
       "tag": "",
       "date": "2026-05-29",
-      "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "lie-groups",
+      "title": "Lie groups & algebras",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "mirror-symmetry",
+      "title": "Mirror symmetry",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "modular-curves",
+      "title": "Modular curves",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "moduli-spaces",
+      "title": "Moduli spaces",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "moonshine",
+      "title": "Monstrous moonshine",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "morphisms-fiber-products",
+      "title": "Morphisms & fiber products",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "morse-theory",
+      "title": "Morse theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
     },
     {
       "slug": "motives",
@@ -487,7 +895,15 @@
       "color": "g",
       "tag": "",
       "date": "2026-05-29",
-      "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "operator-algebras",
+      "title": "Operator algebras",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
     },
     {
       "slug": "p-adic-numbers",
@@ -498,20 +914,60 @@
       "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
     },
     {
-      "slug": "algebraic-de-rham-cohomology",
-      "title": "Algebraic de Rham cohomology",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-28",
-      "message": "fix: SVG-text KaTeX leaks — heyting-toposes (6) + algebraic-de-rham (17) (#395)"
-    },
-    {
-      "slug": "cocartesian-fibrations",
-      "title": "Cocartesian fibrations",
+      "slug": "random-matrix-theory",
+      "title": "Random matrix theory",
       "color": "c",
       "tag": "",
-      "date": "2026-05-28",
-      "message": "fix: SVG-text KaTeX leaks — cocartesian-fibrations (44) (#397)"
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "schemes",
+      "title": "Schemes",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "sheaf-cohomology",
+      "title": "Sheaf cohomology",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "stacks",
+      "title": "Stacks (Deligne–Mumford)",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "toric-varieties",
+      "title": "Toric varieties",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "upper-half-plane-hyperbolic",
+      "title": "Upper half-plane",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
+    },
+    {
+      "slug": "vertex-operator-algebras",
+      "title": "Vertex operator algebras",
+      "color": "c",
+      "tag": "",
+      "date": "2026-05-29",
+      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
     },
     {
       "slug": "d-modules",
@@ -520,22 +976,6 @@
       "tag": "",
       "date": "2026-05-28",
       "message": "fix: d-modules Class B delimiter leaks (3 widgets) (#399)"
-    },
-    {
-      "slug": "deformation-theory",
-      "title": "Deformation theory",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-28",
-      "message": "fix: SVG-text KaTeX leaks — deformation-theory (22) (#398)"
-    },
-    {
-      "slug": "derived-categories",
-      "title": "Derived categories",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-28",
-      "message": "fix: SVG-text KaTeX leaks — derived-categories (30 labels) (#396)"
     },
     {
       "slug": "abelian-varieties",
@@ -562,14 +1002,6 @@
       "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
-      "slug": "automorphic-forms-adelic",
-      "title": "Automorphic forms (adelic)",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "cobordism",
       "title": "Cobordism",
       "color": "v",
@@ -578,28 +1010,12 @@
       "message": "feat(slider-svg-2d): select (dropdown) control + 14 byte-identical migrations (#378)"
     },
     {
-      "slug": "commutative-algebra",
-      "title": "Commutative algebra",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "condensed-mathematics",
       "title": "Condensed mathematics",
       "color": "y",
       "tag": "",
       "date": "2026-05-27",
       "message": "feat(slider-svg-2d): nested-form select + select style attr; normalize 10 more select widgets (#382)"
-    },
-    {
-      "slug": "convex-geometry",
-      "title": "Convex geometry",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "refactor(widgets): normalize 12 select widgets → slider-svg-2d --normalize (cosmetic deltas, browser-verified) (#380)"
     },
     {
       "slug": "designs",
@@ -634,14 +1050,6 @@
       "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
-      "slug": "elementary-topos-theory",
-      "title": "Elementary topos theory",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "expanders",
       "title": "Expanders",
       "color": "v",
@@ -656,14 +1064,6 @@
       "tag": "",
       "date": "2026-05-27",
       "message": "feat(slider-svg-2d): nested-form select + select style attr; normalize 10 more select widgets (#382)"
-    },
-    {
-      "slug": "gauge-theory",
-      "title": "Gauge theory",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "refactor(widgets): normalize 11 more select widgets → slider-svg-2d --normalize (batch 2) (#381)"
     },
     {
       "slug": "geometric-invariant-theory",
@@ -682,14 +1082,6 @@
       "message": "refactor(widgets): normalize 11 more select widgets → slider-svg-2d --normalize (batch 2) (#381)"
     },
     {
-      "slug": "grothendieck-topologies-sites",
-      "title": "Grothendieck topologies & sites",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "high-dimensional-geometry",
       "title": "High dimensional geometry",
       "color": "g",
@@ -706,20 +1098,12 @@
       "message": "refactor(widgets): normalize 11 select widgets → slider-svg-2d (byte-identical, batch 2) (#379)"
     },
     {
-      "slug": "intersection-theory-chow",
-      "title": "Intersection theory & Chow groups",
-      "color": "g",
+      "slug": "kalman-filtering-and-state-estimation",
+      "title": "Kalman filtering and state estimation",
+      "color": "p",
       "tag": "",
       "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
-      "slug": "iwasawa-theory",
-      "title": "Iwasawa theory",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "refactor(widgets): normalize 10 more select-no-svg widgets → slider-svg-2d (batch 2) (#384)"
+      "message": "feat(clickable-diagram): flexible svg attrs (optional width/height + svgExtraAttrs) + normalize 4 widgets (#389)"
     },
     {
       "slug": "klein-gordon-equation",
@@ -762,14 +1146,6 @@
       "message": "refactor(widgets): normalize 11 more select widgets → slider-svg-2d --normalize (batch 2) (#381)"
     },
     {
-      "slug": "mirror-symmetry",
-      "title": "Mirror symmetry",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "mmp-and-birational-geometry",
       "title": "MMP and birational geometry",
       "color": "g",
@@ -786,25 +1162,9 @@
       "message": "feat(slider-svg-2d): nested-form select + select style attr; normalize 10 more select widgets (#382)"
     },
     {
-      "slug": "modular-curves",
-      "title": "Modular curves",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "mostow-rigidity",
       "title": "Mostow rigidity",
       "color": "v",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
-      "slug": "partial-differential-equations",
-      "title": "Partial differential equations",
-      "color": "p",
       "tag": "",
       "date": "2026-05-27",
       "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
@@ -815,7 +1175,7 @@
       "color": "g",
       "tag": "",
       "date": "2026-05-27",
-      "message": "refactor(widgets): normalize 11 more select widgets → slider-svg-2d --normalize (batch 2) (#381)"
+      "message": "feat(clickable-diagram): no-controls / click-on-svg support + normalize 7 widgets (#388)"
     },
     {
       "slug": "quantum-field-theory",
@@ -882,14 +1242,6 @@
       "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
-      "slug": "toric-varieties",
-      "title": "Toric varieties",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "tropical-geometry",
       "title": "Tropical geometry",
       "color": "g",
@@ -914,60 +1266,12 @@
       "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
-      "slug": "coding-theory",
-      "title": "Coding theory",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-26",
-      "message": "refactor(widgets): normalize 13 slider widgets (coding-theory, DT/GW, GIT, MCG, RMT) → slider-svg-2d (#369)"
-    },
-    {
-      "slug": "mathematical-chaos",
-      "title": "Mathematical chaos",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-26",
-      "message": "feat(button-stepper): ordered row-children + 8 stepper migrations (byte-identical) (#376)"
-    },
-    {
-      "slug": "random-matrix-theory",
-      "title": "Random matrix theory",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-26",
-      "message": "feat(tooling): migrate-to-button-stepper.mjs + normalize 16 button widgets → button-stepper (byte-identical) (#374)"
-    },
-    {
       "slug": "several-complex-variables",
       "title": "Several complex variables",
       "color": "p",
       "tag": "",
       "date": "2026-05-26",
       "message": "feat(button-stepper): ordered row-children + 8 stepper migrations (byte-identical) (#376)"
-    },
-    {
-      "slug": "algebra",
-      "title": "Abstract algebra",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-25",
-      "message": "fix(quizzes): author real questions for 13 more placeholder stubs across 9 banks (#357)"
-    },
-    {
-      "slug": "galois",
-      "title": "Galois theory & the quintic",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-25",
-      "message": "fix(quizzes): author real v1 questions for 23 placeholder-stub concepts (#356)"
-    },
-    {
-      "slug": "homological",
-      "title": "Homological algebra",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-25",
-      "message": "fix(quizzes): author real questions for 13 more placeholder stubs across 9 banks (#357)"
     },
     {
       "slug": "knot-polynomials",
@@ -1002,36 +1306,20 @@
       "message": "feat(migrate): readout id-first attr-order; normalize 11 string-theory + semigroup sliders (#363)"
     },
     {
+      "slug": "special-relativity",
+      "title": "Special relativity",
+      "color": "p",
+      "tag": "",
+      "date": "2026-05-25",
+      "message": "refactor(widgets): normalize 14 slider widgets (microlocal, special-relativity, GMT) → slider-svg-2d (#366)"
+    },
+    {
       "slug": "additive-number-theory",
       "title": "Additive number theory",
       "color": "y",
       "tag": "",
       "date": "2026-05-24",
       "message": "feat(additive-number-theory): Hilbert–Waring finiteness widget (§9) (#324)"
-    },
-    {
-      "slug": "class-field-theory",
-      "title": "Class field theory",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(class-field-theory): conductor-discriminant + Takagi-existence widgets (§7, §6) (#337)"
-    },
-    {
-      "slug": "frobenius-and-reciprocity",
-      "title": "Frobenius & reciprocity",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(frobenius-and-reciprocity): splitting types + decomposition/inertia widgets (§3, §5) (#320)"
-    },
-    {
-      "slug": "functor-of-points",
-      "title": "Functor of points",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(functor-of-points): Set-vs-Grpd target widget (§7) — closes the page (#341)"
     },
     {
       "slug": "hodge-theory",
@@ -1042,14 +1330,6 @@
       "message": "feat(hodge-theory): why-Hodge Betti→Hodge refinement widget (§1) (#346)"
     },
     {
-      "slug": "information-theory",
-      "title": "Information theory",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(information-theory): AEP typical-set + Fisher/Cramér–Rao widgets (§7, §8) (#316)"
-    },
-    {
       "slug": "L-functions",
       "title": "L-functions",
       "color": "y",
@@ -1058,44 +1338,12 @@
       "message": "feat(L-functions): analytic-continuation + class-number-formula widgets (§8, §9) (#334)"
     },
     {
-      "slug": "measure-theory",
-      "title": "Measure theory",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(measure-theory): σ-algebra-generation widget (§2) (#322)"
-    },
-    {
-      "slug": "moduli-spaces",
-      "title": "Moduli spaces",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(moduli-spaces): triangle-similarity moduli widget (§1) (#342)"
-    },
-    {
-      "slug": "morphisms-fiber-products",
-      "title": "Morphisms & fiber products",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(morphisms-fiber-products): scheme-morphism + separated/proper widgets (§1, §8) (#336)"
-    },
-    {
       "slug": "naive-set-theory",
       "title": "Naive set theory",
       "color": "b",
       "tag": "",
       "date": "2026-05-24",
       "message": "feat(naive-set-theory): Cartesian product/power set + axiom of choice widgets (§2, §5) (#317)"
-    },
-    {
-      "slug": "projective-plane",
-      "title": "Projective plane",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(projective-plane): cross-ratio invariance + pole–polar duality widgets (§7, §8) (#318)"
     },
     {
       "slug": "resolution-of-singularities",
@@ -1114,44 +1362,12 @@
       "message": "feat(riemann-surfaces): two-chart atlas widget — CP¹ transition map (§1) (#327)"
     },
     {
-      "slug": "riemannian-geometry",
-      "title": "Riemannian geometry",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(riemannian-geometry): Ricci curvature + Riemannian volume form widgets (§9, §10) (#321)"
-    },
-    {
       "slug": "singular-cubics-reduction",
       "title": "Singular cubics & reduction",
       "color": "p",
       "tag": "",
       "date": "2026-05-24",
       "message": "feat(singular-cubics-reduction): minimal-model u¹²-scaling widget (§8) (#329)"
-    },
-    {
-      "slug": "smooth-manifolds",
-      "title": "Smooth manifolds",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(smooth-manifolds): canonical-manifold gallery widget (§2) (#325)"
-    },
-    {
-      "slug": "stacks",
-      "title": "Stacks (Deligne–Mumford)",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(stacks): quotient-stack action groupoid + DM-vs-Artin gallery (§6, §8) (#339)"
-    },
-    {
-      "slug": "upper-half-plane-hyperbolic",
-      "title": "Upper half-plane",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(upper-half-plane-hyperbolic): parallel-postulate-failure widget (§1) (#323)"
     },
     {
       "slug": "advanced-complex-analysis",
@@ -1162,52 +1378,12 @@
       "message": "feat(advanced-complex-analysis): Hardy/Fatou + landscape widgets (§8, §1) — page complete (#288)"
     },
     {
-      "slug": "harmonic-analysis-fourier",
-      "title": "Harmonic analysis & Fourier theory",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-23",
-      "message": "feat(harmonic-analysis): Schwartz-space membership widget (§4) — page complete (#300)"
-    },
-    {
-      "slug": "lie-groups",
-      "title": "Lie groups & algebras",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-23",
-      "message": "feat(lie-groups): Lie algebra as tangent space (§2) + adjoint/Killing form (§6) widgets (#315)"
-    },
-    {
-      "slug": "operator-algebras",
-      "title": "Operator algebras",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-23",
-      "message": "feat(operator-algebras): positive cone + Löwner order widget (§12) (#306)"
-    },
-    {
       "slug": "quadratic-reciprocity",
       "title": "Quadratic reciprocity",
       "color": "y",
       "tag": "",
       "date": "2026-05-23",
       "message": "feat(quadratic-reciprocity): supplementary laws (§4) + Jacobi symbol (§8) widgets (#314)"
-    },
-    {
-      "slug": "schemes",
-      "title": "Schemes",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-23",
-      "message": "feat(schemes): local-ring stalk + Proj projective-line widgets (§10, §11) — page complete (#294)"
-    },
-    {
-      "slug": "sheaf-cohomology",
-      "title": "Sheaf cohomology",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-23",
-      "message": "feat(sheaf-cohomology): derived-functor (§4) + Serre-duality (§9) widgets — page complete (#298)"
     },
     {
       "slug": "algebraic-combinatorics",
@@ -1258,20 +1434,20 @@
       "message": "feat: information-geometry — Wave 3 (Learning theory) (#262)"
     },
     {
-      "slug": "kalman-filtering-and-state-estimation",
-      "title": "Kalman filtering and state estimation",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: probabilistic-graphical-models — Wave 2 (Learning theory) (#257)"
-    },
-    {
       "slug": "kernel-methods-and-rkhs",
       "title": "Kernel methods and RKHS",
       "color": "b",
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: deep-learning-theory — Wave 3 (Learning theory) (#261)"
+    },
+    {
+      "slug": "large-deviations",
+      "title": "Large deviations",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-22",
+      "message": "feat: kernel-methods-and-rkhs — Wave 2 (Learning theory) (#255)"
     },
     {
       "slug": "mathematical-statistics",
@@ -1362,25 +1538,9 @@
       "message": "feat: diffusion-and-score-based-models — Wave 3 (Learning theory) (#263)"
     },
     {
-      "slug": "large-deviations",
-      "title": "Large deviations",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-21",
-      "message": "feat: statistical-learning-theory — first topic of section 13 (#249)"
-    },
-    {
       "slug": "dirichlet-series-euler-products",
       "title": "Dirichlet series & Euler products",
       "color": "y",
-      "tag": "",
-      "date": "2026-05-20",
-      "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
-    },
-    {
-      "slug": "harmonic-functions",
-      "title": "Harmonic functions",
-      "color": "p",
       "tag": "",
       "date": "2026-05-20",
       "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
@@ -1410,14 +1570,6 @@
       "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
     },
     {
-      "slug": "special-relativity",
-      "title": "Special relativity",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-20",
-      "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
-    },
-    {
       "slug": "stochastic-processes-and-martingales",
       "title": "Stochastic processes and martingales",
       "color": "g",
@@ -1434,60 +1586,28 @@
       "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
     },
     {
-      "slug": "algebraic-spaces",
-      "title": "Algebraic spaces",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "fix: quality-pass — corpus-wide \\mathcal/\\mathfrak brace consistency (14 topics, 169 fixes) (#216)"
-    },
-    {
-      "slug": "atiyah-singer-index-theorem",
-      "title": "Atiyah–Singer index theorem",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "fix: quality-pass — use standard macros (\\Hom/\\Gal/\\Spec/\\tr/\\ad/\\ind) (18 topics, 36 fixes) (#217)"
-    },
-    {
-      "slug": "category-theory",
-      "title": "Category theory",
+      "slug": "analytic-continuation",
+      "title": "Analytic continuation",
       "color": "b",
       "tag": "",
       "date": "2026-05-17",
-      "message": "fix: quality-pass — corpus-wide \\mathbb brace consistency (10 topics, 129 fixes) (#215)"
+      "message": "fix(audit): buildSkipMask $$…$$ scanner must skip already-masked positions (#235)"
     },
     {
-      "slug": "etale-fundamental-group",
-      "title": "Étale fundamental group",
+      "slug": "analytic-number-theory",
+      "title": "Analytic number theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-17",
+      "message": "feat: JSON-aware audit-inline-links + blocklist + popover KaTeX (#226)"
+    },
+    {
+      "slug": "hecke-operators",
+      "title": "Hecke operators",
       "color": "c",
       "tag": "",
       "date": "2026-05-17",
-      "message": "fix: quality-pass — Unicode-ize 12 more SVG-text KaTeX leaks (8 topics) (#211)"
-    },
-    {
-      "slug": "general-relativity",
-      "title": "General relativity & Einstein equations",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "fix: quality-pass — brace 23 unbraced \\mathrm (real KaTeX render bug, 5 topics) (#220)"
-    },
-    {
-      "slug": "group-cohomology",
-      "title": "Group cohomology",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "fix: quality-pass — Unicode-ize 12 more SVG-text KaTeX leaks (8 topics) (#211)"
-    },
-    {
-      "slug": "heights-arithmetic-geometry",
-      "title": "Heights in arithmetic geometry",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "fix: quality-pass — collapse \\operatorname{X} → \\X macro (5 topics, 22 fixes) (#218)"
+      "message": "fix(audit): buildSkipMask $$…$$ scanner must skip already-masked positions (#235)"
     },
     {
       "slug": "quaternions-octonions-and-division-algebras",
@@ -1498,196 +1618,76 @@
       "message": "fix: quality-pass — 3 misc cleanups from SUMMARY \"Other\" (#224)"
     },
     {
-      "slug": "schrodinger-equation",
-      "title": "Schrödinger equation",
-      "color": "p",
+      "slug": "random-walks-and-mixing",
+      "title": "Random walks and mixing",
+      "color": "g",
       "tag": "",
       "date": "2026-05-17",
-      "message": "fix: quality-pass — brace 23 unbraced \\mathrm (real KaTeX render bug, 5 topics) (#220)"
-    },
-    {
-      "slug": "vertex-operator-algebras",
-      "title": "Vertex operator algebras",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "fix: quality-pass — use standard macros (\\Hom/\\Gal/\\Spec/\\tr/\\ad/\\ind) (18 topics, 36 fixes) (#217)"
-    },
-    {
-      "slug": "adeles-and-ideles",
-      "title": "Adèles & idèles",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-16",
-      "message": "fix: quality-pass — strip author-voice and internal-roadmap leaks (#204)"
-    },
-    {
-      "slug": "calabi-yau-manifolds",
-      "title": "Calabi–Yau manifolds",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-16",
-      "message": "fix: quality-pass — strip author-voice and internal-roadmap leaks (#204)"
-    },
-    {
-      "slug": "hecke-operators",
-      "title": "Hecke operators",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-16",
-      "message": "fix: quality-pass — strip author-voice and internal-roadmap leaks (#204)"
-    },
-    {
-      "slug": "k-theory",
-      "title": "K-theory",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-15",
-      "message": "fixup: codex-bot review findings on PR #190"
-    },
-    {
-      "slug": "simplicial-complexes-combinatorial",
-      "title": "Simplicial complexes (combinatorial)",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-15",
-      "message": "fix: math-correctness audit pass — final cosmetic sweep (18 more topics)"
-    },
-    {
-      "slug": "variational-methods",
-      "title": "Variational methods",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-15",
-      "message": "fix: math-correctness audit pass — final cosmetic sweep (18 more topics)"
-    },
-    {
-      "slug": "algebraic-curves-higher-genus",
-      "title": "Algebraic curves: higher genus",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fifth batch (28 topics that earlier reports hallucinated)"
-    },
-    {
-      "slug": "analytic-continuation",
-      "title": "Analytic continuation",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fifth batch (28 topics that earlier reports hallucinated)"
-    },
-    {
-      "slug": "analytic-number-theory",
-      "title": "Analytic number theory",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
-    },
-    {
-      "slug": "etale-cohomology",
-      "title": "Étale cohomology",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fifth batch (28 topics that earlier reports hallucinated)"
-    },
-    {
-      "slug": "mathematics-and-cryptography",
-      "title": "Mathematics and cryptography",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
-    },
-    {
-      "slug": "morse-theory",
-      "title": "Morse theory",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — third batch (15 more topics)"
-    },
-    {
-      "slug": "quadratic-forms-genus-theory",
-      "title": "Quadratic forms & genus theory",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
+      "message": "fix(audit): buildSkipMask $$…$$ scanner must skip already-masked positions (#235)"
     },
     {
       "slug": "ricci-flow",
       "title": "Ricci flow",
       "color": "v",
       "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
+      "date": "2026-05-17",
+      "message": "fix(audit): buildSkipMask $$…$$ scanner must skip already-masked positions (#235)"
     },
     {
-      "slug": "theta-functions",
-      "title": "Theta functions",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-14",
-      "message": "fix: math-correctness audit pass — fourth batch (35 more topics)"
-    },
-    {
-      "slug": "infinity-categories",
-      "title": "∞-categories (quasi-categories)",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
-    },
-    {
-      "slug": "first-order-logic-and-completeness",
-      "title": "First order logic and completeness",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
-    },
-    {
-      "slug": "galois-cohomology-and-brauer",
-      "title": "Galois cohomology and Brauer groups",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
-    },
-    {
-      "slug": "moonshine",
-      "title": "Monstrous moonshine",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
-    },
-    {
-      "slug": "random-walks-and-mixing",
-      "title": "Random walks and mixing",
+      "slug": "simplicial-complexes-combinatorial",
+      "title": "Simplicial complexes (combinatorial)",
       "color": "g",
       "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
+      "date": "2026-05-17",
+      "message": "feat: JSON-aware audit-inline-links + blocklist + popover KaTeX (#226)"
     },
     {
       "slug": "symplectic-manifolds",
       "title": "Symplectic manifolds",
       "color": "v",
       "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
+      "date": "2026-05-17",
+      "message": "fix(audit): buildSkipMask $$…$$ scanner must skip already-masked positions (#235)"
+    },
+    {
+      "slug": "theta-functions",
+      "title": "Theta functions",
+      "color": "b",
+      "tag": "",
+      "date": "2026-05-17",
+      "message": "feat: JSON-aware audit-inline-links + blocklist + popover KaTeX (#226)"
+    },
+    {
+      "slug": "algebraic-curves-higher-genus",
+      "title": "Algebraic curves: higher genus",
+      "color": "g",
+      "tag": "",
+      "date": "2026-05-16",
+      "message": "audit: widget runtime + tier-3 functional verification (corpus + 3 bug fixes) (#191)"
+    },
+    {
+      "slug": "mathematics-and-cryptography",
+      "title": "Mathematics and cryptography",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-16",
+      "message": "audit: widget runtime + tier-3 functional verification (corpus + 3 bug fixes) (#191)"
+    },
+    {
+      "slug": "quadratic-forms-genus-theory",
+      "title": "Quadratic forms & genus theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-05-16",
+      "message": "audit: widget runtime + tier-3 functional verification (corpus + 3 bug fixes) (#191)"
     },
     {
       "slug": "type-theory-and-hott",
       "title": "Type theory and HoTT",
       "color": "b",
       "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
+      "date": "2026-05-16",
+      "message": "audit: widget runtime + tier-3 functional verification (corpus + 3 bug fixes) (#191)"
     }
   ]
 }
