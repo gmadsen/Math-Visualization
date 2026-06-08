@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T04:11:13.189Z",
+  "generated": "2026-06-08T04:23:36.295Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -16,6 +16,14 @@
       "tag": "",
       "date": "2026-06-07",
       "message": "feat(widgets): cup-product-grid — a new \"drag-multiply\" gesture (cohomology ring table) (#465)"
+    },
+    {
+      "slug": "computational-number-theory",
+      "title": "Computational number theory",
+      "color": "y",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(comp-nt): extended-Euclid algorithm-stepper — gcd, Bézout, modular inverse"
     },
     {
       "slug": "lie-algebras",
@@ -576,14 +584,6 @@
       "tag": "",
       "date": "2026-05-27",
       "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
-      "slug": "computational-number-theory",
-      "title": "Computational number theory",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "refactor(widgets): add numinput control to slider-svg-2d + normalize 18 number/text-input widgets (#385)"
     },
     {
       "slug": "condensed-mathematics",

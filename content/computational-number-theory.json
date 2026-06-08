@@ -269,7 +269,7 @@
         },
         {
           "type": "raw",
-          "html": "\n<h3>The extended Euclidean algorithm</h3>\n<p>The second primitive every modular routine leans on is the <strong>modular inverse</strong>: given $b$ coprime to the modulus $m$, find $b^{-1}$ with $b\\,b^{-1}\\equiv 1\\pmod m$. The extended Euclidean algorithm computes $\\gcd(a,b)$ <em>and</em>, alongside it, integers $s_k,t_k$ with the running invariant $s_k a + t_k b = r_k$ (Bézout). When the remainder $r_k$ reaches the gcd, that identity <em>is</em> Bézout’s lemma; and if $\\gcd=1$, reducing $t_k$ modulo $a$ hands you $b^{-1}$ directly — no search, $O(\\log a)$ steps.</p>\n"
+          "html": "\n<h3>The extended Euclidean algorithm</h3>\n<p>The second primitive every modular routine leans on is the <strong>modular inverse</strong>: given $b$ coprime to a modulus $a$, find $b^{-1}$ with $b\\,b^{-1}\\equiv 1\\pmod a$. The extended Euclidean algorithm computes $\\gcd(a,b)$ <em>and</em>, alongside it, integers $s_k,t_k$ with the running invariant $s_k a + t_k b = r_k$ (Bézout). When the remainder $r_k$ reaches the gcd, that identity <em>is</em> Bézout’s lemma; and if $\\gcd=1$, reducing $t_k$ modulo $a$ hands you $b^{-1}$ directly — no search, $O(\\log a)$ steps.</p>\n"
         },
         {
           "type": "widget",
