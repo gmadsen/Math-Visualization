@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T04:35:55.784Z",
+  "generated": "2026-06-08T04:45:55.316Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -23,7 +23,7 @@
       "color": "y",
       "tag": "",
       "date": "2026-06-07",
-      "message": "fixup: unify EEA intro on modulus a (PR #470 pedagogy review)"
+      "message": "feat(comp-nt): extended-Euclid algorithm-stepper — gcd, Bézout, modular inverse (#470)"
     },
     {
       "slug": "first-order-logic-and-completeness",
