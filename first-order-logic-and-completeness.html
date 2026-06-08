@@ -520,8 +520,10 @@ The choice of language is a design decision: it fixes what counts as an atomic s
   </div>
   <svg id="mc-svg" viewBox="0 0 620 240" width="620" height="240"><title>Model checker</title></svg>
   <div class="readout" id="mc-out"></div>
-</div><div class="widget" id="w-bform">
-  <div class="hd"><div class="ttl">Build a formula: compose a sentence, see which structures model it</div><div class="hint">click the tiles to assemble a first-order sentence about one binary relation $R$ (read $R$ as the edges of a directed graph), in <strong>prefix</strong> order — e.g. $\forall x\,\exists y\,R(x,y)$ says “every node has an out-edge.” Quantifiers and ¬ take one following subformula; ∧, ∨, → take two. The engine evaluates your sentence on each structure below and marks the ones that <strong>model</strong> it ✓. Leave a variable unbound and you have built a <em>formula</em>, not a sentence — add a quantifier to bind it.</div></div>
+</div><p>The model checker above fixes a menu of sentences and lets you vary the structure. The next widget inverts that: it fixes four small structures and lets <em>you</em> assemble the sentence one tile at a time, watching the models split into ✓ and ✗ as the formula takes shape — the two directions of the satisfaction relation $\mathfrak{A}\models\varphi$.</p>
+
+<div class="widget" id="w-bform">
+  <div class="hd"><div class="ttl">Build a formula: compose a sentence, see which structures model it</div><div class="hint">click the tiles to assemble a first-order sentence about one binary relation $R$ (read $R$ as the edges of a directed graph), in <strong>prefix</strong> order — e.g. $\forall x\,\exists y\,R(x,y)$ says “every node has an out-edge.” Quantifiers and ¬ take one following subformula; ∧, ∨, → take two. (Writing each operator <em>before</em> its arguments — “prefix” order — means no parentheses are ever needed: each tile’s arity says exactly where it ends.) The engine evaluates your sentence on each structure below and marks the ones that <strong>model</strong> it ✓. Leave a variable unbound and you have built a <em>formula</em>, not a sentence — add a quantifier to bind it.</div></div>
   <div id="bform-formula" class="readout" style="min-height:1.6em;text-align:center;font-size:15px">&nbsp;</div>
   <div class="row" style="flex-wrap:wrap"><button id="w-bform-t-Ax" type="button" data-k="Ax">∀x</button><button id="w-bform-t-Ex" type="button" data-k="Ex">∃x</button><button id="w-bform-t-Ay" type="button" data-k="Ay">∀y</button><button id="w-bform-t-Ey" type="button" data-k="Ey">∃y</button><button id="w-bform-t-NOT" type="button" data-k="NOT">¬</button><button id="w-bform-t-AND" type="button" data-k="AND">∧</button><button id="w-bform-t-OR" type="button" data-k="OR">∨</button><button id="w-bform-t-IMP" type="button" data-k="IMP">→</button><button id="w-bform-t-Rxy" type="button" data-k="Rxy">R(x,y)</button><button id="w-bform-t-Ryx" type="button" data-k="Ryx">R(y,x)</button><button id="w-bform-t-Rxx" type="button" data-k="Rxx">R(x,x)</button><button id="w-bform-t-Ryy" type="button" data-k="Ryy">R(y,y)</button><button id="w-bform-t-EQ" type="button" data-k="EQ">x=y</button>
     <button id="w-bform-back" type="button">⌫</button>
@@ -707,7 +709,7 @@ The choice of language is a design decision: it fixes what counts as an atomic s
     if(o==='NOT')return '\u00ac'+wrap(c[0]);
     if(o==='Ax')return '\u2200x '+str(c[0]); if(o==='Ex')return '\u2203x '+str(c[0]); if(o==='Ay')return '\u2200y '+str(c[0]); if(o==='Ey')return '\u2203y '+str(c[0]);
     var op=o==='AND'?' \u2227 ':o==='OR'?' \u2228 ':' \u2192 '; return wrap(c[0])+op+wrap(c[1]); }
-  function wrap(node){ var bin=(node&&(node.op==='AND'||node.op==='OR'||node.op==='IMP')); return bin?('('+str(node)+')'):str(node); }
+  function wrap(node){ var o=node&&node.op, par=(o==='AND'||o==='OR'||o==='IMP'||o==='Ax'||o==='Ex'||o==='Ay'||o==='Ey'); return par?('('+str(node)+')'):str(node); }
   function freeVars(node, bx, by){ if(!node) return {x:false,y:false}; var o=node.op;
     if(o==='Rxy'||o==='Ryx'||o==='EQ') return {x:!bx,y:!by};
     if(o==='Rxx') return {x:!bx,y:false}; if(o==='Ryy') return {x:false,y:!by};

@@ -65,7 +65,7 @@ export function renderScript(params) {
     `    if(o==='NOT')return '\\u00ac'+wrap(c[0]);\n` +
     `    if(o==='Ax')return '\\u2200x '+str(c[0]); if(o==='Ex')return '\\u2203x '+str(c[0]); if(o==='Ay')return '\\u2200y '+str(c[0]); if(o==='Ey')return '\\u2203y '+str(c[0]);\n` +
     `    var op=o==='AND'?' \\u2227 ':o==='OR'?' \\u2228 ':' \\u2192 '; return wrap(c[0])+op+wrap(c[1]); }\n` +
-    `  function wrap(node){ var bin=(node&&(node.op==='AND'||node.op==='OR'||node.op==='IMP')); return bin?('('+str(node)+')'):str(node); }\n` +
+    `  function wrap(node){ var o=node&&node.op, par=(o==='AND'||o==='OR'||o==='IMP'||o==='Ax'||o==='Ex'||o==='Ay'||o==='Ey'); return par?('('+str(node)+')'):str(node); }\n` +
     `  function freeVars(node, bx, by){ if(!node) return {x:false,y:false}; var o=node.op;\n` +
     `    if(o==='Rxy'||o==='Ryx'||o==='EQ') return {x:!bx,y:!by};\n` +
     `    if(o==='Rxx') return {x:!bx,y:false}; if(o==='Ryy') return {x:false,y:!by};\n` +

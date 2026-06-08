@@ -77,6 +77,10 @@
           }
         },
         {
+          "type": "raw",
+          "html": "<p>The model checker above fixes a menu of sentences and lets you vary the structure. The next widget inverts that: it fixes four small structures and lets <em>you</em> assemble the sentence one tile at a time, watching the models split into ✓ and ✗ as the formula takes shape — the two directions of the satisfaction relation $\\mathfrak{A}\\models\\varphi$.</p>\n\n"
+        },
+        {
           "type": "widget",
           "slug": "build-a-formula",
           "params": {
@@ -85,7 +89,7 @@
             "svgId": "bform-svg",
             "outputId": "bform-out",
             "title": "Build a formula: compose a sentence, see which structures model it",
-            "hint": "click the tiles to assemble a first-order sentence about one binary relation $R$ (read $R$ as the edges of a directed graph), in <strong>prefix</strong> order — e.g. $\\forall x\\,\\exists y\\,R(x,y)$ says “every node has an out-edge.” Quantifiers and ¬ take one following subformula; ∧, ∨, → take two. The engine evaluates your sentence on each structure below and marks the ones that <strong>model</strong> it ✓. Leave a variable unbound and you have built a <em>formula</em>, not a sentence — add a quantifier to bind it.",
+            "hint": "click the tiles to assemble a first-order sentence about one binary relation $R$ (read $R$ as the edges of a directed graph), in <strong>prefix</strong> order — e.g. $\\forall x\\,\\exists y\\,R(x,y)$ says “every node has an out-edge.” Quantifiers and ¬ take one following subformula; ∧, ∨, → take two. (Writing each operator <em>before</em> its arguments — “prefix” order — means no parentheses are ever needed: each tile’s arity says exactly where it ends.) The engine evaluates your sentence on each structure below and marks the ones that <strong>model</strong> it ✓. Leave a variable unbound and you have built a <em>formula</em>, not a sentence — add a quantifier to bind it.",
             "svgTitle": "Four small directed graphs; each is marked with a check if it satisfies the first-order sentence you have built.",
             "structures": [
               {
