@@ -127,7 +127,9 @@ export function renderScript(params) {
     var sl=SVG('text',{x:sx+9,y:sy+3,'font-size':10,fill:'var(--ink)'}); sl.textContent='s'; G2.appendChild(sl);
     // values
     var xs=xi(s), xo=xi(oms), m=cabs(xs);
-    var nearZero = (Math.abs(sig-0.5)<0.06) && m<0.06;
+    // "near a zero" = on the critical line AND within 0.5 of a marked zero. Gating
+    // on |xi| alone is too loose: on the line |xi| dips below 0.06 for all t>~9.5.
+    var nearZero = (Math.abs(sig-0.5)<0.05) && ZEROS.some(function(z){ return Math.abs(Math.abs(tau)-z)<0.5; });
     var eqHtml = '<b style="color:var(--green)">\\u03be(1\\u2212s) = '+fmtC(xo)+'</b>';
     var msg = '<b>s = '+fmtN(sig)+(tau<0?' \\u2212 ':' + ')+Math.abs(tau).toFixed(2)+'i</b> &nbsp;\\u00b7&nbsp; '
       + '<b style="color:var(--yellow)">\\u03be(s) = '+fmtC(xs)+'</b> &nbsp;\\u00b7&nbsp; ' + eqHtml

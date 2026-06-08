@@ -931,9 +931,9 @@ Consequences: $\zeta$ has a simple pole at $s=1$ (with residue $1$), "trivial" z
   <div class="readout" id="zeta-out">&nbsp;</div>
 </div>
 <h3>See the symmetry: drag $s$, watch $\xi(1-s)$ follow</h3>
-<p>The functional equation $\xi(s)=\xi(1-s)$ is a <em>reflection</em>: the completed zeta takes the same value at $s$ and at its mirror $1-s$ — the point reflection of $s$ through the centre $\tfrac12$. Drag the puck $s$ across the plane below and its partner $1-s$ moves in lockstep, the two $\xi$-values staying <strong>equal</strong> no matter where you go. The mirror axis is the critical line $\mathrm{Re}\,s=\tfrac12$; the cyan glow marks where $|\xi|$ is small, and the pink rings on the line are the first nontrivial zeros. Drag $s$ onto the line near a ring and watch $|\xi(s)|\to 0$.</p>
+<p>The functional equation $\xi(s)=\xi(1-s)$ is a <em>point reflection</em>: the completed zeta takes the same value at $s$ and at its partner $1-s$, the $180^\circ$ rotation of $s$ about the centre $(\tfrac12,0)$ (so $\sigma+it \mapsto (1-\sigma)-it$). Drag the puck $s$ across the plane below and its partner $1-s$ moves in lockstep, the two $\xi$-values staying <strong>equal</strong> no matter where you go \u2014 the dashed connector always runs straight through the centre. The cyan band is the <em>critical strip</em> $0\le\mathrm{Re}\,s\le 1$, and the yellow line $\mathrm{Re}\,s=\tfrac12$ is the <em>critical line</em>, where every known nontrivial zero lies (the pink rings; that they all lie exactly here is the Riemann Hypothesis). Drag $s$ onto the line near a ring and watch $|\xi(s)|\to 0$.</p>
 <div class="widget" id="w-fem">
-  <div class="hd"><div class="ttl">Riemann’s functional equation: drag $s$, its mirror $1-s$ takes the same value</div><div class="hint">drag $s=\sigma+it$. Its functional-equation partner $1-s$ (the green ring — the point reflection of $s$ through $\tfrac12$) carries the <em>same</em> completed-zeta value: $\xi(s)=\xi(1-s)$ everywhere. $\xi(s)=\tfrac12 s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$ is computed honestly from the everywhere-convergent symmetric integral. The yellow line $\mathrm{Re}\,s=\tfrac12$ is the mirror axis; the pink rings on it are the first zeros, where $\xi$ vanishes.</div></div>
+  <div class="hd"><div class="ttl">Riemann’s functional equation: drag $s$, its mirror $1-s$ takes the same value</div><div class="hint">drag $s=\sigma+it$. Its functional-equation partner $1-s$ (the green ring \u2014 the $180^\circ$ point reflection of $s$ about $(\tfrac12,0)$) carries the <em>same</em> completed-zeta value: $\xi(s)=\xi(1-s)$ everywhere. $\xi(s)=\tfrac12 s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$ is computed honestly from the everywhere-convergent symmetric integral. The yellow line $\mathrm{Re}\,s=\tfrac12$ is the critical line, where the nontrivial zeros (pink rings) lie and $\xi$ vanishes.</div></div>
   <svg id="fem-svg" viewBox="0 0 440 660" width="440" height="660" style="touch-action:none;cursor:crosshair;width:100%;max-width:440px;height:auto"><title>The complex s-plane: a draggable point s, its functional-equation partner 1−s, the critical line Re s = 1/2, and the first nontrivial zeros of the completed zeta function.</title></svg>
   <div class="row">
     <button id="w-fem-reset" type="button">↺ Reset</button>
@@ -1171,7 +1171,9 @@ Consequences: $\zeta$ has a simple pole at $s=1$ (with residue $1$), "trivial" z
     var sl=SVG('text',{x:sx+9,y:sy+3,'font-size':10,fill:'var(--ink)'}); sl.textContent='s'; G2.appendChild(sl);
     // values
     var xs=xi(s), xo=xi(oms), m=cabs(xs);
-    var nearZero = (Math.abs(sig-0.5)<0.06) && m<0.06;
+    // "near a zero" = on the critical line AND within 0.5 of a marked zero. Gating
+    // on |xi| alone is too loose: on the line |xi| dips below 0.06 for all t>~9.5.
+    var nearZero = (Math.abs(sig-0.5)<0.05) && ZEROS.some(function(z){ return Math.abs(Math.abs(tau)-z)<0.5; });
     var eqHtml = '<b style="color:var(--green)">\u03be(1\u2212s) = '+fmtC(xo)+'</b>';
     var msg = '<b>s = '+fmtN(sig)+(tau<0?' \u2212 ':' + ')+Math.abs(tau).toFixed(2)+'i</b> &nbsp;\u00b7&nbsp; '
       + '<b style="color:var(--yellow)">\u03be(s) = '+fmtC(xs)+'</b> &nbsp;\u00b7&nbsp; ' + eqHtml
