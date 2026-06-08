@@ -5320,6 +5320,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "fold-the-polygon",
+    "family": "fold-the-polygon",
+    "dimension": "2d",
+    "gesture": "fold-glue",
+    "role": "explore",
+    "title": "fold-the-polygon widget params",
+    "description": "A self-contained 'fold-glue' widget for the classification of compact surfaces by edge identifications of a polygon. A 2n-gon is drawn with directed, labelled edges spelling a gluing WORD (each letter appears exactly twice; sign = arrow direction). The widget glues the polygon: it runs union-find over the 2n corners to count the vertex classes V, takes E = number of distinct letters and F = 1, and reports the Euler characteristic chi = V - E + F, orientability (orientable iff every letter appears once forward and once backward), and the resulting surface (sphere / RP^2 / torus / Klein bottle / genus-g) with its genus. The reader CLICKS an edge to flip its arrow direction and watch the surface reclassify live (e.g. flipping one edge of the torus word turns it into a Klein bottle), and can load preset words. Corner dots are coloured by vertex class so the gluing is visible. Pure DOM/SVG; jsdom-safe (click-driven; no getScreenCTM/rAF).",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "presets"
+    ],
+    "readmeExcerpt": "Bespoke **\"fold-glue\"** widget for the **classification of compact surfaces** by polygon edge identifications. First home: `riemann-surfaces §rh` (\"Genus as the universal invariant\"), as the combinatorial counterpart to the Riemann–Hurwitz route to genus. Self-contained (the surface-classification math is specific).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "forcing-cohen-real",
     "family": "forcing-cohen-real",
     "dimension": "2d",

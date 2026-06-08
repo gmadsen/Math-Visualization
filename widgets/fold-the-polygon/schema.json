@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/fold-the-polygon/schema.json",
+  "title": "fold-the-polygon widget params",
+  "description": "A self-contained 'fold-glue' widget for the classification of compact surfaces by edge identifications of a polygon. A 2n-gon is drawn with directed, labelled edges spelling a gluing WORD (each letter appears exactly twice; sign = arrow direction). The widget glues the polygon: it runs union-find over the 2n corners to count the vertex classes V, takes E = number of distinct letters and F = 1, and reports the Euler characteristic chi = V - E + F, orientability (orientable iff every letter appears once forward and once backward), and the resulting surface (sphere / RP^2 / torus / Klein bottle / genus-g) with its genus. The reader CLICKS an edge to flip its arrow direction and watch the surface reclassify live (e.g. flipping one edge of the torus word turns it into a Klein bottle), and can load preset words. Corner dots are coloured by vertex class so the gluing is visible. Pure DOM/SVG; jsdom-safe (click-driven; no getScreenCTM/rAF).",
+  "meta": {
+    "family": "fold-the-polygon",
+    "dimension": "2d",
+    "gesture": "fold-glue",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "presets"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The preset buttons derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing the polygon, its directed edges, and the corner classes." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (word, V-E+F, orientability, surface)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to click an edge to flip its arrow and watch the surface change." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 420 360'.", "default": "0 0 420 360" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 420.", "default": 420 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 360.", "default": 360 },
+    "presets": {
+      "type": "array",
+      "description": "Gluing-word presets offered as one-click buttons. Each {label, word} where word is a space-separated sequence of edge labels in boundary order; a trailing apostrophe means the inverse (reversed arrow). Each letter must appear exactly twice. E.g. torus = \"a b a' b'\".",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "word"],
+        "properties": {
+          "label": { "type": "string", "description": "Short button label." },
+          "word": { "type": "string", "description": "Space-separated gluing word; trailing ' = inverse." }
+        }
+      }
+    },
+    "initial": { "type": "integer", "description": "Index into presets of the word shown on load. Default 0.", "default": 0 }
+  }
+}
