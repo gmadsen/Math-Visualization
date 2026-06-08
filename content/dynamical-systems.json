@@ -303,7 +303,59 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"phase\">\n<h2>3. Phase portraits in 2D</h2>\n<p>In two dimensions, a full phase portrait is within reach. Start with the <em>linear</em> systems: the 2×2 Jacobian $A=\\begin{pmatrix}a&amp;b\\\\c&amp;d\\end{pmatrix}$ is classified by its <em>trace</em> $\\tr{}A=a+d$ and <em>determinant</em> $\\det A=ad-bc$. The $(\\tr,\\det)$-plane is the atlas of 2D linear dynamics:</p>\n\n<table class=\"plain\">\n  <thead><tr><th>region</th><th>condition</th><th>type</th></tr></thead>\n  <tbody>\n    <tr><td>below axis</td><td>$\\det&lt;0$</td><td>saddle</td></tr>\n    <tr><td>parabola below</td><td>$\\det&gt;0,\\ \\tr^2&gt;4\\det$</td><td>node (stable iff $\\tr&lt;0$)</td></tr>\n    <tr><td>parabola above</td><td>$\\det&gt;0,\\ \\tr^2&lt;4\\det$</td><td>spiral (stable iff $\\tr&lt;0$)</td></tr>\n    <tr><td>y-axis $&gt;0$</td><td>$\\tr=0,\\det&gt;0$</td><td>center</td></tr>\n  </tbody>\n</table>\n\n<p>For a <em>nonlinear</em> system, the recipe is mechanical: (1) find all fixed points; (2) classify each by its Jacobian; (3) draw nullclines (zero sets of $\\dot x$ and $\\dot y$); (4) sample the direction field; (5) glue local pictures into a global portrait, respecting invariant sets and conserved quantities. The widget below lets you sweep a parameter $\\mu$ through a Hopf-like bifurcation in $\\dot x=\\mu x-y-x(x^2+y^2),\\ \\dot y=x+\\mu y-y(x^2+y^2)$ and watch the origin transition from stable spiral (negative $\\mu$) to unstable spiral enclosing a limit cycle (positive $\\mu$).</p>\n\n"
+          "html": "<section id=\"phase\">\n<h2>3. Phase portraits in 2D</h2>\n<p>In two dimensions, a full phase portrait is within reach. Start with the <em>linear</em> systems: the 2×2 Jacobian $A=\\begin{pmatrix}a&amp;b\\\\c&amp;d\\end{pmatrix}$ is classified by its <em>trace</em> $\\tr{}A=a+d$ and <em>determinant</em> $\\det A=ad-bc$. The $(\\tr,\\det)$-plane is the atlas of 2D linear dynamics:</p>\n\n<table class=\"plain\">\n  <thead><tr><th>region</th><th>condition</th><th>type</th></tr></thead>\n  <tbody>\n    <tr><td>below axis</td><td>$\\det&lt;0$</td><td>saddle</td></tr>\n    <tr><td>parabola below</td><td>$\\det&gt;0,\\ \\tr^2&gt;4\\det$</td><td>node (stable iff $\\tr&lt;0$)</td></tr>\n    <tr><td>parabola above</td><td>$\\det&gt;0,\\ \\tr^2&lt;4\\det$</td><td>spiral (stable iff $\\tr&lt;0$)</td></tr>\n    <tr><td>y-axis $&gt;0$</td><td>$\\tr=0,\\det&gt;0$</td><td>center</td></tr>\n  </tbody>\n</table>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<p>That table is a <em>map</em> — so make it one you can walk. Drag the puck across the $(\\tr,\\det)$ plane below: the five shaded regimes match the rows above, the dashed parabola is $\\det=\\tr^2/4$ (the node–spiral boundary), and the readout names the eigenvalues live. The vertical line $\\tr=0,\\ \\det>0$ is the <strong>center</strong> wall — a codimension-one boundary you can only land on by moving in two directions at once, never by setting two sliders in turn.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "xy-parameter-pad",
+          "params": {
+            "widgetId": "w-trdet",
+            "svgId": "trdet-svg",
+            "outputId": "trdet-out",
+            "title": "The trace–determinant plane: scrub the atlas of 2D linear systems",
+            "hint": "drag the puck anywhere in the $(\\tr A,\\ \\det A)$ plane. The eigenvalues of $A$ are $\\lambda=\\tfrac12\\left(\\tr A\\pm\\sqrt{\\tr^2A-4\\det A}\\right)$, so the sign of $\\det A$, the sign of $\\tr A$, and the sign of the discriminant $\\tr^2A-4\\det A$ (the dashed parabola) carve the plane into saddle / node / spiral, stable below $\\tr=0$. Try to land the puck exactly on the $\\tr=0$ center line.",
+            "svgTitle": "Drag a puck across the trace–determinant plane of a 2×2 linear system; regions are shaded saddle / node / spiral and the readout reports the eigenvalues.",
+            "x0": -4,
+            "x1": 4,
+            "y0": -3,
+            "y1": 6,
+            "xInit": -1,
+            "yInit": 2,
+            "xLabel": "tr A",
+            "yLabel": "det A",
+            "legendPos": "tl",
+            "regimes": [
+              {
+                "label": "saddle",
+                "color": "var(--violet)"
+              },
+              {
+                "label": "stable node",
+                "color": "var(--cyan)"
+              },
+              {
+                "label": "unstable node",
+                "color": "var(--pink)"
+              },
+              {
+                "label": "stable spiral",
+                "color": "var(--green)"
+              },
+              {
+                "label": "unstable spiral",
+                "color": "var(--blue)"
+              }
+            ],
+            "bodyScript": "function classify(t,d){\n  if(d<0) return 0;                 // saddle: real eigenvalues of opposite sign\n  var disc=t*t-4*d;\n  if(disc>=0) return t<0?1:2;       // real same-sign: node (stable iff tr<0)\n  return t<0?3:4;                   // complex: spiral (stable iff tr<0)\n}\nfunction decorate(D){\n  // the parabola disc=0  <=>  det = tr^2/4 : the node/spiral boundary\n  var dd=\"\", n=180;\n  for(var i=0;i<=n;i++){ var t=D.x0+(D.x1-D.x0)*i/n, d=t*t/4; if(d>D.y1) continue; dd+=(dd?\"L\":\"M\")+D.PX(t).toFixed(2)+\" \"+D.PY(d).toFixed(2)+\" \"; }\n  D.add(D.SVG(\"path\",{d:dd,fill:\"none\",stroke:\"var(--ink)\",\"stroke-width\":1.3,\"stroke-dasharray\":\"5 3\",opacity:0.55}));\n  var tl=D.x1*0.7, lab=D.SVG(\"text\",{x:D.PX(tl)+4,y:D.PY(tl*tl/4)-4,\"font-size\":10,fill:\"var(--ink)\",\"text-anchor\":\"start\",opacity:0.7}); lab.textContent=\"det = tr²/4\"; D.add(lab);\n}\nfunction readout(t,d){\n  var disc=t*t-4*d, eps=0.06;\n  if(Math.abs(d)<eps) return \"near the <b>det = 0</b> wall — a zero eigenvalue (non-hyperbolic, a line of fixed points) sits exactly at det = 0\";\n  if(Math.abs(t)<eps && d>0){ var bi=Math.sqrt(Math.max(0,-disc))/2; return \"near the <b>tr = 0 center wall</b> — eigenvalues \"+(t/2).toFixed(2)+\" ± \"+bi.toFixed(2)+\"i; a true <b>center</b> (purely imaginary ±\"+Math.sqrt(d).toFixed(2)+\"i) sits exactly at tr = 0, the seam between stable and unstable spirals\"; }\n  if(Math.abs(disc)<eps) return \"near the <b>tr² = 4·det</b> parabola — a <b>degenerate (improper) node</b> (repeated eigenvalue \"+(t/2).toFixed(2)+\") sits exactly on it, the seam between node and spiral\";\n  if(disc>0){ var sq=Math.sqrt(disc); return \"eigenvalues \"+((t-sq)/2).toFixed(2)+\", \"+((t+sq)/2).toFixed(2)+\" — real\"; }\n  var im=Math.sqrt(-disc)/2; return \"eigenvalues \"+(t/2).toFixed(2)+\" ± \"+im.toFixed(2)+\"i — complex\";\n}"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "<p>For a <em>nonlinear</em> system, the recipe is mechanical: (1) find all fixed points; (2) classify each by its Jacobian; (3) draw nullclines (zero sets of $\\dot x$ and $\\dot y$); (4) sample the direction field; (5) glue local pictures into a global portrait, respecting invariant sets and conserved quantities. The widget below lets you sweep a parameter $\\mu$ through a Hopf-like bifurcation in $\\dot x=\\mu x-y-x(x^2+y^2),\\ \\dot y=x+\\mu y-y(x^2+y^2)$ and watch the origin transition from stable spiral (negative $\\mu$) to unstable spiral enclosing a limit cycle (positive $\\mu$).</p>\n\n"
         },
         {
           "type": "widget",
@@ -429,6 +481,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-trdet"
         },
         {
           "type": "raw",
