@@ -56,7 +56,7 @@ export function renderScript(params) {
     `  function PY(y){ var c=C(); return by0-(y-c.y0)/(c.y1-c.y0)*(by0-by1); }\n` +
     `  function XV(p){ var c=C(); return c.x0+(p-bx0)/(bx1-bx0)*(c.x1-c.x0); }\n` +
     `  function load(){ var c=C(); a=(c.aInit!=null?c.aInit:(c.x0+c.x1)/2); eps=(c.eps!=null?c.eps:(c.y1-c.y0)/8); minD=Infinity; render(); }\n` +
-    `  function deltaAt(aa){ var c=C(), fa=f(aa), step=(c.x1-c.x0)/900, L=0, R=0, x;\n` +
+    `  function deltaAt(aa){ var c=C(), fa=f(aa), step=(c.x1-c.x0)/1800, L=0, R=0, x;\n` +
     `    for(x=aa-step; x>=c.x0-1e-9; x-=step){ if(Math.abs(f(x)-fa)>=eps) break; L=aa-x; }\n` +
     `    for(x=aa+step; x<=c.x1+1e-9; x+=step){ if(Math.abs(f(x)-fa)>=eps) break; R=x-aa; }\n` +
     `    return Math.min(L,R); }\n` +

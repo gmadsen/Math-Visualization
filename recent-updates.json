@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T02:41:25.843Z",
+  "generated": "2026-06-08T02:50:50.188Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -32,6 +32,14 @@
       "tag": "",
       "date": "2026-06-07",
       "message": "feat(probability-theory): sampling-box on §clt — the CLT shown by Monte-Carlo (#464)"
+    },
+    {
+      "slug": "real-analysis",
+      "title": "Real analysis",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(widgets): continuity-band-2d — a new \"slide-band\" gesture (ε–δ + uniform continuity)"
     },
     {
       "slug": "statistical-learning-theory",
@@ -160,14 +168,6 @@
       "tag": "",
       "date": "2026-06-05",
       "message": "feat(numerical-analysis): animated trapezoid quadrature (animated-svg-2d) (#445)"
-    },
-    {
-      "slug": "real-analysis",
-      "title": "Real analysis",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-05",
-      "message": "feat(real-analysis): draw-f-see-f′ derivative sketch (sketch-curve-2d) (#442)"
     },
     {
       "slug": "spectral-graph-theory",

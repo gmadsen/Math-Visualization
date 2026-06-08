@@ -32,7 +32,7 @@
     "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 420.", "default": 420 },
     "cases": {
       "type": "array",
-      "description": "The functions offered in the dropdown. Each gives a label, a JS expression `expr` in `x` for f(x), the domain [x0, x1], the y-window [y0, y1], an initial point `aInit`, and an initial tolerance `eps`. Set `uniform` to true/false for the readout's expected verdict (optional).",
+      "description": "The functions offered in the dropdown. Each gives a label, a JS expression `expr` in `x` for f(x), the domain [x0, x1], the y-window [y0, y1], an optional initial point `aInit`, an optional initial tolerance `eps`, and an optional `note` (e.g. the uniform-continuity verdict).",
       "minItems": 1,
       "items": {
         "type": "object",

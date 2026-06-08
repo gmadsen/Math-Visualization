@@ -479,7 +479,7 @@ $$ |x-a|<\delta \;\Longrightarrow\; |f(x)-f(a)|<\varepsilon. $$
 (function(){
   const svg=$('#cband-svg'), out=$('#cband-out'), sel=$('#cband-sel');
   const G=SVG('g'); svg.appendChild(G);
-  const CASES=[{"label":"f(x) = x²  on [−2, 2]","expr":"x*x","x0":-2,"x1":2,"y0":-0.3,"y1":4.3,"aInit":1.2,"eps":0.6,"note":"uniformly continuous on the compact [−2,2]: δ is smallest where the slope is largest (the ends) but stays > 0"},{"label":"f(x) = 1/x  on (0, 2]","expr":"1/x","x0":0.12,"x1":2,"y0":0,"y1":8.5,"aInit":1,"eps":0.6,"note":"NOT uniformly continuous on (0,1]: drag a toward 0 and δ collapses — no single δ works near the origin"},{"label":"f(x) = √x  on [0, 4]","expr":"Math.sqrt(x)","x0":0,"x1":4,"y0":0,"y1":2.1,"aInit":1,"eps":0.4,"note":"uniformly continuous despite the vertical tangent at 0 — √ flattens the variation, so δ stays healthy"}];
+  const CASES=[{"label":"f(x) = x²  on [−2, 2]","expr":"x*x","x0":-2,"x1":2,"y0":-0.3,"y1":4.3,"aInit":1.2,"eps":0.6,"note":"uniformly continuous on the compact [−2,2] (Heine–Cantor): δ is smallest where the slope is largest (the ends) but stays > 0. On all of ℝ, x² is NOT uniformly continuous — δ → 0 as a → ∞; it is the boundedness of [−2,2] that saves it"},{"label":"f(x) = 1/x  on (0, 2]","expr":"1/x","x0":0.06,"x1":2,"y0":0,"y1":17,"aInit":1,"eps":0.6,"note":"NOT uniformly continuous on (0,1]: drag a toward 0 and δ collapses — no single δ works near the origin"},{"label":"f(x) = √x  on [0, 4]","expr":"Math.sqrt(x)","x0":0,"x1":4,"y0":0,"y1":2.1,"aInit":1,"eps":0.4,"note":"uniformly continuous despite the vertical tangent at 0 — √ flattens the variation, so δ stays healthy"}];
   CASES.forEach(function(c){ c.f=new Function('x','return ('+c.expr+');'); });
   const _vb=(svg.getAttribute('viewBox')||'0 0 600 420').split(/\s+/).map(Number);
   const W=_vb[2], Hh=_vb[3], padL=44, padR=16, padT=16, padB=34;
@@ -491,7 +491,7 @@ $$ |x-a|<\delta \;\Longrightarrow\; |f(x)-f(a)|<\varepsilon. $$
   function PY(y){ var c=C(); return by0-(y-c.y0)/(c.y1-c.y0)*(by0-by1); }
   function XV(p){ var c=C(); return c.x0+(p-bx0)/(bx1-bx0)*(c.x1-c.x0); }
   function load(){ var c=C(); a=(c.aInit!=null?c.aInit:(c.x0+c.x1)/2); eps=(c.eps!=null?c.eps:(c.y1-c.y0)/8); minD=Infinity; render(); }
-  function deltaAt(aa){ var c=C(), fa=f(aa), step=(c.x1-c.x0)/900, L=0, R=0, x;
+  function deltaAt(aa){ var c=C(), fa=f(aa), step=(c.x1-c.x0)/1800, L=0, R=0, x;
     for(x=aa-step; x>=c.x0-1e-9; x-=step){ if(Math.abs(f(x)-fa)>=eps) break; L=aa-x; }
     for(x=aa+step; x<=c.x1+1e-9; x+=step){ if(Math.abs(f(x)-fa)>=eps) break; R=x-aa; }
     return Math.min(L,R); }
