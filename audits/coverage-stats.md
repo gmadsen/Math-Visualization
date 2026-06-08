@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1665** (registry-driven: 1665, inline: 0)
+- Widgets: **1666** (registry-driven: 1666, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -40,6 +40,7 @@ page has wired one in yet.
 | `draggable-points-2d` | draggable-points-2d | drag | 2d | 3 | complex-analysis, convex-geometry, projective-plane |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 3 | algebraic-topology, analytic-number-theory, mathematical-chaos |
 | `advanced-complex-analysis-picard` | advanced-complex-analysis-picard | interact | 2d | 2 | advanced-complex-analysis |
+| `algorithm-stepper` | algorithm-stepper | step-state | 2d | 2 | computational-number-theory, continued-fractions |
 | `counterexample-explorer` | counterexample-explorer | select | 2d | 2 | heights-arithmetic-geometry, point-set-topology |
 | `eigenvector-explorer-2d` | eigenvector-explorer-2d | drag-direction | 2d | 2 | differential-geometry, dynamical-systems |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 2 | dynamical-systems, mathematical-chaos |
@@ -78,7 +79,6 @@ page has wired one in yet.
 | `algebraic-spaces-morphisms-diagram` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-scheme-stack-hierarchy` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-why-scrubber` | proof-scrubber | scrub | 2d | 1 | algebraic-spaces |
-| `algorithm-stepper` | algorithm-stepper | step-state | 2d | 1 | continued-fractions |
 | `ant-bombieri-vinogradov` | ant-bombieri-vinogradov | slider | 2d | 1 | analytic-number-theory |
 | `ant-dirichlet-residue-wheel` | ant-dirichlet-residue-wheel | slider | 2d | 1 | analytic-number-theory |
 | `ant-explicit-formula` | ant-explicit-formula | slider | 2d | 1 | analytic-number-theory |
@@ -784,10 +784,10 @@ page has wired one in yet.
 ### Number theory
 
 - Topics: **19**, concepts: **128**
-- Widgets: **164** (registry-driven: 164, inline: 0)
-  - by family: button-stepper: 66, slider-readout: 28, verbatim: 12, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, algorithm-stepper: 1, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, galois-normal-separable: 1, galois-primitive-element: 1, quad-recip-supplementary: 1, quad-recip-jacobi: 1, ant-waring-finiteness: 1, padic-newton-polygon: 1, padic-ramification-tower: 1, clickable-graph: 1, fr-splitting-types: 1, fr-decomposition: 1, class-field-theory-existence: 1, class-field-theory-conductor-discriminant: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1, galois-representations-semisimplification: 1, galois-representations-conductor: 1
-  - by dimension: 2d: 164
-  - by gesture: click: 89, slider: 32, select: 16, input: 12, edit: 4, interactive: 2, interact: 2, drag: 1, step-state: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
+- Widgets: **165** (registry-driven: 165, inline: 0)
+  - by family: button-stepper: 66, slider-readout: 28, verbatim: 12, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, algorithm-stepper: 2, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, galois-normal-separable: 1, galois-primitive-element: 1, quad-recip-supplementary: 1, quad-recip-jacobi: 1, ant-waring-finiteness: 1, padic-newton-polygon: 1, padic-ramification-tower: 1, clickable-graph: 1, fr-splitting-types: 1, fr-decomposition: 1, class-field-theory-existence: 1, class-field-theory-conductor-discriminant: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1, galois-representations-semisimplification: 1, galois-representations-conductor: 1
+  - by dimension: 2d: 165
+  - by gesture: click: 89, slider: 32, select: 16, input: 12, edit: 4, step-state: 2, interactive: 2, interact: 2, drag: 1, button: 1, static: 1, branching-timeline: 1, read: 1, timeline: 1
 - Quizzes: **564** (v1: 381, hard: 183, expert: 0)
   - by type: mcq: 375, numeric: 164, multi-select: 11, matching: 5, ordering: 4, complex: 3, spot-the-error: 1, guess-my-rule: 1
 
@@ -932,7 +932,7 @@ page has wired one in yet.
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `numerical-analysis` (Analysis) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `computational-number-theory` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `computational-number-theory` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `variational-methods` (Analysis) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `fixed-point-theorems` (Analysis) — concepts=8, widgets=9 (slug=9), quiz=24 (v1=24, hard=0, expert=0)
 - `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

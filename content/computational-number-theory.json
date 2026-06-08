@@ -269,6 +269,31 @@
         },
         {
           "type": "raw",
+          "html": "\n<h3>The extended Euclidean algorithm</h3>\n<p>The second primitive every modular routine leans on is the <strong>modular inverse</strong>: given $b$ coprime to a modulus $a$, find $b^{-1}$ with $b\\,b^{-1}\\equiv 1\\pmod a$. The extended Euclidean algorithm computes $\\gcd(a,b)$ <em>and</em>, alongside it, integers $s_k,t_k$ with the running invariant $s_k a + t_k b = r_k$ (Bézout). When the remainder $r_k$ reaches the gcd, that identity <em>is</em> Bézout’s lemma; and if $\\gcd=1$, reducing $t_k$ modulo $a$ hands you $b^{-1}$ directly — no search, $O(\\log a)$ steps.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "algorithm-stepper",
+          "params": {
+            "widgetId": "w-eea",
+            "tableId": "eea-table",
+            "outputId": "eea-out",
+            "title": "Extended Euclidean algorithm: gcd, Bézout coefficients, and a modular inverse",
+            "hint": "press <strong>Step</strong> to advance the algorithm on $a=101$ (prime) and $b=23$. The last column recomputes $s_k\\cdot101 + t_k\\cdot23$ — it tracks $r_k$ exactly, every row, which <em>is</em> the Bézout invariant. When $r_k$ hits $\\gcd=1$, the coefficient $t_k$ (reduced mod $101$) is $23^{-1}\\bmod 101$.",
+            "columns": [
+              "k",
+              "qₖ",
+              "rₖ",
+              "sₖ",
+              "tₖ",
+              "sₖ·101 + tₖ·23"
+            ],
+            "maxSteps": 24,
+            "bodyScript": "var A=101, B=23;\nfunction initial(){ return {k:0,q:null,r:A,s:1,t:0,pr:B,ps:0,pt:1,seeded:false}; }\nfunction step(st){\n  if(!st.seeded){ return {k:1,q:null,r:st.pr,s:st.ps,t:st.pt,pr:st.r,ps:st.s,pt:st.t,seeded:true}; }\n  var q=Math.floor(st.pr/st.r), nr=st.pr-q*st.r;\n  if(nr===0) return null;\n  return {k:st.k+1,q:q,r:nr,s:st.ps-q*st.s,t:st.pt-q*st.t,pr:st.r,ps:st.s,pt:st.t,seeded:true};\n}\nfunction row(st){ return [st.k,(st.q==null?'\\u2014':st.q),st.r,st.s,st.t,(st.s*A+st.t*B)]; }\nfunction note(st){\n  var inv=((st.t%A)+A)%A, sum=st.s*A+st.t*B;\n  if(st.q!=null && A%st.r===0 && B%st.r===0){\n    var sgn=(st.t<0?'\\u2212 '+(-st.t):'+ '+st.t);\n    var txt='gcd('+A+', '+B+') = <b style=\"color:var(--cyan)\">'+st.r+'</b> = '+st.s+'\\u00b7'+A+' '+sgn+'\\u00b7'+B;\n    if(st.r===1) txt+=' &nbsp;\\u21d2&nbsp; '+B+'\\u207b\\u00b9 \\u2261 <b style=\"color:var(--green)\">'+inv+'</b> (mod '+A+')';\n    return txt;\n  }\n  return 'invariant s\\u00b7'+A+' + t\\u00b7'+B+' = <b>'+sum+'</b> = r\\u2096';\n}"
+          }
+        },
+        {
+          "type": "raw",
           "html": "\n\n<h3>Tonelli–Shanks: square roots mod $p$</h3>\n<p>Given $a$ with $\\left(\\tfrac{a}{p}\\right) = 1$, find $r$ with $r^2 \\equiv a \\pmod p$. The easy case $p\\equiv 3\\pmod 4$: take $r = a^{(p+1)/4}$, since $r^2 = a \\cdot a^{(p-1)/2} \\equiv a$. For $p\\equiv 1\\pmod 4$, factor $p-1 = 2^s Q$ with $Q$ odd, pick a non-residue $z$, and chase $r$ down through powers of a $2^s$-th root of unity.</p>\n\n<h3>Chinese remainder theorem</h3>\n<p>To reconstruct $x$ from $x \\bmod m_1, \\dots, x \\bmod m_k$ for pairwise coprime $m_i$, Garner's algorithm runs in $O(k^2)$ multiplies in the small moduli — far faster than working modulo the full product. CRT splits modular exponentiation in RSA: compute $a^d \\bmod p$ and $a^d \\bmod q$, then glue. This is a 4× speedup in practice.</p>\n\n"
         },
         {
@@ -283,6 +308,10 @@
           "type": "quiz",
           "concept": "cnt-modular-arithmetic-algorithms",
           "html": "<div class=\"quiz\" data-concept=\"cnt-modular-arithmetic-algorithms\"></div>"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-eea"
         },
         {
           "type": "raw",
