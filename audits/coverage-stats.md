@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1662** (registry-driven: 1662, inline: 0)
+- Widgets: **1663** (registry-driven: 1663, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -705,6 +705,7 @@ page has wired one in yet.
 | `wav-db` | verbatim | click | 2d | 1 | wavelets |
 | `wav-dwt` | verbatim | click | 2d | 1 | wavelets |
 | `wav-tile` | verbatim | click | 2d | 1 | wavelets |
+| `weight-ladder-sl2` | weight-ladder-sl2 | ladder-op | 2d | 1 | lie-algebras |
 | `xy-parameter-pad` | xy-parameter-pad | two-param-scrub | 2d | 1 | statistical-mechanics |
 | `zeta-values-mahler-measure` | zeta-values-mahler-measure | click | 2d | 1 | zeta-values |
 | `zeta-values-multiple-zeta` | zeta-values-multiple-zeta | slider | 2d | 1 | zeta-values |
@@ -731,10 +732,10 @@ page has wired one in yet.
 ### Algebra & homological
 
 - Topics: **17**, concepts: **148**
-- Widgets: **159** (registry-driven: 159, inline: 0)
-  - by family: button-stepper: 53, clickable-diagram: 23, slider-readout: 15, verbatim: 10, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, algebra-structures: 1, algebra-ring-ideals: 1, algebra-field-tower: 1, naturality-square: 1, declarative-host: 1, rep-theory-homomorphism: 1, rep-theory-orthogonality: 1, clickable-graph: 1, commutative-algebra-completion: 1, commutative-algebra-dedekind: 1, commutative-algebra-koszul: 1, diagram-editor: 1, homological-les-sphere: 1, homological-double-complex: 1, homological-tor-symmetry: 1, homological-cartan-eilenberg: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
-  - by dimension: 2d: 158, 3d: 1
-  - by gesture: click: 108, select: 22, slider: 10, interact: 6, inspect: 3, input: 2, toggle: 2, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
+- Widgets: **160** (registry-driven: 160, inline: 0)
+  - by family: button-stepper: 53, clickable-diagram: 23, slider-readout: 15, verbatim: 10, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, algebra-structures: 1, algebra-ring-ideals: 1, algebra-field-tower: 1, naturality-square: 1, declarative-host: 1, rep-theory-homomorphism: 1, rep-theory-orthogonality: 1, clickable-graph: 1, commutative-algebra-completion: 1, commutative-algebra-dedekind: 1, commutative-algebra-koszul: 1, diagram-editor: 1, homological-les-sphere: 1, homological-double-complex: 1, homological-tor-symmetry: 1, homological-cartan-eilenberg: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, weight-ladder-sl2: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
+  - by dimension: 2d: 159, 3d: 1
+  - by gesture: click: 108, select: 22, slider: 10, interact: 6, inspect: 3, input: 2, toggle: 2, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1, ladder-op: 1
 - Quizzes: **631** (v1: 445, hard: 186, expert: 0)
   - by type: mcq: 380, numeric: 156, multi-select: 45, ordering: 19, matching: 17, spot-the-error: 9, proof-completion: 4, complex: 1
 
@@ -970,7 +971,7 @@ page has wired one in yet.
 - `homological` (Algebra & homological) — concepts=15, widgets=16 (slug=16), quiz=82 (v1=45, hard=37, expert=0)
 - `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `lie-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `lie-algebras` (Algebra & homological) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `galois-cohomology-and-brauer` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `elementary-topos-theory` (Higher categories & toposes) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `heyting-algebras-toposes` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)

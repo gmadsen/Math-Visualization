@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T01:51:54.716Z",
+  "generated": "2026-06-08T02:19:31.942Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -7,7 +7,7 @@
       "color": "c",
       "tag": "",
       "date": "2026-06-07",
-      "message": "feat(widgets): unroll-the-cover — a new \"wind-loop\" gesture (universal cover of S¹)"
+      "message": "feat(widgets): unroll-the-cover — a new \"wind-loop\" gesture (universal cover of S¹) (#466)"
     },
     {
       "slug": "cohomology-and-duality",
@@ -16,6 +16,14 @@
       "tag": "",
       "date": "2026-06-07",
       "message": "feat(widgets): cup-product-grid — a new \"drag-multiply\" gesture (cohomology ring table) (#465)"
+    },
+    {
+      "slug": "lie-algebras",
+      "title": "Lie algebras",
+      "color": "y",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(widgets): weight-ladder-sl2 — a new \"ladder-op\" gesture (sl₂ irreps Vₙ)"
     },
     {
       "slug": "probability-theory",
@@ -1644,14 +1652,6 @@
     {
       "slug": "galois-cohomology-and-brauer",
       "title": "Galois cohomology and Brauer groups",
-      "color": "y",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
-    },
-    {
-      "slug": "lie-algebras",
-      "title": "Lie algebras",
       "color": "y",
       "tag": "",
       "date": "2026-05-12",

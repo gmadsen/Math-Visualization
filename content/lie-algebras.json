@@ -214,12 +214,30 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "weight-ladder-sl2",
+          "params": {
+            "widgetId": "w-sl2-ladder",
+            "svgId": "sl2-ladder-svg",
+            "outputId": "sl2-ladder-out",
+            "title": "The sl₂ ladder: raise and lower to build the irrep Vₙ",
+            "hint": "every irreducible $\\mathfrak{sl}_2(\\mathbb{C})$ representation is a single string of weights $n, n-2, \\dots, -n$. Start at the highest-weight vector $v_0$ and press <strong>f</strong> to lower (weight drops by $2$) — dropping repeatedly spawns the whole $(n+1)$-dimensional irrep $V_n$; press <strong>e</strong> to raise ($+2$). The operators die at the ends: $e\\cdot v_0 = 0$ (nothing above the highest weight) and $f\\cdot v_n = 0$ (nothing below the lowest). Use the <strong>dim</strong> buttons to grow or shrink the ladder. (The integer action coefficients use the standard basis $v_k=\\tfrac{1}{k!}f^k v_0$, giving $e\\cdot v_k=(n-k+1)v_{k-1}$ and $f\\cdot v_k=(k+1)v_{k+1}$.)",
+            "svgTitle": "The weight ladder of the irreducible sl_2 representation V_n; raise with e, lower with f, each killed at the appropriate end.",
+            "nInit": 4,
+            "nMax": 7
+          }
+        },
+        {
           "type": "raw",
           "html": "\n"
         },
         {
           "type": "widget-script",
           "ref": "weight-diagram"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-sl2-ladder"
         },
         {
           "type": "raw",
