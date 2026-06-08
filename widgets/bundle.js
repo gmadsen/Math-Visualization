@@ -5679,6 +5679,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "functional-equation-mirror",
+    "family": "functional-equation-mirror",
+    "dimension": "2d",
+    "gesture": "drag-reflect",
+    "role": "explore",
+    "title": "functional-equation-mirror widget params",
+    "description": "A self-contained 'drag-reflect' widget for Riemann's functional equation. The reader drags a point s = sigma + i t across the complex plane; the widget draws its functional-equation partner 1 - s (the point reflection of s through the center (1/2, 0)) and computes the completed zeta xi(s) = 1/2 s(s-1) pi^{-s/2} Gamma(s/2) zeta(s) at BOTH points, showing they are equal (xi(s) = xi(1-s)). xi is evaluated honestly for any complex s via the everywhere-convergent, manifestly s<->1-s symmetric integral xi(s) = 1/2 + 1/2 s(s-1) integral_1^infinity (theta(x)-1)/2 (x^{s/2-1} + x^{(1-s)/2-1}) dx (theta the Jacobi theta tail), evaluated by Simpson quadrature in complex arithmetic. The critical line Re(s)=1/2 is the mirror axis (inside the shaded critical strip); the first nontrivial zeros are ringed on it, and dragging s onto the line near one drives |xi(s)| to zero. Pure DOM/SVG; jsdom-safe (createSVGPoint/getScreenCTM only inside pointer handlers; the static plane is built once, only the puck + partner + readout redraw on drag, each a pair of xi evaluations).",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke **\"drag-reflect\"** widget for **Riemann's functional equation** $\\xi(s) = \\xi(1-s)$. First home: `analytic-continuation §zeta` (§6 \"The Riemann zeta functional equation\"), beside the `button-stepper` that derives the completion. Not part of a shared family — the math (the completed Riemann zeta) is specific, so the renderer is self-contained.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "functor-of-points-base-change",
     "family": "functor-of-points-base-change",
     "dimension": "2d",

@@ -529,6 +529,36 @@
         },
         {
           "type": "raw",
+          "html": "\n<h3>See the symmetry: drag $s$, watch $\\xi(1-s)$ follow</h3>\n<p>The functional equation $\\xi(s)=\\xi(1-s)$ is a <em>point reflection</em>: the completed zeta takes the same value at $s$ and at its partner $1-s$, the $180^\\circ$ rotation of $s$ about the centre $(\\tfrac12,0)$ (so $\\sigma+it \\mapsto (1-\\sigma)-it$). Drag the puck $s$ across the plane below and its partner $1-s$ moves in lockstep, the two $\\xi$-values staying <strong>equal</strong> no matter where you go \\u2014 the dashed connector always runs straight through the centre. The cyan band is the <em>critical strip</em> $0\\le\\mathrm{Re}\\,s\\le 1$, and the yellow line $\\mathrm{Re}\\,s=\\tfrac12$ is the <em>critical line</em>, where every known nontrivial zero lies (the pink rings; that they all lie exactly here is the Riemann Hypothesis). Drag $s$ onto the line near a ring and watch $|\\xi(s)|\\to 0$.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "functional-equation-mirror",
+          "params": {
+            "widgetId": "w-fem",
+            "svgId": "fem-svg",
+            "outputId": "fem-out",
+            "title": "Riemann’s functional equation: drag $s$, its mirror $1-s$ takes the same value",
+            "hint": "drag $s=\\sigma+it$. Its functional-equation partner $1-s$ (the green ring \\u2014 the $180^\\circ$ point reflection of $s$ about $(\\tfrac12,0)$) carries the <em>same</em> completed-zeta value: $\\xi(s)=\\xi(1-s)$ everywhere. $\\xi(s)=\\tfrac12 s(s-1)\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ is computed honestly from the everywhere-convergent symmetric integral. The yellow line $\\mathrm{Re}\\,s=\\tfrac12$ is the critical line, where the nontrivial zeros (pink rings) lie and $\\xi$ vanishes.",
+            "svgTitle": "The complex s-plane: a draggable point s, its functional-equation partner 1−s, the critical line Re s = 1/2, and the first nontrivial zeros of the completed zeta function.",
+            "sigma0": -1.5,
+            "sigma1": 2.5,
+            "t0": -27,
+            "t1": 27,
+            "sigmaInit": 0.8,
+            "tInit": 9,
+            "zeros": [
+              14.134725,
+              21.02204,
+              25.010858
+            ],
+            "viewBox": "0 0 440 660",
+            "svgWidth": 440,
+            "svgHeight": 660
+          }
+        },
+        {
+          "type": "raw",
           "html": "\n\n"
         },
         {
@@ -551,6 +581,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fem"
         },
         {
           "type": "raw",

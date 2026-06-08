@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/functional-equation-mirror/schema.json",
+  "title": "functional-equation-mirror widget params",
+  "description": "A self-contained 'drag-reflect' widget for Riemann's functional equation. The reader drags a point s = sigma + i t across the complex plane; the widget draws its functional-equation partner 1 - s (the point reflection of s through the center (1/2, 0)) and computes the completed zeta xi(s) = 1/2 s(s-1) pi^{-s/2} Gamma(s/2) zeta(s) at BOTH points, showing they are equal (xi(s) = xi(1-s)). xi is evaluated honestly for any complex s via the everywhere-convergent, manifestly s<->1-s symmetric integral xi(s) = 1/2 + 1/2 s(s-1) integral_1^infinity (theta(x)-1)/2 (x^{s/2-1} + x^{(1-s)/2-1}) dx (theta the Jacobi theta tail), evaluated by Simpson quadrature in complex arithmetic. The critical line Re(s)=1/2 is the mirror axis (inside the shaded critical strip); the first nontrivial zeros are ringed on it, and dragging s onto the line near one drives |xi(s)| to zero. Pure DOM/SVG; jsdom-safe (createSVGPoint/getScreenCTM only inside pointer handlers; the static plane is built once, only the puck + partner + readout redraw on drag, each a pair of xi evaluations).",
+  "meta": {
+    "family": "functional-equation-mirror",
+    "dimension": "2d",
+    "gesture": "drag-reflect",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The reset button derives its id from this." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing the complex-s plane, the puck, its 1-s partner, and the zero markers." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout reporting xi(s), xi(1-s), and |xi(s)|." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag s and watch the 1-s partner take the same xi value." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 440 600'.", "default": "0 0 440 600" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 440.", "default": 440 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 600.", "default": 600 },
+    "sigma0": { "type": "number", "description": "Left edge of the plane (min Re s). Default -1.5.", "default": -1.5 },
+    "sigma1": { "type": "number", "description": "Right edge of the plane (max Re s). Default 2.5.", "default": 2.5 },
+    "t0": { "type": "number", "description": "Bottom edge of the plane (min Im s). Default -15.", "default": -15 },
+    "t1": { "type": "number", "description": "Top edge of the plane (max Im s). Default 15.", "default": 15 },
+    "sigmaInit": { "type": "number", "description": "Initial Re s of the puck. Default 0.8.", "default": 0.8 },
+    "tInit": { "type": "number", "description": "Initial Im s of the puck. Default 6.", "default": 6 },
+    "zeros": {
+      "type": "array",
+      "description": "Imaginary parts (>0) of the first nontrivial zeros to mark on the critical line; each is mirrored to -t too. Default the first three: [14.134725, 21.022040, 25.010858].",
+      "items": { "type": "number" },
+      "default": [14.134725, 21.022040, 25.010858]
+    },
+    "resetLabel": { "type": "string", "description": "Label for the reset button. Defaults to '↺ Reset'.", "default": "↺ Reset" }
+  }
+}
