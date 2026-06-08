@@ -39,7 +39,9 @@ export function renderMarkup(params) {
 export function renderScript(params) {
   const { widgetId, svgId, outputId } = params;
   const presets = Array.isArray(params.presets) ? params.presets : [];
-  const initial = params.initial != null ? params.initial : 0;
+  // clamp the initial index into range so a schema-valid but out-of-range value
+  // can't emit PRESETS[n] that throws at runtime (schema can't bound it by presets.length).
+  const initial = Math.min(Math.max(0, params.initial != null ? params.initial : 0), Math.max(0, presets.length - 1));
   return (
 `<script>
 (function(){
@@ -80,7 +82,10 @@ export function renderScript(params) {
   // tangent there for a symmetric quadratic, so the arrow direction is just the chord.
   function edgeGeom(k,m){
     var a=corner(k,m), b=corner((k+1)%m,m), mid=[(a[0]+b[0])/2,(a[1]+b[1])/2];
-    if(m===2){ var dx=b[0]-a[0], dy=b[1]-a[1], Ld=Math.hypot(dx,dy)||1, px=-dy/Ld, py=dx/Ld, bulge=(k===0?1:-1)*R*0.9;
+    // perpendicular (px,py)=(-dy,dx)/L already flips sign between the two edges
+    // (their endpoints are swapped), so the two arcs bulge to opposite sides
+    // without any extra per-edge factor — opening the bigon into a lens.
+    if(m===2){ var dx=b[0]-a[0], dy=b[1]-a[1], Ld=Math.hypot(dx,dy)||1, px=-dy/Ld, py=dx/Ld, bulge=R*0.9;
       var ctrl=[mid[0]+px*bulge, mid[1]+py*bulge], apex=[0.25*a[0]+0.5*ctrl[0]+0.25*b[0], 0.25*a[1]+0.5*ctrl[1]+0.25*b[1]];
       return {a:a,b:b,ctrl:ctrl,apex:apex,curved:true}; }
     return {a:a,b:b,apex:mid,curved:false};

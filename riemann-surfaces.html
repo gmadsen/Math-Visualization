@@ -1031,7 +1031,7 @@ Equivalently, $\chi(X) = n\,\chi(Y) - \sum(e_p - 1)$: each ramification eats one
 <p>Riemann–Hurwitz reads a genus off a <em>map</em>. Here is the dual, purely combinatorial picture of the same invariant: every compact surface is a polygon with its edges glued in pairs — a <strong>gluing word</strong>. Glue the corners, count the vertex classes $V$, edges $E$ (one per letter) and the single face $F=1$; the Euler characteristic $\chi = V - E + F$ then fixes the genus through $\chi = 2 - 2g$ (orientable) or $\chi = 2 - k$ (a connected sum of $k$ projective planes). Click an edge to flip its arrow and watch the surface jump — flipping a single edge of the torus word $aba^{-1}b^{-1}$ makes the pairing $aa$ instead of $a\,a^{-1}$, and the torus becomes a Klein bottle.</p>
 <div class="widget" id="w-fold">
   <div class="hd"><div class="ttl">Fold the polygon: glue the edges, read off the surface</div><div class="hint">each letter labels two edges that get glued; the arrow says which way. <strong>Click an edge</strong> to flip its arrow. The corner numbers are the vertex classes after gluing ($V$); the readout computes $\chi = V - E + F$ and names the surface. Orientable iff every letter appears once forward and once backward.</div></div>
-  <div class="row" style="flex-wrap:wrap"><span class="small" style="color:var(--mute)">glue:</span><button id="w-fold-p-0" type="button" class="small">torus  a b a⁻¹ b⁻¹</button><button id="w-fold-p-1" type="button" class="small">sphere  a a⁻¹</button><button id="w-fold-p-2" type="button" class="small">ℝP²  a a</button><button id="w-fold-p-3" type="button" class="small">Klein  a b a b⁻¹</button><button id="w-fold-p-4" type="button" class="small">genus 2</button></div>
+  <div class="row" style="flex-wrap:wrap"><span class="small" style="color:var(--mute)">glue:</span><button id="w-fold-p-0" type="button" class="small">torus  a b a⁻¹ b⁻¹</button><button id="w-fold-p-1" type="button" class="small">sphere  a a⁻¹</button><button id="w-fold-p-2" type="button" class="small">ℝP²  a a</button><button id="w-fold-p-3" type="button" class="small">Klein  a b a b⁻¹</button><button id="w-fold-p-4" type="button" class="small">genus 2  a b a⁻¹ b⁻¹ c d c⁻¹ d⁻¹</button></div>
   <svg id="fold-svg" viewBox="0 0 420 360" width="420" height="360" style="touch-action:manipulation;width:100%;max-width:420px;height:auto"><title>A polygon with directed, paired edges spelling a gluing word; clicking an edge flips its arrow and the readout reclassifies the resulting surface.</title></svg>
   <div class="readout" id="fold-out">&nbsp;</div>
 </div><!-- callback-auto-begin -->
@@ -1047,7 +1047,7 @@ Equivalently, $\chi(X) = n\,\chi(Y) - \sum(e_p - 1)$: each ramification eats one
 (function(){
   const svg=$('#fold-svg'), out=$('#fold-out');
   const G=SVG('g'); svg.appendChild(G);
-  const PRESETS=[{"label":"torus  a b a⁻¹ b⁻¹","word":"a b a' b'"},{"label":"sphere  a a⁻¹","word":"a a'"},{"label":"ℝP²  a a","word":"a a"},{"label":"Klein  a b a b⁻¹","word":"a b a b'"},{"label":"genus 2","word":"a b a' b' c d c' d'"}];
+  const PRESETS=[{"label":"torus  a b a⁻¹ b⁻¹","word":"a b a' b'"},{"label":"sphere  a a⁻¹","word":"a a'"},{"label":"ℝP²  a a","word":"a a"},{"label":"Klein  a b a b⁻¹","word":"a b a b'"},{"label":"genus 2  a b a⁻¹ b⁻¹ c d c⁻¹ d⁻¹","word":"a b a' b' c d c' d'"}];
   const LET=['var(--cyan)','var(--pink)','var(--green)','var(--violet)','var(--yellow)','var(--blue)'];
   const _vb=(svg.getAttribute('viewBox')||'0 0 420 360').split(/\s+/).map(Number);
   const W=_vb[2], Hh=_vb[3], cx=W/2, cy=Hh/2+6, R=Math.min(W,Hh)*0.36;
@@ -1082,7 +1082,10 @@ Equivalently, $\chi(X) = n\,\chi(Y) - \sum(e_p - 1)$: each ramification eats one
   // tangent there for a symmetric quadratic, so the arrow direction is just the chord.
   function edgeGeom(k,m){
     var a=corner(k,m), b=corner((k+1)%m,m), mid=[(a[0]+b[0])/2,(a[1]+b[1])/2];
-    if(m===2){ var dx=b[0]-a[0], dy=b[1]-a[1], Ld=Math.hypot(dx,dy)||1, px=-dy/Ld, py=dx/Ld, bulge=(k===0?1:-1)*R*0.9;
+    // perpendicular (px,py)=(-dy,dx)/L already flips sign between the two edges
+    // (their endpoints are swapped), so the two arcs bulge to opposite sides
+    // without any extra per-edge factor — opening the bigon into a lens.
+    if(m===2){ var dx=b[0]-a[0], dy=b[1]-a[1], Ld=Math.hypot(dx,dy)||1, px=-dy/Ld, py=dx/Ld, bulge=R*0.9;
       var ctrl=[mid[0]+px*bulge, mid[1]+py*bulge], apex=[0.25*a[0]+0.5*ctrl[0]+0.25*b[0], 0.25*a[1]+0.5*ctrl[1]+0.25*b[1]];
       return {a:a,b:b,ctrl:ctrl,apex:apex,curved:true}; }
     return {a:a,b:b,apex:mid,curved:false};
