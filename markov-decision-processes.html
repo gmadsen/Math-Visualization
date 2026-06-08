@@ -472,7 +472,18 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="note"><strong>Worked mini-example.</strong> On the running MDP the goal contributes $V^*(s_2)=\tfrac{1}{1-\gamma}$. Advancing dominates idling everywhere: at $s_1$, $Q^*(s_1,a)=5+\gamma(0.8\,V^*(s_2)+0.2\,V^*(s_0))$ beats $Q^*(s_1,b)=-1+\gamma V^*(s_1)$, and at $s_0$, $Q^*(s_0,a)=\gamma V^*(s_1)$ beats $Q^*(s_0,b)=\gamma V^*(s_0)$. So $\pi^*\equiv a$ for every $\gamma\in[0,1)$; at $\gamma=0.9$ the optimal values are $V^*\approx(13.10,\,14.56,\,10)$.</div>
 <p>Slide $\gamma$ and watch $V^*$, the per-action $Q^*$ comparison, and the greedy optimal policy (drawn in green).</p>
 
-<div class="widget" id="w-opt">
+
+<p>The optimality equation is easiest to <em>see</em> on a map. The grid-world below is an MDP: each cell is a state, the four moves are the actions, a <span style="color:var(--green)">goal</span> and a <span style="color:var(--pink)">pit</span> are terminal, every other step costs a little, and the moves are <strong>noisy</strong> — the intended direction succeeds most of the time but occasionally slips sideways. <strong>Value iteration</strong> applies $V \leftarrow \max_a\{R+\gamma\sum_{s'}P(s'\mid s,a)V(s')\}$ until it stops changing; the widget then shades each cell by $V^*$ and draws the <strong>greedy policy</strong> $\pi^*(s)=\arg\max_a Q^*(s,a)$ as an arrow. Click a cell to rewrite the world, or change $\gamma$ and the slip noise — and watch the optimal policy re-solve. Turn the noise up and the policy near the pit grows cautious, steering wide of the cliff; drop the discount $\gamma$ toward $0$ and it turns <em>myopic</em>, ceasing to plan past the next reward. (Value iteration converges even at $\gamma=1$ here because the goal and pit are absorbing.)</p>
+<div class="widget" id="w-gw">
+  <div class="hd"><div class="ttl">Grid-world: value iteration paints V* and the greedy policy π*</div><div class="hint">each cell is a state; the four moves are the actions, with a <strong>slip</strong> chance to either side (the <em>noise</em>). The arrows are the greedy policy $\pi^*$, the shading and the small number are the optimal value $V^*$. <strong>Click a cell</strong> to cycle empty → goal → pit → wall; use the γ and noise buttons. Everything re-solves by value iteration on each change.</div></div>
+  <div class="row" style="flex-wrap:wrap">
+    <label>γ</label><button id="w-gw-gdn" type="button">−</button><button id="w-gw-gup" type="button">+</button>
+    <label>noise</label><button id="w-gw-ndn" type="button">−</button><button id="w-gw-nup" type="button">+</button>
+    <button id="w-gw-reset" type="button">↺ Reset</button>
+  </div>
+  <svg id="gw-svg" viewBox="0 0 312 238" width="312" height="238" style="touch-action:manipulation;width:100%;max-width:312px;height:auto"><title>A grid-world Markov decision process: cells shaded by the optimal value function, with the greedy policy drawn as an arrow in each cell.</title></svg>
+  <div class="readout" id="gw-out">&nbsp;</div>
+</div><div class="widget" id="w-opt">
   <div class="hd"><div class="ttl">Bellman optimality: V*, Q* and the greedy policy</div><div class="hint">the max-over-actions backup gives V*; greedy(Q*) gives π*</div></div>
   <svg id="opt-svg" viewBox="0 0 640 300" width="640" height="300"><title>Optimal value function and greedy optimal policy on the running MDP</title></svg>
   <div class="row">
@@ -550,7 +561,62 @@ function drawNode(svg, x, y, label, opts={}){
     <div><a href="./markov-decision-processes.html#value-iteration">Markov decision processes</a> · Value iteration &amp; contraction</div>
     <div><a href="./pomdps-and-belief-states.html#belief-mdp">POMDPs and belief states</a> · The belief MDP</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="mdp-bellman-optimality"></div>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="mdp-bellman-optimality"></div><script>
+(function(){
+  const svg=$('#gw-svg'), out=$('#gw-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=3, C=4, CELL=74, PAD=8;
+  const GOAL=1, PIT=-1, STEP=-0.04;
+  const LAYOUT0=["...G",".#.P","...."];
+  var grid=LAYOUT0.map(function(row){ return row.split(''); });
+  var gamma=1, noise=0.2;
+  const ACT={U:[-1,0],D:[1,0],L:[0,-1],R:[0,1]}, PERP={U:['L','R'],D:['L','R'],L:['U','D'],R:['U','D']}, ARR={U:'\u2191',D:'\u2193',L:'\u2190',R:'\u2192'};
+  function key(r,c){ return r+','+c; }
+  function term(r,c){ var t=grid[r][c]; return t==='G'?GOAL:(t==='P'?PIT:null); }
+  function nxt(r,c,dir){ var a=ACT[dir], nr=r+a[0], nc=c+a[1]; if(nr<0||nr>=R||nc<0||nc>=C||grid[nr][nc]==='#') return key(r,c); return key(nr,nc); }
+  // ---- value iteration to convergence ----
+  function solve(){
+    var V={}; for(var r=0;r<R;r++)for(var c=0;c<C;c++){ if(grid[r][c]==='#')continue; var t=term(r,c); V[key(r,c)]=(t!=null)?t:0; }
+    function Q(r,c,dir){ var p=PERP[dir]; return (1-noise)*V[nxt(r,c,dir)] + (noise/2)*V[nxt(r,c,p[0])] + (noise/2)*V[nxt(r,c,p[1])]; }
+    var it=0, conv=false; for(; it<2000; it++){ var d=0, Vn={};
+      for(var r=0;r<R;r++)for(var c=0;c<C;c++){ if(grid[r][c]==='#')continue; var k=key(r,c), t=term(r,c);
+        if(t!=null){ Vn[k]=t; continue; }
+        var best=-Infinity; for(var dir in ACT){ var q=STEP+gamma*Q(r,c,dir); if(q>best)best=q; } Vn[k]=best; if(Math.abs(Vn[k]-V[k])>d)d=Math.abs(Vn[k]-V[k]); }
+      V=Vn; if(d<1e-7){ conv=true; it++; break; } }
+    var pol={}; for(var r2=0;r2<R;r2++)for(var c2=0;c2<C;c2++){ if(grid[r2][c2]==='#'||term(r2,c2)!=null)continue;
+      var best2=-Infinity, bd=null; for(var dir2 in ACT){ var q2=STEP+gamma*Q(r2,c2,dir2); if(q2>best2){best2=q2;bd=dir2;} } pol[key(r2,c2)]=bd; }
+    return {V:V, pol:pol, it:it, conv:conv};
+  }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    var sol=solve(), V=sol.V, mx=0.001;
+    for(var k in V){ if(Math.abs(V[k])>mx) mx=Math.abs(V[k]); }
+    for(var r=0;r<R;r++)for(var c=0;c<C;c++){ var x=PAD+c*CELL, y=PAD+r*CELL, t=grid[r][c], k=key(r,c);
+      if(t==='#'){ G.appendChild(SVG('rect',{x:x,y:y,width:CELL,height:CELL,fill:'var(--mute)','fill-opacity':0.5,stroke:'var(--line)','stroke-width':1,'data-r':r,'data-c':c,style:'cursor:pointer'})); continue; }
+      var v=V[k], shade = v>=0 ? 'var(--green)' : 'var(--pink)', op = Math.min(0.42, Math.abs(v)/mx*0.42);
+      G.appendChild(SVG('rect',{x:x,y:y,width:CELL,height:CELL,fill:shade,'fill-opacity':op.toFixed(3),stroke:'var(--line)','stroke-width':1,'data-r':r,'data-c':c,style:'cursor:pointer'}));
+      var cx=x+CELL/2, cy=y+CELL/2;
+      if(t==='G'||t==='P'){
+        var rt=SVG('text',{x:cx,y:cy+6,'font-size':18,'font-weight':700,fill:(t==='G'?'var(--green)':'var(--pink)'),'text-anchor':'middle','pointer-events':'none'}); rt.textContent=(t==='G'?'+':'')+ (t==='G'?GOAL:PIT); G.appendChild(rt);
+        var lt=SVG('text',{x:cx,y:y+15,'font-size':9,fill:'var(--mute)','text-anchor':'middle','pointer-events':'none'}); lt.textContent=(t==='G'?'goal':'pit'); G.appendChild(lt);
+      } else {
+        var pa=SVG('text',{x:cx,y:cy+2,'font-size':26,fill:'var(--ink)','text-anchor':'middle','pointer-events':'none'}); pa.textContent=ARR[sol.pol[k]]||''; G.appendChild(pa);
+        var vt=SVG('text',{x:cx,y:y+CELL-7,'font-size':11,fill:'var(--ink)','text-anchor':'middle','pointer-events':'none'}); vt.textContent=v.toFixed(2); G.appendChild(vt);
+      }
+    }
+    var head='discount γ = <b>'+gamma.toFixed(2)+'</b> &nbsp;\u00b7&nbsp; action noise = <b>'+(noise*100).toFixed(0)+'%</b> (slip) &nbsp;\u00b7&nbsp; ';
+    if(sol.conv){ out.innerHTML = head+'value iteration converged in <b>'+sol.it+'</b> sweeps &nbsp;\u00b7&nbsp; <span style=\"color:var(--mute)\">arrows = greedy policy π*, shade = V* &nbsp;\u00b7&nbsp; click a cell: empty → goal → pit → wall</span>'; }
+    else { out.innerHTML = head+'<b style=\"color:var(--pink)\">did not converge</b> in '+sol.it+' sweeps \u2014 with no terminal to anchor the values and γ = 1 the undiscounted values keep drifting, so these are <em>not</em> V*/π*. Add a goal or pit, or lower γ below 1.'; }
+  }
+  svg.addEventListener('click',function(ev){ var t=ev.target; if(t&&t.getAttribute&&t.getAttribute('data-r')!=null){ var r=+t.getAttribute('data-r'), c=+t.getAttribute('data-c'); var cyc={'.':'G','G':'P','P':'#','#':'.'}; grid[r][c]=cyc[grid[r][c]]; render(); } });
+  $('#w-gw-gup').addEventListener('click',function(){ gamma=Math.min(1,Math.round((gamma+0.05)*100)/100); render(); });
+  $('#w-gw-gdn').addEventListener('click',function(){ gamma=Math.max(0,Math.round((gamma-0.05)*100)/100); render(); });
+  $('#w-gw-nup').addEventListener('click',function(){ noise=Math.min(0.8,Math.round((noise+0.1)*100)/100); render(); });
+  $('#w-gw-ndn').addEventListener('click',function(){ noise=Math.max(0,Math.round((noise-0.1)*100)/100); render(); });
+  $('#w-gw-reset').addEventListener('click',function(){ grid=LAYOUT0.map(function(row){return row.split('');}); gamma=1; noise=0.2; render(); });
+  render();
+})();
+</script>
 </section>
 
 <section id="value-iteration">

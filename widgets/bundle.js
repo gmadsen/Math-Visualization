@@ -6350,6 +6350,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "grid-world-mdp",
+    "family": "grid-world-mdp",
+    "dimension": "2d",
+    "gesture": "edit-grid",
+    "role": "explore",
+    "title": "grid-world-mdp widget params",
+    "description": "A self-contained 'edit-grid' widget for a grid-world Markov decision process. The states are the cells of a rows x cols grid: empty cells (a step reward), goal cells (positive terminal reward), pit cells (negative terminal reward), and walls (blocked). Actions are the four moves; transitions are stochastic — the intended move succeeds with probability 1 - noise and slips to each perpendicular direction with probability noise/2 (a wall or edge bounces back). The widget solves the Bellman optimality equation V*(s) = max_a { R + gamma sum_s' P(s'|s,a) V*(s') } by value iteration to convergence and PAINTS the optimal value V* (cell shading + number) and the greedy policy pi* (an arrow per non-terminal cell). The reader CLICKS a cell to cycle its type (empty -> goal -> pit -> wall -> empty) and adjusts the discount gamma and the action noise; the value function and policy re-solve live, so e.g. raising the noise makes the policy route cautiously away from the pit. Pure DOM/SVG; jsdom-safe (click-driven; no getScreenCTM/rAF).",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "layout"
+    ],
+    "readmeExcerpt": "Bespoke **\"edit-grid\"** widget for a **grid-world Markov decision process** solved by **value iteration**. First home: `markov-decision-processes §bellman-optimality`. Self-contained (the VI solver and policy extraction are fixed). The canonical grid-world that the decision-making topics (MDP / RL / POMDP) otherwise lacked — they use 1-D chains and bar charts.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "grothendieck-topologies-sites-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",
