@@ -781,7 +781,15 @@ function decorate(BG){
   </tbody>
 </table>
 
-<p>For a <em>nonlinear</em> system, the recipe is mechanical: (1) find all fixed points; (2) classify each by its Jacobian; (3) draw nullclines (zero sets of $\dot x$ and $\dot y$); (4) sample the direction field; (5) glue local pictures into a global portrait, respecting invariant sets and conserved quantities. The widget below lets you sweep a parameter $\mu$ through a Hopf-like bifurcation in $\dot x=\mu x-y-x(x^2+y^2),\ \dot y=x+\mu y-y(x^2+y^2)$ and watch the origin transition from stable spiral (negative $\mu$) to unstable spiral enclosing a limit cycle (positive $\mu$).</p>
+<p>That table is a <em>map</em> — so make it one you can walk. Drag the puck across the $(\tr,\det)$ plane below: the five shaded regimes match the rows above, the dashed parabola is $\det=\tr^2/4$ (the node–spiral boundary), and the readout names the eigenvalues live. The vertical line $\tr=0,\ \det>0$ is the <strong>center</strong> wall — a codimension-one boundary you can only land on by moving in two directions at once, never by setting two sliders in turn.</p>
+<div class="widget" id="w-trdet">
+  <div class="hd"><div class="ttl">The trace–determinant plane: scrub the atlas of 2D linear systems</div><div class="hint">drag the puck anywhere in the $(\tr A,\ \det A)$ plane. The eigenvalues of $A$ are $\lambda=\tfrac12\left(\tr A\pm\sqrt{\tr^2A-4\det A}\right)$, so the sign of $\det A$, the sign of $\tr A$, and the sign of the discriminant $\tr^2A-4\det A$ (the dashed parabola) carve the plane into saddle / node / spiral, stable below $\tr=0$. Try to land the puck exactly on the $\tr=0$ center line.</div></div>
+  <svg id="trdet-svg" viewBox="0 0 560 440" width="560" height="440" style="touch-action:none;cursor:crosshair;width:100%;max-width:560px;height:auto"><title>Drag a puck across the trace–determinant plane of a 2×2 linear system; regions are shaded saddle / node / spiral and the readout reports the eigenvalues.</title></svg>
+  <div class="row">
+    <button id="w-trdet-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="trdet-out">&nbsp;</div>
+</div><p>For a <em>nonlinear</em> system, the recipe is mechanical: (1) find all fixed points; (2) classify each by its Jacobian; (3) draw nullclines (zero sets of $\dot x$ and $\dot y$); (4) sample the direction field; (5) glue local pictures into a global portrait, respecting invariant sets and conserved quantities. The widget below lets you sweep a parameter $\mu$ through a Hopf-like bifurcation in $\dot x=\mu x-y-x(x^2+y^2),\ \dot y=x+\mu y-y(x^2+y^2)$ and watch the origin transition from stable spiral (negative $\mu$) to unstable spiral enclosing a limit cycle (positive $\mu$).</p>
 
 <div class="widget" id="w-phase">
   <div class="hd"><div class="ttl">Phase portrait explorer</div><div class="hint">preset · morph by μ · orbits seeded from a ring of ICs</div></div>
@@ -951,7 +959,97 @@ function decorate(BG){
 })();
 </script>
 
-
+<script>
+(function(){
+  const svg=$('#trdet-svg'), out=$('#trdet-out');
+  const G1=SVG('g'), G2=SVG('g'); svg.appendChild(G1); svg.appendChild(G2);
+  const X0=-4, X1=4, Y0=-3, Y1=6, GRID=56, LEGPOS="tl";
+  const XLAB="tr A", YLAB="det A";
+  const REG=[{"label":"saddle","color":"var(--violet)"},{"label":"stable node","color":"var(--cyan)"},{"label":"unstable node","color":"var(--pink)"},{"label":"stable spiral","color":"var(--green)"},{"label":"unstable spiral","color":"var(--blue)"}];
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 440').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], padL=52, padR=16, padT=16, padB=44;
+  const bx0=padL, bx1=W-padR, by0=Hh-padB, by1=padT; // pad pixel box (by0=bottom edge)
+  function PX(x){ return bx0+(x-X0)/(X1-X0)*(bx1-bx0); }
+  function PY(y){ return by0-(y-Y0)/(Y1-Y0)*(by0-by1); }
+  function XV(p){ return X0+(p-bx0)/(bx1-bx0)*(X1-X0); }
+  function YV(p){ return Y0+(by0-p)/(by0-by1)*(Y1-Y0); }
+  // ---- author hooks: classify(x,y) required; value/readout/decorate optional ----
+function classify(t,d){
+  if(d<0) return 0;                 // saddle: real eigenvalues of opposite sign
+  var disc=t*t-4*d;
+  if(disc>=0) return t<0?1:2;       // real same-sign: node (stable iff tr<0)
+  return t<0?3:4;                   // complex: spiral (stable iff tr<0)
+}
+function decorate(D){
+  // the parabola disc=0  <=>  det = tr^2/4 : the node/spiral boundary
+  var dd="", n=180;
+  for(var i=0;i<=n;i++){ var t=D.x0+(D.x1-D.x0)*i/n, d=t*t/4; if(d>D.y1) continue; dd+=(dd?"L":"M")+D.PX(t).toFixed(2)+" "+D.PY(d).toFixed(2)+" "; }
+  D.add(D.SVG("path",{d:dd,fill:"none",stroke:"var(--ink)","stroke-width":1.3,"stroke-dasharray":"5 3",opacity:0.55}));
+  var tl=D.x1*0.7, lab=D.SVG("text",{x:D.PX(tl)+4,y:D.PY(tl*tl/4)-4,"font-size":10,fill:"var(--ink)","text-anchor":"start",opacity:0.7}); lab.textContent="det = tr²/4"; D.add(lab);
+}
+function readout(t,d){
+  var disc=t*t-4*d, eps=0.06;
+  if(Math.abs(d)<eps) return "near the <b>det = 0</b> wall — a zero eigenvalue (non-hyperbolic, a line of fixed points) sits exactly at det = 0";
+  if(Math.abs(t)<eps && d>0){ var bi=Math.sqrt(Math.max(0,-disc))/2; return "near the <b>tr = 0 center wall</b> — eigenvalues "+(t/2).toFixed(2)+" ± "+bi.toFixed(2)+"i; a true <b>center</b> (purely imaginary ±"+Math.sqrt(d).toFixed(2)+"i) sits exactly at tr = 0, the seam between stable and unstable spirals"; }
+  if(Math.abs(disc)<eps) return "near the <b>tr² = 4·det</b> parabola — a <b>degenerate (improper) node</b> (repeated eigenvalue "+(t/2).toFixed(2)+") sits exactly on it, the seam between node and spiral";
+  if(disc>0){ var sq=Math.sqrt(disc); return "eigenvalues "+((t-sq)/2).toFixed(2)+", "+((t+sq)/2).toFixed(2)+" — real"; }
+  var im=Math.sqrt(-disc)/2; return "eigenvalues "+(t/2).toFixed(2)+" ± "+im.toFixed(2)+"i — complex";
+}
+  var hasValue=(typeof value==='function'), hasReadout=(typeof readout==='function'), hasDecorate=(typeof decorate==='function');
+  function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
+  function fmt(n){ return (n<0?'\u2212':'')+Math.abs(n).toFixed(2); }
+  let px=-1, py=2;
+  // ===== static layer: shaded regime map + axes + overlays (built once) =====
+  function buildStatic(){
+    while(G1.firstChild)G1.removeChild(G1.firstChild);
+    var aspect=(bx1-bx0)/(by0-by1), NX=GRID, NY=Math.max(8,Math.round(GRID/aspect));
+    var cw=(bx1-bx0)/NX, ch=(by0-by1)/NY;
+    for(var i=0;i<NX;i++){ for(var j=0;j<NY;j++){
+      var xc=X0+(i+0.5)/NX*(X1-X0), yc=Y0+(j+0.5)/NY*(Y1-Y0);
+      var r=classify(xc,yc); if(r==null||!REG[r]) continue;
+      G1.appendChild(SVG('rect',{x:(bx0+i*cw).toFixed(2),y:(by1+(NY-1-j)*ch).toFixed(2),width:(cw+0.6).toFixed(2),height:(ch+0.6).toFixed(2),fill:REG[r].color,'fill-opacity':0.17,stroke:'none'})); } }
+    G1.appendChild(SVG('rect',{x:bx0,y:by1,width:bx1-bx0,height:by0-by1,fill:'none',stroke:'var(--line)','stroke-width':1}));
+    if(X0<0&&X1>0){ G1.appendChild(SVG('line',{x1:PX(0),y1:by1,x2:PX(0),y2:by0,stroke:'var(--mute)','stroke-width':1,opacity:0.35,'stroke-dasharray':'2 3'})); }
+    if(Y0<0&&Y1>0){ G1.appendChild(SVG('line',{x1:bx0,y1:PY(0),x2:bx1,y2:PY(0),stroke:'var(--mute)','stroke-width':1,opacity:0.35,'stroke-dasharray':'2 3'})); }
+    if(hasDecorate) decorate({ add:function(el){G1.appendChild(el);}, SVG:SVG, PX:PX, PY:PY, x0:X0, x1:X1, y0:Y0, y1:Y1 });
+    function tick(v,horiz){ if(horiz){ G1.appendChild(SVG('line',{x1:PX(v),y1:by0,x2:PX(v),y2:by0+4,stroke:'var(--mute)','stroke-width':1})); var t=SVG('text',{x:PX(v),y:by0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'}); t.textContent=fmt(v); G1.appendChild(t); }
+      else { G1.appendChild(SVG('line',{x1:bx0-4,y1:PY(v),x2:bx0,y2:PY(v),stroke:'var(--mute)','stroke-width':1})); var t2=SVG('text',{x:bx0-7,y:PY(v)+3,'font-size':10,fill:'var(--mute)','text-anchor':'end'}); t2.textContent=fmt(v); G1.appendChild(t2); } }
+    tick(X0,true); tick((X0+X1)/2,true); tick(X1,true);
+    tick(Y0,false); tick((Y0+Y1)/2,false); tick(Y1,false);
+    var xl=SVG('text',{x:(bx0+bx1)/2,y:Hh-6,'font-size':12,fill:'var(--ink)','text-anchor':'middle'}); xl.textContent=XLAB; G1.appendChild(xl);
+    var yl=SVG('text',{x:14,y:(by0+by1)/2,'font-size':12,fill:'var(--ink)','text-anchor':'middle','transform':'rotate(-90 14 '+((by0+by1)/2)+')'}); yl.textContent=YLAB; G1.appendChild(yl);
+    if(LEGPOS!=='none'){ var lgW=128, lgRows=REG.length*15+6;
+      var lx=(LEGPOS==='tl'||LEGPOS==='bl')?bx0+8:bx1-lgW-2;
+      var ly0=(LEGPOS==='bl'||LEGPOS==='br')?by0-lgRows-2:by1+6;
+      for(var k=0;k<REG.length;k++){ var ly=ly0+13+k*15;
+        G1.appendChild(SVG('rect',{x:lx,y:ly-9,width:11,height:11,fill:REG[k].color,'fill-opacity':0.5,stroke:REG[k].color,'stroke-width':1}));
+        var lt=SVG('text',{x:lx+15,y:ly,'font-size':11,fill:'var(--ink)'}); lt.textContent=REG[k].label; G1.appendChild(lt); } }
+  }
+  // ===== dynamic layer: puck + crosshair + readout =====
+  function drawDyn(){
+    while(G2.firstChild)G2.removeChild(G2.firstChild);
+    var cx=PX(px), cy=PY(py);
+    G2.appendChild(SVG('line',{x1:cx,y1:by1,x2:cx,y2:by0,stroke:'var(--yellow)','stroke-width':1,opacity:0.45}));
+    G2.appendChild(SVG('line',{x1:bx0,y1:cy,x2:bx1,y2:cy,stroke:'var(--yellow)','stroke-width':1,opacity:0.45}));
+    G2.appendChild(SVG('circle',{cx:cx,cy:cy,r:8,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.6}));
+    var r=classify(px,py); var reg=(r!=null&&REG[r])?REG[r]:null;
+    var head=XLAB+' = <b>'+fmt(px)+'</b> &nbsp;\u00b7&nbsp; '+YLAB+' = <b>'+fmt(py)+'</b>';
+    var regHtml=reg?(' &nbsp;\u00b7&nbsp; <b style=\"color:'+reg.color+'\">'+reg.label+'</b>'):'';
+    var extra='';
+    if(hasReadout){ extra=' &nbsp;\u00b7&nbsp; '+readout(px,py); }
+    else if(hasValue){ extra=' &nbsp;\u00b7&nbsp; '+fmt(value(px,py)); }
+    out.innerHTML=head+regHtml+extra;
+  }
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return p; }
+  function setFrom(ev){ var p=toData(ev); px=clamp(XV(p.x),Math.min(X0,X1),Math.max(X0,X1)); py=clamp(YV(p.y),Math.min(Y0,Y1),Math.max(Y0,Y1)); drawDyn(); }
+  let drag=false;
+  svg.addEventListener('pointerdown',function(ev){ var p=toData(ev); if(p.x>=bx0-12&&p.x<=bx1+12&&p.y>=by1-12&&p.y<=by0+12){ drag=true; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} setFrom(ev); } });
+  window.addEventListener('pointermove',function(ev){ if(!drag)return; setFrom(ev); });
+  window.addEventListener('pointerup',function(){ drag=false; });
+  var rb=$('#w-trdet-reset'); if(rb) rb.addEventListener('click',function(){ px=-1; py=2; drawDyn(); });
+  buildStatic(); drawDyn();
+})();
+</script>
 </section>
 <section id="limit-cycles">
 <h2>4. Periodic orbits and limit cycles</h2>
