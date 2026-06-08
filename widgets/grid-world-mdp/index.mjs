@@ -71,14 +71,14 @@ export function renderScript(params) {
   function solve(){
     var V={}; for(var r=0;r<R;r++)for(var c=0;c<C;c++){ if(grid[r][c]==='#')continue; var t=term(r,c); V[key(r,c)]=(t!=null)?t:0; }
     function Q(r,c,dir){ var p=PERP[dir]; return (1-noise)*V[nxt(r,c,dir)] + (noise/2)*V[nxt(r,c,p[0])] + (noise/2)*V[nxt(r,c,p[1])]; }
-    var it=0; for(; it<2000; it++){ var d=0, Vn={};
+    var it=0, conv=false; for(; it<2000; it++){ var d=0, Vn={};
       for(var r=0;r<R;r++)for(var c=0;c<C;c++){ if(grid[r][c]==='#')continue; var k=key(r,c), t=term(r,c);
         if(t!=null){ Vn[k]=t; continue; }
         var best=-Infinity; for(var dir in ACT){ var q=STEP+gamma*Q(r,c,dir); if(q>best)best=q; } Vn[k]=best; if(Math.abs(Vn[k]-V[k])>d)d=Math.abs(Vn[k]-V[k]); }
-      V=Vn; if(d<1e-7) break; }
+      V=Vn; if(d<1e-7){ conv=true; it++; break; } }
     var pol={}; for(var r2=0;r2<R;r2++)for(var c2=0;c2<C;c2++){ if(grid[r2][c2]==='#'||term(r2,c2)!=null)continue;
       var best2=-Infinity, bd=null; for(var dir2 in ACT){ var q2=STEP+gamma*Q(r2,c2,dir2); if(q2>best2){best2=q2;bd=dir2;} } pol[key(r2,c2)]=bd; }
-    return {V:V, pol:pol, it:it};
+    return {V:V, pol:pol, it:it, conv:conv};
   }
   function render(){
     while(G.firstChild)G.removeChild(G.firstChild);
@@ -97,7 +97,9 @@ export function renderScript(params) {
         var vt=SVG('text',{x:cx,y:y+CELL-7,'font-size':11,fill:'var(--ink)','text-anchor':'middle','pointer-events':'none'}); vt.textContent=v.toFixed(2); G.appendChild(vt);
       }
     }
-    out.innerHTML = 'discount γ = <b>'+gamma.toFixed(2)+'</b> &nbsp;\\u00b7&nbsp; action noise = <b>'+(noise*100).toFixed(0)+'%</b> (slip) &nbsp;\\u00b7&nbsp; value iteration converged in <b>'+sol.it+'</b> sweeps &nbsp;\\u00b7&nbsp; <span style=\\"color:var(--mute)\\">arrows = greedy policy π*, shade = V* &nbsp;\\u00b7&nbsp; click a cell: empty → goal → pit → wall</span>';
+    var head='discount γ = <b>'+gamma.toFixed(2)+'</b> &nbsp;\\u00b7&nbsp; action noise = <b>'+(noise*100).toFixed(0)+'%</b> (slip) &nbsp;\\u00b7&nbsp; ';
+    if(sol.conv){ out.innerHTML = head+'value iteration converged in <b>'+sol.it+'</b> sweeps &nbsp;\\u00b7&nbsp; <span style=\\"color:var(--mute)\\">arrows = greedy policy π*, shade = V* &nbsp;\\u00b7&nbsp; click a cell: empty → goal → pit → wall</span>'; }
+    else { out.innerHTML = head+'<b style=\\"color:var(--pink)\\">did not converge</b> in '+sol.it+' sweeps \\u2014 with no terminal to anchor the values and γ = 1 the undiscounted values keep drifting, so these are <em>not</em> V*/π*. Add a goal or pit, or lower γ below 1.'; }
   }
   svg.addEventListener('click',function(ev){ var t=ev.target; if(t&&t.getAttribute&&t.getAttribute('data-r')!=null){ var r=+t.getAttribute('data-r'), c=+t.getAttribute('data-c'); var cyc={'.':'G','G':'P','P':'#','#':'.'}; grid[r][c]=cyc[grid[r][c]]; render(); } });
   $('#${widgetId}-gup').addEventListener('click',function(){ gamma=Math.min(1,Math.round((gamma+0.05)*100)/100); render(); });
