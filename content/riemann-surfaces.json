@@ -261,6 +261,45 @@
         },
         {
           "type": "raw",
+          "html": "\n<p>Riemann–Hurwitz reads a genus off a <em>map</em>. Here is the dual, purely combinatorial picture of the same invariant: every compact surface is a polygon with its edges glued in pairs — a <strong>gluing word</strong>. Glue the corners, count the vertex classes $V$, edges $E$ (one per letter) and the single face $F=1$; the Euler characteristic $\\chi = V - E + F$ then fixes the genus through $\\chi = 2 - 2g$ (orientable) or $\\chi = 2 - k$ (a connected sum of $k$ projective planes). Click an edge to flip its arrow and watch the surface jump — flipping a single edge of the torus word $aba^{-1}b^{-1}$ makes the pairing $aa$ instead of $a\\,a^{-1}$, and the torus becomes a Klein bottle.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "fold-the-polygon",
+          "params": {
+            "widgetId": "w-fold",
+            "svgId": "fold-svg",
+            "outputId": "fold-out",
+            "title": "Fold the polygon: glue the edges, read off the surface",
+            "hint": "each letter labels two edges that get glued; the arrow says which way. <strong>Click an edge</strong> to flip its arrow. The corner numbers are the vertex classes after gluing ($V$); the readout computes $\\chi = V - E + F$ and names the surface. Orientable iff every letter appears once forward and once backward.",
+            "svgTitle": "A polygon with directed, paired edges spelling a gluing word; clicking an edge flips its arrow and the readout reclassifies the resulting surface.",
+            "presets": [
+              {
+                "label": "torus  a b a⁻¹ b⁻¹",
+                "word": "a b a' b'"
+              },
+              {
+                "label": "sphere  a a⁻¹",
+                "word": "a a'"
+              },
+              {
+                "label": "ℝP²  a a",
+                "word": "a a"
+              },
+              {
+                "label": "Klein  a b a b⁻¹",
+                "word": "a b a b'"
+              },
+              {
+                "label": "genus 2",
+                "word": "a b a' b' c d c' d'"
+              }
+            ],
+            "initial": 0
+          }
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebraic-topology.html#pi1\">Fundamental group</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
@@ -271,6 +310,10 @@
           "type": "quiz",
           "concept": "genus-invariant",
           "html": "<div class=\"quiz\" data-concept=\"genus-invariant\"></div>"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-fold"
         },
         {
           "type": "raw",
