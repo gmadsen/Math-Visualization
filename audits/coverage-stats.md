@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1664** (registry-driven: 1664, inline: 0)
+- Widgets: **1665** (registry-driven: 1665, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -107,6 +107,7 @@ page has wired one in yet.
 | `bezout-statement` | bezout-statement | click | 2d | 1 | bezout |
 | `bifurcation-1d` | bifurcation-1d | dial | 2d | 1 | dynamical-systems |
 | `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 1 | galois |
+| `build-a-formula` | build-a-formula | compose-evaluate | 2d | 1 | first-order-logic-and-completeness |
 | `calabi-yau-canonical-degree` | calabi-yau-canonical-degree | slider | 2d | 1 | calabi-yau-manifolds |
 | `calabi-yau-hodge-diamond` | calabi-yau-hodge-diamond | slider | 2d | 1 | calabi-yau-manifolds |
 | `calabi-yau-hypersurface-zoo` | calabi-yau-hypersurface-zoo | click | 2d | 1 | calabi-yau-manifolds |
@@ -723,10 +724,10 @@ page has wired one in yet.
 ### Logic & Foundations
 
 - Topics: **8**, concepts: **49**
-- Widgets: **50** (registry-driven: 50, inline: 0)
-  - by family: clickable-diagram: 3, button-stepper: 1, nst-product-powerset: 1, nst-axiom-of-choice: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1, model-theory-signature-explorer: 1, model-theory-equivalence-prober: 1, model-theory-back-and-forth: 1, model-theory-types-explorer: 1, model-theory-ef-games: 1, model-theory-ax-grothendieck: 1, computability-turing-increment: 1, computability-recursion-tracer: 1, computability-halting-diagonal: 1, computability-rec-vs-re-venn: 1, computability-reduction-graph: 1, computability-godel-encoding: 1, complexity-growth-rates: 1, complexity-sat-verifier: 1, complexity-cook-levin-tableau: 1, complexity-karp-reduction: 1, complexity-savitch-recursion: 1, complexity-hierarchy-diagonal: 1, type-theory-context-builder: 1, type-theory-lambda-reduction: 1, type-theory-path-space: 1, type-theory-univalence-toggle: 1, type-theory-circle-winding: 1, type-theory-infty-groupoid: 1, forcing-poset: 1, forcing-generic-filter: 1, forcing-truth-table: 1, forcing-cohen-real: 1, forcing-continuum-landing: 1, forcing-dependency-map: 1
-  - by dimension: 2d: 50
-  - by gesture: click: 23, step: 13, slider: 3, toggle: 3, stepper: 2, type: 1, input: 1, graph-walk: 1, drag: 1, table: 1, diagram: 1
+- Widgets: **51** (registry-driven: 51, inline: 0)
+  - by family: clickable-diagram: 3, button-stepper: 1, nst-product-powerset: 1, nst-axiom-of-choice: 1, fol-term-tree: 1, fol-model-checker: 1, build-a-formula: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1, model-theory-signature-explorer: 1, model-theory-equivalence-prober: 1, model-theory-back-and-forth: 1, model-theory-types-explorer: 1, model-theory-ef-games: 1, model-theory-ax-grothendieck: 1, computability-turing-increment: 1, computability-recursion-tracer: 1, computability-halting-diagonal: 1, computability-rec-vs-re-venn: 1, computability-reduction-graph: 1, computability-godel-encoding: 1, complexity-growth-rates: 1, complexity-sat-verifier: 1, complexity-cook-levin-tableau: 1, complexity-karp-reduction: 1, complexity-savitch-recursion: 1, complexity-hierarchy-diagonal: 1, type-theory-context-builder: 1, type-theory-lambda-reduction: 1, type-theory-path-space: 1, type-theory-univalence-toggle: 1, type-theory-circle-winding: 1, type-theory-infty-groupoid: 1, forcing-poset: 1, forcing-generic-filter: 1, forcing-truth-table: 1, forcing-cohen-real: 1, forcing-continuum-landing: 1, forcing-dependency-map: 1
+  - by dimension: 2d: 51
+  - by gesture: click: 23, step: 13, slider: 3, toggle: 3, stepper: 2, compose-evaluate: 1, type: 1, input: 1, graph-walk: 1, drag: 1, table: 1, diagram: 1
 - Quizzes: **162** (v1: 147, hard: 15, expert: 0)
   - by type: mcq: 128, numeric: 34
 
@@ -958,7 +959,7 @@ page has wired one in yet.
 - `k-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `atiyah-singer-index-theorem` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+- `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
 - `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

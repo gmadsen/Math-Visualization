@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T03:01:19.219Z",
+  "generated": "2026-06-08T03:43:57.670Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -16,6 +16,14 @@
       "tag": "",
       "date": "2026-06-07",
       "message": "feat(widgets): cup-product-grid — a new \"drag-multiply\" gesture (cohomology ring table) (#465)"
+    },
+    {
+      "slug": "first-order-logic-and-completeness",
+      "title": "First order logic and completeness",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(fol): build-a-formula — compose-evaluate, the 21st gesture engine (#469)"
     },
     {
       "slug": "lie-algebras",
@@ -39,7 +47,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-06-07",
-      "message": "fixup: make the 1/x δ-collapse reachable + reconcile x² with prose + δ accuracy (review)"
+      "message": "feat(widgets): continuity-band-2d — a new \"slide-band\" gesture (ε–δ + uniform continuity) (#468)"
     },
     {
       "slug": "statistical-learning-theory",
@@ -1637,14 +1645,6 @@
       "slug": "infinity-categories",
       "title": "∞-categories (quasi-categories)",
       "color": "c",
-      "tag": "",
-      "date": "2026-05-12",
-      "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
-    },
-    {
-      "slug": "first-order-logic-and-completeness",
-      "title": "First order logic and completeness",
-      "color": "b",
       "tag": "",
       "date": "2026-05-12",
       "message": "New topic: Donaldson–Thomas & GW invariants (Algebraic geometry) (#173)"
