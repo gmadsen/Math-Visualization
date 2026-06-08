@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T02:19:31.942Z",
+  "generated": "2026-06-08T02:41:25.843Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -23,7 +23,7 @@
       "color": "y",
       "tag": "",
       "date": "2026-06-07",
-      "message": "feat(widgets): weight-ladder-sl2 — a new \"ladder-op\" gesture (sl₂ irreps Vₙ)"
+      "message": "feat(widgets): weight-ladder-sl2 — a new \"ladder-op\" gesture (sl₂ irreps Vₙ) (#467)"
     },
     {
       "slug": "probability-theory",
