@@ -89,12 +89,64 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "continuity-band-2d",
+          "params": {
+            "widgetId": "w-cband",
+            "svgId": "cband-svg",
+            "outputId": "cband-out",
+            "selectId": "cband-sel",
+            "title": "The ε–δ band, and uniform continuity: slide the point, watch δ",
+            "hint": "a function is <strong>continuous at $a$</strong> if for every tolerance $\\varepsilon$ there is a $\\delta$ with $f\\big((a-\\delta,a+\\delta)\\big)\\subset(f(a)-\\varepsilon,f(a)+\\varepsilon)$. <strong>Drag the point $a$</strong> along the domain (use ε± to change the tolerance) and watch the largest such $\\delta$ — the dashed box is where the bands meet, and the curve fits inside it. <strong>Uniform continuity</strong> asks for a single $\\delta$ that works for <em>every</em> $a$ at once: slide along $x^2$ or $\\sqrt{x}$ and $\\delta$ stays healthy, but slide $1/x$ toward $0$ and $\\delta$ collapses — no one $\\delta$ works near the origin.",
+            "svgTitle": "Drag the point a along a function; the epsilon-band and the largest matching delta-interval update, illustrating continuity and uniform continuity.",
+            "cases": [
+              {
+                "label": "f(x) = x²  on [−2, 2]",
+                "expr": "x*x",
+                "x0": -2,
+                "x1": 2,
+                "y0": -0.3,
+                "y1": 4.3,
+                "aInit": 1.2,
+                "eps": 0.6,
+                "note": "uniformly continuous on the compact [−2,2] (Heine–Cantor): δ is smallest where the slope is largest (the ends) but stays > 0. On all of ℝ, x² is NOT uniformly continuous — δ → 0 as a → ∞; it is the boundedness of [−2,2] that saves it"
+              },
+              {
+                "label": "f(x) = 1/x  on (0, 2]",
+                "expr": "1/x",
+                "x0": 0.06,
+                "x1": 2,
+                "y0": 0,
+                "y1": 17,
+                "aInit": 1,
+                "eps": 0.6,
+                "note": "NOT uniformly continuous on (0,1]: drag a toward 0 and δ collapses — no single δ works near the origin"
+              },
+              {
+                "label": "f(x) = √x  on [0, 4]",
+                "expr": "Math.sqrt(x)",
+                "x0": 0,
+                "x1": 4,
+                "y0": 0,
+                "y1": 2.1,
+                "aInit": 1,
+                "eps": 0.4,
+                "note": "uniformly continuous despite the vertical tangent at 0 — √ flattens the variation, so δ stays healthy"
+              }
+            ]
+          }
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
         {
           "type": "widget-script",
           "ref": "w-eps"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-cband"
         },
         {
           "type": "raw",

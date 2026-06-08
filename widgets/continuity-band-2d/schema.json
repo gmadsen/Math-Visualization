@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/continuity-band-2d/schema.json",
+  "title": "continuity-band-2d widget params",
+  "description": "A self-contained 'slide-band' engine for the epsilon-delta definition of continuity AND for uniform continuity. For a chosen function and a chosen tolerance epsilon, the reader drags the point a along the domain; the engine draws the horizontal epsilon-band [f(a)-eps, f(a)+eps] and computes the largest symmetric delta(a) such that f maps (a-delta, a+delta) into the band, drawing that delta-interval. As a slides, delta(a) changes — and the engine tracks the MINIMUM delta over the whole domain: uniform continuity is exactly 'one delta works for every a', so a positive minimum means uniformly continuous, while delta(a) -> 0 (e.g. 1/x as a -> 0, where no single delta works) means not. This turns the quantifier swap (forall a exists delta  vs  exists delta forall a) into a thing you slide. The renderer owns the plot, the draggable a, the band + delta-interval, the epsilon control, the running min-delta, and the readout; the functions are author-supplied. The gesture is 'slide-band' — sliding a tolerance window along a curve and watching the matching domain window. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers.",
+  "meta": {
+    "family": "continuity-band-2d",
+    "dimension": "2d",
+    "gesture": "slide-band",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "selectId",
+    "title",
+    "cases"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The epsilon +/- buttons derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing surface." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (delta(a), min delta, verdict)." },
+    "selectId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <select> function picker." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the point a and adjust epsilon." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 600 420'.", "default": "0 0 600 420" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 600.", "default": 600 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 420.", "default": 420 },
+    "cases": {
+      "type": "array",
+      "description": "The functions offered in the dropdown. Each gives a label, a JS expression `expr` in `x` for f(x), the domain [x0, x1], the y-window [y0, y1], an optional initial point `aInit`, an optional initial tolerance `eps`, and an optional `note` (e.g. the uniform-continuity verdict).",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "expr", "x0", "x1", "y0", "y1"],
+        "properties": {
+          "label": { "type": "string", "description": "Dropdown label, plain text." },
+          "expr": { "type": "string", "description": "JS expression for f(x) in terms of `x`, e.g. 'x*x', '1/x', 'Math.sqrt(x)'. Compiled with new Function." },
+          "x0": { "type": "number" },
+          "x1": { "type": "number" },
+          "y0": { "type": "number" },
+          "y1": { "type": "number" },
+          "aInit": { "type": "number", "description": "Initial position of the draggable point a (defaults to the domain midpoint)." },
+          "eps": { "type": "number", "description": "Initial tolerance epsilon (defaults to 1/8 of the y-window)." },
+          "note": { "type": "string", "description": "Optional short note shown in the readout (e.g. 'not uniformly continuous: delta -> 0 as a -> 0')." }
+        }
+      }
+    },
+    "resetLabel": { "type": "string", "description": "Reset control label. Default '↺ Reset'.", "default": "↺ Reset" }
+  }
+}

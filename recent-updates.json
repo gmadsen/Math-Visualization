@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T02:19:31.942Z",
+  "generated": "2026-06-08T03:01:19.219Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -23,7 +23,7 @@
       "color": "y",
       "tag": "",
       "date": "2026-06-07",
-      "message": "feat(widgets): weight-ladder-sl2 — a new \"ladder-op\" gesture (sl₂ irreps Vₙ)"
+      "message": "feat(widgets): weight-ladder-sl2 — a new \"ladder-op\" gesture (sl₂ irreps Vₙ) (#467)"
     },
     {
       "slug": "probability-theory",
@@ -32,6 +32,14 @@
       "tag": "",
       "date": "2026-06-07",
       "message": "feat(probability-theory): sampling-box on §clt — the CLT shown by Monte-Carlo (#464)"
+    },
+    {
+      "slug": "real-analysis",
+      "title": "Real analysis",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "fixup: make the 1/x δ-collapse reachable + reconcile x² with prose + δ accuracy (review)"
     },
     {
       "slug": "statistical-learning-theory",
@@ -160,14 +168,6 @@
       "tag": "",
       "date": "2026-06-05",
       "message": "feat(numerical-analysis): animated trapezoid quadrature (animated-svg-2d) (#445)"
-    },
-    {
-      "slug": "real-analysis",
-      "title": "Real analysis",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-05",
-      "message": "feat(real-analysis): draw-f-see-f′ derivative sketch (sketch-curve-2d) (#442)"
     },
     {
       "slug": "spectral-graph-theory",

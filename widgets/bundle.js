@@ -3148,6 +3148,28 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "continuity-band-2d",
+    "family": "continuity-band-2d",
+    "dimension": "2d",
+    "gesture": "slide-band",
+    "role": "explore",
+    "title": "continuity-band-2d widget params",
+    "description": "A self-contained 'slide-band' engine for the epsilon-delta definition of continuity AND for uniform continuity. For a chosen function and a chosen tolerance epsilon, the reader drags the point a along the domain; the engine draws the horizontal epsilon-band [f(a)-eps, f(a)+eps] and computes the largest symmetric delta(a) such that f maps (a-delta, a+delta) into the band, drawing that delta-interval. As a slides, delta(a) changes — and the engine tracks the MINIMUM delta over the whole domain: uniform continuity is exactly 'one delta works for every a', so a positive minimum means uniformly continuous, while delta(a) -> 0 (e.g. 1/x as a -> 0, where no single delta works) means not. This turns the quantifier swap (forall a exists delta  vs  exists delta forall a) into a thing you slide. The renderer owns the plot, the draggable a, the band + delta-interval, the epsilon control, the running min-delta, and the readout; the functions are author-supplied. The gesture is 'slide-band' — sliding a tolerance window along a curve and watching the matching domain window. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "selectId",
+      "title",
+      "cases"
+    ],
+    "readmeExcerpt": "Self-contained **\"slide-band\"** engine for the $\\varepsilon$–$\\delta$ definition of continuity **and** for uniform continuity — the corpus's `slide-band` gesture. For a chosen function and tolerance $\\varepsilon$, the reader **drags the point $a$** along the domain; the engine draws the horizontal $\\varepsilon$-band $[f(a)-\\varepsilon, f(a)+\\varepsilon]$ and the largest symmetric $\\delta(a)$ whose interval $f$ maps into the band. Sliding $a$ shows $\\delta(a)$ change — collapsing toward $0$ for $1/x$ near the origin (**not** uniformly continuous), staying healthy for a bounded-slope $f$. First home: `real-analysis §real-continuity`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "contour-residue-2d",
     "family": "contour-residue-2d",
     "dimension": "2d",
