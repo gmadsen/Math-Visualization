@@ -725,11 +725,11 @@ function drawNode(svg, x, y, label, opts={}){
   <svg viewBox="-220 -90 440 160" width="100%" height="200" id="wd-svg"><title>Weight diagram of $V_n$</title></svg>
   <p class="small" style="margin:.4rem 0 0">$\dim V_n = n+1$. Casimir $C=ef+fe+\tfrac12 h^2$ acts on $V_n$ as the scalar $\tfrac{n(n+2)}{2}$ — the analogue of $j(j+1)$ in physics with $j=n/2$.</p>
 </div><div class="widget" id="w-sl2-ladder">
-  <div class="hd"><div class="ttl">The sl₂ ladder: raise and lower to build the irrep Vₙ</div><div class="hint">every irreducible $\mathfrak{sl}_2(\mathbb{C})$ representation is a single string of weights $n, n-2, \dots, -n$. Start at the highest-weight vector $v_0$ and press <strong>f</strong> to lower (weight drops by $2$) — dropping repeatedly spawns the whole $(n+1)$-dimensional irrep $V_n$; press <strong>e</strong> to raise ($+2$). The operators die at the ends: $e\cdot v_0 = 0$ (nothing above the highest weight) and $f\cdot v_n = 0$ (nothing below the lowest). Use the <strong>dim</strong> buttons to grow or shrink the ladder.</div></div>
+  <div class="hd"><div class="ttl">The sl₂ ladder: raise and lower to build the irrep Vₙ</div><div class="hint">every irreducible $\mathfrak{sl}_2(\mathbb{C})$ representation is a single string of weights $n, n-2, \dots, -n$. Start at the highest-weight vector $v_0$ and press <strong>f</strong> to lower (weight drops by $2$) — dropping repeatedly spawns the whole $(n+1)$-dimensional irrep $V_n$; press <strong>e</strong> to raise ($+2$). The operators die at the ends: $e\cdot v_0 = 0$ (nothing above the highest weight) and $f\cdot v_n = 0$ (nothing below the lowest). Use the <strong>dim</strong> buttons to grow or shrink the ladder. (The integer action coefficients use the standard basis $v_k=\tfrac{1}{k!}f^k v_0$, giving $e\cdot v_k=(n-k+1)v_{k-1}$ and $f\cdot v_k=(k+1)v_{k+1}$.)</div></div>
   <svg id="sl2-ladder-svg" viewBox="0 0 460 420" width="460" height="420" style="touch-action:none;width:100%;max-width:460px;height:auto"><title>The weight ladder of the irreducible sl_2 representation V_n; raise with e, lower with f, each killed at the appropriate end.</title></svg>
   <div class="row">
-    <button id="w-sl2-ladder-raise" type="button">raise: e ·</button>
-    <button id="w-sl2-ladder-lower" type="button">lower: f ·</button>
+    <button id="w-sl2-ladder-raise" type="button">raise: e·v</button>
+    <button id="w-sl2-ladder-lower" type="button">lower: f·v</button>
     <button id="w-sl2-ladder-top" type="button">↥ highest weight</button>
   </div>
   <div class="row">

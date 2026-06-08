@@ -21,8 +21,8 @@ export function renderMarkup(params) {
     `  <div class="hd"><div class="ttl">${title}</div>${hintHtml}</div>\n` +
     `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}" style="touch-action:none;width:100%;max-width:${svgWidth}px;height:auto"><title>${svgTitle}</title></svg>\n` +
     `  <div class="row">\n` +
-    `    <button id="${widgetId}-raise" type="button">raise: e ·</button>\n` +
-    `    <button id="${widgetId}-lower" type="button">lower: f ·</button>\n` +
+    `    <button id="${widgetId}-raise" type="button">raise: e·v</button>\n` +
+    `    <button id="${widgetId}-lower" type="button">lower: f·v</button>\n` +
     `    <button id="${widgetId}-top" type="button">↥ highest weight</button>\n` +
     `  </div>\n` +
     `  <div class="row">\n` +
