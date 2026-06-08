@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1669** (registry-driven: 1669, inline: 0)
+- Widgets: **1670** (registry-driven: 1670, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -335,6 +335,7 @@ page has wired one in yet.
 | `general-relativity-light-cones` | general-relativity-light-cones | drag | 2d | 1 | general-relativity |
 | `general-relativity-schwarzschild` | general-relativity-schwarzschild | slider | 2d | 1 | general-relativity |
 | `gmt-currents` | verbatim | click | 2d | 1 | geometric-measure-theory |
+| `grid-world-mdp` | grid-world-mdp | edit-grid | 2d | 1 | markov-decision-processes |
 | `grothendieck-topologies-sites-axioms-scrub` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-geom-comp` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-giraud` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
@@ -836,10 +837,10 @@ page has wired one in yet.
 ### Control theory & optimization
 
 - Topics: **9**, concepts: **58**
-- Widgets: **63** (registry-driven: 63, inline: 0)
-  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, animated-svg-2d: 3, sketch-curve-2d: 1, inline-code-cell: 1, clickable-diagram: 1
-  - by dimension: 2d: 63
-  - by gesture: slider: 49, click: 6, play: 3, select: 2, scrub: 1, draw: 1, edit: 1
+- Widgets: **64** (registry-driven: 64, inline: 0)
+  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, animated-svg-2d: 3, sketch-curve-2d: 1, inline-code-cell: 1, clickable-diagram: 1, grid-world-mdp: 1
+  - by dimension: 2d: 64
+  - by gesture: slider: 49, click: 6, play: 3, select: 2, scrub: 1, draw: 1, edit: 1, edit-grid: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)
   - by type: mcq: 116, numeric: 36, multi-select: 14, matching: 4, spot-the-error: 2, ordering: 2
 
@@ -877,7 +878,7 @@ page has wired one in yet.
 - `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
 - `kalman-filtering-and-state-estimation` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `statistical-learning-theory` (Learning theory & data science) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `markov-decision-processes` (Control theory & optimization) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
+- `markov-decision-processes` (Control theory & optimization) — concepts=6, widgets=8 (slug=8), quiz=18 (v1=18, hard=0, expert=0)
 - `ramsey-theory` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `order-theory-and-lattices` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `algebraic-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

@@ -151,6 +151,32 @@
           "html": "<section id=\"bellman-optimality\">\n<h2>3. Bellman optimality</h2>\n<p>Among all policies there is a best achievable value at each state, the <strong>optimal value function</strong> $V^*(s)=\\max_\\pi V^\\pi(s)$. It satisfies the <strong>Bellman optimality equation</strong> — the expectation equation with the policy average replaced by a maximum over actions:</p>\n<p style=\"text-align:center\">$\\displaystyle V^*(s) = \\max_{a}\\Big\\{\\,R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)\\,V^*(s')\\,\\Big\\} = \\max_a Q^*(s,a),$</p>\n<p>with the optimal action-value $Q^*(s,a)=R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)\\,V^*(s')$. This is a <em>nonlinear</em> system (the max is the kink), so it is not solved by a matrix inverse — that is what the next two sections are for. The discrete-time Bellman recursion is precisely the <a href=\"./optimal-control-and-dynamic-programming.html#dp\">dynamic-programming principle of optimality</a> specialised to a stationary, infinite-horizon, discounted problem.</p>\n<p>Once $V^*$ (equivalently $Q^*$) is known, an <strong>optimal policy</strong> is read off greedily:</p>\n<p style=\"text-align:center\">$\\displaystyle \\pi^*(s) \\in \\arg\\max_a\\ Q^*(s,a) = \\arg\\max_a\\Big\\{R(s,a)+\\gamma\\sum_{s'}P(s'\\mid s,a)V^*(s')\\Big\\}.$</p>\n<p>A central theorem: every finite discounted MDP has at least one <em>deterministic stationary</em> optimal policy, and it is simultaneously optimal from <em>every</em> start state. You never need to randomise or to remember the clock to act optimally.</p>\n<div class=\"note\"><strong>Worked mini-example.</strong> On the running MDP the goal contributes $V^*(s_2)=\\tfrac{1}{1-\\gamma}$. Advancing dominates idling everywhere: at $s_1$, $Q^*(s_1,a)=5+\\gamma(0.8\\,V^*(s_2)+0.2\\,V^*(s_0))$ beats $Q^*(s_1,b)=-1+\\gamma V^*(s_1)$, and at $s_0$, $Q^*(s_0,a)=\\gamma V^*(s_1)$ beats $Q^*(s_0,b)=\\gamma V^*(s_0)$. So $\\pi^*\\equiv a$ for every $\\gamma\\in[0,1)$; at $\\gamma=0.9$ the optimal values are $V^*\\approx(13.10,\\,14.56,\\,10)$.</div>\n<p>Slide $\\gamma$ and watch $V^*$, the per-action $Q^*$ comparison, and the greedy optimal policy (drawn in green).</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n<p>The optimality equation is easiest to <em>see</em> on a map. The grid-world below is an MDP: each cell is a state, the four moves are the actions, a <span style=\"color:var(--green)\">goal</span> and a <span style=\"color:var(--pink)\">pit</span> are terminal, every other step costs a little, and the moves are <strong>noisy</strong> — the intended direction succeeds most of the time but occasionally slips sideways. <strong>Value iteration</strong> applies $V \\leftarrow \\max_a\\{R+\\gamma\\sum_{s'}P(s'\\mid s,a)V(s')\\}$ until it stops changing; the widget then shades each cell by $V^*$ and draws the <strong>greedy policy</strong> $\\pi^*(s)=\\arg\\max_a Q^*(s,a)$ as an arrow. Click a cell to rewrite the world, or change $\\gamma$ and the slip noise — and watch the optimal policy re-solve. Turn the noise up and the policy near the pit grows cautious, steering wide of the cliff.</p>\n"
+        },
+        {
+          "type": "widget",
+          "slug": "grid-world-mdp",
+          "params": {
+            "widgetId": "w-gw",
+            "svgId": "gw-svg",
+            "outputId": "gw-out",
+            "title": "Grid-world: value iteration paints V* and the greedy policy π*",
+            "hint": "each cell is a state; the four moves are the actions, with a <strong>slip</strong> chance to either side (the <em>noise</em>). The arrows are the greedy policy $\\pi^*$, the shading and the small number are the optimal value $V^*$. <strong>Click a cell</strong> to cycle empty → goal → pit → wall; use the γ and noise buttons. Everything re-solves by value iteration on each change.",
+            "svgTitle": "A grid-world Markov decision process: cells shaded by the optimal value function, with the greedy policy drawn as an arrow in each cell.",
+            "layout": [
+              "...G",
+              ".#.P",
+              "...."
+            ],
+            "goalReward": 1,
+            "pitReward": -1,
+            "stepReward": -0.04,
+            "gammaInit": 1,
+            "noiseInit": 0.2
+          }
+        },
+        {
           "type": "widget",
           "slug": "parametric-plot",
           "params": {
@@ -200,6 +226,10 @@
           "type": "quiz",
           "concept": "mdp-bellman-optimality",
           "html": "<div class=\"quiz\" data-concept=\"mdp-bellman-optimality\"></div>"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-gw"
         },
         {
           "type": "raw",
