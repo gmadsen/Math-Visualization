@@ -13921,6 +13921,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "unroll-the-cover",
+    "family": "unroll-the-cover",
+    "dimension": "2d",
+    "gesture": "wind-loop",
+    "role": "explore",
+    "title": "unroll-the-cover widget params",
+    "description": "A self-contained 'wind-loop' engine for the universal cover p : R -> S^1, t |-> e^{2 pi i t}. The reader drags a point around the base circle S^1; the engine tracks the UNWRAPPED (continuous) angle, so going around once raises the lift by one. A second panel shows the cover R as a vertical real line whose integer ticks are exactly the fibre Z over the basepoint, with the lifted path climbing and its endpoint landing on an integer once the loop closes — that integer IS the winding number, the element of pi_1(S^1) = Z. Drag clockwise to wind the other way (negative integers). Turns continuous loop data into a single integer, which is the whole point of the cover. The renderer owns the drag-to-wind gesture (with angle unwrapping), the base circle + swept trail, the cover line + climbing lift, the close-the-loop snap, and the readout. The gesture is 'wind-loop' — accumulating turns around a circle and watching them lift to an integer. jsdom-safe: createSVGPoint/getScreenCTM run only inside the pointer handlers.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "Self-contained **\"wind-loop\"** engine for the universal cover $p:\\mathbb{R}\\to S^1$, $t\\mapsto e^{2\\pi i t}$ — the corpus's `wind-loop` gesture. The reader **drags a point around the base circle** $S^1$; the engine tracks the **unwrapped** (continuous) angle, so going around once raises the lift by one. A second panel draws the cover $\\mathbb{R}$ as a vertical real line whose integer ticks are exactly the **fibre $\\mathbb{Z}$** over the basepoint, with the lifted path climbing and its endpoint landing on an integer once the loop closes — that integer **is** the **winding number**, the element of $\\pi_1(S^1)=\\mathbb{Z}$. First home: `algebraic-topology §universal-cover-circle`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "variational-brachistochrone",
     "family": "variational-brachistochrone",
     "dimension": "2d",

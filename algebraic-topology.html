@@ -718,7 +718,15 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The exponential map $p\colon \mathbb{R}\to S^1$, $t\mapsto e^{2\pi i t}$, is the canonical example of a <strong>covering space</strong>: every point of $S^1$ has a small arc whose preimage in $\mathbb{R}$ splits into a disjoint family of intervals, one per integer translate. The fibre over the basepoint $*=1$ is exactly $\mathbb{Z}\subset\mathbb{R}$, which is what makes the integers appear inside the topology of the circle.</p>
 
 <p>This cover is called <em>universal</em> because its total space $\mathbb{R}$ is simply connected — and any covering by a simply connected space is initial among covers, dominating all others. Lifting a based loop $\gamma\colon[0,1]\to S^1$ to a path $\tilde\gamma\colon[0,1]\to\mathbb{R}$ with $\tilde\gamma(0)=0$ converts continuous loop data into a single integer endpoint $\tilde\gamma(1)\in\mathbb{Z}$, the <em>winding number</em>. The deck-transformation group $\mathbb{Z}$ acts on $\mathbb{R}$ by integer translation, with quotient $S^1$, and the proof-scrubber below walks through how this picture upgrades into the iso $\pi_1(S^1)\cong\mathbb{Z}$.</p>
-<div class="widget" id="w-pi1-s1"></div><script>
+<div class="widget" id="w-pi1-s1"></div><div class="widget" id="w-unroll">
+  <div class="hd"><div class="ttl">Unroll the cover: wind a loop, watch the lift climb to π₁(S¹) = ℤ</div><div class="hint">drag the cyan point $\gamma$ around the circle $S^1$. The engine tracks the <em>unwrapped</em> angle, so the lift on the cover $\mathbb{R}$ (right) climbs: one full loop raises it by exactly one integer, and the integer ticks on $\mathbb{R}$ are the <strong>fibre $\mathbb{Z}$</strong> over the basepoint $*$. Drag clockwise to wind the other way (negative). Bring $\gamma$ back to $*$ and <strong>close the loop</strong>: the lift lands on an integer — that integer is the <strong>winding number</strong>, the element of $\pi_1(S^1)=\mathbb{Z}$.</div></div>
+  <svg id="unroll-svg" viewBox="0 0 600 420" width="600" height="420" style="touch-action:none;cursor:grab;width:100%;max-width:600px;height:auto"><title>Drag a loop around the base circle; the lift climbs the cover R, and the closed-loop endpoint is the winding number in pi_1(S^1) = Z.</title></svg>
+  <div class="row">
+    <button id="w-unroll-close" type="button">Close the loop</button>
+    <button id="w-unroll-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="unroll-out">&nbsp;</div>
+</div><script>
 (function(){
   if(!window.MVProofScrubber) return;
   MVProofScrubber.init('#w-pi1-s1', {
@@ -764,6 +772,69 @@ function drawNode(svg, x, y, label, opts={}){
       },
     ],
   });
+})();
+</script><script>
+(function(){
+  const svg=$('#unroll-svg'), out=$('#unroll-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const MAXT=3, TAU=2*Math.PI;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 600 420').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const cxL=W*0.27, cyC=Hh*0.52, RR=Math.min(W,Hh)*0.27;
+  const cxR=W*0.74, yTop=Hh*0.12, yBot=Hh*0.92;
+  function yOfT(t){ return yTop + (MAXT - t)/(2*MAXT)*(yBot - yTop); }
+  let Phi=0;          // unwrapped angle in radians (Phi/TAU = lift t)
+  function f(n){ return (n<0?'\u2212':'')+Math.abs(n).toFixed(2); }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    var t=Phi/TAU;
+    // ===== LEFT: base circle S^1 with the winding spiral =====
+    G.appendChild(SVG('circle',{cx:cxL,cy:cyC,r:RR,fill:'none',stroke:'var(--line)','stroke-width':1.5}));
+    G.appendChild(SVG('text',{x:cxL,y:cyC-RR-8,'font-size':12,fill:'var(--mute)','text-anchor':'middle'})).textContent='S\u00b9';
+    // basepoint * at angle 0 (right)
+    G.appendChild(SVG('circle',{cx:cxL+RR,cy:cyC,r:4,fill:'var(--mute)'}));
+    var bl=SVG('text',{x:cxL+RR+8,y:cyC+4,'font-size':12,fill:'var(--mute)'}); bl.textContent='\u2217'; G.appendChild(bl);
+    // winding spiral from s=0 to s=t (radius shrinks 7px per turn so loops nest)
+    var d='', N=Math.max(2,Math.round(Math.abs(t)*60)+2);
+    for(var i=0;i<=N;i++){ var s=t*i/N, r=RR-7*Math.abs(s); var ang=TAU*s;
+      var x=cxL+r*Math.cos(ang), y=cyC-r*Math.sin(ang); d+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)+' '; }
+    G.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));
+    // current point P at s=t
+    var rP=RR-7*Math.abs(t), aP=TAU*t, Px=cxL+rP*Math.cos(aP), Py=cyC-rP*Math.sin(aP);
+    G.appendChild(SVG('circle',{cx:Px,cy:Py,r:7,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5}));
+    var pl=SVG('text',{x:Px+9,y:Py+4,'font-size':12,fill:'var(--cyan)'}); pl.textContent='\u03b3'; G.appendChild(pl);
+    // ===== RIGHT: cover R as a vertical real line, fibre Z over * =====
+    G.appendChild(SVG('line',{x1:cxR,y1:yTop,x2:cxR,y2:yBot,stroke:'var(--ink)','stroke-width':1.5}));
+    G.appendChild(SVG('text',{x:cxR,y:yTop-10,'font-size':12,fill:'var(--mute)','text-anchor':'middle'})).textContent='\u211d  (cover)';
+    for(var k=-MAXT;k<=MAXT;k++){ var yk=yOfT(k); G.appendChild(SVG('line',{x1:cxR-6,y1:yk,x2:cxR+6,y2:yk,stroke:k===0?'var(--mute)':'var(--line)','stroke-width':k===0?2:1}));
+      var tk=SVG('text',{x:cxR+12,y:yk+4,'font-size':11,fill:k===0?'var(--ink)':'var(--mute)'}); tk.textContent=(k>0?'+':'')+k+(k===0?'   = basepoint *':''); G.appendChild(tk); }
+    var fl=SVG('text',{x:cxR-46,y:(yTop+yBot)/2,'font-size':11,fill:'var(--mute)','text-anchor':'middle','transform':'rotate(-90 '+(cxR-46)+' '+((yTop+yBot)/2)+')'}); fl.textContent='fibre = \u2124'; G.appendChild(fl);
+    // the lifted path from 0 to t
+    var tc=Math.max(-MAXT,Math.min(MAXT,t));
+    G.appendChild(SVG('line',{x1:cxR,y1:yOfT(0),x2:cxR,y2:yOfT(tc),stroke:'var(--cyan)','stroke-width':4,opacity:0.7}));
+    G.appendChild(SVG('circle',{cx:cxR,cy:yOfT(tc),r:7,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5}));
+    var lift=SVG('text',{x:cxR-12,y:yOfT(tc)+4,'font-size':12,fill:'var(--cyan)','text-anchor':'end'}); lift.textContent='lift'; G.appendChild(lift);
+    // connector p(lift)=P
+    var arr=SVG('text',{x:(cxL+RR+cxR)/2,y:Hh*0.28,'font-size':11,fill:'var(--mute)','text-anchor':'middle'}); arr.textContent='p : \u211d \u2192 S\u00b9,  t \u21a6 e^{2\u03c0it}'; G.appendChild(arr);
+    // ===== readout =====
+    var frac=Math.abs(t-Math.round(t)), closed=frac<0.02;
+    var base='lift t = \u03a6/2\u03c0 = <b>'+f(t)+'</b> turn'+(Math.abs(t-1)<1e-9?'':'s')+' &nbsp;\u00b7&nbsp; \u03b3 is at e^{2\u03c0i\u00b7'+f(t)+'} on S\u00b9';
+    if(closed){ var wn=Math.round(t); var wstr=(wn>0?'+':(wn<0?'\u2212':''))+Math.abs(wn); base+=' &nbsp;\u00b7&nbsp; <b style=\"color:var(--green)\">loop closed: winding number = '+wstr+' \u2208 \u03c0\u2081(S\u00b9) = \u2124</b>'; }
+    else { base+=' &nbsp;\u00b7&nbsp; drag back to \u2217 to close the loop and read the integer'; }
+    out.innerHTML=base;
+  }
+  // ---- drag to wind: accumulate the unwrapped angle ----
+  function ang(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return Math.atan2(cyC-p.y, p.x-cxL); }
+  let drag=false, lastA=0;
+  svg.addEventListener('pointerdown',function(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); if(p.x<cxL+RR+40){ drag=true; lastA=ang(ev); ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} } });
+  // accumulate the unwrapped angle: each move's delta is reduced to (-pi,pi] and added,
+  // which lifts atan2 continuously across its branch cut. Assumes no single pointermove
+  // jumps more than half a turn (true at any real pointer sampling rate).
+  window.addEventListener('pointermove',function(ev){ if(!drag)return; var a=ang(ev), dA=a-lastA; while(dA>Math.PI)dA-=TAU; while(dA<-Math.PI)dA+=TAU; Phi+=dA; lastA=a; render(); });
+  window.addEventListener('pointerup',function(){ drag=false; });
+  var cb=$('#w-unroll-close'); if(cb) cb.addEventListener('click',function(){ Phi=Math.round(Phi/TAU)*TAU; render(); });
+  var rb=$('#w-unroll-reset'); if(rb) rb.addEventListener('click',function(){ Phi=0; render(); });
+  render();
 })();
 </script><div class="quiz" data-concept="universal-cover-of-circle"></div>
 </section>

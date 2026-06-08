@@ -280,8 +280,25 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "unroll-the-cover",
+          "params": {
+            "widgetId": "w-unroll",
+            "svgId": "unroll-svg",
+            "outputId": "unroll-out",
+            "title": "Unroll the cover: wind a loop, watch the lift climb to π₁(S¹) = ℤ",
+            "hint": "drag the cyan point $\\gamma$ around the circle $S^1$. The engine tracks the <em>unwrapped</em> angle, so the lift on the cover $\\mathbb{R}$ (right) climbs: one full loop raises it by exactly one integer, and the integer ticks on $\\mathbb{R}$ are the <strong>fibre $\\mathbb{Z}$</strong> over the basepoint $*$. Drag clockwise to wind the other way (negative). Bring $\\gamma$ back to $*$ and <strong>close the loop</strong>: the lift lands on an integer — that integer is the <strong>winding number</strong>, the element of $\\pi_1(S^1)=\\mathbb{Z}$.",
+            "svgTitle": "Drag a loop around the base circle; the lift climbs the cover R, and the closed-loop endpoint is the winding number in pi_1(S^1) = Z.",
+            "maxTurns": 3
+          }
+        },
+        {
           "type": "widget-script",
           "ref": "w-pi1-s1"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-unroll"
         },
         {
           "type": "quiz",
