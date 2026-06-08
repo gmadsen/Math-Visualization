@@ -18,8 +18,8 @@ thing your hand does — wind, and watch the integer appear.
 
 - **Drag the point $\gamma$ around the circle.** Each full loop raises the lift
   one integer level; drag clockwise to wind the other way (negative). **Close the
-  loop** snaps $\gamma$ back to the basepoint so the lift lands exactly on its
-  integer; **Reset** returns to $0$.
+  loop** snaps $\gamma$ back to the basepoint (rounding the lift to the *nearest
+  completed turn*) so it lands exactly on its integer; **Reset** returns to $0$.
 
 ## Division of labor
 

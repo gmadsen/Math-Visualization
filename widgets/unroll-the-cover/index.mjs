@@ -89,6 +89,9 @@ export function renderScript(params) {
     `  function ang(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return Math.atan2(cyC-p.y, p.x-cxL); }\n` +
     `  let drag=false, lastA=0;\n` +
     `  svg.addEventListener('pointerdown',function(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); if(p.x<cxL+RR+40){ drag=true; lastA=ang(ev); ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} } });\n` +
+    `  // accumulate the unwrapped angle: each move's delta is reduced to (-pi,pi] and added,\n` +
+    `  // which lifts atan2 continuously across its branch cut. Assumes no single pointermove\n` +
+    `  // jumps more than half a turn (true at any real pointer sampling rate).\n` +
     `  window.addEventListener('pointermove',function(ev){ if(!drag)return; var a=ang(ev), dA=a-lastA; while(dA>Math.PI)dA-=TAU; while(dA<-Math.PI)dA+=TAU; Phi+=dA; lastA=a; render(); });\n` +
     `  window.addEventListener('pointerup',function(){ drag=false; });\n` +
     `  var cb=$('#${widgetId}-close'); if(cb) cb.addEventListener('click',function(){ Phi=Math.round(Phi/TAU)*TAU; render(); });\n` +

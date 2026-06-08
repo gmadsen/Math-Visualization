@@ -1,6 +1,14 @@
 {
-  "generated": "2026-06-08T01:40:20.085Z",
+  "generated": "2026-06-08T01:51:54.716Z",
   "entries": [
+    {
+      "slug": "algebraic-topology",
+      "title": "Algebraic topology",
+      "color": "c",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(widgets): unroll-the-cover — a new \"wind-loop\" gesture (universal cover of S¹)"
+    },
     {
       "slug": "cohomology-and-duality",
       "title": "Cohomology and duality",
@@ -200,14 +208,6 @@
       "tag": "",
       "date": "2026-05-31",
       "message": "feat(algebraic-number-theory): discriminant ramification-fingerprint widget (#418)"
-    },
-    {
-      "slug": "algebraic-topology",
-      "title": "Algebraic topology",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-31",
-      "message": "feat(algebraic-topology): homotopy-of-paths widget (#420)"
     },
     {
       "slug": "infinity-topoi",
