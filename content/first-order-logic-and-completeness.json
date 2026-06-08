@@ -77,6 +77,131 @@
           }
         },
         {
+          "type": "widget",
+          "slug": "build-a-formula",
+          "params": {
+            "widgetId": "w-bform",
+            "formulaId": "bform-formula",
+            "svgId": "bform-svg",
+            "outputId": "bform-out",
+            "title": "Build a formula: compose a sentence, see which structures model it",
+            "hint": "click the tiles to assemble a first-order sentence about one binary relation $R$ (read $R$ as the edges of a directed graph), in <strong>prefix</strong> order — e.g. $\\forall x\\,\\exists y\\,R(x,y)$ says “every node has an out-edge.” Quantifiers and ¬ take one following subformula; ∧, ∨, → take two. The engine evaluates your sentence on each structure below and marks the ones that <strong>model</strong> it ✓. Leave a variable unbound and you have built a <em>formula</em>, not a sentence — add a quantifier to bind it.",
+            "svgTitle": "Four small directed graphs; each is marked with a check if it satisfies the first-order sentence you have built.",
+            "structures": [
+              {
+                "label": "empty",
+                "n": 3,
+                "edges": []
+              },
+              {
+                "label": "cycle",
+                "n": 3,
+                "edges": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ]
+              },
+              {
+                "label": "sink at 2",
+                "n": 3,
+                "edges": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    2
+                  ]
+                ]
+              },
+              {
+                "label": "total (all pairs)",
+                "n": 3,
+                "edges": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ]
+              }
+            ],
+            "presets": [
+              {
+                "label": "∀x∃y R(x,y)",
+                "tokens": [
+                  "Ax",
+                  "Ey",
+                  "Rxy"
+                ]
+              },
+              {
+                "label": "∃x R(x,x)",
+                "tokens": [
+                  "Ex",
+                  "Rxx"
+                ]
+              },
+              {
+                "label": "symmetric",
+                "tokens": [
+                  "Ax",
+                  "Ay",
+                  "IMP",
+                  "Rxy",
+                  "Ryx"
+                ]
+              }
+            ]
+          }
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
@@ -96,6 +221,10 @@
         {
           "type": "widget-script",
           "ref": "w-modelcheck"
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bform"
         },
         {
           "type": "raw",

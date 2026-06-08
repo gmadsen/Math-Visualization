@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/build-a-formula/schema.json",
+  "title": "build-a-formula widget params",
+  "description": "A self-contained 'compose-and-evaluate' engine for first-order satisfaction over a single binary relation R. The reader builds a sentence by clicking tiles (quantifiers forall/exists over x and y, the connectives and/or/not/implies, and the atoms R(x,y), R(y,x), R(x,x), R(y,y), x=y) which append in prefix order; the engine parses the prefix sentence to an abstract syntax tree and evaluates it on each of several small author-supplied structures (finite directed graphs), showing live which structures satisfy it. This is the symbolic-input modality the corpus otherwise lacks: you assemble a formula and watch the models split into satisfy / not. The renderer owns the tile palette, the prefix builder with backspace/clear, the well-formedness check, the FO evaluator (recursive over the AST and the finite domain), the per-structure satisfaction diagrams, and the readout; the structures are author-supplied. The gesture is 'compose-evaluate' — building a syntactic object and watching it evaluate. Pure DOM/SVG; jsdom-safe (no getScreenCTM/rAF; click-driven).",
+  "meta": {
+    "family": "build-a-formula",
+    "dimension": "2d",
+    "gesture": "compose-evaluate",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "formulaId",
+    "svgId",
+    "outputId",
+    "title",
+    "structures"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The tile / backspace / clear buttons derive their ids from it." },
+    "formulaId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <div> showing the formula being built." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing the structures + their satisfaction marks." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (well-formedness / how many structures satisfy)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to click tiles to build a sentence." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Defaults to '0 0 600 220'.", "default": "0 0 600 220" },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Defaults to 600.", "default": 600 },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Defaults to 220.", "default": 220 },
+    "structures": {
+      "type": "array",
+      "description": "The finite directed graphs (sigma = one binary relation R) the sentence is evaluated on. Each {label, n (domain size 0..n-1), edges: [[i,j], ...]}.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "n", "edges"],
+        "properties": {
+          "label": { "type": "string", "description": "Short name for the structure." },
+          "n": { "type": "integer", "minimum": 1, "description": "Domain size; the domain is {0, 1, ..., n-1}." },
+          "edges": { "type": "array", "description": "The pairs (i, j) with R(i, j) true.", "items": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 } }
+        }
+      }
+    },
+    "presets": {
+      "type": "array",
+      "description": "Optional starter sentences offered as one-click buttons. Each {label, tokens: [...] } where tokens are the prefix tile keys (Ax,Ex,Ay,Ey,AND,OR,NOT,IMP,Rxy,Ryx,Rxx,Ryy,EQ).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "tokens"],
+        "properties": {
+          "label": { "type": "string" },
+          "tokens": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}
