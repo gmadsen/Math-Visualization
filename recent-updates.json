@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T01:51:54.716Z",
+  "generated": "2026-06-08T02:11:09.610Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -7,7 +7,7 @@
       "color": "c",
       "tag": "",
       "date": "2026-06-07",
-      "message": "feat(widgets): unroll-the-cover — a new \"wind-loop\" gesture (universal cover of S¹)"
+      "message": "feat(widgets): unroll-the-cover — a new \"wind-loop\" gesture (universal cover of S¹) (#466)"
     },
     {
       "slug": "cohomology-and-duality",

@@ -14277,6 +14277,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "weight-ladder-sl2",
+    "family": "weight-ladder-sl2",
+    "dimension": "2d",
+    "gesture": "ladder-op",
+    "role": "explore",
+    "title": "weight-ladder-sl2 widget params",
+    "description": "A self-contained 'ladder-op' engine for the irreducible sl_2(C) representations V_n. The reader sets the highest weight n (so dim V_n = n+1) and applies the raising operator e and lowering operator f to walk a basis vector up and down the weight ladder n, n-2, ..., -n: f lowers the weight by 2 (f.v_k = (k+1) v_{k+1}, killed at the bottom v_n), e raises by 2 (e.v_k = (n-k+1) v_{k-1}, killed at the top v_0), with the integer action coefficients shown. Starting from the highest-weight vector and dropping f repeatedly spawns the whole (n+1)-dimensional irrep — the sl_2 rule that classifies everything. The renderer owns the weight ladder, the current-vector highlight, the e/f action with coefficients and the kill-at-the-ends behaviour, the dimension control, and the readout; the representation is the fixed V_n family. The gesture is 'ladder-op' — applying raising/lowering operators and watching a weight string fill out. jsdom-safe (no getScreenCTM/rAF; button-driven).",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "Self-contained **\"ladder-op\"** engine for the irreducible $\\mathfrak{sl}_2(\\mathbb{C})$ representations $V_n$ — the corpus's `ladder-op` gesture. Set the highest weight $n$ (so $\\dim V_n = n+1$) and apply the **raising operator $e$** and **lowering operator $f$** to walk a basis vector up and down the weight ladder $n, n-2, \\dots, -n$: $f$ lowers the weight by 2 ($f\\cdot v_k = (k+1)\\,v_{k+1}$, killed at the bottom), $e$ raises by 2 ($e\\cdot v_k = (n-k+1)\\,v_{k-1}$, killed at the top), with the integer action coefficients shown. Starting from the highest-weight vector and dropping $f$ repeatedly **spawns the whole $(n+1)$-dimensional irrep** — the $\\mathfrak{sl}_2$ rule that classifies everything. First home: `lie-algebras §sl2-roots`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "xy-parameter-pad",
     "family": "xy-parameter-pad",
     "dimension": "2d",

@@ -724,6 +724,20 @@ function drawNode(svg, x, y, label, opts={}){
   </div>
   <svg viewBox="-220 -90 440 160" width="100%" height="200" id="wd-svg"><title>Weight diagram of $V_n$</title></svg>
   <p class="small" style="margin:.4rem 0 0">$\dim V_n = n+1$. Casimir $C=ef+fe+\tfrac12 h^2$ acts on $V_n$ as the scalar $\tfrac{n(n+2)}{2}$ — the analogue of $j(j+1)$ in physics with $j=n/2$.</p>
+</div><div class="widget" id="w-sl2-ladder">
+  <div class="hd"><div class="ttl">The sl₂ ladder: raise and lower to build the irrep Vₙ</div><div class="hint">every irreducible $\mathfrak{sl}_2(\mathbb{C})$ representation is a single string of weights $n, n-2, \dots, -n$. Start at the highest-weight vector $v_0$ and press <strong>f</strong> to lower (weight drops by $2$) — dropping repeatedly spawns the whole $(n+1)$-dimensional irrep $V_n$; press <strong>e</strong> to raise ($+2$). The operators die at the ends: $e\cdot v_0 = 0$ (nothing above the highest weight) and $f\cdot v_n = 0$ (nothing below the lowest). Use the <strong>dim</strong> buttons to grow or shrink the ladder.</div></div>
+  <svg id="sl2-ladder-svg" viewBox="0 0 460 420" width="460" height="420" style="touch-action:none;width:100%;max-width:460px;height:auto"><title>The weight ladder of the irreducible sl_2 representation V_n; raise with e, lower with f, each killed at the appropriate end.</title></svg>
+  <div class="row">
+    <button id="w-sl2-ladder-raise" type="button">raise: e ·</button>
+    <button id="w-sl2-ladder-lower" type="button">lower: f ·</button>
+    <button id="w-sl2-ladder-top" type="button">↥ highest weight</button>
+  </div>
+  <div class="row">
+    <label>dim V_n:</label>
+    <button id="w-sl2-ladder-ndn" type="button">−</button>
+    <button id="w-sl2-ladder-nup" type="button">+</button>
+  </div>
+  <div class="readout" id="sl2-ladder-out">&nbsp;</div>
 </div>
 <script>
 (function(){
@@ -784,6 +798,51 @@ function drawNode(svg, x, y, label, opts={}){
   }
   sl.addEventListener("input", ()=>{ selectedW=null; redraw(); });
   redraw();
+})();
+</script><script>
+(function(){
+  const svg=$('#sl2-ladder-svg'), out=$('#sl2-ladder-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const NMAX=7;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 460 420').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], cx=W*0.46, yTop=46, yBot=Hh-54;
+  var n=4, k=0;   // V_n, current basis vector v_k (k=0 highest weight)
+  function mu(kk){ return n-2*kk; }                 // weight of v_k
+  function eCoef(kk){ return kk===0 ? 0 : (n-kk+1); } // e.v_k = (n-k+1) v_{k-1}
+  function fCoef(kk){ return kk===n ? 0 : (kk+1); }   // f.v_k = (k+1) v_{k+1}
+  function yOf(kk){ return n===0 ? (yTop+yBot)/2 : yTop + kk/n*(yBot-yTop); }
+  function sgn(m){ return (m>0?'+':(m<0?'\u2212':''))+Math.abs(m); }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    // axis label
+    var hl=SVG('text',{x:cx,y:24,'font-size':12,fill:'var(--mute)','text-anchor':'middle'}); hl.textContent='weights of V'+(''+n).replace(/[0-9]/g,function(d){return '\u2080\u2081\u2082\u2083\u2084\u2085\u2086\u2087\u2088\u2089'[+d];})+'  (dim '+(n+1)+')'; G.appendChild(hl);
+    // ladder rungs
+    for(var i=0;i<=n;i++){ var y=yOf(i), cur=(i===k);
+      G.appendChild(SVG('line',{x1:cx-60,y1:y,x2:cx+60,y2:y,stroke:cur?'var(--cyan)':'var(--line)','stroke-width':cur?2:1}));
+      G.appendChild(SVG('circle',{cx:cx,cy:y,r:cur?8:5,fill:cur?'var(--cyan)':'var(--panel)',stroke:cur?'var(--ink)':'var(--mute)','stroke-width':cur?1.5:1.2}));
+      var wl=SVG('text',{x:cx-72,y:y+4,'font-size':12,fill:cur?'var(--cyan)':'var(--mute)','text-anchor':'end'}); wl.textContent='\u03bc = '+sgn(mu(i)); G.appendChild(wl);
+      var vl=SVG('text',{x:cx+72,y:y+4,'font-size':12,fill:cur?'var(--ink)':'var(--mute)'}); vl.textContent='v'+(''+i).replace(/[0-9]/g,function(d){return '\u2080\u2081\u2082\u2083\u2084\u2085\u2086\u2087\u2088\u2089'[+d];}); G.appendChild(vl);
+    }
+    // e (up) and f (down) action arrows from the current rung
+    var yc=yOf(k);
+    if(k>0){ var yu=yOf(k-1); G.appendChild(SVG('line',{x1:cx+30,y1:yc-6,x2:cx+30,y2:yu+6,stroke:'var(--green)','stroke-width':2})); G.appendChild(SVG('line',{x1:cx+30,y1:yu+6,x2:cx+26,y2:yu+12,stroke:'var(--green)','stroke-width':2})); G.appendChild(SVG('line',{x1:cx+30,y1:yu+6,x2:cx+34,y2:yu+12,stroke:'var(--green)','stroke-width':2})); var el=SVG('text',{x:cx+38,y:(yc+yu)/2+4,'font-size':12,fill:'var(--green)'}); el.textContent='e'; G.appendChild(el); }
+    if(k<n){ var yd=yOf(k+1); G.appendChild(SVG('line',{x1:cx-30,y1:yc+6,x2:cx-30,y2:yd-6,stroke:'var(--pink)','stroke-width':2})); G.appendChild(SVG('line',{x1:cx-30,y1:yd-6,x2:cx-34,y2:yd-12,stroke:'var(--pink)','stroke-width':2})); G.appendChild(SVG('line',{x1:cx-30,y1:yd-6,x2:cx-26,y2:yd-12,stroke:'var(--pink)','stroke-width':2})); var fl=SVG('text',{x:cx-44,y:(yc+yd)/2+4,'font-size':12,fill:'var(--pink)'}); fl.textContent='f'; G.appendChild(fl); }
+    // readout
+    var ec=eCoef(k), fc=fCoef(k);
+    var es = ec===0 ? '<span style=\"color:var(--mute)\">e\u00b7v = 0  (highest weight \u2014 killed)</span>' : '<span style=\"color:var(--green)\">e\u00b7v'+sub(k)+' = '+ec+' v'+sub(k-1)+'</span> (raises weight by 2)';
+    var fs = fc===0 ? '<span style=\"color:var(--mute)\">f\u00b7v = 0  (lowest weight \u2014 killed)</span>' : '<span style=\"color:var(--pink)\">f\u00b7v'+sub(k)+' = '+fc+' v'+sub(k+1)+'</span> (lowers weight by 2)';
+    out.innerHTML='current <b style=\"color:var(--cyan)\">v'+sub(k)+'</b>, weight h\u00b7v = '+sgn(mu(k))+'\u00b7v &nbsp;\u00b7&nbsp; '+es+' &nbsp;\u00b7&nbsp; '+fs;
+    var rb=$('#w-sl2-ladder-raise'); if(rb) rb.disabled=(k===0); var lb=$('#w-sl2-ladder-lower'); if(lb) lb.disabled=(k===n);
+    var nd=$('#w-sl2-ladder-ndn'); if(nd) nd.disabled=(n<=1); var nu=$('#w-sl2-ladder-nup'); if(nu) nu.disabled=(n>=NMAX);
+  }
+  function sub(m){ if(m<0) return '\u208b'+(''+(-m)).replace(/[0-9]/g,sd); return (''+m).replace(/[0-9]/g,sd); }
+  function sd(d){ return '\u2080\u2081\u2082\u2083\u2084\u2085\u2086\u2087\u2088\u2089'[+d]; }
+  $('#w-sl2-ladder-raise').addEventListener('click',function(){ if(k>0){k--;render();} });
+  $('#w-sl2-ladder-lower').addEventListener('click',function(){ if(k<n){k++;render();} });
+  $('#w-sl2-ladder-top').addEventListener('click',function(){ k=0; render(); });
+  $('#w-sl2-ladder-ndn').addEventListener('click',function(){ if(n>1){n--; if(k>n)k=n; render();} });
+  $('#w-sl2-ladder-nup').addEventListener('click',function(){ if(n<NMAX){n++; render();} });
+  render();
 })();
 </script>
 
