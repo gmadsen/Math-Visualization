@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1667** (registry-driven: 1667, inline: 0)
+- Widgets: **1668** (registry-driven: 1668, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
@@ -303,6 +303,7 @@ page has wired one in yet.
 | `functional-analysis-krein-milman` | functional-analysis-krein-milman | interact | 2d | 1 | functional-analysis |
 | `functional-analysis-riesz` | functional-analysis-riesz | interact | 2d | 1 | functional-analysis |
 | `functional-analysis-weak-convergence` | functional-analysis-weak-convergence | interact | 2d | 1 | functional-analysis |
+| `functional-equation-mirror` | functional-equation-mirror | drag-reflect | 2d | 1 | analytic-continuation |
 | `functor-of-points-base-change` | functor-of-points-base-change | click | 2d | 1 | functor-of-points |
 | `functor-of-points-groupoid-target` | functor-of-points-groupoid-target | click | 2d | 1 | functor-of-points |
 | `functor-of-points-yoneda` | functor-of-points-yoneda | click | 2d | 1 | functor-of-points |
@@ -794,10 +795,10 @@ page has wired one in yet.
 ### Modular forms & L-functions
 
 - Topics: **19**, concepts: **116**
-- Widgets: **149** (registry-driven: 149, inline: 0)
-  - by family: button-stepper: 85, slider-readout: 13, verbatim: 5, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, langlands-reciprocity-dictionary: 1, langlands-euler-product: 1, langlands-local-classification: 1, langlands-cft-gl1: 1, langlands-gl2-modularity: 1, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, uhp-parallel-postulate: 1, modular-forms-petersson-convergence: 1, zeta-values-multiple-zeta: 1, zeta-values-mahler-measure: 1, l-functions-zeta-continuation: 1, l-functions-class-number: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
-  - by dimension: 2d: 149
-  - by gesture: click: 102, slider: 22, select: 9, step: 8, static: 4, interact: 3, input: 1
+- Widgets: **150** (registry-driven: 150, inline: 0)
+  - by family: button-stepper: 85, slider-readout: 13, verbatim: 5, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, langlands-reciprocity-dictionary: 1, langlands-euler-product: 1, langlands-local-classification: 1, langlands-cft-gl1: 1, langlands-gl2-modularity: 1, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, uhp-parallel-postulate: 1, modular-forms-petersson-convergence: 1, functional-equation-mirror: 1, zeta-values-multiple-zeta: 1, zeta-values-mahler-measure: 1, l-functions-zeta-continuation: 1, l-functions-class-number: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 150
+  - by gesture: click: 102, slider: 22, select: 9, step: 8, static: 4, interact: 3, input: 1, drag-reflect: 1
 - Quizzes: **528** (v1: 348, hard: 180, expert: 0)
   - by type: mcq: 351, numeric: 158, multi-select: 12, matching: 4, ordering: 2, spot-the-error: 1
 
@@ -1026,7 +1027,7 @@ page has wired one in yet.
 - `partitions-generating-functions` (Combinatorics & graph theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `hecke-operators` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `dirichlet-series-euler-products` (Modular forms & L-functions) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
-- `analytic-continuation` (Modular forms & L-functions) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
+- `analytic-continuation` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `zeta-values` (Modular forms & L-functions) — concepts=7, widgets=7 (slug=7), quiz=36 (v1=21, hard=15, expert=0)
 - `L-functions` (Modular forms & L-functions) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
 - `galois-representations` (Number theory) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
