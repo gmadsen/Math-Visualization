@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-08T02:50:50.188Z",
+  "generated": "2026-06-08T03:01:19.219Z",
   "entries": [
     {
       "slug": "algebraic-topology",
@@ -39,7 +39,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-06-07",
-      "message": "feat(widgets): continuity-band-2d — a new \"slide-band\" gesture (ε–δ + uniform continuity)"
+      "message": "fixup: make the 1/x δ-collapse reachable + reconcile x² with prose + δ accuracy (review)"
     },
     {
       "slug": "statistical-learning-theory",

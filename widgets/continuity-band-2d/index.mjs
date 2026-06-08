@@ -56,9 +56,11 @@ export function renderScript(params) {
     `  function PY(y){ var c=C(); return by0-(y-c.y0)/(c.y1-c.y0)*(by0-by1); }\n` +
     `  function XV(p){ var c=C(); return c.x0+(p-bx0)/(bx1-bx0)*(c.x1-c.x0); }\n` +
     `  function load(){ var c=C(); a=(c.aInit!=null?c.aInit:(c.x0+c.x1)/2); eps=(c.eps!=null?c.eps:(c.y1-c.y0)/8); minD=Infinity; render(); }\n` +
-    `  function deltaAt(aa){ var c=C(), fa=f(aa), step=(c.x1-c.x0)/1800, L=0, R=0, x;\n` +
-    `    for(x=aa-step; x>=c.x0-1e-9; x-=step){ if(Math.abs(f(x)-fa)>=eps) break; L=aa-x; }\n` +
-    `    for(x=aa+step; x<=c.x1+1e-9; x+=step){ if(Math.abs(f(x)-fa)>=eps) break; R=x-aa; }\n` +
+    `  // band-binding delta: a side that reaches the domain edge WITHOUT leaving the band\n` +
+    `  // is unconstrained (BIG), so delta reflects the function's modulus, not the edge.\n` +
+    `  function deltaAt(aa){ var c=C(), fa=f(aa), step=(c.x1-c.x0)/1800, BIG=(c.x1-c.x0), L=BIG, R=BIG, x;\n` +
+    `    for(x=aa-step; x>=c.x0-1e-9; x-=step){ if(Math.abs(f(x)-fa)>=eps){ L=Math.max(0,aa-(x+step)); break; } }\n` +
+    `    for(x=aa+step; x<=c.x1+1e-9; x+=step){ if(Math.abs(f(x)-fa)>=eps){ R=Math.max(0,(x-step)-aa); break; } }\n` +
     `    return Math.min(L,R); }\n` +
     `  function fmt(n){ return (n<0?'\\u2212':'')+Math.abs(n).toFixed(3); }\n` +
     `  function render(){\n` +
