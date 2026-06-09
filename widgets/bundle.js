@@ -1211,7 +1211,7 @@ window.__MVWidgets = [
       "title",
       "layout"
     ],
-    "readmeExcerpt": "Belief grid localization widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke **\"edit-grid\"** widget for the **POMDP belief state and the Bayes update**, shown as **grid localization** (a histogram filter / Markov localization). First home: `pomdps-and-belief-states §belief`. The canonical multi-state belief example behind the 2-state Tiger problem.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
