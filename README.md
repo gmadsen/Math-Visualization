@@ -2,7 +2,7 @@
 
 A library of single-page, interactive explainers for graduate-level mathematics. Each topic is a self-contained HTML file with a dark 3Blue1Brown-style aesthetic, KaTeX for math, and hand-written SVG + JavaScript widgets.
 
-Topics are grouped into eleven sections: Logic & Foundations · Algebra & homological · Higher categories & toposes · Analysis · Probability & statistics · Geometry & topology · Number theory · Modular forms & L-functions · Algebraic geometry · Combinatorics & graph theory · Mathematical physics. Open [`index.html`](./index.html) in any modern browser and start wherever you like.
+Topics are grouped into thirteen sections: Logic & Foundations · Algebra & homological · Higher categories & toposes · Analysis · Probability & statistics · Geometry & topology · Number theory · Modular forms & L-functions · Algebraic geometry · Combinatorics & graph theory · Mathematical physics · Control theory & optimization · Learning theory & data science. Open [`index.html`](./index.html) in any modern browser and start wherever you like.
 
 Vanilla HTML/CSS/JS — no build step, no framework, no install.
 
