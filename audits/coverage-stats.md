@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1679** (registry-driven: 1679, inline: 0)
+- Widgets: **1680** (registry-driven: 1680, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **63** of **211** with widgets (30%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **64** of **211** with widgets (30%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -32,8 +32,8 @@ page has wired one in yet.
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
 | `animated-svg-2d` | animated-svg-2d | play | 2d | 5 | combinatorial-optimization, convex-optimization, markov-decision-processes, numerical-analysis, probability-theory |
+| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 5 | expanders, extremal-combinatorics, graph-theory-fundamentals, spectral-graph-theory |
 | `surface-3d` | surface-3d | drag | 3d | 5 | general-relativity, harmonic-functions, riemannian-geometry, smooth-manifolds, variational-methods |
-| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 4 | extremal-combinatorics, graph-theory-fundamentals, spectral-graph-theory |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
@@ -822,10 +822,10 @@ page has wired one in yet.
 ### Combinatorics & graph theory
 
 - Topics: **15**, concepts: **93**
-- Widgets: **99** (registry-driven: 99, inline: 0)
-  - by family: parametric-plot: 34, button-stepper: 7, verbatim: 5, graph-edit-2d: 4, slider-readout: 2, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
-  - by dimension: 2d: 99
-  - by gesture: slider: 51, click: 36, step: 8, graph-edit: 4
+- Widgets: **100** (registry-driven: 100, inline: 0)
+  - by family: parametric-plot: 34, button-stepper: 7, verbatim: 5, graph-edit-2d: 5, slider-readout: 2, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
+  - by dimension: 2d: 100
+  - by gesture: slider: 51, click: 36, step: 8, graph-edit: 5
 - Quizzes: **294** (v1: 279, hard: 15, expert: 0)
   - by type: mcq: 196, numeric: 71, multi-select: 23, matching: 2, spot-the-error: 1, ordering: 1
 
@@ -942,7 +942,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `dirichlet-unit-theorem` | Number theory | 6 | 6 | pick: 6 | select: 3, input: 3 |
 | `enumerative-combinatorics` | Combinatorics & graph theory | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 1, step: 1 |
 | `etale-fundamental-group` | Algebraic geometry | 6 | 6 | pick: 6 | click: 6 |
-| `expanders` | Combinatorics & graph theory | 6 | 6 | scrub: 4, pick: 2 | slider: 4, click: 2 |
 | `forcing-and-independence` | Logic & Foundations | 6 | 6 | other: 6 | toggle: 2, stepper: 2, table: 1, diagram: 1 |
 | `galois-cohomology-and-brauer` | Algebra & homological | 6 | 6 | pick: 6 | click: 6 |
 | `geometric-and-combinatorial-group-theory` | Algebra & homological | 6 | 6 | pick: 3, scrub: 3 | slider: 3, click: 2, select: 1 |
@@ -1122,7 +1121,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `general-relativity` | Mathematical physics | 6 | 7 | 0 | 3 | 1 | ✓ | slider: 4, drag: 2, click: 1 | 18 |
 | `three-body-problem` | Mathematical physics | 6 | 6 | 0 | 2 | 0 | · | click: 4, slider: 2 | 18 |
 | `designs` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | click: 3, step: 3 | 18 |
-| `expanders` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | slider: 4, click: 2 | 18 |
+| `expanders` | Combinatorics & graph theory | 6 | 7 | 0 | 3 | 0 | ✓ | slider: 4, click: 2, graph-edit: 1 | 18 |
 | `symplectic-manifolds` | Geometry & topology | 6 | 6 | 0 | 3 | 0 | ✓ | drag: 2, slider: 2, click: 2 | 18 |
 | `quantum-groups` | Algebra & homological | 6 | 6 | 0 | 3 | 0 | · | inspect: 3, toggle: 2, slider: 1 | 18 |
 | `quaternions-octonions-and-division-algebras` | Algebra & homological | 6 | 6 | 0 | 3 | 1 | · | click: 4, input: 1, slider: 1 | 18 |
