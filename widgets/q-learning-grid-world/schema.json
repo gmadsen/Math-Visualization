@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/q-learning-grid-world/schema.json",
+  "title": "q-learning-grid-world widget params",
+  "description": "A self-contained 'edit-grid' widget for MODEL-FREE reinforcement learning on a grid-world: tabular Q-learning. Unlike grid-world-mdp (which knows the transition model and solves the Bellman optimality equation by value iteration), this agent knows nothing — it LEARNS Q(s,a) from sampled experience, one episode at a time, using the off-policy TD update Q(s,a) <- Q(s,a) + alpha[ r + gamma max_a' Q(s',a') - Q(s,a) ] under an epsilon-greedy behaviour policy. The states are grid cells: empty (a step reward), start (episodes begin here), goal (positive terminal), pit (negative terminal), wall (blocked). Transitions are stochastic (intended move w.p. 1-noise, slip to each perpendicular w.p. noise/2; walls and edges bounce). The reader CLICKS a cell to cycle its type (empty -> start -> goal -> pit -> wall) and runs experience with Step / Episode / x50 buttons, adjusting epsilon, alpha, gamma. The widget paints the learned greedy value max_a Q (cell shading) and greedy policy argmax_a Q (an arrow per non-terminal cell), the agent's current position, and an episode/return readout. Watching the policy emerge from trial-and-error and converge to the same pi* that value iteration computes on the known model is the pedagogical payoff. Pure DOM/SVG; jsdom-safe — the first render is deterministic (Q initialised to 0) and randomness (epsilon-greedy, stochastic transitions) fires only inside the button handlers.",
+  "meta": {
+    "family": "q-learning-grid-world",
+    "dimension": "2d",
+    "gesture": "edit-grid",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "layout"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The epsilon/alpha/gamma/step/episode/run/reset buttons derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing the grid, learned values, policy arrows, and agent." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (episodes, epsilon/alpha/gamma, steps, last return, hints)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to click a cell to change its type and run Step / Episode / x50." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "layout": {
+      "type": "array",
+      "description": "The grid, one string per row; characters: '.' empty, 'S' start, 'G' goal, 'P' pit, '#' wall. Exactly one 'S' is recommended (the first 'S' in reading order is used; if none, the bottom-left non-wall cell starts episodes). All rows must have equal length. E.g. ['S..G', '.#.P', '....'].",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^[.SGP#]+$" }
+    },
+    "goalReward": { "type": "number", "description": "Terminal reward at a goal cell. Default 1.", "default": 1 },
+    "pitReward": { "type": "number", "description": "Terminal reward at a pit cell. Default -1.", "default": -1 },
+    "stepReward": { "type": "number", "description": "Reward for each move from a non-terminal cell (the living cost). Default -0.04.", "default": -0.04 },
+    "gammaInit": { "type": "number", "minimum": 0, "maximum": 1, "description": "Initial discount factor gamma. Default 0.95.", "default": 0.95 },
+    "epsilonInit": { "type": "number", "minimum": 0, "maximum": 1, "description": "Initial exploration rate epsilon for the epsilon-greedy behaviour policy. Default 0.2.", "default": 0.2 },
+    "alphaInit": { "type": "number", "minimum": 0, "maximum": 1, "description": "Initial learning rate alpha. Default 0.5.", "default": 0.5 },
+    "noiseInit": { "type": "number", "minimum": 0, "maximum": 1, "description": "Initial action noise (total slip probability). Default 0.2.", "default": 0.2 },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Default derived from grid if omitted." },
+    "svgWidth": { "type": "integer", "description": "SVG width attr." },
+    "svgHeight": { "type": "integer", "description": "SVG height attr." }
+  }
+}

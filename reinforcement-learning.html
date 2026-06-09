@@ -640,7 +640,128 @@ function drawNode(svg, x, y, label, opts={}){
   doReset();
 })();
 </script>
-<!-- callback-auto-begin -->
+<p>The chain above is one-dimensional. The grid-world below is the same idea in two dimensions — and the agent is handed <em>no model at all</em>: it does not know the transition probabilities, the rewards, or where the goal is. It discovers everything by acting. Each <b>Episode</b> starts at the <span style="color:var(--cyan);font-weight:600">start</span> cell, follows the $\varepsilon$-greedy behaviour policy, and applies the Q-learning update at every step; the greedy policy (arrows) and learned values (cell shading) are read straight off $Q$. Moves are <em>noisy</em> — a slip sends the agent one cell sideways once in five — so it must learn a policy robust to slips; dial <b>noise</b> down to 0% to watch it find a clean shortest path instead. Run <b>×50</b> and watch $\pi$ converge to the very optimum that <a href="./markov-decision-processes.html#bellman-optimality">value iteration</a> computes when the model <em>is</em> known — here reached purely from experience. Click any cell to rewrite the world; the agent forgets $Q$ and relearns from scratch.</p><div class="widget" id="w-qlg">
+  <div class="hd"><div class="ttl">Q-learning a grid-world from experience</div><div class="hint">model-free: learn $Q(s,a)$ from sampled episodes</div></div>
+  <div class="row" style="flex-wrap:wrap">
+    <button id="w-qlg-step" type="button">▷ Step</button>
+    <button id="w-qlg-ep" type="button">▷▷ Episode</button>
+    <button id="w-qlg-run" type="button">⏩ ×50</button>
+    <button id="w-qlg-clearq" type="button">↺ Forget (reset Q)</button>
+  </div>
+  <div class="row" style="flex-wrap:wrap">
+    <label>ε</label><button id="w-qlg-edn" type="button">−</button><button id="w-qlg-eup" type="button">+</button>
+    <label>α</label><button id="w-qlg-adn" type="button">−</button><button id="w-qlg-aup" type="button">+</button>
+    <label>γ</label><button id="w-qlg-gdn" type="button">−</button><button id="w-qlg-gup" type="button">+</button>
+    <label>noise</label><button id="w-qlg-ndn" type="button">−</button><button id="w-qlg-nup" type="button">+</button>
+  </div>
+  <svg id="qlg-svg" viewBox="0 0 312 238" width="312" height="238" style="touch-action:manipulation;width:100%;max-width:312px;height:auto"><title>A tabular Q-learning agent learning the optimal policy on an editable grid-world from sampled episodes</title></svg>
+  <div class="readout" id="qlg-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#qlg-svg'), out=$('#qlg-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=3, C=4, CELL=74, PAD=8;
+  const GOAL=1, PIT=-1, STEP=-0.04;
+  const LAYOUT0=["S..G",".#.P","...."];
+  var grid=LAYOUT0.map(function(row){ return row.split(''); });
+  var gamma=0.95, eps=0.2, alpha=0.5, noise=0.2;
+  const DIRS=['U','D','L','R'], ACT={U:[-1,0],D:[1,0],L:[0,-1],R:[0,1]}, PERP={U:['L','R'],D:['L','R'],L:['U','D'],R:['U','D']}, ARR={U:'\u2191',D:'\u2193',L:'\u2190',R:'\u2192'};
+  function key(r,c){ return r+','+c; }
+  function term(r,c){ var t=grid[r][c]; return t==='G'?GOAL:(t==='P'?PIT:null); }
+  function blocked(r,c){ return r<0||r>=R||c<0||c>=C||grid[r][c]==='#'; }
+  // Q: stateKey -> [qU,qD,qL,qR]. epReturn/epGamma accumulate the discounted
+  // return of the in-progress episode so lastReturn means the same thing whether
+  // an episode finishes via Step, Episode, or x50.
+  var Q={}, episodes=0, stepsThisEp=0, lastReturn=null, agent=null, epReturn=0, epGamma=1;
+  function qrow(r,c){ var k=key(r,c); if(!Q[k])Q[k]=[0,0,0,0]; return Q[k]; }
+  function startCell(){
+    for(var r=0;r<R;r++)for(var c=0;c<C;c++) if(grid[r][c]==='S') return [r,c];
+    for(var r2=R-1;r2>=0;r2--)for(var c2=0;c2<C;c2++) if(grid[r2][c2]!=='#'&&term(r2,c2)==null) return [r2,c2];
+    return [0,0];
+  }
+  function resetQ(){ Q={}; episodes=0; stepsThisEp=0; lastReturn=null; epReturn=0; epGamma=1; agent=startCell(); }
+  // greedy action index at (r,c), deterministic tie-break (first max) for a stable
+  // first paint; called with q=qrow(r,c).
+  function argmax(q){ var bi=0; for(var i=1;i<4;i++) if(q[i]>q[bi]) bi=i; return bi; }
+  function maxq(q){ var m=q[0]; for(var i=1;i<4;i++) if(q[i]>m) m=q[i]; return m; }
+  // stochastic transition: intended dir w.p. 1-noise, each perpendicular w.p.
+  // noise/2; a wall/edge bounces (stay). Randomness only on user-driven steps.
+  function move(r,c,dir){
+    var u=Math.random(), d=dir, p=PERP[dir];
+    if(u<noise/2) d=p[0]; else if(u<noise) d=p[1];
+    var a=ACT[d], nr=r+a[0], nc=c+a[1];
+    if(blocked(nr,nc)) return [r,c];
+    return [nr,nc];
+  }
+  // one Q-learning step from the agent's cell; advances the agent or ends the
+  // episode, accumulating the episode's discounted return into epReturn.
+  function stepOnce(){
+    if(agent==null||term(agent[0],agent[1])!=null){ agent=startCell(); stepsThisEp=0; epReturn=0; epGamma=1; }
+    var r=agent[0], c=agent[1], q=qrow(r,c);
+    var ai = (Math.random()<eps) ? Math.floor(Math.random()*4) : argmax(q);
+    var nx=move(r,c,DIRS[ai]), nr=nx[0], nc=nx[1];
+    var tr=term(nr,nc), r_=(tr!=null)?tr:STEP;
+    var target = (tr!=null) ? r_ : (r_ + gamma*maxq(qrow(nr,nc)));
+    q[ai] += alpha*(target - q[ai]);
+    epReturn += epGamma*r_; epGamma*=gamma; stepsThisEp++;
+    if(tr!=null){ episodes++; lastReturn=epReturn; agent=startCell(); stepsThisEp=0; epReturn=0; epGamma=1; }
+    else agent=[nr,nc];
+  }
+  // run to a terminal (or the step cap, so a not-yet-learned policy can't loop forever).
+  function runEpisode(maxSteps){
+    var startEp=episodes;
+    for(var i=0;i<maxSteps;i++){ stepOnce(); if(episodes>startEp) break; }
+  }
+  function greedyV(r,c){ return maxq(qrow(r,c)); }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    if(agent==null) agent=startCell();
+    var mx=0.001;
+    for(var r=0;r<R;r++)for(var c=0;c<C;c++){ if(grid[r][c]==='#'||term(r,c)!=null)continue; var v=Math.abs(greedyV(r,c)); if(v>mx)mx=v; }
+    for(var r=0;r<R;r++)for(var c=0;c<C;c++){
+      var x=PAD+c*CELL, y=PAD+r*CELL, t=grid[r][c], cx=x+CELL/2, cy=y+CELL/2;
+      if(t==='#'){ G.appendChild(SVG('rect',{x:x,y:y,width:CELL,height:CELL,fill:'var(--mute)','fill-opacity':0.5,stroke:'var(--line)','stroke-width':1,'data-r':r,'data-c':c,style:'cursor:pointer'})); continue; }
+      if(t==='G'||t==='P'){
+        G.appendChild(SVG('rect',{x:x,y:y,width:CELL,height:CELL,fill:(t==='G'?'var(--green)':'var(--pink)'),'fill-opacity':0.3,stroke:'var(--line)','stroke-width':1,'data-r':r,'data-c':c,style:'cursor:pointer'}));
+        var rt=SVG('text',{x:cx,y:cy+6,'font-size':18,'font-weight':700,fill:(t==='G'?'var(--green)':'var(--pink)'),'text-anchor':'middle','pointer-events':'none'}); rt.textContent=(t==='G'?'+':'')+(t==='G'?GOAL:PIT); G.appendChild(rt);
+        var lt=SVG('text',{x:cx,y:y+15,'font-size':9,fill:'var(--mute)','text-anchor':'middle','pointer-events':'none'}); lt.textContent=(t==='G'?'goal':'pit'); G.appendChild(lt);
+        continue;
+      }
+      var v=greedyV(r,c), shade=v>=0?'var(--green)':'var(--pink)', op=Math.min(0.42,Math.abs(v)/mx*0.42);
+      G.appendChild(SVG('rect',{x:x,y:y,width:CELL,height:CELL,fill:shade,'fill-opacity':op.toFixed(3),stroke:'var(--line)','stroke-width':1,'data-r':r,'data-c':c,style:'cursor:pointer'}));
+      var q=qrow(r,c), explored=(q[0]||q[1]||q[2]||q[3]);
+      var pa=SVG('text',{x:cx,y:cy+2,'font-size':26,fill:explored?'var(--ink)':'var(--mute)','text-anchor':'middle','pointer-events':'none'}); pa.textContent=ARR[DIRS[argmax(q)]]; G.appendChild(pa);
+      var vt=SVG('text',{x:cx,y:y+CELL-7,'font-size':11,fill:'var(--ink)','text-anchor':'middle','pointer-events':'none'}); vt.textContent=v.toFixed(2); G.appendChild(vt);
+      if(t==='S'){ var st=SVG('text',{x:x+4,y:y+13,'font-size':9,'font-weight':700,fill:'var(--cyan)','text-anchor':'start','pointer-events':'none'}); st.textContent='start'; G.appendChild(st); }
+    }
+    // agent marker
+    if(agent){ var ax=PAD+agent[1]*CELL+CELL/2, ay=PAD+agent[0]*CELL+CELL/2;
+      G.appendChild(SVG('circle',{cx:ax,cy:ay,r:9,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':2,'pointer-events':'none'})); }
+    var head='episodes <b>'+episodes+'</b> &nbsp;\u00b7&nbsp; ε=<b>'+eps.toFixed(2)+'</b> α=<b>'+alpha.toFixed(2)+'</b> γ=<b>'+gamma.toFixed(2)+'</b> noise=<b>'+(noise*100).toFixed(0)+'%</b> &nbsp;\u00b7&nbsp; ';
+    if(episodes===0){ out.innerHTML=head+'<span style=\"color:var(--mute)\">Q ≡ 0 — no experience yet. <b>Step</b> takes one ε-greedy action, <b>Episode</b> runs to a terminal, <b>×50</b> runs 50 episodes. Click a cell to edit the world.</span>'; }
+    else { var lr=(lastReturn==null)?'—':lastReturn.toFixed(2);
+      out.innerHTML=head+'last return <b>'+lr+'</b> &nbsp;\u00b7&nbsp; <span style=\"color:var(--mute)\">arrows = greedy argmax Q (grey = unvisited), shade = max Q. Along the route the agent keeps visiting, the greedy policy settles to the value-iteration π*; rarely-visited cells stay noisy under a fixed α. Set noise=0% for a clean shortest path.</span>'; }
+  }
+  // click a cell: cycle type; setting a new start clears the old one.
+  svg.addEventListener('click',function(ev){ var t=ev.target; if(t&&t.getAttribute&&t.getAttribute('data-r')!=null){
+    var r=+t.getAttribute('data-r'), c=+t.getAttribute('data-c'); var cyc={'.':'S','S':'G','G':'P','P':'#','#':'.'}; var nxt=cyc[grid[r][c]];
+    if(nxt==='S'){ for(var rr=0;rr<R;rr++)for(var cc=0;cc<C;cc++) if(grid[rr][cc]==='S') grid[rr][cc]='.'; }
+    grid[r][c]=nxt; resetQ(); render(); } });
+  $('#w-qlg-step').addEventListener('click',function(){ stepOnce(); render(); });
+  $('#w-qlg-ep').addEventListener('click',function(){ runEpisode(400); render(); });
+  $('#w-qlg-run').addEventListener('click',function(){ for(var i=0;i<50;i++) runEpisode(400); render(); });
+  $('#w-qlg-clearq').addEventListener('click',function(){ resetQ(); render(); });
+  $('#w-qlg-eup').addEventListener('click',function(){ eps=Math.min(1,Math.round((eps+0.05)*100)/100); render(); });
+  $('#w-qlg-edn').addEventListener('click',function(){ eps=Math.max(0,Math.round((eps-0.05)*100)/100); render(); });
+  $('#w-qlg-aup').addEventListener('click',function(){ alpha=Math.min(1,Math.round((alpha+0.05)*100)/100); render(); });
+  $('#w-qlg-adn').addEventListener('click',function(){ alpha=Math.max(0.05,Math.round((alpha-0.05)*100)/100); render(); });
+  $('#w-qlg-gup').addEventListener('click',function(){ gamma=Math.min(1,Math.round((gamma+0.05)*100)/100); render(); });
+  $('#w-qlg-gdn').addEventListener('click',function(){ gamma=Math.max(0,Math.round((gamma-0.05)*100)/100); render(); });
+  $('#w-qlg-nup').addEventListener('click',function(){ noise=Math.min(0.8,Math.round((noise+0.1)*100)/100); render(); });
+  $('#w-qlg-ndn').addEventListener('click',function(){ noise=Math.max(0,Math.round((noise-0.1)*100)/100); render(); });
+  resetQ(); render();
+})();
+</script><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>

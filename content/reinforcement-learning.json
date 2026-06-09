@@ -331,6 +331,31 @@
         },
         {
           "type": "raw",
+          "html": "<p>The chain above is one-dimensional. The grid-world below is the same idea in two dimensions — and the agent is handed <em>no model at all</em>: it does not know the transition probabilities, the rewards, or where the goal is. It discovers everything by acting. Each <b>Episode</b> starts at the <span style=\"color:var(--cyan);font-weight:600\">start</span> cell, follows the $\\varepsilon$-greedy behaviour policy, and applies the Q-learning update at every step; the greedy policy (arrows) and learned values (cell shading) are read straight off $Q$. Moves are <em>noisy</em> — a slip sends the agent one cell sideways once in five — so it must learn a policy robust to slips; dial <b>noise</b> down to 0% to watch it find a clean shortest path instead. Run <b>×50</b> and watch $\\pi$ converge to the very optimum that <a href=\"./markov-decision-processes.html#bellman-optimality\">value iteration</a> computes when the model <em>is</em> known — here reached purely from experience. Click any cell to rewrite the world; the agent forgets $Q$ and relearns from scratch.</p>"
+        },
+        {
+          "type": "widget",
+          "slug": "q-learning-grid-world",
+          "params": {
+            "widgetId": "w-qlg",
+            "svgId": "qlg-svg",
+            "outputId": "qlg-out",
+            "title": "Q-learning a grid-world from experience",
+            "hint": "model-free: learn $Q(s,a)$ from sampled episodes",
+            "svgTitle": "A tabular Q-learning agent learning the optimal policy on an editable grid-world from sampled episodes",
+            "layout": [
+              "S..G",
+              ".#.P",
+              "...."
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-qlg"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./markov-decision-processes.html#value-iteration\">Value iteration &amp; the γ-contraction</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
