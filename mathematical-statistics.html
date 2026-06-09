@@ -443,7 +443,67 @@ Minimising $D(\hat p_n\,\|\,p_\theta)$ in $\theta$ is the same problem as maximi
     <span id="mle-n-v" class="small"></span>
   </div>
   <div class="readout" id="mle-out"></div>
-</div>
+</div><p>Maximum likelihood reads the parameters straight off the data. For a Gaussian sample the score equation $\partial_\mu\ell=\sum_i(x_i-\mu)/\sigma^2=0$ solves to $\hat\mu=\bar x$, and $\hat\sigma^2=\tfrac1n\sum_i(x_i-\hat\mu)^2$ — the fitted bell that makes the observed sample most probable. Drag the data points below and watch the MLE bell track them. Slide one point far from the rest: the mean and variance both lurch toward it, because likelihood weights every residual equally — a first look at why MLE is efficient but <em>not</em> robust.</p><div class="widget" id="w-mle-fit">
+  <div class="hd"><div class="ttl">Drag the data: the maximum-likelihood fit</div><div class="hint">$\hat\mu=\bar x$ from the score equation</div></div>
+  <svg id="mle-fit-svg" viewBox="0 0 540 300" width="540" height="300"><title>Dragging data points along an axis while the maximum-likelihood Gaussian fit (mean and variance) tracks them</title></svg>
+  <div class="readout" id="mle-fit-out"></div>
+</div><script>
+(function(){
+  const svg=$('#mle-fit-svg'), out=$('#mle-fit-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const pts=[{"id":"d0","x":157,"y":242,"color":"var(--cyan)","lockY":true,"minX":44,"maxX":496},{"id":"d1","x":215.8,"y":242,"color":"var(--cyan)","lockY":true,"minX":44,"maxX":496},{"id":"d2","x":251.9,"y":242,"color":"var(--cyan)","lockY":true,"minX":44,"maxX":496},{"id":"d3","x":297.1,"y":242,"color":"var(--cyan)","lockY":true,"minX":44,"maxX":496},{"id":"d4","x":333.3,"y":242,"color":"var(--cyan)","lockY":true,"minX":44,"maxX":496},{"id":"d5","x":405.6,"y":242,"color":"var(--cyan)","lockY":true,"minX":44,"maxX":496}];
+  pts.byId={}; for(const p of pts) pts.byId[p.id]=p;
+  // ---- author draw() (reads pts, clears+fills G, writes out) ----
+
+  const PX0=44, PX1=496, DY=242, HEIGHT=178;
+  const vOf = px => -5 + (px-PX0)/(PX1-PX0)*10;
+  const xpx = v => PX0 + (v+5)/10*(PX1-PX0);
+  function draw(){
+    G.innerHTML='';
+    G.appendChild(SVG('line',{x1:PX0,y1:DY,x2:PX1,y2:DY,stroke:'var(--line)','stroke-width':1.5}));
+    for(var t=-4;t<=4;t+=2){ G.appendChild(SVG('line',{x1:xpx(t),y1:DY-4,x2:xpx(t),y2:DY+4,stroke:'var(--line)','stroke-width':1,'pointer-events':'none'}));
+      var tl=SVG('text',{x:xpx(t),y:DY+18,'font-size':10,fill:'var(--mute)','text-anchor':'middle','pointer-events':'none'}); tl.textContent=t; G.appendChild(tl); }
+    var xs=pts.map(function(p){return vOf(p.x);}), n=xs.length;
+    var mu=0; for(var i=0;i<n;i++) mu+=xs[i]; mu/=n;
+    var v=0; for(var i2=0;i2<n;i2++){ var d=xs[i2]-mu; v+=d*d; } v/=n;                       // true MLE variance (reported)
+    var vDraw=(v<0.04)?0.04:v;  // floor only the DRAWN bell so it stays a curve, not a spike
+    // MLE Gaussian bell, peak normalised to HEIGHT (shape = centre + width)
+    var dd=''; for(var sx=-5;sx<=5.0001;sx+=0.05){ var f=Math.exp(-(sx-mu)*(sx-mu)/(2*vDraw)); dd+=(sx===-5?'M':'L')+xpx(sx).toFixed(1)+' '+(DY-f*HEIGHT).toFixed(1)+' '; }
+    G.appendChild(SVG('path',{d:dd,fill:'var(--violet)','fill-opacity':0.12,stroke:'var(--violet)','stroke-width':2.5,'pointer-events':'none'}));
+    // mean line + sigma marks
+    G.appendChild(SVG('line',{x1:xpx(mu),y1:DY,x2:xpx(mu),y2:DY-HEIGHT,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'4 3','pointer-events':'none'}));
+    var ml=SVG('text',{x:xpx(mu),y:DY-HEIGHT-4,'font-size':11,fill:'var(--yellow)','text-anchor':'middle','pointer-events':'none'}); ml.textContent='\u03bc\u0302'; G.appendChild(ml);
+    // ticks where data sit (under the handles)
+    for(var k=0;k<n;k++){ G.appendChild(SVG('line',{x1:xpx(xs[k]),y1:DY-6,x2:xpx(xs[k]),y2:DY+6,stroke:'var(--cyan)','stroke-width':1,'stroke-opacity':0.5,'pointer-events':'none'})); }
+    out.innerHTML='$n='+n+'$ samples &nbsp;\u00b7&nbsp; MLE for a Gaussian: $\\hat\\mu=\\bar x='+mu.toFixed(2)+'$, $\\hat\\sigma^2='+v.toFixed(2)+'$ &nbsp;\u00b7&nbsp; <span style=\"color:var(--mute)\">the score equation $\\partial_\\mu\\ell=\\sum(x_i-\\mu)/\\sigma^2=0$ gives $\\hat\\mu=\\bar x$. Drag a point and the fit chases it; drag one far out to watch the mean and variance lurch \u2014 maximum likelihood is <em>not</em> robust to outliers.</span>';
+    if(window.renderMathInElement) try{ renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]}); }catch(e){}
+  }
+
+  // ---- drag engine (supplied by draggable-points-2d) ----
+  const HL=SVG('g'); svg.appendChild(HL);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const vb={x:_vb[0],y:_vb[1],width:_vb[2],height:_vb[3]};
+  function clampPt(p){ const r=p.r||7;
+    const lo_x=(p.minX!=null?p.minX:vb.x+r), hi_x=(p.maxX!=null?p.maxX:vb.x+vb.width-r);
+    const lo_y=(p.minY!=null?p.minY:vb.y+r), hi_y=(p.maxY!=null?p.maxY:vb.y+vb.height-r);
+    if(!p.lockX) p.x=Math.max(lo_x,Math.min(hi_x,p.x));
+    if(!p.lockY) p.y=Math.max(lo_y,Math.min(hi_y,p.y));
+  }
+  const handles=[]; let drag=null;
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  pts.forEach(function(p){ const r=p.r||7;
+    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'var(--bg)','stroke-width':1.5});
+    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);
+    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }
+    handles.push({h:h,lab:lab,p:p,r:r});
+    h.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drag=p; h.style.cursor='grabbing'; try{h.setPointerCapture(ev.pointerId);}catch(e){} });
+  });
+  window.addEventListener('pointermove',function(ev){ if(!drag) return; const q=toSvg(ev); if(!drag.lockX)drag.x=q.x; if(!drag.lockY)drag.y=q.y; clampPt(drag); render(); });
+  window.addEventListener('pointerup',function(){ drag=null; for(const o of handles) o.h.style.cursor='grab'; });
+  function render(){ draw(); for(const o of handles){ o.h.setAttribute('cx',o.p.x); o.h.setAttribute('cy',o.p.y); if(o.lab){ o.lab.setAttribute('x',o.p.x+o.r+5); o.lab.setAttribute('y',o.p.y-o.r-3); } } }
+  pts.forEach(clampPt); render();
+})();
+</script>
 
 <div class="quiz" data-concept="ms-mle"></div>
 
