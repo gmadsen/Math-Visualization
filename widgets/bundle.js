@@ -13945,6 +13945,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "torus-orbit-explorer",
+    "family": "torus-orbit-explorer",
+    "dimension": "2d",
+    "gesture": "click-seed",
+    "role": "explore",
+    "title": "torus-orbit-explorer widget params",
+    "description": "A self-contained 'click to seed' widget for ergodic theory on the 2-torus. The reader CLICKS a point in the unit square [0,1)^2 (the torus) to set an initial condition, then watches its forward orbit under a measure-preserving map fill the torus — or not. A 'next map' button cycles three canonical maps with different ergodic behaviour: an irrational rotation (ergodic but not mixing — the orbit equidistributes evenly), Arnold's cat map (mixing — the orbit scatters and covers the torus fast), and a rational rotation (periodic — the orbit is a finite set, never equidistributing). A '+ steps' button extends the orbit; a coverage readout reports how much of a fine grid the orbit has visited so the reader can watch the time-average distribution approach (or fail to approach) the uniform space average — Birkhoff's theorem made visible. Pure DOM/SVG; jsdom-safe and fully deterministic: the orbit iteration has no randomness and the first render shows the default seed; pointer→torus mapping uses getBoundingClientRect inside the click handler only.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke **\"click to seed\"** widget for **ergodic theory on the 2-torus**. First home: `ergodic-theory §ergodicity`. Birkhoff's theorem made visible: the time-average spread of one orbit approaching (or failing to approach) the uniform space average.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "type-theory-circle-winding",
     "family": "type-theory-circle-winding",
     "dimension": "2d",
