@@ -403,7 +403,7 @@
         },
         {
           "type": "raw",
-          "html": "<p>The reverse-time SDE has a deterministic twin with the <em>same marginals</em>: the <strong>probability-flow ODE</strong> $\\dot x = f(x,t) - \\tfrac12 g(t)^2\\,\\nabla_x\\log p_t(x)$. Strip the noise and sampling becomes following the <strong>score</strong> field $\\nabla\\log p$ — a deterministic trajectory from a noise sample onto the data. Below, the green dots are a toy data density (three modes) and the arrows are its score field. <strong>Click anywhere</strong> to drop a sample and watch the flow carry it onto the data; seed many to see how the whole plane is funnelled onto the modes. (Unlike the stochastic sampler, each start gives one fixed path — the ODE is invertible, which is what makes exact likelihoods possible.)</p>"
+          "html": "<p>The reverse-time SDE has a deterministic twin with the same marginals: the <strong>probability-flow ODE</strong> $\\dot x = f(x,t) - \\tfrac12 g(t)^2\\,\\nabla_x\\log p_t(x)$. Its power comes from the <em>time-dependent</em> score $\\nabla\\log p_t$ along the noise schedule — that is what lets it reproduce the <em>full</em> data distribution (the widget above samples it faithfully). To see why the schedule matters, watch the naive alternative below: follow the score of the <em>fixed</em> data density $\\nabla\\log p_0$. The green dots are a toy data density (three modes) and the arrows are its score field. <strong>Click anywhere</strong> to drop a sample and let it climb. Deterministic, greedy score-ascent is <strong>mode-seeking</strong> — every start collapses onto the nearest mode, the peaks only, never the spread. That collapse is exactly what the time-dependent score (and Langevin's injected noise) <em>prevent</em>; the score always points uphill toward the data, but turning that pull into faithful sampling is the whole game.</p>"
         },
         {
           "type": "widget",
@@ -412,9 +412,9 @@
             "widgetId": "w-pf-flow",
             "svgId": "pf-flow-svg",
             "outputId": "pf-flow-out",
-            "title": "Follow the score: the probability-flow ODE",
-            "hint": "click a noise sample; the deterministic flow carries it to the data",
-            "svgTitle": "Clicking to seed samples that flow along the score field of a three-mode data density onto the data, illustrating the deterministic probability-flow ODE",
+            "title": "Greedy score-ascent collapses to the modes",
+            "hint": "follow the fixed-density score and samples pile on the peaks",
+            "svgTitle": "Clicking to seed samples that follow the score field of a fixed three-mode data density by deterministic gradient ascent, collapsing onto the modes — mode-seeking, not faithful sampling",
             "x0": -2.2,
             "x1": 2.2,
             "y0": -1.6,
@@ -434,7 +434,7 @@
               ]
             ],
             "outputInitial": "click anywhere to drop a sample onto the score field",
-            "bodyScript": "\n  // Toy \"data\" = mixture of 3 isotropic Gaussians; the score of this fixed density\n  // is grad log p, the field the reverse/probability-flow ODE follows.\n  const MODES=[[-1.1,0.7],[1.1,0.6],[0.0,-0.9]], SIG=0.45, S2=SIG*SIG;\n  function field(x,y){\n    var num=0, gx=0, gy=0;\n    for(var k=0;k<MODES.length;k++){ var dx=x-MODES[k][0], dy=y-MODES[k][1];\n      var w=Math.exp(-(dx*dx+dy*dy)/(2*S2)); num+=w; gx+=w*(-dx/S2); gy+=w*(-dy/S2); }\n    if(num<1e-12) return {dx:0,dy:0};\n    return {dx:gx/num, dy:gy/num};   // grad log p = sum r_k * (-(x-mu_k)/sig^2)\n  }\n  function decorate(BG){\n    for(var k=0;k<MODES.length;k++){ var px=PX(MODES[k][0]), py=PY(MODES[k][1]);\n      BG.appendChild(SVG('circle',{cx:px,cy:py,r:16,fill:'var(--green)','fill-opacity':0.16,'pointer-events':'none'}));\n      BG.appendChild(SVG('circle',{cx:px,cy:py,r:4,fill:'var(--green)','pointer-events':'none'})); }\n    var t=SVG('text',{x:PX(0),y:PY(1.32),'font-size':11,fill:'var(--green)','text-anchor':'middle','pointer-events':'none'}); t.textContent='data modes (high density)'; BG.appendChild(t);\n  }\n"
+            "bodyScript": "\n  // Toy \"data\" = mixture of 3 isotropic Gaussians; field = the score grad log p_0 of\n  // this FIXED density. Greedy deterministic ascent on it is mode-seeking (not the\n  // time-dependent PF-ODE), so every trajectory collapses onto a mode.\n  const MODES=[[-1.1,0.7],[1.1,0.6],[0.0,-0.9]], SIG=0.45, S2=SIG*SIG;\n  function field(x,y){\n    var num=0, gx=0, gy=0;\n    for(var k=0;k<MODES.length;k++){ var dx=x-MODES[k][0], dy=y-MODES[k][1];\n      var w=Math.exp(-(dx*dx+dy*dy)/(2*S2)); num+=w; gx+=w*(-dx/S2); gy+=w*(-dy/S2); }\n    if(num<1e-12) return {dx:0,dy:0};\n    return {dx:gx/num, dy:gy/num};   // grad log p = sum r_k * (-(x-mu_k)/sig^2)\n  }\n  function decorate(BG){\n    for(var k=0;k<MODES.length;k++){ var px=PX(MODES[k][0]), py=PY(MODES[k][1]);\n      BG.appendChild(SVG('circle',{cx:px,cy:py,r:16,fill:'var(--green)','fill-opacity':0.16,'pointer-events':'none'}));\n      BG.appendChild(SVG('circle',{cx:px,cy:py,r:4,fill:'var(--green)','pointer-events':'none'})); }\n    var t=SVG('text',{x:PX(0),y:PY(1.32),'font-size':11,fill:'var(--green)','text-anchor':'middle','pointer-events':'none'}); t.textContent='data modes (high density)'; BG.appendChild(t);\n  }\n"
           }
         },
         {
