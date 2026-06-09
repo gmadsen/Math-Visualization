@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1671** (registry-driven: 1671, inline: 0)
+- Widgets: **1672** (registry-driven: 1672, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **55** of **211** with widgets (26%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **56** of **211** with widgets (27%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -104,6 +104,7 @@ page has wired one in yet.
 | `automorphic-strong-approximation` | automorphic-strong-approximation | step | 2d | 1 | automorphic-forms-adelic |
 | `automorphic-three-conditions` | automorphic-three-conditions | click | 2d | 1 | automorphic-forms-adelic |
 | `bayes-mass-updater` | bayes-mass-updater | pour-update | 2d | 1 | probability-theory |
+| `belief-grid-localization` | belief-grid-localization | edit-grid | 2d | 1 | pomdps-and-belief-states |
 | `bezout-cayley-bacharach` | bezout-cayley-bacharach | click | 2d | 1 | bezout |
 | `bezout-higherdim` | bezout-higherdim | slider | 2d | 1 | bezout |
 | `bezout-statement` | bezout-statement | click | 2d | 1 | bezout |
@@ -839,10 +840,10 @@ page has wired one in yet.
 ### Control theory & optimization
 
 - Topics: **9**, concepts: **58**
-- Widgets: **65** (registry-driven: 65, inline: 0)
-  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, animated-svg-2d: 3, sketch-curve-2d: 1, inline-code-cell: 1, clickable-diagram: 1, grid-world-mdp: 1, q-learning-grid-world: 1
-  - by dimension: 2d: 65
-  - by gesture: slider: 49, click: 6, play: 3, select: 2, edit-grid: 2, scrub: 1, draw: 1, edit: 1
+- Widgets: **66** (registry-driven: 66, inline: 0)
+  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, animated-svg-2d: 3, sketch-curve-2d: 1, inline-code-cell: 1, clickable-diagram: 1, grid-world-mdp: 1, q-learning-grid-world: 1, belief-grid-localization: 1
+  - by dimension: 2d: 66
+  - by gesture: slider: 49, click: 6, play: 3, edit-grid: 3, select: 2, scrub: 1, draw: 1, edit: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)
   - by type: mcq: 116, numeric: 36, multi-select: 14, matching: 4, spot-the-error: 2, ordering: 2
 
@@ -977,7 +978,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `numerical-analysis` | Analysis | 6 | 7 | scrub: 7 | slider: 5, step: 1, play: 1 |
 | `optimal-transport` | Analysis | 6 | 6 | scrub: 6 | slider: 6 |
 | `order-theory-and-lattices` | Combinatorics & graph theory | 6 | 6 | scrub: 6 | slider: 6 |
-| `pomdps-and-belief-states` | Control theory & optimization | 6 | 6 | scrub: 6 | slider: 6 |
 | `probabilistic-graphical-models` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
 | `quadratic-reciprocity` | Number theory | 6 | 9 | pick: 7, scrub: 2 | click: 7, slider: 2 |
 | `quantum-field-theory` | Mathematical physics | 6 | 6 | scrub: 4, pick: 2 | slider: 4, click: 2 |
@@ -1068,7 +1068,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `integrable-systems` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
 | `kernel-methods-and-rkhs` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
 | `reinforcement-learning` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, edit-grid: 1 | 18 |
-| `pomdps-and-belief-states` | Control theory & optimization | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `pomdps-and-belief-states` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, edit-grid: 1 | 18 |
 | `probabilistic-graphical-models` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 16 |
 | `deep-learning-theory` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, click-seed: 1 | 18 |
 | `information-geometry` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |

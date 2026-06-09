@@ -1197,6 +1197,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "belief-grid-localization",
+    "family": "belief-grid-localization",
+    "dimension": "2d",
+    "gesture": "edit-grid",
+    "role": "explore",
+    "title": "belief-grid-localization widget params",
+    "description": "A self-contained 'edit-grid' widget for the POMDP belief state and its Bayes update, shown as grid localization (a histogram filter). A robot sits at a HIDDEN true cell of a grid; the reader never sees it directly, only the belief b(s) = P(true state = s) painted as a heatmap over the cells. Pressing a direction runs one belief update: a PREDICT step convolves the belief with the stochastic motion model (intended move w.p. 1-moveNoise, else stay; walls/edges block), then the robot takes a noisy wall-sensor reading (each of the 4 neighbour-wall bits flips w.p. sensorNoise) and a CORRECT step multiplies the belief by the observation likelihood and renormalises. Motion spreads the belief (uncertainty grows); observations sharpen it (uncertainty shrinks) until it collapses onto the true cell. The reader CLICKS a cell to toggle a wall (re-deriving the motion/observation model and resetting the belief to uniform) and adjusts the move/sensor noise. The true cell, the most-likely (argmax) cell, the latest sensor reading, and the belief entropy are reported. This is the canonical multi-state belief example behind the 2-state Tiger problem. Pure DOM/SVG; jsdom-safe: the first render is deterministic (uniform belief) and all randomness (motion slip, sensor flips) fires only inside the button handlers.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "layout"
+    ],
+    "readmeExcerpt": "Bespoke **\"edit-grid\"** widget for the **POMDP belief state and the Bayes update**, shown as **grid localization** (a histogram filter / Markov localization). First home: `pomdps-and-belief-states §belief`. The canonical multi-state belief example behind the 2-state Tiger problem.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "bezout-cayley-bacharach",
     "family": "bezout-cayley-bacharach",
     "dimension": "2d",
