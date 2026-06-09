@@ -424,7 +424,7 @@ function drawNode(svg, x, y, label, opts={}){
   bv.addEventListener('input',render); nv.addEventListener('input',render); render();
 
 })();
-</script><p>The plot above tracks how the <em>time average</em> of a function along one orbit converges to its <em>space average</em> — Birkhoff's theorem as a number. Here is the same statement as a picture you steer: <strong>click anywhere on the torus</strong> to drop an initial point and watch its forward orbit under a measure-preserving map. Under an <strong>ergodic</strong> map — an irrational rotation — the single orbit <em>equidistributes</em>: its points fill every region in proportion to area, so the time average of any observable equals the space average. <strong>Arnold's cat map</strong> does it violently (mixing). But a <strong>rational</strong> rotation traps the orbit in a finite periodic set — the time average sees only those few points and never the whole torus, so the map is <em>not</em> ergodic. Cycle the map and extend the orbit; the coverage readout is the time average catching up to (or failing to reach) the uniform space average.</p><div class="widget" id="w-torb">
+</script><p>The plot above tracks how the <em>time average</em> of a function along one orbit converges to its <em>space average</em> — Birkhoff's theorem as a number. Here is the same statement as a picture you steer: <strong>click anywhere on the torus</strong> to drop an initial point and watch its forward orbit under a measure-preserving map. Under an <strong>ergodic</strong> map — an irrational rotation — the single orbit <em>equidistributes</em>: its points fill every region in proportion to area, so the time average of any observable equals the space average. <strong>Arnold's cat map</strong> is <em>mixing</em> — a stronger property that scrambles whole regions, not just single orbits (you met it in §4); a single orbit still equidistributes, much as the rotation does. But a <strong>rational</strong> rotation traps the orbit in a finite periodic set — the time average sees only those few points and never the whole torus, so the map is <em>not</em> ergodic. Cycle through the maps and extend the orbit; the coverage readout tracks the orbit’s <em>support</em> filling the torus — the geometric shadow of the time average reaching the space average (full coverage hints at ergodicity rather than proving it).</p><div class="widget" id="w-torb">
   <div class="hd"><div class="ttl">Steer an orbit: equidistribution on the torus</div><div class="hint">click to seed; ergodic orbits fill the torus, periodic ones don’t</div></div>
   <div class="row" style="flex-wrap:wrap">
     <button id="w-torb-map" type="button">⇄ next map</button>
@@ -438,14 +438,14 @@ function drawNode(svg, x, y, label, opts={}){
   const svg=$('#torb-svg'), out=$('#torb-out');
   const Grp=SVG('g'); svg.appendChild(Grp);
   const vb=(svg.getAttribute('viewBox')||'0 0 360 384').split(/\s+/).map(Number);
-  const PAD=8, SIDE=Math.min(vb[2],vb[3])-2*PAD, X0=PAD, Y0=PAD, BATCH=250, GN=20;
+  const PAD=8, SIDE=Math.min(vb[2],vb[3])-2*PAD, X0=PAD, Y0=PAD, BATCH=250, GN=20, MAXPTS=6000;
   const SEED=[0.31,0.27];
   // measure-preserving maps on the torus [0,1)^2. frac keeps everything in [0,1).
   function frac(t){ return t-Math.floor(t); }
   const MAPS=[
     { name:'irrational rotation', tag:'ergodic, not mixing', col:'var(--cyan)',
       f:function(x,y){ return [frac(x+0.6180339887), frac(y+0.4142135624)]; } },
-    { name:"Arnold's cat map", tag:'mixing', col:'var(--violet)',
+    { name:"Arnold's cat map", tag:'mixing — scrambles whole regions', col:'var(--violet)',
       f:function(x,y){ return [frac(2*x+y), frac(x+y)]; } },
     { name:'rational rotation', tag:'periodic — not ergodic', col:'var(--orange)',
       f:function(x,y){ return [frac(x+0.2), frac(y+0.4)]; } },
@@ -466,7 +466,7 @@ function drawNode(svg, x, y, label, opts={}){
     Grp.appendChild(SVG('circle',{cx:sx(seed[0]),cy:sy(seed[1]),r:5,fill:'var(--pink)',stroke:'var(--bg)','stroke-width':1.5,'pointer-events':'none'}));
     var cov=coverage(), tot=GN*GN, pct=(100*cov/tot).toFixed(0);
     var head='<b>'+MAPS[mi].name+'</b> <span style=\"color:var(--mute)\">('+MAPS[mi].tag+')</span> &nbsp;\u00b7&nbsp; '+ (orbit.length-1) +' steps &nbsp;\u00b7&nbsp; ';
-    out.innerHTML=head+'visited <b>'+cov+'</b> of '+tot+' grid cells (<b>'+pct+'%</b>) &nbsp;\u00b7&nbsp; <span style=\"color:var(--mute)\">click to drop a new seed; <b>+ steps</b> extends the orbit. The time-average spread of one orbit '+(mi===2?'<b>cannot</b> reach the uniform space average — a periodic orbit is a finite set.':'fills the torus toward the uniform space average (Birkhoff).')+'</span>';
+    out.innerHTML=head+'support covers <b>'+cov+'</b> of '+tot+' grid cells (<b>'+pct+'%</b>) &nbsp;\u00b7&nbsp; <span style=\"color:var(--mute)\">click to drop a new seed; <b>+ steps</b> extends the orbit. '+(mi===2?'A periodic orbit is a <b>finite</b> set, so its time average never reaches the uniform space average — not ergodic.':'For an ergodic map one orbit\u2019s support fills the torus and its time average matches the space average (Birkhoff); full coverage is the geometric hint, not a proof.')+'</span>';
   }
   // pointer -> torus coords (only inside the click handler).
   function toTorus(ev){ var r=svg.getBoundingClientRect();
@@ -474,7 +474,9 @@ function drawNode(svg, x, y, label, opts={}){
     var x=(X-X0)/SIDE, y=1-(Y-Y0)/SIDE; return [Math.max(0,Math.min(0.999,x)), Math.max(0,Math.min(0.999,y))]; }
   svg.addEventListener('click',function(ev){ var t=ev.target; if(t&&t.getAttribute&&t.getAttribute('data-torus')){ seed=toTorus(ev); rebuild(); render(); } });
   $('#w-torb-map').addEventListener('click',function(){ mi=(mi+1)%MAPS.length; n=200; rebuild(); render(); });
-  $('#w-torb-step').addEventListener('click',function(){ var p=orbit[orbit.length-1].slice(); for(var i=0;i<BATCH;i++){ p=MAPS[mi].f(p[0],p[1]); orbit.push(p); } n=orbit.length-1; render(); });
+  // extend the orbit, capped at MAXPTS so repeated clicks can't bloat the DOM
+  // (coverage saturates well before the cap, so nothing is lost pedagogically).
+  $('#w-torb-step').addEventListener('click',function(){ var p=orbit[orbit.length-1].slice(); for(var i=0;i<BATCH&&orbit.length<MAXPTS;i++){ p=MAPS[mi].f(p[0],p[1]); orbit.push(p); } n=orbit.length-1; render(); });
   $('#w-torb-reset').addEventListener('click',function(){ seed=SEED.slice(); n=200; rebuild(); render(); });
   rebuild(); render();
 })();

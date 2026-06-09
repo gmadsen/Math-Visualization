@@ -53,14 +53,14 @@ export function renderScript(params) {
   const svg=$('#${svgId}'), out=$('#${outputId}');
   const Grp=SVG('g'); svg.appendChild(Grp);
   const vb=(svg.getAttribute('viewBox')||'0 0 360 384').split(/\\s+/).map(Number);
-  const PAD=${PAD}, SIDE=Math.min(vb[2],vb[3])-2*PAD, X0=PAD, Y0=PAD, BATCH=${batch}, GN=${gridN};
+  const PAD=${PAD}, SIDE=Math.min(vb[2],vb[3])-2*PAD, X0=PAD, Y0=PAD, BATCH=${batch}, GN=${gridN}, MAXPTS=6000;
   const SEED=[${seedX},${seedY}];
   // measure-preserving maps on the torus [0,1)^2. frac keeps everything in [0,1).
   function frac(t){ return t-Math.floor(t); }
   const MAPS=[
     { name:'irrational rotation', tag:'ergodic, not mixing', col:'var(--cyan)',
       f:function(x,y){ return [frac(x+0.6180339887), frac(y+0.4142135624)]; } },
-    { name:"Arnold's cat map", tag:'mixing', col:'var(--violet)',
+    { name:"Arnold's cat map", tag:'mixing — scrambles whole regions', col:'var(--violet)',
       f:function(x,y){ return [frac(2*x+y), frac(x+y)]; } },
     { name:'rational rotation', tag:'periodic — not ergodic', col:'var(--orange)',
       f:function(x,y){ return [frac(x+0.2), frac(y+0.4)]; } },
@@ -81,7 +81,7 @@ export function renderScript(params) {
     Grp.appendChild(SVG('circle',{cx:sx(seed[0]),cy:sy(seed[1]),r:5,fill:'var(--pink)',stroke:'var(--bg)','stroke-width':1.5,'pointer-events':'none'}));
     var cov=coverage(), tot=GN*GN, pct=(100*cov/tot).toFixed(0);
     var head='<b>'+MAPS[mi].name+'</b> <span style=\\"color:var(--mute)\\">('+MAPS[mi].tag+')</span> &nbsp;\\u00b7&nbsp; '+ (orbit.length-1) +' steps &nbsp;\\u00b7&nbsp; ';
-    out.innerHTML=head+'visited <b>'+cov+'</b> of '+tot+' grid cells (<b>'+pct+'%</b>) &nbsp;\\u00b7&nbsp; <span style=\\"color:var(--mute)\\">click to drop a new seed; <b>+ steps</b> extends the orbit. The time-average spread of one orbit '+(mi===2?'<b>cannot</b> reach the uniform space average — a periodic orbit is a finite set.':'fills the torus toward the uniform space average (Birkhoff).')+'</span>';
+    out.innerHTML=head+'support covers <b>'+cov+'</b> of '+tot+' grid cells (<b>'+pct+'%</b>) &nbsp;\\u00b7&nbsp; <span style=\\"color:var(--mute)\\">click to drop a new seed; <b>+ steps</b> extends the orbit. '+(mi===2?'A periodic orbit is a <b>finite</b> set, so its time average never reaches the uniform space average — not ergodic.':'For an ergodic map one orbit\\u2019s support fills the torus and its time average matches the space average (Birkhoff); full coverage is the geometric hint, not a proof.')+'</span>';
   }
   // pointer -> torus coords (only inside the click handler).
   function toTorus(ev){ var r=svg.getBoundingClientRect();
@@ -89,7 +89,9 @@ export function renderScript(params) {
     var x=(X-X0)/SIDE, y=1-(Y-Y0)/SIDE; return [Math.max(0,Math.min(0.999,x)), Math.max(0,Math.min(0.999,y))]; }
   svg.addEventListener('click',function(ev){ var t=ev.target; if(t&&t.getAttribute&&t.getAttribute('data-torus')){ seed=toTorus(ev); rebuild(); render(); } });
   $('#${widgetId}-map').addEventListener('click',function(){ mi=(mi+1)%MAPS.length; n=200; rebuild(); render(); });
-  $('#${widgetId}-step').addEventListener('click',function(){ var p=orbit[orbit.length-1].slice(); for(var i=0;i<BATCH;i++){ p=MAPS[mi].f(p[0],p[1]); orbit.push(p); } n=orbit.length-1; render(); });
+  // extend the orbit, capped at MAXPTS so repeated clicks can't bloat the DOM
+  // (coverage saturates well before the cap, so nothing is lost pedagogically).
+  $('#${widgetId}-step').addEventListener('click',function(){ var p=orbit[orbit.length-1].slice(); for(var i=0;i<BATCH&&orbit.length<MAXPTS;i++){ p=MAPS[mi].f(p[0],p[1]); orbit.push(p); } n=orbit.length-1; render(); });
   $('#${widgetId}-reset').addEventListener('click',function(){ seed=SEED.slice(); n=200; rebuild(); render(); });
   rebuild(); render();
 })();
