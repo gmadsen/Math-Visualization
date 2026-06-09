@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/torus-orbit-explorer/schema.json",
+  "title": "torus-orbit-explorer widget params",
+  "description": "A self-contained 'click to seed' widget for ergodic theory on the 2-torus. The reader CLICKS a point in the unit square [0,1)^2 (the torus) to set an initial condition, then watches its forward orbit under a measure-preserving map fill the torus — or not. A 'next map' button cycles three canonical maps with different ergodic behaviour: an irrational rotation (ergodic but not mixing — the orbit equidistributes evenly), Arnold's cat map (mixing — a stronger property that scrambles whole regions, though a single orbit still equidistributes), and a rational rotation (periodic — the orbit is a finite set, never equidistributing). A '+ steps' button extends the orbit (capped so the DOM cannot bloat); a coverage readout reports how many cells of a fine grid the orbit's support has covered, so the reader can watch one orbit's support fill the torus (ergodic) or stall on a finite set (periodic) — the geometric shadow of Birkhoff's time-average = space-average, with full coverage a hint rather than a proof. Pure DOM/SVG; jsdom-safe and fully deterministic: the orbit iteration has no randomness and the first render shows the default seed; pointer→torus mapping uses getBoundingClientRect inside the click handler only.",
+  "meta": {
+    "family": "torus-orbit-explorer",
+    "dimension": "2d",
+    "gesture": "click-seed",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The map/steps/reset buttons derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing the torus and the orbit points." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (map name, point count, grid coverage fraction, ergodicity verdict)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to click to seed an orbit, cycle the map, and extend the orbit." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "seedX": { "type": "number", "minimum": 0, "maximum": 1, "description": "Initial seed x-coordinate on the torus. Default 0.31.", "default": 0.31 },
+    "seedY": { "type": "number", "minimum": 0, "maximum": 1, "description": "Initial seed y-coordinate on the torus. Default 0.27.", "default": 0.27 },
+    "stepBatch": { "type": "integer", "minimum": 1, "description": "How many orbit points the '+ steps' button adds. Default 250.", "default": 250 },
+    "gridN": { "type": "integer", "minimum": 2, "description": "Coverage grid resolution (gridN x gridN cells) for the equidistribution readout. Default 20.", "default": 20 },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Default '0 0 360 384'." },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Default 360." },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Default 384." }
+  }
+}

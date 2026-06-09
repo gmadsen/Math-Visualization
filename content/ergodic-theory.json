@@ -182,6 +182,26 @@
         },
         {
           "type": "raw",
+          "html": "<p>The plot above tracks how the <em>time average</em> of a function along one orbit converges to its <em>space average</em> — Birkhoff's theorem as a number. Here is the same statement as a picture you steer: <strong>click anywhere on the torus</strong> to drop an initial point and watch its forward orbit under a measure-preserving map. Under an <strong>ergodic</strong> map — an irrational rotation — the single orbit <em>equidistributes</em>: its points fill every region in proportion to area, so the time average of any observable equals the space average. <strong>Arnold's cat map</strong> is <em>mixing</em> — a stronger property that scrambles whole regions, not just single orbits (you met it in §4); a single orbit still equidistributes, much as the rotation does. But a <strong>rational</strong> rotation traps the orbit in a finite periodic set — the time average sees only those few points and never the whole torus, so the map is <em>not</em> ergodic. Cycle through the maps and extend the orbit; the coverage readout tracks the orbit’s <em>support</em> filling the torus — the geometric shadow of the time average reaching the space average (full coverage hints at ergodicity rather than proving it).</p>"
+        },
+        {
+          "type": "widget",
+          "slug": "torus-orbit-explorer",
+          "params": {
+            "widgetId": "w-torb",
+            "svgId": "torb-svg",
+            "outputId": "torb-out",
+            "title": "Steer an orbit: equidistribution on the torus",
+            "hint": "click to seed; ergodic orbits fill the torus, periodic ones don’t",
+            "svgTitle": "A forward orbit under a measure-preserving map of the 2-torus, equidistributing for an ergodic map and staying periodic for a rational rotation"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-torb"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#lln\">Law of large numbers</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
