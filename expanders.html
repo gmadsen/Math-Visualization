@@ -288,7 +288,96 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Toggle a few vertices on the cycle versus the Petersen graph: on $C_{10}$ a contiguous set of size $k\le 5$ has $|N(S)|=2$ regardless of $k$, so $|N(S)|/|S|\to 0$ — definitely not an expander. The Petersen graph keeps the ratio bounded above by $1$ for every small set; that is what expansion looks like at $n=10$.</p>
 
-<div class="quiz" data-concept="e-definition"></div><!-- callback-auto-begin -->
+<p>A graph <em>expands</em> when every way to split it cuts many edges. The <strong>edge expansion</strong> $h(G)=\min_{S}\dfrac{|\partial S|}{\min(|S|,|S^c|)}$ counts the crossing edges of the <em>worst</em> bottleneck per vertex of its smaller side — the sparsest cut. (This is the <em>edge</em> expansion, distinct from the <em>vertex</em> expansion $|N(S)|/|S|$ in the explorer above; the Cheeger <em>inequality</em> in §3 uses the degree-normalised conductance $\phi=|\partial S|/(d|S|)$, whereas here we count crossing edges directly.) Build the graph below — drag from one vertex onto another to toggle an edge, click empty space to add a vertex — and the widget finds the sparsest cut (the <span style="color:var(--cyan)">cyan</span> side, its <span style="color:var(--yellow)">crossing edges</span> highlighted) and reports $h(G)$. The starting graph is a <strong>dumbbell</strong>: two triangles joined by one bridge, so $h=\tfrac13$ — cutting the single bridge isolates three vertices cheaply. Add edges across the middle and watch $h$ climb; a good expander has no cheap cut at all.</p><div class="widget" id="w-expand-cheeger">
+  <div class="hd"><div class="ttl">Build a graph: the sparsest cut and its expansion</div><div class="hint">h(G) = the worst bottleneck; drag vertex→vertex to add edges</div></div>
+  <svg id="expand-cheeger-svg" viewBox="0 0 460 280" width="460" height="280" style="touch-action:none;cursor:pointer"><title>Editing a graph by direct manipulation while the engine highlights the sparsest cut and reports the edge-expansion Cheeger constant</title></svg>
+  <div class="row">
+    <button id="w-expand-cheeger-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="expand-cheeger-out"></div>
+</div><script>
+(function(){
+  const svg=$('#expand-cheeger-svg'), out=$('#expand-cheeger-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=13, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[90,70],[90,210],[175,140],[285,140],[370,70],[370,210]], E0=[[0,1],[1,2],[0,2],[3,4],[4,5],[3,5],[2,3]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+
+function draw(g){
+  while(G.firstChild)G.removeChild(G.firstChild);
+  var n=g.nodes.length, idx={}; g.nodes.forEach(function(nd,i){ idx[nd.id]=i; });
+  var E=g.edges.map(function(e){ return [idx[e.u], idx[e.v]]; }).filter(function(p){ return p[0]!=null&&p[1]!=null; });
+  // Cheeger edge-expansion h(G)=min_S |bnd(S)|/min(|S|,|S^c|), brute force (cap n<=13).
+  var best=Infinity, bestMask=0, capped=(n>13);
+  if(n>=2 && !capped){
+    for(var m=1;m<(1<<n)-1;m++){ var sCount=0; for(var i=0;i<n;i++) if(m&(1<<i)) sCount++;
+      var bnd=0; for(var k=0;k<E.length;k++){ if(((m>>E[k][0])&1)!==((m>>E[k][1])&1)) bnd++; }
+      var r=bnd/Math.min(sCount,n-sCount); if(r<best){ best=r; bestMask=m; } } }
+  // edges (boundary of the sparsest cut highlighted)
+  for(var k2=0;k2<E.length;k2++){ var u=g.nodes[E[k2][0]], v=g.nodes[E[k2][1]];
+    var cut=(((bestMask>>E[k2][0])&1)!==((bestMask>>E[k2][1])&1));
+    G.appendChild(SVG('line',{x1:u.x,y1:u.y,x2:v.x,y2:v.y,stroke:cut?'var(--yellow)':'var(--line)','stroke-width':cut?3:1.8,'stroke-opacity':cut?0.95:0.65,'pointer-events':'none'})); }
+  // nodes: sparsest-cut side cyan, the rest violet
+  g.nodes.forEach(function(nd,i){ var inS=(bestMask>>i)&1;
+    G.appendChild(SVG('circle',{cx:nd.x,cy:nd.y,r:g.R,fill:inS?'var(--cyan)':'var(--violet)','fill-opacity':0.85,stroke:'var(--ink)','stroke-width':1.5})); });
+  // readout
+  var s2=0; for(var i3=0;i3<n;i3++) if(bestMask&(1<<i3)) s2++;
+  var bnd2=0; for(var k3=0;k3<E.length;k3++){ if(((bestMask>>E[k3][0])&1)!==((bestMask>>E[k3][1])&1)) bnd2++; }
+  var head=n+' vertices \u00b7 '+E.length+' edges \u00b7 ';
+  if(n<2){ out.innerHTML=head+'<span style=\"color:var(--mute)\">add a vertex (click empty space) and edges (drag vertex\u2192vertex).</span>'; return; }
+  if(capped){ out.innerHTML=head+'<span style=\"color:var(--mute)\">too many vertices to brute-force the sparsest cut (cap 13).</span>'; return; }
+  if(best===0){ out.innerHTML=head+'edge expansion <b>h(G)=0</b> &nbsp;\u00b7&nbsp; <span style=\"color:var(--pink)\">disconnected</span> <span style=\"color:var(--mute)\">\u2014 a part has no edges leaving it. Connect the pieces to make h&gt;0.</span>'; return; }
+  out.innerHTML=head+'edge expansion <b>h(G) = '+best.toFixed(2)+'</b> &nbsp;\u00b7&nbsp; <span style=\"color:var(--mute)\">sparsest cut: <span style=\"color:var(--cyan)\">'+s2+' vertices</span> with <span style=\"color:var(--yellow)\">'+bnd2+' crossing edge'+(bnd2===1?'':'s')+'</span>. Drag vertex\u2192vertex to toggle an edge; a thin bottleneck is a bad expander \u2014 add crossings to raise h.</span>';
+}
+
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-expand-cheeger-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script><div class="quiz" data-concept="e-definition"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
