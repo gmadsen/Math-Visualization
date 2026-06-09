@@ -22,8 +22,18 @@
 const CELL = 74, PAD = 8;
 
 function dims(params) {
-  const layout = Array.isArray(params.layout) ? params.layout : ['S..G', '.#.P', '....'];
+  const layout = Array.isArray(params.layout) && params.layout.length ? params.layout : ['S..G', '.#.P', '....'];
   const rows = layout.length, cols = layout[0].length;
+  // The renderer fixes the column count from row 0 and iterates a rectangular
+  // grid; a ragged layout (rows of different lengths) would make it walk phantom
+  // `undefined` cells that `term`/`startCell`/`render` would treat as editable.
+  // JSON Schema can't express "all rows equal length" declaratively, so reject it
+  // here — render-topic fails the build loudly rather than emitting a broken grid.
+  for (const row of layout) {
+    if (row.length !== cols) {
+      throw new Error(`q-learning-grid-world: layout rows must all have equal length; got [${layout.map((r) => r.length).join(', ')}]`);
+    }
+  }
   const W = cols * CELL + 2 * PAD, H = rows * CELL + 2 * PAD;
   return { layout, rows, cols, W, H };
 }
