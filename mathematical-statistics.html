@@ -465,10 +465,10 @@ Minimising $D(\hat p_n\,\|\,p_\theta)$ in $\theta$ is the same problem as maximi
       var tl=SVG('text',{x:xpx(t),y:DY+18,'font-size':10,fill:'var(--mute)','text-anchor':'middle','pointer-events':'none'}); tl.textContent=t; G.appendChild(tl); }
     var xs=pts.map(function(p){return vOf(p.x);}), n=xs.length;
     var mu=0; for(var i=0;i<n;i++) mu+=xs[i]; mu/=n;
-    var v=0; for(var i2=0;i2<n;i2++){ var d=xs[i2]-mu; v+=d*d; } v/=n; if(v<0.04) v=0.04;
-    var sd=Math.sqrt(v);
+    var v=0; for(var i2=0;i2<n;i2++){ var d=xs[i2]-mu; v+=d*d; } v/=n;                       // true MLE variance (reported)
+    var vDraw=(v<0.04)?0.04:v;  // floor only the DRAWN bell so it stays a curve, not a spike
     // MLE Gaussian bell, peak normalised to HEIGHT (shape = centre + width)
-    var dd=''; for(var sx=-5;sx<=5.0001;sx+=0.05){ var f=Math.exp(-(sx-mu)*(sx-mu)/(2*v)); dd+=(sx===-5?'M':'L')+xpx(sx).toFixed(1)+' '+(DY-f*HEIGHT).toFixed(1)+' '; }
+    var dd=''; for(var sx=-5;sx<=5.0001;sx+=0.05){ var f=Math.exp(-(sx-mu)*(sx-mu)/(2*vDraw)); dd+=(sx===-5?'M':'L')+xpx(sx).toFixed(1)+' '+(DY-f*HEIGHT).toFixed(1)+' '; }
     G.appendChild(SVG('path',{d:dd,fill:'var(--violet)','fill-opacity':0.12,stroke:'var(--violet)','stroke-width':2.5,'pointer-events':'none'}));
     // mean line + sigma marks
     G.appendChild(SVG('line',{x1:xpx(mu),y1:DY,x2:xpx(mu),y2:DY-HEIGHT,stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'4 3','pointer-events':'none'}));
