@@ -402,6 +402,46 @@
           "html": "\n"
         },
         {
+          "type": "raw",
+          "html": "<p>The reverse-time SDE has a deterministic twin with the <em>same marginals</em>: the <strong>probability-flow ODE</strong> $\\dot x = f(x,t) - \\tfrac12 g(t)^2\\,\\nabla_x\\log p_t(x)$. Strip the noise and sampling becomes following the <strong>score</strong> field $\\nabla\\log p$ — a deterministic trajectory from a noise sample onto the data. Below, the green dots are a toy data density (three modes) and the arrows are its score field. <strong>Click anywhere</strong> to drop a sample and watch the flow carry it onto the data; seed many to see how the whole plane is funnelled onto the modes. (Unlike the stochastic sampler, each start gives one fixed path — the ODE is invertible, which is what makes exact likelihoods possible.)</p>"
+        },
+        {
+          "type": "widget",
+          "slug": "vector-field-flow-2d",
+          "params": {
+            "widgetId": "w-pf-flow",
+            "svgId": "pf-flow-svg",
+            "outputId": "pf-flow-out",
+            "title": "Follow the score: the probability-flow ODE",
+            "hint": "click a noise sample; the deterministic flow carries it to the data",
+            "svgTitle": "Clicking to seed samples that flow along the score field of a three-mode data density onto the data, illustrating the deterministic probability-flow ODE",
+            "x0": -2.2,
+            "x1": 2.2,
+            "y0": -1.6,
+            "y1": 1.6,
+            "gridNX": 23,
+            "gridNY": 17,
+            "dt": 0.02,
+            "steps": 500,
+            "initialSeeds": [
+              [
+                -1.8,
+                1.2
+              ],
+              [
+                1.9,
+                -1.3
+              ]
+            ],
+            "outputInitial": "click anywhere to drop a sample onto the score field",
+            "bodyScript": "\n  // Toy \"data\" = mixture of 3 isotropic Gaussians; the score of this fixed density\n  // is grad log p, the field the reverse/probability-flow ODE follows.\n  const MODES=[[-1.1,0.7],[1.1,0.6],[0.0,-0.9]], SIG=0.45, S2=SIG*SIG;\n  function field(x,y){\n    var num=0, gx=0, gy=0;\n    for(var k=0;k<MODES.length;k++){ var dx=x-MODES[k][0], dy=y-MODES[k][1];\n      var w=Math.exp(-(dx*dx+dy*dy)/(2*S2)); num+=w; gx+=w*(-dx/S2); gy+=w*(-dy/S2); }\n    if(num<1e-12) return {dx:0,dy:0};\n    return {dx:gx/num, dy:gy/num};   // grad log p = sum r_k * (-(x-mu_k)/sig^2)\n  }\n  function decorate(BG){\n    for(var k=0;k<MODES.length;k++){ var px=PX(MODES[k][0]), py=PY(MODES[k][1]);\n      BG.appendChild(SVG('circle',{cx:px,cy:py,r:16,fill:'var(--green)','fill-opacity':0.16,'pointer-events':'none'}));\n      BG.appendChild(SVG('circle',{cx:px,cy:py,r:4,fill:'var(--green)','pointer-events':'none'})); }\n    var t=SVG('text',{x:PX(0),y:PY(1.32),'font-size':11,fill:'var(--green)','text-anchor':'middle','pointer-events':'none'}); t.textContent='data modes (high density)'; BG.appendChild(t);\n  }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-pf-flow"
+        },
+        {
           "type": "quiz",
           "concept": "dsm-probability-flow",
           "html": "<div class=\"quiz\" data-concept=\"dsm-probability-flow\"></div>"
