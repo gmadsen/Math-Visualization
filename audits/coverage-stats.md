@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1674** (registry-driven: 1674, inline: 0)
+- Widgets: **1675** (registry-driven: 1675, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **58** of **211** with widgets (27%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **59** of **211** with widgets (28%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -32,13 +32,13 @@ page has wired one in yet.
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
 | `animated-svg-2d` | animated-svg-2d | play | 2d | 5 | combinatorial-optimization, convex-optimization, markov-decision-processes, numerical-analysis, probability-theory |
 | `surface-3d` | surface-3d | drag | 3d | 5 | general-relativity, harmonic-functions, riemannian-geometry, smooth-manifolds, variational-methods |
+| `draggable-points-2d` | draggable-points-2d | drag | 2d | 4 | complex-analysis, convex-geometry, kernel-methods-and-rkhs, projective-plane |
 | `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 4 | extremal-combinatorics, graph-theory-fundamentals, spectral-graph-theory |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
 | `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 4 | convex-optimization, real-analysis |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | additive-number-theory, category-theory |
-| `draggable-points-2d` | draggable-points-2d | drag | 2d | 3 | complex-analysis, convex-geometry, projective-plane |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 3 | algebraic-topology, analytic-number-theory, mathematical-chaos |
 | `advanced-complex-analysis-picard` | advanced-complex-analysis-picard | interact | 2d | 2 | advanced-complex-analysis |
 | `algorithm-stepper` | algorithm-stepper | step-state | 2d | 2 | computational-number-theory, continued-fractions |
@@ -852,10 +852,10 @@ page has wired one in yet.
 ### Learning theory & data science
 
 - Topics: **9**, concepts: **56**
-- Widgets: **58** (registry-driven: 58, inline: 0)
-  - by family: parametric-plot: 42, slider-readout: 10, clickable-diagram: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1, vector-field-flow-2d: 1
-  - by dimension: 2d: 58
-  - by gesture: slider: 53, click: 3, construct-to-break: 1, click-seed: 1
+- Widgets: **59** (registry-driven: 59, inline: 0)
+  - by family: parametric-plot: 42, slider-readout: 10, clickable-diagram: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1, draggable-points-2d: 1, vector-field-flow-2d: 1
+  - by dimension: 2d: 59
+  - by gesture: slider: 53, click: 3, construct-to-break: 1, drag: 1, click-seed: 1
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)
   - by type: mcq: 117, numeric: 25, multi-select: 17, ordering: 6, matching: 1
 
@@ -961,7 +961,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `k-theory` | Geometry & topology | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 2 |
 | `kahler-geometry` | Geometry & topology | 6 | 6 | scrub: 6 | slider: 6 |
 | `kalman-filtering-and-state-estimation` | Control theory & optimization | 6 | 6 | scrub: 5, pick: 1 | slider: 5, click: 1 |
-| `kernel-methods-and-rkhs` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
 | `khovanov-homology` | Geometry & topology | 6 | 6 | pick: 6 | select: 5, click: 1 |
 | `klein-gordon-equation` | Mathematical physics | 6 | 6 | scrub: 5, pick: 1 | slider: 5, click: 1 |
 | `lie-algebras` | Algebra & homological | 6 | 7 | pick: 4, scrub: 2, other: 1 | click: 4, step: 1, slider: 1, ladder-op: 1 |
@@ -1066,7 +1065,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `game-theory` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, drag: 1 | 18 |
 | `quantum-information` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
 | `integrable-systems` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
-| `kernel-methods-and-rkhs` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `kernel-methods-and-rkhs` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, drag: 1 | 18 |
 | `reinforcement-learning` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, edit-grid: 1 | 18 |
 | `pomdps-and-belief-states` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, edit-grid: 1 | 18 |
 | `probabilistic-graphical-models` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 16 |

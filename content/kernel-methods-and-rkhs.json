@@ -183,6 +183,73 @@
         },
         {
           "type": "raw",
+          "html": "<p>The representer theorem (next section) promises that the functions you actually need are finite combinations $f=\\sum_i \\alpha_i\\,k(x_i,\\cdot)$ — one kernel “bump” per data point, scaled by a weight. Grab the handles below: dragging one <em>sideways</em> slides a kernel’s center $x_i$, dragging it <em>up or down</em> sets its weight $\\alpha_i$ (negative pulls the bump below the axis). The bold curve is the resulting RKHS function $f$; the dashed curves are the individual terms $\\alpha_i\\,k(x_i,\\cdot)$ summing to it. Every function in the span is reachable this way — the infinite-dimensional Hilbert space, steered by a handful of points.</p>"
+        },
+        {
+          "type": "widget",
+          "slug": "draggable-points-2d",
+          "params": {
+            "widgetId": "w-rkhs-rep",
+            "svgId": "rkhs-rep-svg",
+            "outputId": "rkhs-rep-out",
+            "title": "Drag the kernels: building f = Σ αᵢ k(xᵢ,·)",
+            "hint": "the representer theorem you can grab",
+            "svgTitle": "Dragging kernel centers and weights to build a function in a reproducing kernel Hilbert space as a finite combination of kernels at data points",
+            "viewBox": "0 0 540 340",
+            "svgWidth": 540,
+            "svgHeight": 340,
+            "points": [
+              {
+                "id": "k0",
+                "x": 134.4,
+                "y": 98,
+                "color": "var(--cyan)",
+                "minX": 50,
+                "maxX": 490,
+                "minY": 34,
+                "maxY": 306
+              },
+              {
+                "id": "k1",
+                "x": 224.8,
+                "y": 218,
+                "color": "var(--pink)",
+                "minX": 50,
+                "maxX": 490,
+                "minY": 34,
+                "maxY": 306
+              },
+              {
+                "id": "k2",
+                "x": 333.3,
+                "y": 80,
+                "color": "var(--green)",
+                "minX": 50,
+                "maxX": 490,
+                "minY": 34,
+                "maxY": 306
+              },
+              {
+                "id": "k3",
+                "x": 414.6,
+                "y": 230,
+                "color": "var(--orange)",
+                "minX": 50,
+                "maxX": 490,
+                "minY": 34,
+                "maxY": 306
+              }
+            ],
+            "bodyScript": "\n  const PX0=44, PX1=496, FY0=170, SCALE=60, SIG=0.9;\n  const cOf = px => -5 + (px-PX0)/(PX1-PX0)*10;       // handle x -> kernel center\n  const wOf = py => (FY0-py)/SCALE;                    // handle y -> weight alpha\n  const xpx = x => PX0 + (x+5)/10*(PX1-PX0);           // domain x -> pixel\n  const ypx = f => FY0 - f*SCALE;                      // value f -> pixel\n  const rbf = (x,c) => Math.exp(-(x-c)*(x-c)/(2*SIG*SIG));\n  function draw(){\n    G.innerHTML='';\n    // axes\n    G.appendChild(SVG('line',{x1:PX0,y1:FY0,x2:PX1,y2:FY0,stroke:'var(--line)','stroke-width':1}));\n    G.appendChild(SVG('line',{x1:PX0,y1:34,x2:PX0,y2:306,stroke:'var(--line)','stroke-width':1}));\n    for(var gx=-4;gx<=4;gx+=2){ G.appendChild(SVG('line',{x1:xpx(gx),y1:34,x2:xpx(gx),y2:306,stroke:'var(--line)','stroke-width':0.5,'stroke-opacity':0.35})); }\n    var centers=pts.map(function(p){return cOf(p.x);}), weights=pts.map(function(p){return wOf(p.y);});\n    // faint individual kernels  alpha_i k(.,x_i)\n    for(var i=0;i<pts.length;i++){ var d=''; for(var sx=-5;sx<=5.0001;sx+=0.1){ var y=weights[i]*rbf(sx,centers[i]); d+=(sx===-5?'M':'L')+xpx(sx).toFixed(1)+' '+ypx(y).toFixed(1)+' '; }\n      G.appendChild(SVG('path',{d:d,fill:'none',stroke:pts[i].color,'stroke-width':1,'stroke-opacity':0.5,'stroke-dasharray':'3 3'})); }\n    // bold sum  f = sum alpha_i k(.,x_i)\n    var df=''; for(var sx2=-5;sx2<=5.0001;sx2+=0.05){ var f=0; for(var k=0;k<pts.length;k++) f+=weights[k]*rbf(sx2,centers[k]); df+=(sx2===-5?'M':'L')+xpx(sx2).toFixed(1)+' '+ypx(f).toFixed(1)+' '; }\n    G.appendChild(SVG('path',{d:df,fill:'none',stroke:'var(--ink)','stroke-width':2.5}));\n    // readout\n    var cs=centers.map(function(c){return c.toFixed(1);}).join(', '), ws=weights.map(function(w){return w.toFixed(1);}).join(', ');\n    out.innerHTML='$f=\\\\sum_i \\\\alpha_i\\\\,k(x_i,\\\\cdot)$ with RBF $k(x,x_i)=e^{-(x-x_i)^2/2\\\\sigma^2}$, $\\\\sigma=0.9$ &nbsp;\\u00b7&nbsp; centers <b>['+cs+']</b>, weights $\\\\alpha$ <b>['+ws+']</b> &nbsp;\\u00b7&nbsp; <span style=\\\"color:var(--mute)\\\">drag a handle: sideways slides a kernel\\u2019s center $x_i$, up/down sets its weight $\\\\alpha_i$ (negative below the axis). The bold curve is the RKHS function; the dashed bumps are the terms.</span>';\n    if(window.renderMathInElement) try{ renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]}); }catch(e){}\n  }\n",
+            "outputInitial": ""
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-rkhs-rep"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#hilbert\">Banach and Hilbert spaces</a></li>\n    <li><a href=\"./functional-analysis.html#riesz\">Riesz representation theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
