@@ -8,6 +8,7 @@
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
+- Topics offering a direct-manipulation gesture: **54** of **211** with widgets (26%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -854,219 +855,398 @@ page has wired one in yet.
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)
   - by type: mcq: 117, numeric: 25, multi-select: 17, ordering: 6, matching: 1
 
+## Gesture-variety watchlist
+
+Topics with **≥4 concepts** but **no direct-manipulation gesture** — every toy on
+the page is a passive *scrub* (slide/play/step) or a discrete *pick* (click/select),
+nothing is built by hand. A topic here is a candidate for a new *gesture*, not a new
+widget: it already has toys, they all move the same way. Ranked by concept count
+(most under-served first). This is the surface that flags reinforcement-learning /
+pomdps-and-belief-states without a human eyeballing the corpus.
+
+| topic | section | concepts | widgets | modes | gesture mix |
+|---|---|---:|---:|---|---|
+| `algebra` | Algebra & homological | 16 | 19 | pick: 18, other: 1 | click: 16, select: 2, interact: 1 |
+| `commutative-algebra` | Algebra & homological | 16 | 16 | pick: 14, other: 2 | select: 10, click: 4, interact: 2 |
+| `additive-number-theory` | Number theory | 15 | 21 | pick: 18, other: 2, scrub: 1 | click: 14, input: 4, interactive: 2, slider: 1 |
+| `advanced-complex-analysis` | Analysis | 13 | 13 | other: 8, scrub: 4, pick: 1 | interact: 8, slider: 4, click: 1 |
+| `representation-theory` | Algebra & homological | 13 | 15 | pick: 15 | click: 15 |
+| `measure-theory` | Analysis | 12 | 13 | pick: 13 | click: 13 |
+| `operator-algebras` | Analysis | 12 | 15 | pick: 14, scrub: 1 | click: 12, select: 2, slider: 1 |
+| `automorphic-forms-adelic` | Modular forms & L-functions | 9 | 9 | scrub: 6, pick: 3 | step: 3, click: 3, slider: 3 |
+| `characteristic-classes` | Geometry & topology | 9 | 9 | pick: 6, scrub: 3 | click: 6, slider: 3 |
+| `modular-curves` | Modular forms & L-functions | 9 | 9 | scrub: 5, pick: 4 | click: 4, step: 3, slider: 2 |
+| `spectral-theory` | Analysis | 9 | 9 | scrub: 7, pick: 2 | slider: 7, click: 2 |
+| `groebner-bases` | Algebra & homological | 8 | 8 | pick: 8 | click: 6, select: 2 |
+| `harmonic-analysis-fourier` | Analysis | 8 | 8 | scrub: 5, pick: 2, other: 1 | slider: 5, select: 2, interact: 1 |
+| `hodge-theory` | Algebraic geometry | 8 | 7 | other: 4, scrub: 2, pick: 1 | interact: 4, click: 1, slider: 1, step: 1 |
+| `information-theory` | Probability & statistics | 8 | 8 | scrub: 6, pick: 2 | slider: 6, click: 2 |
+| `knot-polynomials` | Geometry & topology | 8 | 8 | pick: 5, scrub: 3 | click: 5, step: 2, slider: 1 |
+| `langlands-program` | Modular forms & L-functions | 8 | 5 | other: 3, pick: 2 | interact: 3, click: 2 |
+| `moonshine` | Modular forms & L-functions | 8 | 8 | pick: 8 | click: 8 |
+| `morse-theory` | Geometry & topology | 8 | 8 | scrub: 4, pick: 4 | slider: 4, click: 4 |
+| `motives` | Algebraic geometry | 8 | 7 | other: 3, pick: 3, scrub: 1 | interact: 3, click: 3, slider: 1 |
+| `wavelets` | Analysis | 8 | 9 | pick: 6, scrub: 3 | click: 6, slider: 3 |
+| `brill-noether` | Algebraic geometry | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
+| `cocartesian-fibrations` | Higher categories & toposes | 7 | 8 | other: 8 | interact: 8 |
+| `coding-theory` | Combinatorics & graph theory | 7 | 7 | pick: 5, scrub: 2 | click: 5, slider: 2 |
+| `combinatorial-optimization` | Control theory & optimization | 7 | 8 | pick: 5, scrub: 3 | click: 3, slider: 2, select: 2, play: 1 |
+| `computational-molecular-biology` | Probability & statistics | 7 | 7 | scrub: 5, pick: 2 | slider: 5, input: 2 |
+| `conformal-and-cr-geometry` | Analysis | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
+| `derived-categories` | Algebra & homological | 7 | 7 | pick: 5, scrub: 2 | click: 5, scrub: 2 |
+| `donaldson-thomas-and-gw-invariants` | Algebraic geometry | 7 | 7 | pick: 4, scrub: 3 | click: 4, slider: 3 |
+| `elementary-topos-theory` | Higher categories & toposes | 7 | 7 | pick: 7 | click: 7 |
+| `galois` | Number theory | 7 | 9 | pick: 6, other: 2, scrub: 1 | click: 6, static: 1, branching-timeline: 1, slider: 1 |
+| `gauge-theory` | Mathematical physics | 7 | 7 | scrub: 4, pick: 3 | slider: 4, click: 2, select: 1 |
+| `group-cohomology` | Algebra & homological | 7 | 7 | pick: 7 | click: 7 |
+| `heegaard-floer` | Geometry & topology | 7 | 7 | pick: 4, scrub: 2, other: 1 | select: 2, slider: 2, click: 2, interact: 1 |
+| `mathematical-finance` | Control theory & optimization | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
+| `matroid-theory` | Combinatorics & graph theory | 7 | 7 | scrub: 4, pick: 3 | click: 3, slider: 3, step: 1 |
+| `optimal-control-and-dynamic-programming` | Control theory & optimization | 7 | 7 | scrub: 7 | slider: 6, scrub: 1 |
+| `positive-characteristic-ag` | Algebraic geometry | 7 | 9 | pick: 6, scrub: 2, other: 1 | select: 4, click: 2, slider: 2, interact: 1 |
+| `probabilistic-method` | Combinatorics & graph theory | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
+| `random-matrix-theory` | Probability & statistics | 7 | 7 | pick: 4, scrub: 3 | click: 4, slider: 3 |
+| `sheaves` | Algebraic geometry | 7 | 9 | pick: 8, scrub: 1 | click: 8, slider: 1 |
+| `sobolev-spaces-distributions` | Analysis | 7 | 7 | scrub: 6, pick: 1 | slider: 6, click: 1 |
+| `spectral-methods-data` | Learning theory & data science | 7 | 7 | scrub: 7 | slider: 7 |
+| `string-theory` | Mathematical physics | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
+| `topological-data-analysis` | Learning theory & data science | 7 | 7 | scrub: 4, pick: 3 | slider: 4, click: 3 |
+| `zeta-values` | Modular forms & L-functions | 7 | 7 | pick: 6, scrub: 1 | click: 6, slider: 1 |
+| `zfc-and-ordinals` | Logic & Foundations | 7 | 7 | pick: 4, scrub: 3 | click: 4, slider: 2, step: 1 |
+| `abelian-varieties` | Algebraic geometry | 6 | 6 | pick: 4, scrub: 2 | click: 3, slider: 2, select: 1 |
+| `algebraic-combinatorics` | Combinatorics & graph theory | 6 | 6 | scrub: 6 | slider: 6 |
+| `algebraic-curves-higher-genus` | Algebraic geometry | 6 | 6 | other: 6 | interact: 6 |
+| `algebraic-de-rham-cohomology` | Algebraic geometry | 6 | 8 | other: 8 | interact: 8 |
+| `algebraic-k-theory-foundations` | Algebra & homological | 6 | 6 | pick: 4, scrub: 2 | click: 3, slider: 2, input: 1 |
+| `algebraic-spaces` | Algebraic geometry | 6 | 6 | pick: 4, scrub: 2 | click: 4, scrub: 2 |
+| `arithmetic-statistics` | Number theory | 6 | 6 | pick: 4, scrub: 2 | select: 3, slider: 2, input: 1 |
+| `atiyah-singer-index-theorem` | Geometry & topology | 6 | 6 | scrub: 4, pick: 2 | slider: 4, pick: 2 |
+| `calabi-yau-manifolds` | Algebraic geometry | 6 | 6 | scrub: 5, pick: 1 | slider: 5, click: 1 |
+| `causal-inference` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
+| `class-field-theory` | Number theory | 6 | 10 | pick: 10 | click: 9, read: 1 |
+| `cluster-algebras` | Algebra & homological | 6 | 6 | pick: 6 | click: 4, select: 2 |
+| `cobordism` | Geometry & topology | 6 | 6 | pick: 3, scrub: 3 | select: 3, slider: 3 |
+| `cohomology-and-duality` | Geometry & topology | 6 | 7 | pick: 5, other: 1, scrub: 1 | select: 3, click: 2, click-multiply: 1, slider: 1 |
+| `complexity-theory` | Logic & Foundations | 6 | 6 | scrub: 3, other: 2, pick: 1 | step: 2, slider: 1, input: 1, graph-walk: 1, toggle: 1 |
+| `computational-number-theory` | Number theory | 6 | 7 | pick: 5, scrub: 2 | input: 4, slider: 1, step-state: 1, click: 1 |
+| `condensed-mathematics` | Algebra & homological | 6 | 6 | pick: 5, scrub: 1 | click: 3, select: 2, slider: 1 |
+| `continued-fractions` | Number theory | 6 | 7 | pick: 4, scrub: 3 | click: 3, slider: 2, step-state: 1, select: 1 |
+| `crystalline-cohomology` | Algebraic geometry | 6 | 7 | pick: 6, scrub: 1 | select: 4, click: 2, slider: 1 |
+| `d-modules` | Algebraic geometry | 6 | 6 | pick: 4, scrub: 2 | click: 3, slider: 2, select: 1 |
+| `deformation-theory` | Algebraic geometry | 6 | 7 | pick: 3, scrub: 2, other: 2 | click: 3, scrub: 2, slide: 1, interact: 1 |
+| `designs` | Combinatorics & graph theory | 6 | 6 | pick: 3, scrub: 3 | click: 3, step: 3 |
+| `diffusion-and-score-based-models` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
+| `dirichlet-unit-theorem` | Number theory | 6 | 6 | pick: 6 | select: 3, input: 3 |
+| `enumerative-combinatorics` | Combinatorics & graph theory | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 1, step: 1 |
+| `ergodic-theory` | Analysis | 6 | 6 | scrub: 6 | slider: 6 |
+| `etale-fundamental-group` | Algebraic geometry | 6 | 6 | pick: 6 | click: 6 |
+| `expanders` | Combinatorics & graph theory | 6 | 6 | scrub: 4, pick: 2 | slider: 4, click: 2 |
+| `forcing-and-independence` | Logic & Foundations | 6 | 6 | other: 6 | toggle: 2, stepper: 2, table: 1, diagram: 1 |
+| `galois-cohomology-and-brauer` | Algebra & homological | 6 | 6 | pick: 6 | click: 6 |
+| `game-theory` | Control theory & optimization | 6 | 6 | scrub: 6 | slider: 6 |
+| `geometric-and-combinatorial-group-theory` | Algebra & homological | 6 | 6 | pick: 3, scrub: 3 | slider: 3, click: 2, select: 1 |
+| `grothendieck-topologies-sites` | Higher categories & toposes | 6 | 6 | pick: 6 | click: 6 |
+| `half-integral-weight-forms` | Modular forms & L-functions | 6 | 6 | pick: 6 | click: 4, input: 1, select: 1 |
+| `hamiltonians-classical-mechanics` | Mathematical physics | 6 | 6 | other: 6 | interact: 6 |
+| `heyting-algebras-toposes` | Higher categories & toposes | 6 | 6 | pick: 4, scrub: 2 | click: 4, scrub: 2 |
+| `high-dimensional-geometry` | Probability & statistics | 6 | 6 | scrub: 6 | slider: 6 |
+| `homotopy-theory` | Geometry & topology | 6 | 6 | scrub: 5, pick: 1 | slider: 5, select: 1 |
+| `infinity-categories` | Higher categories & toposes | 6 | 7 | pick: 4, scrub: 3 | scrub: 3, click: 3, read: 1 |
+| `information-geometry` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
+| `integrable-systems` | Mathematical physics | 6 | 6 | scrub: 6 | slider: 6 |
+| `intersection-theory-chow` | Algebraic geometry | 6 | 6 | pick: 5, scrub: 1 | select: 3, click: 2, scrub: 1 |
+| `iwasawa-theory` | Number theory | 6 | 6 | pick: 5, scrub: 1 | click: 3, select: 2, slider: 1 |
+| `k-theory` | Geometry & topology | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 2 |
+| `kahler-geometry` | Geometry & topology | 6 | 6 | scrub: 6 | slider: 6 |
+| `kalman-filtering-and-state-estimation` | Control theory & optimization | 6 | 6 | scrub: 5, pick: 1 | slider: 5, click: 1 |
+| `kernel-methods-and-rkhs` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
+| `khovanov-homology` | Geometry & topology | 6 | 6 | pick: 6 | select: 5, click: 1 |
+| `klein-gordon-equation` | Mathematical physics | 6 | 6 | scrub: 5, pick: 1 | slider: 5, click: 1 |
+| `lie-algebras` | Algebra & homological | 6 | 7 | pick: 4, scrub: 2, other: 1 | click: 4, step: 1, slider: 1, ladder-op: 1 |
+| `maass-forms` | Modular forms & L-functions | 6 | 6 | scrub: 4, pick: 2 | slider: 4, click: 1, select: 1 |
+| `mapping-class-groups` | Geometry & topology | 6 | 6 | pick: 3, scrub: 3 | slider: 3, click: 2, select: 1 |
+| `mathematical-statistics` | Probability & statistics | 6 | 6 | scrub: 6 | slider: 6 |
+| `mathematics-and-cryptography` | Number theory | 6 | 6 | scrub: 5, pick: 1 | slider: 5, button: 1 |
+| `microlocal-analysis` | Analysis | 6 | 6 | scrub: 5, pick: 1 | slider: 5, select: 1 |
+| `mirror-symmetry` | Algebraic geometry | 6 | 6 | pick: 3, scrub: 3 | slider: 3, click: 2, select: 1 |
+| `mmp-and-birational-geometry` | Algebraic geometry | 6 | 6 | scrub: 3, pick: 3 | slider: 3, click: 2, select: 1 |
+| `model-categories` | Algebra & homological | 6 | 6 | pick: 5, scrub: 1 | click: 3, select: 2, slider: 1 |
+| `modular-forms` | Modular forms & L-functions | 6 | 9 | pick: 7, scrub: 2 | click: 7, slider: 2 |
+| `mostow-rigidity` | Geometry & topology | 6 | 6 | scrub: 4, pick: 2 | slider: 3, click: 2, step: 1 |
+| `numerical-analysis` | Analysis | 6 | 7 | scrub: 7 | slider: 5, step: 1, play: 1 |
+| `optimal-transport` | Analysis | 6 | 6 | scrub: 6 | slider: 6 |
+| `order-theory-and-lattices` | Combinatorics & graph theory | 6 | 6 | scrub: 6 | slider: 6 |
+| `pomdps-and-belief-states` | Control theory & optimization | 6 | 6 | scrub: 6 | slider: 6 |
+| `probabilistic-graphical-models` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
+| `quadratic-reciprocity` | Number theory | 6 | 9 | pick: 7, scrub: 2 | click: 7, slider: 2 |
+| `quantum-field-theory` | Mathematical physics | 6 | 6 | scrub: 4, pick: 2 | slider: 4, click: 2 |
+| `quantum-groups` | Algebra & homological | 6 | 6 | pick: 3, other: 2, scrub: 1 | inspect: 3, toggle: 2, slider: 1 |
+| `quantum-information` | Mathematical physics | 6 | 6 | scrub: 6 | slider: 6 |
+| `quaternions-octonions-and-division-algebras` | Algebra & homological | 6 | 6 | pick: 5, scrub: 1 | click: 4, input: 1, slider: 1 |
+| `ramsey-theory` | Combinatorics & graph theory | 6 | 6 | scrub: 6 | slider: 6 |
+| `random-walks-and-mixing` | Probability & statistics | 6 | 6 | scrub: 5, pick: 1 | step: 3, slider: 2, click: 1 |
+| `reinforcement-learning` | Control theory & optimization | 6 | 6 | scrub: 6 | slider: 6 |
+| `resolution-of-singularities` | Algebraic geometry | 6 | 6 | pick: 6 | inspect: 5, click: 1 |
+| `ricci-flow` | Geometry & topology | 6 | 6 | other: 6 | button-stepper: 6 |
+| `schrodinger-equation` | Mathematical physics | 6 | 7 | scrub: 7 | slider: 7 |
+| `semigroup-theory-evolution-equations` | Analysis | 6 | 6 | scrub: 6 | slider: 6 |
+| `several-complex-variables` | Analysis | 6 | 6 | scrub: 5, pick: 1 | slider: 5, click: 1 |
+| `shimura-varieties` | Modular forms & L-functions | 6 | 6 | pick: 5, scrub: 1 | select: 5, slider: 1 |
+| `simplicial-complexes-combinatorial` | Combinatorics & graph theory | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 2 |
+| `simplicial-sets-and-nerve` | Higher categories & toposes | 6 | 6 | pick: 4, scrub: 2 | click: 4, step: 2 |
+| `stochastic-calculus` | Probability & statistics | 6 | 6 | scrub: 4, pick: 2 | slider: 4, button: 2 |
+| `stochastic-processes-and-martingales` | Probability & statistics | 6 | 6 | scrub: 6 | slider: 4, step: 2 |
+| `surgery-theory` | Geometry & topology | 6 | 6 | pick: 5, scrub: 1 | select: 5, slider: 1 |
+| `three-body-problem` | Mathematical physics | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 2 |
+| `tropical-geometry` | Algebraic geometry | 6 | 6 | scrub: 4, pick: 2 | slider: 4, select: 1, click: 1 |
+| `vertex-operator-algebras` | Modular forms & L-functions | 6 | 6 | scrub: 3, pick: 3 | step: 2, select: 2, slider: 1, click: 1 |
+| `adeles-and-ideles` | Number theory | 5 | 5 | pick: 5 | click: 5 |
+| `algebraic-number-theory` | Number theory | 5 | 7 | pick: 7 | click: 6, select: 1 |
+| `bezout` | Algebraic geometry | 5 | 10 | pick: 9, scrub: 1 | click: 9, slider: 1 |
+| `bsd` | Modular forms & L-functions | 5 | 9 | pick: 9 | click: 9 |
+| `dirichlet-series-euler-products` | Modular forms & L-functions | 5 | 10 | pick: 10 | click: 10 |
+| `etale-cohomology` | Algebraic geometry | 5 | 9 | pick: 9 | click: 9 |
+| `frobenius-and-reciprocity` | Number theory | 5 | 11 | pick: 7, other: 2, scrub: 2 | click: 7, interact: 2, slider: 2 |
+| `functor-of-points` | Algebraic geometry | 5 | 10 | pick: 10 | click: 10 |
+| `galois-representations` | Number theory | 5 | 11 | pick: 10, scrub: 1 | click: 10, slider: 1 |
+| `hecke-operators` | Modular forms & L-functions | 5 | 8 | pick: 8 | click: 8 |
+| `L-functions` | Modular forms & L-functions | 5 | 11 | pick: 6, other: 4, scrub: 1 | click: 6, static: 4, slider: 1 |
+| `large-deviations` | Probability & statistics | 5 | 5 | scrub: 2, pick: 2, other: 1 | slider: 2, click: 2, toggle: 1 |
+| `modularity-and-flt` | Modular forms & L-functions | 5 | 9 | pick: 9 | click: 9 |
+| `moduli-spaces` | Algebraic geometry | 5 | 7 | pick: 6, scrub: 1 | click: 6, slider: 1 |
+| `morphisms-fiber-products` | Algebraic geometry | 5 | 9 | pick: 7, scrub: 2 | click: 7, slider: 2 |
+| `naive-set-theory` | Logic & Foundations | 5 | 6 | pick: 6 | click: 6 |
+| `partitions-generating-functions` | Combinatorics & graph theory | 5 | 7 | pick: 7 | click: 7 |
+| `quadratic-forms-genus-theory` | Number theory | 5 | 6 | pick: 6 | click: 6 |
+| `sato-tate` | Modular forms & L-functions | 5 | 9 | pick: 9 | click: 9 |
+| `sheaf-cohomology` | Algebraic geometry | 5 | 10 | pick: 8, other: 2 | click: 6, interact: 2, select: 2 |
+| `singular-cubics-reduction` | Algebraic geometry | 5 | 9 | pick: 8, scrub: 1 | click: 8, slider: 1 |
+| `stacks` | Algebraic geometry | 5 | 9 | pick: 9 | click: 9 |
+| `theta-functions` | Modular forms & L-functions | 5 | 8 | pick: 7, scrub: 1 | click: 7, slider: 1 |
+
 ## Per-topic
 
-- `random-matrix-theory` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `geometric-invariant-theory` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `heegaard-floer` (Geometry & topology) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `optimal-transport` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `ergodic-theory` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `brill-noether` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `coding-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `conformal-and-cr-geometry` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `mathematical-biology` (Probability & statistics) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
-- `spectral-methods-data` (Learning theory & data science) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `computational-molecular-biology` (Probability & statistics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `optimal-control-and-dynamic-programming` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `combinatorial-optimization` (Control theory & optimization) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
-- `mathematical-finance` (Control theory & optimization) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `donaldson-thomas-and-gw-invariants` (Algebraic geometry) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `positive-characteristic-ag` (Algebraic geometry) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
-- `convex-optimization` (Control theory & optimization) — concepts=7, widgets=10 (slug=10), quiz=21 (v1=21, hard=0, expert=0)
-- `convex-geometry` (Geometry & topology) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
-- `topological-data-analysis` (Learning theory & data science) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `mathematical-chaos` (Analysis) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
-- `kalman-filtering-and-state-estimation` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `statistical-learning-theory` (Learning theory & data science) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `markov-decision-processes` (Control theory & optimization) — concepts=6, widgets=8 (slug=8), quiz=18 (v1=18, hard=0, expert=0)
-- `ramsey-theory` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `order-theory-and-lattices` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `algebraic-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `polytopes-and-ehrhart` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `game-theory` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `quantum-information` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `integrable-systems` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `kernel-methods-and-rkhs` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `reinforcement-learning` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `pomdps-and-belief-states` (Control theory & optimization) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `probabilistic-graphical-models` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=16 (v1=16, hard=0, expert=0)
-- `deep-learning-theory` (Learning theory & data science) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `information-geometry` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `diffusion-and-score-based-models` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `causal-inference` (Learning theory & data science) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `several-complex-variables` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `khovanov-homology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `shimura-varieties` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `arithmetic-statistics` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `complex-multiplication` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `tropical-geometry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `surgery-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `mapping-class-groups` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `crystalline-cohomology` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `homotopy-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `maass-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `d-modules` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `dirichlet-unit-theorem` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `cobordism` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `mmp-and-birational-geometry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `continued-fractions` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `abelian-varieties` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `positivity-and-ample-line-bundles` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `motives` (Algebraic geometry) — concepts=8, widgets=7 (slug=7), quiz=24 (v1=24, hard=0, expert=0)
-- `algebraic-k-theory-foundations` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `model-categories` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `condensed-mathematics` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `hodge-theory` (Algebraic geometry) — concepts=8, widgets=7 (slug=7), quiz=24 (v1=24, hard=0, expert=0)
-- `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=5 (slug=5), quiz=24 (v1=24, hard=0, expert=0)
-- `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `geometric-measure-theory` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `semigroup-theory-evolution-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `special-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=19 (v1=19, hard=0, expert=0)
-- `klein-gordon-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `cohomology-and-duality` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `dirac-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `iwasawa-theory` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `quantum-field-theory` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `toric-varieties` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
-- `advanced-complex-analysis` (Analysis) — concepts=13, widgets=13 (slug=13), quiz=39 (v1=39, hard=0, expert=0)
-- `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
-- `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `numerical-analysis` (Analysis) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `computational-number-theory` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `variational-methods` (Analysis) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `fixed-point-theorems` (Analysis) — concepts=8, widgets=9 (slug=9), quiz=24 (v1=24, hard=0, expert=0)
-- `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `general-relativity` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `three-body-problem` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `symplectic-manifolds` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `quantum-groups` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `quaternions-octonions-and-division-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `geometric-and-combinatorial-group-theory` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `cluster-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `wavelets` (Analysis) — concepts=8, widgets=9 (slug=9), quiz=24 (v1=24, hard=0, expert=0)
-- `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `knot-polynomials` (Geometry & topology) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
-- `ricci-flow` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `k-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `atiyah-singer-index-theorem` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=8 (slug=8), quiz=21 (v1=21, hard=0, expert=0)
-- `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `complexity-theory` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `type-theory-and-hott` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `forcing-and-independence` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `algebra` (Algebra & homological) — concepts=16, widgets=19 (slug=19), quiz=85 (v1=48, hard=37, expert=0)
-- `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
-- `representation-theory` (Algebra & homological) — concepts=13, widgets=15 (slug=15), quiz=74 (v1=39, hard=35, expert=0)
-- `commutative-algebra` (Algebra & homological) — concepts=16, widgets=16 (slug=16), quiz=84 (v1=49, hard=35, expert=0)
-- `homological` (Algebra & homological) — concepts=15, widgets=16 (slug=16), quiz=82 (v1=45, hard=37, expert=0)
-- `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
-- `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `lie-algebras` (Algebra & homological) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `galois-cohomology-and-brauer` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `elementary-topos-theory` (Higher categories & toposes) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
-- `heyting-algebras-toposes` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
-- `grothendieck-topologies-sites` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
-- `simplicial-sets-and-nerve` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
-- `infinity-categories` (Higher categories & toposes) — concepts=6, widgets=7 (slug=7), quiz=24 (v1=18, hard=6, expert=0)
-- `cocartesian-fibrations` (Higher categories & toposes) — concepts=7, widgets=8 (slug=8), quiz=31 (v1=21, hard=10, expert=0)
-- `infinity-topoi` (Higher categories & toposes) — concepts=7, widgets=9 (slug=9), quiz=29 (v1=21, hard=8, expert=0)
-- `real-analysis` (Analysis) — concepts=18, widgets=23 (slug=23), quiz=83 (v1=54, hard=29, expert=0)
-- `measure-theory` (Analysis) — concepts=12, widgets=13 (slug=13), quiz=72 (v1=36, hard=36, expert=0)
-- `complex-analysis` (Analysis) — concepts=27, widgets=30 (slug=30), quiz=52 (v1=40, hard=12, expert=0)
-- `functional-analysis` (Analysis) — concepts=14, widgets=17 (slug=17), quiz=78 (v1=42, hard=36, expert=0)
-- `operator-algebras` (Analysis) — concepts=12, widgets=15 (slug=15), quiz=72 (v1=36, hard=36, expert=0)
-- `dynamical-systems` (Analysis) — concepts=13, widgets=22 (slug=22), quiz=75 (v1=39, hard=36, expert=0)
-- `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
-- `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `harmonic-functions` (Analysis) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `spectral-theory` (Analysis) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
-- `probability-theory` (Probability & statistics) — concepts=12, widgets=16 (slug=16), quiz=73 (v1=36, hard=24, expert=13)
-- `stochastic-processes-and-martingales` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `random-walks-and-mixing` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `information-theory` (Probability & statistics) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
-- `large-deviations` (Probability & statistics) — concepts=5, widgets=5 (slug=5), quiz=15 (v1=15, hard=0, expert=0)
-- `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
-- `algebraic-topology` (Geometry & topology) — concepts=6, widgets=9 (slug=9), quiz=32 (v1=18, hard=14, expert=0)
-- `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=11 (slug=11), quiz=59 (v1=30, hard=29, expert=0)
-- `differential-forms` (Geometry & topology) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
-- `differential-geometry` (Geometry & topology) — concepts=5, widgets=13 (slug=13), quiz=30 (v1=15, hard=15, expert=0)
-- `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
-- `lie-groups` (Geometry & topology) — concepts=7, widgets=8 (slug=8), quiz=42 (v1=21, hard=21, expert=0)
-- `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `characteristic-classes` (Geometry & topology) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
-- `morse-theory` (Geometry & topology) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
-- `galois` (Number theory) — concepts=7, widgets=9 (slug=9), quiz=32 (v1=17, hard=15, expert=0)
-- `quadratic-reciprocity` (Number theory) — concepts=6, widgets=9 (slug=9), quiz=33 (v1=18, hard=15, expert=0)
-- `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `additive-number-theory` (Number theory) — concepts=15, widgets=21 (slug=21), quiz=91 (v1=46, hard=45, expert=0)
-- `algebraic-number-theory` (Number theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `p-adic-numbers` (Number theory) — concepts=7, widgets=12 (slug=12), quiz=36 (v1=21, hard=15, expert=0)
-- `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
-- `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
-- `class-field-theory` (Number theory) — concepts=6, widgets=10 (slug=10), quiz=36 (v1=18, hard=18, expert=0)
-- `heights-arithmetic-geometry` (Number theory) — concepts=10, widgets=10 (slug=10), quiz=30 (v1=30, hard=0, expert=0)
-- `analytic-number-theory` (Number theory) — concepts=10, widgets=10 (slug=10), quiz=30 (v1=30, hard=0, expert=0)
-- `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
-- `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=9 (slug=9), quiz=33 (v1=18, hard=15, expert=0)
-- `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
-- `partitions-generating-functions` (Combinatorics & graph theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `hecke-operators` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
-- `dirichlet-series-euler-products` (Modular forms & L-functions) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
-- `analytic-continuation` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `zeta-values` (Modular forms & L-functions) — concepts=7, widgets=7 (slug=7), quiz=36 (v1=21, hard=15, expert=0)
-- `L-functions` (Modular forms & L-functions) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
-- `galois-representations` (Number theory) — concepts=5, widgets=11 (slug=11), quiz=30 (v1=15, hard=15, expert=0)
-- `moonshine` (Modular forms & L-functions) — concepts=8, widgets=8 (slug=8), quiz=39 (v1=24, hard=15, expert=0)
-- `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
-- `modular-curves` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
-- `projective-plane` (Algebraic geometry) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
-- `bezout` (Algebraic geometry) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
-- `schemes` (Algebraic geometry) — concepts=10, widgets=14 (slug=14), quiz=60 (v1=30, hard=30, expert=0)
-- `sheaves` (Algebraic geometry) — concepts=7, widgets=9 (slug=9), quiz=42 (v1=21, hard=21, expert=0)
-- `morphisms-fiber-products` (Algebraic geometry) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `functor-of-points` (Algebraic geometry) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
-- `elliptic-curves` (Algebraic geometry) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `singular-cubics-reduction` (Algebraic geometry) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `algebraic-curves-higher-genus` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=25 (v1=18, hard=7, expert=0)
-- `sheaf-cohomology` (Algebraic geometry) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
-- `algebraic-de-rham-cohomology` (Algebraic geometry) — concepts=6, widgets=8 (slug=8), quiz=24 (v1=18, hard=6, expert=0)
-- `moduli-spaces` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `algebraic-spaces` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
-- `stacks` (Algebraic geometry) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `intersection-theory-chow` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=25 (v1=18, hard=7, expert=0)
-- `group-schemes` (Algebraic geometry) — concepts=6, widgets=8 (slug=8), quiz=24 (v1=18, hard=6, expert=0)
-- `etale-fundamental-group` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
-- `deformation-theory` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=24 (v1=18, hard=6, expert=0)
-- `graph-theory-fundamentals` (Combinatorics & graph theory) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `spectral-graph-theory` (Combinatorics & graph theory) — concepts=7, widgets=9 (slug=9), quiz=21 (v1=21, hard=0, expert=0)
-- `matroid-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `probabilistic-method` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `extremal-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `enumerative-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `etale-cohomology` (Algebraic geometry) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `gauge-theory` (Mathematical physics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `string-theory` (Mathematical physics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
+The **manip** column marks topics with at least one direct-manipulation gesture
+(✓), only scrub/pick (·), or no widgets (—). It is **body-evidence based**: a topic
+is ✓ if its rendered HTML carries a real drag handler (make3DDraggable, getScreenCTM
+pointer-mapping, cursor:grab, pointermove, mousedown+mousemove) OR it uses a
+dedicated manipulation slug (e.g. grid-world-mdp's click-to-edit). Native
+range-slider "drags" (dragging a slider thumb) do NOT count — the **gesture mix**
+column is the coarser per-slug registry view and can over-report sliders.
+
+| topic | section | concepts | widgets | concepts w/o widget | distinct gestures | 3D | manip | gesture mix | quizzes |
+|---|---|---:|---:|---:|---:|---:|:---:|---|---:|
+| `random-matrix-theory` | Probability & statistics | 7 | 7 | 0 | 2 | 0 | · | click: 4, slider: 3 | 21 |
+| `geometric-invariant-theory` | Algebraic geometry | 7 | 7 | 0 | 2 | 0 | ✓ | click: 5, slider: 2 | 21 |
+| `heegaard-floer` | Geometry & topology | 7 | 7 | 0 | 4 | 0 | · | select: 2, slider: 2, click: 2, interact: 1 | 21 |
+| `optimal-transport` | Analysis | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `ergodic-theory` | Analysis | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `brill-noether` | Algebraic geometry | 7 | 7 | 0 | 2 | 0 | · | slider: 5, click: 2 | 21 |
+| `coding-theory` | Combinatorics & graph theory | 7 | 7 | 0 | 2 | 0 | · | click: 5, slider: 2 | 21 |
+| `conformal-and-cr-geometry` | Analysis | 7 | 7 | 0 | 2 | 0 | · | slider: 5, click: 2 | 21 |
+| `mathematical-biology` | Probability & statistics | 7 | 8 | 0 | 3 | 0 | ✓ | slider: 6, click-seed: 1, click: 1 | 21 |
+| `spectral-methods-data` | Learning theory & data science | 7 | 7 | 0 | 1 | 0 | · | slider: 7 | 21 |
+| `computational-molecular-biology` | Probability & statistics | 7 | 7 | 0 | 2 | 0 | · | slider: 5, input: 2 | 21 |
+| `optimal-control-and-dynamic-programming` | Control theory & optimization | 7 | 7 | 0 | 2 | 0 | · | slider: 6, scrub: 1 | 21 |
+| `combinatorial-optimization` | Control theory & optimization | 7 | 8 | 0 | 4 | 0 | · | click: 3, slider: 2, select: 2, play: 1 | 21 |
+| `mathematical-finance` | Control theory & optimization | 7 | 7 | 0 | 2 | 0 | · | slider: 5, click: 2 | 21 |
+| `donaldson-thomas-and-gw-invariants` | Algebraic geometry | 7 | 7 | 0 | 2 | 0 | · | click: 4, slider: 3 | 21 |
+| `positive-characteristic-ag` | Algebraic geometry | 7 | 9 | 0 | 4 | 0 | · | select: 4, click: 2, slider: 2, interact: 1 | 21 |
+| `convex-optimization` | Control theory & optimization | 7 | 10 | 0 | 4 | 0 | ✓ | slider: 7, draw: 1, edit: 1, play: 1 | 21 |
+| `convex-geometry` | Geometry & topology | 7 | 8 | 0 | 3 | 0 | ✓ | slider: 5, select: 2, drag: 1 | 21 |
+| `topological-data-analysis` | Learning theory & data science | 7 | 7 | 0 | 2 | 0 | · | slider: 4, click: 3 | 21 |
+| `mathematical-chaos` | Analysis | 7 | 9 | 0 | 4 | 0 | ✓ | slider: 5, click: 2, edit: 1, timeline: 1 | 21 |
+| `kalman-filtering-and-state-estimation` | Control theory & optimization | 6 | 6 | 0 | 2 | 0 | · | slider: 5, click: 1 | 18 |
+| `statistical-learning-theory` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, construct-to-break: 1 | 18 |
+| `markov-decision-processes` | Control theory & optimization | 6 | 8 | 0 | 3 | 0 | ✓ | slider: 6, edit-grid: 1, play: 1 | 18 |
+| `ramsey-theory` | Combinatorics & graph theory | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `order-theory-and-lattices` | Combinatorics & graph theory | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `algebraic-combinatorics` | Combinatorics & graph theory | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `polytopes-and-ehrhart` | Combinatorics & graph theory | 6 | 6 | 0 | 1 | 0 | ✓ | slider: 6 | 18 |
+| `game-theory` | Control theory & optimization | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `quantum-information` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `integrable-systems` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `kernel-methods-and-rkhs` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `reinforcement-learning` | Control theory & optimization | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `pomdps-and-belief-states` | Control theory & optimization | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `probabilistic-graphical-models` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 16 |
+| `deep-learning-theory` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, click-seed: 1 | 18 |
+| `information-geometry` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `diffusion-and-score-based-models` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `causal-inference` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `several-complex-variables` | Analysis | 6 | 6 | 0 | 2 | 0 | · | slider: 5, click: 1 | 18 |
+| `khovanov-homology` | Geometry & topology | 6 | 6 | 0 | 2 | 0 | · | select: 5, click: 1 | 18 |
+| `shimura-varieties` | Modular forms & L-functions | 6 | 6 | 0 | 2 | 0 | · | select: 5, slider: 1 | 18 |
+| `arithmetic-statistics` | Number theory | 6 | 6 | 0 | 3 | 0 | · | select: 3, slider: 2, input: 1 | 18 |
+| `complex-multiplication` | Number theory | 6 | 6 | 0 | 2 | 0 | ✓ | select: 5, drag: 1 | 18 |
+| `tropical-geometry` | Algebraic geometry | 6 | 6 | 0 | 3 | 0 | · | slider: 4, select: 1, click: 1 | 18 |
+| `surgery-theory` | Geometry & topology | 6 | 6 | 0 | 2 | 0 | · | select: 5, slider: 1 | 18 |
+| `kahler-geometry` | Geometry & topology | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `mapping-class-groups` | Geometry & topology | 6 | 6 | 0 | 3 | 0 | · | slider: 3, click: 2, select: 1 | 18 |
+| `half-integral-weight-forms` | Modular forms & L-functions | 6 | 6 | 0 | 3 | 0 | · | click: 4, input: 1, select: 1 | 18 |
+| `crystalline-cohomology` | Algebraic geometry | 6 | 7 | 0 | 3 | 0 | · | select: 4, click: 2, slider: 1 | 18 |
+| `homotopy-theory` | Geometry & topology | 6 | 6 | 0 | 2 | 0 | · | slider: 5, select: 1 | 18 |
+| `maass-forms` | Modular forms & L-functions | 6 | 6 | 0 | 3 | 0 | · | slider: 4, click: 1, select: 1 | 18 |
+| `d-modules` | Algebraic geometry | 6 | 6 | 0 | 3 | 0 | · | click: 3, slider: 2, select: 1 | 18 |
+| `dirichlet-unit-theorem` | Number theory | 6 | 6 | 0 | 2 | 0 | · | select: 3, input: 3 | 18 |
+| `cobordism` | Geometry & topology | 6 | 6 | 0 | 2 | 0 | · | select: 3, slider: 3 | 18 |
+| `mmp-and-birational-geometry` | Algebraic geometry | 6 | 6 | 0 | 3 | 0 | · | slider: 3, click: 2, select: 1 | 18 |
+| `continued-fractions` | Number theory | 6 | 7 | 0 | 4 | 0 | · | click: 3, slider: 2, step-state: 1, select: 1 | 18 |
+| `abelian-varieties` | Algebraic geometry | 6 | 6 | 0 | 3 | 0 | · | click: 3, slider: 2, select: 1 | 18 |
+| `positivity-and-ample-line-bundles` | Algebraic geometry | 6 | 6 | 0 | 2 | 0 | ✓ | slider: 4, click: 2 | 18 |
+| `motives` | Algebraic geometry | 8 | 7 | 1 | 3 | 0 | · | interact: 3, click: 3, slider: 1 | 24 |
+| `algebraic-k-theory-foundations` | Algebra & homological | 6 | 6 | 0 | 3 | 0 | · | click: 3, slider: 2, input: 1 | 18 |
+| `model-categories` | Algebra & homological | 6 | 6 | 0 | 3 | 0 | · | click: 3, select: 2, slider: 1 | 18 |
+| `condensed-mathematics` | Algebra & homological | 6 | 6 | 0 | 3 | 0 | · | click: 3, select: 2, slider: 1 | 18 |
+| `hodge-theory` | Algebraic geometry | 8 | 7 | 1 | 4 | 0 | · | interact: 4, click: 1, slider: 1, step: 1 | 24 |
+| `langlands-program` | Modular forms & L-functions | 8 | 5 | 3 | 2 | 0 | · | interact: 3, click: 2 | 24 |
+| `microlocal-analysis` | Analysis | 6 | 6 | 0 | 2 | 0 | · | slider: 5, select: 1 | 18 |
+| `geometric-measure-theory` | Analysis | 6 | 6 | 0 | 2 | 0 | ✓ | slider: 5, click: 1 | 18 |
+| `semigroup-theory-evolution-equations` | Analysis | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `special-relativity` | Mathematical physics | 6 | 6 | 0 | 2 | 0 | ✓ | slider: 5, interact: 1 | 19 |
+| `klein-gordon-equation` | Mathematical physics | 6 | 6 | 0 | 2 | 0 | · | slider: 5, click: 1 | 18 |
+| `cohomology-and-duality` | Geometry & topology | 6 | 7 | 0 | 4 | 0 | · | select: 3, click: 2, click-multiply: 1, slider: 1 | 18 |
+| `dirac-equation` | Mathematical physics | 6 | 6 | 0 | 2 | 0 | ✓ | click: 3, slider: 3 | 18 |
+| `iwasawa-theory` | Number theory | 6 | 6 | 0 | 3 | 0 | · | click: 3, select: 2, slider: 1 | 18 |
+| `quantum-field-theory` | Mathematical physics | 6 | 6 | 0 | 2 | 0 | · | slider: 4, click: 2 | 18 |
+| `toric-varieties` | Algebraic geometry | 6 | 6 | 0 | 1 | 0 | ✓ | click: 6 | 18 |
+| `statistical-mechanics` | Mathematical physics | 7 | 8 | 0 | 3 | 0 | ✓ | slider: 6, two-param-scrub: 1, click: 1 | 21 |
+| `advanced-complex-analysis` | Analysis | 13 | 13 | 0 | 3 | 0 | · | interact: 8, slider: 4, click: 1 | 39 |
+| `groebner-bases` | Algebra & homological | 8 | 8 | 0 | 2 | 0 | · | click: 6, select: 2 | 24 |
+| `mathematical-statistics` | Probability & statistics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `numerical-analysis` | Analysis | 6 | 7 | 0 | 3 | 0 | · | slider: 5, step: 1, play: 1 | 18 |
+| `computational-number-theory` | Number theory | 6 | 7 | 0 | 4 | 0 | · | input: 4, slider: 1, step-state: 1, click: 1 | 18 |
+| `variational-methods` | Analysis | 6 | 7 | 0 | 3 | 2 | ✓ | slider: 3, drag: 3, click: 1 | 18 |
+| `fixed-point-theorems` | Analysis | 8 | 9 | 0 | 4 | 0 | ✓ | click: 4, slider: 3, static: 1, select: 1 | 24 |
+| `calabi-yau-manifolds` | Algebraic geometry | 6 | 6 | 0 | 2 | 0 | · | slider: 5, click: 1 | 18 |
+| `high-dimensional-geometry` | Probability & statistics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `mirror-symmetry` | Algebraic geometry | 6 | 6 | 0 | 3 | 0 | · | slider: 3, click: 2, select: 1 | 18 |
+| `mostow-rigidity` | Geometry & topology | 6 | 6 | 0 | 3 | 0 | · | slider: 3, click: 2, step: 1 | 18 |
+| `resolution-of-singularities` | Algebraic geometry | 6 | 6 | 0 | 2 | 0 | · | inspect: 5, click: 1 | 18 |
+| `hamiltonians-classical-mechanics` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | interact: 6 | 18 |
+| `general-relativity` | Mathematical physics | 6 | 7 | 0 | 3 | 1 | ✓ | slider: 4, drag: 2, click: 1 | 18 |
+| `three-body-problem` | Mathematical physics | 6 | 6 | 0 | 2 | 0 | · | click: 4, slider: 2 | 18 |
+| `designs` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | click: 3, step: 3 | 18 |
+| `expanders` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | slider: 4, click: 2 | 18 |
+| `symplectic-manifolds` | Geometry & topology | 6 | 6 | 0 | 3 | 0 | ✓ | drag: 2, slider: 2, click: 2 | 18 |
+| `quantum-groups` | Algebra & homological | 6 | 6 | 0 | 3 | 0 | · | inspect: 3, toggle: 2, slider: 1 | 18 |
+| `quaternions-octonions-and-division-algebras` | Algebra & homological | 6 | 6 | 0 | 3 | 1 | · | click: 4, input: 1, slider: 1 | 18 |
+| `geometric-and-combinatorial-group-theory` | Algebra & homological | 6 | 6 | 0 | 3 | 0 | · | slider: 3, click: 2, select: 1 | 18 |
+| `cluster-algebras` | Algebra & homological | 6 | 6 | 0 | 2 | 0 | · | click: 4, select: 2 | 18 |
+| `wavelets` | Analysis | 8 | 9 | 0 | 2 | 0 | · | click: 6, slider: 3 | 24 |
+| `vertex-operator-algebras` | Modular forms & L-functions | 6 | 6 | 0 | 4 | 0 | · | step: 2, select: 2, slider: 1, click: 1 | 18 |
+| `schrodinger-equation` | Mathematical physics | 6 | 7 | 0 | 1 | 0 | · | slider: 7 | 18 |
+| `mathematics-and-cryptography` | Number theory | 6 | 6 | 0 | 2 | 0 | · | slider: 5, button: 1 | 18 |
+| `knot-polynomials` | Geometry & topology | 8 | 8 | 0 | 3 | 0 | · | click: 5, step: 2, slider: 1 | 24 |
+| `ricci-flow` | Geometry & topology | 6 | 6 | 0 | 1 | 0 | · | button-stepper: 6 | 18 |
+| `k-theory` | Geometry & topology | 6 | 6 | 0 | 2 | 0 | · | click: 4, slider: 2 | 18 |
+| `atiyah-singer-index-theorem` | Geometry & topology | 6 | 6 | 0 | 2 | 0 | · | slider: 4, pick: 2 | 18 |
+| `naive-set-theory` | Logic & Foundations | 5 | 6 | 0 | 1 | 0 | · | click: 6 | 30 |
+| `first-order-logic-and-completeness` | Logic & Foundations | 7 | 8 | 0 | 3 | 0 | ✓ | step: 4, click: 3, compose-evaluate: 1 | 21 |
+| `zfc-and-ordinals` | Logic & Foundations | 7 | 7 | 0 | 3 | 0 | · | click: 4, slider: 2, step: 1 | 21 |
+| `model-theory-basics` | Logic & Foundations | 6 | 6 | 0 | 2 | 0 | ✓ | step: 4, click: 2 | 18 |
+| `computability-and-decidability` | Logic & Foundations | 6 | 6 | 0 | 3 | 0 | ✓ | click: 3, step: 2, type: 1 | 18 |
+| `complexity-theory` | Logic & Foundations | 6 | 6 | 0 | 5 | 0 | · | step: 2, slider: 1, input: 1, graph-walk: 1, toggle: 1 | 18 |
+| `type-theory-and-hott` | Logic & Foundations | 6 | 6 | 0 | 2 | 0 | ✓ | click: 5, drag: 1 | 18 |
+| `forcing-and-independence` | Logic & Foundations | 6 | 6 | 0 | 4 | 0 | · | toggle: 2, stepper: 2, table: 1, diagram: 1 | 18 |
+| `algebra` | Algebra & homological | 16 | 19 | 0 | 3 | 0 | · | click: 16, select: 2, interact: 1 | 85 |
+| `category-theory` | Algebra & homological | 12 | 17 | 0 | 3 | 0 | ✓ | click: 15, slider+click: 1, interactive: 1 | 72 |
+| `representation-theory` | Algebra & homological | 13 | 15 | 0 | 1 | 0 | · | click: 15 | 74 |
+| `commutative-algebra` | Algebra & homological | 16 | 16 | 0 | 3 | 0 | · | select: 10, click: 4, interact: 2 | 84 |
+| `homological` | Algebra & homological | 15 | 16 | 0 | 4 | 0 | ✓ | click: 11, interact: 3, drag-and-toggle: 1, select: 1 | 82 |
+| `derived-categories` | Algebra & homological | 7 | 7 | 0 | 2 | 0 | · | click: 5, scrub: 2 | 27 |
+| `group-cohomology` | Algebra & homological | 7 | 7 | 0 | 1 | 0 | · | click: 7 | 21 |
+| `lie-algebras` | Algebra & homological | 6 | 7 | 0 | 4 | 0 | · | click: 4, step: 1, slider: 1, ladder-op: 1 | 18 |
+| `galois-cohomology-and-brauer` | Algebra & homological | 6 | 6 | 0 | 1 | 0 | · | click: 6 | 18 |
+| `elementary-topos-theory` | Higher categories & toposes | 7 | 7 | 0 | 1 | 0 | · | click: 7 | 27 |
+| `heyting-algebras-toposes` | Higher categories & toposes | 6 | 6 | 0 | 2 | 0 | · | click: 4, scrub: 2 | 24 |
+| `grothendieck-topologies-sites` | Higher categories & toposes | 6 | 6 | 0 | 1 | 0 | · | click: 6 | 24 |
+| `simplicial-sets-and-nerve` | Higher categories & toposes | 6 | 6 | 0 | 2 | 0 | · | click: 4, step: 2 | 24 |
+| `infinity-categories` | Higher categories & toposes | 6 | 7 | 0 | 3 | 0 | · | scrub: 3, click: 3, read: 1 | 24 |
+| `cocartesian-fibrations` | Higher categories & toposes | 7 | 8 | 0 | 1 | 0 | · | interact: 8 | 31 |
+| `infinity-topoi` | Higher categories & toposes | 7 | 9 | 0 | 3 | 0 | ✓ | click: 5, scrub: 3, edit: 1 | 29 |
+| `real-analysis` | Analysis | 18 | 23 | 0 | 4 | 0 | ✓ | click: 18, draw: 3, slide-band: 1, slider: 1 | 83 |
+| `measure-theory` | Analysis | 12 | 13 | 0 | 1 | 0 | · | click: 13 | 72 |
+| `complex-analysis` | Analysis | 27 | 30 | 0 | 5 | 0 | ✓ | interact: 20, click: 7, drag: 1, drag-probe: 1, drag-contour: 1 | 52 |
+| `functional-analysis` | Analysis | 14 | 17 | 0 | 2 | 0 | ✓ | click: 11, interact: 6 | 78 |
+| `operator-algebras` | Analysis | 12 | 15 | 0 | 3 | 0 | · | click: 12, select: 2, slider: 1 | 72 |
+| `dynamical-systems` | Analysis | 13 | 22 | 0 | 6 | 0 | ✓ | click: 12, click-seed: 5, slider: 2, drag-direction: 1, two-param-scrub: 1, dial: 1 | 75 |
+| `sobolev-spaces-distributions` | Analysis | 7 | 7 | 0 | 2 | 0 | · | slider: 6, click: 1 | 21 |
+| `harmonic-analysis-fourier` | Analysis | 8 | 8 | 0 | 3 | 0 | · | slider: 5, select: 2, interact: 1 | 24 |
+| `partial-differential-equations` | Analysis | 6 | 6 | 0 | 2 | 0 | ✓ | slider: 5, drag: 1 | 18 |
+| `harmonic-functions` | Analysis | 6 | 7 | 0 | 3 | 1 | ✓ | drag: 3, select: 2, slider: 2 | 18 |
+| `spectral-theory` | Analysis | 9 | 9 | 0 | 2 | 0 | · | slider: 7, click: 2 | 27 |
+| `probability-theory` | Probability & statistics | 12 | 16 | 0 | 4 | 0 | ✓ | click: 12, shake-sample: 2, pour-update: 1, play: 1 | 73 |
+| `stochastic-processes-and-martingales` | Probability & statistics | 6 | 6 | 0 | 2 | 0 | · | slider: 4, step: 2 | 18 |
+| `stochastic-calculus` | Probability & statistics | 6 | 6 | 0 | 2 | 0 | · | slider: 4, button: 2 | 18 |
+| `random-walks-and-mixing` | Probability & statistics | 6 | 6 | 0 | 3 | 0 | · | step: 3, slider: 2, click: 1 | 18 |
+| `information-theory` | Probability & statistics | 8 | 8 | 0 | 2 | 0 | · | slider: 6, click: 2 | 24 |
+| `large-deviations` | Probability & statistics | 5 | 5 | 0 | 3 | 0 | · | slider: 2, click: 2, toggle: 1 | 15 |
+| `point-set-topology` | Geometry & topology | 6 | 7 | 0 | 2 | 0 | ✓ | click: 6, select: 1 | 36 |
+| `algebraic-topology` | Geometry & topology | 6 | 9 | 0 | 4 | 0 | ✓ | click: 5, slider: 2, timeline: 1, wind-loop: 1 | 32 |
+| `smooth-manifolds` | Geometry & topology | 10 | 11 | 0 | 2 | 1 | ✓ | click: 10, drag: 1 | 59 |
+| `differential-forms` | Geometry & topology | 5 | 8 | 0 | 4 | 0 | ✓ | slider: 4, select: 2, drag-basis: 1, click: 1 | 30 |
+| `differential-geometry` | Geometry & topology | 5 | 13 | 0 | 4 | 6 | ✓ | click: 6, drag: 5, drag-along-curve: 1, drag-direction: 1 | 30 |
+| `riemannian-geometry` | Geometry & topology | 5 | 10 | 0 | 3 | 1 | ✓ | click: 8, drag: 1, slider: 1 | 30 |
+| `lie-groups` | Geometry & topology | 7 | 8 | 0 | 2 | 1 | ✓ | click: 7, drag: 1 | 42 |
+| `riemann-surfaces` | Geometry & topology | 5 | 9 | 0 | 4 | 0 | ✓ | click: 4, slider: 2, static: 2, fold-glue: 1 | 30 |
+| `characteristic-classes` | Geometry & topology | 9 | 9 | 0 | 2 | 0 | · | click: 6, slider: 3 | 27 |
+| `morse-theory` | Geometry & topology | 8 | 8 | 0 | 2 | 0 | · | slider: 4, click: 4 | 24 |
+| `galois` | Number theory | 7 | 9 | 0 | 4 | 0 | · | click: 6, static: 1, branching-timeline: 1, slider: 1 | 32 |
+| `quadratic-reciprocity` | Number theory | 6 | 9 | 0 | 2 | 0 | · | click: 7, slider: 2 | 33 |
+| `quadratic-forms-genus-theory` | Number theory | 5 | 6 | 0 | 1 | 0 | · | click: 6 | 30 |
+| `additive-number-theory` | Number theory | 15 | 21 | 0 | 4 | 0 | · | click: 14, input: 4, interactive: 2, slider: 1 | 91 |
+| `algebraic-number-theory` | Number theory | 5 | 7 | 0 | 2 | 0 | · | click: 6, select: 1 | 30 |
+| `p-adic-numbers` | Number theory | 7 | 12 | 0 | 3 | 0 | ✓ | click: 9, slider: 2, edit: 1 | 36 |
+| `adeles-and-ideles` | Number theory | 5 | 5 | 0 | 1 | 0 | · | click: 5 | 30 |
+| `frobenius-and-reciprocity` | Number theory | 5 | 11 | 0 | 3 | 0 | · | click: 7, interact: 2, slider: 2 | 30 |
+| `class-field-theory` | Number theory | 6 | 10 | 0 | 2 | 0 | · | click: 9, read: 1 | 36 |
+| `heights-arithmetic-geometry` | Number theory | 10 | 10 | 0 | 4 | 0 | ✓ | slider: 4, click: 3, edit: 2, select: 1 | 30 |
+| `analytic-number-theory` | Number theory | 10 | 10 | 0 | 3 | 0 | ✓ | slider: 8, edit: 1, timeline: 1 | 30 |
+| `upper-half-plane-hyperbolic` | Modular forms & L-functions | 5 | 8 | 0 | 2 | 0 | ✓ | click: 7, slider: 1 | 30 |
+| `modular-forms` | Modular forms & L-functions | 6 | 9 | 0 | 2 | 0 | · | click: 7, slider: 2 | 33 |
+| `theta-functions` | Modular forms & L-functions | 5 | 8 | 0 | 2 | 0 | · | click: 7, slider: 1 | 30 |
+| `partitions-generating-functions` | Combinatorics & graph theory | 5 | 7 | 0 | 1 | 0 | · | click: 7 | 30 |
+| `hecke-operators` | Modular forms & L-functions | 5 | 8 | 0 | 1 | 0 | · | click: 8 | 30 |
+| `dirichlet-series-euler-products` | Modular forms & L-functions | 5 | 10 | 0 | 1 | 0 | · | click: 10 | 30 |
+| `analytic-continuation` | Modular forms & L-functions | 5 | 7 | 0 | 3 | 0 | ✓ | slider: 5, click: 1, drag-reflect: 1 | 30 |
+| `zeta-values` | Modular forms & L-functions | 7 | 7 | 0 | 2 | 0 | · | click: 6, slider: 1 | 36 |
+| `L-functions` | Modular forms & L-functions | 5 | 11 | 0 | 3 | 0 | · | click: 6, static: 4, slider: 1 | 30 |
+| `galois-representations` | Number theory | 5 | 11 | 0 | 2 | 0 | · | click: 10, slider: 1 | 30 |
+| `moonshine` | Modular forms & L-functions | 8 | 8 | 0 | 1 | 0 | · | click: 8 | 39 |
+| `automorphic-forms-adelic` | Modular forms & L-functions | 9 | 9 | 0 | 3 | 0 | · | step: 3, click: 3, slider: 3 | 27 |
+| `modular-curves` | Modular forms & L-functions | 9 | 9 | 0 | 3 | 0 | · | click: 4, step: 3, slider: 2 | 27 |
+| `projective-plane` | Algebraic geometry | 5 | 10 | 0 | 3 | 0 | ✓ | click: 7, drag: 2, slider: 1 | 30 |
+| `bezout` | Algebraic geometry | 5 | 10 | 0 | 2 | 0 | · | click: 9, slider: 1 | 30 |
+| `schemes` | Algebraic geometry | 10 | 14 | 0 | 2 | 0 | ✓ | click: 8, interact: 6 | 60 |
+| `sheaves` | Algebraic geometry | 7 | 9 | 0 | 2 | 0 | · | click: 8, slider: 1 | 42 |
+| `morphisms-fiber-products` | Algebraic geometry | 5 | 9 | 0 | 2 | 0 | · | click: 7, slider: 2 | 30 |
+| `functor-of-points` | Algebraic geometry | 5 | 10 | 0 | 1 | 0 | · | click: 10 | 30 |
+| `elliptic-curves` | Algebraic geometry | 5 | 9 | 0 | 4 | 0 | ✓ | slider: 5, select: 2, drag-on-curve: 1, interact: 1 | 30 |
+| `singular-cubics-reduction` | Algebraic geometry | 5 | 9 | 0 | 2 | 0 | · | click: 8, slider: 1 | 30 |
+| `algebraic-curves-higher-genus` | Algebraic geometry | 6 | 6 | 0 | 1 | 0 | · | interact: 6 | 25 |
+| `sheaf-cohomology` | Algebraic geometry | 5 | 10 | 0 | 3 | 0 | · | click: 6, interact: 2, select: 2 | 30 |
+| `algebraic-de-rham-cohomology` | Algebraic geometry | 6 | 8 | 0 | 1 | 0 | · | interact: 8 | 24 |
+| `moduli-spaces` | Algebraic geometry | 5 | 7 | 0 | 2 | 0 | · | click: 6, slider: 1 | 30 |
+| `algebraic-spaces` | Algebraic geometry | 6 | 6 | 0 | 2 | 0 | · | click: 4, scrub: 2 | 24 |
+| `stacks` | Algebraic geometry | 5 | 9 | 0 | 1 | 0 | · | click: 9 | 30 |
+| `intersection-theory-chow` | Algebraic geometry | 6 | 6 | 0 | 3 | 0 | · | select: 3, click: 2, scrub: 1 | 25 |
+| `group-schemes` | Algebraic geometry | 6 | 8 | 0 | 3 | 0 | ✓ | click: 4, drag: 2, scrub: 2 | 24 |
+| `etale-fundamental-group` | Algebraic geometry | 6 | 6 | 0 | 1 | 0 | · | click: 6 | 24 |
+| `deformation-theory` | Algebraic geometry | 6 | 7 | 0 | 4 | 0 | · | click: 3, scrub: 2, slide: 1, interact: 1 | 24 |
+| `graph-theory-fundamentals` | Combinatorics & graph theory | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, graph-edit: 1 | 18 |
+| `spectral-graph-theory` | Combinatorics & graph theory | 7 | 9 | 0 | 4 | 0 | ✓ | click: 4, graph-edit: 2, step: 2, slider: 1 | 21 |
+| `matroid-theory` | Combinatorics & graph theory | 7 | 7 | 0 | 3 | 0 | · | click: 3, slider: 3, step: 1 | 21 |
+| `probabilistic-method` | Combinatorics & graph theory | 7 | 7 | 0 | 2 | 0 | · | slider: 5, click: 2 | 21 |
+| `extremal-combinatorics` | Combinatorics & graph theory | 6 | 7 | 0 | 4 | 0 | ✓ | slider: 3, click: 2, graph-edit: 1, step: 1 | 18 |
+| `simplicial-complexes-combinatorial` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | click: 4, slider: 2 | 18 |
+| `enumerative-combinatorics` | Combinatorics & graph theory | 6 | 6 | 0 | 3 | 0 | · | click: 4, slider: 1, step: 1 | 18 |
+| `sato-tate` | Modular forms & L-functions | 5 | 9 | 0 | 1 | 0 | · | click: 9 | 30 |
+| `bsd` | Modular forms & L-functions | 5 | 9 | 0 | 1 | 0 | · | click: 9 | 30 |
+| `modularity-and-flt` | Modular forms & L-functions | 5 | 9 | 0 | 1 | 0 | · | click: 9 | 30 |
+| `etale-cohomology` | Algebraic geometry | 5 | 9 | 0 | 1 | 0 | · | click: 9 | 30 |
+| `gauge-theory` | Mathematical physics | 7 | 7 | 0 | 3 | 0 | · | slider: 4, click: 2, select: 1 | 21 |
+| `string-theory` | Mathematical physics | 7 | 7 | 0 | 2 | 0 | · | slider: 5, click: 2 | 21 |
 
 ## Coverage gaps
 

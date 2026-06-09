@@ -6,6 +6,15 @@
 //   - knowing at a glance how many widgets per subject, by family/dimension/gesture
 //   - knowing quiz coverage by type + tier per subject and per topic
 //   - surfacing concepts that lack a widget or a hard-tier quiz
+//   - a PER-TOPIC table (concepts, widgets, per-topic concepts-without-widget,
+//     distinct gestures, 3D count, the gesture mix, and a manip ✓/· flag) — the
+//     grain at which gesture monotony is visible
+//   - a GESTURE-VARIETY WATCHLIST: topics with >=4 concepts but no direct-
+//     manipulation gesture (all scrub/pick). This is the signal that flags a
+//     widget-rich-but-monotonous topic (e.g. reinforcement-learning: 6 sliders)
+//     that every other metric scores as fully covered. The manip flag reads the
+//     rendered <topic>.html for real drag handlers (not the coarse per-slug
+//     gesture), so a page with an inline drag under a generic slug is not flagged.
 //
 // CLI:
 //   node scripts/stats-coverage.mjs                  full report
@@ -69,6 +78,7 @@ for (const tid of model.topicIds) {
       byRole: new Map(),
       registryDriven: 0,
       inline: 0,
+      manipSlug: false, // any registry slug whose meta.gesture is manipulate-class
     },
     quizzes: {
       total: 0,
@@ -115,6 +125,61 @@ for (const slug of widgetMeta.keys()) {
 // `undefined` here and fall through to its meta gesture ("drag") by design — the
 // unrecognised-type fall-through is what keeps this scoped to slider-svg-2d
 // without hard-coding the slug.
+// Coarse interaction MODE above the fine gesture vocabulary. The fine gesture
+// (slider / click / drag / edit-grid / …) is what a widget literally is; the
+// mode is how the reader's hand moves:
+//   - scrub:      passive parameter sweep — slide/play/step through a family
+//   - pick:       discrete choice — click/select/button a state
+//   - manipulate: direct construction — drag a point, draw a curve, edit a grid
+// The signal that catches the RL smell is "has NO manipulate-class gesture":
+// every toy on the page just sweeps or selects, nothing is built by hand. A new
+// fine gesture defaults to 'other' (visible, unclassified) rather than silently
+// counting as rich — add it here when you ship one.
+const GESTURE_MODE = {
+  slider: 'scrub', play: 'scrub', timeline: 'scrub', scrub: 'scrub',
+  step: 'scrub', 'step-state': 'scrub', 'two-param-scrub': 'scrub', animate: 'scrub',
+  click: 'pick', select: 'pick', button: 'pick', pick: 'pick',
+  inspect: 'pick', read: 'pick', input: 'pick',
+  drag: 'manipulate', 'drag-direction': 'manipulate', 'drag-basis': 'manipulate',
+  draw: 'manipulate', 'graph-edit': 'manipulate', 'edit-grid': 'manipulate',
+  'click-seed': 'manipulate', 'shake-sample': 'manipulate',
+  edit: 'manipulate', 'construct-to-break': 'manipulate', sketch: 'manipulate',
+};
+// Bespoke gesture verbs: every new gesture engine ships its own (drag-reflect,
+// fold-glue, compose-evaluate, drag-on-curve, …). Rather than enumerate them all
+// in GESTURE_MODE, detect the manipulate CLASS by substring as well. This is a
+// HEURISTIC over a free-form vocabulary (~50 values), not a closed taxonomy: it
+// catches the drag/draw/edit/build families, but a future engine naming its verb
+// e.g. `pluck` or `stretch` would fall to 'other' until added. `input` (typing a
+// number) is parametric entry, NOT construction, so it sits in `pick`, not here;
+// `\btype\b` (typing a STRING to construct, e.g. a Gödel encoding) stays manip.
+const MANIP_RE = /drag|draw|sketch|fold|glue|edit|seed|compose|construct|build|place|warp|wind|paint|knead|\btype\b/i;
+function modeOf(g) {
+  if (GESTURE_MODE[g]) return GESTURE_MODE[g];
+  if (MANIP_RE.test(g)) return 'manipulate';
+  return 'other';
+}
+
+// The registry `meta.gesture` is per-SLUG and coarse: a widget authored inline
+// under a generic `parametric-plot` (meta gesture "slider") or `button-stepper`
+// ("click") slug can still wire up a real drag handler in its body, and the slug
+// meta never reflects it. So the manipulate signal must NOT trust slug meta alone
+// — it reads the rendered <topic>.html for direct-manipulation EVIDENCE:
+//   - high-precision drag tokens (make3DDraggable, getScreenCTM/createSVGPoint
+//     pointer→SVG mapping, cursor:grab/grabbing/move/*-resize handles, pointermove);
+//   - a mousedown+mousemove pairing (press-then-track, the legacy drag idiom).
+// Native <input type=range> "drags" (dragging a slider thumb) leave none of these
+// — they're `input` events — so the slider-driven pages whose HINT says "drag the
+// …" are correctly excluded. Click-driven manipulation that leaves no drag token
+// (grid-world-mdp's edit-grid: click a cell to rewrite it) is caught separately by
+// the slug-gesture path in topicHasManipulate().
+const DRAG_EVIDENCE_RE =
+  /make3DDraggable|getScreenCTM|createSVGPoint|cursor:\s*grab|cursor:\s*grabbing|cursor:\s*move|cursor:\s*(?:ns|ew|nwse|nesw)-resize|pointermove/i;
+function htmlHasDragEvidence(html) {
+  if (DRAG_EVIDENCE_RE.test(html)) return true;
+  return /\bmousedown\b/i.test(html) && /\bmousemove\b/i.test(html);
+}
+
 function effectiveGesture(b, meta) {
   const controls = b.params && Array.isArray(b.params.controls) ? b.params.controls : null;
   if (controls && controls.length) {
@@ -147,6 +212,11 @@ for (const f of readdirSync(contentDir)) {
         row.widgets.inline++;
       }
       const meta = (b.meta || (b.slug && widgetMeta.get(b.slug))) || {};
+      // A registry slug's meta.gesture is reliable when it IS a dedicated
+      // manipulation slug (draggable-points-2d → drag, grid-world-mdp → edit-grid).
+      // Generic slugs (parametric-plot/button-stepper) never report manipulate
+      // here; their inline drags are caught by the HTML-evidence scan instead.
+      if (b.slug && meta.gesture && modeOf(meta.gesture) === 'manipulate') row.widgets.manipSlug = true;
       bump(row.widgets.byFamily, meta.family || 'unknown');
       bump(row.widgets.byDimension, meta.dimension || 'unknown');
       bump(row.widgets.byGesture, effectiveGesture(b, meta));
@@ -227,6 +297,29 @@ for (const c of model.concepts.values()) {
   if (!q || !q.hard || q.hard.length === 0) conceptsMissingHard.push(c);
 }
 
+// Per-topic missing-widget count (the corpus total above hides which topics
+// the gap lands in). Keyed by topic id.
+const missingWidgetByTopic = new Map();
+for (const c of conceptsMissingWidget) {
+  missingWidgetByTopic.set(c.topic, (missingWidgetByTopic.get(c.topic) || 0) + 1);
+}
+
+// Per-topic direct-manipulation flag — body-evidence first (drag handlers in the
+// rendered <topic>.html), then the dedicated-manipulation-slug fallback for the
+// click-driven kind that leaves no drag token (edit-grid). This deliberately does
+// NOT trust the coarse per-slug gesture for generic slugs: a parametric-plot or
+// button-stepper page with an inline drag handler is correctly credited via the
+// HTML scan, which the earlier slug-meta-only version missed (~7 false flags).
+const manipByTopic = new Map();
+for (const [tid, row] of perTopic) {
+  let manip = row.widgets.manipSlug;
+  if (!manip) {
+    const htmlPath = join(repoRoot, `${tid}.html`);
+    if (existsSync(htmlPath)) manip = htmlHasDragEvidence(readFileSync(htmlPath, 'utf8'));
+  }
+  manipByTopic.set(tid, manip);
+}
+
 // ----- Roll up to per-subject tallies -----
 
 const perSubject = new Map(); // subjectId -> aggregate
@@ -292,8 +385,55 @@ function makeSubjectSection(sub) {
 `;
 }
 
-function makeTopicSection(row) {
-  return `- \`${row.topic}\` (${row.section ? row.section.title : 'unassigned'}) — concepts=${row.conceptCount}, widgets=${row.widgets.total} (slug=${row.widgets.registryDriven}), quiz=${row.quizzes.total} (v1=${row.quizzes.byTier.v1}, hard=${row.quizzes.byTier.hard}, expert=${row.quizzes.byTier.expert})`;
+// One table row per topic. Surfaces the diversity signals the old flat bullet
+// discarded: distinct gesture count, the gesture mix itself, 3D count, and the
+// per-topic missing-widget tally — the columns that let you scan for a topic
+// that is widget-rich but gesture-monotonous (the "all slider/play" smell).
+function makeTopicRow(row) {
+  const distinctGestures = row.widgets.byGesture.size;
+  const threeD = row.widgets.byDimension.get('3d') || 0;
+  const missing = missingWidgetByTopic.get(row.topic) || 0;
+  const manip = row.widgets.total === 0 ? '—' : (manipByTopic.get(row.topic) ? '✓' : '·');
+  const mix = fmtMap(row.widgets.byGesture);
+  return `| \`${row.topic}\` | ${row.section ? row.section.title : '_unassigned_'} | ${row.conceptCount} | ${row.widgets.total} | ${missing} | ${distinctGestures} | ${threeD} | ${manip} | ${mix} | ${row.quizzes.total} |`;
+}
+
+// Per-topic interaction-mode tally, derived from the coarse byGesture map. The
+// `manipulate` count here is the registry-gesture view; the AUTHORITATIVE manip
+// flag for a topic is manipByTopic (body evidence), used by makeTopicRow and the
+// watchlist. The modes map stays useful as a descriptive scrub/pick mix.
+function topicModes(row) {
+  const modes = new Map();
+  for (const [g, n] of row.widgets.byGesture) modes.set(modeOf(g), (modes.get(modeOf(g)) || 0) + n);
+  return { modes };
+}
+
+// Gesture-variety watchlist: topics with enough concepts to warrant variety but
+// NO direct-manipulation gesture — every toy on the page is a passive scrub or a
+// discrete pick, nothing is built by hand. The manip flag is body-evidence based
+// (manipByTopic), so a page with an inline drag under a generic slug is correctly
+// excluded. Flags reinforcement-learning / pomdps-and-belief-states / game-theory
+// (all slider, no drag handler) and excludes markov-decision-processes (its
+// grid-world's edit-grid is a manipulation slug). The >=4-concept floor scopes
+// the watchlist to topics with enough sections to warrant gesture variety in the
+// first place — a 2-3 concept topic served by one good widget is not a gap.
+// Ranked by concept count (the most under-served first).
+function gestureWatchlist() {
+  return [...perTopic.values()]
+    .filter((r) => r.conceptCount >= 4 && r.widgets.total >= 1 && !manipByTopic.get(r.topic))
+    .map((r) => {
+      const { modes } = topicModes(r);
+      return {
+        topic: r.topic,
+        section: r.section ? r.section.title : '_unassigned_',
+        concepts: r.conceptCount,
+        widgets: r.widgets.total,
+        gestures: r.widgets.byGesture.size,
+        modes: fmtMap(modes),
+        mix: fmtMap(r.widgets.byGesture),
+      };
+    })
+    .sort((a, b) => b.concepts - a.concepts || a.topic.localeCompare(b.topic));
 }
 
 // Corpus totals.
@@ -309,6 +449,16 @@ for (const r of perTopic.values()) {
   tierTotals.hard += r.quizzes.byTier.hard;
   tierTotals.expert += r.quizzes.byTier.expert;
   for (const [k, v] of r.quizzes.byType) typeTotals.set(k, (typeTotals.get(k) || 0) + v);
+}
+
+// Corpus-level interaction-mode reach: of the topics that have any widget, how
+// many offer a direct-manipulation gesture vs. only scrub/pick. The headline
+// number behind the gesture-variety watchlist.
+let topicsWithWidgets = 0, topicsWithManipulate = 0;
+for (const r of perTopic.values()) {
+  if (r.widgets.total === 0) continue;
+  topicsWithWidgets++;
+  if (manipByTopic.get(r.topic)) topicsWithManipulate++;
 }
 
 // Optional filters for the detail sections.
@@ -331,6 +481,7 @@ const summary = `# Coverage + type stats — widgets & quizzes
 - Quiz types: ${fmtMap(typeTotals)}
 - Concepts lacking a widget in their span: **${conceptsMissingWidget.length}** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **${conceptsMissingHard.length}**
+- Topics offering a direct-manipulation gesture: **${topicsWithManipulate}** of **${topicsWithWidgets}** with widgets (${((100 * topicsWithManipulate) / Math.max(1, topicsWithWidgets)).toFixed(0)}%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -355,9 +506,40 @@ ${[...slugCounts.entries()]
 ## Per-subject
 
 ${subjects.map(makeSubjectSection).join('\n')}
+## Gesture-variety watchlist
+
+Topics with **≥4 concepts** but **no direct-manipulation gesture** — every toy on
+the page is a passive *scrub* (slide/play/step) or a discrete *pick* (click/select),
+nothing is built by hand. A topic here is a candidate for a new *gesture*, not a new
+widget: it already has toys, they all move the same way. Ranked by concept count
+(most under-served first). This is the surface that flags reinforcement-learning /
+pomdps-and-belief-states without a human eyeballing the corpus.
+
+${
+  (() => {
+    const wl = gestureWatchlist().filter(
+      (r) => !subjectFilter || (perTopic.get(r.topic).section && perTopic.get(r.topic).section.id === subjectFilter)
+    );
+    if (!wl.length) return '_(none — every topic with ≥4 concepts has a manipulation gesture)_';
+    return ['| topic | section | concepts | widgets | modes | gesture mix |',
+            '|---|---|---:|---:|---|---|',
+            ...wl.map((r) => `| \`${r.topic}\` | ${r.section} | ${r.concepts} | ${r.widgets} | ${r.modes} | ${r.mix} |`)].join('\n');
+  })()
+}
+
 ## Per-topic
 
-${topics.map(makeTopicSection).join('\n')}
+The **manip** column marks topics with at least one direct-manipulation gesture
+(✓), only scrub/pick (·), or no widgets (—). It is **body-evidence based**: a topic
+is ✓ if its rendered HTML carries a real drag handler (make3DDraggable, getScreenCTM
+pointer-mapping, cursor:grab, pointermove, mousedown+mousemove) OR it uses a
+dedicated manipulation slug (e.g. grid-world-mdp's click-to-edit). Native
+range-slider "drags" (dragging a slider thumb) do NOT count — the **gesture mix**
+column is the coarser per-slug registry view and can over-report sliders.
+
+| topic | section | concepts | widgets | concepts w/o widget | distinct gestures | 3D | manip | gesture mix | quizzes |
+|---|---|---:|---:|---:|---:|---:|:---:|---|---:|
+${topics.map(makeTopicRow).join('\n')}
 
 ## Coverage gaps
 
@@ -404,6 +586,7 @@ ${subjects.map(makeSubjectSection).join('\n')}
 
 - ${conceptsMissingWidget.length} concepts lack a widget in their span
 - ${conceptsMissingHard.length} concepts lack a hard-tier quiz
+- ${topicsWithManipulate}/${topicsWithWidgets} topics with widgets offer a direct-manipulation gesture (${gestureWatchlist().length} topics with ≥4 concepts are scrub/pick only — see watchlist)
 
 Full report: audits/coverage-stats.md
 `);
