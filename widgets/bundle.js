@@ -11428,7 +11428,7 @@ window.__MVWidgets = [
       "title",
       "layout"
     ],
-    "readmeExcerpt": "Q learning grid world widget — scaffolded stub. Replace this paragraph with a short description of what the widget does, which topic page first introduced it, and whether it's a bespoke module or part of a shared family.",
+    "readmeExcerpt": "Bespoke **\"edit-grid\"** widget for **model-free reinforcement learning** on a grid-world: tabular **Q-learning**. First home: `reinforcement-learning §q-learning`. The learning counterpart to [`grid-world-mdp`](../grid-world-mdp/) — that widget *knows* the transition model and solves the Bellman optimality equation by value iteration; this one knows nothing and **learns** $Q(s,a)$ from sampled experience.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

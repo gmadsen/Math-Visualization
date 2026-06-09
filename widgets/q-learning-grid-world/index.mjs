@@ -49,6 +49,7 @@ export function renderMarkup(params) {
     `    <label>ε</label><button id="${widgetId}-edn" type="button">−</button><button id="${widgetId}-eup" type="button">+</button>\n` +
     `    <label>α</label><button id="${widgetId}-adn" type="button">−</button><button id="${widgetId}-aup" type="button">+</button>\n` +
     `    <label>γ</label><button id="${widgetId}-gdn" type="button">−</button><button id="${widgetId}-gup" type="button">+</button>\n` +
+    `    <label>noise</label><button id="${widgetId}-ndn" type="button">−</button><button id="${widgetId}-nup" type="button">+</button>\n` +
     `  </div>\n` +
     `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}" style="touch-action:manipulation;width:100%;max-width:${svgWidth}px;height:auto"><title>${svgTitle}</title></svg>\n` +
     `  <div class="readout" id="${outputId}">&nbsp;</div>\n` +
@@ -80,15 +81,17 @@ export function renderScript(params) {
   function key(r,c){ return r+','+c; }
   function term(r,c){ var t=grid[r][c]; return t==='G'?GOAL:(t==='P'?PIT:null); }
   function blocked(r,c){ return r<0||r>=R||c<0||c>=C||grid[r][c]==='#'; }
-  // Q: stateKey -> [qU,qD,qL,qR]; episodes/steps/lastReturn track learning.
-  var Q={}, episodes=0, stepsThisEp=0, lastReturn=null, agent=null;
+  // Q: stateKey -> [qU,qD,qL,qR]. epReturn/epGamma accumulate the discounted
+  // return of the in-progress episode so lastReturn means the same thing whether
+  // an episode finishes via Step, Episode, or x50.
+  var Q={}, episodes=0, stepsThisEp=0, lastReturn=null, agent=null, epReturn=0, epGamma=1;
   function qrow(r,c){ var k=key(r,c); if(!Q[k])Q[k]=[0,0,0,0]; return Q[k]; }
   function startCell(){
     for(var r=0;r<R;r++)for(var c=0;c<C;c++) if(grid[r][c]==='S') return [r,c];
     for(var r2=R-1;r2>=0;r2--)for(var c2=0;c2<C;c2++) if(grid[r2][c2]!=='#'&&term(r2,c2)==null) return [r2,c2];
     return [0,0];
   }
-  function resetQ(){ Q={}; episodes=0; stepsThisEp=0; lastReturn=null; agent=startCell(); }
+  function resetQ(){ Q={}; episodes=0; stepsThisEp=0; lastReturn=null; epReturn=0; epGamma=1; agent=startCell(); }
   // greedy action index at (r,c), deterministic tie-break (first max) for a stable
   // first paint; called with q=qrow(r,c).
   function argmax(q){ var bi=0; for(var i=1;i<4;i++) if(q[i]>q[bi]) bi=i; return bi; }
@@ -102,27 +105,24 @@ export function renderScript(params) {
     if(blocked(nr,nc)) return [r,c];
     return [nr,nc];
   }
-  // one Q-learning step from the agent's cell; returns reward, advances/episode-ends.
+  // one Q-learning step from the agent's cell; advances the agent or ends the
+  // episode, accumulating the episode's discounted return into epReturn.
   function stepOnce(){
-    if(agent==null) agent=startCell();
-    var r=agent[0], c=agent[1];
-    if(term(r,c)!=null){ agent=startCell(); stepsThisEp=0; return 0; }
-    var q=qrow(r,c);
+    if(agent==null||term(agent[0],agent[1])!=null){ agent=startCell(); stepsThisEp=0; epReturn=0; epGamma=1; }
+    var r=agent[0], c=agent[1], q=qrow(r,c);
     var ai = (Math.random()<eps) ? Math.floor(Math.random()*4) : argmax(q);
     var nx=move(r,c,DIRS[ai]), nr=nx[0], nc=nx[1];
     var tr=term(nr,nc), r_=(tr!=null)?tr:STEP;
     var target = (tr!=null) ? r_ : (r_ + gamma*maxq(qrow(nr,nc)));
     q[ai] += alpha*(target - q[ai]);
-    stepsThisEp++;
-    if(tr!=null){ episodes++; lastReturn=r_; agent=startCell(); stepsThisEp=0; }
+    epReturn += epGamma*r_; epGamma*=gamma; stepsThisEp++;
+    if(tr!=null){ episodes++; lastReturn=epReturn; agent=startCell(); stepsThisEp=0; epReturn=0; epGamma=1; }
     else agent=[nr,nc];
-    return r_;
   }
+  // run to a terminal (or the step cap, so a not-yet-learned policy can't loop forever).
   function runEpisode(maxSteps){
-    if(agent==null||term(agent[0],agent[1])!=null){ agent=startCell(); stepsThisEp=0; }
-    var startEp=episodes, ret=0, gpow=1;
-    for(var i=0;i<maxSteps;i++){ ret += gpow*stepOnce(); gpow*=gamma; if(episodes>startEp) break; }
-    if(episodes>startEp) lastReturn=ret;
+    var startEp=episodes;
+    for(var i=0;i<maxSteps;i++){ stepOnce(); if(episodes>startEp) break; }
   }
   function greedyV(r,c){ return maxq(qrow(r,c)); }
   function render(){
@@ -149,10 +149,10 @@ export function renderScript(params) {
     // agent marker
     if(agent){ var ax=PAD+agent[1]*CELL+CELL/2, ay=PAD+agent[0]*CELL+CELL/2;
       G.appendChild(SVG('circle',{cx:ax,cy:ay,r:9,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':2,'pointer-events':'none'})); }
-    var head='episodes <b>'+episodes+'</b> &nbsp;\\u00b7&nbsp; ε=<b>'+eps.toFixed(2)+'</b> α=<b>'+alpha.toFixed(2)+'</b> γ=<b>'+gamma.toFixed(2)+'</b> &nbsp;\\u00b7&nbsp; ';
+    var head='episodes <b>'+episodes+'</b> &nbsp;\\u00b7&nbsp; ε=<b>'+eps.toFixed(2)+'</b> α=<b>'+alpha.toFixed(2)+'</b> γ=<b>'+gamma.toFixed(2)+'</b> noise=<b>'+(noise*100).toFixed(0)+'%</b> &nbsp;\\u00b7&nbsp; ';
     if(episodes===0){ out.innerHTML=head+'<span style=\\"color:var(--mute)\\">Q ≡ 0 — no experience yet. <b>Step</b> takes one ε-greedy action, <b>Episode</b> runs to a terminal, <b>×50</b> runs 50 episodes. Click a cell to edit the world.</span>'; }
     else { var lr=(lastReturn==null)?'—':lastReturn.toFixed(2);
-      out.innerHTML=head+'last return <b>'+lr+'</b> &nbsp;\\u00b7&nbsp; <span style=\\"color:var(--mute)\\">arrows = greedy argmax Q (grey = unvisited), shade = max Q. With enough episodes the greedy policy matches the value-iteration π* on the known MDP.</span>'; }
+      out.innerHTML=head+'last return <b>'+lr+'</b> &nbsp;\\u00b7&nbsp; <span style=\\"color:var(--mute)\\">arrows = greedy argmax Q (grey = unvisited), shade = max Q. Along the route the agent keeps visiting, the greedy policy settles to the value-iteration π*; rarely-visited cells stay noisy under a fixed α. Set noise=0% for a clean shortest path.</span>'; }
   }
   // click a cell: cycle type; setting a new start clears the old one.
   svg.addEventListener('click',function(ev){ var t=ev.target; if(t&&t.getAttribute&&t.getAttribute('data-r')!=null){
@@ -169,6 +169,8 @@ export function renderScript(params) {
   $('#${widgetId}-adn').addEventListener('click',function(){ alpha=Math.max(0.05,Math.round((alpha-0.05)*100)/100); render(); });
   $('#${widgetId}-gup').addEventListener('click',function(){ gamma=Math.min(1,Math.round((gamma+0.05)*100)/100); render(); });
   $('#${widgetId}-gdn').addEventListener('click',function(){ gamma=Math.max(0,Math.round((gamma-0.05)*100)/100); render(); });
+  $('#${widgetId}-nup').addEventListener('click',function(){ noise=Math.min(0.8,Math.round((noise+0.1)*100)/100); render(); });
+  $('#${widgetId}-ndn').addEventListener('click',function(){ noise=Math.max(0,Math.round((noise-0.1)*100)/100); render(); });
   resetQ(); render();
 })();
 </script>`
