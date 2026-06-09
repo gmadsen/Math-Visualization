@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/belief-grid-localization/schema.json",
+  "title": "belief-grid-localization widget params",
+  "description": "A self-contained 'edit-grid' widget for the POMDP belief state and its Bayes update, shown as grid localization (a histogram filter). A robot sits at a HIDDEN true cell of a grid; the reader never sees it directly, only the belief b(s) = P(true state = s) painted as a heatmap over the cells. Pressing a direction runs one belief update: a PREDICT step convolves the belief with the stochastic motion model (intended move w.p. 1-moveNoise, else stay; walls/edges block), then the robot takes a noisy wall-sensor reading (each of the 4 neighbour-wall bits flips w.p. sensorNoise) and a CORRECT step multiplies the belief by the observation likelihood and renormalises. Motion spreads the belief (uncertainty grows); observations sharpen it (uncertainty shrinks) until it collapses onto the true cell. The reader CLICKS a cell to toggle a wall (re-deriving the motion/observation model and resetting the belief to uniform) and adjusts the move/sensor noise. The true cell, the most-likely (argmax) cell, the latest sensor reading, and the belief entropy are reported. This is the canonical multi-state belief example behind the 2-state Tiger problem. Pure DOM/SVG; jsdom-safe: the first render is deterministic (uniform belief) and all randomness (motion slip, sensor flips) fires only inside the button handlers.",
+  "meta": {
+    "family": "belief-grid-localization",
+    "dimension": "2d",
+    "gesture": "edit-grid",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "layout"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The move/sensor-noise and reset buttons derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing the grid, the belief heatmap, the true cell, and the argmax cell." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (latest sensor reading, belief max / entropy, whether argmax = true cell, hints)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to press a direction to move-and-sense, click a cell to toggle a wall, and adjust the noise." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "layout": {
+      "type": "array",
+      "description": "The grid, one string per row; characters: '.' free cell, '#' wall. All rows must have equal length. E.g. ['.....', '.##..', '.....', '..#.#', '.....'].",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^[.#]+$" }
+    },
+    "moveNoiseInit": { "type": "number", "minimum": 0, "maximum": 1, "description": "Initial motion-model slip probability (the move fails and the robot stays put). Default 0.15.", "default": 0.15 },
+    "sensorNoiseInit": { "type": "number", "minimum": 0, "maximum": 1, "description": "Initial per-bit sensor flip probability for the 4-neighbour wall sensor. Default 0.1.", "default": 0.1 },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Default derived from grid if omitted." },
+    "svgWidth": { "type": "integer", "description": "SVG width attr." },
+    "svgHeight": { "type": "integer", "description": "SVG height attr." }
+  }
+}

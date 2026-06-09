@@ -420,6 +420,105 @@ function drawNode(svg, x, y, label, opts={}){
   accSl.addEventListener('input',render);
   render();
 })();
+</script><p>The Tiger problem has just two hidden states. <strong>Localization</strong> runs the very same Bayes filter over dozens: a robot on a grid that cannot see where it is and senses only the walls in its four neighbours, noisily. The belief $b(s)=P(\text{true cell}=s)$ is a probability over <em>every</em> free cell (the heatmap below). Each move is one full update — a <strong>predict</strong> step convolves $b$ with the motion model ($b'(s')=\sum_s P(s'\mid s,a)\,b(s)$), which <em>spreads</em> the belief because moves can slip; then a noisy wall reading drives a <strong>correct</strong> step ($b''(s)\propto P(o\mid s)\,b'(s)$, renormalised), which <em>sharpens</em> it. Watch the cloud spread on motion and collapse onto the true cell (the <span style="color:var(--pink)">●</span>) as readings accumulate — exact Bayesian filtering, no model of the world's layout assumed beyond the walls you draw. Click any cell to add or remove a wall and the belief restarts uniform.</p><div class="widget" id="w-bgl">
+  <div class="hd"><div class="ttl">Grid localization: the Bayes filter as a belief over cells</div><div class="hint">predict spreads $b$, a noisy wall reading sharpens it</div></div>
+  <div class="row" style="flex-wrap:wrap">
+    <span>move &amp; sense:</span>
+    <button id="w-bgl-up" type="button">↑</button><button id="w-bgl-dn" type="button">↓</button>
+    <button id="w-bgl-lf" type="button">←</button><button id="w-bgl-rt" type="button">→</button>
+    <button id="w-bgl-sense" type="button">👁 sense only</button>
+    <button id="w-bgl-reset" type="button">↺ Reset belief</button>
+  </div>
+  <div class="row" style="flex-wrap:wrap">
+    <label>move noise</label><button id="w-bgl-mdn" type="button">−</button><button id="w-bgl-mup" type="button">+</button>
+    <label>sensor noise</label><button id="w-bgl-sdn" type="button">−</button><button id="w-bgl-sup" type="button">+</button>
+  </div>
+  <svg id="bgl-svg" viewBox="0 0 296 296" width="296" height="296" style="touch-action:manipulation;width:100%;max-width:296px;height:auto"><title>A histogram filter localizing a hidden robot on a grid: the belief heatmap spreads on motion and sharpens on noisy wall observations</title></svg>
+  <div class="readout" id="bgl-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#bgl-svg'), out=$('#bgl-out');
+  const Grp=SVG('g'); svg.appendChild(Grp);
+  const R=5, C=5, CELL=56, PAD=8;
+  const LAYOUT0=[".....",".##..",".....","..#.#","....."];
+  var grid=LAYOUT0.map(function(row){ return row.split(''); });
+  var moveNoise=0.15, sensorNoise=0.1;
+  const ACT={U:[-1,0],D:[1,0],L:[0,-1],R:[0,1]};
+  // DIRS index the 4 sensor bits N,E,S,W (wall/edge present = 1).
+  const SENSE=[[-1,0],[0,1],[1,0],[0,-1]], SNAME=['N','E','S','W'];
+  function key(r,c){ return r+','+c; }
+  function wall(r,c){ return r<0||r>=R||c<0||c>=C||grid[r][c]==='#'; }
+  function freeCells(){ var a=[]; for(var r=0;r<R;r++)for(var c=0;c<C;c++) if(!wall(r,c)) a.push([r,c]); return a; }
+  // true 4-bit wall signature of a cell (what a perfect sensor would read).
+  function sig(r,c){ return SENSE.map(function(d){ return wall(r+d[0],c+d[1])?1:0; }); }
+  // P(observation o | cell s): each bit matches w.p. 1-sensorNoise, flips w.p. sensorNoise.
+  function likelihood(o,r,c){ var s=sig(r,c), p=1; for(var i=0;i<4;i++) p*= (o[i]===s[i])?(1-sensorNoise):sensorNoise; return p; }
+  // intended move target (stay if blocked).
+  function target(r,c,a){ var d=ACT[a], nr=r+d[0], nc=c+d[1]; return wall(nr,nc)?[r,c]:[nr,nc]; }
+
+  var belief={}, truePos=null, lastObs=null, lastAction=null;
+  function uniform(){ var f=freeCells(), b={}, p=1/f.length; for(var i=0;i<f.length;i++) b[key(f[i][0],f[i][1])]=p; return b; }
+  function pickTrue(){ var f=freeCells(); return f.length? f[(f.length/2)|0] : null; }
+  function resetBelief(){ belief=uniform(); truePos=pickTrue(); lastObs=null; lastAction=null; }
+
+  // PREDICT: b'(s') = sum_s P(s'|s,a) b(s); intended target w.p. 1-moveNoise, stay w.p. moveNoise.
+  function predict(b,a){ var nb={}, f=freeCells(); for(var i=0;i<f.length;i++) nb[key(f[i][0],f[i][1])]=0;
+    for(var j=0;j<f.length;j++){ var r=f[j][0],c=f[j][1],k=key(r,c),bs=b[k]||0; if(bs===0)continue;
+      var t=target(r,c,a), tk=key(t[0],t[1]); nb[tk]+=(1-moveNoise)*bs; nb[k]+=moveNoise*bs; }
+    return nb; }
+  // CORRECT: b''(s) ∝ P(o|s) b'(s), renormalise.
+  function correct(b,o){ var f=freeCells(), z=0, nb={}; for(var i=0;i<f.length;i++){ var r=f[i][0],c=f[i][1],k=key(r,c); var v=(b[k]||0)*likelihood(o,r,c); nb[k]=v; z+=v; }
+    if(z>0){ for(var k2 in nb) nb[k2]/=z; } else { nb=uniform(); } return nb; }
+  // sample a noisy observation at the true cell (randomness — inside handlers only).
+  function observe(r,c){ var s=sig(r,c); return s.map(function(b){ return (Math.random()<sensorNoise)?(1-b):b; }); }
+  // sample the true motion: intended w.p. 1-moveNoise else stay.
+  function trueMove(a){ if(!truePos)return; if(Math.random()<1-moveNoise) truePos=target(truePos[0],truePos[1],a); }
+
+  function act(a){ if(!truePos){ resetBelief(); render(); return; }
+    trueMove(a); belief=predict(belief,a); lastObs=observe(truePos[0],truePos[1]); belief=correct(belief,lastObs); lastAction=a; render(); }
+  function senseOnly(){ if(!truePos){ resetBelief(); render(); return; }
+    lastObs=observe(truePos[0],truePos[1]); belief=correct(belief,lastObs); lastAction=null; render(); }
+
+  function argmaxCell(){ var best=-1, bk=null; for(var k in belief){ if(belief[k]>best){ best=belief[k]; bk=k; } } return bk; }
+  function entropy(){ var h=0; for(var k in belief){ var p=belief[k]; if(p>1e-12) h-=p*Math.log2(p); } return h; }
+
+  function render(){
+    while(Grp.firstChild)Grp.removeChild(Grp.firstChild);
+    var mx=1e-6; for(var k in belief){ if(belief[k]>mx)mx=belief[k]; }
+    var amk=argmaxCell();
+    for(var r=0;r<R;r++)for(var c=0;c<C;c++){ var x=PAD+c*CELL, y=PAD+r*CELL;
+      if(wall(r,c)){ Grp.appendChild(SVG('rect',{x:x,y:y,width:CELL,height:CELL,fill:'var(--mute)','fill-opacity':0.55,stroke:'var(--line)','stroke-width':1,'data-r':r,'data-c':c,style:'cursor:pointer'})); continue; }
+      var k=key(r,c), b=belief[k]||0, op=Math.min(0.85, b/mx*0.85);
+      Grp.appendChild(SVG('rect',{x:x,y:y,width:CELL,height:CELL,fill:'var(--cyan)','fill-opacity':op.toFixed(3),stroke:'var(--line)','stroke-width':1,'data-r':r,'data-c':c,style:'cursor:pointer'}));
+      var bt=SVG('text',{x:x+CELL/2,y:y+CELL-7,'font-size':10,fill:'var(--ink)','text-anchor':'middle','pointer-events':'none'}); bt.textContent=(b>=0.005?b.toFixed(2):''); Grp.appendChild(bt);
+      if(k===amk){ Grp.appendChild(SVG('rect',{x:x+2,y:y+2,width:CELL-4,height:CELL-4,fill:'none',stroke:'var(--yellow)','stroke-width':2,'pointer-events':'none'})); }
+    }
+    // true robot position (hidden from the belief, shown for the reader as ground truth)
+    if(truePos){ var tx=PAD+truePos[1]*CELL+CELL/2, ty=PAD+truePos[0]*CELL+22;
+      Grp.appendChild(SVG('circle',{cx:tx,cy:ty,r:8,fill:'var(--pink)',stroke:'var(--bg)','stroke-width':2,'pointer-events':'none'})); }
+    // readout
+    var obsTxt = lastObs ? SNAME.filter(function(_,i){return lastObs[i]===1;}).join(' ')||'(open on all sides)' : '—';
+    var head='move noise <b>'+(moveNoise*100).toFixed(0)+'%</b> &nbsp;\u00b7&nbsp; sensor noise <b>'+(sensorNoise*100).toFixed(0)+'%</b> &nbsp;\u00b7&nbsp; ';
+    if(lastObs==null){ out.innerHTML=head+'<span style=\"color:var(--mute)\">belief uniform over free cells. Press a direction to <b>move &amp; sense</b> (predict then Bayes-correct), or <b>sense only</b>. <span style=\"color:var(--pink)\">●</span> = hidden true cell, <span style=\"color:var(--yellow)\">▢</span> = most-likely cell. Click a cell to toggle a wall.</span>'; }
+    else { var amOK = amk && truePos && amk===key(truePos[0],truePos[1]);
+      out.innerHTML=head+'sensed walls <b>'+obsTxt+'</b> &nbsp;\u00b7&nbsp; belief peak <b>'+(mx).toFixed(2)+'</b>, entropy <b>'+entropy().toFixed(2)+'</b> bits &nbsp;\u00b7&nbsp; <span style=\"color:'+(amOK?'var(--green)':'var(--mute)')+'\">argmax '+(amOK?'= true cell ✓':'≠ true cell')+'</span>'; }
+  }
+
+  svg.addEventListener('click',function(ev){ var t=ev.target; if(t&&t.getAttribute&&t.getAttribute('data-r')!=null){
+    var r=+t.getAttribute('data-r'), c=+t.getAttribute('data-c'); grid[r][c]=(grid[r][c]==='#')?'.':'#';
+    resetBelief(); render(); } });
+  $('#w-bgl-up').addEventListener('click',function(){ act('U'); });
+  $('#w-bgl-dn').addEventListener('click',function(){ act('D'); });
+  $('#w-bgl-lf').addEventListener('click',function(){ act('L'); });
+  $('#w-bgl-rt').addEventListener('click',function(){ act('R'); });
+  $('#w-bgl-sense').addEventListener('click',senseOnly);
+  $('#w-bgl-reset').addEventListener('click',function(){ resetBelief(); render(); });
+  $('#w-bgl-mup').addEventListener('click',function(){ moveNoise=Math.min(0.6,Math.round((moveNoise+0.05)*100)/100); render(); });
+  $('#w-bgl-mdn').addEventListener('click',function(){ moveNoise=Math.max(0,Math.round((moveNoise-0.05)*100)/100); render(); });
+  $('#w-bgl-sup').addEventListener('click',function(){ sensorNoise=Math.min(0.45,Math.round((sensorNoise+0.05)*100)/100); render(); });
+  $('#w-bgl-sdn').addEventListener('click',function(){ sensorNoise=Math.max(0,Math.round((sensorNoise-0.05)*100)/100); render(); });
+  resetBelief(); render();
+})();
 </script><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

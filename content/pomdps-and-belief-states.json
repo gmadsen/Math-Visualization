@@ -132,6 +132,33 @@
         },
         {
           "type": "raw",
+          "html": "<p>The Tiger problem has just two hidden states. <strong>Localization</strong> runs the very same Bayes filter over dozens: a robot on a grid that cannot see where it is and senses only the walls in its four neighbours, noisily. The belief $b(s)=P(\\text{true cell}=s)$ is a probability over <em>every</em> free cell (the heatmap below). Each move is one full update — a <strong>predict</strong> step convolves $b$ with the motion model ($b'(s')=\\sum_s P(s'\\mid s,a)\\,b(s)$), which <em>spreads</em> the belief because moves can slip; then a noisy wall reading drives a <strong>correct</strong> step ($b''(s)\\propto P(o\\mid s)\\,b'(s)$, renormalised), which <em>sharpens</em> it. Watch the cloud spread on motion and collapse onto the true cell (the <span style=\"color:var(--pink)\">●</span>) as readings accumulate — exact Bayesian filtering, no model of the world's layout assumed beyond the walls you draw. Click any cell to add or remove a wall and the belief restarts uniform.</p>"
+        },
+        {
+          "type": "widget",
+          "slug": "belief-grid-localization",
+          "params": {
+            "widgetId": "w-bgl",
+            "svgId": "bgl-svg",
+            "outputId": "bgl-out",
+            "title": "Grid localization: the Bayes filter as a belief over cells",
+            "hint": "predict spreads $b$, a noisy wall reading sharpens it",
+            "svgTitle": "A histogram filter localizing a hidden robot on a grid: the belief heatmap spreads on motion and sharpens on noisy wall observations",
+            "layout": [
+              ".....",
+              ".##..",
+              ".....",
+              "..#.#",
+              "....."
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bgl"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#bayes\">Conditional probability and Bayes' rule</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
