@@ -26,7 +26,7 @@ Per-step invocation and the full step enumeration are documented under § "Regis
 
 Scaffolders for the two common "add a new thing" flows: [`scripts/new-topic.mjs <slug> <section>`](./scripts/new-topic.mjs) (new topic page) and [`scripts/new-widget.mjs <slug>`](./scripts/new-widget.mjs) (new widget registry entry). Prefer them over hand-authoring the multi-step boilerplate.
 
-**Before adding a widget to a page, consult [`widgets/README.md`](./widgets/README.md) § "Choosing a widget when authoring a topic"** as the menu of available shared renderers. The corpus today is heavily skewed toward `button-stepper`; the registry has slug variety (proof-scrubber, parametric-plot, surface-viewer, recurrence-plotter, lattice-visualizer, modular-arithmetic-clock, constraint-bifurcation-explorer, counterexample-explorer, inline-code-cell, etc.) intended to be reached for when the gesture matches. `audits/coverage-stats.md` § "Per-slug registry adoption" shows which slugs are under-adopted.
+**Before adding a widget to a page, consult [`widgets/README.md`](./widgets/README.md) § "Choosing a widget when authoring a topic"** as the menu of available shared renderers. The corpus today is heavily skewed toward `button-stepper`; the registry has slug variety (proof-scrubber, parametric-plot, surface-viewer, recurrence-plotter, lattice-visualizer, modular-arithmetic-clock, constraint-bifurcation-explorer, counterexample-explorer, inline-code-cell, etc.) intended to be reached for when the gesture matches. `audits/coverage-stats.md` § "Per-slug registry adoption" shows which slugs are under-adopted, and its § "Gesture-variety watchlist" lists topics that are widget-rich but have **no direct-manipulation gesture** (all scrub/pick) — the active program (see PLAN.md § "Widget-variety program") works that list down by adding one genuine manipulation gesture per topic, either a bespoke registry widget or a `bodyScript` on a shared drag/flow/graph-edit engine (`draggable-points-2d` / `vector-field-flow-2d` / `graph-edit-2d`).
 
 ## Project goal
 
@@ -72,7 +72,7 @@ One CLI front door: `node scripts/cli.mjs <space-separated-command>` routes by l
 
 ## Structured content pipeline
 
-Alongside the handwritten topic HTML, every topic now has a structured counterpart under `content/<topic>.json`. This is a block-level decomposition of the page — an ordered array of `raw`, `widget`, `widget-script`, and `quiz` blocks. `raw` blocks are HTML strings copied verbatim; `widget` blocks reference an entry in the widget registry by `slug` and carry a `params` object; `widget-script` blocks hold the `<script>` tail that wires a widget up; `quiz` blocks name the concept id whose quiz placeholder belongs at that position. All 131 registered topics are extracted.
+Alongside the handwritten topic HTML, every topic now has a structured counterpart under `content/<topic>.json`. This is a block-level decomposition of the page — an ordered array of `raw`, `widget`, `widget-script`, and `quiz` blocks. `raw` blocks are HTML strings copied verbatim; `widget` blocks reference an entry in the widget registry by `slug` and carry a `params` object; `widget-script` blocks hold the `<script>` tail that wires a widget up; `quiz` blocks name the concept id whose quiz placeholder belongs at that position. All 211 registered topics are extracted.
 
 Two scripts round-trip between HTML and JSON:
 
