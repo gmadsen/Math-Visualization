@@ -1218,6 +1218,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "best-response-explorer-2d",
+    "family": "best-response-explorer-2d",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "explore",
+    "title": "best-response-explorer-2d widget params",
+    "description": "A self-contained 'drag' widget for mixed strategies and Nash equilibrium in a 2x2 game, drawn as the best-response correspondence in the unit square. The x-axis is p = P(Row plays its first action), the y-axis is q = P(Column plays its first action). The widget draws Row's best-response curve (the p that maximises Row's expected payoff at each q) and Column's best-response curve (the q that maximises Column's payoff at each p); the Nash equilibria are exactly where the two curves cross. The reader DRAGS the joint mixed strategy (p, q) around the square and reads off each player's expected payoff, each player's best response, the better-response direction (an arrow), and whether the current profile is a mutual best response (a Nash equilibrium). A preset button cycles classic 2x2 games (Battle of the Sexes, Matching Pennies, Prisoner's Dilemma, Chicken) so the reader sees the different best-response topologies — two pure plus one mixed, a single interior mixed, one strictly-dominant corner, etc. Pure DOM/SVG; jsdom-safe and fully deterministic (no randomness); pointer-to-data mapping uses getBoundingClientRect inside the drag handlers, never at init.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "Bespoke **\"drag\"** widget for **mixed strategies and Nash equilibrium** in a 2×2 game, drawn as the **best-response correspondence** in the unit square. First home: `game-theory §mixed`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "bezout-cayley-bacharach",
     "family": "bezout-cayley-bacharach",
     "dimension": "2d",

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/best-response-explorer-2d/schema.json",
+  "title": "best-response-explorer-2d widget params",
+  "description": "A self-contained 'drag' widget for mixed strategies and Nash equilibrium in a 2x2 game, drawn as the best-response correspondence in the unit square. The x-axis is p = P(Row plays its first action), the y-axis is q = P(Column plays its first action). The widget draws Row's best-response curve (the p that maximises Row's expected payoff at each q) and Column's best-response curve (the q that maximises Column's payoff at each p); the Nash equilibria are exactly where the two curves cross. The reader DRAGS the joint mixed strategy (p, q) around the square and reads off each player's expected payoff, each player's best response, the better-response direction (an arrow), and whether the current profile is a mutual best response (a Nash equilibrium). A preset button cycles classic 2x2 games (Battle of the Sexes, Matching Pennies, Prisoner's Dilemma, Chicken) so the reader sees the different best-response topologies — two pure plus one mixed, a single interior mixed, one strictly-dominant corner, etc. Pure DOM/SVG; jsdom-safe and fully deterministic (no randomness); pointer-to-data mapping uses getBoundingClientRect inside the drag handlers, never at init.",
+  "meta": {
+    "family": "best-response-explorer-2d",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "explore"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the outer <div class=\"widget\"> wrapper. The preset and reset buttons derive their ids from it." },
+    "svgId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the <svg> drawing the unit square, the two best-response curves, the Nash markers, and the draggable joint-strategy point." },
+    "outputId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "DOM id for the .readout (p, q, each player's expected payoff and best response, Nash status, hints)." },
+    "title": { "type": "string", "description": "Display title in .hd > .ttl." },
+    "hint": { "type": "string", "description": "Optional hint in .hd > .hint. Should tell the reader to drag the point and cycle the preset games." },
+    "svgTitle": { "type": "string", "description": "Accessible <title> inside the SVG. Defaults to title." },
+    "presets": {
+      "type": "array",
+      "description": "Optional list of 2x2 games to cycle. Each game has a name and two payoff matrices A (Row) and B (Column), each a 2x2 array indexed [rowAction][colAction] (action 0 = the 'first' action plotted as p=1 / q=1). If omitted, four classic games are used (Battle of the Sexes, Matching Pennies, Prisoner's Dilemma, Chicken).",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "A", "B"],
+        "properties": {
+          "name": { "type": "string", "description": "Game name shown in the readout." },
+          "rowLabels": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 2, "description": "Optional names for Row's two actions (default ['T','B'])." },
+          "colLabels": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 2, "description": "Optional names for Column's two actions (default ['L','R'])." },
+          "A": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" } }, "description": "Row player's payoff matrix A[rowAction][colAction]." },
+          "B": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" } }, "description": "Column player's payoff matrix B[rowAction][colAction]." }
+        }
+      }
+    },
+    "initialGame": { "type": "integer", "minimum": 0, "description": "Index of the preset to show first. Default 0.", "default": 0 },
+    "viewBox": { "type": "string", "description": "SVG viewBox. Default '0 0 460 384'." },
+    "svgWidth": { "type": "integer", "description": "SVG width attr. Default 460." },
+    "svgHeight": { "type": "integer", "description": "SVG height attr. Default 384." }
+  }
+}

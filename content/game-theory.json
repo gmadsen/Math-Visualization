@@ -338,6 +338,26 @@
           "html": "\n"
         },
         {
+          "type": "raw",
+          "html": "<p>The indifference plot above pins down the mixing probability that makes a player indifferent. Stack <em>both</em> players' best responses into one picture and the equilibria become <strong>geometry</strong>. Plot the joint mixed strategy as a point $(p,q)$ in the unit square, where $p=P(\\text{Row plays its first action})$ and $q=P(\\text{Col plays its first action})$. <span style=\"color:var(--cyan)\">Row's best-response curve</span> gives, for each $q$, the $p$ that maximises Row's payoff; <span style=\"color:var(--violet)\">Column's</span> gives the $q$ that maximises Column's for each $p$. Each curve is a staircase — pure on either side of the opponent-mix that makes the player indifferent, vertical (Row) or horizontal (Col) at that knife-edge. A <strong>Nash equilibrium</strong> is precisely a point on <em>both</em> curves: a mutual best response (the <span style=\"color:var(--yellow)\">◯</span> markers). Drag the point and follow the <span style=\"color:var(--orange)\">arrow</span> toward a better response; cycle the preset games to watch the topology change — two pure plus a mixed (Battle of the Sexes, Chicken), a lone interior crossing (Matching Pennies), or a single dominant-strategy corner (Prisoner's Dilemma).</p>"
+        },
+        {
+          "type": "widget",
+          "slug": "best-response-explorer-2d",
+          "params": {
+            "widgetId": "w-br",
+            "svgId": "br-svg",
+            "outputId": "br-out",
+            "title": "Best-response correspondence: Nash as where the curves cross",
+            "hint": "drag $(p,q)$; Nash = mutual best response",
+            "svgTitle": "The best-response correspondence of a 2x2 game in the unit square, with Nash equilibria at the crossings of the two best-response curves"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-br"
+        },
+        {
           "type": "quiz",
           "concept": "gt-mixed",
           "html": "<div class=\"quiz\" data-concept=\"gt-mixed\"></div>"
