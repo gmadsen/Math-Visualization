@@ -487,7 +487,68 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<!-- callback-auto-begin -->
+<p>The representer theorem (next section) promises that the functions you actually need are finite combinations $f=\sum_i \alpha_i\,k(x_i,\cdot)$ — one kernel “bump” per data point, scaled by a weight. Grab the handles below: dragging one <em>sideways</em> slides a kernel’s center $x_i$, dragging it <em>up or down</em> sets its weight $\alpha_i$ (negative pulls the bump below the axis). The bold curve is the resulting RKHS function $f$; the dashed curves are the individual terms $\alpha_i\,k(x_i,\cdot)$ summing to it. With a handful of movable kernels you sweep out a rich finite-parameter family of these combinations. The representer theorem (next section) is why that is enough where it matters: for fitting data, the <em>optimal</em> $f$ always lands in the span of the kernels at the data points — a finite slice of the infinite-dimensional $\mathcal{H}_k$.</p><div class="widget" id="w-rkhs-rep">
+  <div class="hd"><div class="ttl">Drag the kernels: building f = Σ αᵢ k(xᵢ,·)</div><div class="hint">the representer theorem you can grab</div></div>
+  <svg id="rkhs-rep-svg" viewBox="0 0 540 340" width="540" height="340"><title>Dragging kernel centers and weights to build a function in a reproducing kernel Hilbert space as a finite combination of kernels at data points</title></svg>
+  <div class="readout" id="rkhs-rep-out"></div>
+</div><script>
+(function(){
+  const svg=$('#rkhs-rep-svg'), out=$('#rkhs-rep-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const pts=[{"id":"k0","x":134.4,"y":98,"color":"var(--cyan)","minX":50,"maxX":490,"minY":34,"maxY":306},{"id":"k1","x":224.8,"y":218,"color":"var(--pink)","minX":50,"maxX":490,"minY":34,"maxY":306},{"id":"k2","x":333.3,"y":80,"color":"var(--green)","minX":50,"maxX":490,"minY":34,"maxY":306},{"id":"k3","x":414.6,"y":230,"color":"var(--orange)","minX":50,"maxX":490,"minY":34,"maxY":306}];
+  pts.byId={}; for(const p of pts) pts.byId[p.id]=p;
+  // ---- author draw() (reads pts, clears+fills G, writes out) ----
+
+  const PX0=44, PX1=496, FY0=170, SCALE=60, SIG=0.9;
+  const cOf = px => -5 + (px-PX0)/(PX1-PX0)*10;       // handle x -> kernel center
+  const wOf = py => (FY0-py)/SCALE;                    // handle y -> weight alpha
+  const xpx = x => PX0 + (x+5)/10*(PX1-PX0);           // domain x -> pixel
+  const ypx = f => Math.max(34, Math.min(306, FY0 - f*SCALE)); // clamp into the plot band                      // value f -> pixel
+  const rbf = (x,c) => Math.exp(-(x-c)*(x-c)/(2*SIG*SIG));
+  function draw(){
+    G.innerHTML='';
+    // axes
+    G.appendChild(SVG('line',{x1:PX0,y1:FY0,x2:PX1,y2:FY0,stroke:'var(--line)','stroke-width':1}));
+    G.appendChild(SVG('line',{x1:PX0,y1:34,x2:PX0,y2:306,stroke:'var(--line)','stroke-width':1}));
+    for(var gx=-4;gx<=4;gx+=2){ G.appendChild(SVG('line',{x1:xpx(gx),y1:34,x2:xpx(gx),y2:306,stroke:'var(--line)','stroke-width':0.5,'stroke-opacity':0.35})); }
+    var centers=pts.map(function(p){return cOf(p.x);}), weights=pts.map(function(p){return wOf(p.y);});
+    // faint individual kernels  alpha_i k(.,x_i)
+    for(var i=0;i<pts.length;i++){ var d=''; for(var sx=-5;sx<=5.0001;sx+=0.1){ var y=weights[i]*rbf(sx,centers[i]); d+=(sx===-5?'M':'L')+xpx(sx).toFixed(1)+' '+ypx(y).toFixed(1)+' '; }
+      G.appendChild(SVG('path',{d:d,fill:'none',stroke:pts[i].color,'stroke-width':1,'stroke-opacity':0.5,'stroke-dasharray':'3 3'})); }
+    // bold sum  f = sum alpha_i k(.,x_i)
+    var df=''; for(var sx2=-5;sx2<=5.0001;sx2+=0.05){ var f=0; for(var k=0;k<pts.length;k++) f+=weights[k]*rbf(sx2,centers[k]); df+=(sx2===-5?'M':'L')+xpx(sx2).toFixed(1)+' '+ypx(f).toFixed(1)+' '; }
+    G.appendChild(SVG('path',{d:df,fill:'none',stroke:'var(--ink)','stroke-width':2.5}));
+    // readout
+    var cs=centers.map(function(c){return c.toFixed(1);}).join(', '), ws=weights.map(function(w){return w.toFixed(1);}).join(', ');
+    out.innerHTML='$f=\\sum_i \\alpha_i\\,k(x_i,\\cdot)$ with RBF $k(x,x_i)=e^{-(x-x_i)^2/(2\\sigma^2)}$, $\\sigma=0.9$ &nbsp;\u00b7&nbsp; centers <b>['+cs+']</b>, weights $\\alpha$ <b>['+ws+']</b> &nbsp;\u00b7&nbsp; <span style=\"color:var(--mute)\">drag a handle: sideways slides a kernel\u2019s center $x_i$, up/down sets its weight $\\alpha_i$ (negative below the axis). The bold curve is the RKHS function; the dashed bumps are the terms.</span>';
+    if(window.renderMathInElement) try{ renderMathInElement(out,{throwOnError:false,delimiters:[{left:'$',right:'$',display:false}]}); }catch(e){}
+  }
+
+  // ---- drag engine (supplied by draggable-points-2d) ----
+  const HL=SVG('g'); svg.appendChild(HL);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const vb={x:_vb[0],y:_vb[1],width:_vb[2],height:_vb[3]};
+  function clampPt(p){ const r=p.r||7;
+    const lo_x=(p.minX!=null?p.minX:vb.x+r), hi_x=(p.maxX!=null?p.maxX:vb.x+vb.width-r);
+    const lo_y=(p.minY!=null?p.minY:vb.y+r), hi_y=(p.maxY!=null?p.maxY:vb.y+vb.height-r);
+    if(!p.lockX) p.x=Math.max(lo_x,Math.min(hi_x,p.x));
+    if(!p.lockY) p.y=Math.max(lo_y,Math.min(hi_y,p.y));
+  }
+  const handles=[]; let drag=null;
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  pts.forEach(function(p){ const r=p.r||7;
+    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'var(--bg)','stroke-width':1.5});
+    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);
+    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }
+    handles.push({h:h,lab:lab,p:p,r:r});
+    h.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drag=p; h.style.cursor='grabbing'; try{h.setPointerCapture(ev.pointerId);}catch(e){} });
+  });
+  window.addEventListener('pointermove',function(ev){ if(!drag) return; const q=toSvg(ev); if(!drag.lockX)drag.x=q.x; if(!drag.lockY)drag.y=q.y; clampPt(drag); render(); });
+  window.addEventListener('pointerup',function(){ drag=null; for(const o of handles) o.h.style.cursor='grab'; });
+  function render(){ draw(); for(const o of handles){ o.h.setAttribute('cx',o.p.x); o.h.setAttribute('cy',o.p.y); if(o.lab){ o.lab.setAttribute('x',o.p.x+o.r+5); o.lab.setAttribute('y',o.p.y-o.r-3); } } }
+  pts.forEach(clampPt); render();
+})();
+</script><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
