@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1695** (registry-driven: 1695, inline: 0)
+- Widgets: **1696** (registry-driven: 1696, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **79** of **211** with widgets (37%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **80** of **211** with widgets (38%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -25,8 +25,8 @@ page has wired one in yet.
 | `clickable-diagram` | clickable-diagram | click | 2d | 100 | abelian-varieties, algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, cluster-algebras, conformal-and-cr-geometry, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, gauge-theory, geometric-invariant-theory, homological, kalman-filtering-and-state-estimation, mapping-class-groups, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, positive-characteristic-ag, positivity-and-ample-line-bundles, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, string-theory, topological-data-analysis, toric-varieties, tropical-geometry, wavelets |
 | `draggable-points-2d` | draggable-points-2d | drag | 2d | 12 | complex-analysis, convex-geometry, information-geometry, information-theory, kalman-filtering-and-state-estimation, kernel-methods-and-rkhs, mathematical-statistics, numerical-analysis, optimal-transport, projective-plane, spectral-methods-data, topological-data-analysis |
 | `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 11 | causal-inference, combinatorial-optimization, expanders, extremal-combinatorics, graph-theory-fundamentals, matroid-theory, order-theory-and-lattices, probabilistic-graphical-models, random-walks-and-mixing, spectral-graph-theory |
+| `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 9 | deep-learning-theory, diffusion-and-score-based-models, dynamical-systems, hamiltonians-classical-mechanics, mathematical-biology |
 | `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 8 | convex-optimization, harmonic-analysis-fourier, morse-theory, real-analysis, stochastic-calculus, wavelets |
-| `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 8 | deep-learning-theory, diffusion-and-score-based-models, dynamical-systems, mathematical-biology |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
@@ -832,10 +832,10 @@ page has wired one in yet.
 ### Mathematical physics
 
 - Topics: **13**, concepts: **81**
-- Widgets: **84** (registry-driven: 84, inline: 0)
-  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, xy-parameter-pad: 1, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 83, 3d: 1
-  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, two-param-scrub: 1, select: 1
+- Widgets: **85** (registry-driven: 85, inline: 0)
+  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, xy-parameter-pad: 1, vector-field-flow-2d: 1, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 84, 3d: 1
+  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, two-param-scrub: 1, click-seed: 1, select: 1
 - Quizzes: **244** (v1: 244, hard: 0, expert: 0)
   - by type: mcq: 164, numeric: 32, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
 
@@ -938,7 +938,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `geometric-and-combinatorial-group-theory` | Algebra & homological | 6 | 6 | pick: 3, scrub: 3 | slider: 3, click: 2, select: 1 |
 | `grothendieck-topologies-sites` | Higher categories & toposes | 6 | 6 | pick: 6 | click: 6 |
 | `half-integral-weight-forms` | Modular forms & L-functions | 6 | 6 | pick: 6 | click: 4, input: 1, select: 1 |
-| `hamiltonians-classical-mechanics` | Mathematical physics | 6 | 6 | other: 6 | interact: 6 |
 | `heyting-algebras-toposes` | Higher categories & toposes | 6 | 6 | pick: 4, scrub: 2 | click: 4, scrub: 2 |
 | `high-dimensional-geometry` | Probability & statistics | 6 | 6 | scrub: 6 | slider: 6 |
 | `homotopy-theory` | Geometry & topology | 6 | 6 | scrub: 5, pick: 1 | slider: 5, select: 1 |
@@ -1102,7 +1101,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `mirror-symmetry` | Algebraic geometry | 6 | 6 | 0 | 3 | 0 | · | slider: 3, click: 2, select: 1 | 18 |
 | `mostow-rigidity` | Geometry & topology | 6 | 6 | 0 | 3 | 0 | · | slider: 3, click: 2, step: 1 | 18 |
 | `resolution-of-singularities` | Algebraic geometry | 6 | 6 | 0 | 2 | 0 | · | inspect: 5, click: 1 | 18 |
-| `hamiltonians-classical-mechanics` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | interact: 6 | 18 |
+| `hamiltonians-classical-mechanics` | Mathematical physics | 6 | 7 | 0 | 2 | 0 | ✓ | interact: 6, click-seed: 1 | 18 |
 | `general-relativity` | Mathematical physics | 6 | 7 | 0 | 3 | 1 | ✓ | slider: 4, drag: 2, click: 1 | 18 |
 | `three-body-problem` | Mathematical physics | 6 | 6 | 0 | 2 | 0 | · | click: 4, slider: 2 | 18 |
 | `designs` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | click: 3, step: 3 | 18 |
