@@ -535,10 +535,10 @@ function drawNode(svg, x, y, label, opts={}){
 <p>So $X_H$ preserves $\omega$ and therefore its top exterior power $\omega^n/n!$ — the phase-space volume form. Hamiltonian flows are volume-preserving.</p>
 
 
-  <p>Hamilton’s equations above are symbols; here is the flow they generate. The plane is phase space $(x,p)$ for the double well $H = \tfrac{p^2}{2} - \tfrac{x^2}{2} + \tfrac{x^4}{4}$, with the level sets of $H$ drawn underneath (dashed) and the separatrix $H=0$ in pink. Click anywhere to release a trajectory and watch the one fact that defines Hamiltonian mechanics: <strong>the streamline traces its energy contour exactly</strong> — $\dot H = \partial_x H\,\dot x + \partial_p H\,\dot p = \partial_x H\,\partial_p H - \partial_p H\,\partial_x H = 0$. Inside a lobe you orbit one well (libration); outside the separatrix you fly over both; seed <em>on</em> the pink curve and the trajectory crawls toward the saddle and lingers — the infinite-period orbit between the two regimes.</p>
+  <p>The launcher above already lets you fire double-well orbits — but it deliberately leaves the energy structure invisible. Here the level sets of $H = \tfrac{p^2}{2} - \tfrac{x^2}{2} + \tfrac{x^4}{4}$ are drawn underneath (dashed) with the separatrix $H=0$ in pink, so the defining fact becomes <em>checkable</em>: <strong>every streamline you release traces its energy contour exactly</strong> — $\dot H = \partial_x H\,\dot x + \partial_p H\,\dot p = \partial_x H\,\partial_p H - \partial_p H\,\partial_x H = 0$, the coordinate shadow of $\omega(X_H, X_H) = 0$ above. (The pendulum on the dynamical-systems page asserts the same fact; here you can hold the trajectory against the contour and verify it.) Inside a lobe you orbit one well (libration); outside the separatrix you fly over both; seed <em>on</em> the pink curve and the trajectory crawls toward the saddle and lingers — the infinite-period orbit between the two regimes.</p>
 
 <div class="widget" id="w-doublewell-flow">
-  <div class="hd"><div class="ttl">Click to release a trajectory — the flow rides the level sets of H</div><div class="hint">click in phase space: every streamline coincides with a dashed contour of $H$ (energy is conserved along the flow). Seed inside a lobe for libration, outside the pink separatrix for over-the-barrier flight, on it for the slow saddle crawl</div></div>
+  <div class="hd"><div class="ttl">Click to release a trajectory — the flow rides the level sets of H</div><div class="hint">click in phase space: every streamline coincides with a dashed contour of $H$ (energy is conserved along the flow). Seed inside a lobe for libration, outside the pink separatrix for over-the-barrier flight, on it for the slow saddle crawl. Orbits never escape the well — at most they leave the drawn window</div></div>
   <svg id="doublewell-flow-svg" viewBox="0 0 640 420" width="640" height="420" style="touch-action:none;cursor:crosshair"><title>Click-seeded phase-space trajectories of the double-well Hamiltonian riding the drawn energy level sets, with the separatrix and fixed points marked</title></svg>
   <div class="row">
     <button id="w-doublewell-flow-reset" type="button">↺ Clear</button>
@@ -549,7 +549,7 @@ function drawNode(svg, x, y, label, opts={}){
   const svg=$('#doublewell-flow-svg'), out=$('#doublewell-flow-out');
   const BG=SVG('g'); svg.appendChild(BG);
   const TR=SVG('g'); svg.appendChild(TR);
-  const X0=-2, X1=2, Y0=-1.6, Y1=1.6;
+  const X0=-2, X1=2, Y0=-1.8, Y1=1.8;
   const DT=0.02, STEPS=900, GNX=21, GNY=13;
   const _vb=(svg.getAttribute('viewBox')||'0 0 640 420').split(/\s+/).map(Number);
   const W=_vb[2], Hh=_vb[3];
@@ -558,7 +558,7 @@ function drawNode(svg, x, y, label, opts={}){
   function PY(y){ return by0+(by1-by0)*(y-Y0)/(Y1-Y0); }
   function XV(px){ return X0+(X1-X0)*(px-bx0)/(bx1-bx0); }
   function YV(py){ return Y0+(Y1-Y0)*(py-by0)/(by1-by0); }
-  const SEEDS=[[-1,0.55],[0.2,1.25]];
+  const SEEDS=[[-1,0.55],[0,0.8944]];
   // ---- author field(x,y) + optional decorate(BG) ----
 
   // Double well: H(x,p) = p^2/2 + V(x), V(x) = -x^2/2 + x^4/4.
@@ -568,13 +568,13 @@ function drawNode(svg, x, y, label, opts={}){
   function field(x,y){ return {dx: y, dy: x - x*x*x}; }
   function decorate(BG){
     function V(x){ return -x*x/2 + x*x*x*x/4; }
-    const energies=[-0.2,-0.1,0,0.15,0.4];
+    const energies=[-0.2,-0.1,0,0.15,0.4,0.9];
     energies.forEach(function(E){
       const sep=(E===0);
       // p = +/- sqrt(2(E - V(x))): plot both branches by x-march
       [-1,1].forEach(function(sign){
         var d2='', pen=false;
-        for(var x=-2;x<=2.0001;x+=0.01){
+        for(var x=-2;x<=2.0001;x+=0.005){
           const s2=2*(E-V(x));
           if(s2<0){ pen=false; continue; }
           const p=sign*Math.sqrt(s2);

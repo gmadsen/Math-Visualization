@@ -161,7 +161,7 @@
         },
         {
           "type": "raw",
-          "html": "\n  <p>Hamilton’s equations above are symbols; here is the flow they generate. The plane is phase space $(x,p)$ for the double well $H = \\tfrac{p^2}{2} - \\tfrac{x^2}{2} + \\tfrac{x^4}{4}$, with the level sets of $H$ drawn underneath (dashed) and the separatrix $H=0$ in pink. Click anywhere to release a trajectory and watch the one fact that defines Hamiltonian mechanics: <strong>the streamline traces its energy contour exactly</strong> — $\\dot H = \\partial_x H\\,\\dot x + \\partial_p H\\,\\dot p = \\partial_x H\\,\\partial_p H - \\partial_p H\\,\\partial_x H = 0$. Inside a lobe you orbit one well (libration); outside the separatrix you fly over both; seed <em>on</em> the pink curve and the trajectory crawls toward the saddle and lingers — the infinite-period orbit between the two regimes.</p>\n\n"
+          "html": "\n  <p>The launcher above already lets you fire double-well orbits — but it deliberately leaves the energy structure invisible. Here the level sets of $H = \\tfrac{p^2}{2} - \\tfrac{x^2}{2} + \\tfrac{x^4}{4}$ are drawn underneath (dashed) with the separatrix $H=0$ in pink, so the defining fact becomes <em>checkable</em>: <strong>every streamline you release traces its energy contour exactly</strong> — $\\dot H = \\partial_x H\\,\\dot x + \\partial_p H\\,\\dot p = \\partial_x H\\,\\partial_p H - \\partial_p H\\,\\partial_x H = 0$, the coordinate shadow of $\\omega(X_H, X_H) = 0$ above. (The pendulum on the dynamical-systems page asserts the same fact; here you can hold the trajectory against the contour and verify it.) Inside a lobe you orbit one well (libration); outside the separatrix you fly over both; seed <em>on</em> the pink curve and the trajectory crawls toward the saddle and lingers — the infinite-period orbit between the two regimes.</p>\n\n"
         },
         {
           "type": "widget",
@@ -171,13 +171,13 @@
             "svgId": "doublewell-flow-svg",
             "outputId": "doublewell-flow-out",
             "title": "Click to release a trajectory — the flow rides the level sets of H",
-            "hint": "click in phase space: every streamline coincides with a dashed contour of $H$ (energy is conserved along the flow). Seed inside a lobe for libration, outside the pink separatrix for over-the-barrier flight, on it for the slow saddle crawl",
+            "hint": "click in phase space: every streamline coincides with a dashed contour of $H$ (energy is conserved along the flow). Seed inside a lobe for libration, outside the pink separatrix for over-the-barrier flight, on it for the slow saddle crawl. Orbits never escape the well — at most they leave the drawn window",
             "svgTitle": "Click-seeded phase-space trajectories of the double-well Hamiltonian riding the drawn energy level sets, with the separatrix and fixed points marked",
             "viewBox": "0 0 640 420",
             "x0": -2,
             "x1": 2,
-            "y0": -1.6,
-            "y1": 1.6,
+            "y0": -1.8,
+            "y1": 1.8,
             "dt": 0.02,
             "steps": 900,
             "initialSeeds": [
@@ -186,11 +186,11 @@
                 0.55
               ],
               [
-                0.2,
-                1.25
+                0,
+                0.8944
               ]
             ],
-            "bodyScript": "\n  // Double well: H(x,p) = p^2/2 + V(x), V(x) = -x^2/2 + x^4/4.\n  // Hamilton's equations: dx = dH/dp = p, dp = -dH/dx = x - x^3.\n  // Streamlines coincide with the level sets of H drawn underneath:\n  // the flow conserves the Hamiltonian. Separatrix at H = 0.\n  function field(x,y){ return {dx: y, dy: x - x*x*x}; }\n  function decorate(BG){\n    function V(x){ return -x*x/2 + x*x*x*x/4; }\n    const energies=[-0.2,-0.1,0,0.15,0.4];\n    energies.forEach(function(E){\n      const sep=(E===0);\n      // p = +/- sqrt(2(E - V(x))): plot both branches by x-march\n      [-1,1].forEach(function(sign){\n        var d2='', pen=false;\n        for(var x=-2;x<=2.0001;x+=0.01){\n          const s2=2*(E-V(x));\n          if(s2<0){ pen=false; continue; }\n          const p=sign*Math.sqrt(s2);\n          d2+=(pen?'L':'M')+PX(x).toFixed(1)+' '+PY(p).toFixed(1)+' ';\n          pen=true;\n        }\n        if(d2){\n          const at={d:d2,fill:'none',stroke:sep?'var(--pink)':'var(--violet)','stroke-width':sep?2:1.2,opacity:sep?0.9:0.55,'pointer-events':'none'};\n          if(!sep) at['stroke-dasharray']='4 3';\n          BG.appendChild(SVG('path',at));\n        }\n      });\n    });\n    // fixed points: centers at (+/-1, 0), saddle at (0,0)\n    BG.appendChild(SVG('circle',{cx:PX(-1),cy:PY(0),r:4,fill:'var(--green)','pointer-events':'none'}));\n    BG.appendChild(SVG('circle',{cx:PX(1),cy:PY(0),r:4,fill:'var(--green)','pointer-events':'none'}));\n    BG.appendChild(SVG('circle',{cx:PX(0),cy:PY(0),r:4,fill:'none',stroke:'var(--pink)','stroke-width':2,'pointer-events':'none'}));\n    var lg=SVG('text',{x:PX(-1.95),y:PY(1.45),'font-size':11,fill:'var(--mute)','pointer-events':'none'});\n    lg.textContent='dashed: level sets of H \\u00b7 pink: separatrix H = 0 \\u00b7 green: centers \\u00b7 ring: saddle';\n    BG.appendChild(lg);\n  }\n"
+            "bodyScript": "\n  // Double well: H(x,p) = p^2/2 + V(x), V(x) = -x^2/2 + x^4/4.\n  // Hamilton's equations: dx = dH/dp = p, dp = -dH/dx = x - x^3.\n  // Streamlines coincide with the level sets of H drawn underneath:\n  // the flow conserves the Hamiltonian. Separatrix at H = 0.\n  function field(x,y){ return {dx: y, dy: x - x*x*x}; }\n  function decorate(BG){\n    function V(x){ return -x*x/2 + x*x*x*x/4; }\n    const energies=[-0.2,-0.1,0,0.15,0.4,0.9];\n    energies.forEach(function(E){\n      const sep=(E===0);\n      // p = +/- sqrt(2(E - V(x))): plot both branches by x-march\n      [-1,1].forEach(function(sign){\n        var d2='', pen=false;\n        for(var x=-2;x<=2.0001;x+=0.005){\n          const s2=2*(E-V(x));\n          if(s2<0){ pen=false; continue; }\n          const p=sign*Math.sqrt(s2);\n          d2+=(pen?'L':'M')+PX(x).toFixed(1)+' '+PY(p).toFixed(1)+' ';\n          pen=true;\n        }\n        if(d2){\n          const at={d:d2,fill:'none',stroke:sep?'var(--pink)':'var(--violet)','stroke-width':sep?2:1.2,opacity:sep?0.9:0.55,'pointer-events':'none'};\n          if(!sep) at['stroke-dasharray']='4 3';\n          BG.appendChild(SVG('path',at));\n        }\n      });\n    });\n    // fixed points: centers at (+/-1, 0), saddle at (0,0)\n    BG.appendChild(SVG('circle',{cx:PX(-1),cy:PY(0),r:4,fill:'var(--green)','pointer-events':'none'}));\n    BG.appendChild(SVG('circle',{cx:PX(1),cy:PY(0),r:4,fill:'var(--green)','pointer-events':'none'}));\n    BG.appendChild(SVG('circle',{cx:PX(0),cy:PY(0),r:4,fill:'none',stroke:'var(--pink)','stroke-width':2,'pointer-events':'none'}));\n    var lg=SVG('text',{x:PX(-1.95),y:PY(1.45),'font-size':11,fill:'var(--mute)','pointer-events':'none'});\n    lg.textContent='dashed: level sets of H \\u00b7 pink: separatrix H = 0 \\u00b7 green: centers \\u00b7 ring: saddle';\n    BG.appendChild(lg);\n  }\n"
           }
         },
         {
