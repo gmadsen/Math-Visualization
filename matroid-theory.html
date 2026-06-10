@@ -617,6 +617,162 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
   <div class="readout" id="graph-out">click an edge to begin…</div>
   <div class="small">The graph is $K_4$ on four vertices: $6$ edges, $16$ spanning trees. $F$ is the user-selected edge set. Yellow = in $F$ &amp; safe (forest); pink = in $F$ but creates a cycle; grey = not selected.</div>
 </div>
+
+  <p>The forests widget above samples independence inside one fixed graph. Now build the graph and watch the whole matroid respond: the rank $r = |V| - c$, the nullity $|E| - r$ (the number of independent circuits), and — by the <strong>matrix-tree theorem</strong> — the exact number of <strong>bases</strong>, recomputed per component on every edit. Close a cycle and the new <strong>circuit</strong> glows pink: a minimal dependent set, the matroid’s atom of dependence. Delete an edge of that circuit and independence is restored — circuits die one edge at a time.</p>
+
+<div class="widget" id="w-graphic-matroid">
+  <div class="hd"><div class="ttl">Build the graph — the graphic matroid M(G)</div><div class="hint">click empty space to add a vertex, drag vertex&rarr;vertex to toggle an edge, click a vertex to delete it; every cycle you close is a circuit (it glows pink), and the readout tracks rank $n-c$, nullity, and the basis count by matrix-tree</div></div>
+  <svg id="graphic-matroid-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable graph whose graphic-matroid rank, nullity, basis count (matrix-tree theorem), and freshly-closed circuits recompute on every edit</title></svg>
+  <div class="row">
+    <button id="w-graphic-matroid-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="graphic-matroid-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#graphic-matroid-svg'), out=$('#graphic-matroid-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=16, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[160,100],[480,100],[480,260],[160,260]], E0=[[0,1],[1,2],[2,3],[3,0],[0,2]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+
+  // Graphic matroid M(G): rank n - c, nullity m - r, bases counted by the
+  // matrix-tree theorem (Kirchhoff, per component). When a single edge edit
+  // closes a cycle, the fundamental circuit through it glows pink.
+  const MAXN=10;
+  var prevKeys=null, lastCircuit=null;
+  function ekey(u,v){ return Math.min(u,v)+'-'+Math.max(u,v); }
+  function draw(g){
+    while(G.firstChild) G.removeChild(G.firstChild);
+    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });
+    const keys=g.edges.map(function(e){ return ekey(e.u,e.v); }).sort();
+    // detect a single just-added cycle-closing edge
+    if(prevKeys!==null){
+      const added=keys.filter(function(k){ return prevKeys.indexOf(k)<0; });
+      const removed=prevKeys.filter(function(k){ return keys.indexOf(k)<0; });
+      if(added.length===1&&removed.length===0){
+        const uv=added[0].split('-').map(Number);
+        // BFS u..v avoiding the new edge
+        const par={}; par[uv[0]]=uv[0]; const st=[uv[0]]; var found2=false;
+        while(st.length&&!found2){
+          const x=st.shift();
+          g.adj[x].forEach(function(w){
+            if(ekey(x,w)===added[0]) return;
+            if(par[w]===undefined){ par[w]=x; if(w===uv[1]) found2=true; st.push(w); }
+          });
+        }
+        if(found2){
+          lastCircuit={}; lastCircuit[added[0]]=1;
+          var cur=uv[1]; while(cur!==uv[0]){ lastCircuit[ekey(cur,par[cur])]=1; cur=par[cur]; }
+        } else lastCircuit=null;
+      } else if(added.length||removed.length) lastCircuit=null;
+    }
+    prevKeys=keys;
+    if(lastCircuit){ for(var k2 in lastCircuit){ if(keys.indexOf(k2)<0){ lastCircuit=null; break; } } }
+    g.edges.forEach(function(e){
+      const a=byId[e.u], b=byId[e.v], hot=lastCircuit&&lastCircuit[ekey(e.u,e.v)];
+      G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:hot?'var(--pink)':'var(--line)','stroke-width':hot?3.5:2,'pointer-events':'none'}));
+    });
+    g.nodes.forEach(function(n){
+      G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:g.R,fill:'var(--cyan)','fill-opacity':0.85,stroke:'var(--bg)','stroke-width':2}));
+      const t=SVG('text',{x:n.x,y:n.y+4,'font-size':12,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});
+      t.textContent=String(n.id); G.appendChild(t);
+    });
+    if(g.n===0){ out.innerHTML='click empty space to add a vertex'; return; }
+    if(g.n>MAXN){ out.innerHTML='more than '+MAXN+' nodes \u2014 too many to count bases exactly; remove some'; return; }
+    // components
+    const seen={}; var c=0;
+    g.nodes.forEach(function(n){
+      if(seen[n.id]) return; c++;
+      const st2=[n.id]; seen[n.id]=1;
+      while(st2.length){ const v=st2.pop(); g.adj[v].forEach(function(w){ if(!seen[w]){ seen[w]=1; st2.push(w); } }); }
+    });
+    const r=g.n-c, nul=g.m-r;
+    // matrix-tree per component
+    var bases=1;
+    const seen2={};
+    g.nodes.forEach(function(n0){
+      if(seen2[n0.id]) return;
+      const comp=[]; const st3=[n0.id]; seen2[n0.id]=1;
+      while(st3.length){ const v=st3.pop(); comp.push(v); g.adj[v].forEach(function(w){ if(!seen2[w]){ seen2[w]=1; st3.push(w); } }); }
+      if(comp.length===1) return;
+      const idx={}; comp.forEach(function(v,i){ idx[v]=i; });
+      const kk=comp.length;
+      const L=[]; for(var i2=0;i2<kk;i2++){ L.push(new Array(kk).fill(0)); }
+      g.edges.forEach(function(e){
+        if(idx[e.u]!==undefined&&idx[e.v]!==undefined){
+          const a2=idx[e.u], b2=idx[e.v];
+          L[a2][a2]++; L[b2][b2]++; L[a2][b2]--; L[b2][a2]--;
+        }
+      });
+      const M=L.slice(1).map(function(row){ return row.slice(1); });
+      var det=1;
+      for(var i3=0;i3<kk-1;i3++){
+        var p2=i3; while(p2<kk-1&&Math.abs(M[p2][i3])<1e-9) p2++;
+        if(p2===kk-1){ det=0; break; }
+        if(p2!==i3){ const tmp=M[p2]; M[p2]=M[i3]; M[i3]=tmp; det=-det; }
+        det*=M[i3][i3];
+        for(var r2=i3+1;r2<kk-1;r2++){ const f=M[r2][i3]/M[i3][i3]; for(var c3=i3;c3<kk-1;c3++) M[r2][c3]-=f*M[i3][c3]; }
+      }
+      bases*=Math.round(Math.abs(det));
+    });
+    var msg='M(G): n = '+g.n+', m = '+g.m+' \u00b7 rank r = n \u2212 c = <b>'+r+'</b> \u00b7 nullity m \u2212 r = <b>'+nul+'</b> \u00b7 bases (spanning forests): <b>'+bases+'</b> by matrix-tree';
+    if(lastCircuit){
+      msg+=' \u00b7 <span class="bad">the pink cycle is a circuit \u2014 a minimal dependent set</span>';
+    } else if(nul===0&&g.m>0){
+      msg+=' \u00b7 <span class="ok">no circuits \u2014 the whole edge set is independent (a forest, and a basis of itself)</span>';
+    }
+    out.innerHTML=msg;
+  }
+
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-graphic-matroid-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
