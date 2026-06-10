@@ -59,6 +59,40 @@
         },
         {
           "type": "raw",
+          "html": "\n  <p>The sliders above rescale the metric by hand. In two dimensions there is a royal road to conformal changes: <em>any</em> holomorphic map with $f'\\neq 0$ pulls the flat metric $g_0$ back to $e^{2\\varphi}g_0$ with $e^{\\varphi} = |f'(z)|$ — angles survive, lengths rescale pointwise. Drag the probe through $f(z) = z + \\tfrac{z^2}{2}$: the little image cross stays a right-angled cross of side $|f'(z)| = |1+z|$ — that number <em>is</em> the conformal factor of the pulled-back metric at your fingertip. Now park the probe at $z = -1$: the factor hits zero, the cross collapses, and the map leaves the conformal class — exactly the degeneracy the section’s positivity conditions ($u &gt; 0$ in $g = u^{4/(n-2)}g_0$) exist to forbid.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "complex-map-2d",
+          "params": {
+            "widgetId": "w-conformal-probe",
+            "svgId": "conformal-probe-svg",
+            "outputId": "conformal-probe-out",
+            "title": "Drag the probe — |f′(z)| is the conformal factor",
+            "hint": "drag the cyan probe $z$ through $f(z) = z + z^2/2$: the pink cross is the image of a tiny right-angled cross at $z$ — it stays right-angled (angles preserved) with side $|f'(z)| = |1+z|$, the conformal factor $e^{\\varphi}$ of the pulled-back metric. Park at $z=-1$ and watch the factor die",
+            "svgTitle": "Drag a probe through the entire map z plus z squared over two; the image cross shows the live conformal factor and its collapse at the critical point minus one",
+            "viewBox": "0 0 560 560",
+            "svgWidth": 560,
+            "svgHeight": 560,
+            "range": 2.5,
+            "gridExtent": 3,
+            "initialZ": [
+              0.5,
+              0.8
+            ],
+            "bodyScript": "\n  // f(z) = z + z^2/2, entire, with a single critical point at z = -1.\n  // Away from it, f is a conformal change of the flat metric with factor\n  // |f'(z)| = |1 + z|: the image cross stays a right-angled cross, scaled.\n  // At z = -1 the factor hits zero and conformality dies.\n  function f(x,y){\n    return [x + (x*x - y*y)/2, y + x*y];\n  }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-conformal-probe"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./riemannian-geometry.html#geodesics\">Levi-Civita connection and geodesics</a></li>\n    <li><a href=\"./riemannian-geometry.html#metric\">Riemannian metrics</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
