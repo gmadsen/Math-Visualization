@@ -344,6 +344,80 @@ $$R_{\tilde g} \;=\; e^{-2u}\Bigl(R_g \;-\; 2(n-1)\,\Delta_g u \;-\; (n-1)(n-2)\
 <h3>Why dimension 2 is special</h3>
 <p>In two dimensions, the conformal class on a Riemann surface is the <em>complex structure</em>. The <a href="./complex-analysis.html#riemann-mapping" data-auto-inline-link="1" data-concept-id="riemann-mapping" data-blurb="Any simply connected proper open U ⊂ C is conformally equivalent to D.">Riemann mapping theorem</a> and uniformization both come from the rigidity of $[g]$ in dimension $2$ — a conformal class is the same as a holomorphic atlas. Above dimension $2$ the conformal class no longer determines a complex structure (there are too few conformal vector fields for the dimension count to work), and conformal geometry becomes its own discipline of nonlinear PDE for $u\in C^\infty(M)$.</p>
 
+
+  <p>The slider above rescales the metric by hand. In two dimensions there is a royal road to conformal changes: <em>any</em> holomorphic map with $f'\neq 0$ pulls the flat metric $g_0$ back to $e^{2\varphi}g_0$ with $e^{\varphi} = |f'(z)|$ — angles survive, lengths rescale pointwise. Drag the probe through $f(z) = z + \tfrac{z^2}{2}$: the little image cross stays a right-angled cross of side $|f'(z)| = |1+z|$ — that number <em>is</em> the conformal factor of the pulled-back metric at your fingertip. Now park the probe at $z = -1$: the factor hits zero, the cross collapses — and no smooth $\varphi$ with $e^{2\varphi} = |f'|^2$ exists across that point, because $\varphi = \log|f'| \to -\infty$. The map falls out of the conformal class precisely where the section’s $e^{2u}$ convention — whose whole point is that positivity comes for free — cannot reach. (In dimensions $n \ge 3$ the same positivity duty is carried by $u &gt; 0$ in §2’s $u^{4/(n-2)}$ normalization.)</p>
+
+<div class="widget" id="w-conformal-probe">
+  <div class="hd"><div class="ttl">Drag the probe — |f′(z)| is the conformal factor</div><div class="hint">drag the cyan probe $z$ through $f(z) = z + z^2/2$: the pink cross is the image of a tiny right-angled cross at $z$ — it stays right-angled (angles preserved) with arms proportional to $|f'(z)| = |1+z|$, the conformal factor $e^{\varphi}$ of the pulled-back metric. Park at $z=-1$ and watch the factor die</div></div>
+  <svg id="conformal-probe-svg" viewBox="0 0 560 560" width="560" height="560" style="touch-action:none;cursor:grab;width:100%;max-width:560px;height:auto;overflow:hidden"><title>Drag a probe through the entire map z plus z squared over two; the image cross shows the live conformal factor and its collapse at the critical point minus one</title></svg>
+  <div class="row">
+    <button id="w-conformal-probe-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="conformal-probe-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#conformal-probe-svg'), out=$('#conformal-probe-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=2.5, EXT=3;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 560').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const cx=W/2, cy=Hh/2, S=(Math.min(W,Hh)/2-14)/R;
+  function PX(x){ return cx + x*S; }
+  function PY(y){ return cy - y*S; }
+  function XV(px){ return (px-cx)/S; }
+  function YV(py){ return (cy-py)/S; }
+  let zx=0.5, zy=0.8;
+  // ---- author f(x,y) -> [u,v] ----
+
+  // f(z) = z + z^2/2, entire, with a single critical point at z = -1.
+  // Away from it, f is a conformal change of the flat metric with factor
+  // |f'(z)| = |1 + z|: the image cross stays a right-angled cross, scaled.
+  // At z = -1 the factor hits zero and conformality dies.
+  function f(x,y){
+    return [x + (x*x - y*y)/2, y + x*y];
+  }
+
+  // ---- complex-map engine (supplied by complex-map-2d) ----
+  function mappedLine(fixed,isVert){ let d=''; const N=64;
+    for(let i=0;i<=N;i++){ const t=-EXT+2*EXT*i/N; const p=isVert?f(fixed,t):f(t,fixed); d+=(i?'L':'M')+PX(p[0]).toFixed(1)+' '+PY(p[1]).toFixed(1)+' '; } return d; }
+  function deriv(x,y){ const h=1e-3, a=f(x+h,y), b=f(x-h,y); return [(a[0]-b[0])/(2*h), (a[1]-b[1])/(2*h)]; }
+  function render(){
+    while(G.firstChild)G.removeChild(G.firstChild);
+    // faint source grid + axes (reference)
+    for(let k=-EXT;k<=EXT;k++){
+      G.appendChild(SVG('line',{x1:PX(k),y1:PY(-EXT),x2:PX(k),y2:PY(EXT),stroke:'var(--line)','stroke-width':1,opacity:0.13}));
+      G.appendChild(SVG('line',{x1:PX(-EXT),y1:PY(k),x2:PX(EXT),y2:PY(k),stroke:'var(--line)','stroke-width':1,opacity:0.13})); }
+    // image of the grid under f (the warped / conformal grid)
+    for(let k=-EXT;k<=EXT;k++){
+      G.appendChild(SVG('path',{d:mappedLine(k,true),fill:'none',stroke:'var(--cyan)','stroke-width':k===0?2:1,opacity:k===0?0.75:0.38}));
+      G.appendChild(SVG('path',{d:mappedLine(k,false),fill:'none',stroke:'var(--yellow)','stroke-width':k===0?2:1,opacity:k===0?0.75:0.38})); }
+    const w=f(zx,zy), fp=deriv(zx,zy), s=Math.hypot(fp[0],fp[1]), ang=Math.atan2(fp[1],fp[0]);
+    // image of a small cross at z (drawn at w) — shows local rotation+scale
+    const e=0.32;
+    const cxp=f(zx+e,zy), cxm=f(zx-e,zy), cyp=f(zx,zy+e), cym=f(zx,zy-e);
+    G.appendChild(SVG('line',{x1:PX(cxm[0]),y1:PY(cxm[1]),x2:PX(cxp[0]),y2:PY(cxp[1]),stroke:'var(--pink)','stroke-width':2.5}));
+    G.appendChild(SVG('line',{x1:PX(cym[0]),y1:PY(cym[1]),x2:PX(cyp[0]),y2:PY(cyp[1]),stroke:'var(--pink)','stroke-width':2.5}));
+    // arrow z -> w
+    G.appendChild(SVG('line',{x1:PX(zx),y1:PY(zy),x2:PX(w[0]),y2:PY(w[1]),stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 4',opacity:0.6}));
+    // probe z and image w
+    G.appendChild(SVG('circle',{cx:PX(w[0]),cy:PY(w[1]),r:5,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1.2}));
+    const lw=SVG('text',{x:PX(w[0])+9,y:PY(w[1])-7,'font-size':12,fill:'var(--pink)'}); lw.textContent='w=f(z)'; G.appendChild(lw);
+    G.appendChild(SVG('circle',{cx:PX(zx),cy:PY(zy),r:7,fill:'var(--cyan)',stroke:'var(--ink)','stroke-width':1.5}));
+    const lz=SVG('text',{x:PX(zx)+9,y:PY(zy)-7,'font-size':12,fill:'var(--cyan)'}); lz.textContent='z'; G.appendChild(lz);
+    function cpx(re,im){ const ai=Math.abs(im); return re.toFixed(2)+(im>=0?' + ':' \u2212 ')+ai.toFixed(2)+'i'; }
+    const conf = s>1e-3 ? 'angles preserved (conformal)' : '<b style=\"color:var(--pink)\">f\u2032\u22480: angles not preserved here</b>';
+    out.innerHTML='z = '+cpx(zx,zy)+' &nbsp;\u00b7&nbsp; w = f(z) = '+cpx(w[0],w[1])+' &nbsp;\u00b7&nbsp; |f\u2032(z)| \u2248 '+s.toFixed(2)+' (local stretch), arg f\u2032 \u2248 '+(ang*180/Math.PI).toFixed(0)+'\u00b0 &nbsp;\u00b7&nbsp; '+conf;
+  }
+  function toData(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; const p=q.matrixTransform(svg.getScreenCTM().inverse()); return {x:XV(p.x), y:YV(p.y)}; }
+  let drag=false;
+  svg.addEventListener('pointerdown',function(ev){ const pt=toData(ev); if(Math.hypot(pt.x-zx,pt.y-zy)<18/S){ drag=true; ev.preventDefault(); try{svg.setPointerCapture(ev.pointerId);}catch(e){} } });
+  window.addEventListener('pointermove',function(ev){ if(!drag)return; const pt=toData(ev); zx=Math.max(-R,Math.min(R,pt.x)); zy=Math.max(-R,Math.min(R,pt.y)); render(); });
+  window.addEventListener('pointerup',function(){ drag=false; });
+  const rb=$('#w-conformal-probe-reset'); if(rb) rb.addEventListener('click',function(){ zx=0.5; zy=0.8; render(); });
+  render();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
