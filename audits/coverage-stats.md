@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1681** (registry-driven: 1681, inline: 0)
+- Widgets: **1682** (registry-driven: 1682, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **65** of **211** with widgets (31%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **66** of **211** with widgets (31%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -23,7 +23,7 @@ page has wired one in yet.
 | `slider-svg-2d` | slider-readout | slider | 2d | 274 | abelian-varieties, algebraic-k-theory-foundations, algebraic-number-theory, algebraic-topology, arithmetic-statistics, brill-noether, cluster-algebras, cobordism, coding-theory, cohomology-and-duality, combinatorial-optimization, complex-multiplication, computational-molecular-biology, computational-number-theory, condensed-mathematics, conformal-and-cr-geometry, continued-fractions, convex-geometry, convex-optimization, crystalline-cohomology, d-modules, dirac-equation, dirichlet-unit-theorem, donaldson-thomas-and-gw-invariants, elliptic-curves, fixed-point-theorems, gauge-theory, geometric-and-combinatorial-group-theory, geometric-invariant-theory, geometric-measure-theory, groebner-bases, half-integral-weight-forms, heegaard-floer, homotopy-theory, iwasawa-theory, kahler-geometry, kalman-filtering-and-state-estimation, khovanov-homology, klein-gordon-equation, maass-forms, mapping-class-groups, mathematical-biology, mathematical-chaos, mathematical-finance, microlocal-analysis, mmp-and-birational-geometry, model-categories, optimal-control-and-dynamic-programming, positive-characteristic-ag, positivity-and-ample-line-bundles, quantum-field-theory, random-matrix-theory, semigroup-theory-evolution-equations, several-complex-variables, shimura-varieties, special-relativity, spectral-methods-data, spectral-theory, statistical-mechanics, string-theory, surgery-theory, topological-data-analysis, tropical-geometry, wavelets |
 | `parametric-plot` | parametric-plot | slider | 2d | 131 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, ergodic-theory, expanders, game-theory, graph-theory-fundamentals, information-geometry, integrable-systems, kernel-methods-and-rkhs, markov-decision-processes, optimal-transport, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, quantum-information, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 100 | abelian-varieties, algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, cluster-algebras, conformal-and-cr-geometry, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, gauge-theory, geometric-invariant-theory, homological, kalman-filtering-and-state-estimation, mapping-class-groups, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, positive-characteristic-ag, positivity-and-ample-line-bundles, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, string-theory, topological-data-analysis, toric-varieties, tropical-geometry, wavelets |
-| `draggable-points-2d` | draggable-points-2d | drag | 2d | 8 | complex-analysis, convex-geometry, information-geometry, kernel-methods-and-rkhs, mathematical-statistics, numerical-analysis, optimal-transport, projective-plane |
+| `draggable-points-2d` | draggable-points-2d | drag | 2d | 9 | complex-analysis, convex-geometry, information-geometry, kernel-methods-and-rkhs, mathematical-statistics, numerical-analysis, optimal-transport, projective-plane, topological-data-analysis |
 | `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 8 | deep-learning-theory, diffusion-and-score-based-models, dynamical-systems, mathematical-biology |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
@@ -852,10 +852,10 @@ page has wired one in yet.
 ### Learning theory & data science
 
 - Topics: **9**, concepts: **56**
-- Widgets: **61** (registry-driven: 61, inline: 0)
-  - by family: parametric-plot: 42, slider-readout: 10, clickable-diagram: 2, draggable-points-2d: 2, vector-field-flow-2d: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1
-  - by dimension: 2d: 61
-  - by gesture: slider: 53, click: 3, drag: 2, click-seed: 2, construct-to-break: 1
+- Widgets: **62** (registry-driven: 62, inline: 0)
+  - by family: parametric-plot: 42, slider-readout: 10, draggable-points-2d: 3, clickable-diagram: 2, vector-field-flow-2d: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1
+  - by dimension: 2d: 62
+  - by gesture: slider: 53, click: 3, drag: 3, click-seed: 2, construct-to-break: 1
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)
   - by type: mcq: 117, numeric: 25, multi-select: 17, ordering: 6, matching: 1
 
@@ -914,7 +914,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `sobolev-spaces-distributions` | Analysis | 7 | 7 | scrub: 6, pick: 1 | slider: 6, click: 1 |
 | `spectral-methods-data` | Learning theory & data science | 7 | 7 | scrub: 7 | slider: 7 |
 | `string-theory` | Mathematical physics | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
-| `topological-data-analysis` | Learning theory & data science | 7 | 7 | scrub: 4, pick: 3 | slider: 4, click: 3 |
 | `zeta-values` | Modular forms & L-functions | 7 | 7 | pick: 6, scrub: 1 | click: 6, slider: 1 |
 | `zfc-and-ordinals` | Logic & Foundations | 7 | 7 | pick: 4, scrub: 3 | click: 4, slider: 2, step: 1 |
 | `abelian-varieties` | Algebraic geometry | 6 | 6 | pick: 4, scrub: 2 | click: 3, slider: 2, select: 1 |
@@ -1047,7 +1046,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `positive-characteristic-ag` | Algebraic geometry | 7 | 9 | 0 | 4 | 0 | · | select: 4, click: 2, slider: 2, interact: 1 | 21 |
 | `convex-optimization` | Control theory & optimization | 7 | 10 | 0 | 4 | 0 | ✓ | slider: 7, draw: 1, edit: 1, play: 1 | 21 |
 | `convex-geometry` | Geometry & topology | 7 | 8 | 0 | 3 | 0 | ✓ | slider: 5, select: 2, drag: 1 | 21 |
-| `topological-data-analysis` | Learning theory & data science | 7 | 7 | 0 | 2 | 0 | · | slider: 4, click: 3 | 21 |
+| `topological-data-analysis` | Learning theory & data science | 7 | 8 | 0 | 3 | 0 | ✓ | slider: 4, click: 3, drag: 1 | 21 |
 | `mathematical-chaos` | Analysis | 7 | 9 | 0 | 4 | 0 | ✓ | slider: 5, click: 2, edit: 1, timeline: 1 | 21 |
 | `kalman-filtering-and-state-estimation` | Control theory & optimization | 6 | 6 | 0 | 2 | 0 | · | slider: 5, click: 1 | 18 |
 | `statistical-learning-theory` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, construct-to-break: 1 | 18 |
