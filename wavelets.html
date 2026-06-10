@@ -399,10 +399,10 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Inverse DWT mirrors analysis: upsample $a_j,d_j$ by inserting zeros, convolve with the dual reconstruction filters, and sum. For an orthonormal wavelet the reconstruction filters are the time-reversals of the analysis filters, so the inverse pyramid is also $O(n)$. Software libraries (PyWavelets, MATLAB Wavelet Toolbox) implement this in a hundred lines of straight loops.</p>
 
 
-  <p>The transform above analyses a fixed signal. Now draw the signal. Sixty-four samples, the orthonormal Haar DWT recomputed on every stroke, and the full coefficient pyramid displayed as a scalogram: rows $d_1$ (finest, 32 cells) down to $d_6$ and the approximation $a$, cell opacity $\propto |\text{coefficient}|$. A smooth bump parks its energy in a handful of coarse cells — that is the sparsity compression lives on. A sharp spike does something Fourier cannot: it lights up only the <em>fine</em> rows, and only the cells <em>directly under the spike</em> — localization in time and scale at once.</p>
+  <p>The transform above analyses a fixed signal. Now draw the signal. Sixty-four samples, the orthonormal Haar DWT recomputed on every stroke, and the full coefficient pyramid displayed as a scalogram: rows $d_1$ (finest, 32 cells) down to $d_6$ and the approximation $a$, cell opacity $\propto |\text{coefficient}|$. A smooth bump parks its energy in a handful of coarse cells — that sparsity is what compression lives on. A sharp spike does something a <em>global</em> Fourier basis cannot: it lights up only the <em>fine</em> rows, and only the cells <em>directly under the spike</em> — localization in time and scale at once (§5 makes this trade-off precise).</p>
 
 <div class="widget" id="w-dwt-sketch">
-  <div class="hd"><div class="ttl">Draw the signal — the Haar scalogram responds</div><div class="hint">sketch in the upper strip; the pyramid below is the Haar DWT, opacity = |coefficient|. Draw a sharp spike: only the fine rows light up, directly under it — then smooth it out and watch the energy sink to the coarse rows</div></div>
+  <div class="hd"><div class="ttl">Draw the signal — the Haar scalogram responds</div><div class="hint">sketch in the upper strip; the pyramid below is the Haar DWT, opacity &prop; |coefficient|. Draw a sharp spike: only the fine rows light up, directly under it — then smooth it out and watch the energy sink to the coarse rows</div></div>
   <svg id="dwt-sketch-svg" viewBox="0 0 640 420" width="640" height="420" style="touch-action:none;cursor:crosshair"><title>A sketchable 64-sample signal whose orthonormal Haar wavelet transform is displayed live as a scalogram, demonstrating sparsity and time-scale localization</title></svg>
   <div class="row">
     <button id="w-dwt-sketch-reset" type="button">↺ Reset</button>
@@ -470,6 +470,8 @@ function drawNode(svg, x, y, label, opts={}){
     G.appendChild(SVG('rect',{x:bx0,y:ay,width:bx1-bx0,height:13,fill:'var(--green)','fill-opacity':(0.06+0.9*Math.abs(w.approx[0])/maxC).toFixed(3),'pointer-events':'none'}));
     var al=SVG('text',{x:bx0-6,y:ay+11,'font-size':10,fill:'var(--mute)','text-anchor':'end','pointer-events':'none'});
     al.textContent='a'; G.appendChild(al);
+    var x0l=SVG('text',{x:bx0,y:ay+27,'font-size':10,fill:'var(--mute)','pointer-events':'none'}); x0l.textContent='x = 0'; G.appendChild(x0l);
+    var x1l=SVG('text',{x:bx1,y:ay+27,'font-size':10,fill:'var(--mute)','text-anchor':'end','pointer-events':'none'}); x1l.textContent='x = 1'; G.appendChild(x1l);
     if(tot<1e-9){ out.innerHTML='draw a signal \u2014 the scalogram is empty'; return; }
     // sparsity: smallest k coefficients carrying 95% of energy
     var sorted=all.slice().sort(function(x,y){ return y-x; });
@@ -478,10 +480,14 @@ function drawNode(svg, x, y, label, opts={}){
     // coarse share: a + d6 + d5 (4 coefficients)
     var coarse=Math.pow(w.approx[0],2)+Math.pow(w.det[5][0],2)+w.det[4].reduce(function(t,c){return t+c*c;},0);
     var msg='95% of the energy sits in <b>'+k95+'</b> of 64 coefficients \u00b7 coarsest 4 cells hold '+Math.round(100*coarse/tot)+'%';
-    // fine-scale localization: biggest d1/d2 coefficient
-    var best=0, bestPos=0, bestLvl=0;
-    for(var l3=0;l3<2;l3++){ w.det[l3].forEach(function(c,j2){ if(Math.abs(c)>best){ best=Math.abs(c); bestPos=(j2+0.5)/w.det[l3].length; bestLvl=l3+1; } }); }
-    if(best>0.35*maxC){
+    // fine-scale localization: biggest d1/d2 coefficient, judged against the
+    // fine rows' own RMS (a coarse-heavy bump must not drown a real spike)
+    var best=0, bestPos=0, fineSum=0, fineN=0;
+    for(var l3=0;l3<2;l3++){ w.det[l3].forEach(function(c,j2){
+      fineSum+=c*c; fineN++;
+      if(Math.abs(c)>best){ best=Math.abs(c); bestPos=(j2+0.5)/w.det[l3].length; } }); }
+    var fineRMS=Math.sqrt(fineSum/Math.max(fineN,1));
+    if(best>4*fineRMS&&best>0.02){
       msg+=' \u00b7 <span class="ok">sharp feature at x \u2248 '+bestPos.toFixed(2)+' \u2014 it lights up only the fine rows, directly underneath: localized in time AND scale</span>';
     } else {
       msg+=' \u00b7 smooth signal \u2014 the energy lives in the coarse rows; draw a sharp spike and watch d\u2081 light up under it';
