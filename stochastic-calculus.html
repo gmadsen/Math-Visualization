@@ -431,6 +431,95 @@ This is what makes the exponential martingale work: applying Itô to $f(t,B)=\ex
 
 <div class="quiz" data-concept="sc-ito-formula"></div>
 
+
+  <p>The widget above watches the gap between $B_t^2$ and its naive prediction fill in to $t$ on simulated paths. Now supply the path yourself. Draw $f$ and the widget accumulates the running quadratic variation $[f]_t = \sum_{t_i \le t} (\Delta f)^2$ (yellow) — and then runs the test that makes QV meaningful: it recomputes $[f]_1$ on a $4\times$ coarser mesh. A $C^1$ drawing collapses by $\approx 4$ when the mesh refines — its QV is an artifact of discretization, and the Itô correction would vanish in the limit. Brownian motion is precisely the path whose QV <em>survives refinement</em> ($[W]_t = t$ at every mesh): scribble as violently as you can and see how close your hand gets.</p>
+
+<div class="widget" id="w-qv-sketch">
+  <div class="hd"><div class="ttl">Draw the path — does its quadratic variation survive refinement?</div><div class="hint">sketch a path; yellow = running $[f]_t$. A gentle drawing scores a fine/coarse ratio near $1/4$ (QV is a mesh artifact); violent scribbling pushes it toward $1$ — Brownian motion holds the ratio at $1$ on every mesh</div></div>
+  <svg id="qv-sketch-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:crosshair"><title>A sketchable path whose running quadratic variation and mesh-refinement ratio are computed live, demonstrating that smooth paths lose their QV under refinement while rough paths keep it</title></svg>
+  <div class="row">
+    <button id="w-qv-sketch-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="qv-sketch-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#qv-sketch-svg'), out=$('#qv-sketch-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const M=64, X0=0, X1=1, YMIN=-1, YMAX=1;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const bx0=48, bx1=W-24, by0=Hh-40, by1=24;
+  function X(i){ return bx0+(bx1-bx0)*i/(M-1); }
+  function xv(i){ return X0+(X1-X0)*i/(M-1); }
+  function Y(v){ let tt=(v-YMIN)/(YMAX-YMIN); if(tt<0)tt=0; if(tt>1)tt=1; return by0+(by1-by0)*tt; }
+  function Yinv(py){ let tt=(py-by0)/(by1-by0); return YMIN+(YMAX-YMIN)*tt; }
+  const INIT=[0,0.05,0.099,0.147,0.194,0.239,0.282,0.321,0.358,0.391,0.42,0.445,0.465,0.481,0.492,0.499,0.5,0.496,0.487,0.474,0.456,0.433,0.406,0.375,0.34,0.302,0.261,0.217,0.171,0.123,0.075,0.025,-0.025,-0.075,-0.123,-0.171,-0.217,-0.261,-0.302,-0.34,-0.375,-0.406,-0.433,-0.456,-0.474,-0.487,-0.496,-0.5,-0.499,-0.492,-0.481,-0.465,-0.445,-0.42,-0.391,-0.358,-0.321,-0.282,-0.239,-0.194,-0.147,-0.099,-0.05,0];
+  const DEFAULT=INIT?Array.from({length:M},function(_,i){return typeof INIT[i]==='number'?INIT[i]:0;}):new Array(M).fill(0);
+  const ys=DEFAULT.slice();
+  // ---- author draw(ys) (clears+fills G, writes out) ----
+
+  // Running quadratic variation of the sketched path at the drawing mesh,
+  // plus the refinement test: QV recomputed on the 4x-coarsened mesh.
+  // A C^1 path's QV collapses ~4x when the mesh refines 4x; Brownian
+  // roughness is exactly the regime where it holds steady.
+  function qvAt(ys, s){
+    var q=0;
+    for(var j=0;j+s<M;j+=s){ const d2=ys[j+s]-ys[j]; q+=d2*d2; }
+    return q;
+  }
+  function draw(ys){
+    G.innerHTML='';
+    // sketched path
+    var d2='';
+    for(var i=0;i<M;i++){ d2+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(ys[i]).toFixed(1)+' '; }
+    G.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--cyan)','stroke-width':2,'pointer-events':'none'}));
+    // running QV at the fine mesh, drawn against the bottom of the strip
+    const run=[0];
+    for(var j=1;j<M;j++){ const dd=ys[j]-ys[j-1]; run.push(run[j-1]+dd*dd); }
+    const tot=run[M-1], qmax=Math.max(tot,1e-9);
+    const yb=Y(-1), yt=Y(1), span=(yb-yt)*0.55;
+    var dq='';
+    for(var j2=0;j2<M;j2++){ dq+=(j2?'L':'M')+X(j2).toFixed(1)+' '+(yb-span*run[j2]/qmax).toFixed(1)+' '; }
+    G.appendChild(SVG('path',{d:dq,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'1 0','pointer-events':'none'}));
+    var lg=SVG('text',{x:X(0)+4,y:yt-6,'font-size':11,fill:'var(--mute)','pointer-events':'none'});
+    lg.textContent='cyan: your path f \u00b7 yellow: running [f]\u209c (rescaled)'; G.appendChild(lg);
+    if(tot<1e-6){ out.innerHTML='draw a path \u2014 a constant has zero quadratic variation'; return; }
+    // refinement test: fine vs 4x-coarse mesh
+    const q1=qvAt(ys,1), q4=qvAt(ys,4), ratio=q1/Math.max(q4,1e-12);
+    var msg='[f]\u2081 = <b>'+q1.toFixed(3)+'</b> at the drawing mesh \u00b7 on a 4\u00d7 coarser mesh: '+q4.toFixed(3)+' \u00b7 fine/coarse ratio <b>'+ratio.toFixed(2)+'</b>';
+    if(ratio<0.45){
+      msg+=' \u00b7 <span class="ok">collapsing under refinement \u2014 a finite-variation path: the It\u00f4 correction \u00bdf\u2033 d[W] would vanish and ordinary calculus returns</span>';
+    } else if(ratio>1.5){
+      msg+=' \u00b7 <span class="bad">rougher than Brownian \u2014 you are alternating at the sample scale; BM holds the ratio at exactly 1 on every mesh</span>';
+    } else if(ratio>0.75){
+      msg+=' \u00b7 <span class="bad">mesh-stable \u2014 Brownian-like roughness: this is the regime where dW\u00b2 = dt is real and the It\u00f4 term survives</span>';
+    } else {
+      msg+=' \u00b7 in between \u2014 refine your scribble: real Brownian roughness keeps the ratio near 1 at every mesh';
+    }
+    out.innerHTML=msg;
+  }
+
+  // ---- sketch engine (supplied by sketch-curve-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  let drawing=false, lastI=null;
+  function edit(pt){
+    let i=Math.round((pt.x-bx0)/(bx1-bx0)*(M-1)); if(i<0)i=0; if(i>=M)i=M-1;
+    let py=Math.max(Math.min(by0,by1),Math.min(Math.max(by0,by1),pt.y));
+    const v=Yinv(py);
+    if(lastI!==null && Math.abs(i-lastI)>1){ const a=Math.min(lastI,i), b=Math.max(lastI,i);
+      const va=(a===lastI)?ys[lastI]:v, vb=(b===lastI)?ys[lastI]:v;
+      for(let j=a;j<=b;j++) ys[j]=va+(vb-va)*(j-a)/(b-a||1); }
+    else ys[i]=v;
+    lastI=i; draw(ys);
+  }
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drawing=true; lastI=null; try{svg.setPointerCapture(ev.pointerId);}catch(e){} edit(toSvg(ev)); });
+  window.addEventListener('pointermove',function(ev){ if(drawing) edit(toSvg(ev)); });
+  window.addEventListener('pointerup',function(){ drawing=false; lastI=null; });
+  const rb=$('#w-qv-sketch-reset'); if(rb) rb.addEventListener('click',function(){ for(let i=0;i<M;i++) ys[i]=DEFAULT[i]; draw(ys); });
+  draw(ys);
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

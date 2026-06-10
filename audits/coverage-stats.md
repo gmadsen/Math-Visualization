@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1694** (registry-driven: 1694, inline: 0)
+- Widgets: **1695** (registry-driven: 1695, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **78** of **211** with widgets (37%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **79** of **211** with widgets (37%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -25,9 +25,9 @@ page has wired one in yet.
 | `clickable-diagram` | clickable-diagram | click | 2d | 100 | abelian-varieties, algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, cluster-algebras, conformal-and-cr-geometry, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, gauge-theory, geometric-invariant-theory, homological, kalman-filtering-and-state-estimation, mapping-class-groups, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, positive-characteristic-ag, positivity-and-ample-line-bundles, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, string-theory, topological-data-analysis, toric-varieties, tropical-geometry, wavelets |
 | `draggable-points-2d` | draggable-points-2d | drag | 2d | 12 | complex-analysis, convex-geometry, information-geometry, information-theory, kalman-filtering-and-state-estimation, kernel-methods-and-rkhs, mathematical-statistics, numerical-analysis, optimal-transport, projective-plane, spectral-methods-data, topological-data-analysis |
 | `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 11 | causal-inference, combinatorial-optimization, expanders, extremal-combinatorics, graph-theory-fundamentals, matroid-theory, order-theory-and-lattices, probabilistic-graphical-models, random-walks-and-mixing, spectral-graph-theory |
+| `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 8 | convex-optimization, harmonic-analysis-fourier, morse-theory, real-analysis, stochastic-calculus, wavelets |
 | `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 8 | deep-learning-theory, diffusion-and-score-based-models, dynamical-systems, mathematical-biology |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
-| `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 7 | convex-optimization, harmonic-analysis-fourier, morse-theory, real-analysis, wavelets |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
 | `inline-code-cell` | inline-code-cell | edit | 2d | 6 | analytic-number-theory, convex-optimization, heights-arithmetic-geometry, mathematical-chaos, p-adic-numbers |
@@ -772,10 +772,10 @@ page has wired one in yet.
 ### Probability & statistics
 
 - Topics: **11**, concepts: **76**
-- Widgets: **84** (registry-driven: 84, inline: 0)
-  - by family: slider-readout: 16, button-stepper: 15, draggable-points-2d: 2, sampling-box: 2, vector-field-flow-2d: 1, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, bayes-mass-updater: 1, prob-convergence-modes: 1, animated-svg-2d: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, graph-edit-2d: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, info-aep-typical-set: 1, info-cramer-rao: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
-  - by dimension: 2d: 84
-  - by gesture: slider: 44, click: 22, step: 5, input: 2, drag: 2, shake-sample: 2, button: 2, click-seed: 1, pour-update: 1, play: 1, graph-edit: 1, toggle: 1
+- Widgets: **85** (registry-driven: 85, inline: 0)
+  - by family: slider-readout: 16, button-stepper: 15, draggable-points-2d: 2, sampling-box: 2, vector-field-flow-2d: 1, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, bayes-mass-updater: 1, prob-convergence-modes: 1, animated-svg-2d: 1, prob-martingale-stopping: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, sketch-curve-2d: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, graph-edit-2d: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, info-aep-typical-set: 1, info-cramer-rao: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
+  - by dimension: 2d: 85
+  - by gesture: slider: 44, click: 22, step: 5, input: 2, drag: 2, shake-sample: 2, button: 2, click-seed: 1, pour-update: 1, play: 1, draw: 1, graph-edit: 1, toggle: 1
 - Quizzes: **265** (v1: 228, hard: 24, expert: 13)
   - by type: mcq: 167, numeric: 70, multi-select: 10, matching: 5, spot-the-error: 5, ordering: 3, proof-completion: 3, construction: 1, complex: 1
 
@@ -974,7 +974,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `shimura-varieties` | Modular forms & L-functions | 6 | 6 | pick: 5, scrub: 1 | select: 5, slider: 1 |
 | `simplicial-complexes-combinatorial` | Combinatorics & graph theory | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 2 |
 | `simplicial-sets-and-nerve` | Higher categories & toposes | 6 | 6 | pick: 4, scrub: 2 | click: 4, step: 2 |
-| `stochastic-calculus` | Probability & statistics | 6 | 6 | scrub: 4, pick: 2 | slider: 4, button: 2 |
 | `stochastic-processes-and-martingales` | Probability & statistics | 6 | 6 | scrub: 6 | slider: 4, step: 2 |
 | `surgery-theory` | Geometry & topology | 6 | 6 | pick: 5, scrub: 1 | select: 5, slider: 1 |
 | `three-body-problem` | Mathematical physics | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 2 |
@@ -1158,7 +1157,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `spectral-theory` | Analysis | 9 | 9 | 0 | 2 | 0 | · | slider: 7, click: 2 | 27 |
 | `probability-theory` | Probability & statistics | 12 | 16 | 0 | 4 | 0 | ✓ | click: 12, shake-sample: 2, pour-update: 1, play: 1 | 73 |
 | `stochastic-processes-and-martingales` | Probability & statistics | 6 | 6 | 0 | 2 | 0 | · | slider: 4, step: 2 | 18 |
-| `stochastic-calculus` | Probability & statistics | 6 | 6 | 0 | 2 | 0 | · | slider: 4, button: 2 | 18 |
+| `stochastic-calculus` | Probability & statistics | 6 | 7 | 0 | 3 | 0 | ✓ | slider: 4, button: 2, draw: 1 | 18 |
 | `random-walks-and-mixing` | Probability & statistics | 6 | 7 | 0 | 4 | 0 | ✓ | step: 3, slider: 2, click: 1, graph-edit: 1 | 18 |
 | `information-theory` | Probability & statistics | 8 | 9 | 0 | 3 | 0 | ✓ | slider: 6, click: 2, drag: 1 | 24 |
 | `large-deviations` | Probability & statistics | 5 | 5 | 0 | 3 | 0 | · | slider: 2, click: 2, toggle: 1 | 15 |
