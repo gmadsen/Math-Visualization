@@ -385,6 +385,7 @@ const BOOT_ONLY = [
   'q-learning-grid-world',
   'sampling-box',
   'shatter-arena',
+  'simplicial-glue',
   'three-body-launcher',
   'torus-orbit-explorer',
   'unroll-the-cover',

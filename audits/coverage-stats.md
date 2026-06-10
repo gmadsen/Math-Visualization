@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1702** (registry-driven: 1702, inline: 0)
+- Widgets: **1703** (registry-driven: 1703, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **84** of **211** with widgets (40%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **85** of **211** with widgets (40%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -639,6 +639,7 @@ page has wired one in yet.
 | `simplicial-complexes-combinatorial-persistence` | simplicial-complexes-combinatorial-persistence | slider | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-shell` | simplicial-complexes-combinatorial-shell | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-sr` | simplicial-complexes-combinatorial-sr | click | 2d | 1 | simplicial-complexes-combinatorial |
+| `simplicial-glue` | simplicial-glue | glue | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-sets-delta-generators` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-faces-degeneracies` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-horns-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
@@ -826,10 +827,10 @@ page has wired one in yet.
 ### Combinatorics & graph theory
 
 - Topics: **15**, concepts: **93**
-- Widgets: **103** (registry-driven: 103, inline: 0)
-  - by family: parametric-plot: 34, graph-edit-2d: 7, button-stepper: 7, verbatim: 5, slider-readout: 2, ramsey-two-coloring: 1, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
-  - by dimension: 2d: 103
-  - by gesture: slider: 51, click: 36, step: 8, graph-edit: 7, edge-color: 1
+- Widgets: **104** (registry-driven: 104, inline: 0)
+  - by family: parametric-plot: 34, graph-edit-2d: 7, button-stepper: 7, verbatim: 5, slider-readout: 2, ramsey-two-coloring: 1, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-glue: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
+  - by dimension: 2d: 104
+  - by gesture: slider: 51, click: 36, step: 8, graph-edit: 7, edge-color: 1, glue: 1
 - Quizzes: **294** (v1: 279, hard: 15, expert: 0)
   - by type: mcq: 196, numeric: 71, multi-select: 23, matching: 2, spot-the-error: 1, ordering: 1
 
@@ -972,7 +973,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `semigroup-theory-evolution-equations` | Analysis | 6 | 6 | scrub: 6 | slider: 6 |
 | `several-complex-variables` | Analysis | 6 | 6 | scrub: 5, pick: 1 | slider: 5, click: 1 |
 | `shimura-varieties` | Modular forms & L-functions | 6 | 6 | pick: 5, scrub: 1 | select: 5, slider: 1 |
-| `simplicial-complexes-combinatorial` | Combinatorics & graph theory | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 2 |
 | `simplicial-sets-and-nerve` | Higher categories & toposes | 6 | 6 | pick: 4, scrub: 2 | click: 4, step: 2 |
 | `stochastic-processes-and-martingales` | Probability & statistics | 6 | 6 | scrub: 6 | slider: 4, step: 2 |
 | `surgery-theory` | Geometry & topology | 6 | 6 | pick: 5, scrub: 1 | select: 5, slider: 1 |
@@ -1217,7 +1217,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `matroid-theory` | Combinatorics & graph theory | 7 | 8 | 0 | 4 | 0 | ✓ | click: 3, slider: 3, graph-edit: 1, step: 1 | 21 |
 | `probabilistic-method` | Combinatorics & graph theory | 7 | 7 | 0 | 2 | 0 | · | slider: 5, click: 2 | 21 |
 | `extremal-combinatorics` | Combinatorics & graph theory | 6 | 7 | 0 | 4 | 0 | ✓ | slider: 3, click: 2, graph-edit: 1, step: 1 | 18 |
-| `simplicial-complexes-combinatorial` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | click: 4, slider: 2 | 18 |
+| `simplicial-complexes-combinatorial` | Combinatorics & graph theory | 6 | 7 | 0 | 3 | 0 | ✓ | click: 4, slider: 2, glue: 1 | 18 |
 | `enumerative-combinatorics` | Combinatorics & graph theory | 6 | 6 | 0 | 3 | 0 | · | click: 4, slider: 1, step: 1 | 18 |
 | `sato-tate` | Modular forms & L-functions | 5 | 9 | 0 | 1 | 0 | · | click: 9 | 30 |
 | `bsd` | Modular forms & L-functions | 5 | 9 | 0 | 1 | 0 | · | click: 9 | 30 |

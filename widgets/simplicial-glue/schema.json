@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/simplicial-glue/schema.json",
+  "title": "simplicial-glue widget params",
+  "description": "Build an abstract simplicial complex by clicking: toggle vertices, glue edges between active vertices, and fill triangles whose boundary is present. The downward-closure axiom is enforced live (gluing a 2-simplex demands its three edges; deleting a vertex sweeps away every face above it), and the readout tracks the f-vector, Euler characteristic, and GF(2) Betti numbers with the Euler–Poincaré identity checked at every click. Preset buttons jump to a cycle, a disk, a wedge of circles, and the empty complex.",
+  "meta": {
+    "family": "simplicial-glue",
+    "dimension": "2d",
+    "gesture": "glue",
+    "role": "exploration"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "svgId": {
+      "type": "string",
+      "description": "DOM id for the <svg> canvas."
+    },
+    "outputId": {
+      "type": "string",
+      "description": "DOM id for the .readout element."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "svgTitle": {
+      "type": "string",
+      "description": "Accessible <title> for the svg; defaults to title."
+    },
+    "preset": {
+      "type": "string",
+      "enum": ["cycle", "disk", "wedge", "empty"],
+      "default": "cycle",
+      "description": "Boot complex: 'cycle' = the hexagon boundary (β₁ = 1), 'disk' = all 13 simplices of the cone (β₁ = 0), 'wedge' = two independent cycles through the hub (β₁ = 2), 'empty' = vertices only."
+    },
+    "viewBox": {
+      "type": "string",
+      "default": "0 0 560 500",
+      "description": "SVG viewBox."
+    },
+    "svgWidth": { "type": "number", "default": 560 },
+    "svgHeight": { "type": "number", "default": 500 }
+  }
+}

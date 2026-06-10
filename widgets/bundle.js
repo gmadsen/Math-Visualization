@@ -12749,6 +12749,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "simplicial-glue",
+    "family": "simplicial-glue",
+    "dimension": "2d",
+    "gesture": "glue",
+    "role": "exploration",
+    "title": "simplicial-glue widget params",
+    "description": "Build an abstract simplicial complex by clicking: toggle vertices, glue edges between active vertices, and fill triangles whose boundary is present. The downward-closure axiom is enforced live (gluing a 2-simplex demands its three edges; deleting a vertex sweeps away every face above it), and the readout tracks the f-vector, Euler characteristic, and GF(2) Betti numbers with the Euler–Poincaré identity checked at every click. Preset buttons jump to a cycle, a disk, a wedge of circles, and the empty complex.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "The **glue** gesture: build an abstract simplicial complex by clicking on a hexagon-plus-hub vertex set (7 vertices, 12 candidate edges, 6 candidate wedge triangles). Click a vertex to toggle it, a dashed edge to glue it, a triangle interior to fill it. The **downward-closure axiom is enforced live**: gluing a 2-simplex demands its three boundary edges (refusal message otherwise), and deleting a vertex sweeps away every face above it (with a note counting what fell). The readout tracks",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "simplicial-sets-delta-generators",
     "family": "clickable-diagram",
     "dimension": "2d",
