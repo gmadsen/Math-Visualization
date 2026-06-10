@@ -140,7 +140,7 @@
         },
         {
           "type": "raw",
-          "html": "\n  <p>The Ising grid above is one fixed graph with a temperature dial. Now build the graph yourself. $A$ (cyan) and $B$ (yellow) are pinned; on every edit the widget re-runs Bron–Kerbosch for the <strong>maximal cliques</strong> (the factors of $\\tfrac1Z\\prod_c\\psi_c$), rings $A$’s neighbours — its <strong>Markov blanket</strong> — and finds a <strong>minimal separator</strong> $S$ (pink), the smallest set with $X_A \\perp X_B \\mid X_S$ by the Hammersley–Clifford correspondence. Wire $A$ straight to $B$ and no conditioning set can separate them; cut every path and they decouple outright.</p>\n\n"
+          "html": "\n  <p>The Ising grid above is one fixed graph with a temperature dial. Now build the graph yourself. $A$ (cyan) and $B$ (yellow) are designated; on every edit the widget re-runs Bron–Kerbosch for the <strong>maximal cliques</strong> (the factors of $\\tfrac1Z\\prod_c\\psi_c$; size-$3{+}$ cliques are shaded), rings $A$’s neighbours — its <strong>Markov blanket</strong> — and finds a <strong>minimal separator</strong> $S$ (pink): a smallest set with $X_A \\perp X_B \\mid X_S$. That implication is the easy, positivity-free direction (factorization $\\Rightarrow$ global Markov) — Hammersley–Clifford proper is the converse in the note above. The blanket always separates $A$ from everything else, but the minimal separator can be smaller — at boot it is the single bottleneck node, not the blanket. And unlike §1’s directed case there are no colliders: conditioning only ever <em>blocks</em>. Wire $A$ straight to $B$ and no conditioning set can separate them; cut every path and they decouple outright.</p>\n\n"
         },
         {
           "type": "widget",
@@ -161,20 +161,20 @@
                 180
               ],
               [
-                520,
+                540,
                 180
               ],
               [
-                320,
+                260,
                 90
               ],
               [
-                250,
+                260,
                 270
               ],
               [
-                390,
-                270
+                420,
+                180
               ]
             ],
             "initialEdges": [
@@ -183,12 +183,12 @@
                 2
               ],
               [
-                1,
-                2
-              ],
-              [
                 0,
                 3
+              ],
+              [
+                2,
+                4
               ],
               [
                 3,
@@ -200,7 +200,7 @@
               ]
             ],
             "outputInitial": "&nbsp;",
-            "bodyScript": "\n  // A = node id 0, B = node id 1. The widget reports the clique\n  // factorization (Bron-Kerbosch maximal cliques), A's Markov blanket\n  // (= its neighbours), and a minimal separator S with X_A \\u22a5 X_B | S\n  // (exhaustive over subsets; Hammersley-Clifford's separation side).\n  const MAXN=10;\n  function draw(g){\n    while(G.firstChild) G.removeChild(G.firstChild);\n    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });\n    const hasA=(0 in byId), hasB=(1 in byId);\n    function drawNode2(n, isBlanket, inSep){\n      const isA=n.id===0, isB=n.id===1;\n      G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:g.R,\n        fill:isA?'var(--cyan)':(isB?'var(--yellow)':(inSep?'var(--pink)':'var(--violet)')),\n        'fill-opacity':0.85,stroke:(isBlanket?'var(--cyan)':'var(--bg)'),'stroke-width':isBlanket?3:2}));\n      const t=SVG('text',{x:n.x,y:n.y+4,'font-size':12,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});\n      t.textContent=isA?'A':(isB?'B':String(n.id)); G.appendChild(t);\n    }\n    // edges first (under nodes)\n    g.edges.forEach(function(e){\n      const a=byId[e.u], b=byId[e.v];\n      G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'var(--line)','stroke-width':2,'pointer-events':'none'}));\n    });\n    if(!hasA||!hasB){\n      g.nodes.forEach(function(n){ drawNode2(n,false,false); });\n      var missing=[]; if(!hasA) missing.push('A'); if(!hasB) missing.push('B');\n      out.innerHTML='<span class=\"bad\">'+missing.join(' and ')+' was deleted \\u2014 hit Reset</span>';\n      return;\n    }\n    if(g.n>MAXN){\n      g.nodes.forEach(function(n){ drawNode2(n,false,false); });\n      out.innerHTML='more than '+MAXN+' nodes \\u2014 too many to analyse exactly; remove some';\n      return;\n    }\n    // ---- maximal cliques (Bron-Kerbosch) ----\n    const cliques=[];\n    (function bk(R,P,X){\n      if(!P.length&&!X.length){ if(R.length) cliques.push(R.slice()); return; }\n      P.slice().forEach(function(v){\n        bk(R.concat([v]),\n           P.filter(function(w){ return g.adj[v].indexOf(w)>=0; }),\n           X.filter(function(w){ return g.adj[v].indexOf(w)>=0; }));\n        P.splice(P.indexOf(v),1); X.push(v);\n      });\n    })([], g.nodes.map(function(n){return n.id;}), []);\n    const sizes=cliques.map(function(c){return c.length;});\n    const maxC=sizes.length?Math.max.apply(null,sizes):0;\n    // ---- minimal separator of A from B ----\n    function connectedAvoiding(S){\n      if(S.indexOf(0)>=0||S.indexOf(1)>=0) return false;\n      const seen={0:1}, st=[0];\n      while(st.length){\n        const v=st.pop();\n        g.adj[v].forEach(function(w){ if(S.indexOf(w)<0&&!seen[w]){ seen[w]=1; st.push(w); } });\n      }\n      return !!seen[1];\n    }\n    var sep=null, adjacentAB=g.adj[0].indexOf(1)>=0;\n    if(!adjacentAB){\n      const cand=g.nodes.map(function(n){return n.id;}).filter(function(id){ return id!==0&&id!==1; });\n      for(var m=0;m<(1<<cand.length);m++){\n        const S=cand.filter(function(_,i){ return m&(1<<i); });\n        if(!connectedAvoiding(S)){ if(sep===null||S.length<sep.length) sep=S; }\n      }\n    }\n    const blanket=g.adj[0].slice().sort();\n    const sepSet={}; (sep||[]).forEach(function(s){ sepSet[s]=1; });\n    g.nodes.forEach(function(n){ drawNode2(n, blanket.indexOf(n.id)>=0, !!sepSet[n.id]); });\n    var msg='maximal cliques: <b>'+cliques.length+'</b> (largest size '+maxC+') \\u2014 p(x) = (1/Z)\\u03a0\\u03c8<sub>C</sub> over '+cliques.length+' potentials';\n    msg+=' \\u00b7 blanket of A (ringed): {'+(blanket.length?blanket.join(', '):'\\u2205')+'}';\n    if(adjacentAB){\n      msg+=' \\u00b7 <span class=\"bad\">A and B are neighbours \\u2014 no conditioning set separates them</span>';\n    } else if(sep&&sep.length===0){\n      msg+=' \\u00b7 <span class=\"ok\">A and B are disconnected \\u2014 X_A \\u22a5 X_B outright</span>';\n    } else if(sep){\n      msg+=' \\u00b7 <span class=\"ok\">minimal separator (pink): X_A \\u22a5 X_B | {'+sep.join(', ')+'}</span>';\n    }\n    out.innerHTML=msg;\n  }\n"
+            "bodyScript": "\n  // A = node id 0, B = node id 1. The widget reports the clique\n  // factorization (Bron-Kerbosch maximal cliques), A's Markov blanket\n  // (= its neighbours), and a minimal separator S with X_A \\u22a5 X_B | S\n  // (exhaustive over subsets; Hammersley-Clifford's separation side).\n  const MAXN=10;\n  function draw(g){\n    while(G.firstChild) G.removeChild(G.firstChild);\n    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });\n    const hasA=(0 in byId), hasB=(1 in byId);\n    function drawNode2(n, isBlanket, inSep){\n      const isA=n.id===0, isB=n.id===1;\n      G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:g.R,\n        fill:isA?'var(--cyan)':(isB?'var(--yellow)':(inSep?'var(--pink)':'var(--violet)')),\n        'fill-opacity':0.85,stroke:(isBlanket?'var(--cyan)':'var(--bg)'),'stroke-width':isBlanket?3:2}));\n      const t=SVG('text',{x:n.x,y:n.y+4,'font-size':12,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});\n      t.textContent=isA?'A':(isB?'B':String(n.id)); G.appendChild(t);\n    }\n    // edges first (under nodes)\n    g.edges.forEach(function(e){\n      const a=byId[e.u], b=byId[e.v];\n      G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'var(--line)','stroke-width':2,'pointer-events':'none'}));\n    });\n    if(!hasA||!hasB){\n      g.nodes.forEach(function(n){ drawNode2(n,false,false); });\n      var missing=[]; if(!hasA) missing.push('A'); if(!hasB) missing.push('B');\n      out.innerHTML='<span class=\"bad\">'+missing.join(' and ')+(missing.length>1?' were':' was')+' deleted \\u2014 hit Reset</span>';\n      return;\n    }\n    if(g.n>MAXN){\n      g.nodes.forEach(function(n){ drawNode2(n,false,false); });\n      out.innerHTML='more than '+MAXN+' nodes \\u2014 too many to analyse exactly; remove some';\n      return;\n    }\n    // ---- maximal cliques (Bron-Kerbosch) ----\n    const cliques=[];\n    (function bk(R,P,X){\n      if(!P.length&&!X.length){ if(R.length) cliques.push(R.slice()); return; }\n      P.slice().forEach(function(v){\n        bk(R.concat([v]),\n           P.filter(function(w){ return g.adj[v].indexOf(w)>=0; }),\n           X.filter(function(w){ return g.adj[v].indexOf(w)>=0; }));\n        P.splice(P.indexOf(v),1); X.push(v);\n      });\n    })([], g.nodes.map(function(n){return n.id;}), []);\n    const sizes=cliques.map(function(c){return c.length;});\n    const maxC=sizes.length?Math.max.apply(null,sizes):0;\n    // ---- minimal separator of A from B ----\n    function connectedAvoiding(S){\n      if(S.indexOf(0)>=0||S.indexOf(1)>=0) return false;\n      const seen={0:1}, st=[0];\n      while(st.length){\n        const v=st.pop();\n        g.adj[v].forEach(function(w){ if(S.indexOf(w)<0&&!seen[w]){ seen[w]=1; st.push(w); } });\n      }\n      return !!seen[1];\n    }\n    var sep=null, adjacentAB=g.adj[0].indexOf(1)>=0;\n    if(!adjacentAB){\n      const cand=g.nodes.map(function(n){return n.id;}).filter(function(id){ return id!==0&&id!==1; });\n      for(var m=0;m<(1<<cand.length);m++){\n        const S=cand.filter(function(_,i){ return m&(1<<i); });\n        if(!connectedAvoiding(S)){ if(sep===null||S.length<sep.length) sep=S; }\n      }\n    }\n    cliques.forEach(function(c){\n      if(c.length<3) return;\n      const ptsC=c.map(function(id){return byId[id];});\n      const cx0=ptsC.reduce(function(t,n){return t+n.x;},0)/ptsC.length;\n      const cy0=ptsC.reduce(function(t,n){return t+n.y;},0)/ptsC.length;\n      ptsC.sort(function(a,b){return Math.atan2(a.y-cy0,a.x-cx0)-Math.atan2(b.y-cy0,b.x-cx0);});\n      var dd='M'+ptsC.map(function(n){return n.x+' '+n.y;}).join(' L ')+' Z';\n      G.insertBefore(SVG('path',{d:dd,fill:'var(--violet)','fill-opacity':0.15,stroke:'none','pointer-events':'none'}), G.firstChild);\n    });\n    const blanket=g.adj[0].slice().sort(function(a,b){return a-b;});\n    const sepSet={}; (sep||[]).forEach(function(s){ sepSet[s]=1; });\n    g.nodes.forEach(function(n){ drawNode2(n, blanket.indexOf(n.id)>=0, !!sepSet[n.id]); });\n    var msg='maximal cliques: <b>'+cliques.length+'</b> (largest size '+maxC+') \\u2014 p(x) = (1/Z)\\u03a0\\u03c8<sub>C</sub> over '+cliques.length+' potentials';\n    msg+=' \\u00b7 blanket of A (ringed): '+(blanket.length?('{'+blanket.join(', ')+'}'):'\\u2205');\n    if(adjacentAB){\n      msg+=' \\u00b7 <span class=\"bad\">A and B are neighbours \\u2014 no conditioning set separates them</span>';\n    } else if(sep&&sep.length===0){\n      msg+=' \\u00b7 <span class=\"ok\">A and B are disconnected \\u2014 X_A \\u22a5 X_B outright</span>';\n    } else if(sep){\n      msg+=' \\u00b7 <span class=\"ok\">minimal separator (pink): X_A \\u22a5 X_B | {'+sep.join(', ')+'}</span>';\n    }\n    out.innerHTML=msg;\n  }\n"
           }
         },
         {

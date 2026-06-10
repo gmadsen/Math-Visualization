@@ -457,7 +457,7 @@ function drawNode(svg, x, y, label, opts={}){
 </script>
 
 
-  <p>The Ising grid above is one fixed graph with a temperature dial. Now build the graph yourself. $A$ (cyan) and $B$ (yellow) are pinned; on every edit the widget re-runs Bron–Kerbosch for the <strong>maximal cliques</strong> (the factors of $\tfrac1Z\prod_c\psi_c$), rings $A$’s neighbours — its <strong>Markov blanket</strong> — and finds a <strong>minimal separator</strong> $S$ (pink), the smallest set with $X_A \perp X_B \mid X_S$ by the Hammersley–Clifford correspondence. Wire $A$ straight to $B$ and no conditioning set can separate them; cut every path and they decouple outright.</p>
+  <p>The Ising grid above is one fixed graph with a temperature dial. Now build the graph yourself. $A$ (cyan) and $B$ (yellow) are designated; on every edit the widget re-runs Bron–Kerbosch for the <strong>maximal cliques</strong> (the factors of $\tfrac1Z\prod_c\psi_c$; size-$3{+}$ cliques are shaded), rings $A$’s neighbours — its <strong>Markov blanket</strong> — and finds a <strong>minimal separator</strong> $S$ (pink): a smallest set with $X_A \perp X_B \mid X_S$. That implication is the easy, positivity-free direction (factorization $\Rightarrow$ global Markov) — Hammersley–Clifford proper is the converse in the note above. The blanket always separates $A$ from everything else, but the minimal separator can be smaller — at boot it is the single bottleneck node, not the blanket. And unlike §1’s directed case there are no colliders: conditioning only ever <em>blocks</em>. Wire $A$ straight to $B$ and no conditioning set can separate them; cut every path and they decouple outright.</p>
 
 <div class="widget" id="w-mrf-build">
   <div class="hd"><div class="ttl">Build the MRF — cliques, blanket, separator</div><div class="hint">click empty space to add a node, drag node&rarr;node to toggle an edge, click a node to delete it. Close a triangle and watch a size-3 clique replace three pairwise potentials; thicken the $A$–$B$ paths and watch the minimal separator grow</div></div>
@@ -473,7 +473,7 @@ function drawNode(svg, x, y, label, opts={}){
   const R=16, PAD=24;
   const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
   const W=_vb[2], Hh=_vb[3];
-  const N0=[[120,180],[520,180],[320,90],[250,270],[390,270]], E0=[[0,2],[1,2],[0,3],[3,4],[1,4]];
+  const N0=[[120,180],[540,180],[260,90],[260,270],[420,180]], E0=[[0,2],[0,3],[2,4],[3,4],[1,4]];
   let nodes=[], edges=[], idc=0;
   function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
   function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
@@ -528,7 +528,7 @@ function drawNode(svg, x, y, label, opts={}){
     if(!hasA||!hasB){
       g.nodes.forEach(function(n){ drawNode2(n,false,false); });
       var missing=[]; if(!hasA) missing.push('A'); if(!hasB) missing.push('B');
-      out.innerHTML='<span class="bad">'+missing.join(' and ')+' was deleted \u2014 hit Reset</span>';
+      out.innerHTML='<span class="bad">'+missing.join(' and ')+(missing.length>1?' were':' was')+' deleted \u2014 hit Reset</span>';
       return;
     }
     if(g.n>MAXN){
@@ -567,11 +567,20 @@ function drawNode(svg, x, y, label, opts={}){
         if(!connectedAvoiding(S)){ if(sep===null||S.length<sep.length) sep=S; }
       }
     }
-    const blanket=g.adj[0].slice().sort();
+    cliques.forEach(function(c){
+      if(c.length<3) return;
+      const ptsC=c.map(function(id){return byId[id];});
+      const cx0=ptsC.reduce(function(t,n){return t+n.x;},0)/ptsC.length;
+      const cy0=ptsC.reduce(function(t,n){return t+n.y;},0)/ptsC.length;
+      ptsC.sort(function(a,b){return Math.atan2(a.y-cy0,a.x-cx0)-Math.atan2(b.y-cy0,b.x-cx0);});
+      var dd='M'+ptsC.map(function(n){return n.x+' '+n.y;}).join(' L ')+' Z';
+      G.insertBefore(SVG('path',{d:dd,fill:'var(--violet)','fill-opacity':0.15,stroke:'none','pointer-events':'none'}), G.firstChild);
+    });
+    const blanket=g.adj[0].slice().sort(function(a,b){return a-b;});
     const sepSet={}; (sep||[]).forEach(function(s){ sepSet[s]=1; });
     g.nodes.forEach(function(n){ drawNode2(n, blanket.indexOf(n.id)>=0, !!sepSet[n.id]); });
     var msg='maximal cliques: <b>'+cliques.length+'</b> (largest size '+maxC+') \u2014 p(x) = (1/Z)\u03a0\u03c8<sub>C</sub> over '+cliques.length+' potentials';
-    msg+=' \u00b7 blanket of A (ringed): {'+(blanket.length?blanket.join(', '):'\u2205')+'}';
+    msg+=' \u00b7 blanket of A (ringed): '+(blanket.length?('{'+blanket.join(', ')+'}'):'\u2205');
     if(adjacentAB){
       msg+=' \u00b7 <span class="bad">A and B are neighbours \u2014 no conditioning set separates them</span>';
     } else if(sep&&sep.length===0){
