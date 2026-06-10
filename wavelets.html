@@ -399,10 +399,10 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Inverse DWT mirrors analysis: upsample $a_j,d_j$ by inserting zeros, convolve with the dual reconstruction filters, and sum. For an orthonormal wavelet the reconstruction filters are the time-reversals of the analysis filters, so the inverse pyramid is also $O(n)$. Software libraries (PyWavelets, MATLAB Wavelet Toolbox) implement this in a hundred lines of straight loops.</p>
 
 
-  <p>The transform above analyses a fixed signal. Now draw the signal. Sixty-four samples, the orthonormal Haar DWT recomputed on every stroke, and the full coefficient pyramid displayed as a scalogram: rows $d_1$ (finest, 32 cells) down to $d_6$ and the approximation $a$, cell opacity $\propto |\text{coefficient}|$. A smooth bump parks its energy in a handful of coarse cells — that sparsity is what compression lives on. A sharp spike does something a <em>global</em> Fourier basis cannot: it lights up only the <em>fine</em> rows, and only the cells <em>directly under the spike</em> — localization in time and scale at once (§5 makes this trade-off precise).</p>
+  <p>The transform above analyses a fixed signal. Now draw the signal. Sixty-four samples, the orthonormal Haar DWT recomputed on every stroke, and the full coefficient pyramid displayed as a scalogram: rows $d_1$ (finest, 32 cells) down to $d_6$ and the approximation $a$, cell opacity $\propto |\text{coefficient}|$. A smooth bump parks its energy in a handful of coarse cells — that sparsity is what compression lives on. A sharp spike does something a <em>global</em> Fourier basis cannot: its energy concentrates in the <em>fine</em> rows, in the cells <em>directly under the spike</em> — each coarser ancestor cell inherits only a $\sqrt{2}$-smaller share — localization in time and scale at once (§5 makes this trade-off precise).</p>
 
 <div class="widget" id="w-dwt-sketch">
-  <div class="hd"><div class="ttl">Draw the signal — the Haar scalogram responds</div><div class="hint">sketch in the upper strip; the pyramid below is the Haar DWT, opacity &prop; |coefficient|. Draw a sharp spike: only the fine rows light up, directly under it — then smooth it out and watch the energy sink to the coarse rows</div></div>
+  <div class="hd"><div class="ttl">Draw the signal — the Haar scalogram responds</div><div class="hint">sketch in the upper strip; the pyramid below is the Haar DWT, opacity &prop; |coefficient|. Draw a sharp spike: the fine rows light up brightest, directly under it (its dyadic ancestors carry a fading trail) — then smooth it out and watch the energy sink to the coarse rows</div></div>
   <svg id="dwt-sketch-svg" viewBox="0 0 640 420" width="640" height="420" style="touch-action:none;cursor:crosshair"><title>A sketchable 64-sample signal whose orthonormal Haar wavelet transform is displayed live as a scalogram, demonstrating sparsity and time-scale localization</title></svg>
   <div class="row">
     <button id="w-dwt-sketch-reset" type="button">↺ Reset</button>
@@ -488,7 +488,7 @@ function drawNode(svg, x, y, label, opts={}){
       if(Math.abs(c)>best){ best=Math.abs(c); bestPos=(j2+0.5)/w.det[l3].length; } }); }
     var fineRMS=Math.sqrt(fineSum/Math.max(fineN,1));
     if(best>4*fineRMS&&best>0.02){
-      msg+=' \u00b7 <span class="ok">sharp feature at x \u2248 '+bestPos.toFixed(2)+' \u2014 it lights up only the fine rows, directly underneath: localized in time AND scale</span>';
+      msg+=' \u00b7 <span class="ok">sharp feature at x \u2248 '+bestPos.toFixed(2)+' \u2014 strongest in the fine rows directly underneath, with a fading trail up its dyadic ancestors: localized in time AND scale</span>';
     } else {
       msg+=' \u00b7 smooth signal \u2014 the energy lives in the coarse rows; draw a sharp spike and watch d\u2081 light up under it';
     }
