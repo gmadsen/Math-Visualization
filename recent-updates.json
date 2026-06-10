@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-10T13:09:58.104Z",
+  "generated": "2026-06-10T13:31:23.150Z",
   "entries": [
     {
       "slug": "combinatorial-optimization",
@@ -96,6 +96,14 @@
       "tag": "",
       "date": "2026-06-10",
       "message": "feat(stochastic-calculus): draw the path — does its QV survive refinement? (#502)"
+    },
+    {
+      "slug": "three-body-problem",
+      "title": "The three-body problem",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(three-body): place and launch the third body — the restricted-problem launcher"
     },
     {
       "slug": "wavelets",
@@ -1368,14 +1376,6 @@
       "tag": "",
       "date": "2026-05-27",
       "message": "refactor(widgets): normalize 10 more select-no-svg widgets → slider-svg-2d (batch 2) (#384)"
-    },
-    {
-      "slug": "three-body-problem",
-      "title": "The three-body problem",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
       "slug": "tropical-geometry",

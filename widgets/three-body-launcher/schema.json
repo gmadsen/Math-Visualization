@@ -46,9 +46,9 @@
     "mu": {
       "type": "number",
       "minimum": 0.001,
-      "maximum": 0.45,
+      "maximum": 0.0385,
       "default": 0.012,
-      "description": "Mass ratio of the smaller primary (default 0.012, Earth–Moon-like; below the Routh limit so L4/L5 tadpoles are stable)."
+      "description": "Mass ratio of the smaller primary (default 0.012, Earth–Moon-like). Capped at the Routh limit ≈ 0.03852: above it L4/L5 tadpoles destabilize and the boot/tadpole copy would be false; the cap also keeps the fixed L1/L3 bisection brackets valid."
     },
     "bootSeed": {
       "type": "array",
