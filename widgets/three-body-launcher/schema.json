@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/three-body-launcher/schema.json",
+  "title": "three-body-launcher widget params",
+  "description": "Place and launch a test particle in the planar circular restricted three-body problem, drawn in the rotating frame: press to place, drag to set the velocity arrow, release to integrate (RK4 with Coriolis terms). The five Lagrange points are computed and marked; the readout reports the launch state, its Jacobi constant, and the outcome (crash, escape from the window, or still orbiting). The boot state shows a tadpole orbit librating about L4.",
+  "meta": {
+    "family": "three-body-launcher",
+    "dimension": "2d",
+    "gesture": "launch",
+    "role": "exploration"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "svgId": {
+      "type": "string",
+      "description": "DOM id for the <svg> canvas."
+    },
+    "outputId": {
+      "type": "string",
+      "description": "DOM id for the .readout element."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "svgTitle": {
+      "type": "string",
+      "description": "Accessible <title> for the svg; defaults to title."
+    },
+    "mu": {
+      "type": "number",
+      "minimum": 0.001,
+      "maximum": 0.0385,
+      "default": 0.012,
+      "description": "Mass ratio of the smaller primary (default 0.012, Earth–Moon-like). Capped at the Routh limit ≈ 0.03852: above it L4/L5 tadpoles destabilize and the boot/tadpole copy would be false; the cap also keeps the fixed L1/L3 bisection brackets valid."
+    },
+    "bootSeed": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "Boot trajectory [x, y, vx, vy] in rotating-frame units; defaults to a small offset from L4 (a tadpole)."
+    },
+    "viewBox": {
+      "type": "string",
+      "default": "0 0 640 520",
+      "description": "SVG viewBox."
+    },
+    "svgWidth": { "type": "number", "default": 640 },
+    "svgHeight": { "type": "number", "default": 520 }
+  }
+}

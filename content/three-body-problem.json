@@ -78,6 +78,30 @@
         },
         {
           "type": "raw",
+          "html": "\n  <p>The landscape above is a map; now throw something into it. Below, the two primaries sit pinned in the rotating frame at the Earth&ndash;Moon-like ratio $\\mu = 0.012$ (in units with $G(m_1{+}m_2) = 1$, $\\Omega = 1$, separation $1$). <strong>Press</strong> anywhere to place a massless test particle, <strong>drag</strong> to stretch its rotating-frame velocity arrow, <strong>release</strong> to launch: the trajectory integrates $\\ddot x = 2\\dot y - \\partial_x U_{\\mathrm{eff}}$, $\\ddot y = -2\\dot x - \\partial_y U_{\\mathrm{eff}}$ &mdash; gravity and centrifugal in the gradient, Coriolis in the velocity terms. The readout reports the <em>Jacobi constant</em> $C = -2U_{\\mathrm{eff}} - v^2$, the lone conserved quantity the rotating frame retains. Two experiments to run: release a particle <em>at rest</em> near $L_4$ and watch it stay &mdash; a tadpole orbit, stable because $\\mu = 0.012$ sits below Routh's threshold (in the ratio form of the note above, $m_1/m_2 \\approx 82 > 24.96$) even though $L_4$ is a <em>maximum</em> of $U_{\\mathrm{eff}}$ (Coriolis bends the falling particle into a loop before it can leave). Then launch at rest near $L_1$ and watch it fall through the gateway toward one primary or the other.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "three-body-launcher",
+          "params": {
+            "widgetId": "w-tbp-launch",
+            "svgId": "tbp-launch-svg",
+            "outputId": "tbp-launch-out",
+            "title": "Place and launch — the restricted problem under your hand",
+            "hint": "press to place, drag to aim, release to launch; ✕ clears, ↺ re-seeds the L4 tadpole; older launches fade to grey. Try: rest near L4 (stays), rest near L1 (falls through)",
+            "svgTitle": "Rotating frame of the planar circular restricted three-body problem with both primaries, the five Lagrange points, and click-drag-release launching of test-particle trajectories"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-tbp-launch"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./dynamical-systems.html#fixed\">dynamical-systems — Fixed points and linearization</a> — the same Hartman–Grobman analysis classifies the Lagrange points as saddles vs centres.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
