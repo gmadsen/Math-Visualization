@@ -668,6 +668,160 @@ where $\pi_{\min}=\min_i\pi_i$. Big gap ⇒ fast mixing; tiny gap ⇒ either a n
 
 <div class="quiz" data-concept="rw-spectral-gap"></div>
 
+
+  <p>The inspector above reads the spectrum of one fixed chain. Now build the graph and watch the spectrum chase the geometry. On every edit the widget diagonalizes $N = D^{-1/2} A D^{-1/2}$ (Jacobi rotations), reports the <strong>spectral gap</strong> $\lambda = 1-\mu_2$, finds the worst <strong>conductance</strong> bottleneck $\Phi$ by exhaustive search (the pink side), and displays both halves of <strong>Cheeger’s inequality</strong> $\Phi^2/2 \le \lambda \le 2\Phi$ as live numbers. Node area tracks the stationary mass $\pi_i = d_i/2m$. Build a dumbbell — two dense blobs and one thin bridge — and watch the gap collapse and the lazy walk’s relaxation time $2/\lambda$ explode; wire the blobs together and mixing turns rapid again.</p>
+
+<div class="widget" id="w-mixing-build">
+  <div class="hd"><div class="ttl">Build the graph — the spectral gap chases the geometry</div><div class="hint">click empty space to add a vertex, drag vertex&rarr;vertex to toggle an edge, click a vertex to delete it; node area = stationary mass $\pi_i = d_i/2m$, pink = the worst-conductance bottleneck. Squeeze the bridge of a dumbbell and watch $2/\lambda$ explode</div></div>
+  <svg id="mixing-build-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable graph whose lazy-random-walk spectral gap, conductance bottleneck, Cheeger sandwich, and stationary distribution recompute on every edit</title></svg>
+  <div class="row">
+    <button id="w-mixing-build-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="mixing-build-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#mixing-build-svg'), out=$('#mixing-build-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=16, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[140,120],[140,250],[255,185],[430,120],[430,250],[540,185]], E0=[[0,1],[0,2],[1,2],[3,4],[3,5],[4,5],[2,3]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+
+  // Spectrum of N = D^{-1/2} A D^{-1/2} by Jacobi rotations; spectral gap
+  // \u03bb = 1 - \u03bc\u2082; conductance \u03a6 by exhaustive subset search;
+  // Cheeger sandwich \u03a6\u00b2/2 \u2264 \u03bb \u2264 2\u03a6. Node radius
+  // \u221d \u221a(stationary mass): \u03c0_i = d_i / 2m for the lazy walk.
+  const MAXN=10;
+  function draw(g){
+    while(G.firstChild) G.removeChild(G.firstChild);
+    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });
+    function paintEdges(hotSet){
+      g.edges.forEach(function(e){
+        const a=byId[e.u], b=byId[e.v];
+        const cross=hotSet&&(hotSet[e.u]?1:0)!==(hotSet[e.v]?1:0);
+        G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:cross?'var(--pink)':'var(--line)','stroke-width':cross?3:2,'stroke-dasharray':cross?'5 4':null,'pointer-events':'none'}));
+      });
+    }
+    function paintNodes(rOf,inB){
+      g.nodes.forEach(function(n){
+        G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:rOf?rOf(n.id):g.R,fill:(inB&&inB[n.id])?'var(--pink)':'var(--cyan)','fill-opacity':0.8,stroke:'var(--bg)','stroke-width':2}));
+        const t=SVG('text',{x:n.x,y:n.y+4,'font-size':11,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});
+        t.textContent=String(n.id); G.appendChild(t);
+      });
+    }
+    if(g.n===0){ out.innerHTML='click empty space to add a vertex'; return; }
+    if(g.n>MAXN){ paintEdges(null); paintNodes(null,null); out.innerHTML='more than '+MAXN+' nodes \u2014 remove some'; return; }
+    const ids=g.nodes.map(function(n){return n.id;});
+    const idx={}; ids.forEach(function(v,i){ idx[v]=i; });
+    const n=ids.length;
+    const A=[]; for(var i0=0;i0<n;i0++){ A.push(new Array(n).fill(0)); }
+    const deg=new Array(n).fill(0);
+    g.edges.forEach(function(e){ const a=idx[e.u], b=idx[e.v]; A[a][b]=1; A[b][a]=1; deg[a]++; deg[b]++; });
+    if(deg.some(function(d2){return d2===0;})){
+      paintEdges(null); paintNodes(null,null);
+      out.innerHTML='<span class="bad">an isolated vertex never moves \u2014 wire every vertex in (or delete the loner)</span>'; return;
+    }
+    const seen={}; seen[0]=1; const st=[0]; var cnt=1;
+    while(st.length){ const v=st.pop(); for(var w=0;w<n;w++){ if(A[v][w]&&!seen[w]){ seen[w]=1; cnt++; st.push(w); } } }
+    if(cnt<n){
+      paintEdges(null); paintNodes(null,null);
+      out.innerHTML='<span class="bad">disconnected \u2014 the walk never mixes across components (no single stationary limit)</span>'; return;
+    }
+    // Jacobi on N = D^-1/2 A D^-1/2
+    const M=A.map(function(row,i){ return row.map(function(x,j){ return x/Math.sqrt(deg[i]*deg[j]); }); });
+    for(var sweep=0;sweep<60;sweep++){
+      var off=0;
+      for(var p=0;p<n;p++) for(var q=p+1;q<n;q++) off+=M[p][q]*M[p][q];
+      if(off<1e-18) break;
+      for(var p2=0;p2<n;p2++) for(var q2=p2+1;q2<n;q2++){
+        if(Math.abs(M[p2][q2])<1e-12) continue;
+        const th=0.5*Math.atan2(2*M[p2][q2], M[q2][q2]-M[p2][p2]);
+        const c=Math.cos(th), s2=Math.sin(th);
+        for(var k=0;k<n;k++){ const mp=M[p2][k], mq=M[q2][k]; M[p2][k]=c*mp-s2*mq; M[q2][k]=s2*mp+c*mq; }
+        for(var k2=0;k2<n;k2++){ const mp2=M[k2][p2], mq2=M[k2][q2]; M[k2][p2]=c*mp2-s2*mq2; M[k2][q2]=s2*mp2+c*mq2; }
+      }
+    }
+    const eig=[]; for(var i1=0;i1<n;i1++) eig.push(M[i1][i1]);
+    eig.sort(function(a,b){return b-a;});
+    const mu2=(n>1)?eig[1]:1, lam=1-mu2;
+    // conductance (exhaustive; vertex of index 0 pinned in S)
+    const vol=deg.reduce(function(a,b){return a+b;},0);
+    var phi=Infinity, argMask=0;
+    if(n>=2){
+      for(var mask=1; mask<(1<<n)-1; mask++){
+        if(!(mask&1)) continue;
+        var volS=0;
+        for(var i2=0;i2<n;i2++){ if(mask&(1<<i2)) volS+=deg[i2]; }
+        var cut=0;
+        g.edges.forEach(function(e){ const a=idx[e.u], b=idx[e.v];
+          if(((mask>>a)&1)!==((mask>>b)&1)) cut++; });
+        const c3=cut/Math.min(volS, vol-volS);
+        if(c3<phi){ phi=c3; argMask=mask; }
+      }
+    }
+    const hot={}; ids.forEach(function(v,i){ if(argMask&(1<<i)) hot[v]=1; });
+    // keep the SMALLER-volume side shaded
+    var volHot=0; ids.forEach(function(v,i){ if(hot[v]) volHot+=deg[i]; });
+    if(volHot*2>vol){ ids.forEach(function(v){ hot[v]=hot[v]?0:1; }); }
+    paintEdges(hot);
+    const rOf=function(id){ const pi=deg[idx[id]]/vol; return Math.max(8, 34*Math.sqrt(pi)); };
+    paintNodes(rOf, hot);
+    const trel=2/lam;
+    var verdict = lam<0.25 ? ' \u00b7 <span class="bad">a bottleneck \u2014 the walk mixes slowly</span>'
+                : lam>0.7 ? ' \u00b7 <span class="ok">expander-like \u2014 rapid mixing</span>' : '';
+    out.innerHTML='spectral gap \u03bb = 1 \u2212 \u03bc\u2082 = <b>'+lam.toFixed(3)+'</b> \u00b7 conductance \u03a6 = <b>'+phi.toFixed(3)+'</b> (worst bottleneck: pink side vs rest)'+
+      ' \u00b7 Cheeger: \u03a6\u00b2/2 = '+(phi*phi/2).toFixed(3)+' \u2264 \u03bb \u2264 2\u03a6 = '+(2*phi).toFixed(3)+
+      ' \u00b7 lazy-walk relaxation time 2/\u03bb \u2248 <b>'+(trel===Infinity?'\u221e':trel.toFixed(1))+'</b> steps'+verdict;
+  }
+
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-mixing-build-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
