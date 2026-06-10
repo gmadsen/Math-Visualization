@@ -788,7 +788,7 @@ function frame(t){
 <p>The widget shows a small grid network with $s$ at the left and $t$ at the right. Edge labels are <code>flow / capacity</code>. "Find augmenting path" runs one BFS step on the residual graph and pushes the bottleneck through it. After enough augmentations no path remains; "show min cut" highlights the saturated cut edges and the partition that achieves min capacity.</p>
 
 
-  <p>The stepper above runs one augmenting-path episode on a fixed network. Now build the network. Every edge has capacity $1$ and points left→right (position is the flow direction), so the theorem on display is Menger’s special case: the maximum number of <em>edge-disjoint</em> $s$–$t$ paths (green) equals the minimum number of edges whose removal disconnects $t$ from $s$ (pink, dashed — found from the residual reachability of $s$, whose side is ringed). Thicken one layer of the network and watch the cut migrate to the new thinnest layer; starve the source and the cut snaps back to it.</p>
+  <p>The stepper above runs the full algorithm click-by-click on one fixed, general-capacity network. Now build the network. Every edge here has capacity $1$ — the gesture edits topology, not numbers — and position fixes each edge’s direction (left→right, so the graph is a DAG by construction). The theorem on display is therefore Menger’s special case — the last row of §2’s min–max table, live: the maximum number of <em>edge-disjoint</em> $s$–$t$ paths (green) equals the minimum number of edges whose removal disconnects $t$ from $s$ (pink, dashed — found from the residual reachability of $s$, whose side is ringed). Thicken one layer of the network and watch the cut migrate to the new thinnest layer; prune the source’s edges and the cut snaps back to them. And notice each green path is severed by exactly one pink edge — that bijection <em>is</em> the min–max statement.</p>
 
 <div class="widget" id="w-maxflow-build">
   <div class="hd"><div class="ttl">Build the network — max-flow = min-cut, live</div><div class="hint">click empty space to add a node, drag node&rarr;node to toggle an edge, click a node to delete it; edges have capacity 1 and point left&rarr;right. Green = flow-carrying, pink dashed = a minimum cut — the two numbers never disagree</div></div>
@@ -917,7 +917,9 @@ function frame(t){
     if(flow===0){
       msg+=' \u00b7 <span class="bad">t is unreachable from s \u2014 no flow at all</span>';
     } else {
-      msg+=' \u00b7 min cut (pink, dashed): <b>'+nCut+'</b> edge'+(nCut===1?'':'s')+' \u2014 <span class="ok">max-flow = min-cut</span>; the ringed nodes are the s-side of the cut';
+      var ringed=Object.keys(S).length-1;
+      msg+=' \u00b7 min cut (pink, dashed): <b>'+nCut+'</b> edge'+(nCut===1?'':'s')+' \u2014 <span class="ok">max-flow = min-cut</span>; each green path is severed by exactly one pink edge \u2014 that bijection is the theorem';
+      msg+=ringed>0?' (ringed nodes: the s-side of the cut)':' (the cut sits right at the source)';
     }
     out.innerHTML=msg;
   }
