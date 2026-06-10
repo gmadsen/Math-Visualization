@@ -787,6 +787,161 @@ function frame(t){
 
 <p>The widget shows a small grid network with $s$ at the left and $t$ at the right. Edge labels are <code>flow / capacity</code>. "Find augmenting path" runs one BFS step on the residual graph and pushes the bottleneck through it. After enough augmentations no path remains; "show min cut" highlights the saturated cut edges and the partition that achieves min capacity.</p>
 
+
+  <p>The stepper above runs one augmenting-path episode on a fixed network. Now build the network. Every edge has capacity $1$ and points left→right (position is the flow direction), so the theorem on display is Menger’s special case: the maximum number of <em>edge-disjoint</em> $s$–$t$ paths (green) equals the minimum number of edges whose removal disconnects $t$ from $s$ (pink, dashed — found from the residual reachability of $s$, whose side is ringed). Thicken one layer of the network and watch the cut migrate to the new thinnest layer; starve the source and the cut snaps back to it.</p>
+
+<div class="widget" id="w-maxflow-build">
+  <div class="hd"><div class="ttl">Build the network — max-flow = min-cut, live</div><div class="hint">click empty space to add a node, drag node&rarr;node to toggle an edge, click a node to delete it; edges have capacity 1 and point left&rarr;right. Green = flow-carrying, pink dashed = a minimum cut — the two numbers never disagree</div></div>
+  <svg id="maxflow-build-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable unit-capacity flow network whose max-flow, edge-disjoint path set, and minimum cut recompute on every edit</title></svg>
+  <div class="row">
+    <button id="w-maxflow-build-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="maxflow-build-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#maxflow-build-svg'), out=$('#maxflow-build-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=16, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[80,180],[560,180],[220,90],[220,270],[390,90],[390,270]], E0=[[0,2],[0,3],[2,4],[3,5],[4,1],[5,1]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+
+  // s = node id 0, t = node id 1; every edge has capacity 1 and points
+  // left-to-right (x-order, ties by id). Max-flow by BFS augmenting paths
+  // on the residual network; min cut from the residual reachability of s.
+  // Unit capacities make the theorem Menger's: max #edge-disjoint s-t paths
+  // = min #edges whose removal disconnects t from s.
+  const MAXN=10;
+  function draw(g){
+    while(G.firstChild) G.removeChild(G.firstChild);
+    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });
+    const hasS=(0 in byId), hasT=(1 in byId);
+    function arrow(a,b,color,w2,dash){
+      const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy)||1, ux=dx/L, uy=dy/L;
+      const x1=a.x+ux*g.R, y1=a.y+uy*g.R, x2=b.x-ux*(g.R+3), y2=b.y-uy*(g.R+3);
+      const at={x1:x1,y1:y1,x2:x2,y2:y2,stroke:color,'stroke-width':w2,'pointer-events':'none'};
+      if(dash) at['stroke-dasharray']=dash;
+      G.appendChild(SVG('line',at));
+      G.appendChild(SVG('path',{d:'M'+x2+' '+y2+' L'+(x2-9*ux-4*uy)+' '+(y2-9*uy+4*ux)+' L'+(x2-9*ux+4*uy)+' '+(y2-9*uy-4*ux)+' Z',fill:color,'pointer-events':'none'}));
+    }
+    function node(n, inS){
+      const isS=n.id===0, isT=n.id===1;
+      G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:g.R,
+        fill:isS?'var(--cyan)':(isT?'var(--yellow)':'var(--violet)'),'fill-opacity':0.85,
+        stroke:inS?'var(--cyan)':'var(--bg)','stroke-width':inS?3:2}));
+      const t=SVG('text',{x:n.x,y:n.y+4,'font-size':12,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});
+      t.textContent=isS?'s':(isT?'t':String(n.id)); G.appendChild(t);
+    }
+    if(!hasS||!hasT){
+      g.edges.forEach(function(e){ arrow(byId[e.u],byId[e.v],'var(--line)',2); });
+      g.nodes.forEach(function(n){ node(n,false); });
+      var missing=[]; if(!hasS) missing.push('s (source)'); if(!hasT) missing.push('t (sink)');
+      out.innerHTML='<span class="bad">'+missing.join(' and ')+(missing.length>1?' were':' was')+' deleted \u2014 hit Reset</span>';
+      return;
+    }
+    if(g.n>MAXN){
+      g.edges.forEach(function(e){ arrow(byId[e.u],byId[e.v],'var(--line)',2); });
+      g.nodes.forEach(function(n){ node(n,false); });
+      out.innerHTML='more than '+MAXN+' nodes \u2014 remove some';
+      return;
+    }
+    // directed edges by x-order
+    const dir=g.edges.map(function(e){
+      const a=byId[e.u], b=byId[e.v];
+      return (a.x<b.x||(a.x===b.x&&e.u<e.v))?[e.u,e.v]:[e.v,e.u];
+    });
+    // residual caps
+    const cap={};
+    g.nodes.forEach(function(n){ cap[n.id]={}; });
+    dir.forEach(function(d2){
+      cap[d2[0]][d2[1]]=(cap[d2[0]][d2[1]]||0)+1;
+      if(cap[d2[1]][d2[0]]===undefined) cap[d2[1]][d2[0]]=0;
+    });
+    var flow=0;
+    while(true){
+      const par={0:0}; const q=[0]; var ok=false;
+      while(q.length&&!ok){
+        const x=q.shift();
+        for(var y in cap[x]){ if(cap[x][y]>0&&par[y]===undefined){ par[y]=x; if(+y===1){ ok=true; break; } q.push(+y); } }
+      }
+      if(!ok) break;
+      var v=1; while(v!==0){ const u=par[v]; cap[u][v]--; cap[v][u]=(cap[v][u]||0)+1; v=+u; }
+      flow++;
+    }
+    // S-side and min cut
+    const S={0:1}; const q2=[0];
+    while(q2.length){ const x=q2.shift(); for(var y2 in cap[x]){ if(cap[x][y2]>0&&!S[y2]){ S[y2]=1; q2.push(+y2); } } }
+    const cutKeys={}, flowKeys={};
+    dir.forEach(function(d2){
+      const k=Math.min(d2[0],d2[1])+'-'+Math.max(d2[0],d2[1]);
+      if(S[d2[0]]&&!S[d2[1]]) cutKeys[k]=1;
+      if(cap[d2[0]][d2[1]]===0) flowKeys[k]=1;   // saturated original arc carries flow
+    });
+    dir.forEach(function(d2,i){
+      const e=g.edges[i], k=Math.min(e.u,e.v)+'-'+Math.max(e.u,e.v);
+      if(cutKeys[k]) arrow(byId[d2[0]],byId[d2[1]],'var(--pink)',3.5,'5 4');
+      else if(flowKeys[k]) arrow(byId[d2[0]],byId[d2[1]],'var(--green)',3);
+      else arrow(byId[d2[0]],byId[d2[1]],'var(--line)',2);
+    });
+    g.nodes.forEach(function(n){ node(n, !!S[n.id] && n.id!==0); });
+    var nCut=Object.keys(cutKeys).length;
+    var msg='max-flow = <b>'+flow+'</b> (unit capacities: '+flow+' edge-disjoint s\u2192t path'+(flow===1?'':'s')+', green)';
+    if(flow===0){
+      msg+=' \u00b7 <span class="bad">t is unreachable from s \u2014 no flow at all</span>';
+    } else {
+      msg+=' \u00b7 min cut (pink, dashed): <b>'+nCut+'</b> edge'+(nCut===1?'':'s')+' \u2014 <span class="ok">max-flow = min-cut</span>; the ringed nodes are the s-side of the cut';
+    }
+    out.innerHTML=msg;
+  }
+
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-maxflow-build-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script>
+
 <div class="quiz" data-concept="network-flows"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
