@@ -12762,7 +12762,7 @@ window.__MVWidgets = [
       "outputId",
       "title"
     ],
-    "readmeExcerpt": "The **glue** gesture: build an abstract simplicial complex by clicking on a hexagon-plus-hub vertex set (7 vertices, 12 candidate edges, 6 candidate wedge triangles). Click a vertex to toggle it, a dashed edge to glue it, a triangle interior to fill it. The **downward-closure axiom is enforced live**: gluing a 2-simplex demands its three boundary edges (refusal message otherwise), and deleting a vertex sweeps away every face above it (with a note counting what fell). The readout tracks",
+    "readmeExcerpt": "The **glue** gesture: build an abstract simplicial complex by clicking on a hexagon-plus-hub vertex set (7 vertices, 12 candidate edges, 6 candidate sector triangles). Click a vertex to toggle it, a dashed edge to glue it, a triangle interior to fill it. The **downward-closure axiom is enforced live**: gluing a 2-simplex demands its three boundary edges (refusal message otherwise), and deleting a vertex sweeps away every face above it (with a note counting what fell). The readout tracks",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

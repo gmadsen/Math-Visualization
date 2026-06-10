@@ -2,7 +2,7 @@
 
 The **glue** gesture: build an abstract simplicial complex by clicking on a
 hexagon-plus-hub vertex set (7 vertices, 12 candidate edges, 6 candidate
-wedge triangles). Click a vertex to toggle it, a dashed edge to glue it, a
+sector triangles). Click a vertex to toggle it, a dashed edge to glue it, a
 triangle interior to fill it. The **downward-closure axiom is enforced
 live**: gluing a 2-simplex demands its three boundary edges (refusal message
 otherwise), and deleting a vertex sweeps away every face above it (with a
@@ -11,11 +11,13 @@ note counting what fell). The readout tracks
 $$f = (f_0, f_1, f_2),\qquad \chi = f_0 - f_1 + f_2,\qquad
 \beta_0,\ \beta_1 \ (\text{GF}(2)),$$
 
-and checks the Euler–Poincaré identity $\chi = \beta_0 - \beta_1$ at every
-click ($\beta_2 = 0$ for every subcomplex of this planar cone — the six wedge
-boundaries are linearly independent). Preset buttons: **○ Cycle** (hexagon,
+and shows the Euler–Poincaré identity $\chi = \beta_0 - \beta_1$ holding at
+every click — an identity rank–nullity forces, not an empirical check
+($\beta_2 = 0$ for every subcomplex here: each sector owns its outer hexagon
+edge, shared with no other triangle, so $\partial_2$ always has full rank). Preset buttons: **○ Cycle** (hexagon,
 $\beta_1 = 1$), **● Disk** (everything, $\beta_1 = 0$), **∞ Wedge** (two
-cycles through the hub, $\beta_1 = 2$), **✕ Empty** (vertices only,
+independent cycles through the hub — a theta graph, homotopy equivalent to a
+wedge of two circles, $\beta_1 = 2$), **✕ Points** (vertices only,
 $\beta_0 = 7$).
 
 Homology = boundary-matrix ranks over GF(2) by bitmask Gaussian elimination —

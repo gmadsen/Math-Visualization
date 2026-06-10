@@ -33,7 +33,7 @@ export function renderMarkup(params) {
     `    <button id="${widgetId}-cycle" type="button">○ Cycle</button>\n` +
     `    <button id="${widgetId}-disk" type="button">● Disk</button>\n` +
     `    <button id="${widgetId}-wedge" type="button">∞ Wedge</button>\n` +
-    `    <button id="${widgetId}-empty" type="button">✕ Empty</button>\n` +
+    `    <button id="${widgetId}-empty" type="button">✕ Points</button>\n` +
     `  </div>\n` +
     `  <div class="readout" id="${outputId}">&nbsp;</div>\n` +
     `</div>`
@@ -140,7 +140,7 @@ export function renderScript(params) {
     `      EDGES.forEach(function(e,i){ if(eOn[i]&&(e[0]===v||e[1]===v)){ eOn[i]=0; ne++; } });\n` +
     `      TRIS.forEach(function(t,i){ if(tOn[i]&&t.indexOf(v)>=0){ tOn[i]=0; nt++; } });\n` +
     `      vOn[v]=0;\n` +
-    `      if(ne||nt) note='removed vertex '+v+' and the '+ne+' edge'+(ne===1?'':'s')+', '+nt+' triangle'+(nt===1?'':'s')+' above it \\u2014 closure is automatic going down';\n` +
+    `      if(ne||nt) note='removed vertex '+v+' and the '+ne+' edge'+(ne===1?'':'s')+', '+nt+' triangle'+(nt===1?'':'s')+' above it \\u2014 a complex is downward closed, so everything above it had to go';\n` +
     `    } else { vOn[v]=1; }\n` +
     `    draw(); report();\n` +
     `  }\n` +

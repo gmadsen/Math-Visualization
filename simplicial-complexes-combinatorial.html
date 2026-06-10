@@ -291,16 +291,16 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="small">Yellow vertices, blue edges, green-filled triangles. The readout lists the faces grouped by dimension and shows the corresponding $f$-vector (tally of $k$-faces by dimension).</div>
 </div>
 
-<p>The face explorer above toggles whole facets from a button row; now glue a complex <em>simplex by simplex on the canvas itself</em>, and let the axiom push back. Below, seven vertices wait on a hexagon with a hub: <strong>click a dashed edge</strong> to glue a 1-simplex, <strong>click inside a wedge</strong> to fill the 2-simplex &mdash; and watch the widget <em>refuse</em> when the boundary is not there yet, because a complex must be downward closed. Deleting a vertex shows the same axiom running the other way: every face above it is swept out automatically. The readout keeps three ledgers in sync at every click &mdash; the $f$-vector, the Euler characteristic $\chi = f_0 - f_1 + f_2$, and the $\mathrm{GF}(2)$ Betti numbers $\beta_0, \beta_1$ computed from boundary-matrix ranks &mdash; with the Euler&ndash;Poincar&eacute; identity $\chi = \beta_0 - \beta_1$ confirmed live ($\beta_2 = 0$ for every subcomplex of this planar cone). Run the presets: the hexagon <em>cycle</em> has $\chi = 0$ because $\beta_1 = 1$; filling it into the <em>disk</em> kills the loop and lifts $\chi$ to $1$; the <em>wedge</em> threads two independent cycles through the hub, $\beta_1 = 2$.</p>
+<p>The face explorer above toggles whole facets from a button row; now glue a complex <em>simplex by simplex on the canvas itself</em>, and let the axiom push back. Below, seven vertices wait on a hexagon with a hub: <strong>click a dashed edge</strong> to glue a 1-simplex, <strong>click inside an open sector</strong> to fill the 2-simplex &mdash; and watch the widget <em>refuse</em> when the boundary is not there yet, because a complex must be downward closed. Deleting a vertex shows the same axiom running the other way: every face above it is swept out automatically. The readout keeps three ledgers in sync at every click &mdash; the $f$-vector, the Euler characteristic $\chi = f_0 - f_1 + f_2$, and the $\mathrm{GF}(2)$ Betti numbers $\beta_0, \beta_1$ computed from boundary-matrix ranks &mdash; with the Euler&ndash;Poincar&eacute; identity $\chi = \beta_0 - \beta_1$ playing out live at every step &mdash; an identity, not a coincidence: rank&ndash;nullity forces it ($\beta_2 = 0$ here, since each sector owns its outer hexagon edge, shared with no other triangle, so $\partial_2$ always has full rank). Run the presets: the hexagon <em>cycle</em> has $\chi = 0$ because $\beta_1 = 1$; filling it into the <em>disk</em> kills the loop and lifts $\chi$ to $1$; the <em>wedge</em> threads two independent cycles through the hub, $\beta_1 = 2$.</p>
 
 <div class="widget" id="w-simplicial-glue">
-  <div class="hd"><div class="ttl">Glue a complex — the closure axiom under your cursor</div><div class="hint">click: vertices toggle, dashed edges glue, wedge interiors fill (only when their boundary exists). Presets jump to a cycle, disk, wedge of circles, or bare vertices. Watch $\chi = \beta_0 - \beta_1$ hold at every step</div></div>
+  <div class="hd"><div class="ttl">Glue a complex — the closure axiom under your cursor</div><div class="hint">click: vertices toggle, dashed edges glue, sector interiors fill (only when their boundary exists). Presets jump to a cycle, disk, wedge of circles, or bare vertices. Watch $\chi = \beta_0 - \beta_1$ hold at every step</div></div>
   <svg id="simplicial-glue-svg" viewBox="0 0 560 500" width="560" height="500" style="width:100%;max-width:560px;height:auto"><title>A clickable hexagon-and-hub vertex set for building simplicial complexes, with live f-vector, Euler characteristic, and Betti numbers, enforcing downward closure</title></svg>
   <div class="row">
     <button id="w-simplicial-glue-cycle" type="button">○ Cycle</button>
     <button id="w-simplicial-glue-disk" type="button">● Disk</button>
     <button id="w-simplicial-glue-wedge" type="button">∞ Wedge</button>
-    <button id="w-simplicial-glue-empty" type="button">✕ Empty</button>
+    <button id="w-simplicial-glue-empty" type="button">✕ Points</button>
   </div>
   <div class="readout" id="simplicial-glue-out">&nbsp;</div>
 </div><script>
@@ -399,7 +399,7 @@ function drawNode(svg, x, y, label, opts={}){
       EDGES.forEach(function(e,i){ if(eOn[i]&&(e[0]===v||e[1]===v)){ eOn[i]=0; ne++; } });
       TRIS.forEach(function(t,i){ if(tOn[i]&&t.indexOf(v)>=0){ tOn[i]=0; nt++; } });
       vOn[v]=0;
-      if(ne||nt) note='removed vertex '+v+' and the '+ne+' edge'+(ne===1?'':'s')+', '+nt+' triangle'+(nt===1?'':'s')+' above it \u2014 closure is automatic going down';
+      if(ne||nt) note='removed vertex '+v+' and the '+ne+' edge'+(ne===1?'':'s')+', '+nt+' triangle'+(nt===1?'':'s')+' above it \u2014 a complex is downward closed, so everything above it had to go';
     } else { vOn[v]=1; }
     draw(); report();
   }
