@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-10T14:35:46.434Z",
+  "generated": "2026-06-10T14:49:11.165Z",
   "entries": [
     {
       "slug": "combinatorial-optimization",
@@ -39,7 +39,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-06-10",
-      "message": "feat(knot-polynomials): click the crossings — one diagram, many knots"
+      "message": "feat(knot-polynomials): click the crossings — one diagram, many knots (#509)"
     },
     {
       "slug": "matroid-theory",
