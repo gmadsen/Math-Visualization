@@ -456,6 +456,152 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
+
+  <p>The Ising grid above is one fixed graph with a temperature dial. Now build the graph yourself. $A$ (cyan) and $B$ (yellow) are pinned; on every edit the widget re-runs Bron–Kerbosch for the <strong>maximal cliques</strong> (the factors of $\tfrac1Z\prod_c\psi_c$), rings $A$’s neighbours — its <strong>Markov blanket</strong> — and finds a <strong>minimal separator</strong> $S$ (pink), the smallest set with $X_A \perp X_B \mid X_S$ by the Hammersley–Clifford correspondence. Wire $A$ straight to $B$ and no conditioning set can separate them; cut every path and they decouple outright.</p>
+
+<div class="widget" id="w-mrf-build">
+  <div class="hd"><div class="ttl">Build the MRF — cliques, blanket, separator</div><div class="hint">click empty space to add a node, drag node&rarr;node to toggle an edge, click a node to delete it. Close a triangle and watch a size-3 clique replace three pairwise potentials; thicken the $A$–$B$ paths and watch the minimal separator grow</div></div>
+  <svg id="mrf-build-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable Markov random field whose maximal cliques, Markov blanket of A, and minimal A–B separator recompute on every edit</title></svg>
+  <div class="row">
+    <button id="w-mrf-build-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="mrf-build-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#mrf-build-svg'), out=$('#mrf-build-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=16, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[120,180],[520,180],[320,90],[250,270],[390,270]], E0=[[0,2],[1,2],[0,3],[3,4],[1,4]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+
+  // A = node id 0, B = node id 1. The widget reports the clique
+  // factorization (Bron-Kerbosch maximal cliques), A's Markov blanket
+  // (= its neighbours), and a minimal separator S with X_A \u22a5 X_B | S
+  // (exhaustive over subsets; Hammersley-Clifford's separation side).
+  const MAXN=10;
+  function draw(g){
+    while(G.firstChild) G.removeChild(G.firstChild);
+    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });
+    const hasA=(0 in byId), hasB=(1 in byId);
+    function drawNode2(n, isBlanket, inSep){
+      const isA=n.id===0, isB=n.id===1;
+      G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:g.R,
+        fill:isA?'var(--cyan)':(isB?'var(--yellow)':(inSep?'var(--pink)':'var(--violet)')),
+        'fill-opacity':0.85,stroke:(isBlanket?'var(--cyan)':'var(--bg)'),'stroke-width':isBlanket?3:2}));
+      const t=SVG('text',{x:n.x,y:n.y+4,'font-size':12,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});
+      t.textContent=isA?'A':(isB?'B':String(n.id)); G.appendChild(t);
+    }
+    // edges first (under nodes)
+    g.edges.forEach(function(e){
+      const a=byId[e.u], b=byId[e.v];
+      G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'var(--line)','stroke-width':2,'pointer-events':'none'}));
+    });
+    if(!hasA||!hasB){
+      g.nodes.forEach(function(n){ drawNode2(n,false,false); });
+      var missing=[]; if(!hasA) missing.push('A'); if(!hasB) missing.push('B');
+      out.innerHTML='<span class="bad">'+missing.join(' and ')+' was deleted \u2014 hit Reset</span>';
+      return;
+    }
+    if(g.n>MAXN){
+      g.nodes.forEach(function(n){ drawNode2(n,false,false); });
+      out.innerHTML='more than '+MAXN+' nodes \u2014 too many to analyse exactly; remove some';
+      return;
+    }
+    // ---- maximal cliques (Bron-Kerbosch) ----
+    const cliques=[];
+    (function bk(R,P,X){
+      if(!P.length&&!X.length){ if(R.length) cliques.push(R.slice()); return; }
+      P.slice().forEach(function(v){
+        bk(R.concat([v]),
+           P.filter(function(w){ return g.adj[v].indexOf(w)>=0; }),
+           X.filter(function(w){ return g.adj[v].indexOf(w)>=0; }));
+        P.splice(P.indexOf(v),1); X.push(v);
+      });
+    })([], g.nodes.map(function(n){return n.id;}), []);
+    const sizes=cliques.map(function(c){return c.length;});
+    const maxC=sizes.length?Math.max.apply(null,sizes):0;
+    // ---- minimal separator of A from B ----
+    function connectedAvoiding(S){
+      if(S.indexOf(0)>=0||S.indexOf(1)>=0) return false;
+      const seen={0:1}, st=[0];
+      while(st.length){
+        const v=st.pop();
+        g.adj[v].forEach(function(w){ if(S.indexOf(w)<0&&!seen[w]){ seen[w]=1; st.push(w); } });
+      }
+      return !!seen[1];
+    }
+    var sep=null, adjacentAB=g.adj[0].indexOf(1)>=0;
+    if(!adjacentAB){
+      const cand=g.nodes.map(function(n){return n.id;}).filter(function(id){ return id!==0&&id!==1; });
+      for(var m=0;m<(1<<cand.length);m++){
+        const S=cand.filter(function(_,i){ return m&(1<<i); });
+        if(!connectedAvoiding(S)){ if(sep===null||S.length<sep.length) sep=S; }
+      }
+    }
+    const blanket=g.adj[0].slice().sort();
+    const sepSet={}; (sep||[]).forEach(function(s){ sepSet[s]=1; });
+    g.nodes.forEach(function(n){ drawNode2(n, blanket.indexOf(n.id)>=0, !!sepSet[n.id]); });
+    var msg='maximal cliques: <b>'+cliques.length+'</b> (largest size '+maxC+') \u2014 p(x) = (1/Z)\u03a0\u03c8<sub>C</sub> over '+cliques.length+' potentials';
+    msg+=' \u00b7 blanket of A (ringed): {'+(blanket.length?blanket.join(', '):'\u2205')+'}';
+    if(adjacentAB){
+      msg+=' \u00b7 <span class="bad">A and B are neighbours \u2014 no conditioning set separates them</span>';
+    } else if(sep&&sep.length===0){
+      msg+=' \u00b7 <span class="ok">A and B are disconnected \u2014 X_A \u22a5 X_B outright</span>';
+    } else if(sep){
+      msg+=' \u00b7 <span class="ok">minimal separator (pink): X_A \u22a5 X_B | {'+sep.join(', ')+'}</span>';
+    }
+    out.innerHTML=msg;
+  }
+
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-mrf-build-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script>
+
 <div class="quiz" data-concept="pgm-mrf"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>

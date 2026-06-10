@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1686** (registry-driven: 1686, inline: 0)
+- Widgets: **1687** (registry-driven: 1687, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **70** of **211** with widgets (33%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **71** of **211** with widgets (34%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -25,9 +25,9 @@ page has wired one in yet.
 | `clickable-diagram` | clickable-diagram | click | 2d | 100 | abelian-varieties, algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, cluster-algebras, conformal-and-cr-geometry, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, gauge-theory, geometric-invariant-theory, homological, kalman-filtering-and-state-estimation, mapping-class-groups, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, positive-characteristic-ag, positivity-and-ample-line-bundles, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, string-theory, topological-data-analysis, toric-varieties, tropical-geometry, wavelets |
 | `draggable-points-2d` | draggable-points-2d | drag | 2d | 12 | complex-analysis, convex-geometry, information-geometry, information-theory, kalman-filtering-and-state-estimation, kernel-methods-and-rkhs, mathematical-statistics, numerical-analysis, optimal-transport, projective-plane, spectral-methods-data, topological-data-analysis |
 | `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 8 | deep-learning-theory, diffusion-and-score-based-models, dynamical-systems, mathematical-biology |
+| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 7 | causal-inference, expanders, extremal-combinatorics, graph-theory-fundamentals, probabilistic-graphical-models, spectral-graph-theory |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
-| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 6 | causal-inference, expanders, extremal-combinatorics, graph-theory-fundamentals, spectral-graph-theory |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
 | `inline-code-cell` | inline-code-cell | edit | 2d | 6 | analytic-number-theory, convex-optimization, heights-arithmetic-geometry, mathematical-chaos, p-adic-numbers |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
@@ -852,10 +852,10 @@ page has wired one in yet.
 ### Learning theory & data science
 
 - Topics: **9**, concepts: **56**
-- Widgets: **64** (registry-driven: 64, inline: 0)
-  - by family: parametric-plot: 42, slider-readout: 10, draggable-points-2d: 4, clickable-diagram: 2, vector-field-flow-2d: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1, graph-edit-2d: 1
-  - by dimension: 2d: 64
-  - by gesture: slider: 53, drag: 4, click: 3, click-seed: 2, construct-to-break: 1, graph-edit: 1
+- Widgets: **65** (registry-driven: 65, inline: 0)
+  - by family: parametric-plot: 42, slider-readout: 10, draggable-points-2d: 4, clickable-diagram: 2, graph-edit-2d: 2, vector-field-flow-2d: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1
+  - by dimension: 2d: 65
+  - by gesture: slider: 53, drag: 4, click: 3, graph-edit: 2, click-seed: 2, construct-to-break: 1
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)
   - by type: mcq: 117, numeric: 25, multi-select: 17, ordering: 6, matching: 1
 
@@ -966,7 +966,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `modular-forms` | Modular forms & L-functions | 6 | 9 | pick: 7, scrub: 2 | click: 7, slider: 2 |
 | `mostow-rigidity` | Geometry & topology | 6 | 6 | scrub: 4, pick: 2 | slider: 3, click: 2, step: 1 |
 | `order-theory-and-lattices` | Combinatorics & graph theory | 6 | 6 | scrub: 6 | slider: 6 |
-| `probabilistic-graphical-models` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
 | `quadratic-reciprocity` | Number theory | 6 | 9 | pick: 7, scrub: 2 | click: 7, slider: 2 |
 | `quantum-field-theory` | Mathematical physics | 6 | 6 | scrub: 4, pick: 2 | slider: 4, click: 2 |
 | `quantum-groups` | Algebra & homological | 6 | 6 | pick: 3, other: 2, scrub: 1 | inspect: 3, toggle: 2, slider: 1 |
@@ -1057,7 +1056,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `kernel-methods-and-rkhs` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, drag: 1 | 18 |
 | `reinforcement-learning` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, edit-grid: 1 | 18 |
 | `pomdps-and-belief-states` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, edit-grid: 1 | 18 |
-| `probabilistic-graphical-models` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 16 |
+| `probabilistic-graphical-models` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, graph-edit: 1 | 16 |
 | `deep-learning-theory` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, click-seed: 1 | 18 |
 | `information-geometry` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, drag: 1 | 18 |
 | `diffusion-and-score-based-models` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, click-seed: 1 | 18 |
