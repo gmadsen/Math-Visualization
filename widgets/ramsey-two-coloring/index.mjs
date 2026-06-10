@@ -75,7 +75,7 @@ export function renderScript(params) {
     `      const ln=SVG('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:PAINT[c3],'stroke-width':c3?4:2.5,opacity:c3?0.95:0.6});\n` +
     `      ln.style.cursor='pointer';\n` +
     `      // generous invisible hit zone under each edge\n` +
-    `      const hit=SVG('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:'rgba(0,0,0,0)','stroke-width':14});\n` +
+    `      const hit=SVG('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:'transparent','stroke-width':14});\n` +
     `      hit.style.cursor='pointer';\n` +
     `      (function(kk){ hit.addEventListener('click',function(){ color[kk]=((color[kk]||0)+1)%3; render(); }); })(k);\n` +
     `      EDG.appendChild(ln); EDG.appendChild(hit);\n` +
@@ -83,11 +83,12 @@ export function renderScript(params) {
     `    for(var v=0;v<n;v++){ const p=vpos(v);\n` +
     `      VTX.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:7,fill:'var(--ink)','pointer-events':'none'}));\n` +
     `    }\n` +
-    `    var msg=coloured+' of '+total+' edges coloured \\u00b7 monochromatic triangles: <b>'+tris.length+'</b>';\n` +
+    `    var msg=coloured+' of '+total+' edges colored \\u00b7 monochromatic triangles: <b>'+tris.length+'</b>';\n` +
     `    if(coloured===total){\n` +
-    `      if(tris.length===0){ msg+=' \\u00b7 <span class=\"ok\">a complete 2-colouring of K'+n+' with no mono triangle \\u2014 so R(3,3) &gt; '+n+'</span>'; }\n` +
-    `      else { msg+=' \\u00b7 <span class=\"bad\">every 2-colouring of K'+n+' contains one'+(n>=6?' \\u2014 that is R(3,3) = 6':'')+'</span>'; }\n` +
-    `    } else if(tris.length>0){ msg+=' \\u00b7 <span class=\"bad\">already trapped \\u2014 recolour an edge of the shaded triangle</span>'; }\n` +
+    `      if(tris.length===0){ msg+=' \\u00b7 <span class=\"ok\">a complete 2-coloring of K'+n+' with no mono triangle \\u2014 clicking it in IS a proof that R(3,3) &gt; '+n+'</span>'; }\n` +
+    `      else if(n<6){ msg+=' \\u00b7 <span class=\"bad\">trapped this time \\u2014 but an escape exists on K'+n+' (R(3,3) &gt; '+n+'): try making one color a single cycle</span>'; }\n` +
+    `      else { msg+=' \\u00b7 <span class=\"bad\">trapped \\u2014 and the pigeonhole proof above says every attempt must be: R(3,3) = 6 (your failures illustrate it; the proof certifies it)</span>'; }\n` +
+    `    } else if(tris.length>0){ msg+=' \\u00b7 <span class=\"bad\">a monochromatic triangle is on the board \\u2014 recolor one of its edges to keep the escape alive</span>'; }\n` +
     `    out.innerHTML=msg;\n` +
     `  }\n` +
     `  function setN(m){ n=m; color={};\n` +
