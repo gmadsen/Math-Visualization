@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/ramsey-two-coloring/schema.json",
+  "title": "ramsey-two-coloring widget params",
+  "description": "Two-colour the edges of a complete graph K_n by clicking them (grey → red → blue → grey) and try to avoid a monochromatic triangle. Vertex-count buttons switch between the sizes in `sizes` (e.g. K5, where an escape exists, and K6, where R(3,3)=6 makes one mono triangle unavoidable). Monochromatic triangles are flagged live; completing a colouring yields a verdict.",
+  "meta": {
+    "family": "ramsey-two-coloring",
+    "dimension": "2d",
+    "gesture": "edge-color",
+    "role": "exploration"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "svgId": {
+      "type": "string",
+      "description": "DOM id for the <svg> canvas."
+    },
+    "outputId": {
+      "type": "string",
+      "description": "DOM id for the .readout element."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "svgTitle": {
+      "type": "string",
+      "description": "Accessible <title> for the svg; defaults to title."
+    },
+    "sizes": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 3, "maximum": 8 },
+      "minItems": 1,
+      "default": [5, 6],
+      "description": "Vertex counts offered as K_n toggle buttons (first is the boot size)."
+    },
+    "viewBox": {
+      "type": "string",
+      "default": "0 0 560 480",
+      "description": "SVG viewBox."
+    },
+    "svgWidth": { "type": "number", "default": 560 },
+    "svgHeight": { "type": "number", "default": 480 }
+  }
+}
