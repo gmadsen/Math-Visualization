@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1685** (registry-driven: 1685, inline: 0)
+- Widgets: **1686** (registry-driven: 1686, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **69** of **211** with widgets (33%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **70** of **211** with widgets (33%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -27,12 +27,12 @@ page has wired one in yet.
 | `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 8 | deep-learning-theory, diffusion-and-score-based-models, dynamical-systems, mathematical-biology |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
+| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 6 | causal-inference, expanders, extremal-combinatorics, graph-theory-fundamentals, spectral-graph-theory |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
 | `inline-code-cell` | inline-code-cell | edit | 2d | 6 | analytic-number-theory, convex-optimization, heights-arithmetic-geometry, mathematical-chaos, p-adic-numbers |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
 | `animated-svg-2d` | animated-svg-2d | play | 2d | 5 | combinatorial-optimization, convex-optimization, markov-decision-processes, numerical-analysis, probability-theory |
-| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 5 | expanders, extremal-combinatorics, graph-theory-fundamentals, spectral-graph-theory |
 | `surface-3d` | surface-3d | drag | 3d | 5 | general-relativity, harmonic-functions, riemannian-geometry, smooth-manifolds, variational-methods |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
@@ -852,10 +852,10 @@ page has wired one in yet.
 ### Learning theory & data science
 
 - Topics: **9**, concepts: **56**
-- Widgets: **63** (registry-driven: 63, inline: 0)
-  - by family: parametric-plot: 42, slider-readout: 10, draggable-points-2d: 4, clickable-diagram: 2, vector-field-flow-2d: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1
-  - by dimension: 2d: 63
-  - by gesture: slider: 53, drag: 4, click: 3, click-seed: 2, construct-to-break: 1
+- Widgets: **64** (registry-driven: 64, inline: 0)
+  - by family: parametric-plot: 42, slider-readout: 10, draggable-points-2d: 4, clickable-diagram: 2, vector-field-flow-2d: 2, tda-interval-decomposition: 1, verbatim: 1, shatter-arena: 1, graph-edit-2d: 1
+  - by dimension: 2d: 64
+  - by gesture: slider: 53, drag: 4, click: 3, click-seed: 2, construct-to-break: 1, graph-edit: 1
 - Quizzes: **166** (v1: 166, hard: 0, expert: 0)
   - by type: mcq: 117, numeric: 25, multi-select: 17, ordering: 6, matching: 1
 
@@ -923,7 +923,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `arithmetic-statistics` | Number theory | 6 | 6 | pick: 4, scrub: 2 | select: 3, slider: 2, input: 1 |
 | `atiyah-singer-index-theorem` | Geometry & topology | 6 | 6 | scrub: 4, pick: 2 | slider: 4, pick: 2 |
 | `calabi-yau-manifolds` | Algebraic geometry | 6 | 6 | scrub: 5, pick: 1 | slider: 5, click: 1 |
-| `causal-inference` | Learning theory & data science | 6 | 6 | scrub: 6 | slider: 6 |
 | `class-field-theory` | Number theory | 6 | 10 | pick: 10 | click: 9, read: 1 |
 | `cluster-algebras` | Algebra & homological | 6 | 6 | pick: 6 | click: 4, select: 2 |
 | `cobordism` | Geometry & topology | 6 | 6 | pick: 3, scrub: 3 | select: 3, slider: 3 |
@@ -1062,7 +1061,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `deep-learning-theory` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, click-seed: 1 | 18 |
 | `information-geometry` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, drag: 1 | 18 |
 | `diffusion-and-score-based-models` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, click-seed: 1 | 18 |
-| `causal-inference` | Learning theory & data science | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `causal-inference` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, graph-edit: 1 | 18 |
 | `several-complex-variables` | Analysis | 6 | 6 | 0 | 2 | 0 | · | slider: 5, click: 1 | 18 |
 | `khovanov-homology` | Geometry & topology | 6 | 6 | 0 | 2 | 0 | · | select: 5, click: 1 | 18 |
 | `shimura-varieties` | Modular forms & L-functions | 6 | 6 | 0 | 2 | 0 | · | select: 5, slider: 1 | 18 |
