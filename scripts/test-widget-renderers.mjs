@@ -21,77 +21,20 @@
 
 import { test, describe, before } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { makeAjv } from './lib/ajv.mjs';
+import { listRegisteredSlugs, loadInstancesPerSlug } from './lib/widget-instances.mjs';
 import * as verbatimRenderer from '../widgets/_shared/verbatim-renderer.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
 const repoRoot = resolve(scriptsDir, '..');
 const widgetsDir = join(repoRoot, 'widgets');
-const contentDir = join(repoRoot, 'content');
 
-function listSlugs() {
-  return readdirSync(widgetsDir, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => d.name)
-    .filter((name) => existsSync(join(widgetsDir, name, 'schema.json')))
-    .sort();
-}
-
-function walkBlocks(node, visit) {
-  if (!node || typeof node !== 'object') return;
-  if (Array.isArray(node)) {
-    for (const x of node) walkBlocks(x, visit);
-    return;
-  }
-  if (node.type === 'widget') visit(node);
-  for (const v of Object.values(node)) walkBlocks(v, visit);
-}
-
-function loadInstancesPerSlug() {
-  const bySlug = Object.create(null);
-  if (existsSync(contentDir)) {
-    for (const f of readdirSync(contentDir).sort()) {
-      if (!f.endsWith('.json')) continue;
-      const topic = f.replace(/\.json$/, '');
-      const data = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
-      walkBlocks(data, (block) => {
-        if (!block.slug) return;
-        if (!bySlug[block.slug]) bySlug[block.slug] = [];
-        bySlug[block.slug].push({ topic, params: block.params || {} });
-      });
-    }
-  }
-  // Fixture fallback: widgets/<slug>/example.json (or examples/*.json) lets a
-  // newly-registered slug ship with tested infrastructure before any topic
-  // page adopts it. The fixture is loaded for tests but never emitted into
-  // a topic page automatically — content authors still wire it in by hand
-  // once they have a use case.
-  for (const slug of listSlugs()) {
-    const single = join(widgetsDir, slug, 'example.json');
-    if (existsSync(single)) {
-      const params = JSON.parse(readFileSync(single, 'utf8'));
-      if (!bySlug[slug]) bySlug[slug] = [];
-      bySlug[slug].push({ topic: 'fixture:example.json', params });
-    }
-    const examplesDir = join(widgetsDir, slug, 'examples');
-    if (existsSync(examplesDir)) {
-      for (const f of readdirSync(examplesDir).sort()) {
-        if (!f.endsWith('.json')) continue;
-        const params = JSON.parse(readFileSync(join(examplesDir, f), 'utf8'));
-        if (!bySlug[slug]) bySlug[slug] = [];
-        bySlug[slug].push({ topic: `fixture:examples/${f}`, params });
-      }
-    }
-  }
-  return bySlug;
-}
-
-const slugs = listSlugs();
-const instancesPerSlug = loadInstancesPerSlug();
+const slugs = listRegisteredSlugs();
+const instancesPerSlug = loadInstancesPerSlug();  // Map<slug, [{topic, params}]>
 const ajv = makeAjv({ strict: false });
 
 for (const slug of slugs) {
@@ -133,7 +76,7 @@ for (const slug of slugs) {
       assert.equal(typeof mod.renderScript, 'function');
     });
 
-    const instances = instancesPerSlug[slug] || [];
+    const instances = instancesPerSlug.get(slug) || [];
 
     test(`has ≥1 instance in content/ (found ${instances.length})`, () => {
       assert.ok(

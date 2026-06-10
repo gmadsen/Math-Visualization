@@ -32,15 +32,15 @@
 
 import { test, describe, before } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { contentInstancesBySlug, loadInstances } from './lib/widget-instances.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
 const repoRoot = resolve(scriptsDir, '..');
 const widgetsDir = join(repoRoot, 'widgets');
-const contentDir = join(repoRoot, 'content');
 const jsDir = join(repoRoot, 'js');
 
 const { JSDOM, VirtualConsole } = await import(
@@ -65,51 +65,6 @@ const HELPERS = (() => {
   }
   return m[1];
 })();
-
-function walkBlocks(node, visit) {
-  if (!node || typeof node !== 'object') return;
-  if (Array.isArray(node)) {
-    for (const x of node) walkBlocks(x, visit);
-    return;
-  }
-  if (node.type === 'widget') visit(node);
-  for (const v of Object.values(node)) walkBlocks(v, visit);
-}
-
-// slug -> [{topic, params}] across all of content/, computed in one sweep.
-const INSTANCES_BY_SLUG = (() => {
-  const map = new Map();
-  for (const f of readdirSync(contentDir).sort()) {
-    if (!f.endsWith('.json')) continue;
-    const topic = f.replace(/\.json$/, '');
-    const data = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
-    walkBlocks(data, (b) => {
-      if (!b.slug) return;
-      if (!map.has(b.slug)) map.set(b.slug, []);
-      map.get(b.slug).push({ topic, params: b.params || {} });
-    });
-  }
-  return map;
-})();
-
-function loadInstances(slug) {
-  const out = [...(INSTANCES_BY_SLUG.get(slug) || [])];
-  const single = join(widgetsDir, slug, 'example.json');
-  if (existsSync(single)) {
-    out.push({ topic: 'fixture:example.json', params: JSON.parse(readFileSync(single, 'utf8')) });
-  }
-  const examplesDir = join(widgetsDir, slug, 'examples');
-  if (existsSync(examplesDir)) {
-    for (const f of readdirSync(examplesDir).sort()) {
-      if (!f.endsWith('.json')) continue;
-      out.push({
-        topic: `fixture:examples/${f}`,
-        params: JSON.parse(readFileSync(join(examplesDir, f), 'utf8')),
-      });
-    }
-  }
-  return out;
-}
 
 // ---------------------------------------------------------------------------
 // SVG geometry polyfill: a non-identity affine screen CTM,
@@ -457,7 +412,7 @@ const CLASSIC_FAMILIES = new Set([
 test('every multi-home self-contained engine is covered (DRIVERS or BOOT_ONLY)', () => {
   const covered = new Set([...Object.keys(DRIVERS), ...BOOT_ONLY, ...CLASSIC_FAMILIES]);
   const offenders = [];
-  for (const [slug, instances] of INSTANCES_BY_SLUG) {
+  for (const [slug, instances] of contentInstancesBySlug()) {
     if (covered.has(slug)) continue;
     if (existsSync(join(jsDir, `widget-${slug}.js`))) continue; // hydration-tested
     const idxPath = join(widgetsDir, slug, 'index.mjs');
