@@ -290,6 +290,151 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="readout" id="faces-out"></div>
   <div class="small">Yellow vertices, blue edges, green-filled triangles. The readout lists the faces grouped by dimension and shows the corresponding $f$-vector (tally of $k$-faces by dimension).</div>
 </div>
+
+<p>The face explorer above toggles whole facets from a button row; now glue a complex <em>simplex by simplex on the canvas itself</em>, and let the axiom push back. Below, seven vertices wait on a hexagon with a hub: <strong>click a dashed edge</strong> to glue a 1-simplex, <strong>click inside an open sector</strong> to fill the 2-simplex &mdash; and watch the widget <em>refuse</em> when the boundary is not there yet, because a complex must be downward closed. Deleting a vertex shows the same axiom running the other way: every face above it is swept out automatically. The readout keeps three ledgers in sync at every click &mdash; the $f$-vector, the Euler characteristic $\chi = f_0 - f_1 + f_2$, and the $\mathrm{GF}(2)$ Betti numbers $\beta_0, \beta_1$ computed from boundary-matrix ranks &mdash; with the Euler&ndash;Poincar&eacute; identity $\chi = \beta_0 - \beta_1$ playing out live at every step &mdash; an identity, not a coincidence: rank&ndash;nullity forces it ($\beta_2 = 0$ here, since each sector owns its outer hexagon edge, shared with no other triangle, so $\partial_2$ always has full rank). Run the presets: the hexagon <em>cycle</em> has $\chi = 0$ because $\beta_1 = 1$; filling it into the <em>disk</em> kills the loop and lifts $\chi$ to $1$; the <em>wedge</em> threads two independent cycles through the hub, $\beta_1 = 2$.</p>
+
+<div class="widget" id="w-simplicial-glue">
+  <div class="hd"><div class="ttl">Glue a complex — the closure axiom under your cursor</div><div class="hint">click: vertices toggle, dashed edges glue, sector interiors fill (only when their boundary exists). Presets jump to a cycle, disk, wedge of circles, or bare vertices. Watch $\chi = \beta_0 - \beta_1$ hold at every step</div></div>
+  <svg id="simplicial-glue-svg" viewBox="0 0 560 500" width="560" height="500" style="width:100%;max-width:560px;height:auto"><title>A clickable hexagon-and-hub vertex set for building simplicial complexes, with live f-vector, Euler characteristic, and Betti numbers, enforcing downward closure</title></svg>
+  <div class="row">
+    <button id="w-simplicial-glue-cycle" type="button">○ Cycle</button>
+    <button id="w-simplicial-glue-disk" type="button">● Disk</button>
+    <button id="w-simplicial-glue-wedge" type="button">∞ Wedge</button>
+    <button id="w-simplicial-glue-empty" type="button">✕ Points</button>
+  </div>
+  <div class="readout" id="simplicial-glue-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#simplicial-glue-svg'), out=$('#simplicial-glue-out');
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 500').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], CX=W/2, CY=Hh/2-4, R=Math.min(W,Hh)/2-56;
+  // hexagon vertices 0..5 (from the top, clockwise) + hub 6 at the center
+  const VP=[];
+  for(var i=0;i<6;i++){ const a=Math.PI/2-i*Math.PI/3; VP.push([CX+R*Math.cos(a), CY-R*Math.sin(a)]); }
+  VP.push([CX,CY]);
+  const EDGES=[]; // [lo,hi] pairs: hexagon ring then spokes
+  for(var i1=0;i1<6;i1++) EDGES.push([Math.min(i1,(i1+1)%6), Math.max(i1,(i1+1)%6)]);
+  for(var i4=0;i4<6;i4++) EDGES.push([i4,6]);
+  const TRIS=[]; // wedges (i, i+1, hub)
+  for(var i5=0;i5<6;i5++) TRIS.push([i5,(i5+1)%6,6]);
+  const eKey=function(a,b){ return Math.min(a,b)+'-'+Math.max(a,b); };
+  const eIdxOf={}; EDGES.forEach(function(e,i){ eIdxOf[e[0]+'-'+e[1]]=i; });
+  var vOn=[], eOn=[], tOn=[];
+  const PRESETS={
+    cycle: function(){ vOn=[1,1,1,1,1,1,0]; eOn=EDGES.map(function(e,i){ return i<6?1:0; }); tOn=[0,0,0,0,0,0]; },
+    disk:  function(){ vOn=[1,1,1,1,1,1,1]; eOn=EDGES.map(function(){ return 1; }); tOn=[1,1,1,1,1,1]; },
+    wedge: function(){ vOn=[1,1,1,1,1,1,1]; eOn=EDGES.map(function(e,i){ return (i<6||i===6||i===9)?1:0; }); tOn=[0,0,0,0,0,0]; },
+    empty: function(){ vOn=[1,1,1,1,1,1,1]; eOn=EDGES.map(function(){ return 0; }); tOn=[0,0,0,0,0,0]; },
+  };
+  // GF(2) rank by bitmask Gaussian elimination
+  function rank2(rows){
+    rows=rows.slice(); var r=0;
+    for(var c=0;c<32;c++){
+      var p=-1;
+      for(var i6=r;i6<rows.length;i6++) if((rows[i6]>>c)&1){ p=i6; break; }
+      if(p<0) continue;
+      const tmp=rows[r]; rows[r]=rows[p]; rows[p]=tmp;
+      for(var i7=0;i7<rows.length;i7++) if(i7!==r && ((rows[i7]>>c)&1)) rows[i7]^=rows[r];
+      r++;
+    }
+    return r;
+  }
+  function homology(){
+    const av=[]; vOn.forEach(function(on,i){ if(on) av.push(i); });
+    const vPos={}; av.forEach(function(v,i){ vPos[v]=i; });
+    const ae=[]; EDGES.forEach(function(e,i){ if(eOn[i]) ae.push(e); });
+    const ePos={}; ae.forEach(function(e,i){ ePos[e[0]+'-'+e[1]]=i; });
+    const at=[]; TRIS.forEach(function(t,i){ if(tOn[i]) at.push(t); });
+    const d1=ae.map(function(e){ return (1<<vPos[e[0]])|(1<<vPos[e[1]]); });
+    const d2=at.map(function(t){
+      return (1<<ePos[eKey(t[0],t[1])])|(1<<ePos[eKey(t[1],t[2])])|(1<<ePos[eKey(t[0],t[2])]);
+    });
+    const r1=rank2(d1), r2=rank2(d2);
+    return { f0:av.length, f1:ae.length, f2:at.length,
+             b0:av.length-r1, b1:(ae.length-r1)-r2, b2:at.length-r2 };
+  }
+  const TRIG=SVG('g'); svg.appendChild(TRIG);
+  const EDGG=SVG('g'); svg.appendChild(EDGG);
+  const VERG=SVG('g'); svg.appendChild(VERG);
+  var note='';
+  function draw(){
+    TRIG.innerHTML=''; EDGG.innerHTML=''; VERG.innerHTML='';
+    TRIS.forEach(function(t,i){
+      const pts=t.map(function(v){ return VP[v][0].toFixed(1)+','+VP[v][1].toFixed(1); }).join(' ');
+      const filled=!!tOn[i];
+      const poly=SVG('polygon',{points:pts,fill:filled?'var(--violet)':'transparent','fill-opacity':filled?0.3:1,stroke:'none',cursor:'pointer'});
+      poly.addEventListener('click',function(){ clickTri(i); });
+      TRIG.appendChild(poly);
+    });
+    EDGES.forEach(function(e,i){
+      const p=VP[e[0]], q=VP[e[1]];
+      if(eOn[i]) EDGG.appendChild(SVG('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:'var(--ink)','stroke-width':2.6,'pointer-events':'none'}));
+      else if(vOn[e[0]]&&vOn[e[1]]) EDGG.appendChild(SVG('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:'var(--line)','stroke-width':1,'stroke-dasharray':'3 4','pointer-events':'none',opacity:0.7}));
+      const hit=SVG('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:'transparent','stroke-width':12,cursor:'pointer'});
+      hit.addEventListener('click',function(){ clickEdge(i); });
+      EDGG.appendChild(hit);
+    });
+    VP.forEach(function(p,v){
+      const on=!!vOn[v];
+      const c=SVG('circle',{cx:p[0],cy:p[1],r:8,fill:on?'var(--cyan)':'var(--panel)',stroke:on?'var(--cyan)':'var(--mute)','stroke-width':1.6,'stroke-dasharray':on?'none':'2 2',cursor:'pointer'});
+      c.addEventListener('click',function(){ clickVert(v); });
+      VERG.appendChild(c);
+      const lab=SVG('text',{x:p[0]+(v===6?14:(p[0]>CX+1?14:(p[0]<CX-1?-14:0))),y:p[1]+(v===6?-12:(p[1]>CY+1?18:(p[1]<CY-1?-12:5))),'font-size':12,fill:'var(--mute)','text-anchor':'middle','pointer-events':'none'});
+      lab.textContent=String(v); VERG.appendChild(lab);
+    });
+  }
+  function report(){
+    const h=homology();
+    const fmtI=function(x){ return String(x).replace('-','\u2212'); };
+    var msg='f = ('+h.f0+', '+h.f1+', '+h.f2+') \u00b7 \u03c7 = '+h.f0+' \u2212 '+h.f1+' + '+h.f2+' = <b>'+fmtI(h.f0-h.f1+h.f2)+'</b>';
+    msg+=' \u00b7 \u03b2\u2080 = <b>'+h.b0+'</b>, \u03b2\u2081 = <b>'+h.b1+'</b>';
+    msg+=' \u00b7 <span class="ok">\u03b2\u2080 \u2212 \u03b2\u2081 = '+fmtI(h.b0-h.b1)+' = \u03c7 \u2713 Euler\u2013Poincar\u00e9</span>';
+    if(h.b2!==0) msg+=' \u00b7 \u03b2\u2082 = '+h.b2;
+    if(note){ msg+=' \u00b7 '+note; note=''; }
+    out.innerHTML=msg;
+  }
+  function clickVert(v){
+    if(vOn[v]){
+      var ne=0, nt=0;
+      EDGES.forEach(function(e,i){ if(eOn[i]&&(e[0]===v||e[1]===v)){ eOn[i]=0; ne++; } });
+      TRIS.forEach(function(t,i){ if(tOn[i]&&t.indexOf(v)>=0){ tOn[i]=0; nt++; } });
+      vOn[v]=0;
+      if(ne||nt) note='removed vertex '+v+' and the '+ne+' edge'+(ne===1?'':'s')+', '+nt+' triangle'+(nt===1?'':'s')+' above it \u2014 a complex is downward closed, so everything above it had to go';
+    } else { vOn[v]=1; }
+    draw(); report();
+  }
+  function clickEdge(i){
+    const e=EDGES[i];
+    if(eOn[i]){
+      var nt=0;
+      TRIS.forEach(function(t,j){ if(tOn[j]&&t.indexOf(e[0])>=0&&t.indexOf(e[1])>=0){ tOn[j]=0; nt++; } });
+      eOn[i]=0;
+      if(nt) note='removing edge {'+e[0]+','+e[1]+'} also removed '+nt+' triangle'+(nt===1?'':'s')+' \u2014 a face cannot outlive its boundary';
+    } else {
+      if(!vOn[e[0]]||!vOn[e[1]]){ note='<span class="bad">\u2717 an edge needs both endpoints \u2014 a complex is downward closed</span>'; report(); return; }
+      eOn[i]=1;
+    }
+    draw(); report();
+  }
+  function clickTri(i){
+    const t=TRIS[i];
+    if(tOn[i]){ tOn[i]=0; }
+    else {
+      const need=[eKey(t[0],t[1]),eKey(t[1],t[2]),eKey(t[0],t[2])].filter(function(k){ return !eOn[eIdxOf[k]]; });
+      if(need.length){ note='<span class="bad">\u2717 the 2-simplex {'+t.join(',')+'} needs all three boundary edges first ('+need.length+' missing) \u2014 downward closure</span>'; report(); return; }
+      tOn[i]=1;
+    }
+    draw(); report();
+  }
+  ['cycle','disk','wedge','empty'].forEach(function(name){
+    const b=$('#w-simplicial-glue-'+name);
+    if(b) b.addEventListener('click',function(){ PRESETS[name](); note=''; draw(); report(); });
+  });
+  PRESETS['cycle']();
+  draw(); report();
+})();
+</script>
+
 <div class="quiz" data-concept="abstract-simplicial-complex"></div><!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
