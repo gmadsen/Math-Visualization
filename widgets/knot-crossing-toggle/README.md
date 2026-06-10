@@ -40,7 +40,7 @@ rAF. The init self-intersection scan is ~30 ms.
 | `hint` | string | | header hint (HTML + KaTeX) |
 | `svgTitle` | string | | accessible `<title>`; defaults to `title` |
 | `template` | `"trefoil"`\|`"four"` | | diagram template (default `four`) |
-| `initialOver` | boolean[] | | boot over/under bits (defaults: fig-8 state for `four`, alternating for `trefoil`) |
+| `initialOver` | boolean[] | | boot over/under bits, one per crossing in the deterministic scan order (crossings sorted by their earlier passage parameter `t1`; `true` = the `t1`-strand passes over). Length must match the template's crossing count (3 for `trefoil`, 4 for `four`). Defaults: fig-8 state for `four`, alternating for `trefoil` |
 | `viewBox` | string | | default `0 0 560 480` |
 | `svgWidth` / `svgHeight` | number | | default 560 / 480 |
 

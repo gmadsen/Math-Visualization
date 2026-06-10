@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-10T14:11:03.837Z",
+  "generated": "2026-06-10T14:35:46.434Z",
   "entries": [
     {
       "slug": "combinatorial-optimization",
@@ -32,6 +32,14 @@
       "tag": "",
       "date": "2026-06-10",
       "message": "feat(stochastic-calculus): draw the path — does its QV survive refinement? (#502)"
+    },
+    {
+      "slug": "knot-polynomials",
+      "title": "Knot polynomials",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(knot-polynomials): click the crossings — one diagram, many knots"
     },
     {
       "slug": "matroid-theory",
@@ -1400,14 +1408,6 @@
       "tag": "",
       "date": "2026-05-26",
       "message": "feat(button-stepper): ordered row-children + 8 stepper migrations (byte-identical) (#376)"
-    },
-    {
-      "slug": "knot-polynomials",
-      "title": "Knot polynomials",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-25",
-      "message": "fix(knot-polynomials): correct §8 Khovanov grading-shift formula (was circular) (#354)"
     },
     {
       "slug": "modular-forms",

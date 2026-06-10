@@ -11,6 +11,13 @@
   },
   "type": "object",
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "template": { "const": "trefoil" } }, "required": ["template"] },
+      "then": { "properties": { "initialOver": { "minItems": 3, "maxItems": 3 } } },
+      "else": { "properties": { "initialOver": { "minItems": 4, "maxItems": 4 } } }
+    }
+  ],
   "required": [
     "widgetId",
     "svgId",

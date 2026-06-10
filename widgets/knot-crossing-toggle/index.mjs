@@ -148,7 +148,7 @@ export function renderScript(params) {
     `    return [...vt.entries()].sort(function(a,b){ return a[0]-b[0]; }).map(function(p){ return p[0]+':'+p[1]; }).join(',');\n` +
     `  }\n` +
     `  const NAMES={\n` +
-    `    '0:1':['the <b>unknot</b>','V = 1: the Jones polynomial cannot tell this diagram from an unraveled loop \\u2014 and for a diagram this small it really is one. Non-alternating patterns collapse.'],\n` +
+    `    '0:1':['the <b>unknot</b>','V = 1: the Jones polynomial cannot tell this diagram from an unraveled loop \\u2014 and for a diagram this small it really is one. Most over/under patterns collapse like this.'],\n` +
     `    '1:1,3:1,4:-1':['the <b>right-handed trefoil</b> 3\\u2081','chiral: press \\u21c4 Mirror and watch every exponent negate \\u2014 V(t) \\u21a6 V(t\\u207b\\u00b9) distinguishes the trefoil from its mirror.'],\n` +
     `    '-4:-1,-3:1,-1:1':['the <b>left-handed trefoil</b> 3\\u2081 (mirror)','chiral: press \\u21c4 Mirror and watch every exponent negate \\u2014 V(t) \\u21a6 V(t\\u207b\\u00b9) distinguishes the trefoil from its mirror.'],\n` +
     `    '-2:1,-1:-1,0:1,1:-1,2:1':['the <b>figure-eight knot</b> 4\\u2081','palindromic: V(t) = V(t\\u207b\\u00b9), so Jones cannot distinguish 4\\u2081 from its mirror \\u2014 and indeed the figure-eight is amphichiral.'],\n` +
