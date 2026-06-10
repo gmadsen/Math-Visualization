@@ -304,7 +304,7 @@ $$\int_0^1 |f(x)|^2\,dx \;=\; \sum_{n\in\mathbb{Z}} |\hat f(n)|^2.$$
   <p>The partial sums above rebuild a fixed function. Now invert it: draw the function, watch its spectrum. Sixty-four samples on the circle, the coefficients $c_k = \frac1M\sum_j f_j e^{-2\pi i jk/M}$ — the Riemann-sum discretization of §1’s $\hat f(k)$ — recomputed on every stroke, and $|c_k|$ shown as bars. Only the magnitudes appear: slide your spike sideways and the bars stay put — <em>phase</em> carries position. A near-sine is one bar. A sharp spike is the opposite — <em>every</em> bar lights up, because a feature narrow in $x$ must be wide in $k$. This is the exact dual of the wavelets page’s scalogram experiment: there the spike stayed local; here the global basis makes it pay everywhere. The readout runs the matching 95%-energy count (64 wavelet coefficients there, 32 one-sided harmonics here), so the two pages disagree about the same drawing — and remember the strip is a circle — a drawing with $f(0)\neq f(1)$ hides a cliff at the seam, and the spectrum will say so. That disagreement <em>is</em> <a href="./wavelets.html#vs-fourier" data-auto-inline-link="1" data-concept-id="w-wavelet-vs-fourier" data-blurb="Each wavelet $\psi_{j,k}$ occupies a Heisenberg box of area $\Delta x\,\Delta\xi\gtrsim 1$ centred at $(2^{-j}k,\,2^j\xi_0)$: high-frequency atoms are short and many, low-frequency atoms are long and few. This dyadic tiling tracks transients sharply where windowed Fourier (Gabor) — using a fixed-width window for every frequency — cannot.">time–frequency localisation</a>.</p>
 
 <div class="widget" id="w-fourier-sketch">
-  <div class="hd"><div class="ttl">Draw the function — the spectrum responds</div><div class="hint">sketch in the upper strip (one period on the circle); bars below are $|c_k|$ for $k \le 21$ (the readout counts all 32). Draw a sharp spike and watch every harmonic light up — narrow in $x$ means wide in $k$</div></div>
+  <div class="hd"><div class="ttl">Draw the function — the spectrum responds</div><div class="hint">sketch in the upper strip (one period on the circle); bars below are $|c_k|$ for all 32 harmonics. Draw a sharp spike and watch every one light up — narrow in $x$ means wide in $k$</div></div>
   <svg id="fourier-sketch-svg" viewBox="0 0 640 420" width="640" height="420" style="touch-action:none;cursor:crosshair"><title>A sketchable periodic function whose Fourier coefficient magnitudes are displayed live as a bar spectrum, demonstrating that localized features spread across all frequencies</title></svg>
   <div class="row">
     <button id="w-fourier-sketch-reset" type="button">↺ Reset</button>
@@ -328,10 +328,10 @@ $$\int_0^1 |f(x)|^2\,dx \;=\; \sum_{n\in\mathbb{Z}} |\hat f(n)|^2.$$
   // ---- author draw(ys) (clears+fills G, writes out) ----
 
   // DFT of the 64 samples read as one period on the circle:
-  // c_k = (1/M) sum_j f_j e^{-2 pi i jk/M}. Bars show |c_k| for k = 1..21
+  // c_k = (1/M) sum_j f_j e^{-2 pi i jk/M}. Bars show |c_k| for k = 1..32
   // (DC drawn separately); the readout runs the same 95%-energy sparsity
   // count as the wavelets page's scalogram — the dual experiment.
-  const KSHOW=21;
+  const KSHOW=32; // all non-DC bins — energy can never hide above the display
   function dft(ys){
     const mags=[];
     for(var k=0;k<=M/2;k++){
@@ -356,7 +356,7 @@ $$\int_0^1 |f(x)|^2\,dx \;=\; \sum_{n\in\mathbb{Z}} |\hat f(n)|^2.$$
       const h=BH*(mags[k]/maxM);
       G.appendChild(SVG('rect',{x:(bx0+(k-1)*bw+2).toFixed(1),y:(base-h).toFixed(1),width:(bw-4).toFixed(1),height:Math.max(h,0.5).toFixed(1),
         fill:'var(--violet)','fill-opacity':0.8,'pointer-events':'none'}));
-      if(k%5===0||k===1){
+      if(k%8===0||k===1){
         var kl=SVG('text',{x:(bx0+(k-1)*bw+bw/2).toFixed(1),y:base+13,'font-size':9,fill:'var(--mute)','text-anchor':'middle','pointer-events':'none'});
         kl.textContent='k='+k; G.appendChild(kl);
       }
