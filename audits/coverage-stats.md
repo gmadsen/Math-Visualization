@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1687** (registry-driven: 1687, inline: 0)
+- Widgets: **1688** (registry-driven: 1688, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **71** of **211** with widgets (34%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **72** of **211** with widgets (34%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -24,8 +24,8 @@ page has wired one in yet.
 | `parametric-plot` | parametric-plot | slider | 2d | 131 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, ergodic-theory, expanders, game-theory, graph-theory-fundamentals, information-geometry, integrable-systems, kernel-methods-and-rkhs, markov-decision-processes, optimal-transport, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, quantum-information, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 100 | abelian-varieties, algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, cluster-algebras, conformal-and-cr-geometry, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, gauge-theory, geometric-invariant-theory, homological, kalman-filtering-and-state-estimation, mapping-class-groups, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, positive-characteristic-ag, positivity-and-ample-line-bundles, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, string-theory, topological-data-analysis, toric-varieties, tropical-geometry, wavelets |
 | `draggable-points-2d` | draggable-points-2d | drag | 2d | 12 | complex-analysis, convex-geometry, information-geometry, information-theory, kalman-filtering-and-state-estimation, kernel-methods-and-rkhs, mathematical-statistics, numerical-analysis, optimal-transport, projective-plane, spectral-methods-data, topological-data-analysis |
+| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 8 | causal-inference, expanders, extremal-combinatorics, graph-theory-fundamentals, matroid-theory, probabilistic-graphical-models, spectral-graph-theory |
 | `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 8 | deep-learning-theory, diffusion-and-score-based-models, dynamical-systems, mathematical-biology |
-| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 7 | causal-inference, expanders, extremal-combinatorics, graph-theory-fundamentals, probabilistic-graphical-models, spectral-graph-theory |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
@@ -822,10 +822,10 @@ page has wired one in yet.
 ### Combinatorics & graph theory
 
 - Topics: **15**, concepts: **93**
-- Widgets: **100** (registry-driven: 100, inline: 0)
-  - by family: parametric-plot: 34, button-stepper: 7, verbatim: 5, graph-edit-2d: 5, slider-readout: 2, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
-  - by dimension: 2d: 100
-  - by gesture: slider: 51, click: 36, step: 8, graph-edit: 5
+- Widgets: **101** (registry-driven: 101, inline: 0)
+  - by family: parametric-plot: 34, button-stepper: 7, graph-edit-2d: 6, verbatim: 5, slider-readout: 2, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
+  - by dimension: 2d: 101
+  - by gesture: slider: 51, click: 36, step: 8, graph-edit: 6
 - Quizzes: **294** (v1: 279, hard: 15, expert: 0)
   - by type: mcq: 196, numeric: 71, multi-select: 23, matching: 2, spot-the-error: 1, ordering: 1
 
@@ -904,7 +904,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `group-cohomology` | Algebra & homological | 7 | 7 | pick: 7 | click: 7 |
 | `heegaard-floer` | Geometry & topology | 7 | 7 | pick: 4, scrub: 2, other: 1 | select: 2, slider: 2, click: 2, interact: 1 |
 | `mathematical-finance` | Control theory & optimization | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
-| `matroid-theory` | Combinatorics & graph theory | 7 | 7 | scrub: 4, pick: 3 | click: 3, slider: 3, step: 1 |
 | `optimal-control-and-dynamic-programming` | Control theory & optimization | 7 | 7 | scrub: 7 | slider: 6, scrub: 1 |
 | `positive-characteristic-ag` | Algebraic geometry | 7 | 9 | pick: 6, scrub: 2, other: 1 | select: 4, click: 2, slider: 2, interact: 1 |
 | `probabilistic-method` | Combinatorics & graph theory | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
@@ -1223,7 +1222,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `deformation-theory` | Algebraic geometry | 6 | 7 | 0 | 4 | 0 | · | click: 3, scrub: 2, slide: 1, interact: 1 | 24 |
 | `graph-theory-fundamentals` | Combinatorics & graph theory | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, graph-edit: 1 | 18 |
 | `spectral-graph-theory` | Combinatorics & graph theory | 7 | 9 | 0 | 4 | 0 | ✓ | click: 4, graph-edit: 2, step: 2, slider: 1 | 21 |
-| `matroid-theory` | Combinatorics & graph theory | 7 | 7 | 0 | 3 | 0 | · | click: 3, slider: 3, step: 1 | 21 |
+| `matroid-theory` | Combinatorics & graph theory | 7 | 8 | 0 | 4 | 0 | ✓ | click: 3, slider: 3, graph-edit: 1, step: 1 | 21 |
 | `probabilistic-method` | Combinatorics & graph theory | 7 | 7 | 0 | 2 | 0 | · | slider: 5, click: 2 | 21 |
 | `extremal-combinatorics` | Combinatorics & graph theory | 6 | 7 | 0 | 4 | 0 | ✓ | slider: 3, click: 2, graph-edit: 1, step: 1 | 18 |
 | `simplicial-complexes-combinatorial` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | click: 4, slider: 2 | 18 |
