@@ -1161,8 +1161,8 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
     for(let k=0;k<N;k++){
       const x0 = k/N, x1 = (k+1)/N, val = proj[k];
       svg.appendChild(SVG("rect",{
-        x: xs(x0), y: ys(val),
-        width: xs(x1)-xs(x0), height: ys(0)-ys(val),
+        x: xs(x0), y: Math.min(ys(val), ys(0)),
+        width: xs(x1)-xs(x0), height: Math.abs(ys(0)-ys(val)),
         fill:"var(--blue)", "fill-opacity":"0.18",
         stroke:"var(--blue)","stroke-width":1.5
       }));
@@ -1240,7 +1240,7 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
     }));
     // right half -amp
     svg.appendChild(SVG("rect",{
-      x:xs(mid), y:ys(0), width:xs(b)-xs(mid), height:ys(0)-ys(-amp),
+      x:xs(mid), y:ys(0), width:xs(b)-xs(mid), height:ys(-amp)-ys(0),
       fill:"var(--pink)","fill-opacity":"0.25",stroke:"var(--pink)","stroke-width":1.5
     }));
     // compute coefficient

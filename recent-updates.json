@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-10T15:24:37.684Z",
+  "generated": "2026-06-10T15:46:05.289Z",
   "entries": [
     {
       "slug": "combinatorial-optimization",
@@ -103,7 +103,7 @@
       "color": "g",
       "tag": "",
       "date": "2026-06-10",
-      "message": "feat(simplicial-complexes): glue a complex — the closure axiom under your cursor"
+      "message": "feat(simplicial-complexes): glue a complex — the closure axiom under your cursor (#510)"
     },
     {
       "slug": "stochastic-calculus",
