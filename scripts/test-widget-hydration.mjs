@@ -25,72 +25,25 @@
 
 import { test, describe, before } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { listRegisteredSlugs, loadInstances } from './lib/widget-instances.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
 const repoRoot = resolve(scriptsDir, '..');
 const widgetsDir = join(repoRoot, 'widgets');
-const contentDir = join(repoRoot, 'content');
 const jsDir = join(repoRoot, 'js');
 
 const { JSDOM, VirtualConsole } = await import(
   pathToFileURL(join(scriptsDir, 'node_modules', 'jsdom', 'lib', 'api.js')).href
 );
 
-function listSlugs() {
-  return readdirSync(widgetsDir, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => d.name)
-    .filter((name) => existsSync(join(widgetsDir, name, 'schema.json')))
-    .sort();
-}
-
 function libPathFor(slug) {
   const direct = join(jsDir, `widget-${slug}.js`);
   if (existsSync(direct)) return direct;
   return null;
-}
-
-function walkBlocks(node, visit) {
-  if (!node || typeof node !== 'object') return;
-  if (Array.isArray(node)) {
-    for (const x of node) walkBlocks(x, visit);
-    return;
-  }
-  if (node.type === 'widget') visit(node);
-  for (const v of Object.values(node)) walkBlocks(v, visit);
-}
-
-function loadInstances(slug) {
-  const out = [];
-  if (existsSync(contentDir)) {
-    for (const f of readdirSync(contentDir).sort()) {
-      if (!f.endsWith('.json')) continue;
-      const topic = f.replace(/\.json$/, '');
-      const data = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
-      walkBlocks(data, (b) => {
-        if (b.slug === slug) out.push({ topic, params: b.params || {} });
-      });
-    }
-  }
-  const single = join(widgetsDir, slug, 'example.json');
-  if (existsSync(single)) {
-    out.push({ topic: 'fixture:example.json', params: JSON.parse(readFileSync(single, 'utf8')) });
-  }
-  const examplesDir = join(widgetsDir, slug, 'examples');
-  if (existsSync(examplesDir)) {
-    for (const f of readdirSync(examplesDir).sort()) {
-      if (!f.endsWith('.json')) continue;
-      out.push({
-        topic: `fixture:examples/${f}`,
-        params: JSON.parse(readFileSync(join(examplesDir, f), 'utf8')),
-      });
-    }
-  }
-  return out;
 }
 
 function makeDom(libSrc) {
@@ -129,7 +82,7 @@ function makeDom(libSrc) {
   return { dom, errors };
 }
 
-const slugs = listSlugs();
+const slugs = listRegisteredSlugs();
 
 for (const slug of slugs) {
   const libPath = libPathFor(slug);
