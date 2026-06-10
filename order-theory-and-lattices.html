@@ -490,6 +490,157 @@ function drawNode(svg, x, y, label, opts={}){
   render();
 })();
 </script>
+
+  <p>The widget above walks a fixed lattice. Now build the poset yourself — <em>height is the order</em>: an edge makes the higher element cover the lower one, and the partial order is the transitive closure. On every edit the widget checks two things. First, <strong>Hasse honesty</strong>: an edge already implied by a chain is a transitive shortcut (dashed pink) — Hasse diagrams draw only covering relations. Second, the <strong>lattice property</strong>: every pair must have a meet and a join. When it fails, the widget names the offending pair (yellow rings) and its incomparable bound set (pink) — the obstruction itself, not just a verdict.</p>
+
+<div class="widget" id="w-hasse-build">
+  <div class="hd"><div class="ttl">Build the Hasse diagram — lattice or not?</div><div class="hint">click empty space to add an element (height = order: higher means greater), drag element&rarr;element to toggle a covering edge, click an element to delete it. Delete the top of the boot diamond: the two middle elements lose their join. Add a bottom-to-top shortcut: it gets flagged as non-Hasse</div></div>
+  <svg id="hasse-build-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable Hasse diagram that checks the lattice property (meets and joins for every pair) and flags transitive shortcut edges, with witnesses highlighted</title></svg>
+  <div class="row">
+    <button id="w-hasse-build-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="hasse-build-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#hasse-build-svg'), out=$('#hasse-build-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=16, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[320,70],[210,180],[430,180],[320,290]], E0=[[3,1],[3,2],[1,0],[2,0]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+
+  // Height is the order: HIGHER on screen = GREATER element (ties by id).
+  // Edges are read as covering relations; the partial order is the
+  // reflexive-transitive closure. The widget checks Hasse validity
+  // (no transitive shortcut edges) and whether the poset is a lattice
+  // (every pair has a meet and a join), naming witnesses when it fails.
+  const MAXN=10;
+  function draw(g){
+    while(G.firstChild) G.removeChild(G.firstChild);
+    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });
+    const ids=g.nodes.map(function(n){ return n.id; });
+    if(g.n===0){ out.innerHTML='click empty space to add an element'; return; }
+    if(g.n>MAXN){
+      g.edges.forEach(function(e){ const a=byId[e.u], b=byId[e.v];
+        G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'var(--line)','stroke-width':2,'pointer-events':'none'})); });
+      g.nodes.forEach(function(n){ plain(n); });
+      out.innerHTML='more than '+MAXN+' elements \u2014 remove some'; return;
+    }
+    // covers: [smaller, larger] with larger = smaller y (higher on screen)
+    const up={}; ids.forEach(function(i){ up[i]=[]; });
+    const covers=g.edges.map(function(e){
+      const a=byId[e.u], b=byId[e.v];
+      return (a.y>b.y || (a.y===b.y && e.u<e.v)) ? [e.u,e.v] : [e.v,e.u];
+    });
+    covers.forEach(function(c){ up[c[0]].push(c[1]); });
+    const leq={};
+    ids.forEach(function(a){
+      const s={}; s[a]=1; const st=[a];
+      while(st.length){ const v=st.pop(); up[v].forEach(function(w){ if(!s[w]){ s[w]=1; st.push(w); } }); }
+      leq[a]=s;
+    });
+    function le(a,b){ return !!leq[a][b]; }
+    const redundant={};
+    covers.forEach(function(c,i){
+      if(ids.some(function(x){ return x!==c[0]&&x!==c[1]&&le(c[0],x)&&le(x,c[1]); })){
+        const e=g.edges[i]; redundant[Math.min(e.u,e.v)+'-'+Math.max(e.u,e.v)]=1;
+      }
+    });
+    function bound(a,b,downward){
+      const B=ids.filter(function(c){ return downward ? (le(c,a)&&le(c,b)) : (le(a,c)&&le(b,c)); });
+      const ext=B.filter(function(c){ return !B.some(function(d2){ return d2!==c&&(downward?le(c,d2):le(d2,c)); }); });
+      return {ok: B.length>0 && ext.length===1, wit: ext, got: ext.length===1?ext[0]:null};
+    }
+    var fail=null;
+    outer:
+    for(var i=0;i<ids.length;i++){
+      for(var j=i+1;j<ids.length;j++){
+        const m=bound(ids[i],ids[j],true);
+        if(!m.ok){ fail={pair:[ids[i],ids[j]], wit:m.wit, kind:'meet'}; break outer; }
+        const J=bound(ids[i],ids[j],false);
+        if(!J.ok){ fail={pair:[ids[i],ids[j]], wit:J.wit, kind:'join'}; break outer; }
+      }
+    }
+    // paint
+    g.edges.forEach(function(e){
+      const a=byId[e.u], b=byId[e.v], k=Math.min(e.u,e.v)+'-'+Math.max(e.u,e.v);
+      const at={x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:redundant[k]?'var(--pink)':'var(--line)','stroke-width':redundant[k]?3:2,'pointer-events':'none'};
+      if(redundant[k]) at['stroke-dasharray']='5 4';
+      G.appendChild(SVG('line',at));
+    });
+    const pairSet={}, witSet={};
+    if(fail){ fail.pair.forEach(function(v){ pairSet[v]=1; }); fail.wit.forEach(function(v){ witSet[v]=1; }); }
+    function plain(n){
+      G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:g.R,fill:witSet[n.id]?'var(--pink)':'var(--cyan)','fill-opacity':0.85,
+        stroke:pairSet[n.id]?'var(--yellow)':'var(--bg)','stroke-width':pairSet[n.id]?3.5:2}));
+      const t=SVG('text',{x:n.x,y:n.y+4,'font-size':11,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});
+      t.textContent=String(n.id); G.appendChild(t);
+    }
+    g.nodes.forEach(plain);
+    const nRed=Object.keys(redundant).length;
+    var msg='';
+    if(nRed){ msg+='<span class="bad">'+nRed+' dashed edge'+(nRed===1?' is a':'s are')+' transitive shortcut'+(nRed===1?'':'s')+' \u2014 a Hasse diagram draws only covering relations</span> \u00b7 '; }
+    if(!fail){
+      msg+='<span class="ok">every pair has a meet and a join \u2014 this poset is a lattice</span>';
+      const bot=ids.filter(function(a){ return ids.every(function(b){ return le(a,b); }); });
+      const top=ids.filter(function(a){ return ids.every(function(b){ return le(b,a); }); });
+      if(bot.length===1&&top.length===1) msg+=' \u00b7 bounded: \u22a5 = '+bot[0]+', \u22a4 = '+top[0];
+    } else {
+      msg+='<span class="bad">not a lattice:</span> '+fail.pair[0]+' and '+fail.pair[1]+' (yellow rings) have no '+fail.kind;
+      if(fail.wit.length>1) msg+=' \u2014 their '+(fail.kind==='meet'?'maximal common lower':'minimal common upper')+' bounds {'+fail.wit.join(', ')+'} (pink) are incomparable';
+      else msg+=' \u2014 they have no common '+(fail.kind==='meet'?'lower':'upper')+' bound at all';
+    }
+    out.innerHTML=msg;
+  }
+
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-hasse-build-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script>
+
 <div class="quiz" data-concept="ot-lattices"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
