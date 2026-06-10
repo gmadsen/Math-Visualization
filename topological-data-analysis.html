@@ -689,7 +689,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The map $X \mapsto \mathrm{Dgm}_k(X)$ from input filtration to persistence diagram is the central pipeline of TDA. The next two sections explain why it is well-behaved: it is stable under input perturbation (§4) and uniquely encoded as a barcode (§5).</p>
 
 
-  <p>The scrubber above sweeps $\varepsilon$ through a <em>fixed</em> cloud. Now invert the experiment: hold the whole filtration in view at once — the barcode — and move the <em>data</em>. Ten points, every pairwise distance feeding the Vietoris–Rips complex, dims $0$ and $1$ computed live by boundary-matrix reduction. Two clumps show up as one long $H_0$ bar (the last merge). Drag the points into a ring and watch a long $H_1$ bar appear out of the noise — persistence is the gap between signal and sampling artifact.</p>
+  <p>Section 1’s scrubber swept $\varepsilon$ across a <em>fixed</em> cloud. Now invert the experiment: keep the whole filtration in view at once — the barcode — and move the <em>data</em>. Ten points, every pairwise distance feeding the Vietoris–Rips complex, dims $0$ and $1$ recomputed live by row-reducing the boundary matrix over $\mathbb{F}_2$ — exactly the bookkeeping of §2. Two clumps show up as one long $H_0$ bar (the last merge). Drag the points into a ring and watch a long $H_1$ bar appear out of the noise — persistence is the gap between signal and sampling artifact.</p>
 
 <div class="widget" id="w-tda-drag-cloud">
   <div class="hd"><div class="ttl">Drag the cloud — the barcode responds</div><div class="hint">drag the cyan points: two clumps &rarr; one long $H_0$ bar; arrange them in a ring &rarr; a long $H_1$ bar is born — bar length (persistence) separates topology from noise</div></div>
@@ -754,12 +754,16 @@ function drawNode(svg, x, y, label, opts={}){
     G.appendChild(SVG('rect',{x:BX0,y:BY0,width:BX1-BX0,height:BY1-BY0,fill:'none',stroke:'var(--line)','stroke-width':1,opacity:0.6,'pointer-events':'none'}));
     label((CX0+CX1)/2, CY0-8, 'the data (drag the points)', 'var(--mute)', 'middle');
     label((BX0+BX1)/2, BY0-8, 'the barcode \u03b5 \u2192', 'var(--mute)', 'middle');
+    for(var tv2=0; tv2<=400; tv2+=100){
+      G.appendChild(SVG('line',{x1:EPX(tv2),y1:BY1,x2:EPX(tv2),y2:BY1+4,stroke:'var(--mute)','stroke-width':1,'pointer-events':'none'}));
+      label(EPX(tv2), BY1+15, '\u03b5='+tv2, 'var(--mute)', 'middle');
+    }
     const P=pts.map(function(p){ return [p.x, p.y]; });
     const pairs=rips(P);
     // H0: finite bars sorted by length desc, plus the one essential class
     const h0=pairs.filter(function(p){return p.dim===0;}).sort(function(a,b2){return (b2.e-b2.b)-(a.e-a.b);});
     const h1=pairs.filter(function(p){return p.dim===1 && p.e-p.b>1;}).sort(function(a,b2){return (b2.e-b2.b)-(a.e-a.b);});
-    var y=BY0+26; label(BX0+4, y-9, 'H\u2080 (components)', 'var(--cyan)');
+    var y=BY0+26; label(BX0+4, y-9, 'H\u2080 (components) \u2014 the top bar never dies (one component survives forever)', 'var(--cyan)');
     bar(y, 0, 0, 'var(--cyan)', true); y+=14;             // the essential class: one component forever
     for(var i=0;i<h0.length;i++){ bar(y, h0[i].b, h0[i].e, 'var(--cyan)', false); y+=14; }
     y+=16; label(BX0+4, y-9, 'H\u2081 (loops)', 'var(--violet)');
@@ -771,7 +775,7 @@ function drawNode(svg, x, y, label, opts={}){
     if(h1.length){ var L=h1[0], pers=L.e-L.b;
       msg+=' \u00b7 longest H\u2081 bar: born '+L.b.toFixed(0)+', dies '+L.e.toFixed(0)+' (persistence '+pers.toFixed(0)+')';
       msg+=(pers>0.2*EMAX)?' \u00b7 <span class="ok">a genuine loop \u2014 the long bar is the circle\u2019s signature</span>'
-                          :' \u00b7 short bars are sampling noise, not topology';
+                          :' \u00b7 a short bar \u2014 at this scale a loop is indistinguishable from sampling noise';
     } else { msg+=' \u00b7 no 1-cycles in the filtration yet'; }
     out.innerHTML=msg;
   }
