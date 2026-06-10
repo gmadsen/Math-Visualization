@@ -1314,6 +1314,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "bloch-sphere-drag",
+    "family": "bloch-sphere-drag",
+    "dimension": "3d",
+    "gesture": "drag-state",
+    "role": "exploration",
+    "title": "bloch-sphere-drag widget params",
+    "description": "Drag a qubit state across the Bloch sphere: horizontal drag turns the azimuth φ, vertical drag the polar angle θ; the readout gives |ψ⟩ = cos(θ/2)|0⟩ + e^{iφ} sin(θ/2)|1⟩ and the Born probabilities. Gate buttons (X, Z, H) act on the state as sphere rotations, leaving a ghost at the previous position.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "The **drag-state** gesture: drag anywhere on a (fixed-view, orthographic) Bloch sphere to steer a qubit state — horizontal drag turns the azimuth $\\varphi$, vertical drag tilts the polar angle $\\theta$ — while the readout gives $|\\psi\\rangle = \\cos(\\theta/2)|0\\rangle + e^{i\\varphi}\\sin(\\theta/2)|1\\rangle$ and the Born probabilities. Gate buttons **X / Z / H** act on the state as sphere rotations ($\\pi$ about $x$, $z$, and $(x{+}z)/\\sqrt2$ respectively), leaving a violet ghost at the previous state. At the poles the readout notes that $\\varphi$ is pure gauge.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "branching-proof-scrubber",
     "family": "branching-proof-scrubber",
     "dimension": "2d",

@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1699** (registry-driven: 1699, inline: 0)
+- Widgets: **1700** (registry-driven: 1700, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **82** of **211** with widgets (39%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **83** of **211** with widgets (39%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -111,6 +111,7 @@ page has wired one in yet.
 | `bezout-higherdim` | bezout-higherdim | slider | 2d | 1 | bezout |
 | `bezout-statement` | bezout-statement | click | 2d | 1 | bezout |
 | `bifurcation-1d` | bifurcation-1d | dial | 2d | 1 | dynamical-systems |
+| `bloch-sphere-drag` | bloch-sphere-drag | drag-state | 3d | 1 | quantum-information |
 | `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 1 | galois |
 | `build-a-formula` | build-a-formula | compose-evaluate | 2d | 1 | first-order-logic-and-completeness |
 | `calabi-yau-canonical-degree` | calabi-yau-canonical-degree | slider | 2d | 1 | calabi-yau-manifolds |
@@ -833,10 +834,10 @@ page has wired one in yet.
 ### Mathematical physics
 
 - Topics: **13**, concepts: **81**
-- Widgets: **85** (registry-driven: 85, inline: 0)
-  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, xy-parameter-pad: 1, vector-field-flow-2d: 1, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 84, 3d: 1
-  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, two-param-scrub: 1, click-seed: 1, select: 1
+- Widgets: **86** (registry-driven: 86, inline: 0)
+  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, bloch-sphere-drag: 1, xy-parameter-pad: 1, vector-field-flow-2d: 1, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 84, 3d: 2
+  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, drag-state: 1, two-param-scrub: 1, click-seed: 1, select: 1
 - Quizzes: **244** (v1: 244, hard: 0, expert: 0)
   - by type: mcq: 164, numeric: 32, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
 
@@ -961,7 +962,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `quadratic-reciprocity` | Number theory | 6 | 9 | pick: 7, scrub: 2 | click: 7, slider: 2 |
 | `quantum-field-theory` | Mathematical physics | 6 | 6 | scrub: 4, pick: 2 | slider: 4, click: 2 |
 | `quantum-groups` | Algebra & homological | 6 | 6 | pick: 3, other: 2, scrub: 1 | inspect: 3, toggle: 2, slider: 1 |
-| `quantum-information` | Mathematical physics | 6 | 6 | scrub: 6 | slider: 6 |
 | `quaternions-octonions-and-division-algebras` | Algebra & homological | 6 | 6 | pick: 5, scrub: 1 | click: 4, input: 1, slider: 1 |
 | `ramsey-theory` | Combinatorics & graph theory | 6 | 7 | scrub: 6, other: 1 | slider: 6, edge-color: 1 |
 | `resolution-of-singularities` | Algebraic geometry | 6 | 6 | pick: 6 | inspect: 5, click: 1 |
@@ -1041,7 +1041,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `algebraic-combinatorics` | Combinatorics & graph theory | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
 | `polytopes-and-ehrhart` | Combinatorics & graph theory | 6 | 6 | 0 | 1 | 0 | ✓ | slider: 6 | 18 |
 | `game-theory` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, drag: 1 | 18 |
-| `quantum-information` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
+| `quantum-information` | Mathematical physics | 6 | 7 | 0 | 2 | 1 | ✓ | slider: 6, drag-state: 1 | 18 |
 | `integrable-systems` | Mathematical physics | 6 | 6 | 0 | 1 | 0 | · | slider: 6 | 18 |
 | `kernel-methods-and-rkhs` | Learning theory & data science | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, drag: 1 | 18 |
 | `reinforcement-learning` | Control theory & optimization | 6 | 7 | 0 | 2 | 0 | ✓ | slider: 6, edit-grid: 1 | 18 |
