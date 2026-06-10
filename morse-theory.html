@@ -411,10 +411,10 @@ with equality at $j=n$ (Euler–Poincaré: the alternating sum equals $\chi(M)$)
   <div class="readout" id="ineq-out"></div>
   <p class="small">Bar chart per index: $b_0=1$, $b_1=2g$, $b_2=1$ (Betti numbers of $\Sigma_g$), and minimal $c_k = b_k$ for the standard height function on the obvious embedding. Equality everywhere — the standard height function is <em>perfect</em>. The Euler characteristic $\chi(\Sigma_g)=2-2g$ falls out as $1 - 2g + 1$.</p>
 </div>
-  <p>The counts above are read off one fixed example. Now draw the Morse function yourself. The strip below is a circle — left and right edges glued — and you sketch a height function $f\colon S^1 \to \mathbb{R}$ on it. The widget marks every local minimum (green) and maximum (pink) of the cyclic function and reports the count. Try to draw a function with more maxima than minima: you can’t. On a circle ups and downs must alternate, so $\#\mathrm{min} - \#\mathrm{max} = \chi(S^1) = 0$ — the Morse <em>equality</em> $\sum_i (-1)^i c_i = \chi$ enforced by your own hand. The weak inequality $c_0 \ge b_0 = 1$ rides along: you can’t draw a function with no minimum either.</p>
+  <p>The counts above are read off a fixed family. Now draw the Morse function yourself. The strip below is a circle — left and right edges glued — and you sketch a height function $f\colon S^1 \to \mathbb{R}$ on it. The widget marks every local minimum (green) and maximum (pink) of the cyclic function and reports the count. Try to draw a function with more maxima than minima: you can’t. On a circle ups and downs must alternate, so $\#\mathrm{min} - \#\mathrm{max} = \chi(S^1) = 0$ — the Morse <em>equality</em> $\sum_i (-1)^i c_i = \chi$ enforced by your own hand. The weak inequalities ride along: $c_0 \ge b_0 = 1$ and $c_1 \ge b_1 = 1$ — no minimum-free and no maximum-free functions exist. (The sketch is piecewise-linear; read each direction-change as the critical point of the smooth Morse function it perturbs to, and a plateau counts once.)</p>
 
 <div class="widget" id="w-morse-sketch">
-  <div class="hd"><div class="ttl">Draw the height function — χ(S¹) = 0 is not optional</div><div class="hint">drag across the strip to sketch $f$ on the circle (the edges are glued); green = minima, pink = maxima. Add wiggles, carve plateaus, build cliffs at the seam — #min &minus; #max stays 0</div></div>
+  <div class="hd"><div class="ttl">Draw the height function — χ(S¹) = 0 is not optional</div><div class="hint">drag across the strip to sketch $f$ on the circle (the edges are glued — a cliff at the seam is just a steep stretch of the cyclic function); green = minima, pink = maxima. Add wiggles, carve plateaus, build cliffs — #min &minus; #max stays 0</div></div>
   <svg id="morse-sketch-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:crosshair"><title>A sketchable height function on the circle whose local minima and maxima are counted live, demonstrating that their difference is always the Euler characteristic zero</title></svg>
   <div class="row">
     <button id="w-morse-sketch-reset" type="button">↺ Reset</button>
@@ -456,10 +456,10 @@ with equality at $j=n$ (Euler–Poincaré: the alternating sum equals $\chi(M)$)
     // collapse plateaus into runs (cyclic)
     var runs=[]; // {start, len, v}
     for(var i2=0;i2<M;i2++){
-      if(runs.length&&Math.abs(ys[i2]-runs[runs.length-1].v)<1e-9){ runs[runs.length-1].len++; }
+      if(runs.length&&Math.abs(ys[i2]-runs[runs.length-1].v)<0.003){ runs[runs.length-1].len++; } // half-pixel tolerance: hand-drawn plateaus jitter
       else runs.push({start:i2,len:1,v:ys[i2]});
     }
-    if(runs.length>1&&Math.abs(runs[0].v-runs[runs.length-1].v)<1e-9){
+    if(runs.length>1&&Math.abs(runs[0].v-runs[runs.length-1].v)<0.003){
       runs[0].start=runs[runs.length-1].start; runs[0].len+=runs[runs.length-1].len; runs.pop();
     }
     var R2=runs.length;
@@ -480,7 +480,7 @@ with equality at $j=n$ (Euler–Poincaré: the alternating sum equals $\chi(M)$)
     var msg='#minima (green) = <b>'+k+'</b> \u00b7 #maxima (pink) = <b>'+K+'</b> \u00b7 #min \u2212 #max = <b>'+(k-K)+'</b>';
     if(k===K&&k>=1){
       msg+=' = \u03c7(S\u00b9) \u2014 <span class="ok">every wiggle you draw creates a min\u2013max PAIR; the difference is topological, not yours to choose</span>';
-      msg+=' \u00b7 Morse inequality: '+k+' \u2265 b\u2080 = 1 \u2713';
+      msg+=' \u00b7 Morse inequalities: c\u2080 = '+k+' \u2265 b\u2080 = 1 and c\u2081 = '+K+' \u2265 b\u2081 = 1 \u2713';
     } else if(k!==K){
       // unreachable for a cyclic sequence (ups and downs must alternate) — defensive only
       msg+=' \u2014 unexpected state; hit Reset';
