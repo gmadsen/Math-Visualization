@@ -192,6 +192,136 @@
           "html": "\n\n<p>The map $X \\mapsto \\mathrm{Dgm}_k(X)$ from input filtration to persistence diagram is the central pipeline of TDA. The next two sections explain why it is well-behaved: it is stable under input perturbation (§4) and uniquely encoded as a barcode (§5).</p>\n\n"
         },
         {
+          "type": "raw",
+          "html": "\n  <p>Section 1’s scrubber swept $\\varepsilon$ across a <em>fixed</em> cloud. Now invert the experiment: keep the whole filtration in view at once — the barcode — and move the <em>data</em>. Ten points, every pairwise distance feeding the Vietoris–Rips complex, dims $0$ and $1$ recomputed live by row-reducing the boundary matrix over $\\mathbb{F}_2$ — exactly the bookkeeping of §2. Two clumps show up as one long $H_0$ bar (the last merge). Drag the points into a ring and watch a long $H_1$ bar appear out of the noise — persistence is the gap between signal and sampling artifact.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "draggable-points-2d",
+          "params": {
+            "widgetId": "w-tda-drag-cloud",
+            "svgId": "tda-drag-cloud-svg",
+            "outputId": "tda-drag-cloud-out",
+            "title": "Drag the cloud — the barcode responds",
+            "hint": "drag the cyan points: two clumps &rarr; one long $H_0$ bar; arrange them in a ring &rarr; a long $H_1$ bar is born — bar length (persistence) separates topology from noise",
+            "svgTitle": "Ten draggable points whose Vietoris–Rips persistence barcode (H0 and H1) recomputes live as the points move",
+            "viewBox": "0 0 640 380",
+            "svgWidth": 640,
+            "svgHeight": 380,
+            "points": [
+              {
+                "id": "pt0",
+                "x": 78,
+                "y": 105,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt1",
+                "x": 112,
+                "y": 88,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt2",
+                "x": 95,
+                "y": 142,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt3",
+                "x": 130,
+                "y": 120,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt4",
+                "x": 70,
+                "y": 150,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt5",
+                "x": 205,
+                "y": 245,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt6",
+                "x": 240,
+                "y": 262,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt7",
+                "x": 222,
+                "y": 295,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt8",
+                "x": 195,
+                "y": 280,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              },
+              {
+                "id": "pt9",
+                "x": 252,
+                "y": 230,
+                "color": "var(--cyan)",
+                "minX": 28,
+                "maxX": 292,
+                "minY": 38,
+                "maxY": 342
+              }
+            ],
+            "bodyScript": "\n  // cloud panel (left) and barcode panel (right)\n  const CX0=20, CX1=300, CY0=30, CY1=350;\n  const BX0=340, BX1=620, BY0=30, BY1=350;\n  const EMAX=Math.hypot(CX1-CX0, CY1-CY0);   // largest possible pairwise distance\n  const EPX = v => BX0 + (v/EMAX)*(BX1-BX0);\n  // ---- Vietoris-Rips persistence, dims 0/1, simplices up to dim 2, Z/2 reduction ----\n  function rips(P){\n    const n=P.length, dd=function(i,j){ return Math.hypot(P[i][0]-P[j][0], P[i][1]-P[j][1]); };\n    const simp=[];\n    for(var i=0;i<n;i++) simp.push({d:0,v:0,vs:[i]});\n    for(var a=0;a<n;a++)for(var b=a+1;b<n;b++) simp.push({d:1,v:dd(a,b),vs:[a,b]});\n    for(var p=0;p<n;p++)for(var q=p+1;q<n;q++)for(var r=q+1;r<n;r++)\n      simp.push({d:2,v:Math.max(dd(p,q),dd(p,r),dd(q,r)),vs:[p,q,r]});\n    simp.sort(function(s,t){ return s.v-t.v || s.d-t.d; });\n    const idx={}; simp.forEach(function(s,i2){ idx[s.vs.join(',')]=i2; });\n    function bdry(s){ if(s.d===0) return [];\n      const f=[]; for(var r2=0;r2<s.vs.length;r2++){ f.push(idx[s.vs.filter(function(_,q2){return q2!==r2;}).join(',')]); }\n      return f.sort(function(x,y){return x-y;}); }\n    const low={}, pairs=[];\n    for(var j=0;j<simp.length;j++){\n      var col=bdry(simp[j]);\n      while(col.length){\n        var l=col[col.length-1];\n        if(!(l in low)) break;\n        var oth=low[l], mg=[], x2=0, y2=0;\n        while(x2<col.length||y2<oth.length){\n          if(x2<col.length&&(y2>=oth.length||col[x2]<oth[y2])) mg.push(col[x2++]);\n          else if(y2<oth.length&&(x2>=col.length||oth[y2]<col[x2])) mg.push(oth[y2++]);\n          else {x2++;y2++;}\n        }\n        col=mg;\n      }\n      if(col.length){ var l2=col[col.length-1]; low[l2]=col;\n        pairs.push({dim:simp[l2].d, b:simp[l2].v, e:simp[j].v}); }\n    }\n    return pairs;\n  }\n  function bar(y,b,e,color,inf){\n    G.appendChild(SVG('line',{x1:EPX(b),y1:y,x2:inf?BX1:EPX(e),y2:y,stroke:color,'stroke-width':5,'stroke-linecap':'round',opacity:0.9,'pointer-events':'none'}));\n    if(inf){ G.appendChild(SVG('path',{d:'M'+(BX1-7)+' '+(y-4)+' L'+BX1+' '+y+' L'+(BX1-7)+' '+(y+4),fill:'none',stroke:color,'stroke-width':1.6,'pointer-events':'none'})); }\n  }\n  function label(x,y,txt,color,anchor){\n    var t=SVG('text',{x:x,y:y,'font-size':11,fill:color||'var(--mute)','text-anchor':anchor||'start','pointer-events':'none'});\n    t.textContent=txt; G.appendChild(t); return t;\n  }\n  function draw(){\n    G.innerHTML='';\n    G.appendChild(SVG('rect',{x:CX0,y:CY0,width:CX1-CX0,height:CY1-CY0,fill:'none',stroke:'var(--line)','stroke-width':1,opacity:0.6,'pointer-events':'none'}));\n    G.appendChild(SVG('rect',{x:BX0,y:BY0,width:BX1-BX0,height:BY1-BY0,fill:'none',stroke:'var(--line)','stroke-width':1,opacity:0.6,'pointer-events':'none'}));\n    label((CX0+CX1)/2, CY0-8, 'the data (drag the points)', 'var(--mute)', 'middle');\n    label((BX0+BX1)/2, BY0-8, 'the barcode \\u03b5 \\u2192', 'var(--mute)', 'middle');\n    for(var tv2=0; tv2<=400; tv2+=100){\n      G.appendChild(SVG('line',{x1:EPX(tv2),y1:BY1,x2:EPX(tv2),y2:BY1+4,stroke:'var(--mute)','stroke-width':1,'pointer-events':'none'}));\n      label(EPX(tv2), BY1+15, '\\u03b5='+tv2, 'var(--mute)', 'middle');\n    }\n    const P=pts.map(function(p){ return [p.x, p.y]; });\n    const pairs=rips(P);\n    // H0: finite bars sorted by length desc, plus the one essential class\n    const h0=pairs.filter(function(p){return p.dim===0;}).sort(function(a,b2){return (b2.e-b2.b)-(a.e-a.b);});\n    const h1=pairs.filter(function(p){return p.dim===1 && p.e-p.b>1;}).sort(function(a,b2){return (b2.e-b2.b)-(a.e-a.b);});\n    var y=BY0+26; label(BX0+4, y-9, 'H\\u2080 (components) \\u2014 the top bar never dies (one component survives forever)', 'var(--cyan)');\n    bar(y, 0, 0, 'var(--cyan)', true); y+=14;             // the essential class: one component forever\n    for(var i=0;i<h0.length;i++){ bar(y, h0[i].b, h0[i].e, 'var(--cyan)', false); y+=14; }\n    y+=16; label(BX0+4, y-9, 'H\\u2081 (loops)', 'var(--violet)');\n    if(h1.length===0){ label(BX0+10, y+4, 'none yet', 'var(--mute)'); }\n    for(var k=0;k<Math.min(h1.length,8);k++){ bar(y, h1[k].b, h1[k].e, 'var(--violet)', false); y+=14; }\n    // readout: cluster merge + dominant loop\n    var merge=h0.length?h0[0].e:0;\n    var msg='last two clusters merge at \\u03b5 = <b>'+merge.toFixed(0)+'</b>';\n    if(h1.length){ var L=h1[0], pers=L.e-L.b;\n      msg+=' \\u00b7 longest H\\u2081 bar: born '+L.b.toFixed(0)+', dies '+L.e.toFixed(0)+' (persistence '+pers.toFixed(0)+')';\n      msg+=(pers>0.2*EMAX)?' \\u00b7 <span class=\"ok\">a genuine loop \\u2014 the long bar is the circle\\u2019s signature</span>'\n                          :' \\u00b7 a short bar \\u2014 at this scale a loop is indistinguishable from sampling noise';\n    } else { msg+=' \\u00b7 no 1-cycles in the filtration yet'; }\n    out.innerHTML=msg;\n  }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-tda-drag-cloud"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
           "type": "quiz",
           "concept": "persistent-homology",
           "html": "<div class=\"quiz\" data-concept=\"persistent-homology\"></div>"
