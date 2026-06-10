@@ -1129,6 +1129,117 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
 
 <aside class="note">The diagonal of $Q$ in this widget is structured as $q\cdot\bigl(\Delta t^3/3,\Delta t^3/3,\Delta t,\Delta t\bigr)$ with off-diagonal $q\Delta t^2/2$ couplings — the standard "noise on acceleration, propagated through the kinematics" choice for a CV model. That structure is why the velocity components stay correlated with positions through prediction.</aside>
 
+
+  <p>The widget above changes the <em>model</em> ($Q$, $R$) while the data stays put. Now hold the model fixed and drag the <em>data</em>. Eight position observations feed the same CV filter (per-axis $[p,v]$ state, the $Q$ structure from the note above, $q=0.6$, $\sigma_r = 12$ px). Two estimates are drawn: the <strong>causal filter</strong> $p(x_t \mid z_0,\dots,z_t)$, which can only react <em>from the dragged step onward</em> and only by the gain fraction, and the <strong>Rauch–Tung–Striebel smoother</strong> $p(x_t \mid z_0,\dots,z_T)$ — the same posterior conditioned on the <em>whole</em> record, which re-explains both sides of a surprise in hindsight. Yank one observation off the track and watch the two disagree about the past.</p>
+
+<div class="widget" id="w-kf-drag-obs">
+  <div class="hd"><div class="ttl">Drag the observations — filter vs smoother</div><div class="hint">drag any $z_t$: the yellow causal filter bends only from $t$ onward (and only by the gain $K$); the violet RTS smoother bends on <em>both</em> sides — hindsight beats causality</div></div>
+  <svg id="kf-drag-obs-svg" viewBox="0 0 640 360" width="640" height="360"><title>Eight draggable observations of a 2D track with the causal Kalman filter estimate and the RTS smoothed estimate recomputed live</title></svg>
+  <div class="readout" id="kf-drag-obs-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#kf-drag-obs-svg'), out=$('#kf-drag-obs-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const pts=[{"id":"z0","x":70,"y":246,"color":"var(--cyan)","label":"t=0","minX":30,"maxX":610,"minY":40,"maxY":320},{"id":"z1","x":138,"y":216,"color":"var(--cyan)","label":"t=1","minX":30,"maxX":610,"minY":40,"maxY":320},{"id":"z2","x":206,"y":218,"color":"var(--cyan)","label":"t=2","minX":30,"maxX":610,"minY":40,"maxY":320},{"id":"z3","x":274,"y":199,"color":"var(--cyan)","label":"t=3","minX":30,"maxX":610,"minY":40,"maxY":320},{"id":"z4","x":342,"y":214,"color":"var(--cyan)","label":"t=4","minX":30,"maxX":610,"minY":40,"maxY":320},{"id":"z5","x":410,"y":208,"color":"var(--cyan)","label":"t=5","minX":30,"maxX":610,"minY":40,"maxY":320},{"id":"z6","x":478,"y":232,"color":"var(--cyan)","label":"t=6","minX":30,"maxX":610,"minY":40,"maxY":320},{"id":"z7","x":546,"y":232,"color":"var(--cyan)","label":"t=7","minX":30,"maxX":610,"minY":40,"maxY":320}];
+  pts.byId={}; for(const p of pts) pts.byId[p.id]=p;
+  // ---- author draw() (reads pts, clears+fills G, writes out) ----
+
+  // per-axis constant-velocity Kalman filter + RTS smoother, state [p, v],
+  // dt = 1, Q = q*[[1/3,1/2],[1/2,1]] (the section's CV structure), H = [1,0]
+  const Qv=0.6, Rv=144; // q and R = (12 px)^2 — fixed; the DATA is what moves
+  function kfAxis(zs){
+    const n=zs.length;
+    // two-point initialization: velocity from the first step, var 2R
+    let x=[zs[0], zs[1]-zs[0]], P=[[Rv,0],[0,2*Rv]];
+    const xf=[], Pf=[], Pp=[], gains=[], innov=[];
+    for(var k=0;k<n;k++){
+      var xpred, Ppred;
+      if(k===0){ xpred=x; Ppred=P; }
+      else {
+        xpred=[x[0]+x[1], x[1]];
+        var a=P[0][0],b=P[0][1],c=P[1][0],d=P[1][1];
+        Ppred=[[a+b+c+d+Qv/3, b+d+Qv/2],[c+d+Qv/2, d+Qv]];
+      }
+      var S=Ppred[0][0]+Rv, K=[Ppred[0][0]/S, Ppred[1][0]/S];
+      var y=zs[k]-xpred[0];
+      x=[xpred[0]+K[0]*y, xpred[1]+K[1]*y];
+      P=[[(1-K[0])*Ppred[0][0], (1-K[0])*Ppred[0][1]],
+         [Ppred[1][0]-K[1]*Ppred[0][0], Ppred[1][1]-K[1]*Ppred[0][1]]];
+      Pp.push(Ppred); xf.push(x.slice()); Pf.push([P[0].slice(),P[1].slice()]);
+      gains.push(K[0]); innov.push(y);
+    }
+    const xs=new Array(n); xs[n-1]=xf[n-1].slice();
+    for(var k2=n-2;k2>=0;k2--){
+      var Pk=Pf[k2], P1=Pp[k2+1];
+      var PkFT=[[Pk[0][0]+Pk[0][1], Pk[0][1]],[Pk[1][0]+Pk[1][1], Pk[1][1]]];
+      var det=P1[0][0]*P1[1][1]-P1[0][1]*P1[1][0];
+      var inv=[[P1[1][1]/det,-P1[0][1]/det],[-P1[1][0]/det,P1[0][0]/det]];
+      var C=[[PkFT[0][0]*inv[0][0]+PkFT[0][1]*inv[1][0], PkFT[0][0]*inv[0][1]+PkFT[0][1]*inv[1][1]],
+             [PkFT[1][0]*inv[0][0]+PkFT[1][1]*inv[1][0], PkFT[1][0]*inv[0][1]+PkFT[1][1]*inv[1][1]]];
+      var xpk1=[xf[k2][0]+xf[k2][1], xf[k2][1]];
+      var dx=[xs[k2+1][0]-xpk1[0], xs[k2+1][1]-xpk1[1]];
+      xs[k2]=[xf[k2][0]+C[0][0]*dx[0]+C[0][1]*dx[1], xf[k2][1]+C[1][0]*dx[0]+C[1][1]*dx[1]];
+    }
+    return {filt:xf.map(function(v){return v[0];}), smooth:xs.map(function(v){return v[0];}), gains:gains, innov:innov};
+  }
+  function poly(xsArr, ysArr, color, dash, width){
+    var d2=''; for(var i=0;i<xsArr.length;i++){ d2+=(i?'L':'M')+xsArr[i].toFixed(1)+' '+ysArr[i].toFixed(1)+' '; }
+    var at={d:d2,fill:'none',stroke:color,'stroke-width':width||2,'pointer-events':'none'};
+    if(dash) at['stroke-dasharray']=dash;
+    G.appendChild(SVG('path',at));
+  }
+  function dots(xsArr, ysArr, color, r2){
+    for(var i=0;i<xsArr.length;i++) G.appendChild(SVG('circle',{cx:xsArr[i],cy:ysArr[i],r:r2,fill:color,'pointer-events':'none'}));
+  }
+  function draw(){
+    G.innerHTML='';
+    G.appendChild(SVG('rect',{x:20,y:28,width:600,height:312,fill:'none',stroke:'var(--line)','stroke-width':1,opacity:0.5,'pointer-events':'none'}));
+    var zx=pts.map(function(p){return p.x;}), zy=pts.map(function(p){return p.y;});
+    poly(zx, zy, 'var(--mute)', '3 4', 1.2);
+    var rx=kfAxis(zx), ry=kfAxis(zy);
+    poly(rx.smooth, ry.smooth, 'var(--violet)', null, 2.2);
+    dots(rx.smooth, ry.smooth, 'var(--violet)', 3);
+    poly(rx.filt, ry.filt, 'var(--yellow)', null, 2.2);
+    dots(rx.filt, ry.filt, 'var(--yellow)', 3);
+    var ly=46;
+    function leg(color, txt){ G.appendChild(SVG('line',{x1:32,y1:ly-4,x2:56,y2:ly-4,stroke:color,'stroke-width':3,'pointer-events':'none'}));
+      var t2=SVG('text',{x:62,y:ly,'font-size':11,fill:'var(--ink)','pointer-events':'none'}); t2.textContent=txt; G.appendChild(t2); ly+=16; }
+    leg('var(--mute)','observations z\u209c (drag them)');
+    leg('var(--yellow)','causal filter  p(x\u209c | z\u2080..z\u209c)');
+    leg('var(--violet)','RTS smoother  p(x\u209c | all z)');
+    var bigK=1, bigN=0;
+    for(var k=1;k<8;k++){ var nn=Math.hypot(rx.innov[k], ry.innov[k]); if(nn>bigN){bigN=nn;bigK=k;} }
+    var gain=rx.gains[bigK];
+    out.innerHTML='biggest surprise at t='+bigK+': \u2016z \u2212 H x\u0302<sub>pred</sub>\u2016 = <b>'+bigN.toFixed(0)+'</b> px \u00b7 gain K = '+gain.toFixed(2)+
+      ' \u2014 the filter moves '+Math.round(gain*100)+'% of the way; the smoother re-explains the neighbourhood in hindsight';
+  }
+
+  // ---- drag engine (supplied by draggable-points-2d) ----
+  const HL=SVG('g'); svg.appendChild(HL);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const vb={x:_vb[0],y:_vb[1],width:_vb[2],height:_vb[3]};
+  function clampPt(p){ const r=p.r||7;
+    const lo_x=(p.minX!=null?p.minX:vb.x+r), hi_x=(p.maxX!=null?p.maxX:vb.x+vb.width-r);
+    const lo_y=(p.minY!=null?p.minY:vb.y+r), hi_y=(p.maxY!=null?p.maxY:vb.y+vb.height-r);
+    if(!p.lockX) p.x=Math.max(lo_x,Math.min(hi_x,p.x));
+    if(!p.lockY) p.y=Math.max(lo_y,Math.min(hi_y,p.y));
+  }
+  const handles=[]; let drag=null;
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  pts.forEach(function(p){ const r=p.r||7;
+    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'var(--bg)','stroke-width':1.5});
+    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);
+    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }
+    handles.push({h:h,lab:lab,p:p,r:r});
+    h.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drag=p; h.style.cursor='grabbing'; try{h.setPointerCapture(ev.pointerId);}catch(e){} });
+  });
+  window.addEventListener('pointermove',function(ev){ if(!drag) return; const q=toSvg(ev); if(!drag.lockX)drag.x=q.x; if(!drag.lockY)drag.y=q.y; clampPt(drag); render(); });
+  window.addEventListener('pointerup',function(){ drag=null; for(const o of handles) o.h.style.cursor='grab'; });
+  function render(){ draw(); for(const o of handles){ o.h.setAttribute('cx',o.p.x); o.h.setAttribute('cy',o.p.y); if(o.lab){ o.lab.setAttribute('x',o.p.x+o.r+5); o.lab.setAttribute('y',o.p.y-o.r-3); } } }
+  pts.forEach(clampPt); render();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
