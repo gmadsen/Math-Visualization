@@ -432,10 +432,10 @@ This is what makes the exponential martingale work: applying Itô to $f(t,B)=\ex
 <div class="quiz" data-concept="sc-ito-formula"></div>
 
 
-  <p>The widget above watches the gap between $B_t^2$ and its naive prediction fill in to $t$ on simulated paths. Now supply the path yourself. Draw $f$ and the widget accumulates the running quadratic variation $[f]_t = \sum_{t_i \le t} (\Delta f)^2$ (yellow) — and then runs the test that makes QV meaningful: it recomputes $[f]_1$ on a $4\times$ coarser mesh. A $C^1$ drawing collapses by $\approx 4$ when the mesh refines — its QV is an artifact of discretization, and the Itô correction would vanish in the limit. Brownian motion is precisely the path whose QV <em>survives refinement</em> ($[W]_t = t$ at every mesh): scribble as violently as you can and see how close your hand gets.</p>
+  <p>The widget above watches the gap between $B_t^2$ and its naive prediction fill in to $t$ on simulated paths. Now supply the path yourself. Draw $f$ and the widget accumulates the running quadratic variation $[f]_t = \sum_{t_i \le t} (\Delta f)^2$ (yellow) — and then runs the test that makes QV meaningful: it recomputes $[f]_1$ on a $4\times$ coarser mesh. A $C^1$ drawing collapses by $\approx 4$ when the mesh refines — its QV is an artifact of discretization, and the Itô correction would vanish in the limit. Brownian motion $B_t$ is precisely the path whose QV <em>survives refinement</em> — $t$ in expectation at every mesh, exactly in the limit (the page writes $d\langle X\rangle$ for the same object this widget calls $[f]$). The game is Goldilocks: a gentle drawing collapses to $\tfrac14$, sample-scale violence overshoots far past $1$ — Brownian motion threads the needle at $1$. See where your hand lands.</p>
 
 <div class="widget" id="w-qv-sketch">
-  <div class="hd"><div class="ttl">Draw the path — does its quadratic variation survive refinement?</div><div class="hint">sketch a path; yellow = running $[f]_t$. A gentle drawing scores a fine/coarse ratio near $1/4$ (QV is a mesh artifact); violent scribbling pushes it toward $1$ — Brownian motion holds the ratio at $1$ on every mesh</div></div>
+  <div class="hd"><div class="ttl">Draw the path — does its quadratic variation survive refinement?</div><div class="hint">sketch a path; yellow = running $[f]_t$. Gentle drawing &rarr; ratio near $1/4$ (QV is a mesh artifact) &middot; sample-scale violence &rarr; overshoots far past $1$ &middot; Brownian motion threads the needle at $1$ — try to land the green</div></div>
   <svg id="qv-sketch-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:crosshair"><title>A sketchable path whose running quadratic variation and mesh-refinement ratio are computed live, demonstrating that smooth paths lose their QV under refinement while rough paths keep it</title></svg>
   <div class="row">
     <button id="w-qv-sketch-reset" type="button">↺ Reset</button>
@@ -480,21 +480,24 @@ This is what makes the exponential martingale work: applying Itô to $f(t,B)=\ex
     const yb=Y(-1), yt=Y(1), span=(yb-yt)*0.55;
     var dq='';
     for(var j2=0;j2<M;j2++){ dq+=(j2?'L':'M')+X(j2).toFixed(1)+' '+(yb-span*run[j2]/qmax).toFixed(1)+' '; }
-    G.appendChild(SVG('path',{d:dq,fill:'none',stroke:'var(--yellow)','stroke-width':2,'stroke-dasharray':'1 0','pointer-events':'none'}));
+    G.appendChild(SVG('path',{d:dq,fill:'none',stroke:'var(--yellow)','stroke-width':2,'pointer-events':'none'}));
     var lg=SVG('text',{x:X(0)+4,y:yt-6,'font-size':11,fill:'var(--mute)','pointer-events':'none'});
     lg.textContent='cyan: your path f \u00b7 yellow: running [f]\u209c (rescaled)'; G.appendChild(lg);
     if(tot<1e-6){ out.innerHTML='draw a path \u2014 a constant has zero quadratic variation'; return; }
     // refinement test: fine vs 4x-coarse mesh
-    const q1=qvAt(ys,1), q4=qvAt(ys,4), ratio=q1/Math.max(q4,1e-12);
-    var msg='[f]\u2081 = <b>'+q1.toFixed(3)+'</b> at the drawing mesh \u00b7 on a 4\u00d7 coarser mesh: '+q4.toFixed(3)+' \u00b7 fine/coarse ratio <b>'+ratio.toFixed(2)+'</b>';
+    const q1=qvAt(ys,1);
+    var q4=qvAt(ys,4); q4*= (M-1)/(4*Math.floor((M-1)/4)); // cover the tail samples the stride misses
+    const ratio=q1/Math.max(q4,1e-12);
+    var ratioTxt=(ratio>99)?'\u226b 1':ratio.toFixed(2);
+    var msg='[f]\u2081 = <b>'+q1.toFixed(3)+'</b> at the drawing mesh \u00b7 on a 4\u00d7 coarser mesh: '+q4.toFixed(3)+' \u00b7 fine/coarse ratio <b>'+ratioTxt+'</b>';
     if(ratio<0.45){
-      msg+=' \u00b7 <span class="ok">collapsing under refinement \u2014 a finite-variation path: the It\u00f4 correction \u00bdf\u2033 d[W] would vanish and ordinary calculus returns</span>';
-    } else if(ratio>1.5){
-      msg+=' \u00b7 <span class="bad">rougher than Brownian \u2014 you are alternating at the sample scale; BM holds the ratio at exactly 1 on every mesh</span>';
+      msg+=' \u00b7 collapsing under refinement \u2014 a finite-variation path: the It\u00f4 correction \u00bdf\u2033 d[f] would vanish and ordinary calculus returns';
+    } else if(ratio>2){
+      msg+=' \u00b7 <span class="bad">rougher than Brownian \u2014 alternating at the sample scale; B\u209c keeps the ratio near 1 (exactly, in the limit)</span>';
     } else if(ratio>0.75){
-      msg+=' \u00b7 <span class="bad">mesh-stable \u2014 Brownian-like roughness: this is the regime where dW\u00b2 = dt is real and the It\u00f4 term survives</span>';
+      msg+=' \u00b7 <span class="ok">mesh-stable \u2014 Brownian-like roughness: the regime where dB\u00b2 = dt is real and the It\u00f4 term survives</span>';
     } else {
-      msg+=' \u00b7 in between \u2014 refine your scribble: real Brownian roughness keeps the ratio near 1 at every mesh';
+      msg+=' \u00b7 in between \u2014 roughen the drawing: Brownian paths keep the ratio near 1 at every mesh';
     }
     out.innerHTML=msg;
   }
