@@ -669,10 +669,10 @@ where $\pi_{\min}=\min_i\pi_i$. Big gap ⇒ fast mixing; tiny gap ⇒ either a n
 <div class="quiz" data-concept="rw-spectral-gap"></div>
 
 
-  <p>The inspector above reads the spectrum of one fixed chain. Now build the graph and watch the spectrum chase the geometry. On every edit the widget diagonalizes $N = D^{-1/2} A D^{-1/2}$ (Jacobi rotations), reports the <strong>spectral gap</strong> $\lambda = 1-\mu_2$, finds the worst <strong>conductance</strong> bottleneck $\Phi$ by exhaustive search (the pink side), and displays both halves of <strong>Cheeger’s inequality</strong> $\Phi^2/2 \le \lambda \le 2\Phi$ as live numbers. Node area tracks the stationary mass $\pi_i = d_i/2m$. Build a dumbbell — two dense blobs and one thin bridge — and watch the gap collapse and the lazy walk’s relaxation time $2/\lambda$ explode; wire the blobs together and mixing turns rapid again.</p>
+  <p>The inspector above reads the spectrum of a menu of fixed graphs. Now build the graph and watch the spectrum chase the geometry. On every edit the widget diagonalizes $N = D^{-1/2} A D^{-1/2}$ (Jacobi rotations), reports the normalized gap $1-\mu_2$ and the lazy walk’s gap $\gamma = (1-\mu_2)/2$ (the $\gamma$ of the theorem box above), finds the worst <strong>conductance</strong> bottleneck $\Phi$ by exhaustive search (the pink side), and displays both halves of <strong>Cheeger’s inequality</strong> $\Phi^2/2 \le 1-\mu_2 \le 2\Phi$ as live numbers. Node area tracks the stationary mass $\pi_i = d_i/2m$ — which is exactly why $\Phi$ weights cuts by <em>volume</em>; the expanders page plays this same gesture with the vertex-count normalization $h(G)$, a different theorem’s bookkeeping. The boot graph already <em>is</em> the dumbbell — two dense blobs, one thin bridge, relaxation time $1/\gamma \approx 10$ steps. Wire the blobs together and mixing turns rapid; squeeze it back to a bridge and watch $1/\gamma$ explode again.</p>
 
 <div class="widget" id="w-mixing-build">
-  <div class="hd"><div class="ttl">Build the graph — the spectral gap chases the geometry</div><div class="hint">click empty space to add a vertex, drag vertex&rarr;vertex to toggle an edge, click a vertex to delete it; node area = stationary mass $\pi_i = d_i/2m$, pink = the worst-conductance bottleneck. Squeeze the bridge of a dumbbell and watch $2/\lambda$ explode</div></div>
+  <div class="hd"><div class="ttl">Build the graph — the spectral gap chases the geometry</div><div class="hint">click empty space to add a vertex, drag vertex&rarr;vertex to toggle an edge, click a vertex to delete it; node area = stationary mass $\pi_i = d_i/2m$, pink = the worst-conductance bottleneck. Squeeze the bridge of a dumbbell and watch $1/\gamma$ explode</div></div>
   <svg id="mixing-build-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable graph whose lazy-random-walk spectral gap, conductance bottleneck, Cheeger sandwich, and stationary distribution recompute on every edit</title></svg>
   <div class="row">
     <button id="w-mixing-build-reset" type="button">↺ Reset</button>
@@ -727,7 +727,9 @@ where $\pi_{\min}=\min_i\pi_i$. Big gap ⇒ fast mixing; tiny gap ⇒ either a n
       g.edges.forEach(function(e){
         const a=byId[e.u], b=byId[e.v];
         const cross=hotSet&&(hotSet[e.u]?1:0)!==(hotSet[e.v]?1:0);
-        G.appendChild(SVG('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:cross?'var(--pink)':'var(--line)','stroke-width':cross?3:2,'stroke-dasharray':cross?'5 4':null,'pointer-events':'none'}));
+        const at={x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:cross?'var(--pink)':'var(--line)','stroke-width':cross?3:2,'pointer-events':'none'};
+        if(cross) at['stroke-dasharray']='5 4';
+        G.appendChild(SVG('line',at));
       });
     }
     function paintNodes(rOf,inB){
@@ -792,14 +794,14 @@ where $\pi_{\min}=\min_i\pi_i$. Big gap ⇒ fast mixing; tiny gap ⇒ either a n
     var volHot=0; ids.forEach(function(v,i){ if(hot[v]) volHot+=deg[i]; });
     if(volHot*2>vol){ ids.forEach(function(v){ hot[v]=hot[v]?0:1; }); }
     paintEdges(hot);
-    const rOf=function(id){ const pi=deg[idx[id]]/vol; return Math.max(8, 34*Math.sqrt(pi)); };
+    const rOf=function(id){ const pi=deg[idx[id]]/vol; return Math.max(8, Math.min(20, 34*Math.sqrt(pi))); }; // cap at the engine's hit radius
     paintNodes(rOf, hot);
-    const trel=2/lam;
+    const gam=lam/2, trel=2/lam; // lazy-walk gap and relaxation time 1/gamma
     var verdict = lam<0.25 ? ' \u00b7 <span class="bad">a bottleneck \u2014 the walk mixes slowly</span>'
                 : lam>0.7 ? ' \u00b7 <span class="ok">expander-like \u2014 rapid mixing</span>' : '';
-    out.innerHTML='spectral gap \u03bb = 1 \u2212 \u03bc\u2082 = <b>'+lam.toFixed(3)+'</b> \u00b7 conductance \u03a6 = <b>'+phi.toFixed(3)+'</b> (worst bottleneck: pink side vs rest)'+
-      ' \u00b7 Cheeger: \u03a6\u00b2/2 = '+(phi*phi/2).toFixed(3)+' \u2264 \u03bb \u2264 2\u03a6 = '+(2*phi).toFixed(3)+
-      ' \u00b7 lazy-walk relaxation time 2/\u03bb \u2248 <b>'+(trel===Infinity?'\u221e':trel.toFixed(1))+'</b> steps'+verdict;
+    out.innerHTML='normalized gap 1 \u2212 \u03bc\u2082 = <b>'+lam.toFixed(3)+'</b> \u00b7 lazy-walk gap \u03b3 = <b>'+gam.toFixed(3)+'</b> \u00b7 conductance \u03a6 = <b>'+phi.toFixed(3)+'</b> (pink side vs rest)'+
+      ' \u00b7 Cheeger: \u03a6\u00b2/2 = '+(phi*phi/2).toFixed(3)+' \u2264 1 \u2212 \u03bc\u2082 \u2264 2\u03a6 = '+(2*phi).toFixed(3)+
+      ' \u00b7 relaxation time 1/\u03b3 \u2248 <b>'+(trel===Infinity?'\u221e':trel.toFixed(1))+'</b> steps'+verdict;
   }
 
   // ---- graph-edit engine (supplied by graph-edit-2d) ----
