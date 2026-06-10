@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1692** (registry-driven: 1692, inline: 0)
+- Widgets: **1693** (registry-driven: 1693, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **76** of **211** with widgets (36%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **77** of **211** with widgets (36%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -30,10 +30,10 @@ page has wired one in yet.
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
 | `inline-code-cell` | inline-code-cell | edit | 2d | 6 | analytic-number-theory, convex-optimization, heights-arithmetic-geometry, mathematical-chaos, p-adic-numbers |
+| `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 6 | convex-optimization, morse-theory, real-analysis, wavelets |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
 | `animated-svg-2d` | animated-svg-2d | play | 2d | 5 | combinatorial-optimization, convex-optimization, markov-decision-processes, numerical-analysis, probability-theory |
-| `sketch-curve-2d` | sketch-curve-2d | draw | 2d | 5 | convex-optimization, morse-theory, real-analysis |
 | `surface-3d` | surface-3d | drag | 3d | 5 | general-relativity, harmonic-functions, riemannian-geometry, smooth-manifolds, variational-methods |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
@@ -762,10 +762,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **24**, concepts: **223**
-- Widgets: **257** (registry-driven: 257, inline: 0)
-  - by family: slider-readout: 44, button-stepper: 43, clickable-diagram: 42, parametric-plot: 12, verbatim: 6, aca-figure: 5, vector-field-flow-2d: 5, draggable-points-2d: 3, sketch-curve-2d: 3, recurrence-plotter: 2, advanced-complex-analysis-picard: 2, surface-3d: 2, torus-orbit-explorer: 1, inline-code-cell: 1, proof-scrubber: 1, several-complex-variables-reinhardt-pseudoconvex: 1, advanced-complex-analysis-landscape: 1, advanced-complex-analysis-weierstrass: 1, advanced-complex-analysis-mittag-leffler: 1, advanced-complex-analysis-phragmen-lindelof: 1, advanced-complex-analysis-three-circles: 1, advanced-complex-analysis-hardy-spaces: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, animated-svg-2d: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, continuity-band-2d: 1, constraint-bifurcation-explorer: 1, mt-sigma-algebra: 1, complex-analysis-arithmetic: 1, complex-analysis-riemann-sphere: 1, complex-map-2d: 1, complex-analysis-conformal-map: 1, complex-analysis-conformal-grid: 1, complex-analysis-cauchy-theorem: 1, complex-analysis-cauchy-formula: 1, complex-analysis-liouville: 1, complex-analysis-fta: 1, complex-analysis-max-modulus: 1, complex-analysis-open-mapping: 1, complex-analysis-schwarz-lemma: 1, complex-analysis-laurent: 1, complex-analysis-singularity-zoo: 1, complex-analysis-residue-real-integral: 1, contour-residue-2d: 1, complex-analysis-argument-principle: 1, complex-analysis-disk-automorphism: 1, complex-analysis-normal-families: 1, complex-analysis-riemann-mapping: 1, complex-analysis-harmonic: 1, complex-analysis-monodromy: 1, functional-analysis-bounded-continuous: 1, functional-analysis-bigfour: 1, functional-analysis-riesz: 1, functional-analysis-weak-convergence: 1, functional-analysis-banach-alaoglu: 1, functional-analysis-krein-milman: 1, operator-algebras-cstar: 1, operator-algebras-funccalc: 1, operator-algebras-positive: 1, eigenvector-explorer-2d: 1, xy-parameter-pad: 1, julia-playground: 1, bifurcation-1d: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-schwartz: 1, harmonic-uncertainty: 1, harmonic-poisson: 1, harmonic-heat-evolution: 1, harmonic-pontryagin: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 254, 3d: 3
-  - by gesture: click: 94, slider: 90, interact: 35, drag: 10, select: 8, click-seed: 6, draw: 3, edit: 1, timeline: 1, step: 1, play: 1, static: 1, slide-band: 1, drag-probe: 1, drag-contour: 1, drag-direction: 1, two-param-scrub: 1, dial: 1
+- Widgets: **258** (registry-driven: 258, inline: 0)
+  - by family: slider-readout: 44, button-stepper: 43, clickable-diagram: 42, parametric-plot: 12, verbatim: 6, aca-figure: 5, vector-field-flow-2d: 5, sketch-curve-2d: 4, draggable-points-2d: 3, recurrence-plotter: 2, advanced-complex-analysis-picard: 2, surface-3d: 2, torus-orbit-explorer: 1, inline-code-cell: 1, proof-scrubber: 1, several-complex-variables-reinhardt-pseudoconvex: 1, advanced-complex-analysis-landscape: 1, advanced-complex-analysis-weierstrass: 1, advanced-complex-analysis-mittag-leffler: 1, advanced-complex-analysis-phragmen-lindelof: 1, advanced-complex-analysis-three-circles: 1, advanced-complex-analysis-hardy-spaces: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, animated-svg-2d: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, continuity-band-2d: 1, constraint-bifurcation-explorer: 1, mt-sigma-algebra: 1, complex-analysis-arithmetic: 1, complex-analysis-riemann-sphere: 1, complex-map-2d: 1, complex-analysis-conformal-map: 1, complex-analysis-conformal-grid: 1, complex-analysis-cauchy-theorem: 1, complex-analysis-cauchy-formula: 1, complex-analysis-liouville: 1, complex-analysis-fta: 1, complex-analysis-max-modulus: 1, complex-analysis-open-mapping: 1, complex-analysis-schwarz-lemma: 1, complex-analysis-laurent: 1, complex-analysis-singularity-zoo: 1, complex-analysis-residue-real-integral: 1, contour-residue-2d: 1, complex-analysis-argument-principle: 1, complex-analysis-disk-automorphism: 1, complex-analysis-normal-families: 1, complex-analysis-riemann-mapping: 1, complex-analysis-harmonic: 1, complex-analysis-monodromy: 1, functional-analysis-bounded-continuous: 1, functional-analysis-bigfour: 1, functional-analysis-riesz: 1, functional-analysis-weak-convergence: 1, functional-analysis-banach-alaoglu: 1, functional-analysis-krein-milman: 1, operator-algebras-cstar: 1, operator-algebras-funccalc: 1, operator-algebras-positive: 1, eigenvector-explorer-2d: 1, xy-parameter-pad: 1, julia-playground: 1, bifurcation-1d: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-schwartz: 1, harmonic-uncertainty: 1, harmonic-poisson: 1, harmonic-heat-evolution: 1, harmonic-pontryagin: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 255, 3d: 3
+  - by gesture: click: 94, slider: 90, interact: 35, drag: 10, select: 8, click-seed: 6, draw: 4, edit: 1, timeline: 1, step: 1, play: 1, static: 1, slide-band: 1, drag-probe: 1, drag-contour: 1, drag-direction: 1, two-param-scrub: 1, dial: 1
 - Quizzes: **813** (v1: 628, hard: 185, expert: 0)
   - by type: mcq: 514, numeric: 170, multi-select: 40, matching: 29, ordering: 23, complex: 14, spot-the-error: 11, proof-completion: 10, construction: 1, guess-my-rule: 1
 
@@ -888,7 +888,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `langlands-program` | Modular forms & L-functions | 8 | 5 | other: 3, pick: 2 | interact: 3, click: 2 |
 | `moonshine` | Modular forms & L-functions | 8 | 8 | pick: 8 | click: 8 |
 | `motives` | Algebraic geometry | 8 | 7 | other: 3, pick: 3, scrub: 1 | interact: 3, click: 3, slider: 1 |
-| `wavelets` | Analysis | 8 | 9 | pick: 6, scrub: 3 | click: 6, slider: 3 |
 | `brill-noether` | Algebraic geometry | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
 | `cocartesian-fibrations` | Higher categories & toposes | 7 | 8 | other: 8 | interact: 8 |
 | `coding-theory` | Combinatorics & graph theory | 7 | 7 | pick: 5, scrub: 2 | click: 5, slider: 2 |
@@ -1115,7 +1114,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `quaternions-octonions-and-division-algebras` | Algebra & homological | 6 | 6 | 0 | 3 | 1 | · | click: 4, input: 1, slider: 1 | 18 |
 | `geometric-and-combinatorial-group-theory` | Algebra & homological | 6 | 6 | 0 | 3 | 0 | · | slider: 3, click: 2, select: 1 | 18 |
 | `cluster-algebras` | Algebra & homological | 6 | 6 | 0 | 2 | 0 | · | click: 4, select: 2 | 18 |
-| `wavelets` | Analysis | 8 | 9 | 0 | 2 | 0 | · | click: 6, slider: 3 | 24 |
+| `wavelets` | Analysis | 8 | 10 | 0 | 3 | 0 | ✓ | click: 6, slider: 3, draw: 1 | 24 |
 | `vertex-operator-algebras` | Modular forms & L-functions | 6 | 6 | 0 | 4 | 0 | · | step: 2, select: 2, slider: 1, click: 1 | 18 |
 | `schrodinger-equation` | Mathematical physics | 6 | 7 | 0 | 1 | 0 | · | slider: 7 | 18 |
 | `mathematics-and-cryptography` | Number theory | 6 | 6 | 0 | 2 | 0 | · | slider: 5, button: 1 | 18 |
