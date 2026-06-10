@@ -1130,7 +1130,7 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
 <aside class="note">The diagonal of $Q$ in this widget is structured as $q\cdot\bigl(\Delta t^3/3,\Delta t^3/3,\Delta t,\Delta t\bigr)$ with off-diagonal $q\Delta t^2/2$ couplings — the standard "noise on acceleration, propagated through the kinematics" choice for a CV model. That structure is why the velocity components stay correlated with positions through prediction.</aside>
 
 
-  <p>The widget above changes the <em>model</em> ($Q$, $R$) while the data stays put. Now hold the model fixed and drag the <em>data</em>. Eight position observations feed the same CV filter (per-axis $[p,v]$ state, the $Q$ structure from the note above, $q=0.6$, $\sigma_r = 12$ px). Two estimates are drawn: the <strong>causal filter</strong> $p(x_t \mid z_0,\dots,z_t)$, which can only react <em>from the dragged step onward</em> and only by the gain fraction, and the <strong>Rauch–Tung–Striebel smoother</strong> $p(x_t \mid z_0,\dots,z_T)$ — the same posterior conditioned on the <em>whole</em> record, which re-explains both sides of a surprise in hindsight. Yank one observation off the track and watch the two disagree about the past.</p>
+  <p>The widget above turns the model knobs ($Q$, $R$) — you never touch an individual measurement. Now hold the model fixed and grab the measurements themselves. Eight position observations feed the same CV filter (per-axis $[p,v]$ state, the $Q$ structure from the note above, $q=0.6$, $\sigma_r = 12$ px). Two estimates are drawn: the <strong>causal filter</strong> $p(x_t \mid z_0,\dots,z_t)$, which can only react <em>from the dragged step onward</em> and only by the gain fraction, and the <strong>Rauch–Tung–Striebel smoother</strong> $p(x_t \mid z_0,\dots,z_T)$ — the same posterior conditioned on the <em>whole</em> record, re-explaining both sides of a surprise in hindsight. (No relation to the naive position-only smoothers dismissed above: this is the exact Bayesian posterior, run backward through the same $(p,v)$-coupled model — and it is a post-hoc reanalysis no online tracker can use.) Yank one observation off the track and watch the two disagree about the past.</p>
 
 <div class="widget" id="w-kf-drag-obs">
   <div class="hd"><div class="ttl">Drag the observations — filter vs smoother</div><div class="hint">drag any $z_t$: the yellow causal filter bends only from $t$ onward (and only by the gain $K$); the violet RTS smoother bends on <em>both</em> sides — hindsight beats causality</div></div>
@@ -1149,8 +1149,10 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
   const Qv=0.6, Rv=144; // q and R = (12 px)^2 — fixed; the DATA is what moves
   function kfAxis(zs){
     const n=zs.length;
-    // two-point initialization: velocity from the first step, var 2R
-    let x=[zs[0], zs[1]-zs[0]], P=[[Rv,0],[0,2*Rv]];
+    // exact init from (z0, z1): [p0, v] | z0,z1 has mean [z0, z1-z0],
+    // cov [[R,-R],[-R,2R]]; z0/z1 are consumed by the init, so the k<2
+    // measurement updates are skipped (their innovations are identically 0)
+    let x=[zs[0], zs[1]-zs[0]], P=[[Rv,-Rv],[-Rv,2*Rv]];
     const xf=[], Pf=[], Pp=[], gains=[], innov=[];
     for(var k=0;k<n;k++){
       var xpred, Ppred;
@@ -1160,13 +1162,15 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
         var a=P[0][0],b=P[0][1],c=P[1][0],d=P[1][1];
         Ppred=[[a+b+c+d+Qv/3, b+d+Qv/2],[c+d+Qv/2, d+Qv]];
       }
-      var S=Ppred[0][0]+Rv, K=[Ppred[0][0]/S, Ppred[1][0]/S];
-      var y=zs[k]-xpred[0];
-      x=[xpred[0]+K[0]*y, xpred[1]+K[1]*y];
-      P=[[(1-K[0])*Ppred[0][0], (1-K[0])*Ppred[0][1]],
-         [Ppred[1][0]-K[1]*Ppred[0][0], Ppred[1][1]-K[1]*Ppred[0][1]]];
+      if(k>=2){
+        var S=Ppred[0][0]+Rv, K=[Ppred[0][0]/S, Ppred[1][0]/S];
+        var y=zs[k]-xpred[0];
+        x=[xpred[0]+K[0]*y, xpred[1]+K[1]*y];
+        P=[[(1-K[0])*Ppred[0][0], (1-K[0])*Ppred[0][1]],
+           [Ppred[1][0]-K[1]*Ppred[0][0], Ppred[1][1]-K[1]*Ppred[0][1]]];
+        gains.push(K[0]); innov.push(y);
+      } else { x=xpred; P=Ppred; gains.push(0); innov.push(0); }
       Pp.push(Ppred); xf.push(x.slice()); Pf.push([P[0].slice(),P[1].slice()]);
-      gains.push(K[0]); innov.push(y);
     }
     const xs=new Array(n); xs[n-1]=xf[n-1].slice();
     for(var k2=n-2;k2>=0;k2--){
@@ -1207,10 +1211,10 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
     leg('var(--mute)','observations z\u209c (drag them)');
     leg('var(--yellow)','causal filter  p(x\u209c | z\u2080..z\u209c)');
     leg('var(--violet)','RTS smoother  p(x\u209c | all z)');
-    var bigK=1, bigN=0;
-    for(var k=1;k<8;k++){ var nn=Math.hypot(rx.innov[k], ry.innov[k]); if(nn>bigN){bigN=nn;bigK=k;} }
+    var bigK=2, bigN=0;
+    for(var k=2;k<rx.innov.length;k++){ var nn=Math.hypot(rx.innov[k], ry.innov[k]); if(nn>bigN){bigN=nn;bigK=k;} }
     var gain=rx.gains[bigK];
-    out.innerHTML='biggest surprise at t='+bigK+': \u2016z \u2212 H x\u0302<sub>pred</sub>\u2016 = <b>'+bigN.toFixed(0)+'</b> px \u00b7 gain K = '+gain.toFixed(2)+
+    out.innerHTML='largest innovation at t='+bigK+': \u2016z \u2212 H x\u0302<sub>pred</sub>\u2016 = <b>'+bigN.toFixed(0)+'</b> px \u00b7 gain K = '+gain.toFixed(2)+
       ' \u2014 the filter moves '+Math.round(gain*100)+'% of the way; the smoother re-explains the neighbourhood in hindsight';
   }
 
