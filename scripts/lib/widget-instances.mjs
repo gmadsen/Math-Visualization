@@ -14,6 +14,10 @@
 // infrastructure before any topic page adopts it. Fixtures are loaded for
 // tests but never emitted into a topic page automatically — content authors
 // still wire widgets in by hand once they have a use case.
+//
+// The content sweep is memoized per process with no refresh option (unlike
+// loadContentModel's { refresh: true }) — test processes never mutate
+// content/ mid-run. Returned instance arrays/objects are shared: read-only.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -24,6 +28,17 @@ const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..', '..');
 const widgetsDir = join(repoRoot, 'widgets');
 const contentDir = join(repoRoot, 'content');
+
+// JSON.parse with the failing file named — a bare SyntaxError from a sweep
+// over 200+ files is otherwise unattributable.
+function parseJsonFile(absPath, label) {
+  try {
+    return JSON.parse(readFileSync(absPath, 'utf8'));
+  } catch (e) {
+    e.message = `${label}: ${e.message}`;
+    throw e;
+  }
+}
 
 /** Every registered widget slug (a widgets/<slug>/ dir with a schema.json). */
 export function listRegisteredSlugs() {
@@ -60,7 +75,7 @@ export function contentInstancesBySlug() {
     for (const f of readdirSync(contentDir).sort()) {
       if (!f.endsWith('.json')) continue;
       const topic = f.replace(/\.json$/, '');
-      const data = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
+      const data = parseJsonFile(join(contentDir, f), `content/${f}`);
       walkWidgetBlocks(data, (b) => {
         if (!b.slug) return;
         if (!map.has(b.slug)) map.set(b.slug, []);
@@ -77,7 +92,10 @@ export function fixtureInstances(slug) {
   const out = [];
   const single = join(widgetsDir, slug, 'example.json');
   if (existsSync(single)) {
-    out.push({ topic: 'fixture:example.json', params: JSON.parse(readFileSync(single, 'utf8')) });
+    out.push({
+      topic: 'fixture:example.json',
+      params: parseJsonFile(single, `widgets/${slug}/example.json`),
+    });
   }
   const examplesDir = join(widgetsDir, slug, 'examples');
   if (existsSync(examplesDir)) {
@@ -85,7 +103,7 @@ export function fixtureInstances(slug) {
       if (!f.endsWith('.json')) continue;
       out.push({
         topic: `fixture:examples/${f}`,
-        params: JSON.parse(readFileSync(join(examplesDir, f), 'utf8')),
+        params: parseJsonFile(join(examplesDir, f), `widgets/${slug}/examples/${f}`),
       });
     }
   }
