@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/knot-crossing-toggle/schema.json",
+  "title": "knot-crossing-toggle widget params",
+  "description": "Click any crossing of a knot diagram to flip which strand passes over; the Kauffman bracket state sum, writhe, and Jones polynomial recompute live, and the readout names the resulting knot (unknot, left/right trefoil, figure-eight). The diagram is a fixed closed curve; its crossings, arcs, and PD code are derived from the curve's self-intersections at init, so the picture and the algebra cannot drift apart.",
+  "meta": {
+    "family": "knot-crossing-toggle",
+    "dimension": "2d",
+    "gesture": "toggle-crossing",
+    "role": "exploration"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "svgId": {
+      "type": "string",
+      "description": "DOM id for the <svg> canvas."
+    },
+    "outputId": {
+      "type": "string",
+      "description": "DOM id for the .readout element."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "svgTitle": {
+      "type": "string",
+      "description": "Accessible <title> for the svg; defaults to title."
+    },
+    "template": {
+      "type": "string",
+      "enum": ["trefoil", "four"],
+      "default": "four",
+      "description": "Diagram template: 'trefoil' is the 3-crossing curve (reaches both trefoils and the unknot); 'four' is the 4-crossing curve (reaches the figure-eight, both trefoils, and the unknot)."
+    },
+    "initialOver": {
+      "type": "array",
+      "items": { "type": "boolean" },
+      "minItems": 3,
+      "maxItems": 4,
+      "description": "Boot over/under bits, one per crossing (true = earlier strand passage on top). Defaults: figure-eight state [false,true,false,false] for 'four', alternating trefoil [true,false,true] for 'trefoil'."
+    },
+    "viewBox": {
+      "type": "string",
+      "default": "0 0 560 480",
+      "description": "SVG viewBox."
+    },
+    "svgWidth": { "type": "number", "default": 560 },
+    "svgHeight": { "type": "number", "default": 480 }
+  }
+}

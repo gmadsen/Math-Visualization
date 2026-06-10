@@ -8737,6 +8737,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "knot-crossing-toggle",
+    "family": "knot-crossing-toggle",
+    "dimension": "2d",
+    "gesture": "toggle-crossing",
+    "role": "exploration",
+    "title": "knot-crossing-toggle widget params",
+    "description": "Click any crossing of a knot diagram to flip which strand passes over; the Kauffman bracket state sum, writhe, and Jones polynomial recompute live, and the readout names the resulting knot (unknot, left/right trefoil, figure-eight). The diagram is a fixed closed curve; its crossings, arcs, and PD code are derived from the curve's self-intersections at init, so the picture and the algebra cannot drift apart.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "The **toggle-crossing** gesture: click any crossing of a knot diagram to flip which strand passes over, and the Kauffman bracket state sum, writhe, and Jones polynomial recompute live,",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "knot-polynomials-alexander",
     "family": "knot-polynomials-alexander",
     "dimension": "2d",

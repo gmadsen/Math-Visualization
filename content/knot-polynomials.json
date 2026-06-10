@@ -154,6 +154,30 @@
         },
         {
           "type": "raw",
+          "html": "\n  <p>The state sum above treats the diagram as <em>given</em>; now change the diagram itself. Below is a fixed closed curve with four crossings &mdash; <strong>click any crossing</strong> to flip which strand passes over, and the whole pipeline reruns: all $2^4$ Kauffman states are resummed, the writhe recounted, and $V(t)$ recomputed. The boot state is the <em>figure-eight knot</em> $4_1$, whose palindromic polynomial ($V(t) = V(t^{-1})$) reflects its amphichirality. Flipping <em>any single crossing</em> collapses it to the unknot ($V = 1$) &mdash; the figure-eight has unknotting number $1$, and in this diagram every crossing is an unknotting crossing. Other patterns reach <em>both</em> trefoils &mdash; and the &#8644; Mirror button flips every crossing at once, sending $V(t) \\mapsto V(t^{-1})$, which is exactly how Jones certifies that the trefoil and its mirror are genuinely different knots. The crossings, arcs, and PD code are all derived from the drawn curve's self-intersections, so what you click is literally what gets summed.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "knot-crossing-toggle",
+          "params": {
+            "widgetId": "w-knot-toggle",
+            "svgId": "knot-toggle-svg",
+            "outputId": "knot-toggle-out",
+            "title": "Click the crossings — one diagram, many knots",
+            "hint": "click a dashed circle to flip that crossing; $V(t)$ recomputes from the full Kauffman state sum. Try: flip any one crossing (the figure-eight unknots &mdash; $u(4_1)=1$), then hunt down both trefoils",
+            "svgTitle": "A four-crossing knot diagram whose crossings toggle on click, with the Jones polynomial recomputed live; reaches the figure-eight knot, both trefoils, and the unknot"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-knot-toggle"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Abstract algebra — Groups, rings, and fields</a> (the bracket lives in the Laurent ring $\\mathbb{Z}[A^{\\pm 1}]$; the skein relation makes computation algorithmic).</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {

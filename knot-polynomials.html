@@ -420,6 +420,171 @@ function drawNode(svg, x, y, label, opts={}){
 <p style="text-align:center">$q^{-1} V(L_+) - q\, V(L_-) = (q^{1/2} - q^{-1/2})\, V(L_0),$</p>
 <p>and is also <em>categorified</em>: Khovanov homology assigns to each link $L$ a bigraded chain complex $\mathrm{Kh}^{i,j}(L)$ whose graded Euler characteristic is exactly $V_L(q)$ (up to normalization). Knots have $\mathrm{Kh}$, much like <a href="./point-set-topology.html#open" data-auto-inline-link="1" data-concept-id="open-sets" data-blurb="A topology as a family of open sets closed under arbitrary unions and finite intersections; bases, subspace and product topologies, with closure and interior as duals.">topological spaces</a> have singular homology — a richer invariant whose graded Euler characteristic recovers the polynomial.</p>
 
+
+  <p>The state sum above treats the diagram as <em>given</em>; now change the diagram itself. Below is a fixed closed curve with four crossings &mdash; <strong>click any crossing</strong> to flip which strand passes over, and the whole pipeline reruns: all $2^4$ Kauffman states are resummed, the writhe recounted, and $V(t)$ recomputed. The boot state is the <em>figure-eight knot</em> $4_1$, whose palindromic polynomial ($V(t) = V(t^{-1})$) reflects its amphichirality. Flipping <em>any single crossing</em> collapses it to the unknot ($V = 1$) &mdash; the figure-eight has unknotting number $1$, and in this diagram every crossing is an unknotting crossing. Other patterns reach <em>both</em> trefoils &mdash; and the &#8644; Mirror button flips every crossing at once, sending $V(t) \mapsto V(t^{-1})$, which is exactly how Jones certifies that the trefoil and its mirror are genuinely different knots. The crossings, arcs, and PD code are all derived from the drawn curve's self-intersections, so what you click is literally what gets summed.</p>
+
+<div class="widget" id="w-knot-toggle">
+  <div class="hd"><div class="ttl">Click the crossings — one diagram, many knots</div><div class="hint">click a dashed circle to flip that crossing; $V(t)$ recomputes from the full Kauffman state sum. Try: flip any one crossing (the figure-eight unknots &mdash; $u(4_1)=1$), then hunt down both trefoils</div></div>
+  <svg id="knot-toggle-svg" viewBox="0 0 560 480" width="560" height="480" style="width:100%;max-width:560px;height:auto"><title>A four-crossing knot diagram whose crossings toggle on click, with the Jones polynomial recomputed live; reaches the figure-eight knot, both trefoils, and the unknot</title></svg>
+  <div class="row">
+    <button id="w-knot-toggle-mirror" type="button">⇄ Mirror (flip every crossing)</button>
+    <button id="w-knot-toggle-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="knot-toggle-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#knot-toggle-svg'), out=$('#knot-toggle-out');
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 480').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], CX=W/2, CY=Hh/2, SC=Math.min(W,Hh)/2-40;
+  // closed curve in math coords (y-up), radius ~1; y is flipped only at draw time
+  const curve=function(t){ const r=(1.2+Math.cos(2*t))/2.2; return [r*Math.cos(3*t), r*Math.sin(3*t)]; };
+  const N=1200, P=[];
+  for(var i=0;i<N;i++) P.push(curve(2*Math.PI*i/N));
+  // self-intersections of the sampled polyline -> crossings with passage params t1<t2
+  function segInt(a,b,c,d){
+    const r=[b[0]-a[0],b[1]-a[1]], q=[d[0]-c[0],d[1]-c[1]];
+    const den=r[0]*q[1]-r[1]*q[0]; if(Math.abs(den)<1e-12) return null;
+    const s=((c[0]-a[0])*q[1]-(c[1]-a[1])*q[0])/den;
+    const u=((c[0]-a[0])*r[1]-(c[1]-a[1])*r[0])/den;
+    return (s>=0&&s<1&&u>=0&&u<1)?[s,u]:null;
+  }
+  const XR=[];
+  for(var i2=0;i2<N;i2++) for(var j=i2+2;j<N;j++){
+    if(i2===0&&j===N-1) continue;
+    const h=segInt(P[i2],P[(i2+1)%N],P[j],P[(j+1)%N]);
+    if(h) XR.push({t1:(i2+h[0])/N, t2:(j+h[1])/N,
+      x:P[i2][0]+h[0]*(P[(i2+1)%N][0]-P[i2][0]), y:P[i2][1]+h[0]*(P[(i2+1)%N][1]-P[i2][1])});
+  }
+  const n=XR.length;
+  // arc labels: sort the 2n passages by t; arc k runs between passage k and k+1
+  const evts=[];
+  XR.forEach(function(c,i){ evts.push({t:c.t1,i:i,w:0}); evts.push({t:c.t2,i:i,w:1}); });
+  evts.sort(function(a,b){ return a.t-b.t; });
+  const arcOf={};
+  evts.forEach(function(e,k){ arcOf[e.i+','+e.w+',in']=(k===0?evts.length-1:k-1); arcOf[e.i+','+e.w+',out']=k; });
+  function tang(t){ const k=Math.floor(t*N)%N; const a=P[k], b=P[(k+1)%N]; return [b[0]-a[0],b[1]-a[1]]; }
+  // PD code + crossing signs from the over/under bits (validated conventions)
+  function derivePD(bits){
+    const pd=[], signs=[];
+    XR.forEach(function(c,i){
+      const uw=bits[i]?1:0, ow=1-uw;
+      const ut=uw===0?c.t1:c.t2, ot=ow===0?c.t1:c.t2;
+      const u=tang(ut), o=tang(ot);
+      const uxo=u[0]*o[1]-u[1]*o[0];
+      const a=arcOf[i+','+uw+',in'], cc=arcOf[i+','+uw+',out'];
+      const oin=arcOf[i+','+ow+',in'], oout=arcOf[i+','+ow+',out'];
+      pd.push(uxo>0?[a,oin,cc,oout]:[a,oout,cc,oin]);
+      signs.push(uxo>0?-1:1);
+    });
+    return {pd:pd, signs:signs};
+  }
+  // Kauffman bracket state sum (Laurent poly in A as exponent->coef map)
+  function bracket(pd){
+    const poly=new Map();
+    function add(m,e,c){ m.set(e,(m.get(e)||0)+c); }
+    for(var s=0;s<(1<<n);s++){
+      const par={};
+      function find(x){ return par[x]===undefined?(par[x]=x):(par[x]===x?x:(par[x]=find(par[x]))); }
+      function uni(a,b){ par[find(a)]=find(b); }
+      var nA=0;
+      for(var i3=0;i3<n;i3++){
+        const e4=pd[i3];
+        if(((s>>i3)&1)===0){ nA++; uni(e4[0],e4[1]); uni(e4[2],e4[3]); }
+        else { uni(e4[0],e4[3]); uni(e4[1],e4[2]); }
+      }
+      const roots=new Set();
+      pd.forEach(function(e4){ e4.forEach(function(e){ roots.add(find(e)); }); });
+      var term=new Map([[2*nA-n,1]]);
+      for(var k=0;k<roots.size-1;k++){
+        const nt=new Map();
+        term.forEach(function(c,e){ add(nt,e+2,-c); add(nt,e-2,-c); });
+        term=nt;
+      }
+      term.forEach(function(c,e){ add(poly,e,c); });
+    }
+    return poly;
+  }
+  // Jones: f = (-A^3)^(-w) * bracket, then t = A^(-4)
+  function jonesOf(bits){
+    const ps=derivePD(bits);
+    const br=bracket(ps.pd);
+    var w=0; ps.signs.forEach(function(sg){ w+=sg; });
+    const vt=new Map();
+    br.forEach(function(c,e){
+      const e2=e-3*w, coef=c*((((w%2)+2)%2===0)?1:-1);
+      vt.set(-e2/4,(vt.get(-e2/4)||0)+coef);
+    });
+    vt.forEach(function(c,e){ if(c===0) vt.delete(e); });
+    return {v:vt, w:w};
+  }
+  function polyHtml(vt){
+    const es=[...vt.keys()].sort(function(a,b){ return a-b; });
+    if(!es.length) return '0';
+    var sHtml='';
+    es.forEach(function(e,k){
+      const c=vt.get(e);
+      const mag=Math.abs(c);
+      const sign=c<0?'\u2212':(k===0?'':'+');
+      const coefTxt=(mag===1&&e!==0)?'':String(mag);
+      const tTxt=e===0?'':(e===1?'t':'t<sup>'+String(e).replace('-','\u2212')+'</sup>');
+      sHtml+=(k?' ':'')+sign+' '+coefTxt+tTxt;
+    });
+    return sHtml.replace(/^\s+|\s(?=\s)/g,'');
+  }
+  function polyKey(vt){
+    return [...vt.entries()].sort(function(a,b){ return a[0]-b[0]; }).map(function(p){ return p[0]+':'+p[1]; }).join(',');
+  }
+  const NAMES={
+    '0:1':['the <b>unknot</b>','V = 1: the Jones polynomial cannot tell this diagram from an unraveled loop \u2014 and for a diagram this small it really is one. Non-alternating patterns collapse.'],
+    '1:1,3:1,4:-1':['the <b>right-handed trefoil</b> 3\u2081','chiral: press \u21c4 Mirror and watch every exponent negate \u2014 V(t) \u21a6 V(t\u207b\u00b9) distinguishes the trefoil from its mirror.'],
+    '-4:-1,-3:1,-1:1':['the <b>left-handed trefoil</b> 3\u2081 (mirror)','chiral: press \u21c4 Mirror and watch every exponent negate \u2014 V(t) \u21a6 V(t\u207b\u00b9) distinguishes the trefoil from its mirror.'],
+    '-2:1,-1:-1,0:1,1:-1,2:1':['the <b>figure-eight knot</b> 4\u2081','palindromic: V(t) = V(t\u207b\u00b9), so Jones cannot distinguish 4\u2081 from its mirror \u2014 and indeed the figure-eight is amphichiral.'],
+  };
+  const BOOT=[false,true,false,false];
+  var bits=BOOT.slice();
+  const CURVE=SVG('g'); svg.appendChild(CURVE);
+  const HITS=SVG('g'); svg.appendChild(HITS);
+  const PXp=function(p){ return CX+SC*p[0]; }, PYp=function(p){ return CY-SC*p[1]; };
+  function arcPath(t,half){
+    // polyline of the curve for params [t-half, t+half] (in [0,1) units)
+    var d='';
+    const k0=Math.round((t-half)*N), k1=Math.round((t+half)*N);
+    for(var k=k0;k<=k1;k++){ const p=P[((k%N)+N)%N]; d+=(d?' L':'M')+PXp(p).toFixed(1)+' '+PYp(p).toFixed(1); }
+    return d;
+  }
+  function draw(){
+    CURVE.innerHTML='';
+    var d='';
+    for(var k=0;k<=N;k++){ const p=P[k%N]; d+=(d?' L':'M')+PXp(p).toFixed(1)+' '+PYp(p).toFixed(1); }
+    CURVE.appendChild(SVG('path',{d:d,fill:'none',stroke:'var(--ink)','stroke-width':2.6,'stroke-linejoin':'round'}));
+    // over-strand halo: erase the under-strand around each crossing, then re-ink the over strand
+    XR.forEach(function(c,i){
+      const ot=bits[i]?c.t1:c.t2;
+      CURVE.appendChild(SVG('path',{d:arcPath(ot,0.006),fill:'none',stroke:'var(--panel)','stroke-width':14,'stroke-linecap':'round'}));
+      CURVE.appendChild(SVG('path',{d:arcPath(ot,0.008),fill:'none',stroke:'var(--ink)','stroke-width':2.6,'stroke-linecap':'round'}));
+    });
+  }
+  function report(){
+    const jw=jonesOf(bits);
+    const rec=NAMES[polyKey(jw.v)];
+    var msg='V(t) = <b>'+polyHtml(jw.v)+'</b> \u00b7 writhe w = '+(jw.w<0?'\u2212'+(-jw.w):jw.w);
+    if(rec) msg+=' \u00b7 this is '+rec[0]+' \u2014 '+rec[1];
+    out.innerHTML=msg;
+  }
+  // visible, clickable crossing markers
+  XR.forEach(function(c,i){
+    const cx=CX+SC*c.x, cy=CY-SC*c.y;
+    HITS.appendChild(SVG('circle',{cx:cx,cy:cy,r:14,fill:'none',stroke:'var(--mute)','stroke-width':1.3,'stroke-dasharray':'3 3',opacity:0.8}));
+    const hit=SVG('circle',{cx:cx,cy:cy,r:15,fill:'transparent',cursor:'pointer'});
+    hit.addEventListener('click',function(){ bits[i]=!bits[i]; draw(); report(); });
+    HITS.appendChild(hit);
+  });
+  const mb=$('#w-knot-toggle-mirror'); if(mb) mb.addEventListener('click',function(){ bits=bits.map(function(b){ return !b; }); draw(); report(); });
+  const rb=$('#w-knot-toggle-reset'); if(rb) rb.addEventListener('click',function(){ bits=BOOT.slice(); draw(); report(); });
+  draw(); report();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

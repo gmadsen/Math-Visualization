@@ -379,6 +379,7 @@ const BOOT_ONLY = [
   'fold-the-polygon',
   'functional-equation-mirror',
   'grid-world-mdp',
+  'knot-crossing-toggle',
   'linear-transform-2d',
   'osculating-circle-2d',
   'q-learning-grid-world',
