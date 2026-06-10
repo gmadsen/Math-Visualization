@@ -54,6 +54,30 @@
         },
         {
           "type": "raw",
+          "html": "\n  <p>The sliders above move the state along one coordinate circle at a time; now hold the state itself. Drag anywhere: left–right turns the azimuth $\\varphi$ (the relative phase), up–down tilts $\\theta$ (the $|0\\rangle$/$|1\\rangle$ balance), and the readout keeps the bookkeeping honest — $|\\psi\\rangle = \\cos\\tfrac{\\theta}{2}|0\\rangle + e^{i\\varphi}\\sin\\tfrac{\\theta}{2}|1\\rangle$ with the Born probabilities $\\cos^2\\tfrac{\\theta}{2},\\ \\sin^2\\tfrac{\\theta}{2}$ updating live. Park at a pole and $\\varphi$ stops mattering: pure gauge. Then press the gate buttons and watch §2 arrive early: $X$, $Z$, $H$ are <em>rigid rotations of the sphere</em> ($\\pi$ about the $x$, $z$, and diagonal $(x{+}z)/\\sqrt2$ axes) — the violet ghost marks where your state was. Drag to $|0\\rangle$, press $H$, and you are standing on $|+\\rangle$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "bloch-sphere-drag",
+          "params": {
+            "widgetId": "w-bloch-drag",
+            "svgId": "bloch-drag-svg",
+            "outputId": "bloch-drag-out",
+            "title": "Drag the state — the Bloch sphere under your hand",
+            "hint": "drag anywhere: left&ndash;right turns $\\varphi$, up&ndash;down tilts $\\theta$ (the dot dims when it passes behind the sphere); the readout tracks $|\\psi\\rangle$, the Bloch vector, and the Born rule. X / Z / H apply gates as sphere rotations (ghost = previous state). Try: drag to $|0\\rangle$, press H, land on $|+\\rangle$ — then H again: back where you started",
+            "svgTitle": "A draggable qubit state on an orthographic Bloch sphere with live amplitudes, Born probabilities, and X, Z, H gate buttons acting as rotations"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-bloch-drag"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./functional-analysis.html#hilbert\">Banach and Hilbert spaces</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {

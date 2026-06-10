@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/bloch-sphere-drag/schema.json",
+  "title": "bloch-sphere-drag widget params",
+  "description": "Drag a qubit state across the Bloch sphere: horizontal drag turns the azimuth φ, vertical drag the polar angle θ; the readout gives |ψ⟩ = cos(θ/2)|0⟩ + e^{iφ} sin(θ/2)|1⟩ and the Born probabilities. Gate buttons (X, Z, H) act on the state as sphere rotations, leaving a ghost at the previous position.",
+  "meta": {
+    "family": "bloch-sphere-drag",
+    "dimension": "3d",
+    "gesture": "drag-state",
+    "role": "exploration"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "svgId": {
+      "type": "string",
+      "description": "DOM id for the <svg> canvas."
+    },
+    "outputId": {
+      "type": "string",
+      "description": "DOM id for the .readout element."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "svgTitle": {
+      "type": "string",
+      "description": "Accessible <title> for the svg; defaults to title."
+    },
+    "initialTheta": {
+      "type": "number",
+      "default": 1.0471975511965976,
+      "description": "Boot polar angle θ in radians (default π/3)."
+    },
+    "initialPhi": {
+      "type": "number",
+      "default": 0.7853981633974483,
+      "description": "Boot azimuth φ in radians (default π/4)."
+    },
+    "viewBox": {
+      "type": "string",
+      "default": "0 0 560 520",
+      "description": "SVG viewBox."
+    },
+    "svgWidth": { "type": "number", "default": 560 },
+    "svgHeight": { "type": "number", "default": 520 }
+  }
+}

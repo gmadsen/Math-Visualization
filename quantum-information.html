@@ -311,7 +311,101 @@ function drawNode(svg, x, y, label, opts={}){
   th.addEventListener('input',render); ph.addEventListener('input',render); render();
 
 })();
-</script><!-- callback-auto-begin -->
+</script>
+  <p>The sliders above move the state along one coordinate circle at a time; now hold the state itself. Drag anywhere: left–right turns the azimuth $\varphi$ (the relative phase), up–down tilts $\theta$ (the $|0\rangle$/$|1\rangle$ balance), and the readout keeps the bookkeeping honest — $|\psi\rangle = \cos\tfrac{\theta}{2}|0\rangle + e^{i\varphi}\sin\tfrac{\theta}{2}|1\rangle$ with the Born probabilities $\cos^2\tfrac{\theta}{2},\ \sin^2\tfrac{\theta}{2}$ updating live. Park at a pole and $\varphi$ stops mattering: pure gauge. Then press the gate buttons and watch §2 arrive early: $X$, $Z$, $H$ are <em>rigid rotations of the sphere</em> ($\pi$ about the $x$, $z$, and diagonal $(x{+}z)/\sqrt2$ axes) — the violet ghost marks where your state was. Drag to $|0\rangle$, press $H$, and you are standing on $|+\rangle$.</p>
+
+<div class="widget" id="w-bloch-drag">
+  <div class="hd"><div class="ttl">Drag the state — the Bloch sphere under your hand</div><div class="hint">drag anywhere: left&ndash;right turns $\varphi$, up&ndash;down tilts $\theta$ (the dot dims when it passes behind the sphere); the readout tracks $|\psi\rangle$, the Bloch vector, and the Born rule. X / Z / H apply gates as sphere rotations (ghost = previous state). Try: drag to $|0\rangle$, press H, land on $|+\rangle$ — then H again: back where you started</div></div>
+  <svg id="bloch-drag-svg" viewBox="0 0 560 520" width="560" height="520" style="touch-action:none;cursor:grab;width:100%;max-width:560px;height:auto"><title>A draggable qubit state on an orthographic Bloch sphere with live amplitudes, Born probabilities, and X, Z, H gate buttons acting as rotations</title></svg>
+  <div class="row">
+    <button id="w-bloch-drag-gx" type="button">X</button>
+    <button id="w-bloch-drag-gz" type="button">Z</button>
+    <button id="w-bloch-drag-gh" type="button">H</button>
+    <button id="w-bloch-drag-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="bloch-drag-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#bloch-drag-svg'), out=$('#bloch-drag-out');
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 520').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], CX=W/2, CYc=Hh/2-10, S=Math.min(W,Hh)/2-60;
+  const BG=SVG('g'); svg.appendChild(BG);
+  const FG=SVG('g'); svg.appendChild(FG);
+  // fixed orthographic view (yaw, pitch) — Bloch z up, x toward the viewer
+  const YAW=-0.55, PIT=0.30;
+  function proj(p){
+    const ca=Math.cos(YAW), sa=Math.sin(YAW), cb=Math.cos(PIT), sb=Math.sin(PIT);
+    const X1=p[0]*ca-p[1]*sa, Y1=p[0]*sa+p[1]*ca, Z1=p[2];
+    return { x: CX+S*Y1, y: CYc-S*(Z1*cb-X1*sb), front: X1*cb+Z1*sb > -0.05 };
+  }
+  function circle3(axis, g){
+    // draw a unit great circle perpendicular to 'axis' as two polylines (front solid, back dashed)
+    var u,v;
+    if(axis==='z'){ u=[1,0,0]; v=[0,1,0]; } else if(axis==='x'){ u=[0,1,0]; v=[0,0,1]; } else { u=[1,0,0]; v=[0,0,1]; }
+    var dF='', dB='', penF=false, penB=false;
+    for(var t=0;t<=128;t++){
+      const a2=2*Math.PI*t/128;
+      const p=[u[0]*Math.cos(a2)+v[0]*Math.sin(a2), u[1]*Math.cos(a2)+v[1]*Math.sin(a2), u[2]*Math.cos(a2)+v[2]*Math.sin(a2)];
+      const q=proj(p);
+      if(q.front){ dF+=(penF?'L':'M')+q.x.toFixed(1)+' '+q.y.toFixed(1)+' '; penF=true; penB=false; }
+      else { dB+=(penB?'L':'M')+q.x.toFixed(1)+' '+q.y.toFixed(1)+' '; penB=true; penF=false; }
+    }
+    if(dB) g.appendChild(SVG('path',{d:dB,fill:'none',stroke:'var(--line)','stroke-width':1,'stroke-dasharray':'3 4',opacity:0.6,'pointer-events':'none'}));
+    if(dF) g.appendChild(SVG('path',{d:dF,fill:'none',stroke:'var(--line)','stroke-width':1.4,opacity:0.9,'pointer-events':'none'}));
+  }
+  function label(p, txt, color){
+    const q=proj(p);
+    const t=SVG('text',{x:q.x,y:q.y-8,'font-size':12,fill:color||'var(--mute)','text-anchor':'middle','pointer-events':'none'});
+    t.textContent=txt; BG.appendChild(t);
+    BG.appendChild(SVG('circle',{cx:q.x,cy:q.y,r:2.5,fill:color||'var(--mute)','pointer-events':'none'}));
+  }
+  // static scenery: outline, three great circles, axis labels
+  BG.appendChild(SVG('circle',{cx:CX,cy:CYc,r:S,fill:'var(--panel2)','fill-opacity':0.35,stroke:'var(--line)','stroke-width':1.5}));
+  circle3('z',BG); circle3('x',BG); circle3('y',BG);
+  label([0,0,1.12],'|0\u27e9','var(--cyan)'); label([0,0,-1.14],'|1\u27e9','var(--cyan)');
+  label([1.14,0,0],'|+\u27e9','var(--mute)'); label([-1.16,0,0],'|\u2212\u27e9','var(--mute)');
+  label([0,1.12,0],'|+i\u27e9','var(--mute)'); label([0,-1.14,0],'|\u2212i\u27e9','var(--mute)');
+  var th=1.0471975511965976, ph=0.7853981633974483, ghost=null, lastGate=null;
+  function bloch(thA,phA){ return [Math.sin(thA)*Math.cos(phA), Math.sin(thA)*Math.sin(phA), Math.cos(thA)]; }
+  function fmt(x){ const r=Math.round(x*100)/100; const t=(r===0?0:r).toFixed(2); return t.replace('-','\u2212'); }
+  function render(){
+    FG.innerHTML='';
+    if(ghost){ const gq=proj(bloch(ghost[0],ghost[1]));
+      FG.appendChild(SVG('circle',{cx:gq.x,cy:gq.y,r:6,fill:'var(--violet)','fill-opacity':0.35,'pointer-events':'none'})); }
+    const p=bloch(th,ph), q=proj(p);
+    FG.appendChild(SVG('line',{x1:CX,y1:CYc,x2:q.x,y2:q.y,stroke:'var(--yellow)','stroke-width':2,opacity:q.front?0.9:0.45,'pointer-events':'none'}));
+    FG.appendChild(SVG('circle',{cx:q.x,cy:q.y,r:7,fill:'var(--yellow)',stroke:'var(--bg)','stroke-width':1.5,opacity:q.front?1:0.55,'pointer-events':'none'}));
+    const c0=Math.cos(th/2), s0=Math.sin(th/2);
+    const re=s0*Math.cos(ph), im=s0*Math.sin(ph);
+    var msg='|\u03c8\u27e9 = '+fmt(c0)+'\u2009|0\u27e9 + ('+fmt(re)+(im<0?' \u2212 ':' + ')+fmt(Math.abs(im))+'i)\u2009|1\u27e9';
+    var phDeg=((ph*180/Math.PI)%360+360)%360; if(phDeg>=359.5) phDeg=0;
+    msg+=' \u00b7 \u03b8 = '+(th*180/Math.PI).toFixed(0)+'\u00b0, \u03c6 = '+phDeg.toFixed(0)+'\u00b0';
+    msg+=' \u00b7 (x, y, z) = ('+fmt(p[0])+', '+fmt(p[1])+', '+fmt(p[2])+')';
+    msg+=' \u00b7 Born: P(0) = <b>'+fmt(c0*c0)+'</b>, P(1) = <b>'+fmt(s0*s0)+'</b>';
+    if(lastGate){ msg+=' \u00b7 applied '+lastGate; }
+    if(th<0.06||th>Math.PI-0.06){ msg+=' \u00b7 at a pole \u03c6 is pure gauge \u2014 the state ignores it'; }
+    out.innerHTML=msg;
+  }
+  // drag: deltas steer (phi, theta) — no hemisphere ambiguity
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  var dragging=false, last=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); dragging=true; last=toSvg(ev); svg.style.cursor='grabbing'; try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(!dragging) return; const p=toSvg(ev);
+    lastGate=null; ph+=(p.x-last.x)*0.012; th+=(p.y-last.y)*0.010;
+    th=Math.max(0.001,Math.min(Math.PI-0.001,th)); last=p; ghost=null; render(); });
+  window.addEventListener('pointerup',function(){ dragging=false; svg.style.cursor='grab'; });
+  // gates as sphere maps (computed in Cartesian, back to angles)
+  function setFromVec(v){ th=Math.acos(Math.max(-1,Math.min(1,v[2]))); ph=Math.atan2(v[1],v[0]); }
+  function gate(map,name){ ghost=[th,ph]; lastGate=name; const v=bloch(th,ph); setFromVec(map(v)); render(); }
+  const bx=$('#w-bloch-drag-gx'); if(bx) bx.addEventListener('click',function(){ gate(function(v){ return [v[0],-v[1],-v[2]]; },'X: \u03c0 about x\u0302'); });
+  const bz=$('#w-bloch-drag-gz'); if(bz) bz.addEventListener('click',function(){ gate(function(v){ return [-v[0],-v[1],v[2]]; },'Z: \u03c0 about z\u0302'); });
+  const bh=$('#w-bloch-drag-gh'); if(bh) bh.addEventListener('click',function(){ gate(function(v){ return [v[2],-v[1],v[0]]; },'H: \u03c0 about (x\u0302+z\u0302)/\u221a2'); });
+  const rb=$('#w-bloch-drag-reset'); if(rb) rb.addEventListener('click',function(){ th=1.0471975511965976; ph=0.7853981633974483; ghost=null; render(); });
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
   <ul>
