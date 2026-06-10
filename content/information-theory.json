@@ -136,6 +136,126 @@
         },
         {
           "type": "raw",
+          "html": "\n  <p>The heatmap above holds $p$ fixed and sweeps $q$. Now grab both: five symbols, ten bar heights, and every quantity on this page — $H(p)$, $H(q)$, $D(p\\,\\|\\,q)$, $D(q\\,\\|\\,p)$ — recomputed from the normalized masses on each drag. The two conventions become tactile: drop a violet bar $q_i$ all the way to the baseline while the cyan $p_i$ above it keeps mass, and $D(p\\,\\|\\,q)$ jumps to $\\infty$ — the $q$-code has no codeword for a symbol $p$ actually emits. Swap the roles and only the <em>other</em> divergence blows up: the asymmetry is structural, not numerical.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "draggable-points-2d",
+          "params": {
+            "widgetId": "w-kl-drag-masses",
+            "svgId": "kl-drag-masses-svg",
+            "outputId": "kl-drag-masses-out",
+            "title": "Drag the masses — entropy and both divergences",
+            "hint": "drag the bar tops (heights renormalize): squeeze a violet $q_i$ to zero under a live cyan $p_i$ and $D(p\\,\\|\\,q)=\\infty$; match the shapes and both divergences vanish",
+            "svgTitle": "Two draggable five-symbol distributions whose entropies and both KL divergences recompute live, including the infinity convention on support mismatch",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "points": [
+              {
+                "id": "p0",
+                "x": 72,
+                "y": 122,
+                "color": "var(--cyan)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "q0",
+                "x": 108,
+                "y": 199,
+                "color": "var(--violet)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "p1",
+                "x": 182,
+                "y": 173,
+                "color": "var(--cyan)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "q1",
+                "x": 218,
+                "y": 199,
+                "color": "var(--violet)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "p2",
+                "x": 292,
+                "y": 199,
+                "color": "var(--cyan)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "q2",
+                "x": 328,
+                "y": 199,
+                "color": "var(--violet)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "p3",
+                "x": 402,
+                "y": 239,
+                "color": "var(--cyan)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "q3",
+                "x": 438,
+                "y": 199,
+                "color": "var(--violet)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "p4",
+                "x": 512,
+                "y": 259,
+                "color": "var(--cyan)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              },
+              {
+                "id": "q4",
+                "x": 548,
+                "y": 199,
+                "color": "var(--violet)",
+                "lockX": true,
+                "minY": 78,
+                "maxY": 300
+              }
+            ],
+            "bodyScript": "\n  const BASE=300, ZERO=6; // bar height < ZERO px counts as exactly zero mass\n  const SYM=['a','b','c','d','e'];\n  const L2=Math.LN2;\n  function weights(prefix){\n    const w=[]; for(var k=0;k<5;k++){ var h=BASE-pts.byId[prefix+k].y; w.push(h<ZERO?0:h); } return w;\n  }\n  function normalize(w){ var t=0; for(var i=0;i<w.length;i++) t+=w[i]; if(t<=0) return null;\n    return w.map(function(v){return v/t;}); }\n  function H(p){ var h=0; for(var i=0;i<p.length;i++){ if(p[i]>0) h-=p[i]*Math.log(p[i])/L2; } return h; }\n  function KL(p,q){ var d=0; for(var i=0;i<p.length;i++){ if(p[i]>0){ if(q[i]<=0) return Infinity; d+=p[i]*Math.log(p[i]/q[i])/L2; } } return d; }\n  function fmt(v){ return v===Infinity?'\\u221e':v.toFixed(3); }\n  function draw(){\n    G.innerHTML='';\n    G.appendChild(SVG('line',{x1:30,y1:BASE,x2:610,y2:BASE,stroke:'var(--line)','stroke-width':1.5,'pointer-events':'none'}));\n    var wp=weights('p'), wq=weights('q');\n    for(var k=0;k<5;k++){ var gx=90+110*k;\n      G.appendChild(SVG('rect',{x:gx-32,y:BASE-Math.max(wp[k],1),width:28,height:Math.max(wp[k],1),fill:'var(--cyan)','fill-opacity':wp[k]?0.55:0.12,'pointer-events':'none'}));\n      G.appendChild(SVG('rect',{x:gx+4,y:BASE-Math.max(wq[k],1),width:28,height:Math.max(wq[k],1),fill:'var(--violet)','fill-opacity':wq[k]?0.55:0.12,'pointer-events':'none'}));\n      var sl=SVG('text',{x:gx,y:BASE+18,'font-size':13,fill:'var(--ink)','text-anchor':'middle','pointer-events':'none'}); sl.textContent=SYM[k]; G.appendChild(sl);\n    }\n    var lg=SVG('text',{x:34,y:60,'font-size':11,fill:'var(--mute)','pointer-events':'none'});\n    lg.textContent='cyan: p \\u00b7 violet: q \\u00b7 drag the bar tops (drop a bar to the baseline for exactly zero mass)'; G.appendChild(lg);\n    var p=normalize(wp), q=normalize(wq);\n    if(!p||!q){ out.innerHTML='<span class=\"bad\">'+(!p?'p':'q')+' has no mass anywhere \\u2014 raise a bar</span>'; return; }\n    for(var k2=0;k2<5;k2++){ var gx2=90+110*k2;\n      var pl=SVG('text',{x:gx2-18,y:BASE+34,'font-size':10,fill:'var(--cyan)','text-anchor':'middle','pointer-events':'none'}); pl.textContent=p[k2].toFixed(2); G.appendChild(pl);\n      var ql=SVG('text',{x:gx2+18,y:BASE+34,'font-size':10,fill:'var(--violet)','text-anchor':'middle','pointer-events':'none'}); ql.textContent=q[k2].toFixed(2); G.appendChild(ql);\n    }\n    var dpq=KL(p,q), dqp=KL(q,p);\n    var msg='H(p) = '+H(p).toFixed(3)+' \\u00b7 H(q) = '+H(q).toFixed(3)+' bits \\u00b7 D(p\\u2016q) = <b>'+fmt(dpq)+'</b> \\u00b7 D(q\\u2016p) = <b>'+fmt(dqp)+'</b> bits';\n    if(dpq===Infinity||dqp===Infinity){\n      var which=(dpq===Infinity)?['p','q']:['q','p'];\n      msg+=' \\u00b7 <span class=\"bad\">'+which[0]+' puts mass on a symbol '+which[1]+' calls impossible \\u2014 a code optimised for '+which[1]+' has no codeword for it</span>';\n    } else if(dpq<0.01&&dqp<0.01){\n      msg+=' \\u00b7 <span class=\"ok\">p \\u2248 q \\u2014 both divergences vanish (Gibbs: D \\u2265 0 with equality iff p = q)</span>';\n    } else if(dpq>0&&dqp>0&&(dpq/dqp>2||dqp/dpq>2)){\n      msg+=' \\u00b7 asymmetric: D(p\\u2016q) \\u2260 D(q\\u2016p) \\u2014 KL is not a metric';\n    }\n    out.innerHTML=msg;\n  }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-kl-drag-masses"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./large-deviations.html#sanov\">Sanov's theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {

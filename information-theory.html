@@ -524,6 +524,88 @@ with conventions $0\log 0 = 0$ and $p_i\log(p_i/0)=\infty$ when $p_i>0$ and $q_i
   <div class="readout" id="kl-out"></div>
 </div>
 
+
+  <p>The heatmap above holds $p$ fixed and sweeps $q$. Now grab both: five symbols, ten bar heights, and every quantity on this page — $H(p)$, $H(q)$, $D(p\,\|\,q)$, $D(q\,\|\,p)$ — recomputed from the normalized masses on each drag. The two conventions become tactile: drop a violet bar $q_i$ all the way to the baseline while the cyan $p_i$ above it keeps mass, and $D(p\,\|\,q)$ jumps to $\infty$ — the $q$-code has no codeword for a symbol $p$ actually emits. Swap the roles and only the <em>other</em> divergence blows up: the asymmetry is structural, not numerical.</p>
+
+<div class="widget" id="w-kl-drag-masses">
+  <div class="hd"><div class="ttl">Drag the masses — entropy and both divergences</div><div class="hint">drag the bar tops (heights renormalize): squeeze a violet $q_i$ to zero under a live cyan $p_i$ and $D(p\,\|\,q)=\infty$; match the shapes and both divergences vanish</div></div>
+  <svg id="kl-drag-masses-svg" viewBox="0 0 640 360" width="640" height="360"><title>Two draggable five-symbol distributions whose entropies and both KL divergences recompute live, including the infinity convention on support mismatch</title></svg>
+  <div class="readout" id="kl-drag-masses-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#kl-drag-masses-svg'), out=$('#kl-drag-masses-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const pts=[{"id":"p0","x":72,"y":122,"color":"var(--cyan)","lockX":true,"minY":78,"maxY":300},{"id":"q0","x":108,"y":199,"color":"var(--violet)","lockX":true,"minY":78,"maxY":300},{"id":"p1","x":182,"y":173,"color":"var(--cyan)","lockX":true,"minY":78,"maxY":300},{"id":"q1","x":218,"y":199,"color":"var(--violet)","lockX":true,"minY":78,"maxY":300},{"id":"p2","x":292,"y":199,"color":"var(--cyan)","lockX":true,"minY":78,"maxY":300},{"id":"q2","x":328,"y":199,"color":"var(--violet)","lockX":true,"minY":78,"maxY":300},{"id":"p3","x":402,"y":239,"color":"var(--cyan)","lockX":true,"minY":78,"maxY":300},{"id":"q3","x":438,"y":199,"color":"var(--violet)","lockX":true,"minY":78,"maxY":300},{"id":"p4","x":512,"y":259,"color":"var(--cyan)","lockX":true,"minY":78,"maxY":300},{"id":"q4","x":548,"y":199,"color":"var(--violet)","lockX":true,"minY":78,"maxY":300}];
+  pts.byId={}; for(const p of pts) pts.byId[p.id]=p;
+  // ---- author draw() (reads pts, clears+fills G, writes out) ----
+
+  const BASE=300, ZERO=6; // bar height < ZERO px counts as exactly zero mass
+  const SYM=['a','b','c','d','e'];
+  const L2=Math.LN2;
+  function weights(prefix){
+    const w=[]; for(var k=0;k<5;k++){ var h=BASE-pts.byId[prefix+k].y; w.push(h<ZERO?0:h); } return w;
+  }
+  function normalize(w){ var t=0; for(var i=0;i<w.length;i++) t+=w[i]; if(t<=0) return null;
+    return w.map(function(v){return v/t;}); }
+  function H(p){ var h=0; for(var i=0;i<p.length;i++){ if(p[i]>0) h-=p[i]*Math.log(p[i])/L2; } return h; }
+  function KL(p,q){ var d=0; for(var i=0;i<p.length;i++){ if(p[i]>0){ if(q[i]<=0) return Infinity; d+=p[i]*Math.log(p[i]/q[i])/L2; } } return d; }
+  function fmt(v){ return v===Infinity?'\u221e':v.toFixed(3); }
+  function draw(){
+    G.innerHTML='';
+    G.appendChild(SVG('line',{x1:30,y1:BASE,x2:610,y2:BASE,stroke:'var(--line)','stroke-width':1.5,'pointer-events':'none'}));
+    var wp=weights('p'), wq=weights('q');
+    for(var k=0;k<5;k++){ var gx=90+110*k;
+      G.appendChild(SVG('rect',{x:gx-32,y:BASE-Math.max(wp[k],1),width:28,height:Math.max(wp[k],1),fill:'var(--cyan)','fill-opacity':wp[k]?0.55:0.12,'pointer-events':'none'}));
+      G.appendChild(SVG('rect',{x:gx+4,y:BASE-Math.max(wq[k],1),width:28,height:Math.max(wq[k],1),fill:'var(--violet)','fill-opacity':wq[k]?0.55:0.12,'pointer-events':'none'}));
+      var sl=SVG('text',{x:gx,y:BASE+18,'font-size':13,fill:'var(--ink)','text-anchor':'middle','pointer-events':'none'}); sl.textContent=SYM[k]; G.appendChild(sl);
+    }
+    var lg=SVG('text',{x:34,y:60,'font-size':11,fill:'var(--mute)','pointer-events':'none'});
+    lg.textContent='cyan: p \u00b7 violet: q \u00b7 drag the bar tops (drop a bar to the baseline for exactly zero mass)'; G.appendChild(lg);
+    var p=normalize(wp), q=normalize(wq);
+    if(!p||!q){ out.innerHTML='<span class="bad">'+(!p?'p':'q')+' has no mass anywhere \u2014 raise a bar</span>'; return; }
+    for(var k2=0;k2<5;k2++){ var gx2=90+110*k2;
+      var pl=SVG('text',{x:gx2-18,y:BASE+34,'font-size':10,fill:'var(--cyan)','text-anchor':'middle','pointer-events':'none'}); pl.textContent=p[k2].toFixed(2); G.appendChild(pl);
+      var ql=SVG('text',{x:gx2+18,y:BASE+34,'font-size':10,fill:'var(--violet)','text-anchor':'middle','pointer-events':'none'}); ql.textContent=q[k2].toFixed(2); G.appendChild(ql);
+    }
+    var dpq=KL(p,q), dqp=KL(q,p);
+    var msg='H(p) = '+H(p).toFixed(3)+' \u00b7 H(q) = '+H(q).toFixed(3)+' bits \u00b7 D(p\u2016q) = <b>'+fmt(dpq)+'</b> \u00b7 D(q\u2016p) = <b>'+fmt(dqp)+'</b> bits';
+    if(dpq===Infinity||dqp===Infinity){
+      var which=(dpq===Infinity)?['p','q']:['q','p'];
+      msg+=' \u00b7 <span class="bad">'+which[0]+' puts mass on a symbol '+which[1]+' calls impossible \u2014 a code optimised for '+which[1]+' has no codeword for it</span>';
+    } else if(dpq<0.01&&dqp<0.01){
+      msg+=' \u00b7 <span class="ok">p \u2248 q \u2014 both divergences vanish (Gibbs: D \u2265 0 with equality iff p = q)</span>';
+    } else if(dpq>0&&dqp>0&&(dpq/dqp>2||dqp/dpq>2)){
+      msg+=' \u00b7 asymmetric: D(p\u2016q) \u2260 D(q\u2016p) \u2014 KL is not a metric';
+    }
+    out.innerHTML=msg;
+  }
+
+  // ---- drag engine (supplied by draggable-points-2d) ----
+  const HL=SVG('g'); svg.appendChild(HL);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const vb={x:_vb[0],y:_vb[1],width:_vb[2],height:_vb[3]};
+  function clampPt(p){ const r=p.r||7;
+    const lo_x=(p.minX!=null?p.minX:vb.x+r), hi_x=(p.maxX!=null?p.maxX:vb.x+vb.width-r);
+    const lo_y=(p.minY!=null?p.minY:vb.y+r), hi_y=(p.maxY!=null?p.maxY:vb.y+vb.height-r);
+    if(!p.lockX) p.x=Math.max(lo_x,Math.min(hi_x,p.x));
+    if(!p.lockY) p.y=Math.max(lo_y,Math.min(hi_y,p.y));
+  }
+  const handles=[]; let drag=null;
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  pts.forEach(function(p){ const r=p.r||7;
+    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'var(--bg)','stroke-width':1.5});
+    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);
+    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }
+    handles.push({h:h,lab:lab,p:p,r:r});
+    h.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drag=p; h.style.cursor='grabbing'; try{h.setPointerCapture(ev.pointerId);}catch(e){} });
+  });
+  window.addEventListener('pointermove',function(ev){ if(!drag) return; const q=toSvg(ev); if(!drag.lockX)drag.x=q.x; if(!drag.lockY)drag.y=q.y; clampPt(drag); render(); });
+  window.addEventListener('pointerup',function(){ drag=null; for(const o of handles) o.h.style.cursor='grab'; });
+  function render(){ draw(); for(const o of handles){ o.h.setAttribute('cx',o.p.x); o.h.setAttribute('cy',o.p.y); if(o.lab){ o.lab.setAttribute('x',o.p.x+o.r+5); o.lab.setAttribute('y',o.p.y-o.r-3); } } }
+  pts.forEach(clampPt); render();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>
