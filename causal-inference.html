@@ -548,10 +548,10 @@ The drug helps in <em>both</em> strata (+0.06 and +0.04). But if the treated gro
 </script>
 
 
-  <p>The Simpson’s-paradox numbers above live in one fixed diagram. Now build the diagram yourself. $X$ (cyan) and $Y$ (yellow) are pinned as treatment and outcome; every arrow points left→right, so horizontal placement <em>is</em> the causal order and the graph stays a DAG no matter what you build. On every edit the widget enumerates the backdoor paths (open ones glow pink), computes a minimal admissible adjustment set by exhaustive search over the backdoor criterion, and — when all paths are already blocked by colliders — warns which adjustment would <em>open</em> one.</p>
+  <p>The Simpson’s-paradox numbers above live in one fixed diagram. Now build the diagram yourself. $X$ (cyan) and $Y$ (yellow) are pinned as treatment and outcome; every arrow points left→right, so horizontal placement <em>is</em> the causal order and the graph stays a DAG no matter what you build. On every edit the widget enumerates the backdoor paths (open ones glow pink), computes a minimal admissible adjustment set by exhaustive search over the backdoor criterion, and — when all paths are already blocked by colliders — warns which adjustment would <em>open</em> one (the so-called <em>M-bias</em>).</p>
 
 <div class="widget" id="w-backdoor-dag">
-  <div class="hd"><div class="ttl">Build the DAG — backdoor paths and the adjustment set</div><div class="hint">click empty space to add a node, drag node&rarr;node to toggle an edge, click a node to delete it; arrows always point left&rarr;right — position is causal order. Build $X\leftarrow A\rightarrow C\leftarrow B\rightarrow Y$ with $C$ rightmost and watch the collider warning</div></div>
+  <div class="hd"><div class="ttl">Build the DAG — backdoor paths and the adjustment set</div><div class="hint">click empty space to add a node, drag node&rarr;node to toggle an edge, click a node to delete it (delete and re-add to move one); arrows always point left&rarr;right — position is causal order. Build $X\leftarrow A\rightarrow C\leftarrow B\rightarrow Y$ with $C$ rightmost (new nodes are numbered — $A,B,C$ just name the roles) and watch the collider warning</div></div>
   <svg id="backdoor-dag-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable causal DAG with treatment X and outcome Y; backdoor paths, the minimal admissible adjustment set, and collider warnings recompute on every edit</title></svg>
   <div class="row">
     <button id="w-backdoor-dag-reset" type="button">↺ Reset</button>
@@ -597,7 +597,7 @@ The drug helps in <em>both</em> strata (+0.06 and +0.04). But if the treated gro
   // X = node id 0 (treatment), Y = node id 1 (outcome). Every edge points
   // left-to-right (ties broken by id), so horizontal position IS the causal
   // order and the graph is a DAG by construction.
-  const MAXN=9, MAXPATHS=1500;
+  const MAXN=9, MAXPATHS=14000; // > the 13 700 simple X..Y paths of K\u2089, so analysis is never truncated within MAXN
   function draw(g){
     while(G.firstChild) G.removeChild(G.firstChild);
     const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });
@@ -616,7 +616,8 @@ The drug helps in <em>both</em> strata (+0.06 and +0.04). But if the treated gro
     if(!(0 in byId)||!(1 in byId)){
       g.edges.forEach(function(e){ arrow(byId[e.u]||byId[e.v],byId[e.v]||byId[e.u],'var(--line)',2); });
       g.nodes.forEach(node);
-      out.innerHTML='<span class="bad">'+((0 in byId)?'Y (outcome)':'X (treatment)')+' was deleted \u2014 hit Reset</span>';
+      var missing=[]; if(!(0 in byId)) missing.push('X (treatment)'); if(!(1 in byId)) missing.push('Y (outcome)');
+      out.innerHTML='<span class="bad">'+missing.join(' and ')+' was deleted \u2014 hit Reset</span>';
       return;
     }
     // directed edges by x-order
@@ -679,7 +680,11 @@ The drug helps in <em>both</em> strata (+0.06 and +0.04). But if the treated gro
       if(validSet(Z)){ if(best===null||Z.length<best.length) best=Z; }
     }
     const hazards=(validSet([]))?cand.filter(function(c){ return !validSet([c]); }):[];
-    var msg='backdoor paths: <b>'+backdoor.length+'</b> ('+openPaths.length+' open'+(overflow?', truncated':'')+')';
+    if(overflow){
+      out.innerHTML='too many paths to certify an adjustment set \u2014 remove some edges';
+      return;
+    }
+    var msg='backdoor paths: <b>'+backdoor.length+'</b> ('+openPaths.length+' open)';
     if(backdoor.length===0){
       msg+=' \u00b7 <span class="ok">no backdoor path \u2014 p(y | do(x)) = p(y | x), nothing to adjust</span>';
     } else if(openPaths.length>0){
