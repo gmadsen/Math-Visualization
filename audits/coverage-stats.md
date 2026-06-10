@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1688** (registry-driven: 1688, inline: 0)
+- Widgets: **1689** (registry-driven: 1689, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **72** of **211** with widgets (34%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **73** of **211** with widgets (35%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -24,7 +24,7 @@ page has wired one in yet.
 | `parametric-plot` | parametric-plot | slider | 2d | 131 | algebraic-combinatorics, analytic-continuation, analytic-number-theory, causal-inference, deep-learning-theory, diffusion-and-score-based-models, ergodic-theory, expanders, game-theory, graph-theory-fundamentals, information-geometry, integrable-systems, kernel-methods-and-rkhs, markov-decision-processes, optimal-transport, order-theory-and-lattices, polytopes-and-ehrhart, pomdps-and-belief-states, probabilistic-graphical-models, quantum-information, ramsey-theory, reinforcement-learning, statistical-learning-theory |
 | `clickable-diagram` | clickable-diagram | click | 2d | 100 | abelian-varieties, algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, cluster-algebras, conformal-and-cr-geometry, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, gauge-theory, geometric-invariant-theory, homological, kalman-filtering-and-state-estimation, mapping-class-groups, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, positive-characteristic-ag, positivity-and-ample-line-bundles, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, string-theory, topological-data-analysis, toric-varieties, tropical-geometry, wavelets |
 | `draggable-points-2d` | draggable-points-2d | drag | 2d | 12 | complex-analysis, convex-geometry, information-geometry, information-theory, kalman-filtering-and-state-estimation, kernel-methods-and-rkhs, mathematical-statistics, numerical-analysis, optimal-transport, projective-plane, spectral-methods-data, topological-data-analysis |
-| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 8 | causal-inference, expanders, extremal-combinatorics, graph-theory-fundamentals, matroid-theory, probabilistic-graphical-models, spectral-graph-theory |
+| `graph-edit-2d` | graph-edit-2d | graph-edit | 2d | 9 | causal-inference, combinatorial-optimization, expanders, extremal-combinatorics, graph-theory-fundamentals, matroid-theory, probabilistic-graphical-models, spectral-graph-theory |
 | `vector-field-flow-2d` | vector-field-flow-2d | click-seed | 2d | 8 | deep-learning-theory, diffusion-and-score-based-models, dynamical-systems, mathematical-biology |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
@@ -842,10 +842,10 @@ page has wired one in yet.
 ### Control theory & optimization
 
 - Topics: **9**, concepts: **58**
-- Widgets: **68** (registry-driven: 68, inline: 0)
-  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, animated-svg-2d: 3, sketch-curve-2d: 1, inline-code-cell: 1, clickable-diagram: 1, draggable-points-2d: 1, grid-world-mdp: 1, best-response-explorer-2d: 1, q-learning-grid-world: 1, belief-grid-localization: 1
-  - by dimension: 2d: 68
-  - by gesture: slider: 49, click: 6, play: 3, edit-grid: 3, select: 2, drag: 2, scrub: 1, draw: 1, edit: 1
+- Widgets: **69** (registry-driven: 69, inline: 0)
+  - by family: slider-readout: 25, parametric-plot: 24, button-stepper: 5, verbatim: 3, animated-svg-2d: 3, graph-edit-2d: 1, sketch-curve-2d: 1, inline-code-cell: 1, clickable-diagram: 1, draggable-points-2d: 1, grid-world-mdp: 1, best-response-explorer-2d: 1, q-learning-grid-world: 1, belief-grid-localization: 1
+  - by dimension: 2d: 69
+  - by gesture: slider: 49, click: 6, play: 3, edit-grid: 3, select: 2, drag: 2, scrub: 1, graph-edit: 1, draw: 1, edit: 1
 - Quizzes: **174** (v1: 174, hard: 0, expert: 0)
   - by type: mcq: 116, numeric: 36, multi-select: 14, matching: 4, spot-the-error: 2, ordering: 2
 
@@ -893,7 +893,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `brill-noether` | Algebraic geometry | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
 | `cocartesian-fibrations` | Higher categories & toposes | 7 | 8 | other: 8 | interact: 8 |
 | `coding-theory` | Combinatorics & graph theory | 7 | 7 | pick: 5, scrub: 2 | click: 5, slider: 2 |
-| `combinatorial-optimization` | Control theory & optimization | 7 | 8 | pick: 5, scrub: 3 | click: 3, slider: 2, select: 2, play: 1 |
 | `computational-molecular-biology` | Probability & statistics | 7 | 7 | scrub: 5, pick: 2 | slider: 5, input: 2 |
 | `conformal-and-cr-geometry` | Analysis | 7 | 7 | scrub: 5, pick: 2 | slider: 5, click: 2 |
 | `derived-categories` | Algebra & homological | 7 | 7 | pick: 5, scrub: 2 | click: 5, scrub: 2 |
@@ -1034,7 +1033,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `spectral-methods-data` | Learning theory & data science | 7 | 8 | 0 | 2 | 0 | ✓ | slider: 7, drag: 1 | 21 |
 | `computational-molecular-biology` | Probability & statistics | 7 | 7 | 0 | 2 | 0 | · | slider: 5, input: 2 | 21 |
 | `optimal-control-and-dynamic-programming` | Control theory & optimization | 7 | 7 | 0 | 2 | 0 | · | slider: 6, scrub: 1 | 21 |
-| `combinatorial-optimization` | Control theory & optimization | 7 | 8 | 0 | 4 | 0 | · | click: 3, slider: 2, select: 2, play: 1 | 21 |
+| `combinatorial-optimization` | Control theory & optimization | 7 | 9 | 0 | 5 | 0 | ✓ | click: 3, slider: 2, select: 2, play: 1, graph-edit: 1 | 21 |
 | `mathematical-finance` | Control theory & optimization | 7 | 7 | 0 | 2 | 0 | · | slider: 5, click: 2 | 21 |
 | `donaldson-thomas-and-gw-invariants` | Algebraic geometry | 7 | 7 | 0 | 2 | 0 | · | click: 4, slider: 3 | 21 |
 | `positive-characteristic-ag` | Algebraic geometry | 7 | 9 | 0 | 4 | 0 | · | select: 4, click: 2, slider: 2, interact: 1 | 21 |
