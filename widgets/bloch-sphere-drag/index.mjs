@@ -52,7 +52,7 @@ export function renderScript(params) {
     `  function proj(p){\n` +
     `    const ca=Math.cos(YAW), sa=Math.sin(YAW), cb=Math.cos(PIT), sb=Math.sin(PIT);\n` +
     `    const X1=p[0]*ca-p[1]*sa, Y1=p[0]*sa+p[1]*ca, Z1=p[2];\n` +
-    `    return { x: CX+S*Y1, y: CYc-S*(Z1*cb-(-X1)*sb), front: X1*cb+Z1*sb > -0.05 };\n` +
+    `    return { x: CX+S*Y1, y: CYc-S*(Z1*cb-X1*sb), front: X1*cb+Z1*sb > -0.05 };\n` +
     `  }\n` +
     `  function circle3(axis, g){\n` +
     `    // draw a unit great circle perpendicular to 'axis' as two polylines (front solid, back dashed)\n` +
@@ -81,9 +81,9 @@ export function renderScript(params) {
     `  label([0,0,1.12],'|0\\u27e9','var(--cyan)'); label([0,0,-1.14],'|1\\u27e9','var(--cyan)');\n` +
     `  label([1.14,0,0],'|+\\u27e9','var(--mute)'); label([-1.16,0,0],'|\\u2212\\u27e9','var(--mute)');\n` +
     `  label([0,1.12,0],'|+i\\u27e9','var(--mute)'); label([0,-1.14,0],'|\\u2212i\\u27e9','var(--mute)');\n` +
-    `  var th=${th0}, ph=${ph0}, ghost=null;\n` +
+    `  var th=${th0}, ph=${ph0}, ghost=null, lastGate=null;\n` +
     `  function bloch(thA,phA){ return [Math.sin(thA)*Math.cos(phA), Math.sin(thA)*Math.sin(phA), Math.cos(thA)]; }\n` +
-    `  function fmt(x){ const r=Math.round(x*100)/100; return (r===0?0:r).toFixed(2); }\n` +
+    `  function fmt(x){ const r=Math.round(x*100)/100; const t=(r===0?0:r).toFixed(2); return t.replace('-','\\u2212'); }\n` +
     `  function render(){\n` +
     `    FG.innerHTML='';\n` +
     `    if(ghost){ const gq=proj(bloch(ghost[0],ghost[1]));\n` +
@@ -96,7 +96,9 @@ export function renderScript(params) {
     `    var msg='|\\u03c8\\u27e9 = '+fmt(c0)+'\\u2009|0\\u27e9 + ('+fmt(re)+(im<0?' \\u2212 ':' + ')+fmt(Math.abs(im))+'i)\\u2009|1\\u27e9';\n` +
     `    var phDeg=((ph*180/Math.PI)%360+360)%360; if(phDeg>=359.5) phDeg=0;\n` +
     `    msg+=' \\u00b7 \\u03b8 = '+(th*180/Math.PI).toFixed(0)+'\\u00b0, \\u03c6 = '+phDeg.toFixed(0)+'\\u00b0';\n` +
+    `    msg+=' \\u00b7 (x, y, z) = ('+fmt(p[0])+', '+fmt(p[1])+', '+fmt(p[2])+')';\n` +
     `    msg+=' \\u00b7 Born: P(0) = <b>'+fmt(c0*c0)+'</b>, P(1) = <b>'+fmt(s0*s0)+'</b>';\n` +
+    `    if(lastGate){ msg+=' \\u00b7 applied '+lastGate; }\n` +
     `    if(th<0.06||th>Math.PI-0.06){ msg+=' \\u00b7 at a pole \\u03c6 is pure gauge \\u2014 the state ignores it'; }\n` +
     `    out.innerHTML=msg;\n` +
     `  }\n` +
@@ -105,15 +107,15 @@ export function renderScript(params) {
     `  var dragging=false, last=null;\n` +
     `  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); dragging=true; last=toSvg(ev); svg.style.cursor='grabbing'; try{svg.setPointerCapture(ev.pointerId);}catch(e){} });\n` +
     `  window.addEventListener('pointermove',function(ev){ if(!dragging) return; const p=toSvg(ev);\n` +
-    `    ph+=(p.x-last.x)*0.012; th+=(p.y-last.y)*0.010;\n` +
+    `    lastGate=null; ph+=(p.x-last.x)*0.012; th+=(p.y-last.y)*0.010;\n` +
     `    th=Math.max(0.001,Math.min(Math.PI-0.001,th)); last=p; ghost=null; render(); });\n` +
     `  window.addEventListener('pointerup',function(){ dragging=false; svg.style.cursor='grab'; });\n` +
     `  // gates as sphere maps (computed in Cartesian, back to angles)\n` +
     `  function setFromVec(v){ th=Math.acos(Math.max(-1,Math.min(1,v[2]))); ph=Math.atan2(v[1],v[0]); }\n` +
-    `  function gate(map){ ghost=[th,ph]; const v=bloch(th,ph); setFromVec(map(v)); render(); }\n` +
-    `  const bx=$('#${widgetId}-gx'); if(bx) bx.addEventListener('click',function(){ gate(function(v){ return [v[0],-v[1],-v[2]]; }); });\n` +
-    `  const bz=$('#${widgetId}-gz'); if(bz) bz.addEventListener('click',function(){ gate(function(v){ return [-v[0],-v[1],v[2]]; }); });\n` +
-    `  const bh=$('#${widgetId}-gh'); if(bh) bh.addEventListener('click',function(){ gate(function(v){ return [v[2],-v[1],v[0]]; }); });\n` +
+    `  function gate(map,name){ ghost=[th,ph]; lastGate=name; const v=bloch(th,ph); setFromVec(map(v)); render(); }\n` +
+    `  const bx=$('#${widgetId}-gx'); if(bx) bx.addEventListener('click',function(){ gate(function(v){ return [v[0],-v[1],-v[2]]; },'X: \\u03c0 about x\\u0302'); });\n` +
+    `  const bz=$('#${widgetId}-gz'); if(bz) bz.addEventListener('click',function(){ gate(function(v){ return [-v[0],-v[1],v[2]]; },'Z: \\u03c0 about z\\u0302'); });\n` +
+    `  const bh=$('#${widgetId}-gh'); if(bh) bh.addEventListener('click',function(){ gate(function(v){ return [v[2],-v[1],v[0]]; },'H: \\u03c0 about (x\\u0302+z\\u0302)/\\u221a2'); });\n` +
     `  const rb=$('#${widgetId}-reset'); if(rb) rb.addEventListener('click',function(){ th=${th0}; ph=${ph0}; ghost=null; render(); });\n` +
     `  render();\n` +
     `})();\n` +
