@@ -1149,11 +1149,11 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
   const Qv=0.6, Rv=144; // q and R = (12 px)^2 — fixed; the DATA is what moves
   function kfAxis(zs){
     const n=zs.length;
-    // exact init from (z0, z1): [p0, v] | z0,z1 has mean [z0, z1-z0],
-    // cov [[R,-R],[-R,2R]]; z0/z1 are consumed by the init, so the k<2
-    // measurement updates are skipped (their innovations are identically 0)
-    let x=[zs[0], zs[1]-zs[0]], P=[[Rv,-Rv],[-Rv,2*Rv]];
-    const xf=[], Pf=[], Pp=[], gains=[], innov=[];
+    // causal init: position from z0, velocity from a diffuse prior
+    // (sigma_v = 50 px/step) -- the estimate at time t uses only z0..zt,
+    // so the yellow trace is exactly p(x_t | z_0..z_t) at every step
+    let x=[zs[0], 0], P=[[Rv,0],[0,2500]];
+    const xf=[], Pf=[], Pp=[], gains=[], innov=[], Sv=[];
     for(var k=0;k<n;k++){
       var xpred, Ppred;
       if(k===0){ xpred=x; Ppred=P; }
@@ -1162,14 +1162,14 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
         var a=P[0][0],b=P[0][1],c=P[1][0],d=P[1][1];
         Ppred=[[a+b+c+d+Qv/3, b+d+Qv/2],[c+d+Qv/2, d+Qv]];
       }
-      if(k>=2){
+      if(k>=1){
         var S=Ppred[0][0]+Rv, K=[Ppred[0][0]/S, Ppred[1][0]/S];
         var y=zs[k]-xpred[0];
         x=[xpred[0]+K[0]*y, xpred[1]+K[1]*y];
         P=[[(1-K[0])*Ppred[0][0], (1-K[0])*Ppred[0][1]],
            [Ppred[1][0]-K[1]*Ppred[0][0], Ppred[1][1]-K[1]*Ppred[0][1]]];
-        gains.push(K[0]); innov.push(y);
-      } else { x=xpred; P=Ppred; gains.push(0); innov.push(0); }
+        gains.push(K[0]); innov.push(y); Sv.push(S);
+      } else { x=xpred; P=Ppred; gains.push(0); innov.push(0); Sv.push(1e9); }
       Pp.push(Ppred); xf.push(x.slice()); Pf.push([P[0].slice(),P[1].slice()]);
     }
     const xs=new Array(n); xs[n-1]=xf[n-1].slice();
@@ -1184,7 +1184,7 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
       var dx=[xs[k2+1][0]-xpk1[0], xs[k2+1][1]-xpk1[1]];
       xs[k2]=[xf[k2][0]+C[0][0]*dx[0]+C[0][1]*dx[1], xf[k2][1]+C[1][0]*dx[0]+C[1][1]*dx[1]];
     }
-    return {filt:xf.map(function(v){return v[0];}), smooth:xs.map(function(v){return v[0];}), gains:gains, innov:innov};
+    return {filt:xf.map(function(v){return v[0];}), smooth:xs.map(function(v){return v[0];}), gains:gains, innov:innov, S:Sv};
   }
   function poly(xsArr, ysArr, color, dash, width){
     var d2=''; for(var i=0;i<xsArr.length;i++){ d2+=(i?'L':'M')+xsArr[i].toFixed(1)+' '+ysArr[i].toFixed(1)+' '; }
@@ -1211,10 +1211,13 @@ $$F\Sigma_0 F^\top = \begin{pmatrix}\sigma_p^2 + \Delta t^2\sigma_v^2 & \Delta t
     leg('var(--mute)','observations z\u209c (drag them)');
     leg('var(--yellow)','causal filter  p(x\u209c | z\u2080..z\u209c)');
     leg('var(--violet)','RTS smoother  p(x\u209c | all z)');
-    var bigK=2, bigN=0;
-    for(var k=2;k<rx.innov.length;k++){ var nn=Math.hypot(rx.innov[k], ry.innov[k]); if(nn>bigN){bigN=nn;bigK=k;} }
+    var bigK=1, bigD=0, bigN=0;
+    for(var k=1;k<rx.innov.length;k++){
+      var dN=Math.hypot(rx.innov[k]/Math.sqrt(rx.S[k]), ry.innov[k]/Math.sqrt(ry.S[k]));
+      if(dN>bigD){bigD=dN;bigK=k;bigN=Math.hypot(rx.innov[k], ry.innov[k]);}
+    }
     var gain=rx.gains[bigK];
-    out.innerHTML='largest innovation at t='+bigK+': \u2016z \u2212 H x\u0302<sub>pred</sub>\u2016 = <b>'+bigN.toFixed(0)+'</b> px \u00b7 gain K = '+gain.toFixed(2)+
+    out.innerHTML='largest normalized innovation at t='+bigK+': \u2016z \u2212 H x\u0302<sub>pred</sub>\u2016/\u221aS = <b>'+bigD.toFixed(1)+'</b> ('+bigN.toFixed(0)+' px) \u00b7 gain K = '+gain.toFixed(2)+
       ' \u2014 the filter moves '+Math.round(gain*100)+'% of the way; the smoother re-explains the neighbourhood in hindsight';
   }
 
