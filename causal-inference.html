@@ -547,6 +547,175 @@ The drug helps in <em>both</em> strata (+0.06 and +0.04). But if the treated gro
 })();
 </script>
 
+
+  <p>The Simpson’s-paradox numbers above live in one fixed diagram. Now build the diagram yourself. $X$ (cyan) and $Y$ (yellow) are pinned as treatment and outcome; every arrow points left→right, so horizontal placement <em>is</em> the causal order and the graph stays a DAG no matter what you build. On every edit the widget enumerates the backdoor paths (open ones glow pink), computes a minimal admissible adjustment set by exhaustive search over the backdoor criterion, and — when all paths are already blocked by colliders — warns which adjustment would <em>open</em> one (the so-called <em>M-bias</em>).</p>
+
+<div class="widget" id="w-backdoor-dag">
+  <div class="hd"><div class="ttl">Build the DAG — backdoor paths and the adjustment set</div><div class="hint">click empty space to add a node, drag node&rarr;node to toggle an edge, click a node to delete it (delete and re-add to move one); arrows always point left&rarr;right — position is causal order. Build $X\leftarrow A\rightarrow C\leftarrow B\rightarrow Y$ with $C$ rightmost (new nodes are numbered — $A,B,C$ just name the roles) and watch the collider warning</div></div>
+  <svg id="backdoor-dag-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable causal DAG with treatment X and outcome Y; backdoor paths, the minimal admissible adjustment set, and collider warnings recompute on every edit</title></svg>
+  <div class="row">
+    <button id="w-backdoor-dag-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="backdoor-dag-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#backdoor-dag-svg'), out=$('#backdoor-dag-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const R=16, PAD=24;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const N0=[[160,220],[500,220],[80,90]], E0=[[0,2],[1,2],[0,1]];
+  let nodes=[], edges=[], idc=0;
+  function clampX(x){ return Math.max(PAD,Math.min(W-PAD,x)); }
+  function clampY(y){ return Math.max(PAD,Math.min(Hh-PAD,y)); }
+  function reset(){
+    nodes=N0.map(function(p,i){ return {id:i,x:clampX(p[0]),y:clampY(p[1])}; });
+    idc=nodes.length;
+    edges=[];
+    E0.forEach(function(e){ addEdge(e[0],e[1]); });
+  }
+  function hasEdge(a,b){ const u=Math.min(a,b),v=Math.max(a,b); return edges.some(function(e){return e.u===u&&e.v===v;}); }
+  function addEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    if(!nodes.some(n=>n.id===u)||!nodes.some(n=>n.id===v))return;
+    if(!hasEdge(u,v)) edges.push({u:u,v:v}); }
+  function toggleEdge(a,b){ if(a===b)return; const u=Math.min(a,b),v=Math.max(a,b);
+    const i=edges.findIndex(function(e){return e.u===u&&e.v===v;});
+    if(i>=0) edges.splice(i,1); else edges.push({u:u,v:v}); }
+  function addNode(x,y){ nodes.push({id:idc++,x:clampX(x),y:clampY(y)}); }
+  function delNode(id){ nodes=nodes.filter(n=>n.id!==id);
+    edges=edges.filter(function(e){return e.u!==id&&e.v!==id;}); }
+  // ---- live model handed to the author's draw(g) ----
+  function model(){
+    const adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+    edges.forEach(function(e){ if(adj[e.u]&&adj[e.v]){ adj[e.u].push(e.v); adj[e.v].push(e.u); } });
+    return { nodes:nodes, edges:edges, adj:adj, n:nodes.length, m:edges.length, R:R,
+             deg:function(id){ return adj[id]?adj[id].length:0; } };
+  }
+  function render(){ draw(model()); }
+  // ---- author draw(g) (clears+fills G, writes out) ----
+
+  // X = node id 0 (treatment), Y = node id 1 (outcome). Every edge points
+  // left-to-right (ties broken by id), so horizontal position IS the causal
+  // order and the graph is a DAG by construction.
+  const MAXN=9, MAXPATHS=14000; // > the 13 700 simple X..Y paths of K\u2089, so analysis is never truncated within MAXN
+  function draw(g){
+    while(G.firstChild) G.removeChild(G.firstChild);
+    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });
+    function arrow(a,b,color,w2){
+      const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy)||1, ux=dx/L, uy=dy/L;
+      const x1=a.x+ux*g.R, y1=a.y+uy*g.R, x2=b.x-ux*(g.R+3), y2=b.y-uy*(g.R+3);
+      G.appendChild(SVG('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:color,'stroke-width':w2,'pointer-events':'none'}));
+      G.appendChild(SVG('path',{d:'M'+x2+' '+y2+' L'+(x2-9*ux-4*uy)+' '+(y2-9*uy+4*ux)+' L'+(x2-9*ux+4*uy)+' '+(y2-9*uy-4*ux)+' Z',fill:color,'pointer-events':'none'}));
+    }
+    function node(n){
+      const isX=n.id===0, isY=n.id===1;
+      G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:g.R,fill:isX?'var(--cyan)':(isY?'var(--yellow)':'var(--violet)'),'fill-opacity':0.85,stroke:'var(--bg)','stroke-width':2}));
+      const t=SVG('text',{x:n.x,y:n.y+4,'font-size':12,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});
+      t.textContent=isX?'X':(isY?'Y':String(n.id)); G.appendChild(t);
+    }
+    if(!(0 in byId)||!(1 in byId)){
+      g.edges.forEach(function(e){ arrow(byId[e.u]||byId[e.v],byId[e.v]||byId[e.u],'var(--line)',2); });
+      g.nodes.forEach(node);
+      var missing=[]; if(!(0 in byId)) missing.push('X (treatment)'); if(!(1 in byId)) missing.push('Y (outcome)');
+      out.innerHTML='<span class="bad">'+missing.join(' and ')+' was deleted \u2014 hit Reset</span>';
+      return;
+    }
+    // directed edges by x-order
+    const dir=g.edges.map(function(e){
+      const a=byId[e.u], b=byId[e.v];
+      return (a.x<b.x||(a.x===b.x&&e.u<e.v))?[e.u,e.v]:[e.v,e.u];
+    });
+    const children={}, adj={};
+    g.nodes.forEach(function(n){ children[n.id]=[]; adj[n.id]=[]; });
+    dir.forEach(function(d){ children[d[0]].push(d[1]); adj[d[0]].push({to:d[1],outF:true}); adj[d[1]].push({to:d[0],outF:false}); });
+    function descSet(v){ const s={}; (function go(w){ children[w].forEach(function(c){ if(!s[c]){ s[c]=1; go(c); } }); })(v); return s; }
+    const descX=descSet(0), descOf={}; g.nodes.forEach(function(n){ descOf[n.id]=descSet(n.id); });
+    if(g.n>MAXN){
+      dir.forEach(function(d){ arrow(byId[d[0]],byId[d[1]],'var(--line)',2); });
+      g.nodes.forEach(node);
+      out.innerHTML='more than '+MAXN+' nodes \u2014 too many to analyse exactly; remove some';
+      return;
+    }
+    // all simple paths X..Y (undirected walk, directions tracked)
+    const paths=[]; let overflow=false;
+    (function dfs(v, vis, path){
+      if(paths.length>MAXPATHS){ overflow=true; return; }
+      if(v===1){ paths.push(path.slice()); return; }
+      adj[v].forEach(function(e){
+        if(vis[e.to]||overflow) return;
+        vis[e.to]=1; path.push({mid:v,to:e.to,outF:e.outF});
+        dfs(e.to,vis,path);
+        path.pop(); vis[e.to]=0;
+      });
+    })(0,{0:1},[]);
+    const backdoor=paths.filter(function(p){ return !p[0].outF; });
+    function blocked(path,Z){
+      for(var i=1;i<path.length;i++){
+        const nodeId=path[i-1].to;
+        const collider=path[i-1].outF && !path[i].outF;
+        if(collider){
+          var zHasDesc=Z.some(function(z){ return z===nodeId||descOf[nodeId][z]; });
+          if(!zHasDesc) return true;
+        } else if(Z.indexOf(nodeId)>=0) return true;
+      }
+      return false;
+    }
+    function validSet(Z){
+      if(Z.some(function(z){ return descX[z]; })) return false;
+      return backdoor.every(function(p){ return blocked(p,Z); });
+    }
+    const openPaths=backdoor.filter(function(p){ return !blocked(p,[]); });
+    const openEdges={};
+    openPaths.forEach(function(p){ p.forEach(function(st){ const a=Math.min(st.mid,st.to), b2=Math.max(st.mid,st.to); openEdges[a+'-'+b2]=1; }); });
+    dir.forEach(function(d,i){
+      const e=g.edges[i], key=Math.min(e.u,e.v)+'-'+Math.max(e.u,e.v);
+      arrow(byId[d[0]],byId[d[1]], openEdges[key]?'var(--pink)':'var(--line)', openEdges[key]?3:2);
+    });
+    g.nodes.forEach(node);
+    // minimal admissible set (exhaustive over non-X/Y non-descendants)
+    const cand=g.nodes.map(function(n){return n.id;}).filter(function(id){ return id!==0&&id!==1&&!descX[id]; });
+    var best=null;
+    for(var mask=0;mask<(1<<cand.length);mask++){
+      const Z=cand.filter(function(_,i2){ return mask&(1<<i2); });
+      if(validSet(Z)){ if(best===null||Z.length<best.length) best=Z; }
+    }
+    const hazards=(validSet([]))?cand.filter(function(c){ return !validSet([c]); }):[];
+    if(overflow){
+      out.innerHTML='too many paths to certify an adjustment set \u2014 remove some edges';
+      return;
+    }
+    var msg='backdoor paths: <b>'+backdoor.length+'</b> ('+openPaths.length+' open)';
+    if(backdoor.length===0){
+      msg+=' \u00b7 <span class="ok">no backdoor path \u2014 p(y | do(x)) = p(y | x), nothing to adjust</span>';
+    } else if(openPaths.length>0){
+      msg+=' \u00b7 <span class="bad">confounded</span> \u00b7 minimal admissible set: '+(best&&best.length?('adjust for <b>{'+best.join(', ')+'}</b> (node #)'):(best?'<b>\u2205</b>':'<b>none exists</b>'));
+    } else {
+      msg+=' \u00b7 <span class="ok">every backdoor path is blocked by an unobserved collider \u2014 the admissible set is \u2205</span>';
+      if(hazards.length) msg+=' \u00b7 <span class="bad">careful: adjusting for node '+hazards.join(' or ')+' would OPEN a path (M-bias)</span>';
+    }
+    out.innerHTML=msg;
+  }
+
+  // ---- graph-edit engine (supplied by graph-edit-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  function hit(pt){ let best=null,bd=(R*1.25)*(R*1.25); for(let k=0;k<nodes.length;k++){ const nd=nodes[k], dx=nd.x-pt.x, dy=nd.y-pt.y, d=dx*dx+dy*dy; if(d<bd){bd=d;best=nd;} } return best; }
+  let from=null, downPt=null, moved=false, rb=null;
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); const pt=toSvg(ev); downPt=pt; moved=false; from=hit(pt); try{svg.setPointerCapture(ev.pointerId);}catch(e){} });
+  window.addEventListener('pointermove',function(ev){ if(downPt==null)return; const pt=toSvg(ev);
+    if(Math.abs(pt.x-downPt.x)+Math.abs(pt.y-downPt.y)>4) moved=true;
+    if(from){ if(!rb){ rb=SVG('line',{stroke:'var(--mute)','stroke-width':2,'stroke-dasharray':'4 4','pointer-events':'none'}); svg.appendChild(rb); }
+      rb.setAttribute('x1',from.x); rb.setAttribute('y1',from.y); rb.setAttribute('x2',pt.x); rb.setAttribute('y2',pt.y); } });
+  window.addEventListener('pointerup',function(ev){ if(downPt==null)return; const pt=toSvg(ev); const tgt=hit(pt);
+    if(rb){ svg.removeChild(rb); rb=null; }
+    if(from){ if(tgt && tgt.id!==from.id) toggleEdge(from.id,tgt.id);
+      else if(!moved && (!tgt||tgt.id===from.id)) delNode(from.id); }
+    else if(!moved && !tgt) addNode(pt.x,pt.y);
+    from=null; downPt=null; moved=false; render(); });
+  const rbn=$('#w-backdoor-dag-reset'); if(rbn) rbn.addEventListener('click',function(){ reset(); render(); });
+  reset(); render();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

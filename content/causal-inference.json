@@ -209,6 +209,63 @@
         },
         {
           "type": "raw",
+          "html": "\n  <p>The Simpson’s-paradox numbers above live in one fixed diagram. Now build the diagram yourself. $X$ (cyan) and $Y$ (yellow) are pinned as treatment and outcome; every arrow points left→right, so horizontal placement <em>is</em> the causal order and the graph stays a DAG no matter what you build. On every edit the widget enumerates the backdoor paths (open ones glow pink), computes a minimal admissible adjustment set by exhaustive search over the backdoor criterion, and — when all paths are already blocked by colliders — warns which adjustment would <em>open</em> one (the so-called <em>M-bias</em>).</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "graph-edit-2d",
+          "params": {
+            "widgetId": "w-backdoor-dag",
+            "svgId": "backdoor-dag-svg",
+            "outputId": "backdoor-dag-out",
+            "title": "Build the DAG — backdoor paths and the adjustment set",
+            "hint": "click empty space to add a node, drag node&rarr;node to toggle an edge, click a node to delete it (delete and re-add to move one); arrows always point left&rarr;right — position is causal order. Build $X\\leftarrow A\\rightarrow C\\leftarrow B\\rightarrow Y$ with $C$ rightmost (new nodes are numbered — $A,B,C$ just name the roles) and watch the collider warning",
+            "svgTitle": "An editable causal DAG with treatment X and outcome Y; backdoor paths, the minimal admissible adjustment set, and collider warnings recompute on every edit",
+            "viewBox": "0 0 640 360",
+            "svgWidth": 640,
+            "svgHeight": 360,
+            "initialNodes": [
+              [
+                160,
+                220
+              ],
+              [
+                500,
+                220
+              ],
+              [
+                80,
+                90
+              ]
+            ],
+            "initialEdges": [
+              [
+                0,
+                2
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                0,
+                1
+              ]
+            ],
+            "outputInitial": "&nbsp;",
+            "bodyScript": "\n  // X = node id 0 (treatment), Y = node id 1 (outcome). Every edge points\n  // left-to-right (ties broken by id), so horizontal position IS the causal\n  // order and the graph is a DAG by construction.\n  const MAXN=9, MAXPATHS=14000; // > the 13 700 simple X..Y paths of K\\u2089, so analysis is never truncated within MAXN\n  function draw(g){\n    while(G.firstChild) G.removeChild(G.firstChild);\n    const byId={}; g.nodes.forEach(function(n){ byId[n.id]=n; });\n    function arrow(a,b,color,w2){\n      const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy)||1, ux=dx/L, uy=dy/L;\n      const x1=a.x+ux*g.R, y1=a.y+uy*g.R, x2=b.x-ux*(g.R+3), y2=b.y-uy*(g.R+3);\n      G.appendChild(SVG('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:color,'stroke-width':w2,'pointer-events':'none'}));\n      G.appendChild(SVG('path',{d:'M'+x2+' '+y2+' L'+(x2-9*ux-4*uy)+' '+(y2-9*uy+4*ux)+' L'+(x2-9*ux+4*uy)+' '+(y2-9*uy-4*ux)+' Z',fill:color,'pointer-events':'none'}));\n    }\n    function node(n){\n      const isX=n.id===0, isY=n.id===1;\n      G.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:g.R,fill:isX?'var(--cyan)':(isY?'var(--yellow)':'var(--violet)'),'fill-opacity':0.85,stroke:'var(--bg)','stroke-width':2}));\n      const t=SVG('text',{x:n.x,y:n.y+4,'font-size':12,fill:'var(--bg)','text-anchor':'middle','font-weight':'bold','pointer-events':'none'});\n      t.textContent=isX?'X':(isY?'Y':String(n.id)); G.appendChild(t);\n    }\n    if(!(0 in byId)||!(1 in byId)){\n      g.edges.forEach(function(e){ arrow(byId[e.u]||byId[e.v],byId[e.v]||byId[e.u],'var(--line)',2); });\n      g.nodes.forEach(node);\n      var missing=[]; if(!(0 in byId)) missing.push('X (treatment)'); if(!(1 in byId)) missing.push('Y (outcome)');\n      out.innerHTML='<span class=\"bad\">'+missing.join(' and ')+' was deleted \\u2014 hit Reset</span>';\n      return;\n    }\n    // directed edges by x-order\n    const dir=g.edges.map(function(e){\n      const a=byId[e.u], b=byId[e.v];\n      return (a.x<b.x||(a.x===b.x&&e.u<e.v))?[e.u,e.v]:[e.v,e.u];\n    });\n    const children={}, adj={};\n    g.nodes.forEach(function(n){ children[n.id]=[]; adj[n.id]=[]; });\n    dir.forEach(function(d){ children[d[0]].push(d[1]); adj[d[0]].push({to:d[1],outF:true}); adj[d[1]].push({to:d[0],outF:false}); });\n    function descSet(v){ const s={}; (function go(w){ children[w].forEach(function(c){ if(!s[c]){ s[c]=1; go(c); } }); })(v); return s; }\n    const descX=descSet(0), descOf={}; g.nodes.forEach(function(n){ descOf[n.id]=descSet(n.id); });\n    if(g.n>MAXN){\n      dir.forEach(function(d){ arrow(byId[d[0]],byId[d[1]],'var(--line)',2); });\n      g.nodes.forEach(node);\n      out.innerHTML='more than '+MAXN+' nodes \\u2014 too many to analyse exactly; remove some';\n      return;\n    }\n    // all simple paths X..Y (undirected walk, directions tracked)\n    const paths=[]; let overflow=false;\n    (function dfs(v, vis, path){\n      if(paths.length>MAXPATHS){ overflow=true; return; }\n      if(v===1){ paths.push(path.slice()); return; }\n      adj[v].forEach(function(e){\n        if(vis[e.to]||overflow) return;\n        vis[e.to]=1; path.push({mid:v,to:e.to,outF:e.outF});\n        dfs(e.to,vis,path);\n        path.pop(); vis[e.to]=0;\n      });\n    })(0,{0:1},[]);\n    const backdoor=paths.filter(function(p){ return !p[0].outF; });\n    function blocked(path,Z){\n      for(var i=1;i<path.length;i++){\n        const nodeId=path[i-1].to;\n        const collider=path[i-1].outF && !path[i].outF;\n        if(collider){\n          var zHasDesc=Z.some(function(z){ return z===nodeId||descOf[nodeId][z]; });\n          if(!zHasDesc) return true;\n        } else if(Z.indexOf(nodeId)>=0) return true;\n      }\n      return false;\n    }\n    function validSet(Z){\n      if(Z.some(function(z){ return descX[z]; })) return false;\n      return backdoor.every(function(p){ return blocked(p,Z); });\n    }\n    const openPaths=backdoor.filter(function(p){ return !blocked(p,[]); });\n    const openEdges={};\n    openPaths.forEach(function(p){ p.forEach(function(st){ const a=Math.min(st.mid,st.to), b2=Math.max(st.mid,st.to); openEdges[a+'-'+b2]=1; }); });\n    dir.forEach(function(d,i){\n      const e=g.edges[i], key=Math.min(e.u,e.v)+'-'+Math.max(e.u,e.v);\n      arrow(byId[d[0]],byId[d[1]], openEdges[key]?'var(--pink)':'var(--line)', openEdges[key]?3:2);\n    });\n    g.nodes.forEach(node);\n    // minimal admissible set (exhaustive over non-X/Y non-descendants)\n    const cand=g.nodes.map(function(n){return n.id;}).filter(function(id){ return id!==0&&id!==1&&!descX[id]; });\n    var best=null;\n    for(var mask=0;mask<(1<<cand.length);mask++){\n      const Z=cand.filter(function(_,i2){ return mask&(1<<i2); });\n      if(validSet(Z)){ if(best===null||Z.length<best.length) best=Z; }\n    }\n    const hazards=(validSet([]))?cand.filter(function(c){ return !validSet([c]); }):[];\n    if(overflow){\n      out.innerHTML='too many paths to certify an adjustment set \\u2014 remove some edges';\n      return;\n    }\n    var msg='backdoor paths: <b>'+backdoor.length+'</b> ('+openPaths.length+' open)';\n    if(backdoor.length===0){\n      msg+=' \\u00b7 <span class=\"ok\">no backdoor path \\u2014 p(y | do(x)) = p(y | x), nothing to adjust</span>';\n    } else if(openPaths.length>0){\n      msg+=' \\u00b7 <span class=\"bad\">confounded</span> \\u00b7 minimal admissible set: '+(best&&best.length?('adjust for <b>{'+best.join(', ')+'}</b> (node #)'):(best?'<b>\\u2205</b>':'<b>none exists</b>'));\n    } else {\n      msg+=' \\u00b7 <span class=\"ok\">every backdoor path is blocked by an unobserved collider \\u2014 the admissible set is \\u2205</span>';\n      if(hazards.length) msg+=' \\u00b7 <span class=\"bad\">careful: adjusting for node '+hazards.join(' or ')+' would OPEN a path (M-bias)</span>';\n    }\n    out.innerHTML=msg;\n  }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-backdoor-dag"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#bayes\">Conditional probability &amp; Bayes' rule</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
