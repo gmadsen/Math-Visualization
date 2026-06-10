@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-10T15:06:16.580Z",
+  "generated": "2026-06-10T15:07:18.500Z",
   "entries": [
     {
       "slug": "combinatorial-optimization",
@@ -96,6 +96,14 @@
       "tag": "",
       "date": "2026-06-10",
       "message": "feat(random-walks): build the graph — the spectral gap chases the geometry (#497)"
+    },
+    {
+      "slug": "simplicial-complexes-combinatorial",
+      "title": "Simplicial complexes (combinatorial)",
+      "color": "g",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(simplicial-complexes): glue a complex — the closure axiom under your cursor"
     },
     {
       "slug": "stochastic-calculus",
@@ -1632,14 +1640,6 @@
       "tag": "",
       "date": "2026-05-17",
       "message": "fix(audit): buildSkipMask $$…$$ scanner must skip already-masked positions (#235)"
-    },
-    {
-      "slug": "simplicial-complexes-combinatorial",
-      "title": "Simplicial complexes (combinatorial)",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "feat: JSON-aware audit-inline-links + blocklist + popover KaTeX (#226)"
     },
     {
       "slug": "symplectic-manifolds",
