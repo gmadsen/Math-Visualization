@@ -606,6 +606,81 @@ function smdGauss(rng){
   render();
 })();
 </script>
+  <p>The widget above steers the cloud through two sliders and a resample button — you move <em>parameters</em>, never a point. Now grab the points themselves. Twelve of them, and the sample covariance $S$, its eigenvectors $v_1, v_2$, and the variance split $\lambda_1/(\lambda_1+\lambda_2)$ recompute on every move (here $\lambda_1 \ge \lambda_2$ are the eigenvalues of $S$ — in the notation above, $\lambda_j = \sigma_j^2/n$). The dashed segments are the rank-1 reconstruction errors — their squared sum is exactly $n\lambda_2$, the Eckart–Young residual. Stretch the cloud and watch $v_1$ lock on; squash it round and watch $v_1$ lose its grip — the $\lambda_1 \approx \lambda_2$ instability behind both warnings below.</p>
+
+<div class="widget" id="w-pca-drag-data">
+  <div class="hd"><div class="ttl">Drag the data — the principal axes follow</div><div class="hint">drag the cyan points: the yellow axis is $v_1$ (half-length $2\sqrt{\lambda_1}$), the dashes are each point’s rank-1 residual; make the cloud round and $v_1$ becomes unstable — make it a line and it captures everything</div></div>
+  <svg id="pca-drag-data-svg" viewBox="0 0 640 370" width="640" height="370"><title>Twelve draggable data points whose sample-covariance eigenvectors, variance-explained split, and rank-1 residuals recompute live</title></svg>
+  <div class="readout" id="pca-drag-data-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#pca-drag-data-svg'), out=$('#pca-drag-data-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const pts=[{"id":"d0","x":90,"y":266,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d1","x":138,"y":272,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d2","x":159,"y":222,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d3","x":210,"y":242,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d4","x":232,"y":188,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d5","x":281,"y":204,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d6","x":300,"y":150,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d7","x":358,"y":162,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d8","x":379,"y":108,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d9","x":430,"y":122,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d10","x":447,"y":74,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330},{"id":"d11","x":501,"y":84,"color":"var(--cyan)","minX":30,"maxX":610,"minY":40,"maxY":330}];
+  pts.byId={}; for(const p of pts) pts.byId[p.id]=p;
+  // ---- author draw() (reads pts, clears+fills G, writes out) ----
+
+  function draw(){
+    G.innerHTML='';
+    G.appendChild(SVG('rect',{x:20,y:28,width:600,height:316,fill:'none',stroke:'var(--line)','stroke-width':1,opacity:0.5,'pointer-events':'none'}));
+    var n=pts.length, mx=0, my=0;
+    for(var i=0;i<n;i++){ mx+=pts[i].x; my+=pts[i].y; } mx/=n; my/=n;
+    var sxx=0, sxy=0, syy=0;
+    for(var j=0;j<n;j++){ var dx=pts[j].x-mx, dy=pts[j].y-my; sxx+=dx*dx; sxy+=dx*dy; syy+=dy*dy; }
+    sxx/=n; sxy/=n; syy/=n;
+    var tr=sxx+syy, disc=Math.sqrt((sxx-syy)*(sxx-syy)/4 + sxy*sxy);
+    var l1=tr/2+disc, l2=tr/2-disc;
+    if(l1<1e-9){ out.innerHTML='the cloud has collapsed to a point \u2014 spread it out'; return; }
+    // first principal direction (pixel coords)
+    var th=0.5*Math.atan2(2*sxy, sxx-syy);
+    var v1=[Math.cos(th), Math.sin(th)], v2=[-v1[1], v1[0]];
+    // residual droplines: each point onto the v1 line through the mean
+    for(var k=0;k<n;k++){ var ddx=pts[k].x-mx, ddy=pts[k].y-my;
+      var t2=ddx*v1[0]+ddy*v1[1];
+      G.appendChild(SVG('line',{x1:pts[k].x,y1:pts[k].y,x2:mx+t2*v1[0],y2:my+t2*v1[1],stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'2 3',opacity:0.6,'pointer-events':'none'}));
+    }
+    function axis(v,lam,color,w2){ var L=2*Math.sqrt(lam);
+      G.appendChild(SVG('line',{x1:mx-L*v[0],y1:my-L*v[1],x2:mx+L*v[0],y2:my+L*v[1],stroke:color,'stroke-width':w2,'pointer-events':'none'})); }
+    axis(v2,l2,'var(--violet)',2);
+    axis(v1,l1,'var(--yellow)',3);
+    G.appendChild(SVG('circle',{cx:mx,cy:my,r:4,fill:'var(--ink)','pointer-events':'none'}));
+    var lg=SVG('text',{x:28,y:46,'font-size':11,fill:'var(--mute)','pointer-events':'none'});
+    lg.textContent='yellow: v\u2081 (half-length 2\u221a\u03bb\u2081) \u00b7 violet: v\u2082 \u00b7 dashes: rank-1 residuals'; G.appendChild(lg);
+    var frac=l1/(l1+l2);
+    var deg=(-th*180/Math.PI); deg=((deg%180)+180)%180; if(deg>=179.5) deg=0; // math convention: y up
+    var verdict = frac>0.85 ? ' \u00b7 <span class="ok">one direction carries the story \u2014 the rank-1 picture is faithful (Eckart\u2013Young)</span>'
+                : frac<0.6 ? ' \u00b7 <span class="bad">nearly isotropic \u2014 v\u2081 is barely pinned down: nudge one point and watch it swing</span>'
+                : '';
+    out.innerHTML='v\u2081 at '+deg.toFixed(0)+'\u00b0 from horizontal \u00b7 \u03bb\u2081/(\u03bb\u2081+\u03bb\u2082) = <b>'+(100*frac).toFixed(0)+'%</b> variance explained \u00b7 rank-1 residual \u2211\u2016x\u0303\u1d62 \u2212 proj\u2016\u00b2 = n\u03bb\u2082 = '+(n*l2).toFixed(0)+verdict;
+  }
+
+  // ---- drag engine (supplied by draggable-points-2d) ----
+  const HL=SVG('g'); svg.appendChild(HL);
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 400').split(/\s+/).map(Number);
+  const vb={x:_vb[0],y:_vb[1],width:_vb[2],height:_vb[3]};
+  function clampPt(p){ const r=p.r||7;
+    const lo_x=(p.minX!=null?p.minX:vb.x+r), hi_x=(p.maxX!=null?p.maxX:vb.x+vb.width-r);
+    const lo_y=(p.minY!=null?p.minY:vb.y+r), hi_y=(p.maxY!=null?p.maxY:vb.y+vb.height-r);
+    if(!p.lockX) p.x=Math.max(lo_x,Math.min(hi_x,p.x));
+    if(!p.lockY) p.y=Math.max(lo_y,Math.min(hi_y,p.y));
+  }
+  const handles=[]; let drag=null;
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  pts.forEach(function(p){ const r=p.r||7;
+    const h=SVG('circle',{cx:p.x,cy:p.y,r:r,fill:(p.color||'var(--cyan)'),stroke:'var(--bg)','stroke-width':1.5});
+    h.style.cursor='grab'; h.style.touchAction='none'; HL.appendChild(h);
+    let lab=null; if(p.label){ lab=SVG('text',{x:p.x+r+5,y:p.y-r-3,'font-size':12,fill:(p.color||'var(--cyan)')}); lab.textContent=p.label; HL.appendChild(lab); }
+    handles.push({h:h,lab:lab,p:p,r:r});
+    h.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drag=p; h.style.cursor='grabbing'; try{h.setPointerCapture(ev.pointerId);}catch(e){} });
+  });
+  window.addEventListener('pointermove',function(ev){ if(!drag) return; const q=toSvg(ev); if(!drag.lockX)drag.x=q.x; if(!drag.lockY)drag.y=q.y; clampPt(drag); render(); });
+  window.addEventListener('pointerup',function(){ drag=null; for(const o of handles) o.h.style.cursor='grab'; });
+  function render(){ draw(); for(const o of handles){ o.h.setAttribute('cx',o.p.x); o.h.setAttribute('cy',o.p.y); if(o.lab){ o.lab.setAttribute('x',o.p.x+o.r+5); o.lab.setAttribute('y',o.p.y-o.r-3); } } }
+  pts.forEach(clampPt); render();
+})();
+</script>
+
+
 
 <p>Two warnings that real practitioners learn the hard way:</p>
 
