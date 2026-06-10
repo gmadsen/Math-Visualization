@@ -337,6 +337,78 @@ function drawNode(svg, x, y, label, opts={}){
   randomize(); render();
 })();
 </script>
+
+  <p>The proof above is a pigeonhole argument; here is the theorem as a game you can lose. Click edges to color them red or blue (click again to flip, a third time to erase). On $K_5$ there is a way out — execute the coloring the proof above describes (one color a 5-cycle, the other its complement) and you have a hands-on certificate that $R(3,3) &gt; 5$. Then switch to $K_6$ and try the same: every attempt traps you, and the moment the last edge lands, at least one triangle lights up — and never just one: Goodman’s theorem puts the minimum at two (check the count). The shaded triangles update live, so you can feel the pigeonhole closing: a same-colored pair at some vertex is forced by the 7th edge, and the proof’s three-edges-of-one-color hook by the 13th.</p>
+
+<div class="widget" id="w-ramsey-color">
+  <div class="hd"><div class="ttl">Color the edges — escape K₅, get trapped on K₆</div><div class="hint">click an edge: grey &rarr; red &rarr; blue &rarr; grey; monochromatic triangles shade themselves. Win on $K_5$ (a 0-triangle coloring exists), then try $K_6$ — $R(3,3)=6$ says you can&rsquo;t</div></div>
+  <svg id="ramsey-color-svg" viewBox="0 0 560 480" width="560" height="480" style="touch-action:manipulation;width:100%;max-width:560px;height:auto"><title>Click-to-colour edges of a complete graph, with monochromatic triangles shaded live, demonstrating R(3,3) = 6</title></svg>
+  <div class="row">
+    <button id="w-ramsey-color-k5" type="button" aria-pressed="true">K<sub>5</sub></button>
+    <button id="w-ramsey-color-k6" type="button" aria-pressed="false">K<sub>6</sub></button>
+    <button id="w-ramsey-color-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="ramsey-color-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#ramsey-color-svg'), out=$('#ramsey-color-out');
+  const SIZES=[5,6];
+  const _vb=(svg.getAttribute('viewBox')||'0 0 560 480').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3], CX=W/2, CYc=Hh/2, RAD=Math.min(W,Hh)/2-40;
+  const TRI=SVG('g'); svg.appendChild(TRI);
+  const EDG=SVG('g'); svg.appendChild(EDG);
+  const VTX=SVG('g'); svg.appendChild(VTX);
+  var n=SIZES[0], color={};
+  function vpos(i){ const a=-Math.PI/2 + 2*Math.PI*i/n; return [CX+RAD*Math.cos(a), CYc+RAD*Math.sin(a)]; }
+  function ekey(i,j){ return Math.min(i,j)+'-'+Math.max(i,j); }
+  const PAINT={0:'var(--line)',1:'var(--pink)',2:'var(--blue)'};
+  function monoTriangles(){
+    const tris=[];
+    for(var a=0;a<n;a++) for(var b=a+1;b<n;b++) for(var c2=b+1;c2<n;c2++){
+      const x=color[ekey(a,b)]||0, y=color[ekey(a,c2)]||0, z=color[ekey(b,c2)]||0;
+      if(x&&x===y&&y===z) tris.push([a,b,c2,x]);
+    }
+    return tris;
+  }
+  function render(){
+    TRI.innerHTML=''; EDG.innerHTML=''; VTX.innerHTML='';
+    const tris=monoTriangles();
+    tris.forEach(function(t){
+      const p=[vpos(t[0]),vpos(t[1]),vpos(t[2])];
+      TRI.appendChild(SVG('path',{d:'M'+p[0]+' L'+p[1]+' L'+p[2]+' Z',fill:PAINT[t[3]],'fill-opacity':0.18,stroke:'none','pointer-events':'none'}));
+    });
+    var coloured=0, total=n*(n-1)/2;
+    for(var i=0;i<n;i++) for(var j=i+1;j<n;j++){
+      const k=ekey(i,j), c3=color[k]||0; if(c3) coloured++;
+      const p1=vpos(i), p2=vpos(j);
+      const ln=SVG('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:PAINT[c3],'stroke-width':c3?4:2.5,opacity:c3?0.95:0.6});
+      ln.style.cursor='pointer';
+      // generous invisible hit zone under each edge
+      const hit=SVG('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:'transparent','stroke-width':14});
+      hit.style.cursor='pointer';
+      (function(kk){ hit.addEventListener('click',function(){ color[kk]=((color[kk]||0)+1)%3; render(); }); })(k);
+      EDG.appendChild(ln); EDG.appendChild(hit);
+    }
+    for(var v=0;v<n;v++){ const p=vpos(v);
+      VTX.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:7,fill:'var(--ink)','pointer-events':'none'}));
+    }
+    var msg=coloured+' of '+total+' edges colored \u00b7 monochromatic triangles: <b>'+tris.length+'</b>';
+    if(coloured===total){
+      if(tris.length===0){ msg+=' \u00b7 <span class="ok">a complete 2-coloring of K'+n+' with no mono triangle \u2014 clicking it in IS a proof that R(3,3) &gt; '+n+'</span>'; }
+      else if(n<6){ msg+=' \u00b7 <span class="bad">trapped this time \u2014 but an escape exists on K'+n+' (R(3,3) &gt; '+n+'): try making one color a single cycle</span>'; }
+      else { msg+=' \u00b7 <span class="bad">trapped \u2014 and the pigeonhole proof above says every attempt must be: R(3,3) = 6 (your failures illustrate it; the proof certifies it)</span>'; }
+    } else if(tris.length>0){ msg+=' \u00b7 <span class="bad">a monochromatic triangle is on the board \u2014 recolor one of its edges to keep the escape alive</span>'; }
+    out.innerHTML=msg;
+  }
+  function setN(m){ n=m; color={};
+    SIZES.forEach(function(s){ const b=$('#w-ramsey-color-k'+s); if(b) b.setAttribute('aria-pressed', s===m?'true':'false'); });
+    render(); }
+  SIZES.forEach(function(s){ const b=$('#w-ramsey-color-k'+s); if(b) b.addEventListener('click',function(){ setN(s); }); });
+  const rb=$('#w-ramsey-color-reset'); if(rb) rb.addEventListener('click',function(){ color={}; render(); });
+  render();
+})();
+</script>
+
 <!-- callback-auto-begin -->
 <aside class="callback">
   <div class="ttl">See also</div>

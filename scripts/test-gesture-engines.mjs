@@ -363,6 +363,7 @@ const DRIVERS = {
 // ---------------------------------------------------------------------------
 const BOOT_ONLY = [
   'algorithm-stepper',
+  'ramsey-two-coloring',
   'bayes-mass-updater',
   'belief-grid-localization',
   'best-response-explorer-2d',

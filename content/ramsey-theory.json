@@ -59,6 +59,34 @@
         },
         {
           "type": "raw",
+          "html": "\n  <p>The proof above is a pigeonhole argument; here is the theorem as a game you can lose. Click edges to color them red or blue (click again to flip, a third time to erase). On $K_5$ there is a way out — execute the coloring the proof above describes (one color a 5-cycle, the other its complement) and you have a hands-on certificate that $R(3,3) &gt; 5$. Then switch to $K_6$ and try the same: every attempt traps you, and the moment the last edge lands, at least one triangle lights up — and never just one: Goodman’s theorem puts the minimum at two (check the count). The shaded triangles update live, so you can feel the pigeonhole closing: a same-colored pair at some vertex is forced by the 7th edge, and the proof’s three-edges-of-one-color hook by the 13th.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "ramsey-two-coloring",
+          "params": {
+            "widgetId": "w-ramsey-color",
+            "svgId": "ramsey-color-svg",
+            "outputId": "ramsey-color-out",
+            "title": "Color the edges — escape K₅, get trapped on K₆",
+            "hint": "click an edge: grey &rarr; red &rarr; blue &rarr; grey; monochromatic triangles shade themselves. Win on $K_5$ (a 0-triangle coloring exists), then try $K_6$ — $R(3,3)=6$ says you can&rsquo;t",
+            "svgTitle": "Click-to-colour edges of a complete graph, with monochromatic triangles shaded live, demonstrating R(3,3) = 6",
+            "sizes": [
+              5,
+              6
+            ]
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-ramsey-color"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./graph-theory-fundamentals.html#basics\">Graphs, degrees & the handshake lemma</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {

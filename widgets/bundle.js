@@ -11764,6 +11764,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "ramsey-two-coloring",
+    "family": "ramsey-two-coloring",
+    "dimension": "2d",
+    "gesture": "edge-color",
+    "role": "exploration",
+    "title": "ramsey-two-coloring widget params",
+    "description": "Two-colour the edges of a complete graph K_n by clicking them (grey → red → blue → grey) and try to avoid a monochromatic triangle. Vertex-count buttons switch between the sizes in `sizes` (e.g. K5, where an escape exists, and K6, where R(3,3)=6 makes one mono triangle unavoidable). Monochromatic triangles are flagged live; completing a colouring yields a verdict.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "The **edge-color** gesture: click the edges of a complete graph $K_n$ to cycle them grey → red → blue → grey, trying to avoid a monochromatic triangle. Size buttons switch $K_n$ between the entries of `sizes` (boot = first entry). Monochromatic triangles are shaded live in their colour; completing a colouring yields a verdict — an escape proves $R(3,3) > n$, a trap on $K_6$ demonstrates $R(3,3) = 6$.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "random-walks-cycle-coupling",
     "family": "random-walks-cycle-coupling",
     "dimension": "2d",
