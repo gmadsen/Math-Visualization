@@ -39641,7 +39641,7 @@ window.MVQuizBank = {
               "Two components from three components"
             ],
             "answer": 2,
-            "explain": "$V_{3_1}(q) = -q^{-4} + q^{-3} + q^{-1}$ for the right trefoil, while the mirror has $-q^4 + q^3 + q$. They are not equal, so Jones detects chirality. The Alexander polynomial is unchanged by mirroring (up to units) and so cannot."
+            "explain": "$V_{3_1}(q) = -q^4 + q^3 + q$ for the right-handed trefoil, while the left-handed mirror has $-q^{-4} + q^{-3} + q^{-1}$. They are not equal, so Jones detects chirality. The Alexander polynomial is unchanged by mirroring (up to units) and so cannot."
           },
           {
             "type": "numeric",
