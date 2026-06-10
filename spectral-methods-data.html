@@ -606,10 +606,10 @@ function smdGauss(rng){
   render();
 })();
 </script>
-  <p>The scree plot above watches the spectrum while the data sits still. Now drag the data. Twelve points, and the sample covariance $S$, its eigenvectors $v_1, v_2$, and the variance split $\lambda_1/(\lambda_1+\lambda_2)$ recompute on every move. The dashed segments are the rank-1 reconstruction errors — their squared sum is exactly $n\lambda_2$, the Eckart–Young residual. Stretch the cloud and watch $v_1$ lock on; squash it round and watch $v_1$ lose its grip.</p>
+  <p>The widget above steers the cloud through two sliders and a resample button — you move <em>parameters</em>, never a point. Now grab the points themselves. Twelve of them, and the sample covariance $S$, its eigenvectors $v_1, v_2$, and the variance split $\lambda_1/(\lambda_1+\lambda_2)$ recompute on every move (here $\lambda_1 \ge \lambda_2$ are the eigenvalues of $S$ — in the notation above, $\lambda_j = \sigma_j^2/n$). The dashed segments are the rank-1 reconstruction errors — their squared sum is exactly $n\lambda_2$, the Eckart–Young residual. Stretch the cloud and watch $v_1$ lock on; squash it round and watch $v_1$ lose its grip — the $\lambda_1 \approx \lambda_2$ instability behind both warnings below.</p>
 
 <div class="widget" id="w-pca-drag-data">
-  <div class="hd"><div class="ttl">Drag the data — the principal axes follow</div><div class="hint">drag the cyan points: the yellow axis is $v_1$ (scaled by $\sqrt{\lambda_1}$), the dashes are each point’s rank-1 residual; make the cloud round and $v_1$ becomes unstable — make it a line and it captures everything</div></div>
+  <div class="hd"><div class="ttl">Drag the data — the principal axes follow</div><div class="hint">drag the cyan points: the yellow axis is $v_1$ (half-length $2\sqrt{\lambda_1}$), the dashes are each point’s rank-1 residual; make the cloud round and $v_1$ becomes unstable — make it a line and it captures everything</div></div>
   <svg id="pca-drag-data-svg" viewBox="0 0 640 370" width="640" height="370"><title>Twelve draggable data points whose sample-covariance eigenvectors, variance-explained split, and rank-1 residuals recompute live</title></svg>
   <div class="readout" id="pca-drag-data-out">&nbsp;</div>
 </div><script>
@@ -645,13 +645,13 @@ function smdGauss(rng){
     axis(v1,l1,'var(--yellow)',3);
     G.appendChild(SVG('circle',{cx:mx,cy:my,r:4,fill:'var(--ink)','pointer-events':'none'}));
     var lg=SVG('text',{x:28,y:46,'font-size':11,fill:'var(--mute)','pointer-events':'none'});
-    lg.textContent='yellow: v\u2081 (length 4\u221a\u03bb\u2081) \u00b7 violet: v\u2082 \u00b7 dashes: rank-1 residuals'; G.appendChild(lg);
+    lg.textContent='yellow: v\u2081 (half-length 2\u221a\u03bb\u2081) \u00b7 violet: v\u2082 \u00b7 dashes: rank-1 residuals'; G.appendChild(lg);
     var frac=l1/(l1+l2);
-    var deg=(-th*180/Math.PI); deg=((deg%180)+180)%180; // math convention: y up
+    var deg=(-th*180/Math.PI); deg=((deg%180)+180)%180; if(deg>=179.5) deg=0; // math convention: y up
     var verdict = frac>0.85 ? ' \u00b7 <span class="ok">one direction carries the story \u2014 the rank-1 picture is faithful (Eckart\u2013Young)</span>'
                 : frac<0.6 ? ' \u00b7 <span class="bad">nearly isotropic \u2014 v\u2081 is barely pinned down: nudge one point and watch it swing</span>'
                 : '';
-    out.innerHTML='v\u2081 at '+deg.toFixed(0)+'\u00b0 \u00b7 \u03bb\u2081/(\u03bb\u2081+\u03bb\u2082) = <b>'+(100*frac).toFixed(0)+'%</b> variance explained \u00b7 rank-1 residual \u2211\u2016x\u0303\u1d62 \u2212 proj\u2016\u00b2 = n\u03bb\u2082 = '+(n*l2).toFixed(0)+verdict;
+    out.innerHTML='v\u2081 at '+deg.toFixed(0)+'\u00b0 from horizontal \u00b7 \u03bb\u2081/(\u03bb\u2081+\u03bb\u2082) = <b>'+(100*frac).toFixed(0)+'%</b> variance explained \u00b7 rank-1 residual \u2211\u2016x\u0303\u1d62 \u2212 proj\u2016\u00b2 = n\u03bb\u2082 = '+(n*l2).toFixed(0)+verdict;
   }
 
   // ---- drag engine (supplied by draggable-points-2d) ----
