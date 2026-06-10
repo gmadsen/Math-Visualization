@@ -618,10 +618,10 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
   <div class="small">The graph is $K_4$ on four vertices: $6$ edges, $16$ spanning trees. $F$ is the user-selected edge set. Yellow = in $F$ &amp; safe (forest); pink = in $F$ but creates a cycle; grey = not selected.</div>
 </div>
 
-  <p>The forests widget above samples independence inside one fixed graph. Now build the graph and watch the whole matroid respond: the rank $r = |V| - c$, the nullity $|E| - r$ (the number of independent circuits), and — by the <strong>matrix-tree theorem</strong> — the exact number of <strong>bases</strong>, recomputed per component on every edit. Close a cycle and the new <strong>circuit</strong> glows pink: a minimal dependent set, the matroid’s atom of dependence. Delete an edge of that circuit and independence is restored — circuits die one edge at a time.</p>
+  <p>The forests widget above samples independence inside one fixed graph. Now build the graph and watch the whole matroid respond: the rank $r = |V| - c$, the nullity $|E| - r$ (the number of independent cycles — the cycle-space dimension), and — by the <strong>matrix-tree theorem</strong> (a determinant of the graph Laplacian) — the exact number of <strong>bases</strong>, recomputed per component on every edit. Close a cycle and the new <strong>circuit</strong> glows pink: a minimal dependent set, the matroid’s atom of dependence. Delete an edge of that circuit and <em>that</em> circuit dies — circuits die one edge at a time, though others may survive (the boot graph carries two).</p>
 
 <div class="widget" id="w-graphic-matroid">
-  <div class="hd"><div class="ttl">Build the graph — the graphic matroid M(G)</div><div class="hint">click empty space to add a vertex, drag vertex&rarr;vertex to toggle an edge, click a vertex to delete it; every cycle you close is a circuit (it glows pink), and the readout tracks rank $n-c$, nullity, and the basis count by matrix-tree</div></div>
+  <div class="hd"><div class="ttl">Build the graph — the graphic matroid M(G)</div><div class="hint">click empty space to add a vertex, drag vertex&rarr;vertex to toggle an edge, click a vertex to delete it; the cycle you just closed glows pink — a circuit — and the readout tracks rank $n-c$, nullity, and the basis count by matrix-tree. Add the second diagonal to reach $K_4$ and check the quiz&rsquo;s 16 bases live</div></div>
   <svg id="graphic-matroid-svg" viewBox="0 0 640 360" width="640" height="360" style="touch-action:none;cursor:pointer"><title>An editable graph whose graphic-matroid rank, nullity, basis count (matrix-tree theorem), and freshly-closed circuits recompute on every edit</title></svg>
   <div class="row">
     <button id="w-graphic-matroid-reset" type="button">↺ Reset</button>
@@ -669,6 +669,10 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
   // closes a cycle, the fundamental circuit through it glows pink.
   const MAXN=10;
   var prevKeys=null, lastCircuit=null;
+  // registered before the engine's own Reset handler, so a Reset replays the
+  // boot path (no stale circuit glow when the restored keyset is identical)
+  var _rbtn=$('#w-graphic-matroid-reset');
+  if(_rbtn) _rbtn.addEventListener('click',function(){ prevKeys=null; lastCircuit=null; });
   function ekey(u,v){ return Math.min(u,v)+'-'+Math.max(u,v); }
   function draw(g){
     while(G.firstChild) G.removeChild(G.firstChild);
@@ -707,7 +711,14 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
       t.textContent=String(n.id); G.appendChild(t);
     });
     if(g.n===0){ out.innerHTML='click empty space to add a vertex'; return; }
-    if(g.n>MAXN){ out.innerHTML='more than '+MAXN+' nodes \u2014 too many to count bases exactly; remove some'; return; }
+    if(g.n>MAXN){
+      const seenB={}; var cB=0;
+      g.nodes.forEach(function(n){ if(seenB[n.id]) return; cB++;
+        const stB=[n.id]; seenB[n.id]=1;
+        while(stB.length){ const v=stB.pop(); g.adj[v].forEach(function(w){ if(!seenB[w]){ seenB[w]=1; stB.push(w); } }); } });
+      out.innerHTML='M(G): n = '+g.n+', m = '+g.m+' \u00b7 rank r = n \u2212 c = <b>'+(g.n-cB)+'</b> \u00b7 nullity = <b>'+(g.m-g.n+cB)+'</b> \u00b7 bases: more than '+MAXN+' nodes \u2014 too many to count; remove some';
+      return;
+    }
     // components
     const seen={}; var c=0;
     g.nodes.forEach(function(n){
@@ -744,7 +755,7 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
       }
       bases*=Math.round(Math.abs(det));
     });
-    var msg='M(G): n = '+g.n+', m = '+g.m+' \u00b7 rank r = n \u2212 c = <b>'+r+'</b> \u00b7 nullity m \u2212 r = <b>'+nul+'</b> \u00b7 bases (spanning forests): <b>'+bases+'</b> by matrix-tree';
+    var msg='M(G): n = '+g.n+', m = '+g.m+' \u00b7 rank r = n \u2212 c = <b>'+r+'</b> \u00b7 nullity m \u2212 r = <b>'+nul+'</b> \u00b7 bases (maximal spanning forests): <b>'+bases+'</b> by matrix-tree';
     if(lastCircuit){
       msg+=' \u00b7 <span class="bad">the pink cycle is a circuit \u2014 a minimal dependent set</span>';
     } else if(nul===0&&g.m>0){
