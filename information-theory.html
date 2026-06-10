@@ -568,14 +568,19 @@ with conventions $0\log 0 = 0$ and $p_i\log(p_i/0)=\infty$ when $p_i>0$ and $q_i
       var ql=SVG('text',{x:gx2+18,y:BASE+34,'font-size':10,fill:'var(--violet)','text-anchor':'middle','pointer-events':'none'}); ql.textContent=q[k2].toFixed(2); G.appendChild(ql);
     }
     var dpq=KL(p,q), dqp=KL(q,p);
-    var msg='H(p) = '+H(p).toFixed(3)+' \u00b7 H(q) = '+H(q).toFixed(3)+' bits \u00b7 D(p\u2016q) = <b>'+fmt(dpq)+'</b> \u00b7 D(q\u2016p) = <b>'+fmt(dqp)+'</b> bits';
-    if(dpq===Infinity||dqp===Infinity){
+    var msg='H(p) = '+H(p).toFixed(3)+' \u00b7 H(q) = '+H(q).toFixed(3)+' bits \u00b7 D(p \u2016 q) = <b>'+fmt(dpq)+'</b> \u00b7 D(q \u2016 p) = <b>'+fmt(dqp)+'</b> bits';
+    var qUniform=q.every(function(v){return Math.abs(v-0.2)<0.005;});
+    if(dpq===Infinity&&dqp===Infinity){
+      msg+=' \u00b7 <span class="bad">the supports are disjoint \u2014 each puts mass where the other has none, so both divergences are \u221e</span>';
+    } else if(dpq===Infinity||dqp===Infinity){
       var which=(dpq===Infinity)?['p','q']:['q','p'];
       msg+=' \u00b7 <span class="bad">'+which[0]+' puts mass on a symbol '+which[1]+' calls impossible \u2014 a code optimised for '+which[1]+' has no codeword for it</span>';
     } else if(dpq<0.01&&dqp<0.01){
-      msg+=' \u00b7 <span class="ok">p \u2248 q \u2014 both divergences vanish (Gibbs: D \u2265 0 with equality iff p = q)</span>';
+      msg+=' \u00b7 <span class="ok">p \u2248 q \u2014 both divergences \u2248 0 (Gibbs: D \u2265 0 with equality iff p = q)</span>';
     } else if(dpq>0&&dqp>0&&(dpq/dqp>2||dqp/dpq>2)){
-      msg+=' \u00b7 asymmetric: D(p\u2016q) \u2260 D(q\u2016p) \u2014 KL is not a metric';
+      msg+=' \u00b7 asymmetric: D(p \u2016 q) \u2260 D(q \u2016 p) \u2014 KL is not a metric';
+    } else if(qUniform){
+      msg+=' \u00b7 against uniform q: D(p \u2016 q) = log\u20825 \u2212 H(p)';
     }
     out.innerHTML=msg;
   }
