@@ -19,7 +19,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 
 ## Orchestration
 
-[`rebuild.mjs`](./rebuild.mjs) runs the full 47-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
+[`rebuild.mjs`](./rebuild.mjs) runs the full 48-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
@@ -80,6 +80,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`validate-widget-params.mjs`](./validate-widget-params.mjs) | `slug`-bearing widget blocks in `content/*.json` validate against `widgets/<slug>/schema.json`. |
 | [`test-widget-renderers.mjs`](./test-widget-renderers.mjs) | Unit tests (built-in `node:test`) for every widget slug: schema sanity, renderMarkup/renderScript purity, every content/ instance renders non-empty markup containing its widgetId. |
 | [`test-widget-hydration.mjs`](./test-widget-hydration.mjs) | jsdom-backed hydration test: for every widget that has a `js/widget-<slug>.js` runtime library, boots the lib, runs the rendered `<script>`, and asserts the host div ends up with ≥1 child element (no script errors). Per-instance fixtures from `content/*.json` + `widgets/<slug>/example.json`. |
+| [`test-gesture-engines.mjs`](./test-gesture-engines.mjs) | Interaction tests for the self-contained gesture engines, which have no `js/widget-*.js` library and so are skipped by the hydration test. Two tiers: the seven multi-home engines (draggable-points-2d, graph-edit-2d, vector-field-flow-2d, sketch-curve-2d, xy-parameter-pad, animated-svg-2d, surface-3d) get gesture drivers — every `content/*.json` instance boots in jsdom with the canonical page helpers + a **non-identity affine** getScreenCTM/createSVGPoint polyfill (catches missing-`.inverse()` bugs), synthetic pointer events drive the gesture, and an observable state change is asserted; the remaining ~23 engines get per-instance boot tests. A guard fails when a self-contained engine adopted by ≥2 topics is in neither tier. |
 | [`validate-katex.mjs`](./validate-katex.mjs) | Structural + macro-aware KaTeX checks on blurbs, prose, quiz questions. |
 | [`audit-no-inline-widgets.mjs`](./audit-no-inline-widgets.mjs) | Strict gate against regression: counts `<div class="widget">` in `content/*.json` raw blocks and fails CI if any topic exceeds its baseline (`audits/inline-widgets-baseline.json`). New widgets MUST be authored as registry-typed `widget` + `widget-script` blocks referencing `widgets/<slug>/`. The baseline grandfathers 48 pre-existing legacy widgets across 9 topics; entries can drop as those are migrated. Pass `--fix` to rewrite the baseline to the live state (use sparingly, with a code-review explanation). |
 | [`smoke-test.mjs`](./smoke-test.mjs) | Per-page scaffolding: sidebar, nav, quiz wiring, anchors, changelog, callback/backlink invariants. |
@@ -171,46 +172,47 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 8. `validate-widget-params.mjs`
 9. `test-widget-renderers.mjs`
 10. `test-widget-hydration.mjs`
-11. `test-multi-iife-split.mjs`
-12. `test-html-walk.mjs`
-13. `test-find-matching-div.mjs`
-14. `test-ajv.mjs`
-15. `test-doc-drift.mjs`
-16. `test-inject-plan-snapshot.mjs`
-17. `test-audit-accessibility.mjs`
-18. `test-slider-svg-2d.mjs`
-19. `test-inline-links-detect.mjs`
-20. `validate-concepts.mjs`
-21. `audit-concept-latex.mjs`
-22. `validate-katex.mjs`
-23. `audit-no-inline-widgets.mjs`
-24. `audit-callbacks.mjs --fix`
-25. `inject-used-in-backlinks.mjs --fix`
-26. `inject-breadcrumb.mjs --fix`
-27. `inject-display-prefs.mjs --fix`
-28. `inject-index-stats.mjs --fix`
-29. `inject-plan-snapshot.mjs --fix`
-30. `inject-page-metadata.mjs --fix`
-31. `inject-toc.mjs --fix`
-32. `fix-a11y.mjs --fix`
-33. `audit-inline-links.mjs --fix --strict`
-34. `test-roundtrip.mjs --fix`
-35. `smoke-test.mjs`
-36. `test-topic-jsdom.mjs`
-37. `stats-coverage.mjs`
-38. `audit-notation.mjs`
-39. `audit-draft-index-cards.mjs`
-40. `audit-slug-flavored-titles.mjs`
-41. `audit-starter-concepts.mjs`
-42. `audit-worked-examples.mjs`
-43. `audit-blurb-question-alignment.mjs`
-44. `audit-hint-leakage.mjs`
-45. `audit-widget-interactivity.mjs --strict`
-46. `audit-math-rendering-leaks.mjs --strict`
-47. `audit-doc-drift.mjs`
+11. `test-gesture-engines.mjs`
+12. `test-multi-iife-split.mjs`
+13. `test-html-walk.mjs`
+14. `test-find-matching-div.mjs`
+15. `test-ajv.mjs`
+16. `test-doc-drift.mjs`
+17. `test-inject-plan-snapshot.mjs`
+18. `test-audit-accessibility.mjs`
+19. `test-slider-svg-2d.mjs`
+20. `test-inline-links-detect.mjs`
+21. `validate-concepts.mjs`
+22. `audit-concept-latex.mjs`
+23. `validate-katex.mjs`
+24. `audit-no-inline-widgets.mjs`
+25. `audit-callbacks.mjs --fix`
+26. `inject-used-in-backlinks.mjs --fix`
+27. `inject-breadcrumb.mjs --fix`
+28. `inject-display-prefs.mjs --fix`
+29. `inject-index-stats.mjs --fix`
+30. `inject-plan-snapshot.mjs --fix`
+31. `inject-page-metadata.mjs --fix`
+32. `inject-toc.mjs --fix`
+33. `fix-a11y.mjs --fix`
+34. `audit-inline-links.mjs --fix --strict`
+35. `test-roundtrip.mjs --fix`
+36. `smoke-test.mjs`
+37. `test-topic-jsdom.mjs`
+38. `stats-coverage.mjs`
+39. `audit-notation.mjs`
+40. `audit-draft-index-cards.mjs`
+41. `audit-slug-flavored-titles.mjs`
+42. `audit-starter-concepts.mjs`
+43. `audit-worked-examples.mjs`
+44. `audit-blurb-question-alignment.mjs`
+45. `audit-hint-leakage.mjs`
+46. `audit-widget-interactivity.mjs --strict`
+47. `audit-math-rendering-leaks.mjs --strict`
+48. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `plan-snapshot-unit`, `a11y-unit`, `slider-svg-2d-unit`, `inline-links-detect-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `inline-links`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `slug-titles`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `math-leaks`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `gesture-engines`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `plan-snapshot-unit`, `a11y-unit`, `slider-svg-2d-unit`, `inline-links-detect-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `inline-links`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `slug-titles`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `math-leaks`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

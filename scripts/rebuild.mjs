@@ -3,7 +3,7 @@
 //
 // The full step list is the `STEPS` array below — see it directly rather
 // than maintaining a duplicate enumeration in this header. As of this
-// writing the chain is ~37 steps mixing builders, validators, injectors
+// writing the chain is ~48 steps mixing builders, validators, injectors
 // (in fix mode), unit tests, the JSON↔HTML roundtrip gate, and advisory
 // audits.
 //
@@ -59,6 +59,7 @@ const STEPS = [
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
   { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },
   { name: 'widget-hydration', script: 'test-widget-hydration.mjs', fix: false },
+  { name: 'gesture-engines', script: 'test-gesture-engines.mjs', fix: false },
   { name: 'multi-iife-split', script: 'test-multi-iife-split.mjs', fix: false },
   { name: 'html-walk',  script: 'test-html-walk.mjs',           fix: false },
   { name: 'find-matching-div', script: 'test-find-matching-div.mjs', fix: false },
