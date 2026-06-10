@@ -655,7 +655,7 @@ function drawNode(svg, x, y, label, opts={}){
 <div class="ok"><strong>Beyond Gaussian.</strong> The proof via moments needed only that entries have mean zero, variance one, and finite higher moments. The limit law $\rho_{\mathrm{sc}}$ doesn't see any other feature of the entry distribution — the first whisper of <em>universality</em>.</div>
 
 
-  <p>The slider above diagonalizes one matrix at a time. Now build the law by accumulation: every press of Draw pulls eigenvalues of <em>fresh</em> $\mathrm{GOE}(12)$ matrices (each matrix is diagonalized live and its twelve rescaled eigenvalues $\lambda_i/\sqrt{n}$ join the pile). No single matrix looks semicircular — twelve eigenvalues are a stutter, not a law — but the histogram fills Wigner’s semicircle $\rho(x) = \frac{1}{2\pi}\sqrt{4-x^2}$ (pink) within a few hundred draws: universality as an experience, not a theorem statement. The visible wobble at this small $n$ is honest finite-size error — exactly what §6’s universality results tame.</p>
+  <p>The slider above diagonalizes one matrix at a time. Now build the law by accumulation: every press of Draw pulls eigenvalues of <em>fresh</em> $\mathrm{GOE}(12)$ matrices (each matrix is diagonalized live and its twelve rescaled eigenvalues $\lambda_i/\sqrt{N}$ join the pile). No single matrix looks semicircular — twelve eigenvalues are a stutter, not a law — and the twelve arrive <em>together</em>, repelling one another (§1); yet the histogram fills Wigner’s semicircle $\rho(x) = \frac{1}{2\pi}\sqrt{4-x^2}$ (pink) within a few hundred samples: the law as an experience, not a theorem statement. The visible wobble at this small $N$ is honest finite-size error — Wigner’s theorem is the $N\to\infty$ statement — and the occasional spillover past $\pm 2$ is §4’s soft-edge territory.</p>
 
 <div class="widget" id="w-semicircle-box">
   <div class="hd"><div class="ttl">Draw eigenvalues — the semicircle assembles itself</div><div class="hint">each draw diagonalizes fresh GOE(12) matrices and piles their rescaled eigenvalues into the histogram; the pink overlay is Wigner’s semicircle — watch the corners (±2 edges) fill last</div></div>
@@ -671,7 +671,7 @@ function drawNode(svg, x, y, label, opts={}){
 (function(){
   const svg=$('#semicircle-box-svg'), out=$('#semicircle-box-out');
   const G=SVG('g'); svg.appendChild(G);
-  const X0=-2.6, X1=2.6, NB=40, XLAB="λ/√n";
+  const X0=-2.6, X1=2.6, NB=40, XLAB="λ/√N";
   const HASMU=true, MU=0, MULAB="μ";
   const _vb=(svg.getAttribute('viewBox')||'0 0 600 360').split(/\s+/).map(Number);
   const W=_vb[2], Hh=_vb[3], padL=20, padR=16, padT=18, padB=42;
@@ -684,7 +684,8 @@ function drawNode(svg, x, y, label, opts={}){
   // empirical spectral distribution fills Wigner's semicircle on [-2,2].
   // A queue hands out the 12 eigenvalues of each matrix one per sample().
   const NMAT=12;
-  var queue=[];
+  var queue=[]; // NOTE: drawSizes are multiples of NMAT, so the queue is empty
+  // after every draw and Reset cannot strand stale eigenvalues; keep it that way
   function gauss(){
     var u=0, v=0;
     while(u===0) u=Math.random();
