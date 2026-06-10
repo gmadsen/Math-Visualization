@@ -3,12 +3,12 @@
 ## Corpus totals
 
 - Topics: **211**, concepts: **1446**
-- Widgets: **1700** (registry-driven: 1700, inline: 0)
+- Widgets: **1701** (registry-driven: 1701, inline: 0)
 - Quizzes: **5530** (v1: 4294, hard: 1223, expert: 13)
 - Quiz types: mcq: 3648, numeric: 1305, multi-select: 277, matching: 107, ordering: 86, spot-the-error: 53, complex: 29, proof-completion: 21, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their span: **5** (anchor→next-anchor reading-order span; see "Coverage gaps" for the list)
 - Concepts lacking a hard-tier quiz: **1008**
-- Topics offering a direct-manipulation gesture: **83** of **211** with widgets (39%); the rest are scrub/pick only — see "Gesture-variety watchlist"
+- Topics offering a direct-manipulation gesture: **84** of **211** with widgets (40%); the rest are scrub/pick only — see "Gesture-variety watchlist"
 
 ## Per-slug registry adoption
 
@@ -690,6 +690,7 @@ page has wired one in yet.
 | `three-body-horseshoe` | three-body-horseshoe | click | 2d | 1 | three-body-problem |
 | `three-body-kam-tori` | three-body-kam-tori | slider | 2d | 1 | three-body-problem |
 | `three-body-lagrange-points` | three-body-lagrange-points | slider | 2d | 1 | three-body-problem |
+| `three-body-launcher` | three-body-launcher | launch | 2d | 1 | three-body-problem |
 | `three-body-nbody-simulator` | three-body-nbody-simulator | click | 2d | 1 | three-body-problem |
 | `three-body-special-solutions` | three-body-special-solutions | click | 2d | 1 | three-body-problem |
 | `toric-varieties-reflexive-duality` | toric-varieties-reflexive-duality | click | 2d | 1 | toric-varieties |
@@ -834,10 +835,10 @@ page has wired one in yet.
 ### Mathematical physics
 
 - Topics: **13**, concepts: **81**
-- Widgets: **86** (registry-driven: 86, inline: 0)
-  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, bloch-sphere-drag: 1, xy-parameter-pad: 1, vector-field-flow-2d: 1, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 84, 3d: 2
-  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, drag-state: 1, two-param-scrub: 1, click-seed: 1, select: 1
+- Widgets: **87** (registry-driven: 87, inline: 0)
+  - by family: slider-readout: 32, parametric-plot: 12, schrodinger-figure: 7, button-stepper: 6, hamiltonians-figure: 6, verbatim: 4, clickable-diagram: 3, bloch-sphere-drag: 1, xy-parameter-pad: 1, vector-field-flow-2d: 1, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, surface-3d: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-launcher: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 85, 3d: 2
+  - by gesture: slider: 57, click: 16, interact: 7, drag: 2, drag-state: 1, two-param-scrub: 1, click-seed: 1, launch: 1, select: 1
 - Quizzes: **244** (v1: 244, hard: 0, expert: 0)
   - by type: mcq: 164, numeric: 32, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
 
@@ -974,7 +975,6 @@ pomdps-and-belief-states without a human eyeballing the corpus.
 | `simplicial-sets-and-nerve` | Higher categories & toposes | 6 | 6 | pick: 4, scrub: 2 | click: 4, step: 2 |
 | `stochastic-processes-and-martingales` | Probability & statistics | 6 | 6 | scrub: 6 | slider: 4, step: 2 |
 | `surgery-theory` | Geometry & topology | 6 | 6 | pick: 5, scrub: 1 | select: 5, slider: 1 |
-| `three-body-problem` | Mathematical physics | 6 | 6 | pick: 4, scrub: 2 | click: 4, slider: 2 |
 | `tropical-geometry` | Algebraic geometry | 6 | 6 | scrub: 4, pick: 2 | slider: 4, select: 1, click: 1 |
 | `vertex-operator-algebras` | Modular forms & L-functions | 6 | 6 | scrub: 3, pick: 3 | step: 2, select: 2, slider: 1, click: 1 |
 | `adeles-and-ideles` | Number theory | 5 | 5 | pick: 5 | click: 5 |
@@ -1102,7 +1102,7 @@ column is the coarser per-slug registry view and can over-report sliders.
 | `resolution-of-singularities` | Algebraic geometry | 6 | 6 | 0 | 2 | 0 | · | inspect: 5, click: 1 | 18 |
 | `hamiltonians-classical-mechanics` | Mathematical physics | 6 | 7 | 0 | 2 | 0 | ✓ | interact: 6, click-seed: 1 | 18 |
 | `general-relativity` | Mathematical physics | 6 | 7 | 0 | 3 | 1 | ✓ | slider: 4, drag: 2, click: 1 | 18 |
-| `three-body-problem` | Mathematical physics | 6 | 6 | 0 | 2 | 0 | · | click: 4, slider: 2 | 18 |
+| `three-body-problem` | Mathematical physics | 6 | 7 | 0 | 3 | 0 | ✓ | click: 4, slider: 2, launch: 1 | 18 |
 | `designs` | Combinatorics & graph theory | 6 | 6 | 0 | 2 | 0 | · | click: 3, step: 3 | 18 |
 | `expanders` | Combinatorics & graph theory | 6 | 7 | 0 | 3 | 0 | ✓ | slider: 4, click: 2, graph-edit: 1 | 18 |
 | `symplectic-manifolds` | Geometry & topology | 6 | 6 | 0 | 3 | 0 | ✓ | drag: 2, slider: 2, click: 2 | 18 |

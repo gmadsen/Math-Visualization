@@ -1,6 +1,262 @@
 {
-  "generated": "2026-06-08T04:45:55.316Z",
+  "generated": "2026-06-10T13:09:58.104Z",
   "entries": [
+    {
+      "slug": "combinatorial-optimization",
+      "title": "Combinatorial optimization",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(comb-opt): build the network — max-flow = min-cut, live (#496)"
+    },
+    {
+      "slug": "conformal-and-cr-geometry",
+      "title": "Conformal & CR geometry",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(conformal-cr): drag the probe — |f′(z)| is the conformal factor (#505)"
+    },
+    {
+      "slug": "hamiltonians-classical-mechanics",
+      "title": "Hamiltonians & classical mechanics",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(hamiltonians): click to release a trajectory — the flow rides the level sets of H (#503)"
+    },
+    {
+      "slug": "harmonic-analysis-fourier",
+      "title": "Harmonic analysis & Fourier theory",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(stochastic-calculus): draw the path — does its QV survive refinement? (#502)"
+    },
+    {
+      "slug": "matroid-theory",
+      "title": "Matroid theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(random-walks): build the graph — the spectral gap chases the geometry (#497)"
+    },
+    {
+      "slug": "morse-theory",
+      "title": "Morse theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(morse): draw the height function — χ(S¹) = 0 is not optional (#499)"
+    },
+    {
+      "slug": "order-theory-and-lattices",
+      "title": "Order theory and lattices",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(lattices): build the Hasse diagram — lattice or not? (#498)"
+    },
+    {
+      "slug": "quantum-information",
+      "title": "Quantum information",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(quantum-info): drag the state — the Bloch sphere under your hand (#507)"
+    },
+    {
+      "slug": "ramsey-theory",
+      "title": "Ramsey theory",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(ramsey): colour the edges — escape K₅, get trapped on K₆ (#506)"
+    },
+    {
+      "slug": "random-matrix-theory",
+      "title": "Random matrix theory",
+      "color": "c",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(rmt): draw eigenvalues — the semicircle assembles itself (#504)"
+    },
+    {
+      "slug": "random-walks-and-mixing",
+      "title": "Random walks and mixing",
+      "color": "g",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(random-walks): build the graph — the spectral gap chases the geometry (#497)"
+    },
+    {
+      "slug": "stochastic-calculus",
+      "title": "Stochastic calculus",
+      "color": "g",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(stochastic-calculus): draw the path — does its QV survive refinement? (#502)"
+    },
+    {
+      "slug": "wavelets",
+      "title": "Wavelets",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "feat(fourier): draw the function — the spectrum responds (#501)"
+    },
+    {
+      "slug": "causal-inference",
+      "title": "Causal inference",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(causal-inference): build the DAG — backdoor paths and the adjustment set (#493)"
+    },
+    {
+      "slug": "diffusion-and-score-based-models",
+      "title": "Diffusion and score-based models",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(diffusion): the score points to the data — greedy ascent collapses to modes (#483)"
+    },
+    {
+      "slug": "ergodic-theory",
+      "title": "Ergodic theory",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(ergodic): torus-orbit click-seed — equidistribution you steer (#479)"
+    },
+    {
+      "slug": "expanders",
+      "title": "Expanders",
+      "color": "v",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(expanders): build a graph — the sparsest cut and its expansion (#485)"
+    },
+    {
+      "slug": "game-theory",
+      "title": "Game theory",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(game-theory): best-response correspondence — drag Nash as curve crossings (#478)"
+    },
+    {
+      "slug": "information-geometry",
+      "title": "Information geometry",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(info-geom): drag two Gaussians — the Fisher–Rao geodesic (#482)"
+    },
+    {
+      "slug": "information-theory",
+      "title": "Information theory",
+      "color": "g",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(info-theory): drag the masses — entropy and both divergences (#492)"
+    },
+    {
+      "slug": "kalman-filtering-and-state-estimation",
+      "title": "Kalman filtering and state estimation",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(kalman): drag the observations — filter vs smoother (#490)"
+    },
+    {
+      "slug": "kernel-methods-and-rkhs",
+      "title": "Kernel methods and RKHS",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(kernels): drag the kernels — the representer theorem you can grab (#480)"
+    },
+    {
+      "slug": "mathematical-statistics",
+      "title": "Mathematical statistics",
+      "color": "g",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(math-stats): drag the data — the maximum-likelihood fit (#484)"
+    },
+    {
+      "slug": "numerical-analysis",
+      "title": "Numerical analysis",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(numerical-analysis): drag the nodes — the Runge phenomenon (#488)"
+    },
+    {
+      "slug": "optimal-transport",
+      "title": "Optimal transport",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(optimal-transport): drag the masses — the optimal plan is monotone (#481)"
+    },
+    {
+      "slug": "pomdps-and-belief-states",
+      "title": "POMDPs and belief states",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(pomdp): belief-grid localization — the Bayes filter as a manipulable belief (#477)"
+    },
+    {
+      "slug": "probabilistic-graphical-models",
+      "title": "Probabilistic graphical models",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(pgm): build the MRF — cliques, blanket, separator (#494)"
+    },
+    {
+      "slug": "reinforcement-learning",
+      "title": "Reinforcement learning",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(rl): Q-learning grid-world — model-free learning gesture (#476)"
+    },
+    {
+      "slug": "spectral-methods-data",
+      "title": "Spectral methods for massive data sets",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(spectral-methods): drag the data — the principal axes follow (#491)"
+    },
+    {
+      "slug": "topological-data-analysis",
+      "title": "Topological data analysis",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-09",
+      "message": "feat(tda): drag the cloud — the barcode responds (#489)"
+    },
+    {
+      "slug": "markov-decision-processes",
+      "title": "Markov decision processes",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-08",
+      "message": "feat(mdp): grid-world value iteration — the decision-topics game board (#474)"
+    },
+    {
+      "slug": "riemann-surfaces",
+      "title": "Riemann surfaces",
+      "color": "c",
+      "tag": "",
+      "date": "2026-06-08",
+      "message": "feat(riemann-surfaces): fold-the-polygon — classify surfaces by gluing edges (#473)"
+    },
     {
       "slug": "algebraic-topology",
       "title": "Algebraic topology",
@@ -8,6 +264,14 @@
       "tag": "",
       "date": "2026-06-07",
       "message": "feat(widgets): unroll-the-cover — a new \"wind-loop\" gesture (universal cover of S¹) (#466)"
+    },
+    {
+      "slug": "analytic-continuation",
+      "title": "Analytic continuation",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(analytic-continuation): functional-equation-mirror — drag-reflect, ξ(s)=ξ(1−s) (#472)"
     },
     {
       "slug": "cohomology-and-duality",
@@ -24,6 +288,14 @@
       "tag": "",
       "date": "2026-06-07",
       "message": "feat(comp-nt): extended-Euclid algorithm-stepper — gcd, Bézout, modular inverse (#470)"
+    },
+    {
+      "slug": "dynamical-systems",
+      "title": "Dynamical systems",
+      "color": "p",
+      "tag": "",
+      "date": "2026-06-07",
+      "message": "feat(dynamical-systems): trace–determinant pad — scrub the 2D-linear atlas (#471)"
     },
     {
       "slug": "first-order-logic-and-completeness",
@@ -90,14 +362,6 @@
       "message": "feat(widgets): osculating-circle-2d — a new \"drag along a curve, watch κ\" gesture (#455)"
     },
     {
-      "slug": "dynamical-systems",
-      "title": "Dynamical systems",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-06",
-      "message": "feat(dynamical-systems): eigenvector-explorer-2d on §fixed — the linearization's invariant directions (#457)"
-    },
-    {
       "slug": "elliptic-curves",
       "title": "Elliptic curves",
       "color": "y",
@@ -112,14 +376,6 @@
       "tag": "",
       "date": "2026-06-06",
       "message": "feat(widgets): xy-parameter-pad — a new \"two-parameter scrub\" gesture (brainstorm pick #1) (#458)"
-    },
-    {
-      "slug": "combinatorial-optimization",
-      "title": "Combinatorial optimization",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-05",
-      "message": "feat(comb-opt): animated simplex walk — 3rd animated-svg-2d home (#433)"
     },
     {
       "slug": "convex-optimization",
@@ -162,28 +418,12 @@
       "message": "feat(graph-theory): spanning-forest graph-edit home (graphic matroid) (#444)"
     },
     {
-      "slug": "markov-decision-processes",
-      "title": "Markov decision processes",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-05",
-      "message": "feat(mdp): animated value-iteration convergence — play gesture, 2nd home (#430)"
-    },
-    {
       "slug": "mathematical-biology",
       "title": "Mathematical biology",
       "color": "c",
       "tag": "",
       "date": "2026-06-05",
       "message": "feat(math-bio): Lotka–Volterra predator–prey home for vector-field-flow-2d (#441)"
-    },
-    {
-      "slug": "numerical-analysis",
-      "title": "Numerical analysis",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-05",
-      "message": "feat(numerical-analysis): animated trapezoid quadrature (animated-svg-2d) (#445)"
     },
     {
       "slug": "spectral-graph-theory",
@@ -218,14 +458,6 @@
       "message": "feat(widgets): draggable-points-2d shared renderer — a new direct-manipulation gesture (#427)"
     },
     {
-      "slug": "ergodic-theory",
-      "title": "Ergodic theory",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-04",
-      "message": "feat(ergodic-theory): new Analysis topic — recurrence to equidistribution (#426)"
-    },
-    {
       "slug": "functional-analysis",
       "title": "Functional analysis",
       "color": "v",
@@ -242,28 +474,12 @@
       "message": "feat(widgets): self-contained surface-3d renderer — 3D surfaces in any topic (#428)"
     },
     {
-      "slug": "hamiltonians-classical-mechanics",
-      "title": "Hamiltonians & classical mechanics",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-04",
-      "message": "feat(integrable-systems): new Mathematical-physics topic — solitons, Lax pairs, IST (#425)"
-    },
-    {
       "slug": "harmonic-functions",
       "title": "Harmonic functions",
       "color": "p",
       "tag": "",
       "date": "2026-06-04",
       "message": "feat(widgets): self-contained surface-3d renderer — 3D surfaces in any topic (#428)"
-    },
-    {
-      "slug": "information-theory",
-      "title": "Information theory",
-      "color": "g",
-      "tag": "",
-      "date": "2026-06-04",
-      "message": "feat(ergodic-theory): new Analysis topic — recurrence to equidistribution (#426)"
     },
     {
       "slug": "integrable-systems",
@@ -290,14 +506,6 @@
       "message": "feat(ergodic-theory): new Analysis topic — recurrence to equidistribution (#426)"
     },
     {
-      "slug": "optimal-transport",
-      "title": "Optimal transport",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-04",
-      "message": "feat(optimal-transport): new Analysis topic — Monge–Kantorovich to gradient flows (#423)"
-    },
-    {
       "slug": "partial-differential-equations",
       "title": "Partial differential equations",
       "color": "p",
@@ -312,14 +520,6 @@
       "tag": "",
       "date": "2026-06-04",
       "message": "feat(widgets): draggable-points-2d shared renderer — a new direct-manipulation gesture (#427)"
-    },
-    {
-      "slug": "quantum-information",
-      "title": "Quantum information",
-      "color": "p",
-      "tag": "",
-      "date": "2026-06-04",
-      "message": "feat(quantum-information): new Mathematical-physics topic — qubits to error correction (#424)"
     },
     {
       "slug": "riemannian-geometry",
@@ -405,14 +605,6 @@
       "slug": "computational-molecular-biology",
       "title": "Computational molecular biology",
       "color": "c",
-      "tag": "",
-      "date": "2026-05-30",
-      "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
-    },
-    {
-      "slug": "conformal-and-cr-geometry",
-      "title": "Conformal & CR geometry",
-      "color": "p",
       "tag": "",
       "date": "2026-05-30",
       "message": "fix(widgets): convert LaTeX→Unicode in readouts across 28 topics (#417)"
@@ -778,14 +970,6 @@
       "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
     },
     {
-      "slug": "harmonic-analysis-fourier",
-      "title": "Harmonic analysis & Fourier theory",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-29",
-      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
-    },
-    {
       "slug": "heights-arithmetic-geometry",
       "title": "Heights in arithmetic geometry",
       "color": "y",
@@ -882,14 +1066,6 @@
       "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
     },
     {
-      "slug": "morse-theory",
-      "title": "Morse theory",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-29",
-      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
-    },
-    {
       "slug": "motives",
       "title": "Motives",
       "color": "g",
@@ -912,14 +1088,6 @@
       "tag": "",
       "date": "2026-05-29",
       "message": "fix(quiz-katex): expand page-local macros inline + gate quiz-macro leaks under --strict (#407)"
-    },
-    {
-      "slug": "random-matrix-theory",
-      "title": "Random matrix theory",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-29",
-      "message": "fix(quiz-katex): expand the 6 grandfathered project macros inline + close the gate's quiz blind spot (#408)"
     },
     {
       "slug": "schemes",
@@ -1050,14 +1218,6 @@
       "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
-      "slug": "expanders",
-      "title": "Expanders",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "fixed-point-theorems",
       "title": "Fixed point theorems",
       "color": "p",
@@ -1098,14 +1258,6 @@
       "message": "refactor(widgets): normalize 11 select widgets → slider-svg-2d (byte-identical, batch 2) (#379)"
     },
     {
-      "slug": "kalman-filtering-and-state-estimation",
-      "title": "Kalman filtering and state estimation",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "feat(clickable-diagram): flexible svg attrs (optional width/height + svgExtraAttrs) + normalize 4 widgets (#389)"
-    },
-    {
       "slug": "klein-gordon-equation",
       "title": "Klein-Gordon equation",
       "color": "p",
@@ -1128,14 +1280,6 @@
       "tag": "",
       "date": "2026-05-27",
       "message": "refactor(widgets): add numinput control to slider-svg-2d + normalize 18 number/text-input widgets (#385)"
-    },
-    {
-      "slug": "matroid-theory",
-      "title": "Matroid theory",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
       "slug": "microlocal-analysis",
@@ -1234,28 +1378,12 @@
       "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
-      "slug": "topological-data-analysis",
-      "title": "Topological data analysis",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
-    },
-    {
       "slug": "tropical-geometry",
       "title": "Tropical geometry",
       "color": "g",
       "tag": "",
       "date": "2026-05-27",
       "message": "feat(scripts): migrate-to-clickable-diagram tool + normalize 4 interactive-svg widgets → clickable-diagram[svg-diagram] (#387)"
-    },
-    {
-      "slug": "wavelets",
-      "title": "Wavelets",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-27",
-      "message": "fix: 79 silent-404 cross-page anchor refs (corpus sweep) (#392)"
     },
     {
       "slug": "zeta-values",
@@ -1354,14 +1482,6 @@
       "message": "feat(resolution-of-singularities): applications/frontiers thread-map (§6) — closes the page (#343)"
     },
     {
-      "slug": "riemann-surfaces",
-      "title": "Riemann surfaces",
-      "color": "c",
-      "tag": "",
-      "date": "2026-05-24",
-      "message": "feat(riemann-surfaces): two-chart atlas widget — CP¹ transition map (§1) (#327)"
-    },
-    {
       "slug": "singular-cubics-reduction",
       "title": "Singular cubics & reduction",
       "color": "p",
@@ -1394,22 +1514,6 @@
       "message": "feat: algebraic-combinatorics — Wave 3 (Combinatorics) (#258)"
     },
     {
-      "slug": "causal-inference",
-      "title": "Causal inference",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: causal-inference — Wave 3 (Learning theory), final topic of the breadth-expansion program (#264)"
-    },
-    {
-      "slug": "diffusion-and-score-based-models",
-      "title": "Diffusion and score-based models",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: diffusion-and-score-based-models — Wave 3 (Learning theory) (#263)"
-    },
-    {
       "slug": "enumerative-combinatorics",
       "title": "Enumerative combinatorics",
       "color": "v",
@@ -1418,52 +1522,12 @@
       "message": "feat: polytopes-and-ehrhart — Wave 3 (Combinatorics) (#259)"
     },
     {
-      "slug": "game-theory",
-      "title": "Game theory",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: game-theory — Wave 2 (Control / decision-making) (#254)"
-    },
-    {
-      "slug": "information-geometry",
-      "title": "Information geometry",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: information-geometry — Wave 3 (Learning theory) (#262)"
-    },
-    {
-      "slug": "kernel-methods-and-rkhs",
-      "title": "Kernel methods and RKHS",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: deep-learning-theory — Wave 3 (Learning theory) (#261)"
-    },
-    {
       "slug": "large-deviations",
       "title": "Large deviations",
       "color": "g",
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: kernel-methods-and-rkhs — Wave 2 (Learning theory) (#255)"
-    },
-    {
-      "slug": "mathematical-statistics",
-      "title": "Mathematical statistics",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: causal-inference — Wave 3 (Learning theory), final topic of the breadth-expansion program (#264)"
-    },
-    {
-      "slug": "order-theory-and-lattices",
-      "title": "Order theory and lattices",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: order-theory-and-lattices — Wave 2 (Combinatorics) (#253)"
     },
     {
       "slug": "partitions-generating-functions",
@@ -1482,60 +1546,12 @@
       "message": "feat: polytopes-and-ehrhart — Wave 3 (Combinatorics) (#259)"
     },
     {
-      "slug": "pomdps-and-belief-states",
-      "title": "POMDPs and belief states",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: pomdps-and-belief-states — Wave 3 (Control / partial observability) (#260)"
-    },
-    {
-      "slug": "probabilistic-graphical-models",
-      "title": "Probabilistic graphical models",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: causal-inference — Wave 3 (Learning theory), final topic of the breadth-expansion program (#264)"
-    },
-    {
       "slug": "probabilistic-method",
       "title": "Probabilistic method",
       "color": "g",
       "tag": "",
       "date": "2026-05-22",
       "message": "feat: ramsey-theory — Wave 2 (Combinatorics) (#252)"
-    },
-    {
-      "slug": "ramsey-theory",
-      "title": "Ramsey theory",
-      "color": "v",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: ramsey-theory — Wave 2 (Combinatorics) (#252)"
-    },
-    {
-      "slug": "reinforcement-learning",
-      "title": "Reinforcement learning",
-      "color": "p",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: reinforcement-learning — Wave 2 (Control / model-free) (#256)"
-    },
-    {
-      "slug": "spectral-methods-data",
-      "title": "Spectral methods for massive data sets",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: placement (taxonomy) audit — relocate 3 topics to better-fitting sections (#265)"
-    },
-    {
-      "slug": "stochastic-calculus",
-      "title": "Stochastic calculus",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-22",
-      "message": "feat: diffusion-and-score-based-models — Wave 3 (Learning theory) (#263)"
     },
     {
       "slug": "dirichlet-series-euler-products",
@@ -1586,14 +1602,6 @@
       "message": "fix(math): sweep CLASS A math-rendering leaks to zero + CI gate + select-option fix (#247)"
     },
     {
-      "slug": "analytic-continuation",
-      "title": "Analytic continuation",
-      "color": "b",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "fix(audit): buildSkipMask $$…$$ scanner must skip already-masked positions (#235)"
-    },
-    {
       "slug": "analytic-number-theory",
       "title": "Analytic number theory",
       "color": "y",
@@ -1616,14 +1624,6 @@
       "tag": "",
       "date": "2026-05-17",
       "message": "fix: quality-pass — 3 misc cleanups from SUMMARY \"Other\" (#224)"
-    },
-    {
-      "slug": "random-walks-and-mixing",
-      "title": "Random walks and mixing",
-      "color": "g",
-      "tag": "",
-      "date": "2026-05-17",
-      "message": "fix(audit): buildSkipMask $$…$$ scanner must skip already-masked positions (#235)"
     },
     {
       "slug": "ricci-flow",

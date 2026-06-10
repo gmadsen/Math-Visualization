@@ -13904,6 +13904,26 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "three-body-launcher",
+    "family": "three-body-launcher",
+    "dimension": "2d",
+    "gesture": "launch",
+    "role": "exploration",
+    "title": "three-body-launcher widget params",
+    "description": "Place and launch a test particle in the planar circular restricted three-body problem, drawn in the rotating frame: press to place, drag to set the velocity arrow, release to integrate (RK4 with Coriolis terms). The five Lagrange points are computed and marked; the readout reports the launch state, its Jacobi constant, and the outcome (crash, escape from the window, or still orbiting). The boot state shows a tadpole orbit librating about L4.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title"
+    ],
+    "readmeExcerpt": "The **launch** gesture: press anywhere to place a massless test particle in the planar circular restricted three-body problem (rotating frame), drag to stretch a velocity arrow, release to launch. The trajectory is RK4-integrated with the Coriolis terms,",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "three-body-nbody-simulator",
     "family": "three-body-nbody-simulator",
     "dimension": "2d",
