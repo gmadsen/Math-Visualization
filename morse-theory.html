@@ -411,6 +411,105 @@ with equality at $j=n$ (Euler–Poincaré: the alternating sum equals $\chi(M)$)
   <div class="readout" id="ineq-out"></div>
   <p class="small">Bar chart per index: $b_0=1$, $b_1=2g$, $b_2=1$ (Betti numbers of $\Sigma_g$), and minimal $c_k = b_k$ for the standard height function on the obvious embedding. Equality everywhere — the standard height function is <em>perfect</em>. The Euler characteristic $\chi(\Sigma_g)=2-2g$ falls out as $1 - 2g + 1$.</p>
 </div>
+  <p>The counts above are read off one fixed example. Now draw the Morse function yourself. The strip below is a circle — left and right edges glued — and you sketch a height function $f\colon S^1 \to \mathbb{R}$ on it. The widget marks every local minimum (green) and maximum (pink) of the cyclic function and reports the count. Try to draw a function with more maxima than minima: you can’t. On a circle ups and downs must alternate, so $\#\mathrm{min} - \#\mathrm{max} = \chi(S^1) = 0$ — the Morse <em>equality</em> $\sum_i (-1)^i c_i = \chi$ enforced by your own hand. The weak inequality $c_0 \ge b_0 = 1$ rides along: you can’t draw a function with no minimum either.</p>
+
+<div class="widget" id="w-morse-sketch">
+  <div class="hd"><div class="ttl">Draw the height function — χ(S¹) = 0 is not optional</div><div class="hint">drag across the strip to sketch $f$ on the circle (the edges are glued); green = minima, pink = maxima. Add wiggles, carve plateaus, build cliffs at the seam — #min &minus; #max stays 0</div></div>
+  <svg id="morse-sketch-svg" viewBox="0 0 640 380" width="640" height="380" style="touch-action:none;cursor:crosshair"><title>A sketchable height function on the circle whose local minima and maxima are counted live, demonstrating that their difference is always the Euler characteristic zero</title></svg>
+  <div class="row">
+    <button id="w-morse-sketch-reset" type="button">↺ Reset</button>
+  </div>
+  <div class="readout" id="morse-sketch-out">&nbsp;</div>
+</div><script>
+(function(){
+  const svg=$('#morse-sketch-svg'), out=$('#morse-sketch-out');
+  const G=SVG('g'); svg.appendChild(G);
+  const M=72, X0=0, X1=1, YMIN=-1, YMAX=1;
+  const _vb=(svg.getAttribute('viewBox')||'0 0 640 380').split(/\s+/).map(Number);
+  const W=_vb[2], Hh=_vb[3];
+  const bx0=48, bx1=W-24, by0=Hh-40, by1=24;
+  function X(i){ return bx0+(bx1-bx0)*i/(M-1); }
+  function xv(i){ return X0+(X1-X0)*i/(M-1); }
+  function Y(v){ let tt=(v-YMIN)/(YMAX-YMIN); if(tt<0)tt=0; if(tt>1)tt=1; return by0+(by1-by0)*tt; }
+  function Yinv(py){ let tt=(py-by0)/(by1-by0); return YMIN+(YMAX-YMIN)*tt; }
+  const INIT=[0,0.053,0.106,0.157,0.208,0.257,0.304,0.348,0.39,0.429,0.464,0.496,0.524,0.548,0.567,0.582,0.593,0.599,0.6,0.596,0.588,0.575,0.558,0.536,0.511,0.481,0.447,0.41,0.37,0.326,0.281,0.233,0.183,0.132,0.079,0.027,-0.027,-0.079,-0.132,-0.183,-0.233,-0.281,-0.326,-0.37,-0.41,-0.447,-0.481,-0.511,-0.536,-0.558,-0.575,-0.588,-0.596,-0.6,-0.599,-0.593,-0.582,-0.567,-0.548,-0.524,-0.496,-0.464,-0.429,-0.39,-0.348,-0.304,-0.257,-0.208,-0.157,-0.106,-0.053,0];
+  const DEFAULT=INIT?Array.from({length:M},function(_,i){return typeof INIT[i]==='number'?INIT[i]:0;}):new Array(M).fill(0);
+  const ys=DEFAULT.slice();
+  // ---- author draw(ys) (clears+fills G, writes out) ----
+
+  // The sketch domain [0,1] is read as the CIRCLE: index i mod M, so the
+  // left and right edges are glued (a height jump at the seam is just a
+  // steep stretch of the cyclic function). Critical points = sign
+  // alternations of the cyclic discrete derivative after collapsing
+  // plateaus; on a cycle ups and downs alternate, so #min = #max always:
+  // chi(S^1) = 0, live and unbreakable.
+  function draw(ys){
+    G.innerHTML='';
+    // plot the sketched curve
+    var d2='';
+    for(var i=0;i<M;i++){ d2+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(ys[i]).toFixed(1)+' '; }
+    G.appendChild(SVG('path',{d:d2,fill:'none',stroke:'var(--cyan)','stroke-width':2,'pointer-events':'none'}));
+    // glue seam indicator
+    G.appendChild(SVG('line',{x1:X(M-1),y1:Y(ys[M-1]),x2:X(M-1)+8,y2:Y(ys[0]),stroke:'var(--mute)','stroke-width':1.5,'stroke-dasharray':'2 3',opacity:0.7,'pointer-events':'none'}));
+    var lg=SVG('text',{x:X(0)+4,y:Y(1)-6,'font-size':11,fill:'var(--mute)','pointer-events':'none'});
+    lg.textContent='left and right edges are glued: f lives on the circle'; G.appendChild(lg);
+    // collapse plateaus into runs (cyclic)
+    var runs=[]; // {start, len, v}
+    for(var i2=0;i2<M;i2++){
+      if(runs.length&&Math.abs(ys[i2]-runs[runs.length-1].v)<1e-9){ runs[runs.length-1].len++; }
+      else runs.push({start:i2,len:1,v:ys[i2]});
+    }
+    if(runs.length>1&&Math.abs(runs[0].v-runs[runs.length-1].v)<1e-9){
+      runs[0].start=runs[runs.length-1].start; runs[0].len+=runs[runs.length-1].len; runs.pop();
+    }
+    var R2=runs.length;
+    if(R2<2){
+      out.innerHTML='<span class="bad">flat \u2014 every point is critical, so this is not a Morse function; sketch a wiggle</span>';
+      return;
+    }
+    var mins=[], maxs=[];
+    for(var r=0;r<R2;r++){
+      var prev=runs[(r-1+R2)%R2].v, cur=runs[r].v, next=runs[(r+1)%R2].v;
+      var mid=(runs[r].start+Math.floor(runs[r].len/2))%M;
+      if(cur<prev&&cur<next) mins.push(mid);
+      else if(cur>prev&&cur>next) maxs.push(mid);
+    }
+    mins.forEach(function(i3){ G.appendChild(SVG('circle',{cx:X(i3),cy:Y(ys[i3]),r:5,fill:'var(--green)','pointer-events':'none'})); });
+    maxs.forEach(function(i3){ G.appendChild(SVG('circle',{cx:X(i3),cy:Y(ys[i3]),r:5,fill:'var(--pink)','pointer-events':'none'})); });
+    var k=mins.length, K=maxs.length;
+    var msg='#minima (green) = <b>'+k+'</b> \u00b7 #maxima (pink) = <b>'+K+'</b> \u00b7 #min \u2212 #max = <b>'+(k-K)+'</b>';
+    if(k===K&&k>=1){
+      msg+=' = \u03c7(S\u00b9) \u2014 <span class="ok">every wiggle you draw creates a min\u2013max PAIR; the difference is topological, not yours to choose</span>';
+      msg+=' \u00b7 Morse inequality: '+k+' \u2265 b\u2080 = 1 \u2713';
+    } else if(k!==K){
+      // unreachable for a cyclic sequence (ups and downs must alternate) — defensive only
+      msg+=' \u2014 unexpected state; hit Reset';
+    }
+    out.innerHTML=msg;
+  }
+
+  // ---- sketch engine (supplied by sketch-curve-2d) ----
+  function toSvg(ev){ const q=svg.createSVGPoint(); q.x=ev.clientX; q.y=ev.clientY; return q.matrixTransform(svg.getScreenCTM().inverse()); }
+  let drawing=false, lastI=null;
+  function edit(pt){
+    let i=Math.round((pt.x-bx0)/(bx1-bx0)*(M-1)); if(i<0)i=0; if(i>=M)i=M-1;
+    let py=Math.max(Math.min(by0,by1),Math.min(Math.max(by0,by1),pt.y));
+    const v=Yinv(py);
+    if(lastI!==null && Math.abs(i-lastI)>1){ const a=Math.min(lastI,i), b=Math.max(lastI,i);
+      const va=(a===lastI)?ys[lastI]:v, vb=(b===lastI)?ys[lastI]:v;
+      for(let j=a;j<=b;j++) ys[j]=va+(vb-va)*(j-a)/(b-a||1); }
+    else ys[i]=v;
+    lastI=i; draw(ys);
+  }
+  svg.addEventListener('pointerdown',function(ev){ ev.preventDefault(); drawing=true; lastI=null; try{svg.setPointerCapture(ev.pointerId);}catch(e){} edit(toSvg(ev)); });
+  window.addEventListener('pointermove',function(ev){ if(drawing) edit(toSvg(ev)); });
+  window.addEventListener('pointerup',function(){ drawing=false; lastI=null; });
+  const rb=$('#w-morse-sketch-reset'); if(rb) rb.addEventListener('click',function(){ for(let i=0;i<M;i++) ys[i]=DEFAULT[i]; draw(ys); });
+  draw(ys);
+})();
+</script>
+
+
 
 <p>A Morse function with $c_k(f)=b_k(M)$ for all $k$ is called <strong>perfect</strong>. Perfect Morse functions exist on $\mathbb{C}P^n$, on flag varieties, and on compact Lie groups (Bott). They do <em>not</em> exist on every manifold: the strong inequalities can be strict.</p>
 
