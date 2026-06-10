@@ -145,6 +145,41 @@
         },
         {
           "type": "raw",
+          "html": "\n  <p>The slider above diagonalizes one matrix at a time. Now build the law by accumulation: every press of Draw pulls eigenvalues of <em>fresh</em> $\\mathrm{GOE}(12)$ matrices (each matrix is diagonalized live and its twelve rescaled eigenvalues $\\lambda_i/\\sqrt{n}$ join the pile). No single matrix looks semicircular — twelve eigenvalues are a stutter, not a law — but the histogram fills Wigner’s semicircle $\\rho(x) = \\frac{1}{2\\pi}\\sqrt{4-x^2}$ (pink) within a few hundred draws: universality as an experience, not a theorem statement. The visible wobble at this small $n$ is honest finite-size error — exactly what §6’s universality results tame.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "sampling-box",
+          "params": {
+            "widgetId": "w-semicircle-box",
+            "svgId": "semicircle-box-svg",
+            "outputId": "semicircle-box-out",
+            "title": "Draw eigenvalues — the semicircle assembles itself",
+            "hint": "each draw diagonalizes fresh GOE(12) matrices and piles their rescaled eigenvalues into the histogram; the pink overlay is Wigner’s semicircle — watch the corners (±2 edges) fill last",
+            "svgTitle": "A sampling histogram of rescaled GOE eigenvalues converging to the Wigner semicircle distribution",
+            "xMin": -2.6,
+            "xMax": 2.6,
+            "bins": 40,
+            "mu": 0,
+            "xLabel": "λ/√n",
+            "drawSizes": [
+              12,
+              120,
+              1200
+            ],
+            "bodyScript": "\n  // Each sample is one eigenvalue of a fresh GOE(12) matrix (symmetric,\n  // off-diagonal N(0,1), diagonal N(0,2)), rescaled by 1/sqrt(n) so the\n  // empirical spectral distribution fills Wigner's semicircle on [-2,2].\n  // A queue hands out the 12 eigenvalues of each matrix one per sample().\n  const NMAT=12;\n  var queue=[];\n  function gauss(){\n    var u=0, v=0;\n    while(u===0) u=Math.random();\n    while(v===0) v=Math.random();\n    return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);\n  }\n  function freshEigs(){\n    const A=[]; for(var i=0;i<NMAT;i++){ A.push(new Array(NMAT).fill(0)); }\n    for(var i2=0;i2<NMAT;i2++){\n      A[i2][i2]=gauss()*Math.SQRT2;\n      for(var j=i2+1;j<NMAT;j++){ const g=gauss(); A[i2][j]=g; A[j][i2]=g; }\n    }\n    // Jacobi eigenvalues (symmetric)\n    for(var sweep=0;sweep<60;sweep++){\n      var off=0;\n      for(var p=0;p<NMAT;p++) for(var q=p+1;q<NMAT;q++) off+=A[p][q]*A[p][q];\n      if(off<1e-14) break;\n      for(var p2=0;p2<NMAT;p2++) for(var q2=p2+1;q2<NMAT;q2++){\n        if(Math.abs(A[p2][q2])<1e-11) continue;\n        const th=0.5*Math.atan2(2*A[p2][q2], A[q2][q2]-A[p2][p2]);\n        const c=Math.cos(th), s2=Math.sin(th);\n        for(var k=0;k<NMAT;k++){ const mp=A[p2][k], mq=A[q2][k]; A[p2][k]=c*mp-s2*mq; A[q2][k]=s2*mp+c*mq; }\n        for(var k2=0;k2<NMAT;k2++){ const mp2=A[k2][p2], mq2=A[k2][q2]; A[k2][p2]=c*mp2-s2*mq2; A[k2][q2]=s2*mp2+c*mq2; }\n      }\n    }\n    const out2=[];\n    for(var d2=0;d2<NMAT;d2++) out2.push(A[d2][d2]/Math.sqrt(NMAT));\n    return out2;\n  }\n  function sample(){\n    if(!queue.length) queue=freshEigs();\n    return queue.pop();\n  }\n  function density(x){\n    return (Math.abs(x)>2)?0:Math.sqrt(4-x*x)/(2*Math.PI);\n  }\n"
+          }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-semicircle-box"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./probability-theory.html#clt\">Central limit theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
