@@ -196,7 +196,7 @@
         },
         {
           "type": "raw",
-          "html": "\n  <p>The transform above analyses a fixed signal. Now draw the signal. Sixty-four samples, the orthonormal Haar DWT recomputed on every stroke, and the full coefficient pyramid displayed as a scalogram: rows $d_1$ (finest, 32 cells) down to $d_6$ and the approximation $a$, cell opacity $\\propto |\\text{coefficient}|$. A smooth bump parks its energy in a handful of coarse cells — that sparsity is what compression lives on. A sharp spike does something a <em>global</em> Fourier basis cannot: its energy concentrates in the <em>fine</em> rows, in the cells <em>directly under the spike</em> — each coarser ancestor cell inherits only a $\\sqrt{2}$-smaller share — localization in time and scale at once (§5 makes this trade-off precise).</p>\n\n"
+          "html": "\n  <p>The transform above analyses a fixed signal. Now draw the signal. Sixty-four samples, the orthonormal Haar DWT recomputed on every stroke, and the full coefficient pyramid displayed as a scalogram: rows $d_1$ (finest, 32 cells) down to $d_6$ and the approximation $a$, cell opacity $\\propto |\\text{coefficient}|$. A smooth bump parks its energy in a handful of coarse cells — that sparsity is what compression lives on. A sharp spike does something a <em>global</em> Fourier basis cannot: its energy concentrates in the <em>fine</em> rows, in the cells <em>directly under the spike</em> — each coarser ancestor cell inherits a $\\sqrt{2}$-smaller coefficient — localization in time and scale at once (§5 makes this trade-off precise).</p>\n\n"
         },
         {
           "type": "widget",

@@ -301,10 +301,10 @@ $$\int_0^1 |f(x)|^2\,dx \;=\; \sum_{n\in\mathbb{Z}} |\hat f(n)|^2.$$
 <div class="note"><strong>Smoothness $\to$ decay.</strong> If $f\in C^k(\mathbb{T})$ then $\hat f(n) = O(|n|^{-k})$ — integration by parts $k$ times. Conversely, sufficiently fast decay of $\hat f(n)$ forces $f$ to have many derivatives. This is the prototype of the <em>Schwartz duality</em> we'll exploit on $\mathbb{R}$.</div>
 
 
-  <p>The partial sums above rebuild a fixed function. Now invert it: draw the function, watch its spectrum. Sixty-four samples on the circle, the coefficients $c_k = \frac1M\sum_j f_j e^{-2\pi i jk/M}$ recomputed on every stroke, and $|c_k|$ shown as bars. A near-sine is one bar. A sharp spike is the opposite — <em>every</em> bar lights up, because a feature narrow in $x$ must be wide in $k$. This is the exact dual of the wavelets page’s scalogram experiment: there the spike stayed local; here the global basis makes it pay everywhere. The readout runs the same 95%-energy count, so the two pages disagree about the same drawing — that disagreement <em>is</em> <a href="./wavelets.html#vs-fourier" data-auto-inline-link="1" data-concept-id="w-wavelet-vs-fourier" data-blurb="Each wavelet $\psi_{j,k}$ occupies a Heisenberg box of area $\Delta x\,\Delta\xi\gtrsim 1$ centred at $(2^{-j}k,\,2^j\xi_0)$: high-frequency atoms are short and many, low-frequency atoms are long and few. This dyadic tiling tracks transients sharply where windowed Fourier (Gabor) — using a fixed-width window for every frequency — cannot.">time–frequency localisation</a>.</p>
+  <p>The partial sums above rebuild a fixed function. Now invert it: draw the function, watch its spectrum. Sixty-four samples on the circle, the coefficients $c_k = \frac1M\sum_j f_j e^{-2\pi i jk/M}$ — the Riemann-sum discretization of §1’s $\hat f(k)$ — recomputed on every stroke, and $|c_k|$ shown as bars. Only the magnitudes appear: slide your spike sideways and the bars stay put — <em>phase</em> carries position. A near-sine is one bar. A sharp spike is the opposite — <em>every</em> bar lights up, because a feature narrow in $x$ must be wide in $k$. This is the exact dual of the wavelets page’s scalogram experiment: there the spike stayed local; here the global basis makes it pay everywhere. The readout runs the matching 95%-energy count (64 wavelet coefficients there, 32 one-sided harmonics here), so the two pages disagree about the same drawing — and remember the strip is a circle — a drawing with $f(0)\neq f(1)$ hides a cliff at the seam, and the spectrum will say so. That disagreement <em>is</em> <a href="./wavelets.html#vs-fourier" data-auto-inline-link="1" data-concept-id="w-wavelet-vs-fourier" data-blurb="Each wavelet $\psi_{j,k}$ occupies a Heisenberg box of area $\Delta x\,\Delta\xi\gtrsim 1$ centred at $(2^{-j}k,\,2^j\xi_0)$: high-frequency atoms are short and many, low-frequency atoms are long and few. This dyadic tiling tracks transients sharply where windowed Fourier (Gabor) — using a fixed-width window for every frequency — cannot.">time–frequency localisation</a>.</p>
 
 <div class="widget" id="w-fourier-sketch">
-  <div class="hd"><div class="ttl">Draw the function — the spectrum responds</div><div class="hint">sketch in the upper strip (one period on the circle); bars below are $|c_k|$. Draw a sharp spike and watch every harmonic light up — narrow in $x$ means wide in $k$</div></div>
+  <div class="hd"><div class="ttl">Draw the function — the spectrum responds</div><div class="hint">sketch in the upper strip (one period on the circle); bars below are $|c_k|$ for $k \le 21$ (the readout counts all 32). Draw a sharp spike and watch every harmonic light up — narrow in $x$ means wide in $k$</div></div>
   <svg id="fourier-sketch-svg" viewBox="0 0 640 420" width="640" height="420" style="touch-action:none;cursor:crosshair"><title>A sketchable periodic function whose Fourier coefficient magnitudes are displayed live as a bar spectrum, demonstrating that localized features spread across all frequencies</title></svg>
   <div class="row">
     <button id="w-fourier-sketch-reset" type="button">↺ Reset</button>
@@ -351,7 +351,7 @@ $$\int_0^1 |f(x)|^2\,dx \;=\; \sum_{n\in\mathbb{Z}} |\hat f(n)|^2.$$
     const bx0=48, bx1=616, top=Y(-1)+24, BH=92, base=top+BH;
     var maxM=0; for(var k0=1;k0<mags.length;k0++) maxM=Math.max(maxM,mags[k0]);
     if(maxM<1e-6){ out.innerHTML='draw a signal \u2014 the spectrum is empty (a constant is pure DC)'; return; }
-    const bw=(bx1-bx0)/(KSHOW+1);
+    const bw=(bx1-bx0)/KSHOW;
     for(var k=1;k<=KSHOW;k++){
       const h=BH*(mags[k]/maxM);
       G.appendChild(SVG('rect',{x:(bx0+(k-1)*bw+2).toFixed(1),y:(base-h).toFixed(1),width:(bw-4).toFixed(1),height:Math.max(h,0.5).toFixed(1),
@@ -380,7 +380,7 @@ $$\int_0^1 |f(x)|^2\,dx \;=\; \sum_{n\in\mathbb{Z}} |\hat f(n)|^2.$$
     } else if(hi>=0.35*tot||k95>=12){
       msg+=' \u00b7 <span class="bad">spread far up the spectrum \u2014 a feature narrow in x pays the global price in k (\u0394x\u00b7\u0394\u03be \u2273 1, \u00a75)</span>';
     } else {
-      msg+=' \u00b7 fast-decaying spectrum \u2014 smoothness = decay';
+      msg+=' \u00b7 a fast-decaying spectrum \u2014 the low harmonics carry it';
     }
     out.innerHTML=msg;
   }
