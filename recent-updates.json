@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-10T15:46:05.289Z",
+  "generated": "2026-06-11T11:21:30.673Z",
   "entries": [
     {
       "slug": "combinatorial-optimization",
@@ -106,6 +106,14 @@
       "message": "feat(simplicial-complexes): glue a complex — the closure axiom under your cursor (#510)"
     },
     {
+      "slug": "spectral-methods-data",
+      "title": "Spectral methods for massive data sets",
+      "color": "b",
+      "tag": "",
+      "date": "2026-06-10",
+      "message": "fix: clamp negative SVG rect heights in wavelets + spectral-methods-data (#511)"
+    },
+    {
       "slug": "stochastic-calculus",
       "title": "Stochastic calculus",
       "color": "g",
@@ -127,7 +135,7 @@
       "color": "p",
       "tag": "",
       "date": "2026-06-10",
-      "message": "feat(fourier): draw the function — the spectrum responds (#501)"
+      "message": "fix: clamp negative SVG rect heights in wavelets + spectral-methods-data (#511)"
     },
     {
       "slug": "causal-inference",
@@ -248,14 +256,6 @@
       "tag": "",
       "date": "2026-06-09",
       "message": "feat(rl): Q-learning grid-world — model-free learning gesture (#476)"
-    },
-    {
-      "slug": "spectral-methods-data",
-      "title": "Spectral methods for massive data sets",
-      "color": "b",
-      "tag": "",
-      "date": "2026-06-09",
-      "message": "feat(spectral-methods): drag the data — the principal axes follow (#491)"
     },
     {
       "slug": "topological-data-analysis",
