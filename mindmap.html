@@ -323,9 +323,10 @@
   <div class="stats-row" id="stats-row"></div>
 
   <div class="stage" id="stage" tabindex="0" role="application" aria-label="Concept-graph mindmap. Click a node to focus its neighborhood; pan with drag, zoom with mouse wheel.">
-    <!-- Static viewBox matches STAGE_W × STAGE_H; JS re-asserts it (and pan/zoom
-         rewrites it), but the attribute must exist pre-init so the SVG scales
-         correctly before the layout script runs (and for the a11y audit). -->
+    <!-- Static viewBox matches STAGE_W × STAGE_H; init JS re-asserts the same
+         value (pan/zoom transforms an inner <g>, not the viewBox). The attribute
+         must exist pre-init so the SVG scales correctly before the layout script
+         runs (and for the a11y audit). -->
     <svg class="map" id="map" viewBox="0 0 2000 1200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mindmap-title mindmap-desc">
       <title id="mindmap-title">Concept dependency graph</title>
       <desc id="mindmap-desc">Force-clustered layout of every concept in the notebook, colored by section. Edges connect prereqs to consumers.</desc>
@@ -438,6 +439,14 @@
   }
 
   // ---------- data load ----------
+  // The bundle script is defer'd while this inline script's body starts at
+  // parse time, so an immediate window.__MVConcepts check would always miss
+  // and the bundle branch would be dead code (file:// would hard-fail on the
+  // fetch fallback). Wait for DOMContentLoaded — it fires after every
+  // deferred script has executed. Same race class fixed on index.html.
+  if(document.readyState === 'loading'){
+    await new Promise(res => document.addEventListener('DOMContentLoaded', res, {once:true}));
+  }
   let idx, topicsArr, capstones, sectionsData;
   if(window.__MVConcepts){
     idx = window.__MVConcepts.index;
@@ -515,7 +524,10 @@
   };
   const SECTION_COLOR = (() => {
     const out = {};
-    for (const s of (window.__MVConcepts?.sections?.sections || [])) {
+    // Read sectionsData (populated by either the bundle or the fetch fallback)
+    // rather than window.__MVConcepts directly — a bundle-less deploy would
+    // otherwise leave every node uncolored.
+    for (const s of (sectionsData?.sections || [])) {
       if (s.title) out[s.title] = PALETTE_HEX[s.color || 'b'] || '#8c9aa6';
     }
     return out;

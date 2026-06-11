@@ -454,6 +454,14 @@
   // Prefer the pre-built bundle (loaded via <script src>), which works from
   // file:// — browsers block fetch() of local JSON there. Fall back to fetch
   // when the bundle isn't present (e.g. running off a dev server).
+  // The bundle script is defer'd while this inline script's body starts at
+  // parse time, so an immediate window.__MVConcepts check would always miss
+  // and the bundle branch would be dead code (file:// would hard-fail on the
+  // fetch fallback). Wait for DOMContentLoaded — it fires after every
+  // deferred script has executed. Same race class fixed on index.html.
+  if(document.readyState === 'loading'){
+    await new Promise(res => document.addEventListener('DOMContentLoaded', res, {once:true}));
+  }
   let idx, topics, capstones, sectionsData;
   if(window.__MVConcepts){
     idx = window.__MVConcepts.index;
@@ -1975,7 +1983,11 @@
     window.KatexSelect.scan();
   }
   const params = new URLSearchParams(location.search);
-  const initial = params.get('goal') || capstones[0].goal;
+  // Validate the URL goal against the concept graph — a stale or mistyped
+  // ?goal= (e.g. a capstone id instead of its goal concept id) would
+  // otherwise crash layout() with a blank DAG. Fall back to the default.
+  const urlGoal = params.get('goal');
+  const initial = (urlGoal && byId.has(urlGoal)) ? urlGoal : capstones[0].goal;
   goalSel.value = initial;
   goalSel.addEventListener('change', ()=>{
     const g = goalSel.value;
