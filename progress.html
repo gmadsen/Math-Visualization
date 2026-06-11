@@ -31,6 +31,7 @@
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
     --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
     --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+    --orange:#f4a261;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -239,7 +240,7 @@
 
 <section id="by-section">
 <h2>2. By section</h2>
-<p>Each row spans the concepts in one of the seven index sections. The leading green segment is v1 mastery; the violet hard-tier segment is the additional layer on top; the muted tail is what's left.</p>
+<p>Each row spans the concepts in one index section. The leading green segment is v1 mastery; the violet hard-tier segment is the additional layer on top; the muted tail is what's left.</p>
 
 <div class="widget" id="w-sections">
   <div class="hd"><div class="ttl">Mastery by section</div><div class="hint">v1 · hard · remaining</div></div>
@@ -329,45 +330,9 @@
   };
 
   // --------------------------------------------------------------------
-  // Section map — which index section each topic belongs to.
-  // Derived from the 7 section headers in index.html (2026-04-20).
-  // --------------------------------------------------------------------
-  const SECTIONS = [
-    { name: 'Foundations', topics: ['naive-set-theory'] },
-    { name: 'Algebra', topics: [
-      'algebra','category-theory','representation-theory','commutative-algebra','homological'
-    ] },
-    { name: 'Analysis', topics: [
-      'real-analysis','measure-theory','complex-analysis','functional-analysis','operator-algebras'
-    ] },
-    { name: 'Geometry & topology', topics: [
-      'point-set-topology','algebraic-topology','smooth-manifolds','differential-forms',
-      'differential-geometry','riemannian-geometry','lie-groups','riemann-surfaces'
-    ] },
-    { name: 'Number theory', topics: [
-      'galois','quadratic-reciprocity','quadratic-forms-genus-theory','sums-of-squares',
-      'power-sums-bernoulli','waring','algebraic-number-theory','p-adic-numbers',
-      'adeles-and-ideles','frobenius-and-reciprocity','class-field-theory'
-    ] },
-    { name: 'Modular forms & L-functions', topics: [
-      'upper-half-plane-hyperbolic','modular-forms','theta-functions',
-      'partitions-generating-functions','hecke-operators','dirichlet-series-euler-products',
-      'analytic-continuation','zeta-values','L-functions','galois-representations','moonshine'
-    ] },
-    { name: 'Algebraic geometry', topics: [
-      'projective-plane','bezout','schemes','sheaves','morphisms-fiber-products',
-      'functor-of-points','elliptic-curves','singular-cubics-reduction','moduli-spaces',
-      'sheaf-cohomology','stacks','sato-tate','bsd','modularity-and-flt','etale-cohomology'
-    ] },
-  ];
-  // Precompute topic → section
-  const TOPIC_SECTION = new Map();
-  for(const s of SECTIONS){
-    for(const t of s.topics) TOPIC_SECTION.set(t, s.name);
-  }
-
-  // --------------------------------------------------------------------
   // Load concept graph. Prefer bundle (file:// works); fall back to empty.
+  // bundle.js is loaded synchronously above this script, so __MVConcepts
+  // is guaranteed present here (no defer race, unlike index/pathway/mindmap).
   // --------------------------------------------------------------------
   const MVC = window.__MVConcepts || null;
   const totalsReadout = $('#totals-readout');
@@ -376,6 +341,20 @@
     totalsReadout.textContent =
       'Could not load concepts/bundle.js.\nRun `node scripts/build-concepts-bundle.mjs` and reload.';
     return;
+  }
+
+  // --------------------------------------------------------------------
+  // Section map — which index section each topic belongs to. Built from
+  // the bundle's sections.json (single source of truth). The previous
+  // hand-maintained list was frozen at 2026-04-20 — 7 sections / ~30
+  // topics — silently bucketing every newer topic under 'Other'.
+  // --------------------------------------------------------------------
+  const SECTIONS = ((MVC.sections && MVC.sections.sections) || [])
+    .map(s => ({ name: s.title, topics: s.topics || [] }));
+  // Precompute topic → section
+  const TOPIC_SECTION = new Map();
+  for(const s of SECTIONS){
+    for(const t of s.topics) TOPIC_SECTION.set(t, s.name);
   }
 
   // Flatten all concepts across all topics into a list carrying topic + section.
@@ -450,17 +429,18 @@
   }
 
   // --------------------------------------------------------------------
-  // Section → palette-token mapping for ribbon accent colors.
+  // Section → palette-token mapping for ribbon accent colors. Built from
+  // the bundle's per-section accent letter (same source as index cards) —
+  // the previous hand-maintained map was frozen at 7 pre-rename sections.
   // --------------------------------------------------------------------
-  const SECTION_COLOR = {
-    'Foundations':                'var(--blue)',
-    'Algebra':                    'var(--yellow)',
-    'Analysis':                   'var(--pink)',
-    'Geometry & topology':        'var(--violet)',
-    'Number theory':              'var(--yellow)',
-    'Modular forms & L-functions':'var(--cyan)',
-    'Algebraic geometry':         'var(--green)'
+  const ACCENT_VAR = {
+    b:'var(--blue)', y:'var(--yellow)', p:'var(--pink)', v:'var(--violet)',
+    g:'var(--green)', c:'var(--cyan)', o:'var(--orange)'
   };
+  const SECTION_COLOR = {};
+  for(const s of ((MVC.sections && MVC.sections.sections) || [])){
+    if(s.title) SECTION_COLOR[s.title] = ACCENT_VAR[s.color] || 'var(--mute)';
+  }
   const MILESTONE_COLOR = 'var(--yellow)';
   const CAPSTONE_COLOR  = 'var(--cyan)';
 
