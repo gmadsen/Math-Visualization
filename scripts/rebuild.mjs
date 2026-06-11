@@ -2,10 +2,10 @@
 // Thin orchestrator for the full verification chain. Mirrors CI.
 //
 // The full step list is the `STEPS` array below — see it directly rather
-// than maintaining a duplicate enumeration in this header. As of this
-// writing the chain is ~48 steps mixing builders, validators, injectors
-// (in fix mode), unit tests, the JSON↔HTML roundtrip gate, and advisory
-// audits.
+// than maintaining a duplicate enumeration in this header. The chain mixes
+// builders, validators, injectors (in fix mode), unit tests, the JSON↔HTML
+// roundtrip gate, and advisory audits; scripts/README.md carries the
+// drift-gated enumeration and count.
 //
 // Streams each child's stdout/stderr through, prints a banner per step, and
 // bails on the first non-zero exit.

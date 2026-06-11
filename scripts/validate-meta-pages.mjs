@@ -65,7 +65,13 @@ function slugify(title) {
 
 // ----- 1. sections/<slug>.html present; no orphans -----
 const sectionsDir = join(repoRoot, 'sections');
-const onDisk = readdirSync(sectionsDir).filter(f => f.endsWith('.html'));
+let onDisk;
+try {
+  onDisk = readdirSync(sectionsDir).filter(f => f.endsWith('.html'));
+} catch (e) {
+  console.error(`validate-meta-pages: SCHEMA DRIFT — cannot read sections/ directory (${e.message}); run node scripts/build-section-indexes.mjs`);
+  process.exit(2);
+}
 const wantFiles = new Set(sections.map(s => `${slugify(s.title)}.html`));
 for (const s of sections) {
   if (!existsSync(join(sectionsDir, `${slugify(s.title)}.html`))) {
@@ -104,12 +110,18 @@ if (!jumpMatch) {
 
 // ----- 4. fallback map in computeSectionMeta -----
 // The map is plain JS object literal: '<title>': { id: '<id>', color: '<letter>' }
-// (titles contain a literal & in JS strings, not &amp;).
+// (titles contain a literal & in JS strings, not &amp;). Scope the search to
+// the computeSectionMeta function body so a second section-shaped literal
+// elsewhere on the page can't satisfy (or confuse) the check.
+const metaFnStart = indexHtml.indexOf('function computeSectionMeta');
+const metaRegion = metaFnStart === -1
+  ? '' // missing function reported per-section below
+  : indexHtml.slice(metaFnStart, indexHtml.indexOf('function init', metaFnStart));
 for (const s of sections) {
   const re = new RegExp(
     `'${s.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'\\s*:\\s*\\{\\s*id:\\s*'([^']+)'\\s*,\\s*color:\\s*'([^']+)'`
   );
-  const m = indexHtml.match(re);
+  const m = metaRegion.match(re);
   if (!m) {
     issues.push(`index.html fallback map: no entry for "${s.title}"`);
   } else {
