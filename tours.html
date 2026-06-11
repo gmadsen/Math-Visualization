@@ -314,7 +314,9 @@
     border:1px solid var(--line);border-radius:6px;padding:.3rem .7rem;cursor:pointer;font:inherit;font-size:.85rem}
   .jump-unmastered:hover{border-color:var(--yellow);color:var(--yellow)}
   .tc-progress{margin-top:.5rem;height:5px;border-radius:999px;background:var(--panel2);overflow:hidden}
-  .tc-progress .fill{height:100%;background:var(--accent)}
+  .tc-progress .fill{height:100%;background:var(--accent, var(--cyan))}
+  /* keep scrollIntoView targets clear of the sticky #tour-back bar */
+  ol.tour li{scroll-margin-top:4.5rem}
   .tc-mastery{color:var(--green)}
   #resume-banner{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;
     background:var(--panel);border:1px solid color-mix(in srgb, var(--yellow) 45%, transparent);
@@ -1489,10 +1491,12 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
    MVProgress, per-card mastery chips + progress bars, a resume banner, and
    jump-to-first-unmastered. Stops resolve to concepts via the bundle: each
    .stop-title href is "<page>.html#<anchor>" and the anchor contract makes
-   (page, anchor) → concept id exact. Stops whose href doesn't resolve (e.g.
+   (page, anchor) → concept ids exact. Stops whose href doesn't resolve (e.g.
    capstone-page links in the Millennium tour) degrade gracefully — no badge.
    progress.js + bundle.js are defer'd while this script is inline, so all
-   work waits for DOMContentLoaded (the PR #512 race class). */
+   work waits for DOMContentLoaded (the PR #512 race class). init() is
+   idempotent and re-runs on pageshow so bfcache restores (master a quiz,
+   press Back) reflect fresh mastery state. */
 (function(){
   const LS_KEY = 'mvnb.tours.v1';
   function readState(){ try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch(_) { return {}; } }
@@ -1503,7 +1507,11 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
     } catch(_) {}
   }
 
-  // (page filename + '#' + anchor) → concept id, from the bundle.
+  // (page filename + '#' + anchor) → concept ids, from the bundle. An anchor
+  // can host SEVERAL concepts (h3-level anchors share a section — e.g.
+  // galois.html#quintic carries both radical-extensions and
+  // solvability-by-radicals), so the value is an array and a stop counts as
+  // mastered only when EVERY concept at its anchor is mastered.
   function buildResolver(){
     const MVC = window.__MVConcepts;
     if(!MVC || !MVC.topics) return null;
@@ -1512,7 +1520,10 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
       const t = MVC.topics[key];
       const page = (t.page || (key + '.html')).replace(/^\.\//, '');
       for(const c of (t.concepts || [])){
-        if(c.anchor) map.set(page + '#' + c.anchor, c.id);
+        if(!c.anchor) continue;
+        const k = page + '#' + c.anchor;
+        if(!map.has(k)) map.set(k, []);
+        map.get(k).push(c.id);
       }
     }
     return map;
@@ -1521,6 +1532,11 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
   function init(){
     const resolver = buildResolver();
     if(!resolver || !window.MVProgress) return; // no bundle / no progress: degrade silently
+    // Idempotent re-entry (pageshow / bfcache): strip everything a prior run
+    // injected, then rebuild from current mastery state.
+    document.querySelectorAll('.stop-check, .tc-mastery, .tc-progress, .jump-unmastered, #resume-banner')
+      .forEach(el => el.remove());
+    document.querySelectorAll('li.stop-mastered').forEach(li => li.classList.remove('stop-mastered'));
     const perTour = new Map();
     const cardFor = id => document.querySelector(`.tour-card[data-tour="${id}"]`);
 
@@ -1530,17 +1546,24 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
       stops.forEach((li, i) => {
         const a = li.querySelector('.stop-title a');
         if(!a) return;
-        // Record reading position whenever a stop link is followed —
-        // every stop, resolvable or not, is a valid place to resume from.
-        a.addEventListener('click', () => {
-          const s = readState();
-          s.last = { tour: sec.id, stop: i + 1, total: stops.length };
-          writeState(s);
-        });
-        const cid = resolver.get((a.getAttribute('href') || '').replace(/^\.\//, ''));
-        if(!cid) return;
+        // Record reading position whenever a stop link is followed (left,
+        // ctrl-, or middle-click) — every stop, resolvable or not, is a
+        // valid place to resume from. Registration is flag-guarded so
+        // pageshow re-runs of init() don't stack duplicate listeners.
+        if(!a.dataset.tourRec){
+          a.dataset.tourRec = '1';
+          const record = () => {
+            const s = readState();
+            s.last = { tour: sec.id, stop: i + 1 };
+            writeState(s);
+          };
+          a.addEventListener('click', record);
+          a.addEventListener('auxclick', e => { if(e.button === 1) record(); });
+        }
+        const cids = resolver.get((a.getAttribute('href') || '').replace(/^\.\//, ''));
+        if(!cids || cids.length === 0) return;
         resolvable++;
-        if(MVProgress.isMastered(cid, 'v1')){
+        if(cids.every(cid => MVProgress.isMastered(cid, 'v1'))){
           mastered++;
           li.classList.add('stop-mastered');
           const chk = document.createElement('span');
@@ -1551,7 +1574,11 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
           firstUnmastered = i;
         }
       });
-      perTour.set(sec.id, { mastered, resolvable, total: stops.length, firstUnmastered });
+      // "Fully mastered" requires every stop to be both resolvable and
+      // mastered — a tour with non-concept stops (e.g. the Millennium tour)
+      // can show k/n progress but never "all stops mastered".
+      const fullyMastered = stops.length > 0 && resolvable === stops.length && mastered === stops.length;
+      perTour.set(sec.id, { mastered, resolvable, total: stops.length, firstUnmastered, fullyMastered });
 
       // Offer the skip only when there's actual progress to skip past.
       if(mastered > 0 && firstUnmastered !== null){
@@ -1575,7 +1602,7 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
       if(meta){
         const chip = document.createElement('span');
         chip.className = 'tc-mastery';
-        chip.textContent = st.mastered === st.resolvable
+        chip.textContent = st.fullyMastered
           ? ' · ✓ all stops mastered'
           : ` · ${st.mastered}/${st.resolvable} mastered`;
         meta.appendChild(chip);
@@ -1593,24 +1620,31 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
 
     // Resume banner above the overview cards (hidden while a tour is open
     // via the body.tour-active CSS rule).
-    const last = readState().last;
-    if(last && last.tour && document.getElementById(last.tour)){
+    const state = readState();
+    const last = state.last;
+    if(last && last.tour && !perTour.has(last.tour)){
+      // Stale pointer (tour renamed/removed) — prune rather than carry forever.
+      delete state.last;
+      writeState(state);
+    } else if(last && last.tour){
       const info = perTour.get(last.tour);
-      // Nothing to resume once every resolvable stop is mastered.
-      if(!(info && info.resolvable > 0 && info.mastered === info.resolvable)){
-        const titleEl = cardFor(last.tour) && cardFor(last.tour).querySelector('.tc-title');
+      // Nothing to resume once the whole tour is mastered.
+      if(!info.fullyMastered){
+        const card = cardFor(last.tour);
+        const titleEl = card && card.querySelector('.tc-title');
+        const stop = Math.min(Math.max(1, last.stop || 1), info.total);
         const banner = document.createElement('div');
         banner.id = 'resume-banner';
+        banner.setAttribute('role', 'status');
         const label = document.createElement('span');
-        label.textContent = `Pick up where you left off: ${titleEl ? titleEl.textContent : last.tour} — stop ${last.stop} of ${last.total}`;
+        label.textContent = `Pick up where you left off: ${titleEl ? titleEl.textContent : last.tour} — stop ${stop} of ${info.total}`;
         const go = document.createElement('button');
         go.type = 'button';
         go.textContent = 'Resume →';
         go.addEventListener('click', () => {
-          const card = cardFor(last.tour);
           if(card) card.click(); // routes through the switcher (state + URL)
           const sec = document.getElementById(last.tour);
-          const li = sec && sec.querySelectorAll(':scope > ol.tour > li')[last.stop - 1];
+          const li = sec && sec.querySelectorAll(':scope > ol.tour > li')[stop - 1];
           // wait out the switcher's smooth scroll-to-top before scrolling down
           if(li) setTimeout(() => li.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400);
         });
@@ -1633,6 +1667,8 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
+  // bfcache restores skip DOMContentLoaded — refresh mastery state on return.
+  window.addEventListener('pageshow', e => { if(e.persisted) init(); });
 })();
 </script>
 </body>
