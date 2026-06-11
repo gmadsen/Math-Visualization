@@ -20,6 +20,7 @@
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
     --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
     --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+    --orange:#f4a261;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -453,6 +454,14 @@
   // Prefer the pre-built bundle (loaded via <script src>), which works from
   // file:// — browsers block fetch() of local JSON there. Fall back to fetch
   // when the bundle isn't present (e.g. running off a dev server).
+  // The bundle script is defer'd while this inline script's body starts at
+  // parse time, so an immediate window.__MVConcepts check would always miss
+  // and the bundle branch would be dead code (file:// would hard-fail on the
+  // fetch fallback). Wait for DOMContentLoaded — it fires after every
+  // deferred script has executed. Same race class fixed on index.html.
+  if(document.readyState === 'loading'){
+    await new Promise(res => document.addEventListener('DOMContentLoaded', res, {once:true}));
+  }
   let idx, topics, capstones, sectionsData;
   if(window.__MVConcepts){
     idx = window.__MVConcepts.index;
@@ -494,22 +503,22 @@
   for(const s of sectionsData.sections){
     for(const t of s.topics) TOPIC_SECTION[t] = s.title;
   }
-  // SECTION_COLOR is curated and stays inline — these are the section's
-  // assigned palette accents, picked to harmonize with each section's card
-  // colors on index.html.
-  const SECTION_COLOR = {
-    'Foundations':                  'var(--mute)',
-    'Algebra':                      'var(--yellow)',
-    'Analysis':                     'var(--blue)',
-    'Geometry & topology':          'var(--cyan)',
-    'Number theory':                'var(--green)',
-    'Modular forms & L-functions':  'var(--pink)',
-    'Algebraic geometry':           'var(--violet)'
+  // SECTION_COLOR is built from sections.json's per-section accent letter
+  // (same source index.html's cards use), so new sections color themselves.
+  // The previous hand-curated inline map had drifted badly: 7 of 13 sections,
+  // two pre-rename titles, and accents that disagreed with the index cards.
+  const ACCENT_VAR = {
+    b:'var(--blue)', y:'var(--yellow)', p:'var(--pink)', v:'var(--violet)',
+    g:'var(--green)', c:'var(--cyan)', o:'var(--orange)'
   };
+  const SECTION_COLOR = {};
+  for(const s of sectionsData.sections){
+    if(s.title) SECTION_COLOR[s.title] = ACCENT_VAR[s.color || 'b'] || 'var(--mute)';
+  }
   function sectionFor(id){
     const c = byId.get(id);
-    if(!c) return 'Foundations';
-    return TOPIC_SECTION[c.topicId] || 'Foundations';
+    if(!c) return 'Logic & Foundations';
+    return TOPIC_SECTION[c.topicId] || 'Logic & Foundations';
   }
 
   // ---------- topic → level mapping ----------
@@ -1974,7 +1983,11 @@
     window.KatexSelect.scan();
   }
   const params = new URLSearchParams(location.search);
-  const initial = params.get('goal') || capstones[0].goal;
+  // Validate the URL goal against the concept graph — a stale or mistyped
+  // ?goal= (e.g. a capstone id instead of its goal concept id) would
+  // otherwise crash layout() with a blank DAG. Fall back to the default.
+  const urlGoal = params.get('goal');
+  const initial = (urlGoal && byId.has(urlGoal)) ? urlGoal : capstones[0].goal;
   goalSel.value = initial;
   goalSel.addEventListener('change', ()=>{
     const g = goalSel.value;

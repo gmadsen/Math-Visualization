@@ -665,6 +665,7 @@
     <a class="sj-link s-v" href="#combinatorics-and-graph-theory"><span class="sj-dot"></span>Combinatorics &amp; graph theory</a>
     <a class="sj-link s-o" href="#mathematical-physics"><span class="sj-dot"></span>Mathematical physics</a>
     <a class="sj-link s-p" href="#control-theory-and-optimization"><span class="sj-dot"></span>Control theory &amp; optimization</a>
+    <a class="sj-link s-b" href="#learning-theory-and-data-science"><span class="sj-dot"></span>Learning theory &amp; data science</a>
     <button class="sj-toggle" type="button" aria-label="Collapse jump-to bar" aria-expanded="true">Hide</button>
   </nav>
 
@@ -5597,7 +5598,12 @@
   // Falls back to the previous hardcoded map ONLY if the bundle is missing
   // or shaped unexpectedly (defense-in-depth on the file:// double-click
   // path; a broken bundle would otherwise leave every section uncoloured).
-  var SECTION_META = (function(){
+  // Computed lazily inside init() — NOT at parse time. This inline script runs
+  // during HTML parsing, before the deferred concepts/bundle.js executes, so an
+  // eager read of window.__MVConcepts here would *always* miss and silently pin
+  // the page to the hardcoded fallback below (which is how the 13th section's
+  // header shipped unwired — the fallback predated it).
+  function computeSectionMeta(){
     var fromBundle = {};
     try {
       var src = (window.__MVConcepts && window.__MVConcepts.sections && window.__MVConcepts.sections.sections) || [];
@@ -5618,11 +5624,13 @@
       'Modular forms & L-functions':  { id: 'modular-forms-and-l-functions',   color: 'c' },
       'Algebraic geometry':           { id: 'algebraic-geometry',              color: 'g' },
       'Combinatorics & graph theory': { id: 'combinatorics-and-graph-theory',  color: 'v' },
-      'Mathematical physics':         { id: 'mathematical-physics',            color: 'p' },
+      'Mathematical physics':         { id: 'mathematical-physics',            color: 'o' },
       'Control theory & optimization': { id: 'control-theory-and-optimization', color: 'p' },
+      'Learning theory & data science': { id: 'learning-theory-and-data-science', color: 'b' },
     };
-  })();
+  }
   function init(){
+    var SECTION_META = computeSectionMeta();
     var secs = document.querySelectorAll('main > .sec');
     for(var i=0;i<secs.length;i++){
       var sec = secs[i];
