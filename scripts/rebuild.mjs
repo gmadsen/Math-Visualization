@@ -54,6 +54,12 @@ const STEPS = [
   // index.html. With `fix: true` the unconditional write happens in local
   // rebuilds; --no-fix flips it to audit-only so CI fails on drift.
   { name: 'section-indexes', script: 'build-section-indexes.mjs', fix: true  },
+  // Gates every per-section surface on the meta pages (sections/ files,
+  // index footer + jump bar + fallback map + headers, stale pre-rename
+  // titles) against sections.json — the "added a section, some page
+  // silently didn't notice" class from PR #512. Runs after section-indexes
+  // so freshly generated sections/*.html are what gets validated.
+  { name: 'meta-pages', script: 'validate-meta-pages.mjs',       fix: false },
   { name: 'recent-updates', script: 'build-recent-updates.mjs',  fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
