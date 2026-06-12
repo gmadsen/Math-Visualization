@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="./js/progress.js"></script>
+<script defer src="./concepts/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -152,6 +154,12 @@
   details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
   details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
   details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+  /* ----- mastery badges (meta-layer program) ----- */
+  .hstate{display:inline-block;margin-top:.3rem;font-size:.72rem;font-weight:600;letter-spacing:.04em}
+  .hstate.mastered{color:var(--green)}
+  .hstate.ready{color:var(--yellow)}
+  .hstate.locked{color:var(--mute)}
 </style>
 <link rel="stylesheet" href="./css/notebook.css">
 <script src="./js/theme-toggle.js"></script>
@@ -235,6 +243,70 @@
   const MAX_RECENT = 5;
   const TOP_PER_GROUP = 12;
   const DEBOUNCE_MS = 120;
+
+  // ── mastery model (meta-layer program) ──────────────────────────────────
+  // concept id → 'mastered' | 'ready' | 'locked', plus per-topic counts.
+  // progress.js + concepts/bundle.js are defer'd while this script is inline.
+  // Most search() calls come from user input (post-DOMContentLoaded), but the
+  // ?q= deep-link path runs from the index fetch continuation, which can win
+  // the race against the deferred bundle (the bundle queues behind the KaTeX
+  // CDN scripts). So: memoize the model only once it EXISTS — a miss returns
+  // null for that render and retries on the next keystroke. Missing globals →
+  // helpers return null and the page renders exactly as before.
+  function masteryModel(){
+    if(masteryModel._m) return masteryModel._m;
+    const MVC = window.__MVConcepts;
+    if(!MVC || !MVC.topics || !window.MVProgress) return null;
+    const prereqs = new Map();
+    const byTopic = new Map();
+    for(const key of Object.keys(MVC.topics)){
+      const t = MVC.topics[key];
+      const ids = [];
+      for(const c of (t.concepts || [])){
+        prereqs.set(c.id, c.prereqs || []);
+        ids.push(c.id);
+      }
+      byTopic.set(key, ids);
+    }
+    return (masteryModel._m = { prereqs, byTopic });
+  }
+  // Mastered-id snapshot, rebuilt once per search() call: one localStorage
+  // parse per render instead of MVProgress.isMastered()'s parse-per-call,
+  // which the sort comparator would multiply into seconds for a learner
+  // with hundreds of mastered concepts (PR #515 review benchmark). Mirrors
+  // progress.js coerce(): true → mastered, tiered object → !!v1, legacy
+  // {at} object (no tier keys) → mastered.
+  let masteredSet = null;
+  function refreshMasterySnapshot(){
+    masteredSet = null;
+    if(!masteryModel()) return;
+    masteredSet = new Set();
+    const all = MVProgress.load();
+    for(const id of Object.keys(all)){
+      const raw = all[id];
+      if(raw === true) masteredSet.add(id);
+      else if(raw && typeof raw === 'object'){
+        if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) masteredSet.add(id); }
+        else masteredSet.add(id); // legacy {at} form — presence meant mastered
+      }
+    }
+  }
+  function conceptState(id){
+    const m = masteryModel();
+    if(!m || !masteredSet || !m.prereqs.has(id)) return null;
+    if(masteredSet.has(id)) return 'mastered';
+    return m.prereqs.get(id).every(p => masteredSet.has(p)) ? 'ready' : 'locked';
+  }
+  function topicMastery(slug){
+    const m = masteryModel();
+    if(!m || !masteredSet || !m.byTopic.has(slug)) return null;
+    const ids = m.byTopic.get(slug);
+    return { mastered: ids.filter(id => masteredSet.has(id)).length, total: ids.length };
+  }
+  // Within the concept group: what you can act on first. Concept records
+  // whose id is missing from the bundle (stale search index) rank with
+  // locked — the fail-safe middle band.
+  const STATE_RANK = { ready: 0, locked: 1, mastered: 2 };
 
   // ── load the bundled index ────────────────────────────────────────────
   let records = null;
@@ -433,6 +505,10 @@
       return;
     }
 
+    // One mastery snapshot per render — badges and sorting below read the
+    // Set, never localStorage.
+    refreshMasterySnapshot();
+
     // Score every record. (Brute force over ~2k records — fast enough.)
     const scored = [];
     for(const rec of records){
@@ -445,6 +521,17 @@
     const groups = { topic: [], concept: [], section: [], question: [] };
     for(const [s, rec] of scored){
       if(groups[rec.type]) groups[rec.type].push([s, rec]);
+    }
+
+    // Within the concept group, surface what the reader can act on: ready
+    // first, then locked, then already-mastered — score order within each
+    // band. No-op when mastery data is unavailable.
+    if(masteryModel()){
+      groups.concept.sort((A, B) => {
+        const ra = STATE_RANK[conceptState(A[1].id)] ?? 1;
+        const rb = STATE_RANK[conceptState(B[1].id)] ?? 1;
+        return ra - rb || B[0] - A[0];
+      });
     }
 
     countEl.textContent = scored.length + ' result' + (scored.length === 1 ? '' : 's');
@@ -497,44 +584,10 @@
 
       const ul = document.createElement('ul');
       ul.className = 'hits';
-      const shown = hits.slice(0, TOP_PER_GROUP);
-      for(const [score, rec] of shown){
-        const a = document.createElement('a');
-        a.className = 'hit';
-        a.href = './' + rec.url;
-        a.dataset.score = score.toFixed(2);
-
-        const label = document.createElement('span');
-        label.className = 'label ' + rec.type;
-        label.textContent = rec.type;
-        a.appendChild(label);
-
-        const body = document.createElement('div');
-        body.className = 'hbody';
-        const title = document.createElement('div');
-        title.className = 'htitle';
-        title.innerHTML = highlight(rec.title || rec.q || '(untitled)', tokens);
-        body.appendChild(title);
-
-        let blurbText = '';
-        if(rec.type === 'concept' && rec.blurb) blurbText = rec.blurb;
-        else if(rec.type === 'question') blurbText = rec.q || rec.text || '';
-        if(blurbText){
-          const blurb = document.createElement('div');
-          blurb.className = 'hblurb';
-          blurb.innerHTML = highlight(blurbText, tokens);
-          body.appendChild(blurb);
-        }
-        a.appendChild(body);
-
-        const topic = document.createElement('span');
-        topic.className = 'htopic';
-        topic.textContent = rec.topic;
-        a.appendChild(topic);
-
-        a.addEventListener('mouseenter', () => setActive(flatHits.indexOf(a)));
-        a.addEventListener('click', () => { pushRecent(currentQuery); });
-
+      // buildHit is the single hit renderer — the show-more path below uses
+      // the same one, so badges/markup can't drift between the two.
+      for(const [score, rec] of hits.slice(0, TOP_PER_GROUP)){
+        const a = buildHit(rec, score, tokens);
         ul.appendChild(a);
         flatHits.push(a);
       }
@@ -616,6 +669,30 @@
       blurb.className = 'hblurb';
       blurb.innerHTML = highlight(blurbText, tokens);
       body.appendChild(blurb);
+    }
+
+    // Mastery badge: concepts show their own state; questions show their
+    // owning concept's state only once it's mastered (a 'locked' tag on a
+    // quiz question reads as "can't open this", which is false); topics get
+    // a k/n chip once any progress exists. All null-safe — no bundle or no
+    // MVProgress means no badge and the original layout.
+    let badge = null;
+    if(rec.type === 'concept' && rec.id){
+      const st = conceptState(rec.id);
+      if(st){
+        badge = { cls: st, text: st === 'mastered' ? '✓ mastered' : st === 'ready' ? '● ready to learn' : 'locked' };
+      }
+    } else if(rec.type === 'question' && rec.concept){
+      if(conceptState(rec.concept) === 'mastered') badge = { cls: 'mastered', text: '✓ concept mastered' };
+    } else if(rec.type === 'topic' && rec.topic){
+      const tm = topicMastery(rec.topic);
+      if(tm && tm.mastered > 0) badge = { cls: 'mastered', text: `${tm.mastered}/${tm.total} mastered` };
+    }
+    if(badge){
+      const b = document.createElement('span');
+      b.className = 'hstate ' + badge.cls;
+      b.textContent = badge.text;
+      body.appendChild(b);
     }
     a.appendChild(body);
 
