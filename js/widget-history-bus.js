@@ -32,10 +32,19 @@
   function scrubYear(year){
     target.dispatchEvent(new CustomEvent('scrub-year', { detail: { year } }));
   }
+  // Era-filter broadcasting: any chip row emits, every widget applies, so
+  // the timeline's chips, the map's chips, and the lineage trees stay on
+  // one filter. `eras` is an array of era ids (empty array = filter mode
+  // with nothing selected — everything dims) or null to exit filter mode.
+  // `source` names the emitting widget; emitters skip their own echo.
+  function eraFilter(eras, source){
+    target.dispatchEvent(new CustomEvent('era-filter', { detail: { eras, source } }));
+  }
   window.MVHistoryBus = {
     selectPerson,
     clearSelection,
     scrubYear,
+    eraFilter,
     on(type, fn){ target.addEventListener(type, fn); },
     off(type, fn){ target.removeEventListener(type, fn); }
   };

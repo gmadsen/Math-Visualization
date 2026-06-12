@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="./js/progress.js"></script>
+<script defer src="./concepts/bundle.js"></script>
 <script>
 (function(){
   function renderAll(){
@@ -508,6 +510,13 @@
   details.changelog details.changelog-rest > summary::before{content:"▸ ";display:inline-block;
     transition:transform 150ms ease}
   details.changelog details.changelog-rest[open] > summary::before{transform:rotate(90deg);content:"▸ "}
+
+  /* ----- mastery + era-sync + curriculum links (meta-layer program) ----- */
+  .lineage .lnode.era-dim{opacity:.22}
+  .lineage .lnode .lmastery{fill:var(--green);pointer-events:none}
+  .ev-topics{margin-top:.5rem;font-size:.85rem;color:var(--mute)}
+  .ev-topics a{color:var(--cyan);text-decoration:none;border-bottom:1px dashed var(--cyan)}
+  .ev-topics a:hover{color:var(--yellow);border-bottom-color:var(--yellow)}
 </style>
 </head>
 <body>
@@ -1490,6 +1499,31 @@ document.addEventListener('DOMContentLoaded', function(){
     console.error('[history] failed to parse history-data JSON:', err);
     return;
   }
+  // person id → [{href, title}] — derived from event topicAnchors (no new
+  // data to maintain): a person 'owns' every topic their events link to.
+  // Titles come from the concept bundle when present (defer'd, and this
+  // bootstrapper runs on DOMContentLoaded, which fires after defer scripts);
+  // fallback is the de-slugged page name.
+  (function(){
+    const MVC = window.__MVConcepts;
+    const titleOf = href => {
+      const slug = String(href).replace(/^\.\//,'').split('#')[0].replace(/\.html$/,'');
+      const t = MVC && MVC.topics && MVC.topics[slug];
+      return t && t.title ? t.title : slug.replace(/-/g, ' ');
+    };
+    const map = {};
+    for(const ev of (data.events || [])){
+      if(!ev.topicAnchor) continue;
+      for(const pid of (ev.who || [])){
+        (map[pid] = map[pid] || []).push({ href: ev.topicAnchor, title: titleOf(ev.topicAnchor) });
+      }
+    }
+    for(const pid of Object.keys(map)){
+      const seen = new Set();
+      map[pid] = map[pid].filter(t => !seen.has(t.href) && seen.add(t.href));
+    }
+    data.personTopics = map;
+  })();
   window.HISTORY_DATA = data;
   if(window.MVHistoryTimeline) window.MVHistoryTimeline.init(document.getElementById('tl-widget'), data);
   if(window.MVHistoryMap) window.MVHistoryMap.init(document.getElementById('map-widget'), data);

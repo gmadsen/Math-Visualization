@@ -525,6 +525,13 @@
       // is `select-person` (handled above), so clicking a person's name in
       // the timeline still highlights them on the map.
     }
+    // Keep this chip row on the shared bus filter (timeline emits the same
+    // event); emitters tag their events and skip their own echo.
+    function broadcastEraFilter(){
+      if(window.MVHistoryBus && typeof window.MVHistoryBus.eraFilter === 'function'){
+        window.MVHistoryBus.eraFilter(state.filterMode ? [...state.activeEras] : null, 'map');
+      }
+    }
     eraChips.forEach((c, id) => {
       c.addEventListener('click', () => {
         if(state.activeEras.has(id)) state.activeEras.delete(id);
@@ -534,6 +541,7 @@
         // era selected, show everything dimmed".
         state.filterMode = true;
         applyState();
+        broadcastEraFilter();
       });
     });
     allBtn.addEventListener('click', () => {
@@ -542,7 +550,17 @@
       state.activeEras.clear();
       state.filterMode = false;
       applyState();
+      broadcastEraFilter();
     });
+    if(window.MVHistoryBus){
+      window.MVHistoryBus.on('era-filter', e => {
+        const d = e.detail || {};
+        if(d.source === 'map') return;
+        state.activeEras = new Set(d.eras || []);
+        state.filterMode = d.eras !== null && d.eras !== undefined;
+        applyState();
+      });
+    }
     svg.addEventListener('dblclick', e => {
       if(e.target === svg || e.target.classList.contains('continent') || e.target.tagName === 'line'){
         state.selectedIdx = -1;
