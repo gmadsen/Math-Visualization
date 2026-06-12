@@ -94,6 +94,8 @@ window.MVRenderMath = function(el){
      holds the title + blurb + concept count; clicking a card toggles its
      expanded state, revealing the per-section list of concepts under that
      tag. Untagged-coverage view is a separate disclosure at the bottom. */
+  .tag-progress{margin-top:.45rem;height:4px;border-radius:999px;background:var(--panel2);overflow:hidden}
+  .tag-progress .fill{height:100%;background:var(--green);min-width:3px}
   .tag-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
     gap:12px;margin:1.4rem 0}
   .tag-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
@@ -332,7 +334,8 @@ window.MVRenderMath = function(el){
       + '<span class="stat"><strong>' + untagged.length + '</strong> untagged</span>';
 
     // Bind masteryState to the byConceptId closure now that the map is built.
-    const masteryState = makeMasteryState(byConceptId);
+    const masteredIds = buildMasteredSet();
+    const masteryState = makeMasteryState(byConceptId, masteredIds);
 
     // Build SECTION_META from the bundle now that `data` is in scope.
     SECTION_META = Object.create(null);
@@ -381,11 +384,24 @@ window.MVRenderMath = function(el){
       const colorVar = TAG_COLORS[(TAG_INDEX[t.id] ?? 0) % TAG_COLORS.length];
       card.style.setProperty('--motif-color', `var(${colorVar})`);
       card.style.color = `var(${colorVar})`;
+      // Theme-level mastery: thin progress bar + k/n once any concept in
+      // the theme is mastered (cold visitors see the card unchanged).
+      let progressHtml = '';
+      if (masteredIds) {
+        const k = (byTag.get(t.id) || []).filter(e => masteredIds.has(e.conceptId)).length;
+        if (k > 0 && count > 0) {
+          const pct = Math.round(100 * k / count);
+          progressHtml = ''
+            + '<div class="tag-progress" title="' + k + ' of ' + count + ' concepts mastered">'
+            + '<div class="fill" style="width:' + pct + '%"></div></div>';
+        }
+      }
       card.innerHTML = ''
         + '<div class="tag-motif" aria-hidden="true">' + tagMotif(t.id) + '</div>'
         + '<div class="tag-body">'
           + '<h2>' + escapeHtml(t.title) + '<span class="count">' + count + '</span></h2>'
           + '<p class="blurb">' + escapeHtml(t.blurb) + '</p>'
+          + progressHtml
         + '</div>';
       card.addEventListener('click', () => selectTag(t));
       card.addEventListener('keydown', (e) => {
@@ -502,17 +518,37 @@ window.MVRenderMath = function(el){
   // closed-over below). The previous implementation walked every topic
   // running Array.find on its concepts for every link rendered, an
   // O(topics x concepts) scan per concept that compounded on every tag click.
-  function makeMasteryState(byConceptId){
+  //
+  // Mastery reads go through a one-parse snapshot Set rather than
+  // MVProgress.isMastered() per call — isMastered JSON.parses the whole
+  // progress blob every time, which compounded the same way (the PR #515
+  // parse-storm lesson). Mirrors progress.js coerce(): true / tiered v1 /
+  // legacy {at} → mastered.
+  function buildMasteredSet(){
+    if (!window.MVProgress) return null;
+    const set = new Set();
+    const all = window.MVProgress.load();
+    for (const id of Object.keys(all)) {
+      const raw = all[id];
+      if (raw === true) set.add(id);
+      else if (raw && typeof raw === 'object') {
+        if ('v1' in raw || 'hard' in raw || 'expert' in raw) { if (raw.v1) set.add(id); }
+        else set.add(id); // legacy {at} form — presence meant mastered
+      }
+    }
+    return set;
+  }
+  function makeMasteryState(byConceptId, masteredIds){
     return function(conceptId){
-      if (!window.MVProgress) return '';
-      if (window.MVProgress.isMastered(conceptId, 'v1')) return 'v1';
+      if (!masteredIds) return '';
+      if (masteredIds.has(conceptId)) return 'v1';
       const c = byConceptId[conceptId];
       if (!c) return '';
       const ps = c.prereqs || [];
       if (ps.length === 0) return 'ready';
       const allMastered = ps.every(p => {
         const bare = p.includes(':') ? p.split(':', 2)[1] : p;
-        return window.MVProgress.isMastered(bare, 'v1');
+        return masteredIds.has(bare);
       });
       return allMastered ? 'ready' : 'locked';
     };
