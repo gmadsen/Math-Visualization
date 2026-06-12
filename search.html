@@ -246,17 +246,17 @@
 
   // ── mastery model (meta-layer program) ──────────────────────────────────
   // concept id → 'mastered' | 'ready' | 'locked', plus per-topic counts.
-  // progress.js + concepts/bundle.js are defer'd while this script is inline,
-  // but search() only ever runs from user input (post-DOMContentLoaded), so
-  // the globals are present by the first query. Either missing → helpers
-  // return null and the page renders exactly as before.
-  // The model caches topology (prereqs, topic membership) only — mastery
-  // state is re-read from MVProgress on every call so fresh quiz results
-  // show up on the next keystroke without a reload.
+  // progress.js + concepts/bundle.js are defer'd while this script is inline.
+  // Most search() calls come from user input (post-DOMContentLoaded), but the
+  // ?q= deep-link path runs from the index fetch continuation, which can win
+  // the race against the deferred bundle (the bundle queues behind the KaTeX
+  // CDN scripts). So: memoize the model only once it EXISTS — a miss returns
+  // null for that render and retries on the next keystroke. Missing globals →
+  // helpers return null and the page renders exactly as before.
   function masteryModel(){
-    if(masteryModel._m !== undefined) return masteryModel._m;
+    if(masteryModel._m) return masteryModel._m;
     const MVC = window.__MVConcepts;
-    if(!MVC || !MVC.topics || !window.MVProgress) return (masteryModel._m = null);
+    if(!MVC || !MVC.topics || !window.MVProgress) return null;
     const prereqs = new Map();
     const byTopic = new Map();
     for(const key of Object.keys(MVC.topics)){
@@ -270,19 +270,42 @@
     }
     return (masteryModel._m = { prereqs, byTopic });
   }
+  // Mastered-id snapshot, rebuilt once per search() call: one localStorage
+  // parse per render instead of MVProgress.isMastered()'s parse-per-call,
+  // which the sort comparator would multiply into seconds for a learner
+  // with hundreds of mastered concepts (PR #515 review benchmark). Mirrors
+  // progress.js coerce(): true → mastered, tiered object → !!v1, legacy
+  // {at} object (no tier keys) → mastered.
+  let masteredSet = null;
+  function refreshMasterySnapshot(){
+    masteredSet = null;
+    if(!masteryModel()) return;
+    masteredSet = new Set();
+    const all = MVProgress.load();
+    for(const id of Object.keys(all)){
+      const raw = all[id];
+      if(raw === true) masteredSet.add(id);
+      else if(raw && typeof raw === 'object'){
+        if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) masteredSet.add(id); }
+        else masteredSet.add(id); // legacy {at} form — presence meant mastered
+      }
+    }
+  }
   function conceptState(id){
     const m = masteryModel();
-    if(!m || !m.prereqs.has(id)) return null;
-    if(MVProgress.isMastered(id, 'v1')) return 'mastered';
-    return m.prereqs.get(id).every(p => MVProgress.isMastered(p, 'v1')) ? 'ready' : 'locked';
+    if(!m || !masteredSet || !m.prereqs.has(id)) return null;
+    if(masteredSet.has(id)) return 'mastered';
+    return m.prereqs.get(id).every(p => masteredSet.has(p)) ? 'ready' : 'locked';
   }
   function topicMastery(slug){
     const m = masteryModel();
-    if(!m || !m.byTopic.has(slug)) return null;
+    if(!m || !masteredSet || !m.byTopic.has(slug)) return null;
     const ids = m.byTopic.get(slug);
-    return { mastered: ids.filter(id => MVProgress.isMastered(id, 'v1')).length, total: ids.length };
+    return { mastered: ids.filter(id => masteredSet.has(id)).length, total: ids.length };
   }
-  // Within the concept group: what you can act on first.
+  // Within the concept group: what you can act on first. Concept records
+  // whose id is missing from the bundle (stale search index) rank with
+  // locked — the fail-safe middle band.
   const STATE_RANK = { ready: 0, locked: 1, mastered: 2 };
 
   // ── load the bundled index ────────────────────────────────────────────
@@ -481,6 +504,10 @@
       countEl.textContent = '';
       return;
     }
+
+    // One mastery snapshot per render — badges and sorting below read the
+    // Set, never localStorage.
+    refreshMasterySnapshot();
 
     // Score every record. (Brute force over ~2k records — fast enough.)
     const scored = [];
