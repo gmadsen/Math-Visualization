@@ -45,7 +45,7 @@
   .era-chip:hover{border-color:var(--era-color, var(--yellow))}
   .era-chip.active{border-color:var(--era-color, var(--yellow));
     background:color-mix(in srgb, var(--era-color, var(--yellow)) 14%, var(--panel2))}
-  input.who-search{flex:1;min-width:220px;background:#0b0f16;color:var(--ink);
+  input.who-search{flex:1;min-width:220px;background:var(--panel2);color:var(--ink);
     border:1px solid var(--line);border-radius:8px;padding:.5rem .9rem;
     font:inherit;font-size:.95rem;outline:none}
   input.who-search:focus{border-color:var(--cyan)}
@@ -71,7 +71,7 @@
     background:color-mix(in srgb, var(--era-color, var(--mute)) 22%, var(--panel2));
     color:var(--era-color, var(--ink));font-weight:700;font-size:1rem;letter-spacing:.02em}
   .wc-body{min-width:0;flex:1}
-  .wc-name{font-weight:600;color:#fff;line-height:1.3}
+  .wc-name{font-weight:600;color:var(--ink);line-height:1.3}
   .wc-meta{color:var(--mute);font-size:.78rem;font-family:ui-monospace,Menlo,monospace;margin:.1rem 0 .3rem}
   .wc-blurb{color:var(--ink);font-size:.86rem;line-height:1.5;color:color-mix(in srgb, var(--ink) 86%, var(--mute))}
   .wc-topics{margin-top:.5rem;font-size:.82rem;color:var(--mute)}
@@ -95,20 +95,21 @@
   <a href="./tags.html">Themes</a>
   <a href="./mindmap.html">Mindmap</a>
   <a href="./search.html">Search</a>
+  <span class="mv-theme-slot"></span>
 </nav>
 
 <main>
 <section class="hero">
   <h1>Who's who</h1>
-  <p class="sub">The 112 mathematicians behind the notebook's story, from the anonymous carver of the Lebombo bone to the still-living. Filter by era, search a name, and follow the links into the topics where their mathematics is unpacked — green percentages show how much of a linked topic you've already mastered. The narrative version lives on the <a href="./history.html">history page</a>.</p>
+  <p class="sub">The mathematicians behind the notebook's story, from the anonymous carver of the Lebombo bone to the still-living. Filter by era, search a name, and follow the links into the topics where their mathematics is unpacked — green percentages show how much of a linked topic you've already mastered. The narrative version lives on the <a href="./history.html">history page</a>.</p>
 </section>
 
 <div class="controls" id="controls">
   <input class="who-search" id="who-search" type="search" placeholder="search name, place, or contribution…" aria-label="Search people">
 </div>
-<div class="count-row" id="count-row"></div>
+<div class="count-row" id="count-row" aria-live="polite"></div>
 
-<div id="directory" aria-live="polite"></div>
+<div id="directory"></div>
 
 <footer>Data shared with <a href="./history.html">history.html</a> via <code>history-data.js</code> — edit there, both pages update.</footer>
 </main>

@@ -1,8 +1,8 @@
 # History page cross-link audit
 
-Total outbound links: **126** (68 narrative + 58 structured `topicAnchor`).
-Distinct topic slugs linked: **46**.
-Topic pages on disk with zero inbound from history: **95**.
+Total outbound links: **138** (80 narrative + 58 structured `topicAnchor`).
+Distinct topic slugs linked: **54**.
+Topic pages on disk with zero inbound from history: **166**.
 
 ## Broken anchors
 _None_
@@ -13,91 +13,192 @@ _None_
 ## Topic pages with zero inbound from history
 _Cross-link opportunities. Consider adding an event or narrative link in a relevant era._
 
-### Algebraic geometry (19/24)
+### Algebraic geometry (30/35)
 
+- `abelian-varieties.html`
 - `algebraic-curves-higher-genus.html`
 - `algebraic-de-rham-cohomology.html`
 - `algebraic-spaces.html`
+- `brill-noether.html`
 - `calabi-yau-manifolds.html`
+- `crystalline-cohomology.html`
+- `d-modules.html`
 - `deformation-theory.html`
+- `donaldson-thomas-and-gw-invariants.html`
 - `elliptic-curves.html`
 - `etale-fundamental-group.html`
 - `functor-of-points.html`
+- `geometric-invariant-theory.html`
 - `group-schemes.html`
 - `hodge-theory.html`
 - `intersection-theory-chow.html`
 - `mirror-symmetry.html`
+- `mmp-and-birational-geometry.html`
 - `morphisms-fiber-products.html`
 - `motives.html`
+- `positive-characteristic-ag.html`
+- `positivity-and-ample-line-bundles.html`
 - `resolution-of-singularities.html`
 - `sheaf-cohomology.html`
 - `sheaves.html`
 - `singular-cubics-reduction.html`
 - `stacks.html`
+- `toric-varieties.html`
+- `tropical-geometry.html`
 
-### Modular forms & L-functions (13/17)
+### Analysis (18/24)
+
+- `advanced-complex-analysis.html`
+- `conformal-and-cr-geometry.html`
+- `dynamical-systems.html`
+- `ergodic-theory.html`
+- `functional-analysis.html`
+- `geometric-measure-theory.html`
+- `harmonic-functions.html`
+- `mathematical-chaos.html`
+- `microlocal-analysis.html`
+- `numerical-analysis.html`
+- `operator-algebras.html`
+- `optimal-transport.html`
+- `partial-differential-equations.html`
+- `semigroup-theory-evolution-equations.html`
+- `several-complex-variables.html`
+- `sobolev-spaces-distributions.html`
+- `spectral-theory.html`
+- `wavelets.html`
+
+### Geometry & topology (17/25)
+
+- `characteristic-classes.html`
+- `cobordism.html`
+- `cohomology-and-duality.html`
+- `convex-geometry.html`
+- `differential-forms.html`
+- `heegaard-floer.html`
+- `homotopy-theory.html`
+- `k-theory.html`
+- `kahler-geometry.html`
+- `khovanov-homology.html`
+- `knot-polynomials.html`
+- `mapping-class-groups.html`
+- `morse-theory.html`
+- `mostow-rigidity.html`
+- `smooth-manifolds.html`
+- `surgery-theory.html`
+- `symplectic-manifolds.html`
+
+### Modular forms & L-functions (16/19)
 
 - `L-functions.html`
 - `analytic-continuation.html`
 - `automorphic-forms-adelic.html`
 - `bsd.html`
 - `dirichlet-series-euler-products.html`
+- `half-integral-weight-forms.html`
 - `hecke-operators.html`
+- `maass-forms.html`
 - `modular-curves.html`
 - `modular-forms.html`
 - `moonshine.html`
 - `sato-tate.html`
+- `shimura-varieties.html`
 - `theta-functions.html`
 - `upper-half-plane-hyperbolic.html`
 - `vertex-operator-algebras.html`
 
-### Analysis (11/16)
+### Number theory (13/19)
 
-- `advanced-complex-analysis.html`
-- `dynamical-systems.html`
-- `functional-analysis.html`
-- `harmonic-functions.html`
-- `numerical-analysis.html`
-- `operator-algebras.html`
-- `partial-differential-equations.html`
-- `sobolev-spaces-distributions.html`
-- `spectral-theory.html`
-- `variational-methods.html`
-- `wavelets.html`
+- `adeles-and-ideles.html`
+- `algebraic-number-theory.html`
+- `arithmetic-statistics.html`
+- `class-field-theory.html`
+- `complex-multiplication.html`
+- `computational-number-theory.html`
+- `continued-fractions.html`
+- `dirichlet-unit-theorem.html`
+- `frobenius-and-reciprocity.html`
+- `galois-representations.html`
+- `iwasawa-theory.html`
+- `mathematics-and-cryptography.html`
+- `quadratic-forms-genus-theory.html`
 
-### Algebra & homological (9/13)
+### Algebra & homological (13/17)
 
+- `algebraic-k-theory-foundations.html`
+- `cluster-algebras.html`
 - `commutative-algebra.html`
+- `condensed-mathematics.html`
 - `derived-categories.html`
 - `galois-cohomology-and-brauer.html`
 - `geometric-and-combinatorial-group-theory.html`
 - `groebner-bases.html`
 - `group-cohomology.html`
 - `lie-algebras.html`
+- `model-categories.html`
 - `quantum-groups.html`
 - `quaternions-octonions-and-division-algebras.html`
 
-### Number theory (8/14)
+### Combinatorics & graph theory (11/15)
 
-- `adeles-and-ideles.html`
-- `algebraic-number-theory.html`
-- `class-field-theory.html`
-- `computational-number-theory.html`
-- `frobenius-and-reciprocity.html`
-- `galois-representations.html`
-- `mathematics-and-cryptography.html`
-- `quadratic-forms-genus-theory.html`
+- `algebraic-combinatorics.html`
+- `coding-theory.html`
+- `designs.html`
+- `enumerative-combinatorics.html`
+- `extremal-combinatorics.html`
+- `graph-theory-fundamentals.html`
+- `matroid-theory.html`
+- `order-theory-and-lattices.html`
+- `polytopes-and-ehrhart.html`
+- `ramsey-theory.html`
+- `simplicial-complexes-combinatorial.html`
 
-### Geometry & topology (8/16)
+### Mathematical physics (10/13)
 
-- `characteristic-classes.html`
-- `differential-forms.html`
-- `k-theory.html`
-- `knot-polynomials.html`
-- `morse-theory.html`
-- `mostow-rigidity.html`
-- `smooth-manifolds.html`
-- `symplectic-manifolds.html`
+- `dirac-equation.html`
+- `integrable-systems.html`
+- `klein-gordon-equation.html`
+- `quantum-field-theory.html`
+- `quantum-information.html`
+- `schrodinger-equation.html`
+- `special-relativity.html`
+- `statistical-mechanics.html`
+- `string-theory.html`
+- `three-body-problem.html`
+
+### Learning theory & data science (9/9)
+
+- `causal-inference.html`
+- `deep-learning-theory.html`
+- `diffusion-and-score-based-models.html`
+- `information-geometry.html`
+- `kernel-methods-and-rkhs.html`
+- `probabilistic-graphical-models.html`
+- `spectral-methods-data.html`
+- `statistical-learning-theory.html`
+- `topological-data-analysis.html`
+
+### Probability & statistics (9/11)
+
+- `computational-molecular-biology.html`
+- `high-dimensional-geometry.html`
+- `large-deviations.html`
+- `mathematical-biology.html`
+- `mathematical-statistics.html`
+- `random-matrix-theory.html`
+- `random-walks-and-mixing.html`
+- `stochastic-calculus.html`
+- `stochastic-processes-and-martingales.html`
+
+### Control theory & optimization (8/9)
+
+- `combinatorial-optimization.html`
+- `convex-optimization.html`
+- `kalman-filtering-and-state-estimation.html`
+- `markov-decision-processes.html`
+- `mathematical-finance.html`
+- `optimal-control-and-dynamic-programming.html`
+- `pomdps-and-belief-states.html`
+- `reinforcement-learning.html`
 
 ### Higher categories & toposes (7/7)
 
@@ -109,24 +210,6 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `infinity-topoi.html`
 - `simplicial-sets-and-nerve.html`
 
-### Combinatorics & graph theory (6/8)
-
-- `designs.html`
-- `enumerative-combinatorics.html`
-- `expanders.html`
-- `extremal-combinatorics.html`
-- `matroid-theory.html`
-- `simplicial-complexes-combinatorial.html`
-
-### Probability & statistics (6/8)
-
-- `high-dimensional-geometry.html`
-- `large-deviations.html`
-- `mathematical-statistics.html`
-- `random-walks-and-mixing.html`
-- `stochastic-calculus.html`
-- `stochastic-processes-and-martingales.html`
-
 ### Logic & Foundations (4/8)
 
 - `complexity-theory.html`
@@ -134,11 +217,8 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `model-theory-basics.html`
 - `type-theory-and-hott.html`
 
-### Mathematical physics (4/7)
+### (unsectioned)
 
-- `schrodinger-equation.html`
-- `statistical-mechanics.html`
-- `string-theory.html`
-- `three-body-problem.html`
+- `updates.html`
 
 
