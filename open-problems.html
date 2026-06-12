@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Open problems — Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script defer src="./js/progress.js"></script>
+<script defer src="./concepts/bundle.js"></script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+    --orange:#f4a261;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  main{max-width:880px;margin:0 auto;padding:2.5rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.5rem;margin:2.6rem 0 0.8rem;color:var(--ink);
+    border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.6rem}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  .problem{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.2rem;margin:.9rem 0}
+  .pb-head{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.2rem}
+  .pb-title{font-weight:600;font-size:1.08rem;color:var(--ink)}
+  .pb-chip{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    font-family:ui-monospace,Menlo,monospace;padding:2px 9px;border-radius:999px;
+    border:1px solid var(--line);color:var(--mute);background:var(--panel2)}
+  .pb-chip.open{color:var(--yellow);border-color:color-mix(in srgb, var(--yellow) 50%, var(--line))}
+  .pb-chip.solved{color:var(--green);border-color:color-mix(in srgb, var(--green) 50%, var(--line))}
+  .pb-chip.independent{color:var(--violet);border-color:color-mix(in srgb, var(--violet) 50%, var(--line))}
+  .pb-chip.prize{color:var(--cyan);border-color:color-mix(in srgb, var(--cyan) 50%, var(--line))}
+  .pb-statement{color:var(--ink);margin:.3rem 0 .5rem;
+    border-left:3px solid color-mix(in srgb, var(--yellow) 55%, transparent);
+    padding:.15rem .8rem;background:color-mix(in srgb, var(--yellow) 4%, transparent);
+    border-radius:0 6px 6px 0}
+  .pb-why{color:color-mix(in srgb, var(--ink) 86%, var(--mute));font-size:.92rem}
+  .pb-links{margin-top:.55rem;font-size:.85rem;color:var(--mute)}
+  .pb-links a{color:var(--cyan);text-decoration:none;border-bottom:1px dashed var(--cyan)}
+  .pb-links a:hover{color:var(--yellow);border-bottom-color:var(--yellow)}
+  .pb-road{margin-top:.6rem}
+  .pb-road .road-label{font-size:.78rem;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;margin-bottom:.25rem}
+  .pb-road .road-label b{color:var(--green);font-weight:600}
+  .pb-road .road-bar{height:7px;border-radius:999px;background:var(--panel2);
+    border:1px solid var(--line);overflow:hidden}
+  .pb-road .road-bar .fill{height:100%;background:var(--green)}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;
+    color:color-mix(in srgb, var(--ink) 90%, var(--violet));
+    background:color-mix(in srgb, var(--violet) 7%, transparent);
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.92rem}
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="./pathway.html">Pathway</a>
+  <a href="./tours.html">Tours</a>
+  <a href="./history.html">History</a>
+  <a href="./whos-who.html">Who's who</a>
+  <a href="./mindmap.html">Mindmap</a>
+  <a href="./search.html">Search</a>
+  <span class="mv-theme-slot"></span>
+</nav>
+
+<main>
+<section class="hero">
+  <h1>Open problems</h1>
+  <p class="sub">The famous unsolved (and famously solved, and famously <em>unsolvable</em>) problems — what each one asks, why it's hard, and how far this notebook takes you toward genuinely understanding the statement. The green bars are yours: they measure your mastered concepts along each problem's prerequisite road, so they grow as you learn. The narrative tour of the seven Clay problems is <a href="./tours.html#millennium-prizes">Tour 10</a>.</p>
+</section>
+
+<div id="problems"></div>
+
+<p class="note">A "road" here is the prerequisite closure of the problem's goal concept in the <a href="./pathway.html">pathway graph</a> where the notebook carries the statement as a capstone, or the union of the linked topics' concepts where it doesn't. Reaching 100% means you've mastered the background the notebook offers — not that you're ready to solve the problem; nobody is, that's the point.</p>
+
+<footer>Statements are deliberately informal — follow the topic links for the precise versions.</footer>
+</main>
+
+<script>
+(function(){
+  // Each problem: status open|solved|independent; either `goal` (a concept id
+  // whose prerequisite closure in the concept graph is "the road") or
+  // `topics` (slugs whose concept union is the road); optional story/tour
+  // links and a prize chip. Statements are informal by design — the precise
+  // versions live behind the topic links.
+  const PROBLEMS = {
+    millennium: [
+      { title:'Riemann Hypothesis', status:'open', prize:'Clay $1M',
+        statement:'Every nontrivial zero of the Riemann zeta function $\\zeta(s)$ lies on the critical line $\\mathrm{Re}\\,s = \\tfrac12$.',
+        why:'The error term in the prime number theorem is controlled exactly by how far the zeros can stray from the critical line: RH is the statement that the primes are as regular as they could possibly be.',
+        goal:'zeta-functional-equation',
+        links:[['./analytic-continuation.html','Analytic continuation'],['./zeta-values.html','Zeta values'],['./analytic-number-theory.html','Analytic number theory'],['./capstone-millennium-prizes-story.html','Millennium story']] },
+      { title:'Birch & Swinnerton-Dyer', status:'open', prize:'Clay $1M',
+        statement:'For an elliptic curve $E/\\mathbb{Q}$, the order of vanishing of $L(E,s)$ at $s=1$ equals the rank of $E(\\mathbb{Q})$.',
+        why:'An analytic quantity you can compute meets an algebraic one you cannot: the conjecture says the $L$-function secretly knows the arithmetic. Proven only for analytic rank $\\le 1$ (Gross–Zagier, Kolyvagin).',
+        goal:'bsd-rank-equality',
+        links:[['./bsd.html','BSD'],['./elliptic-curves.html','Elliptic curves'],['./capstone-bsd-story.html','BSD story']] },
+      { title:'Hodge conjecture', status:'open', prize:'Clay $1M',
+        statement:'On a smooth projective complex variety, every rational cohomology class of type $(p,p)$ is a $\\mathbb{Q}$-linear combination of classes of algebraic subvarieties.',
+        why:'Hodge theory hands you a linear-algebra fingerprint of a variety; the conjecture claims the fingerprint detects honest geometry. Known for $(1,1)$ (Lefschetz) and little else.',
+        goal:'hodge-conjecture',
+        links:[['./hodge-theory.html','Hodge theory'],['./capstone-hodge-arc-story.html','Hodge story']] },
+      { title:'P vs NP', status:'open', prize:'Clay $1M',
+        statement:'If a proposed solution can be verified in polynomial time, can one always be found in polynomial time — is $\\mathsf{P} = \\mathsf{NP}$?',
+        why:'Thousands of natural problems are NP-complete: crack one in polynomial time and you crack them all. Almost everyone believes $\\mathsf{P} \\ne \\mathsf{NP}$; nobody can rule out a clever algorithm.',
+        topics:['complexity-theory'],
+        links:[['./complexity-theory.html','Complexity theory'],['./capstone-millennium-prizes-story.html','Millennium story']] },
+      { title:'Navier–Stokes existence & smoothness', status:'open', prize:'Clay $1M',
+        statement:'Do smooth initial data for the 3-D incompressible Navier–Stokes equations always evolve into smooth solutions for all time?',
+        why:'The equations governing every glass of stirred water might generate infinite velocities in finite time — or might not. We cannot decide, because turbulence cascades energy across scales faster than current estimates can follow.',
+        topics:['partial-differential-equations','sobolev-spaces-distributions'],
+        links:[['./partial-differential-equations.html','PDE'],['./sobolev-spaces-distributions.html','Sobolev spaces'],['./capstone-millennium-prizes-story.html','Millennium story']] },
+      { title:'Yang–Mills existence & mass gap', status:'open', prize:'Clay $1M',
+        statement:'For any compact simple gauge group, construct quantum Yang–Mills theory on $\\mathbb{R}^4$ rigorously and show its lightest excitation has strictly positive mass $\\Delta > 0$.',
+        why:'Physicists compute with the theory daily and the gap is visible on the lattice — but no mathematically rigorous construction of the theory exists at all. The prize is really for inventing the missing mathematics.',
+        topics:['gauge-theory','quantum-field-theory'],
+        links:[['./gauge-theory.html','Gauge theory'],['./quantum-field-theory.html','QFT'],['./capstone-millennium-prizes-story.html','Millennium story']] },
+      { title:'Poincaré conjecture', status:'solved', solvedBy:'Perelman, 2003', prize:'Clay $1M (declined)',
+        statement:'Every closed, simply connected 3-manifold is homeomorphic to the 3-sphere $S^3$.',
+        why:'The one that fell. Perelman ran Hamilton’s Ricci flow with surgery past its singularities and classified what remains — proving Thurston geometrization and, with it, Poincaré.',
+        topics:['ricci-flow'],
+        links:[['./ricci-flow.html','Ricci flow'],['./capstone-millennium-prizes-story.html','Millennium story']] }
+    ],
+    classics: [
+      { title:'Goldbach conjecture', status:'open',
+        statement:'Every even integer greater than $2$ is the sum of two primes.',
+        why:'Stated in a 1742 letter to Euler; verified past $4\\times10^{18}$. The odd (ternary) version fell to Helfgott in 2013, but the binary version resists every circle-method refinement.',
+        topics:['additive-number-theory'],
+        links:[['./additive-number-theory.html','Additive number theory']] },
+      { title:'Twin prime conjecture', status:'open',
+        statement:'There are infinitely many primes $p$ such that $p+2$ is also prime.',
+        why:'Zhang (2013) proved some gap below $7\\times10^7$ recurs infinitely often; Maynard and Polymath drove it to $246$. From $246$ to $2$ is the distance current sieve methods cannot cross.',
+        topics:['analytic-number-theory'],
+        links:[['./analytic-number-theory.html','Analytic number theory']] },
+      { title:'Collatz conjecture', status:'open',
+        statement:'Iterate $n \\mapsto n/2$ (even) or $n \\mapsto 3n+1$ (odd): from every starting $n \\ge 1$ you eventually reach $1$.',
+        why:'A statement a child can check that arithmetic dynamics cannot touch: Conway proved natural generalizations are undecidable, and Tao (2019) showed "almost all" orbits get almost to 1 — the full statement stays out of reach.',
+        topics:['dynamical-systems','computability-and-decidability'],
+        links:[['./dynamical-systems.html','Dynamical systems'],['./computability-and-decidability.html','Computability']] },
+      { title:'abc conjecture', status:'open',
+        statement:'For every $\\varepsilon > 0$, only finitely many triples of coprime positive integers with $a+b=c$ satisfy $c > \\mathrm{rad}(abc)^{1+\\varepsilon}$, where $\\mathrm{rad}$ is the product of the distinct prime factors.',
+        why:'A single inequality about addition and prime factorizations that would imply effective Mordell, asymptotic FLT, and more. Mochizuki’s claimed IUT proof remains unaccepted by the wider number-theory community.',
+        topics:['heights-arithmetic-geometry'],
+        links:[['./heights-arithmetic-geometry.html','Heights & arithmetic geometry']] },
+      { title:'The Langlands program', status:'open',
+        statement:'Every Galois representation should correspond to an automorphic representation, matching $L$-functions on both sides — one reciprocity law to rule them all.',
+        why:'Not one problem but mathematics’ grand unification: class field theory is the abelian case, modularity of elliptic curves one nonabelian instance. Most of the conjectured dictionary is still unwritten.',
+        goal:'universal-reciprocity',
+        links:[['./langlands-program.html','Langlands program'],['./capstone-langlands-arc-story.html','Langlands story']] }
+    ],
+    resolved: [
+      { title:'Fermat’s Last Theorem', status:'solved', solvedBy:'Wiles (with Taylor), 1995',
+        statement:'No three positive integers satisfy $x^n + y^n = z^n$ for any integer $n > 2$.',
+        why:'358 years from margin note to proof — and the proof built modern arithmetic geometry: a Frey curve from a counterexample would be modular (Wiles) yet couldn’t be (Ribet), contradiction.',
+        goal:'ribet-level-lowering',
+        links:[['./modularity-and-flt.html','Modularity & FLT'],['./capstone-flt-story.html','FLT story']] },
+      { title:'Continuum Hypothesis', status:'independent', solvedBy:'Gödel 1940 + Cohen 1963',
+        statement:'There is no set whose cardinality lies strictly between $|\\mathbb{N}|$ and $|\\mathbb{R}|$.',
+        why:'Resolved in the strangest way possible: Gödel showed CH cannot be disproved from ZFC, Cohen’s forcing showed it cannot be proved (each assuming ZFC is itself consistent). The first natural statement shown independent of the standard axioms.',
+        topics:['forcing-and-independence','zfc-and-ordinals'],
+        links:[['./forcing-and-independence.html','Forcing & independence'],['./zfc-and-ordinals.html','ZFC & ordinals']] }
+    ]
+  };
+  const SECTIONS = [
+    ['millennium', 'The Millennium Prize problems'],
+    ['classics', 'Classics still standing'],
+    ['resolved', 'How giants fall']
+  ];
+
+  function init(){
+    const MVC = window.__MVConcepts;
+    const host = document.getElementById('problems');
+
+    // ----- concept graph: byId + one mastery snapshot (the #515 lesson) -----
+    const byId = new Map();
+    if(MVC && MVC.topics){
+      for(const key of Object.keys(MVC.topics)){
+        for(const c of (MVC.topics[key].concepts || [])) byId.set(c.id, c);
+      }
+    }
+    const masteredIds = (function(){
+      if(!window.MVProgress || byId.size === 0) return null;
+      const set = new Set();
+      const all = MVProgress.load();
+      for(const id of Object.keys(all)){
+        const raw = all[id];
+        if(raw === true) set.add(id);
+        else if(raw && typeof raw === 'object'){
+          if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) set.add(id); }
+          else set.add(id);
+        }
+      }
+      return set;
+    })();
+    // Prerequisite closure of a goal concept (the same ancestor walk
+    // pathway.html draws as a DAG).
+    function closureOf(goalId){
+      const keep = new Set();
+      (function walk(id){
+        if(keep.has(id) || !byId.has(id)) return;
+        keep.add(id);
+        for(const p of (byId.get(id).prereqs || [])) walk(p);
+      })(goalId);
+      return keep;
+    }
+    function roadFor(p){
+      if(byId.size === 0) return null;
+      let ids = null;
+      if(p.goal && byId.has(p.goal)) ids = closureOf(p.goal);
+      else if(p.topics){
+        ids = new Set();
+        for(const slug of p.topics){
+          const t = MVC.topics[slug];
+          if(t) for(const c of (t.concepts || [])) ids.add(c.id);
+        }
+      }
+      if(!ids || ids.size === 0) return null;
+      const total = ids.size;
+      let k = 0;
+      if(masteredIds) for(const id of ids) if(masteredIds.has(id)) k++;
+      return { k, total };
+    }
+
+    const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const STATUS_LABEL = { open:'open', solved:'solved', independent:'independent of ZFC' };
+
+    for(const [key, heading] of SECTIONS){
+      const h2 = document.createElement('h2');
+      h2.textContent = heading;
+      host.appendChild(h2);
+      for(const p of PROBLEMS[key]){
+        const road = roadFor(p);
+        const card = document.createElement('article');
+        card.className = 'problem';
+        const chips =
+          `<span class="pb-chip ${p.status}">${STATUS_LABEL[p.status]}${p.solvedBy ? ' · ' + esc(p.solvedBy) : ''}</span>` +
+          (p.prize ? `<span class="pb-chip prize">${esc(p.prize)}</span>` : '');
+        const linksHtml = (p.links || []).map(([href, label]) =>
+          `<a href="${esc(href)}">${esc(label)}</a>`).join(' · ');
+        // Statement/why may contain $…$ — they are trusted page-local
+        // literals (not user or external data), inserted raw so KaTeX can
+        // typeset them; everything dynamic goes through esc().
+        let roadHtml = '';
+        if(road){
+          const pct = road.total ? Math.round(100 * road.k / road.total) : 0;
+          roadHtml =
+            `<div class="pb-road"><div class="road-label">your road: <b>${road.k}</b> / ${road.total} concepts mastered</div>` +
+            `<div class="road-bar"><div class="fill" style="width:${pct}%"></div></div></div>`;
+        }
+        card.innerHTML =
+          `<div class="pb-head"><span class="pb-title">${esc(p.title)}</span>${chips}</div>` +
+          `<div class="pb-statement">${p.statement}</div>` +
+          `<div class="pb-why">${p.why}</div>` +
+          (linksHtml ? `<div class="pb-links">go deeper: ${linksHtml}</div>` : '') +
+          roadHtml;
+        host.appendChild(card);
+      }
+    }
+
+    if(typeof window.renderMathInElement === 'function'){
+      try {
+        window.renderMathInElement(host, {
+          delimiters:[
+            {left:'$$',right:'$$',display:true},
+            {left:'$',right:'$',display:false},
+            {left:'\\(',right:'\\)',display:false},
+            {left:'\\[',right:'\\]',display:true}
+          ],
+          throwOnError:false
+        });
+      } catch(_){}
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
