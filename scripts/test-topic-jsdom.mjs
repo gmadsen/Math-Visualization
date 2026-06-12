@@ -53,6 +53,7 @@ const SKIP = new Set([
   'index.html',
   'pathway.html',
   'mindmap.html',
+  'whos-who.html',
   'tags.html',
   'tours.html',
   'widgets.html',
