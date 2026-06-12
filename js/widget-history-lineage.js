@@ -177,6 +177,38 @@
     const lineages = data.lineages || [];
     const personById = new Map((data.people || []).map(p => [p.id, p]));
     const eraById = new Map((data.eras || []).map(e => [e.id, e]));
+
+    // ----- mastery (meta-layer program) -----
+    // One localStorage parse for the whole widget (PR #515's lesson: never
+    // isMastered() in a loop). Mirrors progress.js coerce(): true → v1
+    // mastered, tiered object → !!v1, legacy {at} object → mastered.
+    const masteredIds = (function(){
+      if(!window.MVProgress || !window.__MVConcepts) return null;
+      const set = new Set();
+      const all = MVProgress.load();
+      for(const id of Object.keys(all)){
+        const raw = all[id];
+        if(raw === true) set.add(id);
+        else if(raw && typeof raw === 'object'){
+          if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) set.add(id); }
+          else set.add(id);
+        }
+      }
+      return set;
+    })();
+    // Fraction of v1-mastered concepts in the person's primary linked topic
+    // (data.personTopics is derived from event topicAnchors by the
+    // history.html bootstrapper). 0 when unlinked or mastery unavailable.
+    function masteryFracFor(pid){
+      if(!masteredIds) return 0;
+      const topics = data.personTopics && data.personTopics[pid];
+      if(!topics || !topics.length) return 0;
+      const slug = String(topics[0].href).replace(/^\.\//,'').split('#')[0].replace(/\.html$/,'');
+      const t = window.__MVConcepts.topics && window.__MVConcepts.topics[slug];
+      if(!t || !Array.isArray(t.concepts) || t.concepts.length === 0) return 0;
+      const k = t.concepts.filter(c => masteredIds.has(c.id)).length;
+      return k / t.concepts.length;
+    }
     if(!lineages.length){
       host.innerHTML = '<div class="small">No lineages defined.</div>';
       return;
@@ -225,6 +257,17 @@
     let activeId = lineages[0].id;
     let positions = [];
 
+    let lastEraFilter = null;
+    function applyEraDim(){
+      const d = lastEraFilter;
+      const filterOn = !!d && d.eras !== null && d.eras !== undefined;
+      const active = new Set((d && d.eras) || []);
+      host.querySelectorAll('.lnode').forEach(node => {
+        const person = personById.get(node.dataset.id);
+        const dim = filterOn && person && person.era && !active.has(person.era);
+        node.classList.toggle('era-dim', !!dim);
+      });
+    }
     function renderLineage(){
       svg.innerHTML = '';
       const ln = lineages.find(l => l.id === activeId);
@@ -334,6 +377,17 @@
         });
         yr.textContent = fmtYear(n.y);
         g.appendChild(yr);
+        // Mastery underline: thin green bar along the node's bottom edge,
+        // width = fraction of the person's linked topic you've mastered.
+        const frac = masteryFracFor(n.id);
+        if(frac > 0){
+          g.appendChild(el('rect', {
+            'class':'lmastery',
+            x: x + 2, y: y + h - 5,
+            width: Math.max(2, (w - 4) * frac), height: 3, rx: 1.5, ry: 1.5
+          }));
+          g.querySelector('title').textContent += ` · ${Math.round(frac * 100)}% of linked topic mastered`;
+        }
         nodeLayer.appendChild(g);
 
         const select = () => {
@@ -352,6 +406,16 @@
     // the lineage. Without lifting this out of renderLineage we'd register
     // a new listener per render (one per tab click) which is wasteful.
     if(window.MVHistoryBus){
+      // Follow the shared era filter (timeline/map chip rows): dim nodes
+      // whose person belongs to a filtered-out era. Unknown people keep
+      // full opacity — dimming them would read as data, not absence.
+      // The last filter is cached and re-applied after every lineage-tab
+      // re-render (renderLineage wipes the SVG, which would otherwise
+      // silently drop an active filter — PR #516 review finding).
+      window.MVHistoryBus.on('era-filter', e => {
+        lastEraFilter = e.detail || {};
+        applyEraDim();
+      });
       window.MVHistoryBus.on('select-person', e => {
         const id = e.detail && e.detail.id;
         [...svg.querySelectorAll('.lnode')].forEach(node => {
@@ -361,6 +425,15 @@
       });
     }
 
+    // "In the notebook:" links for a person, from the derived personTopics
+    // map — the curriculum entry point the history page lacked.
+    function topicsRowFor(pid){
+      const topics = (data.personTopics && data.personTopics[pid]) || [];
+      if(!topics.length) return '';
+      const links = topics.map(t =>
+        `<a href="${htmlEscape(t.href)}">${htmlEscape(t.title)}</a>`).join('<span class="sep"> · </span>');
+      return `<div class="ev-topics">in the notebook: ${links}</div>`;
+    }
     function showPerson(node){
       const person = personById.get(node.id);
       if(!person){
@@ -376,7 +449,8 @@
         `<div><span class="ev-year" style="color:${eraColor};border-color:${eraColor}">${htmlEscape(range)}</span>`+
         `<span class="ev-title">${htmlEscape(person.name)}</span></div>`+
         `<div class="ev-meta"><span class="pill">${htmlEscape(person.place || '')}</span>${era ? `<span class="pill" style="border-color:${eraColor};color:${eraColor}">${htmlEscape(era.label)}</span>` : ''}</div>`+
-        `<div class="ev-summary">${htmlEscape(person.blurb || '')}</div>`;
+        `<div class="ev-summary">${htmlEscape(person.blurb || '')}</div>`+
+        topicsRowFor(person.id);
       if(typeof window.renderMathInElement === 'function'){
         window.renderMathInElement(detail, {
           delimiters:[
@@ -399,6 +473,9 @@
       });
       detail.innerHTML = '<div class="empty">Click a node above to learn about that mathematician.</div>';
       renderLineage();
+      // renderLineage rebuilds every .lnode — re-assert the shared era
+      // filter so switching trees can't silently drop an active filter.
+      applyEraDim();
     }
     buttons.forEach((b, id) => {
       b.addEventListener('click', () => setActive(id));

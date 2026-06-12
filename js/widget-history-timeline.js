@@ -592,6 +592,14 @@
         });
       });
     }
+    // Broadcast this widget's era filter on the bus so the map's chip row
+    // and the lineage trees follow (and vice versa — see the listener
+    // below). Emitters tag their events and skip their own echo.
+    function broadcastEraFilter(){
+      if(window.MVHistoryBus && typeof window.MVHistoryBus.eraFilter === 'function'){
+        window.MVHistoryBus.eraFilter(state.filterMode ? [...state.activeEras] : null, 'timeline');
+      }
+    }
     eraChips.forEach((c, id) => {
       c.addEventListener('click', () => {
         if(state.activeEras.has(id)) state.activeEras.delete(id);
@@ -600,13 +608,24 @@
         // leaves every dot dimmed rather than reverting to default.
         state.filterMode = true;
         applyState();
+        broadcastEraFilter();
       });
     });
     allBtn.addEventListener('click', () => {
       state.activeEras.clear();
       state.filterMode = false;
       applyState();
+      broadcastEraFilter();
     });
+    if(window.MVHistoryBus){
+      window.MVHistoryBus.on('era-filter', e => {
+        const d = e.detail || {};
+        if(d.source === 'timeline') return;
+        state.activeEras = new Set(d.eras || []);
+        state.filterMode = d.eras !== null && d.eras !== undefined;
+        applyState();
+      });
+    }
     search.addEventListener('input', () => {
       state.query = search.value;
       applyState();
