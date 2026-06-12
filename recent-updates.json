@@ -1,11 +1,5 @@
 {
-<<<<<<< Updated upstream
-  "generated": "2026-06-12T20:04:27.967Z",
-||||||| Stash base
-  "generated": "2026-06-12T19:54:50.228Z",
-=======
-  "generated": "2026-06-12T20:04:31.306Z",
->>>>>>> Stashed changes
+  "generated": "2026-06-12T20:19:37.566Z",
   "entries": [
     {
       "slug": "combinatorial-optimization",
