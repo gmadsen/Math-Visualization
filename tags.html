@@ -94,7 +94,7 @@ window.MVRenderMath = function(el){
      holds the title + blurb + concept count; clicking a card toggles its
      expanded state, revealing the per-section list of concepts under that
      tag. Untagged-coverage view is a separate disclosure at the bottom. */
-  .tag-progress{margin-top:.45rem;height:4px;border-radius:999px;background:var(--panel2);overflow:hidden}
+  .tag-progress{margin-top:.45rem;height:5px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);overflow:hidden}
   .tag-progress .fill{height:100%;background:var(--green);min-width:3px}
   .tag-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
     gap:12px;margin:1.4rem 0}
@@ -334,8 +334,12 @@ window.MVRenderMath = function(el){
       + '<span class="stat"><strong>' + untagged.length + '</strong> untagged</span>';
 
     // Bind masteryState to the byConceptId closure now that the map is built.
-    const masteredIds = buildMasteredSet();
-    const masteryState = makeMasteryState(byConceptId, masteredIds);
+    let masteredIds = buildMasteredSet();
+    // Re-snapshot on each tag click (one parse per click): a quiz passed in
+    // another tab then reflects in the detail pips without a reload, which
+    // matches search.html's per-render snapshot semantics (PR #519 review).
+    const refreshMasteredIds = () => { masteredIds = buildMasteredSet(); };
+    const masteryState = makeMasteryState(byConceptId, () => masteredIds);
 
     // Build SECTION_META from the bundle now that `data` is in scope.
     SECTION_META = Object.create(null);
@@ -389,7 +393,7 @@ window.MVRenderMath = function(el){
       let progressHtml = '';
       if (masteredIds) {
         const k = (byTag.get(t.id) || []).filter(e => masteredIds.has(e.conceptId)).length;
-        if (k > 0 && count > 0) {
+        if (k > 0) {
           const pct = Math.round(100 * k / count);
           progressHtml = ''
             + '<div class="tag-progress" title="' + k + ' of ' + count + ' concepts mastered">'
@@ -415,6 +419,7 @@ window.MVRenderMath = function(el){
     if (window.MVRenderMath) window.MVRenderMath(grid);
 
     function selectTag(t){
+      refreshMasteredIds();
       [...grid.children].forEach(c => {
         const active = c.dataset.tag === t.id;
         c.classList.toggle('active', active);
@@ -538,8 +543,9 @@ window.MVRenderMath = function(el){
     }
     return set;
   }
-  function makeMasteryState(byConceptId, masteredIds){
+  function makeMasteryState(byConceptId, getMasteredIds){
     return function(conceptId){
+      const masteredIds = getMasteredIds();
       if (!masteredIds) return '';
       if (masteredIds.has(conceptId)) return 'v1';
       const c = byConceptId[conceptId];
