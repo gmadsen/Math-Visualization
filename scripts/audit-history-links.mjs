@@ -27,9 +27,12 @@ const REPO = resolve(__dirname, '..');
 
 function loadHistory() {
   const html = readFileSync(join(REPO, 'history.html'), 'utf8');
-  // Extract events[].topicAnchor from the inline JSON block.
-  const m = html.match(/<script id="history-data" type="application\/json">([\s\S]*?)<\/script>/);
-  if (!m) throw new Error('history-data JSON block not found');
+  // The dataset moved from history.html's inline JSON block to the shared
+  // root script history-data.js (PR #517) — strip the assignment wrapper
+  // and parse the payload.
+  const js = readFileSync(join(REPO, 'history-data.js'), 'utf8');
+  const m = js.match(/window\.HISTORY_DATA_RAW =\n([\s\S]*?);\n$/);
+  if (!m) throw new Error('history-data.js payload not found (expected window.HISTORY_DATA_RAW = …;)');
   const data = JSON.parse(m[1]);
   // Extract narrative <a href="./...html..."> from history.html.
   // Strip every <script> block first — they may contain JS comments with

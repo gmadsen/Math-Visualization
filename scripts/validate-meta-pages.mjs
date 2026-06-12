@@ -144,7 +144,7 @@ for (const s of sections) {
 const META_PAGES = [
   'index.html', 'pathway.html', 'mindmap.html', 'tours.html', 'history.html',
   'search.html', 'tags.html', 'progress.html', 'review.html', 'updates.html',
-  'widgets.html', 'latex-cheatsheet.html',
+  'widgets.html', 'latex-cheatsheet.html', 'whos-who.html',
 ];
 const STALE = [
   /'(Foundations|Algebra)'\s*:/,        // object key

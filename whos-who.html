@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Who's who — Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script defer src="./js/progress.js"></script>
+<script defer src="./concepts/bundle.js"></script>
+<script defer src="./history-data.js"></script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+    --orange:#f4a261;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  main{max-width:980px;margin:0 auto;padding:2.5rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.6rem}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  /* controls */
+  .controls{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:0 0 1.4rem}
+  .era-chip{display:inline-flex;align-items:center;gap:.4rem;font:inherit;font-size:.82rem;
+    padding:.22rem .7rem;border-radius:999px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--ink);cursor:pointer;
+    transition:border-color 120ms ease, color 120ms ease}
+  .era-chip i{width:9px;height:9px;border-radius:50%;background:var(--era-color, var(--mute));display:inline-block}
+  .era-chip:hover{border-color:var(--era-color, var(--yellow))}
+  .era-chip.active{border-color:var(--era-color, var(--yellow));
+    background:color-mix(in srgb, var(--era-color, var(--yellow)) 14%, var(--panel2))}
+  input.who-search{flex:1;min-width:220px;background:var(--panel2);color:var(--ink);
+    border:1px solid var(--line);border-radius:8px;padding:.5rem .9rem;
+    font:inherit;font-size:.95rem;outline:none}
+  input.who-search:focus{border-color:var(--cyan)}
+  .count-row{color:var(--mute);font-size:.85rem;margin:0 0 1.2rem;
+    font-family:ui-monospace,Menlo,monospace}
+
+  /* era group headers */
+  .era-head{display:flex;align-items:baseline;gap:.7rem;margin:2.2rem 0 .8rem;
+    border-bottom:1px solid color-mix(in srgb, var(--era-color, var(--line)) 45%, transparent);
+    padding-bottom:.35rem}
+  .era-head h2{margin:0;font-size:1.15rem;color:var(--era-color, var(--ink))}
+  .era-head .era-years{color:var(--mute);font-size:.82rem;font-family:ui-monospace,Menlo,monospace}
+  .era-head .era-blurb{color:var(--mute);font-size:.85rem;flex-basis:100%;margin:0}
+
+  /* person cards */
+  .who-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+  .who-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:.9rem 1rem;display:flex;gap:.8rem;align-items:flex-start;
+    border-left:3px solid var(--era-color, var(--line))}
+  .who-card.hidden{display:none}
+  .wc-portrait{flex-shrink:0;width:44px;height:44px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:color-mix(in srgb, var(--era-color, var(--mute)) 22%, var(--panel2));
+    color:var(--era-color, var(--ink));font-weight:700;font-size:1rem;letter-spacing:.02em}
+  .wc-body{min-width:0;flex:1}
+  .wc-name{font-weight:600;color:var(--ink);line-height:1.3}
+  .wc-meta{color:var(--mute);font-size:.78rem;font-family:ui-monospace,Menlo,monospace;margin:.1rem 0 .3rem}
+  .wc-blurb{color:var(--ink);font-size:.86rem;line-height:1.5;color:color-mix(in srgb, var(--ink) 86%, var(--mute))}
+  .wc-topics{margin-top:.5rem;font-size:.82rem;color:var(--mute)}
+  .wc-topics a{color:var(--cyan);text-decoration:none;border-bottom:1px dashed var(--cyan)}
+  .wc-topics a:hover{color:var(--yellow);border-bottom-color:var(--yellow)}
+  .wc-mastery{display:inline-block;margin-left:.35rem;font-size:.72rem;font-weight:600;color:var(--green)}
+  .wc-events{margin-top:.35rem;font-size:.78rem;color:var(--mute)}
+  .wc-events .ev{display:block}
+  .wc-events .yr{font-family:ui-monospace,Menlo,monospace;color:var(--era-color, var(--mute));margin-right:.4rem}
+  .empty-state{color:var(--mute);padding:1.5rem .2rem;text-align:center;font-style:italic}
+  @media (max-width:640px){ .who-grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="./pathway.html">Pathway</a>
+  <a href="./tours.html">Tours</a>
+  <a href="./history.html">History</a>
+  <a href="./tags.html">Themes</a>
+  <a href="./mindmap.html">Mindmap</a>
+  <a href="./search.html">Search</a>
+  <span class="mv-theme-slot"></span>
+</nav>
+
+<main>
+<section class="hero">
+  <h1>Who's who</h1>
+  <p class="sub">The mathematicians behind the notebook's story, from the anonymous carver of the Lebombo bone to the still-living. Filter by era, search a name, and follow the links into the topics where their mathematics is unpacked — green percentages show how much of a linked topic you've already mastered. The narrative version lives on the <a href="./history.html">history page</a>.</p>
+</section>
+
+<div class="controls" id="controls">
+  <input class="who-search" id="who-search" type="search" placeholder="search name, place, or contribution…" aria-label="Search people">
+</div>
+<div class="count-row" id="count-row" aria-live="polite"></div>
+
+<div id="directory"></div>
+
+<footer>Data shared with <a href="./history.html">history.html</a> via <code>history-data.js</code> — edit there, both pages update.</footer>
+</main>
+
+<script>
+(function(){
+  function init(){
+    const data = window.HISTORY_DATA_RAW;
+    const dir = document.getElementById('directory');
+    if(!data || !Array.isArray(data.people)){
+      dir.innerHTML = '<div class="empty-state">Could not load history-data.js — reload, or rebuild the repo.</div>';
+      return;
+    }
+    const eras = data.eras || [];
+    const eraById = new Map(eras.map(e => [e.id, e]));
+
+    // person id → [{href, title}] — same derivation as history.html's
+    // bootstrapper: a person owns every topic their events link to, in
+    // chronological event order (topics[0] = primary).
+    const MVC = window.__MVConcepts;
+    const titleOf = href => {
+      const slug = String(href).replace(/^\.\//,'').split('#')[0].replace(/\.html$/,'');
+      const t = MVC && MVC.topics && MVC.topics[slug];
+      return t && t.title ? t.title : slug.replace(/-/g, ' ');
+    };
+    const personTopics = {};
+    const personEvents = {};
+    for(const ev of (data.events || [])){
+      for(const pid of (ev.who || [])){
+        (personEvents[pid] = personEvents[pid] || []).push(ev);
+        if(ev.topicAnchor){
+          (personTopics[pid] = personTopics[pid] || []).push({ href: ev.topicAnchor, title: titleOf(ev.topicAnchor) });
+        }
+      }
+    }
+    for(const pid of Object.keys(personTopics)){
+      const seen = new Set();
+      personTopics[pid] = personTopics[pid].filter(t => !seen.has(t.href) && seen.add(t.href));
+    }
+
+    // One localStorage parse for the whole page (PR #515's lesson). Mirrors
+    // progress.js coerce(): true / tiered v1 / legacy {at} → mastered.
+    const masteredIds = (function(){
+      if(!window.MVProgress || !MVC) return null;
+      const set = new Set();
+      const all = MVProgress.load();
+      for(const id of Object.keys(all)){
+        const raw = all[id];
+        if(raw === true) set.add(id);
+        else if(raw && typeof raw === 'object'){
+          if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) set.add(id); }
+          else set.add(id);
+        }
+      }
+      return set;
+    })();
+    function masteryChip(href){
+      if(!masteredIds) return '';
+      const slug = String(href).replace(/^\.\//,'').split('#')[0].replace(/\.html$/,'');
+      const t = MVC.topics && MVC.topics[slug];
+      if(!t || !Array.isArray(t.concepts) || t.concepts.length === 0) return '';
+      const k = t.concepts.filter(c => masteredIds.has(c.id)).length;
+      if(k === 0) return '';
+      return `<span class="wc-mastery">${Math.round(100 * k / t.concepts.length)}%</span>`;
+    }
+
+    const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const fmtYear = y => y < 0 ? `${-y} BCE` : `${y}`;
+    const initialsOf = name => {
+      const words = name.replace(/\(.*?\)/g, '').trim().split(/\s+/).filter(Boolean);
+      return ((words[0] || '?')[0] + (words.length > 1 ? words[words.length-1][0] : '')).toUpperCase();
+    };
+
+    // ----- era chips -----
+    const controls = document.getElementById('controls');
+    const searchEl = document.getElementById('who-search');
+    const state = { era: null, q: '' };
+    const chips = [];
+    for(const era of eras){
+      const c = document.createElement('button');
+      c.type = 'button';
+      c.className = 'era-chip';
+      c.style.setProperty('--era-color', era.color);
+      c.innerHTML = `<i></i><span>${esc(era.label)}</span>`;
+      c.setAttribute('aria-pressed', 'false');
+      c.addEventListener('click', () => {
+        state.era = state.era === era.id ? null : era.id;
+        chips.forEach(([id, el]) => {
+          el.classList.toggle('active', id === state.era);
+          el.setAttribute('aria-pressed', id === state.era ? 'true' : 'false');
+        });
+        applyFilter();
+      });
+      chips.push([era.id, c]);
+      controls.insertBefore(c, searchEl);
+    }
+
+    // ----- render directory grouped by era -----
+    const peopleSorted = data.people.slice().sort((a, b) => (a.birth || 0) - (b.birth || 0));
+    const cards = []; // [{el, person, haystack, eraSection}]
+    for(const era of eras){
+      const members = peopleSorted.filter(p => p.era === era.id);
+      if(!members.length) continue;
+      const head = document.createElement('div');
+      head.className = 'era-head';
+      head.dataset.era = era.id;
+      head.style.setProperty('--era-color', era.color);
+      head.innerHTML = `<h2>${esc(era.label)}</h2>` +
+        `<span class="era-years">${fmtYear(era.yearStart)} – ${fmtYear(era.yearEnd)}</span>` +
+        `<p class="era-blurb">${esc(era.blurb || '')}</p>`;
+      dir.appendChild(head);
+      const grid = document.createElement('div');
+      grid.className = 'who-grid';
+      grid.dataset.era = era.id;
+      dir.appendChild(grid);
+      for(const p of members){
+        const card = document.createElement('article');
+        card.className = 'who-card';
+        card.style.setProperty('--era-color', era.color);
+        const range = (p.birth != null ? fmtYear(p.birth) : '?') + '–' + (p.death != null ? fmtYear(p.death) : 'present');
+        const topics = personTopics[p.id] || [];
+        const topicsHtml = topics.length
+          ? `<div class="wc-topics">in the notebook: ` +
+            topics.map(t => `<a href="${esc(t.href)}">${esc(t.title)}</a>${masteryChip(t.href)}`).join(' · ') + `</div>`
+          : '';
+        const evs = (personEvents[p.id] || []).slice(0, 3);
+        const evsHtml = evs.length
+          ? `<div class="wc-events">` + evs.map(ev =>
+              `<span class="ev"><span class="yr">${esc(ev.display || fmtYear(ev.year))}</span>${esc(ev.title)}</span>`).join('') + `</div>`
+          : '';
+        card.innerHTML =
+          `<div class="wc-portrait" aria-hidden="true">${esc(initialsOf(p.name))}</div>` +
+          `<div class="wc-body">` +
+            `<div class="wc-name">${esc(p.name)}</div>` +
+            `<div class="wc-meta">${esc(range)}${p.place ? ' · ' + esc(p.place) : ''}</div>` +
+            `<div class="wc-blurb">${esc(p.blurb || '')}</div>` +
+            topicsHtml + evsHtml +
+          `</div>`;
+        grid.appendChild(card);
+        const haystack = [p.name, p.place || '', p.blurb || '', ...topics.map(t => t.title)].join(' ').toLowerCase();
+        cards.push({ el: card, era: era.id, haystack, head, grid });
+      }
+    }
+
+    const countRow = document.getElementById('count-row');
+    function applyFilter(){
+      const q = state.q.trim().toLowerCase();
+      let shown = 0;
+      for(const c of cards){
+        const eraOk = !state.era || c.era === state.era;
+        const qOk = !q || c.haystack.includes(q);
+        const visible = eraOk && qOk;
+        c.el.classList.toggle('hidden', !visible);
+        if(visible) shown++;
+      }
+      // hide era headers + grids with no visible cards
+      document.querySelectorAll('.era-head').forEach(h => {
+        const grid = h.nextElementSibling;
+        const any = grid && grid.querySelector('.who-card:not(.hidden)');
+        h.style.display = any ? '' : 'none';
+        if(grid) grid.style.display = any ? '' : 'none';
+      });
+      const linked = Object.keys(personTopics).length;
+      countRow.textContent = `${shown} of ${cards.length} mathematicians · ${linked} linked into the curriculum`;
+    }
+    searchEl.addEventListener('input', () => { state.q = searchEl.value; applyFilter(); });
+    applyFilter();
+
+    // KaTeX over blurbs ($…$ appears in ~11 of them)
+    if(typeof window.renderMathInElement === 'function'){
+      try {
+        window.renderMathInElement(dir, {
+          delimiters:[
+            {left:'$$',right:'$$',display:true},
+            {left:'$',right:'$',display:false},
+            {left:'\\(',right:'\\)',display:false},
+            {left:'\\[',right:'\\]',display:true}
+          ],
+          throwOnError:false
+        });
+      } catch(_){}
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
