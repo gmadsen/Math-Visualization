@@ -11,6 +11,15 @@
  *       Each widget listens and pulses any element matching that id.
  *   window.MVHistoryBus.clearSelection()
  *     → broadcasts 'select-person' with detail = { id: null }.
+ *   window.MVHistoryBus.scrubYear(year)
+ *     → broadcasts 'scrub-year' with detail = { year } (null = stop).
+ *       Timeline emits while scrubbing; the map dims pins outside range.
+ *   window.MVHistoryBus.eraFilter(eras, source)
+ *     → broadcasts 'era-filter' with detail = { eras, source }. `eras` is
+ *       an array of era ids (empty = filter mode, nothing selected) or
+ *       null to exit filter mode; `source` names the emitting widget so
+ *       emitters can skip their own echo. Timeline + map chip rows emit
+ *       and apply; lineage applies (dims filtered-out people).
  *
  * Implementation: a stamped EventTarget on window. The bus does NOT
  * itself manipulate DOM — each widget owns its own highlight rendering.

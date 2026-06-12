@@ -1340,7 +1340,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "year":1933, "era":"twentieth","title":"Kolmogorov's axioms","who":[],"city":"Moscow","region":"USSR","lat":55.75,"lng":37.62,"summary":"Probability theory placed on measure-theoretic foundations — random variables become measurable functions.","topicAnchor":"./probability-theory.html" },
     { "year":1935, "era":"twentieth","title":"Bourbaki begins","who":["weil"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"A young French collective (André Weil et al.) starts to rewrite all of mathematics from set-theoretic structures upward." },
     { "year":1936, "era":"twentieth","title":"Turing machines","who":["turing"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"On Computable Numbers: a precise mathematical model of an idealized computing machine. The halting problem is undecidable.","topicAnchor":"./computability-and-decidability.html" },
-    { "year":1944, "era":"twentieth","title":"Theory of games","who":["vonneumann"],"city":"Princeton","region":"USA","lat":40.35,"lng":-74.66,"summary":"Theory of Games and Economic Behavior (with Morgenstern) founds modern game theory.","topicAnchor":"./probabilistic-method.html" },
+    { "year":1944, "era":"twentieth","title":"Theory of games","who":["vonneumann"],"city":"Princeton","region":"USA","lat":40.35,"lng":-74.66,"summary":"Theory of Games and Economic Behavior (with Morgenstern) founds modern game theory.","topicAnchor":"./game-theory.html" },
     { "year":1945, "era":"twentieth","title":"Eilenberg–Mac Lane: category theory","who":["eilenberg","maclane"],"city":"Ann Arbor / Cambridge","region":"USA","lat":42.28,"lng":-83.74,"summary":"\"General Theory of Natural Equivalences\" formalises naturality and introduces categories, functors, and natural transformations. Authored from Eilenberg's University of Michigan (Ann Arbor) and Mac Lane's Harvard, per the affiliations stamped on the published paper. The ambient language of structural mathematics from this point on.","topicAnchor":"./category-theory.html" },
     { "year":1948, "era":"twentieth","title":"Shannon's information theory","who":["shannon"],"city":"Murray Hill","region":"USA","lat":40.69,"lng":-74.40,"summary":"A Mathematical Theory of Communication: entropy, channel capacity, the founding paper of information theory.","topicAnchor":"./information-theory.html" },
     { "year":1955, "era":"twentieth","title":"Taniyama–Shimura conjecture","who":[],"city":"Tokyo","region":"Japan","lat":35.68,"lng":139.69,"summary":"Every elliptic curve over $\\mathbb{Q}$ is modular. A wild conjecture from the Tokyo–Nikkō conference; key to FLT.","topicAnchor":"./modularity-and-flt.html" },
@@ -1501,6 +1501,9 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   // person id → [{href, title}] — derived from event topicAnchors (no new
   // data to maintain): a person 'owns' every topic their events link to.
+  // Order follows the (chronological) events array, so topics[0] — the
+  // person's PRIMARY topic, which the lineage mastery bar tracks — is
+  // their earliest anchored breakthrough.
   // Titles come from the concept bundle when present (defer'd, and this
   // bootstrapper runs on DOMContentLoaded, which fires after defer scripts);
   // fallback is the de-slugged page name.

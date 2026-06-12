@@ -257,6 +257,17 @@
     let activeId = lineages[0].id;
     let positions = [];
 
+    let lastEraFilter = null;
+    function applyEraDim(){
+      const d = lastEraFilter;
+      const filterOn = !!d && d.eras !== null && d.eras !== undefined;
+      const active = new Set((d && d.eras) || []);
+      host.querySelectorAll('.lnode').forEach(node => {
+        const person = personById.get(node.dataset.id);
+        const dim = filterOn && person && person.era && !active.has(person.era);
+        node.classList.toggle('era-dim', !!dim);
+      });
+    }
     function renderLineage(){
       svg.innerHTML = '';
       const ln = lineages.find(l => l.id === activeId);
@@ -398,15 +409,12 @@
       // Follow the shared era filter (timeline/map chip rows): dim nodes
       // whose person belongs to a filtered-out era. Unknown people keep
       // full opacity — dimming them would read as data, not absence.
+      // The last filter is cached and re-applied after every lineage-tab
+      // re-render (renderLineage wipes the SVG, which would otherwise
+      // silently drop an active filter — PR #516 review finding).
       window.MVHistoryBus.on('era-filter', e => {
-        const d = e.detail || {};
-        const filterOn = d.eras !== null && d.eras !== undefined;
-        const active = new Set(d.eras || []);
-        host.querySelectorAll('.lnode').forEach(node => {
-          const person = personById.get(node.dataset.id);
-          const dim = filterOn && person && person.era && !active.has(person.era);
-          node.classList.toggle('era-dim', !!dim);
-        });
+        lastEraFilter = e.detail || {};
+        applyEraDim();
       });
       window.MVHistoryBus.on('select-person', e => {
         const id = e.detail && e.detail.id;
@@ -465,6 +473,9 @@
       });
       detail.innerHTML = '<div class="empty">Click a node above to learn about that mathematician.</div>';
       renderLineage();
+      // renderLineage rebuilds every .lnode — re-assert the shared era
+      // filter so switching trees can't silently drop an active filter.
+      applyEraDim();
     }
     buttons.forEach((b, id) => {
       b.addEventListener('click', () => setActive(id));
