@@ -179,23 +179,9 @@
     const eraById = new Map((data.eras || []).map(e => [e.id, e]));
 
     // ----- mastery (meta-layer program) -----
-    // One localStorage parse for the whole widget (PR #515's lesson: never
-    // isMastered() in a loop). Mirrors progress.js coerce(): true → v1
-    // mastered, tiered object → !!v1, legacy {at} object → mastered.
-    const masteredIds = (function(){
-      if(!window.MVProgress || !window.__MVConcepts) return null;
-      const set = new Set();
-      const all = MVProgress.load();
-      for(const id of Object.keys(all)){
-        const raw = all[id];
-        if(raw === true) set.add(id);
-        else if(raw && typeof raw === 'object'){
-          if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) set.add(id); }
-          else set.add(id);
-        }
-      }
-      return set;
-    })();
+    // One localStorage parse for the whole widget via the shared
+    // MVProgress.masteredSet() (PR A) — never isMastered() in a loop.
+    const masteredIds = (window.MVProgress && window.__MVConcepts) ? MVProgress.masteredSet('v1') : null;
     // Fraction of v1-mastered concepts in the person's primary linked topic
     // (data.personTopics is derived from event topicAnchors by the
     // history.html bootstrapper). 0 when unlinked or mastery unavailable.

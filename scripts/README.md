@@ -19,7 +19,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 
 ## Orchestration
 
-[`rebuild.mjs`](./rebuild.mjs) runs the full 49-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
+[`rebuild.mjs`](./rebuild.mjs) runs the full 50-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
@@ -93,6 +93,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`test-find-matching-div.mjs`](./test-find-matching-div.mjs) | Unit tests for `findMatchingDivEnd()` in `extract-topic.mjs` — flat / nested / `<divider>` / whitespace-byte-class / runaway / multi-sibling fixtures for the bespoke byte-class checks at L59. |
 | [`test-ajv.mjs`](./test-ajv.mjs) | Unit tests for `lib/ajv.mjs:makeAjv()` — defaults, caller overrides (spread order), `addFormats` interop, end-to-end compile/validate. |
 | [`test-doc-drift.mjs`](./test-doc-drift.mjs) | Unit tests for `audit-doc-drift.mjs:computeCorpusTruth()` (synthetic concepts/+quizzes/ tree, all 10 truth fields) and `detectSnapshotDrift()` (regex-matching layer; clean / fully-drifted / partial / no-snapshot-line cases). |
+| [`test-progress.mjs`](./test-progress.mjs) | Unit tests for `js/progress.js` loaded under a localStorage stub: `masteredSet()` membership across every historical storage shape (legacy `true`/`{at}`/`{}`, tiered `{v1,hard,expert}`, `{hard:true}` without a v1 key), tier filtering, default-arg, Set-ness, and agreement with `isMastered()` per id (the equivalence the six migrated meta pages rely on). |
 | [`test-inject-plan-snapshot.mjs`](./test-inject-plan-snapshot.mjs) | Unit tests for `inject-plan-snapshot.mjs`. Forks the real script with `MV_REPO_ROOT` pointing at tmpdir fixtures; covers in-sync exit 0, drift exit 1, fix-mode round-trip, three `SCHEMA DRIFT` exit-2 paths (missing verbatim-renderer, malformed capstones, zero-widget sanity gate), and the anchored-regex isolation against prose decoys elsewhere in PLAN.md. |
 | [`test-audit-accessibility.mjs`](./test-audit-accessibility.mjs) | Unit tests for `audit-accessibility.mjs:checkSvgViewbox()` — bare-svg violation, viewBox skip, tiny-icon skip, `<defs>`/thumb skip, `<script>`/`<pre>`/comment skip, mixed, unbalanced-`<script>` boundary. |
 | [`test-slider-svg-2d.mjs`](./test-slider-svg-2d.mjs) | Unit tests for `widgets/slider-svg-2d/index.mjs` — renderer output shape, SVG `<title>` HTML-escaping, readout suffix invariant, plus a coupling assertion that `'bodyScript' ∈ XSS_LINT_SKIP_KEYS` in `validate-widget-params.mjs` so a future rename of the allowlist constant can't silently break every migrated slider widget. |
@@ -181,41 +182,42 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 15. `test-find-matching-div.mjs`
 16. `test-ajv.mjs`
 17. `test-doc-drift.mjs`
-18. `test-inject-plan-snapshot.mjs`
-19. `test-audit-accessibility.mjs`
-20. `test-slider-svg-2d.mjs`
-21. `test-inline-links-detect.mjs`
-22. `validate-concepts.mjs`
-23. `audit-concept-latex.mjs`
-24. `validate-katex.mjs`
-25. `audit-no-inline-widgets.mjs`
-26. `audit-callbacks.mjs --fix`
-27. `inject-used-in-backlinks.mjs --fix`
-28. `inject-breadcrumb.mjs --fix`
-29. `inject-display-prefs.mjs --fix`
-30. `inject-index-stats.mjs --fix`
-31. `inject-plan-snapshot.mjs --fix`
-32. `inject-page-metadata.mjs --fix`
-33. `inject-toc.mjs --fix`
-34. `fix-a11y.mjs --fix`
-35. `audit-inline-links.mjs --fix --strict`
-36. `test-roundtrip.mjs --fix`
-37. `smoke-test.mjs`
-38. `test-topic-jsdom.mjs`
-39. `stats-coverage.mjs`
-40. `audit-notation.mjs`
-41. `audit-draft-index-cards.mjs`
-42. `audit-slug-flavored-titles.mjs`
-43. `audit-starter-concepts.mjs`
-44. `audit-worked-examples.mjs`
-45. `audit-blurb-question-alignment.mjs`
-46. `audit-hint-leakage.mjs`
-47. `audit-widget-interactivity.mjs --strict`
-48. `audit-math-rendering-leaks.mjs --strict`
-49. `audit-doc-drift.mjs`
+18. `test-progress.mjs`
+19. `test-inject-plan-snapshot.mjs`
+20. `test-audit-accessibility.mjs`
+21. `test-slider-svg-2d.mjs`
+22. `test-inline-links-detect.mjs`
+23. `validate-concepts.mjs`
+24. `audit-concept-latex.mjs`
+25. `validate-katex.mjs`
+26. `audit-no-inline-widgets.mjs`
+27. `audit-callbacks.mjs --fix`
+28. `inject-used-in-backlinks.mjs --fix`
+29. `inject-breadcrumb.mjs --fix`
+30. `inject-display-prefs.mjs --fix`
+31. `inject-index-stats.mjs --fix`
+32. `inject-plan-snapshot.mjs --fix`
+33. `inject-page-metadata.mjs --fix`
+34. `inject-toc.mjs --fix`
+35. `fix-a11y.mjs --fix`
+36. `audit-inline-links.mjs --fix --strict`
+37. `test-roundtrip.mjs --fix`
+38. `smoke-test.mjs`
+39. `test-topic-jsdom.mjs`
+40. `stats-coverage.mjs`
+41. `audit-notation.mjs`
+42. `audit-draft-index-cards.mjs`
+43. `audit-slug-flavored-titles.mjs`
+44. `audit-starter-concepts.mjs`
+45. `audit-worked-examples.mjs`
+46. `audit-blurb-question-alignment.mjs`
+47. `audit-hint-leakage.mjs`
+48. `audit-widget-interactivity.mjs --strict`
+49. `audit-math-rendering-leaks.mjs --strict`
+50. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `meta-pages`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `gesture-engines`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `plan-snapshot-unit`, `a11y-unit`, `slider-svg-2d-unit`, `inline-links-detect-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `inline-links`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `slug-titles`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `math-leaks`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `meta-pages`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `gesture-engines`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `progress-unit`, `plan-snapshot-unit`, `a11y-unit`, `slider-svg-2d-unit`, `inline-links-detect-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `inline-links`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `slug-titles`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `math-leaks`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

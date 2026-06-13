@@ -71,6 +71,7 @@ const STEPS = [
   { name: 'find-matching-div', script: 'test-find-matching-div.mjs', fix: false },
   { name: 'ajv',        script: 'test-ajv.mjs',                 fix: false },
   { name: 'doc-drift-unit', script: 'test-doc-drift.mjs',       fix: false },
+  { name: 'progress-unit', script: 'test-progress.mjs',         fix: false },
   { name: 'plan-snapshot-unit', script: 'test-inject-plan-snapshot.mjs', fix: false },
   { name: 'a11y-unit',  script: 'test-audit-accessibility.mjs', fix: false },
   { name: 'slider-svg-2d-unit', script: 'test-slider-svg-2d.mjs', fix: false },

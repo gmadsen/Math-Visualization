@@ -93,6 +93,24 @@
     return out;
   }
 
+  // masteredSet(tier='v1') -> a Set of every concept id mastered at that tier,
+  // built from ONE localStorage parse. Meta pages (search, tours, history
+  // lineage, who's-who, open-problems, tags) render hundreds-to-thousands of
+  // concept rows per view and previously each hand-rolled this snapshot to
+  // avoid isMastered()'s parse-per-call cost (a measured ~8s worst case — see
+  // PR #515). This is the canonical single implementation: one coerce() per
+  // stored id, membership tests in the caller. Re-call it per render (or per
+  // interaction) for freshness — it's one parse, cheap.
+  function masteredSet(tier){
+    const t = tier || 'v1';
+    const all = load();
+    const set = new Set();
+    for(const id of Object.keys(all)){
+      if(coerce(all[id])[t]) set.add(id);
+    }
+    return set;
+  }
+
   // isMastered(id)             -> v1 mastery (back-compat)
   // isMastered(id, 'v1')       -> v1 mastery
   // isMastered(id, 'hard')     -> hard mastery
@@ -166,5 +184,5 @@
     return { state, v1: r.v1, hard: r.hard, expert: r.expert };
   }
 
-  global.MVProgress = { load, save, isMastered, setMastered, clearAll, stateOf, recordOf, entries };
+  global.MVProgress = { load, save, isMastered, setMastered, clearAll, stateOf, recordOf, entries, masteredSet };
 })(window);

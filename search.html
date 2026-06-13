@@ -270,26 +270,13 @@
     }
     return (masteryModel._m = { prereqs, byTopic });
   }
-  // Mastered-id snapshot, rebuilt once per search() call: one localStorage
-  // parse per render instead of MVProgress.isMastered()'s parse-per-call,
-  // which the sort comparator would multiply into seconds for a learner
-  // with hundreds of mastered concepts (PR #515 review benchmark). Mirrors
-  // progress.js coerce(): true → mastered, tiered object → !!v1, legacy
-  // {at} object (no tier keys) → mastered.
+  // Mastered-id snapshot, rebuilt once per search() call via the shared
+  // MVProgress.masteredSet() (one localStorage parse) — never isMastered()
+  // per concept, which the sort comparator would multiply into seconds for a
+  // learner with hundreds of mastered concepts (PR #515 benchmark).
   let masteredSet = null;
   function refreshMasterySnapshot(){
-    masteredSet = null;
-    if(!masteryModel()) return;
-    masteredSet = new Set();
-    const all = MVProgress.load();
-    for(const id of Object.keys(all)){
-      const raw = all[id];
-      if(raw === true) masteredSet.add(id);
-      else if(raw && typeof raw === 'object'){
-        if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) masteredSet.add(id); }
-        else masteredSet.add(id); // legacy {at} form — presence meant mastered
-      }
-    }
+    masteredSet = masteryModel() ? MVProgress.masteredSet('v1') : null;
   }
   function conceptState(id){
     const m = masteryModel();
