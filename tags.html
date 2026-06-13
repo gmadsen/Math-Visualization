@@ -524,24 +524,12 @@ window.MVRenderMath = function(el){
   // running Array.find on its concepts for every link rendered, an
   // O(topics x concepts) scan per concept that compounded on every tag click.
   //
-  // Mastery reads go through a one-parse snapshot Set rather than
-  // MVProgress.isMastered() per call — isMastered JSON.parses the whole
-  // progress blob every time, which compounded the same way (the PR #515
-  // parse-storm lesson). Mirrors progress.js coerce(): true / tiered v1 /
-  // legacy {at} → mastered.
+  // Mastery reads go through a one-parse snapshot Set (the shared
+  // MVProgress.masteredSet(), PR A) rather than isMastered() per call —
+  // isMastered JSON.parses the whole progress blob every time, which
+  // compounds across the detail panel's up-to-468 pips (PR #515 lesson).
   function buildMasteredSet(){
-    if (!window.MVProgress) return null;
-    const set = new Set();
-    const all = window.MVProgress.load();
-    for (const id of Object.keys(all)) {
-      const raw = all[id];
-      if (raw === true) set.add(id);
-      else if (raw && typeof raw === 'object') {
-        if ('v1' in raw || 'hard' in raw || 'expert' in raw) { if (raw.v1) set.add(id); }
-        else set.add(id); // legacy {at} form — presence meant mastered
-      }
-    }
-    return set;
+    return window.MVProgress ? window.MVProgress.masteredSet('v1') : null;
   }
   function makeMasteryState(byConceptId, getMasteredIds){
     return function(conceptId){

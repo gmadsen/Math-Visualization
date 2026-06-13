@@ -1539,6 +1539,9 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
     document.querySelectorAll('li.stop-mastered').forEach(li => li.classList.remove('stop-mastered'));
     const perTour = new Map();
     const cardFor = id => document.querySelector(`.tour-card[data-tour="${id}"]`);
+    // One snapshot for the whole render (shared MVProgress.masteredSet, PR A),
+    // rebuilt each init() so bfcache returns reflect fresh mastery.
+    const masteredIds = MVProgress.masteredSet('v1');
 
     for(const sec of document.querySelectorAll('section.tour')){
       const stops = [...sec.querySelectorAll(':scope > ol.tour > li')];
@@ -1563,7 +1566,7 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
         const cids = resolver.get((a.getAttribute('href') || '').replace(/^\.\//, ''));
         if(!cids || cids.length === 0) return;
         resolvable++;
-        if(cids.every(cid => MVProgress.isMastered(cid, 'v1'))){
+        if(cids.every(cid => masteredIds.has(cid))){
           mastered++;
           li.classList.add('stop-mastered');
           const chk = document.createElement('span');

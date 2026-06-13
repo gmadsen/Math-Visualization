@@ -196,20 +196,8 @@
         for(const c of (MVC.topics[key].concepts || [])) byId.set(c.id, c);
       }
     }
-    const masteredIds = (function(){
-      if(!window.MVProgress || byId.size === 0) return null;
-      const set = new Set();
-      const all = MVProgress.load();
-      for(const id of Object.keys(all)){
-        const raw = all[id];
-        if(raw === true) set.add(id);
-        else if(raw && typeof raw === 'object'){
-          if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) set.add(id); }
-          else set.add(id);
-        }
-      }
-      return set;
-    })();
+    // Shared one-parse snapshot (PR A).
+    const masteredIds = (window.MVProgress && byId.size > 0) ? MVProgress.masteredSet('v1') : null;
     // Prerequisite closure of a goal concept (the same ancestor walk
     // pathway.html draws as a DAG).
     function closureOf(goalId){

@@ -150,22 +150,9 @@
       personTopics[pid] = personTopics[pid].filter(t => !seen.has(t.href) && seen.add(t.href));
     }
 
-    // One localStorage parse for the whole page (PR #515's lesson). Mirrors
-    // progress.js coerce(): true / tiered v1 / legacy {at} → mastered.
-    const masteredIds = (function(){
-      if(!window.MVProgress || !MVC) return null;
-      const set = new Set();
-      const all = MVProgress.load();
-      for(const id of Object.keys(all)){
-        const raw = all[id];
-        if(raw === true) set.add(id);
-        else if(raw && typeof raw === 'object'){
-          if('v1' in raw || 'hard' in raw || 'expert' in raw){ if(raw.v1) set.add(id); }
-          else set.add(id);
-        }
-      }
-      return set;
-    })();
+    // One localStorage parse for the whole page (PR #515's lesson), via the
+    // shared MVProgress.masteredSet() (PR A).
+    const masteredIds = (window.MVProgress && MVC) ? MVProgress.masteredSet('v1') : null;
     function masteryChip(href){
       if(!masteredIds) return '';
       const slug = String(href).replace(/^\.\//,'').split('#')[0].replace(/\.html$/,'');
