@@ -23,7 +23,7 @@ The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages g
 1. **Meta-page candidates (not yet greenlit — ask before building):** counterexamples gallery (aggregate the existing counterexample widgets), syllabus builder (pathway copy-plan grown into a self-checking checklist page), exam mode (timed mixed quiz over mastered concepts — check review.html's role first).
 2. **Feature-improvement backlog** (one small PR each, pick by appetite):
    - *Pathway*: recommended study order (canonical topological walk + next-ready stepper); reverse "what does this unlock" mode (`byPrereq` already exists); `&selected=` deep-link; mobile detail drawer independent scroll.
-   - *Mindmap*: pinnable focus card; fuzzy search.
+   - *Mindmap*: pinnable focus card / drag-to-reposition (fuzzy search shipped #522).
    - *Tours*: tour-guide sticky banner on topic pages when arriving via a tour link; "featured in tours" reverse index on topic pages; build-time validation of tour stop anchors (they rot silently — `L-functions#elliptic` already doesn't resolve to a concept).
    - *History*: timeline search across bios/locations, not just titles; `?capstone=` pre-filter crossover.
    - *Search*: typo tolerance / did-you-mean; inline search box on the index hero.
