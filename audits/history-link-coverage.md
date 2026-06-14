@@ -1,8 +1,8 @@
 # History page cross-link audit
 
-Total outbound links: **169** (80 narrative + 89 structured `topicAnchor`).
-Distinct topic slugs linked: **68**.
-Topic pages on disk with zero inbound from history: **153**.
+Total outbound links: **173** (80 narrative + 93 structured `topicAnchor`).
+Distinct topic slugs linked: **69**.
+Topic pages on disk with zero inbound from history: **152**.
 
 ## Broken anchors
 _None_
@@ -89,13 +89,13 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `convex-geometry.html`
 - `heegaard-floer.html`
 - `homotopy-theory.html`
+- `k-theory.html`
 - `kahler-geometry.html`
 - `khovanov-homology.html`
 - `knot-polynomials.html`
 - `mapping-class-groups.html`
 - `morse-theory.html`
 - `mostow-rigidity.html`
-- `smooth-manifolds.html`
 - `surgery-theory.html`
 - `symplectic-manifolds.html`
 
@@ -197,10 +197,9 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `infinity-topoi.html`
 - `simplicial-sets-and-nerve.html`
 
-### Logic & Foundations (3/8)
+### Logic & Foundations (2/8)
 
 - `complexity-theory.html`
-- `model-theory-basics.html`
 - `type-theory-and-hott.html`
 
 ### (unsectioned)
