@@ -50,6 +50,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -259,6 +263,10 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Before topology, algebra, or analysis, everything in this notebook speaks the language of <em>sets and functions</em>. This page spells the language out. We work <strong>naively</strong> — Cantor's original viewpoint, not ZFC — which is enough for everything you'll do in a graduate math course. The only cost is that you have to step carefully around paradoxes like "the set of all sets that don't contain themselves" (Russell), which show up only when you try to form collections that are too large to be sets. The things we form below — finite or countable lists, power sets of named sets, images of functions — are all safe.</p>
 
 <div class="note"><strong>Working definition (Cantor).</strong> A <em>set</em> is any well-defined collection of distinct objects considered as a single whole. The objects are its <em>elements</em>. We write $x \in X$ for "$x$ is an element of $X$" and $x \notin X$ for its negation. Two sets are <em>equal</em> iff they have the same elements (the axiom of extensionality): $X = Y \iff \forall x\,(x\in X \leftrightarrow x\in Y)$.</div>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#sets-to-topoi">From naive sets to ∞-topoi</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="sets">
 <h2>1. Sets and functions</h2>

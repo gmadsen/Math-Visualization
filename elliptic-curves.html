@@ -50,6 +50,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -260,6 +264,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>Elliptic curves: group law, torsion, and uniformization</h1>
   <p class="sub">A smooth cubic carrying the structure of an abelian group, a complex torus, and an arithmetic object all at once. Three faces of the same creature — geometric, complex-analytic, and arithmetic — bound together by the $j$-invariant and $\wp$-function.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 2 guided tours:</span> <a href="./tours.html#bsd-road">The road to BSD</a> · <a href="./tours.html#sato-tate">Sato–Tate: semicircles from elliptic curves</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="intro">
 <h2>1. What is an elliptic curve?</h2>

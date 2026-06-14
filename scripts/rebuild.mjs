@@ -130,6 +130,11 @@ const STEPS = [
   // nonzero on any leftover candidate or stale data-concept-id wrap,
   // turning the audit into a real gate.
   { name: 'inline-links', script: 'audit-inline-links.mjs',     fix: true, extraArgs: ['--strict'] },
+  // "Featured in guided tours" reverse-index aside on each tour-stop topic.
+  // --fix mutates content/<topic>.json (rawBodyPrefix aside + rawHead CSS) so
+  // roundtrip below propagates to HTML; audit mode (CI) verifies presence.
+  // Runs before roundtrip, like the other content-JSON injectors.
+  { name: 'featured-in-tours', script: 'inject-featured-in-tours.mjs', fix: true },
   // roundtrip runs FIRST in fix mode so smoke + topic-jsdom check the
   // regenerated HTML. Reversed order would let a content/json edit pass
   // smoke against stale HTML, leaving the failure to be caught only on

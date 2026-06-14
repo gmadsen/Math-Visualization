@@ -37,6 +37,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -264,6 +268,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>Motives</h1>
   <p class="sub">Algebraic geometry has many cohomology theories — Betti, de Rham, $\ell$-adic étale, crystalline — that compute different invariants of the same variety yet share an uncannily parallel formal structure. Motives are Grothendieck's conjectural answer to <em>why</em>: a universal cohomology that all the rest are realizations of, with a Galois group acting on it that subsumes the classical $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$. Half conjecture, half organising principle, the framework underwrites the Hodge conjecture, the Tate conjecture, and large stretches of the Langlands program.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#solvability-arc">Solvability across mathematics</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="cohomology-zoo">
 <h2>1. The cohomology zoo and the realization problem</h2>

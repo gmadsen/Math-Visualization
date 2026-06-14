@@ -35,6 +35,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -261,6 +265,10 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Computability fixed the boundary between solvable and unsolvable. Complexity refines the solvable side: how do resource costs (time, memory, randomness, advice) scale with input size? The headline class is $\mathsf{P}$ — problems decidable by a deterministic Turing machine in polynomial time — paired with $\mathsf{NP}$, problems with a polynomial-time <em>verifier</em>. Whether $\mathsf{P}=\mathsf{NP}$ is the deepest open problem in the field. Around this central drama sit the rest of the cast: polynomial-time reductions, NP-completeness, PSPACE, the hierarchy theorems, and the few separations we can actually prove.</p>
 
 <div class="note"><strong>Plan.</strong> Section 1 fixes asymptotic notation and the time class $\mathrm{DTIME}$. Section 2 introduces $\mathsf{P}$ and $\mathsf{NP}$ via the verifier definition. Section 3 establishes Cook–Levin and the notion of NP-completeness. Section 4 walks the Karp web — how 3-SAT propagates hardness to clique, vertex-cover, Hamiltonian cycle, subset-sum. Section 5 does the same for space: $\mathsf{PSPACE}$, Savitch, TQBF. Section 6 turns the diagonal back on time and space themselves to prove the only strict separations we know.</div>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#millennium-prizes">The seven Millennium Prize Problems</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="time">
 <h2>1. Time complexity and big-O</h2>

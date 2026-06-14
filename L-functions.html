@@ -50,6 +50,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -257,6 +261,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>$L$-functions</h1>
   <p class="sub">A single object — the $L$-function — binds together a Dirichlet series, an Euler product, an <a href="./complex-analysis.html#analytic-continuation" data-auto-inline-link="1" data-concept-id="analytic-continuation" data-blurb="The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\log z$ or $\sqrt z$ live naturally on a Riemann surface rather than $\mathbb{C}\setminus\{0\}$.">analytic continuation</a>, and a functional equation. Its coefficients come from local data (a prime at a time); its global identities encode reciprocity. $\zeta(s)$ is the template, $L(E,s)$ and $L(f,s)$ are the arithmetic payload, and modularity makes them agree.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 4 guided tours:</span> <a href="./tours.html#bsd-road">The road to BSD</a> · <a href="./tours.html#langlands-arc">Langlands philosophy</a> · <a href="./tours.html#millennium-prizes">The seven Millennium Prize Problems</a> · <a href="./tours.html#sato-tate">Sato–Tate: semicircles from elliptic curves</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="unified">
 <h2>1. The unified picture</h2>

@@ -50,6 +50,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -224,6 +228,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>Étale cohomology, ℓ-adic Betti, and the Weil conjectures</h1>
   <p class="sub">Grothendieck's replacement for singular cohomology in characteristic $p$. Covers of schemes that behave like local homeomorphisms, a cohomology theory that counts the same Betti numbers as topology, and a Frobenius whose trace counts $\mathbb{F}_q$-points.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#cohomology">What is cohomology?</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="etale">
 <h2>1. Étale morphisms</h2>

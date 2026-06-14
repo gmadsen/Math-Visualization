@@ -35,6 +35,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -269,6 +273,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>Categories, functors, and the Yoneda lemma</h1>
   <p class="sub">A disciplined way to say "arrows between things behave like the things themselves." From objects and morphisms to the universal property of the pullback and the adjunction that constructs free groups.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#sets-to-topoi">From naive sets to ∞-topoi</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="cat">
 <h2>1. What is a category?</h2>

@@ -35,6 +35,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -262,6 +266,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>Spectral theory</h1>
   <p class="sub">From eigenvalues of matrices to projection-valued measures: the analytic dictionary that turns operators into multiplications.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#sound-to-wavelets">From sound to wavelets</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="spectrum">
 <h2>1. Spectrum of a bounded operator</h2>
