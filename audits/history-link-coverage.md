@@ -1,8 +1,8 @@
 # History page cross-link audit
 
-Total outbound links: **138** (80 narrative + 58 structured `topicAnchor`).
-Distinct topic slugs linked: **54**.
-Topic pages on disk with zero inbound from history: **166**.
+Total outbound links: **173** (80 narrative + 93 structured `topicAnchor`).
+Distinct topic slugs linked: **69**.
+Topic pages on disk with zero inbound from history: **152**.
 
 ## Broken anchors
 _None_
@@ -13,7 +13,7 @@ _None_
 ## Topic pages with zero inbound from history
 _Cross-link opportunities. Consider adding an event or narrative link in a relevant era._
 
-### Algebraic geometry (30/35)
+### Algebraic geometry (29/35)
 
 - `abelian-varieties.html`
 - `algebraic-curves-higher-genus.html`
@@ -39,53 +39,11 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `positive-characteristic-ag.html`
 - `positivity-and-ample-line-bundles.html`
 - `resolution-of-singularities.html`
-- `sheaf-cohomology.html`
 - `sheaves.html`
 - `singular-cubics-reduction.html`
 - `stacks.html`
 - `toric-varieties.html`
 - `tropical-geometry.html`
-
-### Analysis (18/24)
-
-- `advanced-complex-analysis.html`
-- `conformal-and-cr-geometry.html`
-- `dynamical-systems.html`
-- `ergodic-theory.html`
-- `functional-analysis.html`
-- `geometric-measure-theory.html`
-- `harmonic-functions.html`
-- `mathematical-chaos.html`
-- `microlocal-analysis.html`
-- `numerical-analysis.html`
-- `operator-algebras.html`
-- `optimal-transport.html`
-- `partial-differential-equations.html`
-- `semigroup-theory-evolution-equations.html`
-- `several-complex-variables.html`
-- `sobolev-spaces-distributions.html`
-- `spectral-theory.html`
-- `wavelets.html`
-
-### Geometry & topology (17/25)
-
-- `characteristic-classes.html`
-- `cobordism.html`
-- `cohomology-and-duality.html`
-- `convex-geometry.html`
-- `differential-forms.html`
-- `heegaard-floer.html`
-- `homotopy-theory.html`
-- `k-theory.html`
-- `kahler-geometry.html`
-- `khovanov-homology.html`
-- `knot-polynomials.html`
-- `mapping-class-groups.html`
-- `morse-theory.html`
-- `mostow-rigidity.html`
-- `smooth-manifolds.html`
-- `surgery-theory.html`
-- `symplectic-manifolds.html`
 
 ### Modular forms & L-functions (16/19)
 
@@ -106,23 +64,42 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `upper-half-plane-hyperbolic.html`
 - `vertex-operator-algebras.html`
 
-### Number theory (13/19)
+### Analysis (15/24)
 
-- `adeles-and-ideles.html`
-- `algebraic-number-theory.html`
-- `arithmetic-statistics.html`
-- `class-field-theory.html`
-- `complex-multiplication.html`
-- `computational-number-theory.html`
-- `continued-fractions.html`
-- `dirichlet-unit-theorem.html`
-- `frobenius-and-reciprocity.html`
-- `galois-representations.html`
-- `iwasawa-theory.html`
-- `mathematics-and-cryptography.html`
-- `quadratic-forms-genus-theory.html`
+- `advanced-complex-analysis.html`
+- `conformal-and-cr-geometry.html`
+- `functional-analysis.html`
+- `geometric-measure-theory.html`
+- `harmonic-functions.html`
+- `mathematical-chaos.html`
+- `microlocal-analysis.html`
+- `numerical-analysis.html`
+- `operator-algebras.html`
+- `optimal-transport.html`
+- `semigroup-theory-evolution-equations.html`
+- `several-complex-variables.html`
+- `sobolev-spaces-distributions.html`
+- `spectral-theory.html`
+- `wavelets.html`
 
-### Algebra & homological (13/17)
+### Geometry & topology (14/25)
+
+- `cobordism.html`
+- `cohomology-and-duality.html`
+- `convex-geometry.html`
+- `heegaard-floer.html`
+- `homotopy-theory.html`
+- `k-theory.html`
+- `kahler-geometry.html`
+- `khovanov-homology.html`
+- `knot-polynomials.html`
+- `mapping-class-groups.html`
+- `morse-theory.html`
+- `mostow-rigidity.html`
+- `surgery-theory.html`
+- `symplectic-manifolds.html`
+
+### Algebra & homological (12/17)
 
 - `algebraic-k-theory-foundations.html`
 - `cluster-algebras.html`
@@ -136,9 +113,22 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `lie-algebras.html`
 - `model-categories.html`
 - `quantum-groups.html`
-- `quaternions-octonions-and-division-algebras.html`
 
-### Combinatorics & graph theory (11/15)
+### Number theory (11/19)
+
+- `adeles-and-ideles.html`
+- `algebraic-number-theory.html`
+- `complex-multiplication.html`
+- `computational-number-theory.html`
+- `continued-fractions.html`
+- `dirichlet-unit-theorem.html`
+- `frobenius-and-reciprocity.html`
+- `galois-representations.html`
+- `iwasawa-theory.html`
+- `mathematics-and-cryptography.html`
+- `quadratic-forms-genus-theory.html`
+
+### Combinatorics & graph theory (10/15)
 
 - `algebraic-combinatorics.html`
 - `coding-theory.html`
@@ -149,21 +139,7 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `matroid-theory.html`
 - `order-theory-and-lattices.html`
 - `polytopes-and-ehrhart.html`
-- `ramsey-theory.html`
 - `simplicial-complexes-combinatorial.html`
-
-### Mathematical physics (10/13)
-
-- `dirac-equation.html`
-- `integrable-systems.html`
-- `klein-gordon-equation.html`
-- `quantum-field-theory.html`
-- `quantum-information.html`
-- `schrodinger-equation.html`
-- `special-relativity.html`
-- `statistical-mechanics.html`
-- `string-theory.html`
-- `three-body-problem.html`
 
 ### Learning theory & data science (9/9)
 
@@ -177,17 +153,17 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `statistical-learning-theory.html`
 - `topological-data-analysis.html`
 
-### Probability & statistics (9/11)
+### Mathematical physics (9/13)
 
-- `computational-molecular-biology.html`
-- `high-dimensional-geometry.html`
-- `large-deviations.html`
-- `mathematical-biology.html`
-- `mathematical-statistics.html`
-- `random-matrix-theory.html`
-- `random-walks-and-mixing.html`
-- `stochastic-calculus.html`
-- `stochastic-processes-and-martingales.html`
+- `dirac-equation.html`
+- `integrable-systems.html`
+- `klein-gordon-equation.html`
+- `quantum-field-theory.html`
+- `quantum-information.html`
+- `schrodinger-equation.html`
+- `statistical-mechanics.html`
+- `string-theory.html`
+- `three-body-problem.html`
 
 ### Control theory & optimization (8/9)
 
@@ -200,6 +176,17 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `pomdps-and-belief-states.html`
 - `reinforcement-learning.html`
 
+### Probability & statistics (8/11)
+
+- `computational-molecular-biology.html`
+- `high-dimensional-geometry.html`
+- `large-deviations.html`
+- `mathematical-biology.html`
+- `mathematical-statistics.html`
+- `random-matrix-theory.html`
+- `random-walks-and-mixing.html`
+- `stochastic-processes-and-martingales.html`
+
 ### Higher categories & toposes (7/7)
 
 - `cocartesian-fibrations.html`
@@ -210,15 +197,14 @@ _Cross-link opportunities. Consider adding an event or narrative link in a relev
 - `infinity-topoi.html`
 - `simplicial-sets-and-nerve.html`
 
-### Logic & Foundations (4/8)
+### Logic & Foundations (2/8)
 
 - `complexity-theory.html`
-- `first-order-logic-and-completeness.html`
-- `model-theory-basics.html`
 - `type-theory-and-hott.html`
 
 ### (unsectioned)
 
+- `open-problems.html`
 - `updates.html`
 
 
