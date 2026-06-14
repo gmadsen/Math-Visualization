@@ -24,6 +24,14 @@
 
   if (typeof document === 'undefined') return;
 
+  // Respect the OS/browser "reduce motion" preference for programmatic scrolls
+  // (the CSS blanket in notebook.css can't reach scrollIntoView's behavior arg).
+  function scrollBehavior() {
+    try {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    } catch (_) { return 'smooth'; }
+  }
+
   // ---------------------------------------------------------------------
   // Focus guard — never steal keys from form fields.
 
@@ -69,7 +77,7 @@
       if (!id) continue;
       if (!isMastered(id)) {
         try {
-          q.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          q.scrollIntoView({ behavior: scrollBehavior(), block: 'center' });
         } catch (_) {
           q.scrollIntoView();
         }
@@ -120,7 +128,7 @@
     if (targetIdx < 0 || targetIdx >= sections.length) return false;
     var target = sections[targetIdx];
     try {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
     } catch (_) {
       target.scrollIntoView();
     }

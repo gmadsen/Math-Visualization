@@ -24,7 +24,7 @@ The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages g
 2. **Feature-improvement backlog** (one small PR each, pick by appetite):
    - *History*: `?capstone=` pre-filter crossover.
    - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently).
-3. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out); `prefers-reduced-motion` for animated engines + history pulses + program smooth-scrolls; reading-width/font-size knob in `MVDisplay`; high-contrast as a third `mvnb.theme` value; per-section accent tinting on topic pages.
+3. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out); reading-width/font-size knob in `MVDisplay`; high-contrast as a third `mvnb.theme` value; per-section accent tinting on topic pages.
 
 ## Missing-topic candidates
 

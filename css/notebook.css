@@ -337,7 +337,20 @@ input[type="range"]:focus-visible::-moz-range-thumb {
   }
 }
 
+/* Honour the OS/browser "reduce motion" preference site-wide. notebook.css is
+ * loaded by every page (topic pages via theme-light.css's @import, meta pages
+ * directly), so this one rule neutralises CSS animations, transitions, and
+ * smooth-scroll everywhere — previously only index.html carried the blanket.
+ * (JS-driven motion is guarded separately: program scroll in topic-hotkeys.js,
+ * the index hero, history pulses; user-initiated widget "play" is left alone.) */
 @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto !important; }
   aside.sidetoc { transition: none; }
   .sidetoc-backdrop { transition: none; }
 }
