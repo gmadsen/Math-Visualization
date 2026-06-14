@@ -263,21 +263,27 @@ function extractStepsArray(src) {
   return names;
 }
 
-function extractRebuildProseList(readme) {
+export function extractRebuildProseList(readme) {
   // The prose list lives in scripts/README.md's "All-in-one verification: the
   // rebuild step list" section, enumerated as a numbered ordered list of
   // scripts. Pull lines matching `   1. \`build-concepts-bundle.mjs\`` etc.
   // in order.
   const marker = readme.indexOf('All-in-one verification');
   if (marker === -1) return null;
-  const region = readme.slice(marker, marker + 2000);
-  // Match `name.mjs` or `name.mjs --fix` — the backtick may wrap the whole
-  // "script + flags" string, so we allow arbitrary content before the closing
-  // backtick.
-  const re = /^\s*\d+\.\s+`([a-z0-9\-]+)\.mjs(?:[^`]*)`/gm;
+  // Walk the contiguous numbered list from the marker, stopping at the first
+  // blank or non-numbered line after it begins. A fixed char window (was 2000)
+  // silently dropped the tail once the list crossed ~54 entries — the same
+  // failure that bit extractOnlyList (fixed in #521); bound to the list's
+  // actual extent, not a byte budget, so the gate keeps working as the chain
+  // grows. Match `name.mjs` or `name.mjs --fix` (flags before the backtick).
+  const lineRe = /^\s*\d+\.\s+`([a-z0-9\-]+)\.mjs(?:[^`]*)`/;
   const names = [];
-  let m;
-  while ((m = re.exec(region))) names.push(m[1]);
+  let started = false;
+  for (const line of readme.slice(marker).split('\n')) {
+    const mm = line.match(lineRe);
+    if (mm) { names.push(mm[1]); started = true; continue; }
+    if (started) break; // first non-matching line after the list ends it
+  }
   return names.length ? names : null;
 }
 

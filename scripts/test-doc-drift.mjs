@@ -20,6 +20,7 @@ import { join } from 'node:path';
 import {
   computeCorpusTruth,
   detectSnapshotDrift,
+  extractRebuildProseList,
 } from './audit-doc-drift.mjs';
 
 const failures = [];
@@ -183,6 +184,27 @@ const TRUTH_FAKE = {
   const drifts = detectSnapshotDrift({ planText, readmeText: '', agentsText: '', truth: TRUTH_FAKE });
   check('missing snapshot line: zero drifts (no false positive)',
     drifts.length === 0, `${drifts.length} drift(s)`);
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// extractRebuildProseList: the numbered step list must be read to its full
+// extent, not a fixed char window. Regression for the bug where a >2000-char
+// list silently dropped its tail (same class as the extractOnlyList fix #521).
+{
+  const items = [];
+  for (let i = 1; i <= 60; i++) items.push(`${i}. \`script-${i}-with-a-deliberately-long-name.mjs --fix\``);
+  const readme = `## All-in-one verification: the rebuild step list\n\n${items.join('\n')}\n\nSome trailing prose after the list.\n`;
+  // Sanity: the list is well past the old 2000-char cap.
+  const listChars = readme.indexOf('Some trailing') - readme.indexOf('1. `');
+  check('prose-list fixture exceeds the old 2000-char window', listChars > 2000, `${listChars} chars`);
+  const names = extractRebuildProseList(readme);
+  check('prose-list captures all 60 entries (tail not truncated)',
+    names && names.length === 60, `got ${names ? names.length : 'null'}`);
+  check('prose-list captures the LAST entry (would fall off a fixed window)',
+    !!names && names[names.length - 1] === 'script-60-with-a-deliberately-long-name',
+    names ? names[names.length - 1] : 'null');
+  check('prose-list stops at the first non-numbered line (no trailing-prose bleed)',
+    !!names && names.every((n) => n.startsWith('script-')));
 }
 
 console.log('');
