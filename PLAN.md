@@ -26,7 +26,7 @@ The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages g
    - *Tours*: tour-guide sticky banner on topic pages when arriving via a tour link (needs a committed tours-data.js + per-page loader; `?tour=` deep-link convention). (Shipped: build-time `validate-tour-anchors.mjs`; "featured in tours" reverse-index aside via `inject-featured-in-tours.mjs`.)
    - *History*: `?capstone=` pre-filter crossover. (Timeline search across bios/locations shipped.)
    - *Search*: typo tolerance / did-you-mean; inline search box on the index hero.
-   - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently); section-links footer fences say `auto` but no script owns them (rename or write the injector); unified meta-page nav (each page hand-rolls its own link row — whos-who/open-problems are absent from older pages' navs).
+   - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently). (Shipped: unified meta-page nav via `inject-meta-nav.mjs` — one canonical row, who's-who/open-problems now on every meta page. The section-links footer fences are in fact owned + gated — `build-section-indexes.mjs` writes them, `validate-meta-pages.mjs` checks them — so that concern was stale.)
 3. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out); `prefers-reduced-motion` for animated engines + history pulses + program smooth-scrolls; reading-width/font-size knob in `MVDisplay`; high-contrast as a third `mvnb.theme` value; per-section accent tinting on topic pages.
 
 ## Missing-topic candidates

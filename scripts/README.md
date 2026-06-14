@@ -19,7 +19,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 
 ## Orchestration
 
-[`rebuild.mjs`](./rebuild.mjs) runs the full 54-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
+[`rebuild.mjs`](./rebuild.mjs) runs the full 55-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
@@ -78,6 +78,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`validate-concepts.mjs`](./validate-concepts.mjs) | Concept graph: duplicate ids, broken prereqs, cycles, missing fields, `concepts/index.json` ↔ `concepts/sections.json` coverage. |
 | [`audit-concept-latex.mjs`](./audit-concept-latex.mjs) | Concept-data sanity: every `\foo` / `^{...}` / `_{...}` in concept titles + blurbs (incl. `concepts/capstones.json`) is enclosed in `$…$`, `$$…$$`, `\(…\)`, or `\[…\]`. Catches authoring mistakes before they leak into nav strips, pathway SVG nodes, or the capstone dropdown. |
 | [`validate-schema.mjs`](./validate-schema.mjs) | `concepts/*.json` + `quizzes/*.json` against `schemas/*.json` via AJV 2020-12. |
+| [`inject-meta-nav.mjs`](./inject-meta-nav.mjs) | Canonical cross-page nav row (Pathway · Tours · History · Who's who · Open problems · Themes · Mindmap · Search) on every secondary meta page, current page accented. `--fix` rewrites the row (writes meta-page HTML directly — these aren't topic pages, so no round-trip); audit mode gates drift. Fixes the "whos-who/open-problems absent from older navs" + hand-rolled-row drift. |
 | [`validate-meta-pages.mjs`](./validate-meta-pages.mjs) | Meta pages stay in sync with `concepts/sections.json`: every section has its `sections/<slug>.html` (slugified *title*, mirrors `build-section-indexes.mjs`), an index.html footer link, jump-bar link, fallback-map entry (id + accent), and `.sec` header; no orphan files in `sections/`; no stale pre-rename section titles (`'Foundations'`/`'Algebra'`) used as JS keys/fallbacks on any meta page. The "added a section, some page silently didn't notice" gate from PR #512. |
 | [`validate-tour-anchors.mjs`](./validate-tour-anchors.mjs) | Gates every internal `./<page>.html#<anchor>` link in `tours.html` (stop links + bridge cross-refs + footnotes): the page must exist and, when an anchor is present, some `id="<anchor>"` must exist on it. Topic pages regenerate from JSON, so a renamed section id silently strands a tour stop at the top of the page (the `L-functions#elliptic` rot the PLAN cited). Pure core (`findUnresolvedLinks`) exported for the unit test. |
 | [`validate-recent-updates.mjs`](./validate-recent-updates.mjs) | Gates the **committed** `recent-updates.{js,json}` (the bytes GitHub Pages serves) against git conflict markers, JS syntax errors, and JSON parse errors — the #518 near-miss where index.html loads the .js as a plain `<script>` but nothing parsed it. Runs *before* build-recent-updates so it sees the committed artifact, not the builder's fresh output. Asserts the .js assigns `window.MV_RECENT_UPDATES.entries` and the two mirrors agree on count. |
@@ -175,57 +176,58 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 4. `build-search-index.mjs`
 5. `build-section-indexes.mjs`
 6. `validate-meta-pages.mjs`
-7. `validate-recent-updates.mjs`
-8. `build-recent-updates.mjs`
-9. `validate-schema.mjs`
-10. `validate-widget-params.mjs`
-11. `test-widget-renderers.mjs`
-12. `test-widget-hydration.mjs`
-13. `test-gesture-engines.mjs`
-14. `test-multi-iife-split.mjs`
-15. `test-html-walk.mjs`
-16. `test-find-matching-div.mjs`
-17. `test-ajv.mjs`
-18. `test-doc-drift.mjs`
-19. `test-progress.mjs`
-20. `test-inject-plan-snapshot.mjs`
-21. `test-validate-tour-anchors.mjs`
-22. `test-audit-accessibility.mjs`
-23. `test-slider-svg-2d.mjs`
-24. `test-inline-links-detect.mjs`
-25. `validate-concepts.mjs`
-26. `audit-concept-latex.mjs`
-27. `validate-katex.mjs`
-28. `audit-no-inline-widgets.mjs`
-29. `audit-callbacks.mjs --fix`
-30. `inject-used-in-backlinks.mjs --fix`
-31. `inject-breadcrumb.mjs --fix`
-32. `inject-display-prefs.mjs --fix`
-33. `inject-index-stats.mjs --fix`
-34. `inject-plan-snapshot.mjs --fix`
-35. `inject-page-metadata.mjs --fix`
-36. `inject-toc.mjs --fix`
-37. `fix-a11y.mjs --fix`
-38. `audit-inline-links.mjs --fix --strict`
-39. `inject-featured-in-tours.mjs --fix`
-40. `test-roundtrip.mjs --fix`
-41. `smoke-test.mjs`
-42. `validate-tour-anchors.mjs`
-43. `test-topic-jsdom.mjs`
-44. `stats-coverage.mjs`
-45. `audit-notation.mjs`
-46. `audit-draft-index-cards.mjs`
-47. `audit-slug-flavored-titles.mjs`
-48. `audit-starter-concepts.mjs`
-49. `audit-worked-examples.mjs`
-50. `audit-blurb-question-alignment.mjs`
-51. `audit-hint-leakage.mjs`
-52. `audit-widget-interactivity.mjs --strict`
-53. `audit-math-rendering-leaks.mjs --strict`
-54. `audit-doc-drift.mjs`
+7. `inject-meta-nav.mjs --fix`
+8. `validate-recent-updates.mjs`
+9. `build-recent-updates.mjs`
+10. `validate-schema.mjs`
+11. `validate-widget-params.mjs`
+12. `test-widget-renderers.mjs`
+13. `test-widget-hydration.mjs`
+14. `test-gesture-engines.mjs`
+15. `test-multi-iife-split.mjs`
+16. `test-html-walk.mjs`
+17. `test-find-matching-div.mjs`
+18. `test-ajv.mjs`
+19. `test-doc-drift.mjs`
+20. `test-progress.mjs`
+21. `test-inject-plan-snapshot.mjs`
+22. `test-validate-tour-anchors.mjs`
+23. `test-audit-accessibility.mjs`
+24. `test-slider-svg-2d.mjs`
+25. `test-inline-links-detect.mjs`
+26. `validate-concepts.mjs`
+27. `audit-concept-latex.mjs`
+28. `validate-katex.mjs`
+29. `audit-no-inline-widgets.mjs`
+30. `audit-callbacks.mjs --fix`
+31. `inject-used-in-backlinks.mjs --fix`
+32. `inject-breadcrumb.mjs --fix`
+33. `inject-display-prefs.mjs --fix`
+34. `inject-index-stats.mjs --fix`
+35. `inject-plan-snapshot.mjs --fix`
+36. `inject-page-metadata.mjs --fix`
+37. `inject-toc.mjs --fix`
+38. `fix-a11y.mjs --fix`
+39. `audit-inline-links.mjs --fix --strict`
+40. `inject-featured-in-tours.mjs --fix`
+41. `test-roundtrip.mjs --fix`
+42. `smoke-test.mjs`
+43. `validate-tour-anchors.mjs`
+44. `test-topic-jsdom.mjs`
+45. `stats-coverage.mjs`
+46. `audit-notation.mjs`
+47. `audit-draft-index-cards.mjs`
+48. `audit-slug-flavored-titles.mjs`
+49. `audit-starter-concepts.mjs`
+50. `audit-worked-examples.mjs`
+51. `audit-blurb-question-alignment.mjs`
+52. `audit-hint-leakage.mjs`
+53. `audit-widget-interactivity.mjs --strict`
+54. `audit-math-rendering-leaks.mjs --strict`
+55. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `meta-pages`, `recent-updates-gate`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `gesture-engines`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `progress-unit`, `plan-snapshot-unit`, `tour-anchors-unit`, `a11y-unit`, `slider-svg-2d-unit`, `inline-links-detect-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `inline-links`, `featured-in-tours`, `roundtrip`, `smoke`, `tour-anchors`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `slug-titles`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `math-leaks`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `meta-pages`, `meta-nav`, `recent-updates-gate`, `recent-updates`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `gesture-engines`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `progress-unit`, `plan-snapshot-unit`, `tour-anchors-unit`, `a11y-unit`, `slider-svg-2d-unit`, `inline-links-detect-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `plan-snapshot`, `page-metadata`, `toc`, `a11y`, `inline-links`, `featured-in-tours`, `roundtrip`, `smoke`, `tour-anchors`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `slug-titles`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `widget-interactivity`, `math-leaks`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
