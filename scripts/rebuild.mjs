@@ -60,10 +60,6 @@ const STEPS = [
   // silently didn't notice" class from PR #512. Runs after section-indexes
   // so freshly generated sections/*.html are what gets validated.
   { name: 'meta-pages', script: 'validate-meta-pages.mjs',       fix: false },
-  // Gate tours.html's deep links: every ./<page>.html#<anchor> stop must
-  // resolve to a real id on a real page. Topic pages regenerate from JSON, so
-  // a renamed section id silently strands a tour stop at the top of the page.
-  { name: 'tour-anchors', script: 'validate-tour-anchors.mjs',   fix: false },
   // Gate the COMMITTED recent-updates.{js,json} against conflict markers /
   // syntax / parse errors — index.html loads the .js as a plain <script>, so
   // a broken committed file is a landing-page SyntaxError on the deployed
@@ -141,6 +137,13 @@ const STEPS = [
   // any drift, which preserves the CI invariant.
   { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
+  // Tour-stop deep links resolve against topic-page section ids, which are
+  // RENDERED from content/*.json by roundtrip above — so this must run AFTER
+  // roundtrip (and smoke), not before. Placed earlier it would validate stale
+  // on-disk HTML in fix-mode: a JSON edit dropping a tour-linked id would pass,
+  // roundtrip would then rewrite the HTML without it, and the rebuild would
+  // exit green with the break caught only on the next run.
+  { name: 'tour-anchors', script: 'validate-tour-anchors.mjs',  fix: false },
   { name: 'topic-jsdom', script: 'test-topic-jsdom.mjs',        fix: false },
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
   { name: 'notation',   script: 'audit-notation.mjs',           fix: false },
