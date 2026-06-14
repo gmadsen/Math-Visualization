@@ -139,9 +139,17 @@ for (const topic of topics) {
       continue;
     }
     const html = readFileSync(htmlPath, 'utf8');
-    const present = /class="tours-featured"/.test(html);
-    if (tours && !present) issues.push(`${page}: a tour stop but no "Featured in tours" aside (run --fix)`);
-    if (!tours && present) issues.push(`${page}: has a "Featured in tours" aside but is not a tour stop (run --fix)`);
+    const rendered = (html.match(new RegExp(`${BEGIN}[\\s\\S]*?${END}`)) || [])[0] || null;
+    if (tours && !rendered) {
+      issues.push(`${page}: a tour stop but no "Featured in tours" aside (run --fix)`);
+    } else if (!tours && rendered) {
+      issues.push(`${page}: has a "Featured in tours" aside but is not a tour stop (run --fix)`);
+    } else if (tours && rendered && rendered.trim() !== asideHtml(tours).trim()) {
+      // Present but STALE: the tour set/order/titles changed in tours.html
+      // without regenerating. Compare content, not just presence — otherwise a
+      // re-tagged stop ships a wrong reverse list past this CI guard.
+      issues.push(`${page}: "Featured in tours" aside is stale — expected tours [${tours.map((t) => t.id).join(', ')}] (run --fix)`);
+    }
   }
 }
 
