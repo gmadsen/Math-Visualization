@@ -114,7 +114,9 @@
     background:color-mix(in srgb, var(--panel2) 96%, transparent);
     border:1px solid var(--line);border-radius:8px;
     padding:.7rem .9rem;font-size:.88rem;color:var(--ink);
-    backdrop-filter:blur(6px);z-index:5}
+    backdrop-filter:blur(6px);z-index:5;cursor:grab}
+  .focus-card.dragging{cursor:grabbing;user-select:none}
+  .focus-card a, .focus-card button{cursor:pointer}
   .focus-card .fcap{color:var(--yellow);font-size:.74rem;letter-spacing:.14em;
     text-transform:uppercase;font-weight:600;margin-bottom:.25rem}
   .focus-card h3{margin:0 0 .3rem;font-size:1rem;font-weight:600;color:var(--ink)}
@@ -1376,6 +1378,9 @@
   nodeLayer.addEventListener('click', (ev) => {
     const g = ev.target.closest('.node');
     if(!g) return;
+    // A just-completed drag fires a trailing click — swallow it so dragging a
+    // node to reposition it doesn't also toggle its focus.
+    if(suppressNodeClick){ suppressNodeClick = false; return; }
     const idx = parseInt(g.dataset.idx, 10);
     if(ev.metaKey || ev.ctrlKey){
       toggleMasteryFor(idx);
@@ -1392,6 +1397,100 @@
     const n = nodes[idx];
     window.open(`./${n.topicPage}#${n.anchor}`, '_blank', 'noopener');
   });
+
+  // ---------- node drag-to-reposition ----------
+  // The layout is static + cached, so dragging is just: update the node's
+  // data-space x/y, move its <g> and the edges that touch it, and persist to
+  // the layout cache. A small movement threshold distinguishes a drag from a
+  // focus click (the trailing click is swallowed via suppressNodeClick). The
+  // `reseed` button restores a fresh force layout if you want to start over.
+  const edgesByNode = nodes.map(() => []);
+  edges.forEach((e, i) => { edgesByNode[e.from].push(i); edgesByNode[e.to].push(i); });
+  // Client px → viewBox coords (clientToViewbox is private to wirePanZoom, so
+  // replicate it here from the IIFE-global STAGE_W/STAGE_H + stage rect).
+  function clientToVB(cx, cy){
+    const r = stage.getBoundingClientRect();
+    return { x: (cx - r.left) * STAGE_W / r.width, y: (cy - r.top) * STAGE_H / r.height };
+  }
+  let nodeDrag = null;
+  let suppressNodeClick = false;
+  function moveTouchingEdges(idx){
+    for(const ei of edgesByNode[idx]){
+      const e = edges[ei], a = nodes[e.from], b = nodes[e.to], ln = edgeEls[ei];
+      ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y);
+      ln.setAttribute('x2', b.x); ln.setAttribute('y2', b.y);
+    }
+  }
+  nodeLayer.addEventListener('pointerdown', (ev) => {
+    const g = ev.target.closest('.node'); if(!g) return;
+    if(ev.pointerType === 'mouse' && ev.button !== 0) return;
+    if(ev.metaKey || ev.ctrlKey) return;          // reserve cmd/ctrl-click for mastery toggle
+    suppressNodeClick = false;                     // fresh interaction — clear any stale flag
+    const idx = parseInt(g.dataset.idx, 10);
+    const vb = clientToVB(ev.clientX, ev.clientY);
+    // cx0/cy0 are the start in CLIENT px so the drag-vs-click threshold is
+    // zoom-invariant; the node itself moves in data space (vbx/vby ÷ k).
+    nodeDrag = { idx, vbx: vb.x, vby: vb.y, nx0: nodes[idx].x, ny0: nodes[idx].y,
+      cx0: ev.clientX, cy0: ev.clientY, moved: false, pid: ev.pointerId };
+    try { g.setPointerCapture(ev.pointerId); } catch {}
+    ev.stopPropagation();                          // don't let the stage start a pan
+  });
+  nodeLayer.addEventListener('pointermove', (ev) => {
+    if(!nodeDrag || ev.pointerId !== nodeDrag.pid) return;
+    if(!nodeDrag.moved && Math.hypot(ev.clientX - nodeDrag.cx0, ev.clientY - nodeDrag.cy0) > 4){
+      nodeDrag.moved = true; stage.classList.add('dragging'); hideTooltip();
+    }
+    if(nodeDrag.moved){
+      const vb = clientToVB(ev.clientX, ev.clientY);
+      const ddx = (vb.x - nodeDrag.vbx) / viewT.k; // viewBox delta → data-space delta
+      const ddy = (vb.y - nodeDrag.vby) / viewT.k;
+      const n = nodes[nodeDrag.idx];
+      n.x = nodeDrag.nx0 + ddx; n.y = nodeDrag.ny0 + ddy;
+      nodeEls[nodeDrag.idx].setAttribute('transform', `translate(${n.x},${n.y})`);
+      moveTouchingEdges(nodeDrag.idx);
+      ev.stopPropagation();
+    }
+  });
+  // Only a pointerUP after a real move suppresses the trailing click. A
+  // pointercancel produces no click, so it must NOT leave the flag set (it
+  // would otherwise eat the user's next legitimate node click).
+  function endNodeDrag(setSuppress){
+    if(!nodeDrag) return;
+    if(nodeDrag.moved){ saveCachedLayout(); cullLabels(); if(setSuppress) suppressNodeClick = true; }
+    stage.classList.remove('dragging');
+    nodeDrag = null;
+  }
+  nodeLayer.addEventListener('pointerup', () => endNodeDrag(true));
+  nodeLayer.addEventListener('pointercancel', () => endNodeDrag(false));
+
+  // ---------- draggable focus card (pin it where you want; desktop) ----------
+  // On mobile the card is a fixed bottom sheet, so dragging is disabled there.
+  let cardDrag = null;
+  focusCard.addEventListener('pointerdown', (ev) => {
+    if(window.matchMedia('(max-width:720px)').matches) return;
+    if(ev.target.closest('a, button, [data-action]')) return;   // leave the controls clickable
+    if(ev.pointerType === 'mouse' && ev.button !== 0) return;
+    const r = focusCard.getBoundingClientRect();
+    cardDrag = { dx: ev.clientX - r.left, dy: ev.clientY - r.top, pid: ev.pointerId };
+    focusCard.style.right = 'auto'; focusCard.style.bottom = 'auto';
+    focusCard.classList.add('dragging');
+    try { focusCard.setPointerCapture(ev.pointerId); } catch {}
+    ev.preventDefault();
+    ev.stopPropagation();   // the card is a child of .stage — don't also start a background pan
+  });
+  focusCard.addEventListener('pointermove', (ev) => {
+    if(!cardDrag || ev.pointerId !== cardDrag.pid) return;
+    const sr = stage.getBoundingClientRect();
+    let left = ev.clientX - sr.left - cardDrag.dx;
+    let top  = ev.clientY - sr.top  - cardDrag.dy;
+    left = Math.max(4, Math.min(left, sr.width  - focusCard.offsetWidth  - 4));
+    top  = Math.max(4, Math.min(top,  sr.height - focusCard.offsetHeight - 4));
+    focusCard.style.left = left + 'px';
+    focusCard.style.top  = top  + 'px';
+  });
+  function endCardDrag(){ if(cardDrag){ cardDrag = null; focusCard.classList.remove('dragging'); } }
+  focusCard.addEventListener('pointerup', endCardDrag);
+  focusCard.addEventListener('pointercancel', endCardDrag);
 
   // ---------- search ----------
   const searchEl = document.getElementById('search');
