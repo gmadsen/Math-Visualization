@@ -25,7 +25,7 @@ The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages g
    - *Mindmap*: pinnable focus card / drag-to-reposition.
    - *Tours*: tour-guide sticky banner on topic pages when arriving via a tour link (needs a committed tours-data.js + per-page loader; `?tour=` deep-link convention).
    - *History*: `?capstone=` pre-filter crossover.
-   - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently); **unified meta-page nav — normalize the markup FIRST, then inject** (attempted in #528, pulled: the meta pages use 3+ heterogeneous nav containers — pathway/mindmap have the backlink+row in a non-`<nav>` element with no `</nav>`, most use `<nav class="toc">`, tags uses `<nav class="top-nav">` with a nested `<div class="nav-links">`, and whos-who/open-problems/tours/search carry an older loose-`<a>` row with custom labels; a regex injector ends up special-casing each variant. Normalize to one container + one row shape across all meta pages, *then* a trivial injector keeps whos-who/open-problems present and the row in sync).
+   - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently).
 3. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out); `prefers-reduced-motion` for animated engines + history pulses + program smooth-scrolls; reading-width/font-size knob in `MVDisplay`; high-contrast as a third `mvnb.theme` value; per-section accent tinting on topic pages.
 
 ## Missing-topic candidates

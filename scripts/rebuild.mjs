@@ -60,6 +60,11 @@ const STEPS = [
   // silently didn't notice" class from PR #512. Runs after section-indexes
   // so freshly generated sections/*.html are what gets validated.
   { name: 'meta-pages', script: 'validate-meta-pages.mjs',       fix: false },
+  // Canonical cross-page nav row on every secondary meta page (--fix
+  // normalizes + rewrites the row by maximal-munch from the backlink; audit
+  // mode gates drift/duplication). Writes meta-page HTML directly — these
+  // aren't topic pages, so they're outside the content round-trip.
+  { name: 'meta-nav',   script: 'inject-meta-nav.mjs',           fix: true  },
   // Gate the COMMITTED recent-updates.{js,json} against conflict markers /
   // syntax / parse errors — index.html loads the .js as a plain <script>, so
   // a broken committed file is a landing-page SyntaxError on the deployed
