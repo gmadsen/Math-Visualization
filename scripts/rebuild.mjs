@@ -75,6 +75,9 @@ const STEPS = [
   // CI actually deploys. Validating first catches the committed artifact.
   { name: 'recent-updates-gate', script: 'validate-recent-updates.mjs', fix: false },
   { name: 'recent-updates', script: 'build-recent-updates.mjs',  fix: false },
+  // Generate tours-data.js from tours.html for the tour-guide banner. --fix
+  // writes; --no-fix audits drift (the banner data must track tours.html).
+  { name: 'tours-data', script: 'build-tours-data.mjs',          fix: true  },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
   { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },
@@ -113,6 +116,11 @@ const STEPS = [
     extraArgs: ['--strict'] },
   { name: 'backlinks',  script: 'inject-used-in-backlinks.mjs', fix: true  },
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
+  // tour-banner adds js/tour-banner.js to each tour-stop page. It anchors its
+  // loader fence ABOVE the display-prefs head fence (which must stay
+  // immediately before </head> for that injector's byte-exact audit), so the
+  // two don't fight regardless of order.
+  { name: 'tour-banner', script: 'inject-tour-banner.mjs',       fix: true  },
   { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },
   { name: 'index-stats', script: 'inject-index-stats.mjs',      fix: true  },
   { name: 'plan-snapshot', script: 'inject-plan-snapshot.mjs',  fix: true  },

@@ -1671,5 +1671,24 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
   window.addEventListener('pageshow', e => { if(e.persisted) init(); });
 })();
 </script>
+<script>
+  // Tour-banner handoff: when a reader clicks a tour stop, stash which tour +
+  // stop index they're entering so js/tour-banner.js can show the guide banner
+  // on the destination topic page. Keeps tours.html's stop hrefs clean (no
+  // ?tour= rewrite); the banner's own prev/next use ?tour= URLs from there on.
+  document.addEventListener('click', function(ev){
+    const a = ev.target.closest && ev.target.closest('section.tour .stop-title a[href]');
+    if(!a) return;
+    const sec = a.closest('section.tour');
+    if(!sec || !sec.id) return;
+    const links = Array.prototype.slice.call(sec.querySelectorAll('.stop-title a[href]'));
+    const stop = links.indexOf(a);
+    const page = (a.getAttribute('href') || '').replace(/^\.\//, '').split(/[?#]/)[0];
+    try {
+      sessionStorage.setItem('mvnb.tourHandoff', JSON.stringify({ tour: sec.id, stop: stop, page: page }));
+    } catch(e) { /* ignore */ }
+    // navigation proceeds normally
+  });
+</script>
 </body>
 </html>
