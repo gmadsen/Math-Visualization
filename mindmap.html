@@ -1425,21 +1425,25 @@
     const g = ev.target.closest('.node'); if(!g) return;
     if(ev.pointerType === 'mouse' && ev.button !== 0) return;
     if(ev.metaKey || ev.ctrlKey) return;          // reserve cmd/ctrl-click for mastery toggle
+    suppressNodeClick = false;                     // fresh interaction — clear any stale flag
     const idx = parseInt(g.dataset.idx, 10);
     const vb = clientToVB(ev.clientX, ev.clientY);
-    nodeDrag = { idx, vbx: vb.x, vby: vb.y, nx0: nodes[idx].x, ny0: nodes[idx].y, moved: false, pid: ev.pointerId };
+    // cx0/cy0 are the start in CLIENT px so the drag-vs-click threshold is
+    // zoom-invariant; the node itself moves in data space (vbx/vby ÷ k).
+    nodeDrag = { idx, vbx: vb.x, vby: vb.y, nx0: nodes[idx].x, ny0: nodes[idx].y,
+      cx0: ev.clientX, cy0: ev.clientY, moved: false, pid: ev.pointerId };
     try { g.setPointerCapture(ev.pointerId); } catch {}
     ev.stopPropagation();                          // don't let the stage start a pan
   });
   nodeLayer.addEventListener('pointermove', (ev) => {
     if(!nodeDrag || ev.pointerId !== nodeDrag.pid) return;
-    const vb = clientToVB(ev.clientX, ev.clientY);
-    const ddx = (vb.x - nodeDrag.vbx) / viewT.k;   // viewBox delta → data-space delta
-    const ddy = (vb.y - nodeDrag.vby) / viewT.k;
-    if(!nodeDrag.moved && Math.hypot(ddx, ddy) > 2.5){
+    if(!nodeDrag.moved && Math.hypot(ev.clientX - nodeDrag.cx0, ev.clientY - nodeDrag.cy0) > 4){
       nodeDrag.moved = true; stage.classList.add('dragging'); hideTooltip();
     }
     if(nodeDrag.moved){
+      const vb = clientToVB(ev.clientX, ev.clientY);
+      const ddx = (vb.x - nodeDrag.vbx) / viewT.k; // viewBox delta → data-space delta
+      const ddy = (vb.y - nodeDrag.vby) / viewT.k;
       const n = nodes[nodeDrag.idx];
       n.x = nodeDrag.nx0 + ddx; n.y = nodeDrag.ny0 + ddy;
       nodeEls[nodeDrag.idx].setAttribute('transform', `translate(${n.x},${n.y})`);
@@ -1447,14 +1451,17 @@
       ev.stopPropagation();
     }
   });
-  function endNodeDrag(){
+  // Only a pointerUP after a real move suppresses the trailing click. A
+  // pointercancel produces no click, so it must NOT leave the flag set (it
+  // would otherwise eat the user's next legitimate node click).
+  function endNodeDrag(setSuppress){
     if(!nodeDrag) return;
-    if(nodeDrag.moved){ saveCachedLayout(); suppressNodeClick = true; cullLabels(); }
+    if(nodeDrag.moved){ saveCachedLayout(); cullLabels(); if(setSuppress) suppressNodeClick = true; }
     stage.classList.remove('dragging');
     nodeDrag = null;
   }
-  nodeLayer.addEventListener('pointerup', endNodeDrag);
-  nodeLayer.addEventListener('pointercancel', endNodeDrag);
+  nodeLayer.addEventListener('pointerup', () => endNodeDrag(true));
+  nodeLayer.addEventListener('pointercancel', () => endNodeDrag(false));
 
   // ---------- draggable focus card (pin it where you want; desktop) ----------
   // On mobile the card is a fixed bottom sheet, so dragging is disabled there.
