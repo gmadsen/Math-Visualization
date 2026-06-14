@@ -56,20 +56,25 @@ function render(tours) {
     + 'window.MV_TOURS = ' + JSON.stringify(tours, null, 2) + ';\n';
 }
 
-const toursSrc = readFileSync(join(repoRoot, 'tours.html'), 'utf8');
-const tours = parseTours(toursSrc);
-const out = render(tours);
-const outPath = join(repoRoot, 'tours-data.js');
-
-if (CHECK) {
-  let current = '';
-  try { current = readFileSync(outPath, 'utf8'); } catch {}
-  if (current !== out) {
-    console.error('build-tours-data: tours-data.js is stale vs tours.html — run `node scripts/build-tours-data.mjs`');
-    process.exit(1);
+// Run from the CLI only — so `parseTours` can be imported (e.g. by a test)
+// without triggering the audit/write side effects.
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+if (isMain) {
+  const toursSrc = readFileSync(join(repoRoot, 'tours.html'), 'utf8');
+  const tours = parseTours(toursSrc);
+  const out = render(tours);
+  const outPath = join(repoRoot, 'tours-data.js');
+  const count = `${tours.length} tours, ${tours.reduce((n, t) => n + t.stops.length, 0)} stops`;
+  if (CHECK) {
+    let current = '';
+    try { current = readFileSync(outPath, 'utf8'); } catch {}
+    if (current !== out) {
+      console.error('build-tours-data: tours-data.js is stale vs tours.html — run `node scripts/build-tours-data.mjs --fix`');
+      process.exit(1);
+    }
+    console.log(`build-tours-data: ok (${count})`);
+  } else {
+    writeFileSync(outPath, out);
+    console.log(`build-tours-data: wrote tours-data.js (${count})`);
   }
-  console.log(`build-tours-data: ok (${tours.length} tours, ${tours.reduce((n, t) => n + t.stops.length, 0)} stops)`);
-} else {
-  writeFileSync(outPath, out);
-  console.log(`build-tours-data: wrote tours-data.js (${tours.length} tours, ${tours.reduce((n, t) => n + t.stops.length, 0)} stops)`);
 }

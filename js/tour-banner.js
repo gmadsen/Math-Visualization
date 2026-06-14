@@ -106,7 +106,15 @@
       + '</span>'
       + '<button class="mtb-close" type="button" aria-label="Dismiss tour banner">✕</button>';
     document.body.appendChild(bar);
-    bar.querySelector('.mtb-close').addEventListener('click', function () { bar.remove(); });
+    // Reserve space so the fixed bar never occludes the bottom of the page
+    // (e.g. the changelog footer); restore it on dismiss. Measured after
+    // append so it accounts for wrapping on narrow viewports.
+    var prevPad = document.body.style.paddingBottom;
+    document.body.style.paddingBottom = bar.offsetHeight + 'px';
+    bar.querySelector('.mtb-close').addEventListener('click', function () {
+      document.body.style.paddingBottom = prevPad;
+      bar.remove();
+    });
     if (window.renderMathInElement) {
       try { window.renderMathInElement(bar, { delimiters: [{ left: '$', right: '$', display: false }], throwOnError: false }); }
       catch (e) { /* ignore */ }
