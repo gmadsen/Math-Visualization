@@ -286,12 +286,16 @@ function extractOnlyList(readme) {
   // list is a comma-separated sequence of backtick-quoted step names. It may
   // appear inside parentheses, after a colon, or inline in prose — we accept
   // any of those as long as we can find the first long run of backticked
-  // comma-separated names within ~800 chars of the "Valid names:" prose marker
-  // (or `--only` if the marker isn't present).
+  // comma-separated names after the "Valid names:" prose marker (or `--only`
+  // if the marker isn't present). The region runs to the end of the marker's
+  // paragraph (next blank line), not a fixed char budget — a fixed window
+  // silently truncated the tail as the step count grew (the list crossed 50
+  // and `doc-drift`, the last name, fell off, masking real future drift).
   let idx = readme.indexOf('Valid names:');
   if (idx === -1) idx = readme.indexOf('--only');
   if (idx === -1) return null;
-  const region = readme.slice(idx, idx + 800);
+  const para = readme.slice(idx).search(/\n\s*\n/);
+  const region = para === -1 ? readme.slice(idx) : readme.slice(idx, idx + para);
   // Match a sequence of at least 3 backticked names joined by commas.
   const run = region.match(
     /(?:`[a-z0-9\-]+`(?:\s*,\s*|\s+))+`[a-z0-9\-]+`/

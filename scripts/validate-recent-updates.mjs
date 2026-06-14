@@ -1,13 +1,19 @@
 #!/usr/bin/env node
-// Validator: the generated recent-updates.{js,json} must be loadable.
+// Validator: the COMMITTED recent-updates.{js,json} must be loadable.
 //
 // Motivation (PR #518 near-miss): a git stash/rebase collision left
 // `<<<<<<< Updated upstream` conflict markers committed in recent-updates.js,
-// and CI passed anyway — nothing in the chain parses these files (the builder
-// regenerates rather than validates, and the `generated` timestamp makes a
-// byte-comparison gate useless). index.html and updates.html load
-// recent-updates.js as a plain <script>, so a syntax error there is a hard
-// failure on the landing page. This gate makes that class fail CI.
+// and CI passed anyway. index.html and updates.html load recent-updates.js as
+// a plain <script>, and GitHub Pages serves the COMMITTED bytes — so a syntax
+// error there is a hard failure on the deployed landing page. CI missed it
+// because build-recent-updates.mjs unconditionally regenerates both files,
+// overwriting the broken committed bytes with fresh-correct ones before any
+// later step could read them.
+//
+// This gate therefore runs in the rebuild chain BEFORE build-recent-updates,
+// so it validates the committed artifact (== the deployed bytes in a clean CI
+// checkout) rather than the builder's fresh output. Read the on-disk file as
+// it stands; do not regenerate first.
 //
 // Checks:
 //   1. Neither file contains git conflict markers.
