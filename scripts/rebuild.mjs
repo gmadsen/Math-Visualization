@@ -60,6 +60,10 @@ const STEPS = [
   // silently didn't notice" class from PR #512. Runs after section-indexes
   // so freshly generated sections/*.html are what gets validated.
   { name: 'meta-pages', script: 'validate-meta-pages.mjs',       fix: false },
+  // Gate tours.html's deep links: every ./<page>.html#<anchor> stop must
+  // resolve to a real id on a real page. Topic pages regenerate from JSON, so
+  // a renamed section id silently strands a tour stop at the top of the page.
+  { name: 'tour-anchors', script: 'validate-tour-anchors.mjs',   fix: false },
   // Gate the COMMITTED recent-updates.{js,json} against conflict markers /
   // syntax / parse errors — index.html loads the .js as a plain <script>, so
   // a broken committed file is a landing-page SyntaxError on the deployed
@@ -82,6 +86,7 @@ const STEPS = [
   { name: 'doc-drift-unit', script: 'test-doc-drift.mjs',       fix: false },
   { name: 'progress-unit', script: 'test-progress.mjs',         fix: false },
   { name: 'plan-snapshot-unit', script: 'test-inject-plan-snapshot.mjs', fix: false },
+  { name: 'tour-anchors-unit', script: 'test-validate-tour-anchors.mjs', fix: false },
   { name: 'a11y-unit',  script: 'test-audit-accessibility.mjs', fix: false },
   { name: 'slider-svg-2d-unit', script: 'test-slider-svg-2d.mjs', fix: false },
   { name: 'inline-links-detect-unit', script: 'test-inline-links-detect.mjs', fix: false },
