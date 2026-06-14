@@ -36,6 +36,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -263,6 +267,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>The Langlands program</h1>
   <p class="sub">A vast network of conjectures predicting that <em>every</em> arithmetic-geometric L-function — those built from Galois representations, from elliptic curves, from étale cohomology of arithmetic varieties — agrees with an <em>analytic</em> L-function built from automorphic representations of $\GL_n$. Class field theory is the abelian case ($n = 1$); modularity of elliptic curves is the proven non-abelian case for $n = 2$ over $\mathbb{Q}$; Sato–Tate is its symmetric-power consequence. The general statement remains conjectural and is the organising principle of half of modern number theory. Robert Langlands sketched the program in a 1967 letter to André Weil; the predicted reciprocity laws would unify class field theory, Artin reciprocity, modularity, and Sato–Tate equidistribution under a single Tannakian framework. (GRH for automorphic L-functions is a separate analytic conjecture, not predicted by the Langlands package.)</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#langlands-arc">Langlands philosophy</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="philosophy">
 <h2>1. The philosophy: arithmetic on one side, analytic on the other</h2>

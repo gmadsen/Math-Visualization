@@ -49,6 +49,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -472,6 +476,10 @@ function polyPretty(coeffs, varname='x'){
   <h1>Frobenius and the reciprocity dictionary</h1>
   <p class="sub">A single element of a Galois group controls how a polynomial factors modulo each prime. Reading that element tells you a reciprocity law — and the grand claim of the Langlands program is that the reading can always be done in terms of automorphic forms.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#local-global">The local–global principle</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="setup">
 <h2>1. Setup: polynomials, splitting fields, Galois groups</h2>

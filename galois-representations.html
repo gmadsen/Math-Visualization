@@ -50,6 +50,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -273,6 +277,10 @@ function mod(a,n){ return ((a%n)+n)%n; }
   <p class="sub">The absolute Galois group $G_\mathbb{Q}$ is unimaginably huge — but you can study it by letting it act on vector spaces. A Galois representation $\rho: G_\mathbb{Q} \to \mathrm{GL}_n$ packages an entire Diophantine object (an elliptic curve, a modular form, a number field) as a tower of matrices. The Frobenius trace at each unramified prime is the fingerprint.</p>
   <p class="small">Prerequisites: <a href="./frobenius-and-reciprocity.html">Frobenius and reciprocity</a>, <a href="./representation-theory.html">representation theory</a>, <a href="./galois.html">Galois theory</a>, <a href="./elliptic-curves.html">elliptic curves</a>, <a href="./p-adic-numbers.html">$p$-adic numbers</a>.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 2 guided tours:</span> <a href="./tours.html#flt-proof">How Fermat's Last Theorem was proved</a> · <a href="./tours.html#langlands-arc">Langlands philosophy</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="abs">
 <h2>1. The absolute Galois group $G_\mathbb{Q}$</h2>

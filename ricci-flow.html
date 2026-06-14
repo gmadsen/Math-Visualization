@@ -35,6 +35,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -260,6 +264,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>Ricci flow</h1>
   <p class="sub">Take a Riemannian metric and let it evolve as if it were a temperature distribution: positively curved regions cool toward roundness, negatively curved regions stretch out. Hamilton's equation $\partial_t g_{ij} = -2 R_{ij}$ is a heat equation for the metric. Singularities form, surgery removes them, and what survives is the geometric decomposition of the manifold — the path Perelman walked to prove the Poincaré conjecture.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#millennium-prizes">The seven Millennium Prize Problems</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="equation">
 <h2>1. The Ricci flow equation</h2>

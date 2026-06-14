@@ -50,6 +50,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -252,6 +256,10 @@ function drawNode(svg, x, y, label, opts={}){
   <p class="sub">For a non-CM elliptic curve $E/\mathbb{Q}$, the Frobenius traces $a_p$ fill the Hasse interval $[-2\sqrt{p},2\sqrt{p}]$ by a universal law — the semicircle density $(2/\pi)\sin^2\theta\,d\theta$. It is the arithmetic shadow of Haar measure on $\mathrm{SU}(2)$.</p>
   <p class="small" style="margin-top:-.4rem"><a href="./capstone-satotate-story.html" style="color:var(--cyan);text-decoration:none">Story →</a> &nbsp;<span style="color:var(--mute)">long-form narrative: from Sato's histograms to the automorphy of every $\mathrm{Sym}^n$.</span></p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 1 guided tour:</span> <a href="./tours.html#sato-tate">Sato–Tate: semicircles from elliptic curves</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="angle">
 <h2>1. The Frobenius angle</h2>

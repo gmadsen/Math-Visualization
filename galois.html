@@ -25,6 +25,10 @@
 <script src="./js/widget-proof-scrubber.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -246,6 +250,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>Galois, constructibility, and the quintic</h1>
   <p class="sub">How the symmetry of the roots of a polynomial determines whether you can solve it in radicals — and why the ancient Greeks couldn't double the cube.</p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 2 guided tours:</span> <a href="./tours.html#flt-proof">How Fermat's Last Theorem was proved</a> · <a href="./tours.html#solvability-arc">Solvability across mathematics</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="intro">
 <h2>1. The symmetry of roots</h2>

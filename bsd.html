@@ -51,6 +51,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -254,6 +258,10 @@ function drawNode(svg, x, y, label, opts={}){
   <h1>Birch and Swinnerton-Dyer</h1>
   <p class="sub">Count points on $E$ modulo each prime and multiply. Growth of order $(\log X)^r$ recovers the Mordell–Weil rank $r$. Transpose to the $s$-plane and BSD predicts $L(E, s)$ vanishes to order exactly $r$ at $s = 1$ — a million-dollar conjecture born on EDSAC printouts. <a href="./capstone-bsd-story.html" style="color:var(--yellow);text-decoration:none;border-bottom:1px dashed color-mix(in srgb, var(--yellow) 45%, transparent);white-space:nowrap">Read the story →</a></p>
 </section>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 2 guided tours:</span> <a href="./tours.html#bsd-road">The road to BSD</a> · <a href="./tours.html#millennium-prizes">The seven Millennium Prize Problems</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="mordell-weil">
 <h2>1. Mordell–Weil: a finitely generated group of rational points</h2>

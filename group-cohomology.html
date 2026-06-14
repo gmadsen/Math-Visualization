@@ -35,6 +35,10 @@
 })();
 </script>
 <style>
+  aside.tours-featured{margin:1.2rem 0;padding:.55rem .9rem;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;background:var(--panel);color:var(--mute);font-size:.9rem}
+  aside.tours-featured .ttl{color:var(--cyan);font-weight:600;margin-right:.35rem}
+  aside.tours-featured a{color:var(--cyan);text-decoration:none}
+  aside.tours-featured a:hover{text-decoration:underline}
   :root{
     --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
@@ -264,6 +268,10 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Let $G$ be a group and $M$ a (left) $G$-module — i.e. an abelian group on which $G$ acts. The functor $M\mapsto M^G=\{m\in M:g\cdot m=m\;\forall g\}$ of <em>fixed points</em> is left exact but not right exact: a surjection $M\twoheadrightarrow N$ of $G$-modules need not surject on fixed points (an element of $N^G$ may lift to $M$ only after twisting by a cocycle). The right derived functors $H^n(G,-)=R^n(-)^G$ are <strong>group cohomology</strong>. Equivalently — and this is the working definition — the cohomology of the complex of <em>cochains</em> on the bar resolution of $\mathbb{Z}$ over $\mathbb{Z}[G]$.</p>
 
 <p>Three things make this notebook entry unusually fertile. First, the low-dimensional groups have crisp interpretations: $H^0=M^G$, $H^1$ classifies twisted forms / crossed homomorphisms, $H^2$ classifies extensions. Second, when $G=\Gal(\bar k/k)$ acts on a Galois module, group cohomology becomes <em>Galois cohomology</em>, and the punch lines are <strong>Hilbert 90</strong> and the <strong>Brauer group</strong>. Third, for cyclic $G$ the cohomology is periodic with period 2 — a genuine miracle that powers class field theory.</p>
+
+<!-- tours-featured-auto-begin -->
+<aside class="tours-featured"><span class="ttl">Featured in 2 guided tours:</span> <a href="./tours.html#cohomology">What is cohomology?</a> · <a href="./tours.html#solvability-arc">Solvability across mathematics</a></aside>
+<!-- tours-featured-auto-end -->
 
 <section id="bar">
 <h2>1. The bar resolution and $H^n(G,M)$</h2>
