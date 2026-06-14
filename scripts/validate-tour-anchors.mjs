@@ -27,16 +27,22 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// All internal links of the form ./<page>.html or ./<page>.html#<anchor>.
-// Anchored to a leading `./` so external/CDN links never match.
-const LINK_RE = /href="\.\/([a-zA-Z0-9_-]+\.html)(?:#([a-zA-Z0-9_:.-]+))?"/g;
+// All internal links of the form ./<page>.html[?query][#anchor]. Anchored to a
+// leading `./` so external/CDN links are deliberately skipped (out of scope:
+// this gate validates the notebook's own pages). An optional `?query` is
+// tolerated before the fragment so a future `?tour=…#anchor` stop link is still
+// matched on its anchor rather than silently skipped (a skip would read as
+// "ok" — the worst failure mode for a rot detector).
+const LINK_RE = /href="\.\/([a-zA-Z0-9_-]+\.html)(?:\?[^"#]*)?(?:#([a-zA-Z0-9_:.-]+))?"/g;
 
-// Collect every id="..." on a page.
+// Collect every id="..." / id='...' on a page (both quote styles occur in the
+// corpus; matching only double quotes would miss single-quoted section ids and
+// falsely pass a rotted anchor).
 export function extractIds(html) {
   const ids = new Set();
-  const re = /\sid="([^"]+)"/g;
+  const re = /\sid=(?:"([^"]+)"|'([^']+)')/g;
   let m;
-  while ((m = re.exec(html))) ids.add(m[1]);
+  while ((m = re.exec(html))) ids.add(m[1] ?? m[2]);
   return ids;
 }
 

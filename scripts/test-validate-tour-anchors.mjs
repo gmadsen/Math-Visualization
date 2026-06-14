@@ -69,10 +69,35 @@ const idsFor = (page) => (page in PAGES ? PAGES[page] : null);
   check('external-ignored', checked === 1, `got ${checked}`);
 }
 
-// 7. extractIds picks up id="..." attributes.
+// 7. extractIds picks up id="..." AND id='...' attributes (both quote styles).
 {
-  const ids = extractIds(`<section id="one"><div id="two"></div></section><svg id="three">`);
+  const ids = extractIds(`<section id="one"><div id='two'></div></section><svg id="three">`);
   check('extractIds', ids.has('one') && ids.has('two') && ids.has('three') && ids.size === 3, [...ids].join(','));
+}
+
+// 8. A page that EXISTS but has zero ids (empty Set, not null) with an anchored
+//    link is flagged as a missing anchor — not misreported as a missing file.
+{
+  const idsForEmpty = (page) => (page === 'empty.html' ? new Set() : null);
+  const src = `<a href="./empty.html#anything">x</a>`;
+  const { issues } = findUnresolvedLinks(src, idsForEmpty);
+  check('empty-page anchor flagged', issues.length === 1 && /no matching id="anything"/.test(issues[0]), JSON.stringify(issues));
+}
+
+// 9. Multiple distinct issues in one source are ALL reported (not just first).
+{
+  const src = `<a href="./a.html#gone">1</a> <a href="./ghost.html#x">2</a> <a href="./b.html#missing">3</a>`;
+  const { issues, checked } = findUnresolvedLinks(src, idsFor);
+  check('batch checked', checked === 3, `got ${checked}`);
+  check('batch all reported', issues.length === 3, JSON.stringify(issues));
+}
+
+// 10. A query string before the fragment doesn't hide the anchor (?tour= forward-compat).
+{
+  const src = `<a href="./a.html?tour=galois#group">q</a> <a href="./a.html?tour=x#gone">bad</a>`;
+  const { issues, checked } = findUnresolvedLinks(src, idsFor);
+  check('query-string anchor parsed', checked === 2, `got ${checked}`);
+  check('query-string rot flagged', issues.length === 1 && /#gone/.test(issues[0]), JSON.stringify(issues));
 }
 
 if (failures.length) {
@@ -80,5 +105,5 @@ if (failures.length) {
   for (const f of failures) console.error(`  [x] ${f}`);
   process.exit(1);
 }
-console.log('test-validate-tour-anchors: all 7 suites passed');
+console.log('test-validate-tour-anchors: all 10 suites passed');
 process.exit(0);
