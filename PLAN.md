@@ -23,7 +23,7 @@ The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages g
 1. **Meta-page candidates (not yet greenlit — ask before building):** counterexamples gallery (aggregate the existing counterexample widgets), syllabus builder (pathway copy-plan grown into a self-checking checklist page), exam mode (timed mixed quiz over mastered concepts — check review.html's role first).
 2. **Feature-improvement backlog** (one small PR each, pick by appetite):
    - *Mindmap*: pinnable focus card / drag-to-reposition (fuzzy search shipped #522).
-   - *Tours*: tour-guide sticky banner on topic pages when arriving via a tour link; "featured in tours" reverse index on topic pages. (Build-time tour-anchor validation shipped — `validate-tour-anchors.mjs`.)
+   - *Tours*: tour-guide sticky banner on topic pages when arriving via a tour link (needs a committed tours-data.js + per-page loader; `?tour=` deep-link convention). (Shipped: build-time `validate-tour-anchors.mjs`; "featured in tours" reverse-index aside via `inject-featured-in-tours.mjs`.)
    - *History*: timeline search across bios/locations, not just titles; `?capstone=` pre-filter crossover.
    - *Search*: typo tolerance / did-you-mean; inline search box on the index hero.
    - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently); section-links footer fences say `auto` but no script owns them (rename or write the injector); unified meta-page nav (each page hand-rolls its own link row — whos-who/open-problems are absent from older pages' navs).
