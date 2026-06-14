@@ -13,7 +13,8 @@
 //   - --fix: mutates content/<topic>.json (the JSON source of truth) so
 //     test-roundtrip.mjs --fix propagates to <topic>.html. The aside lives in
 //     a fenced region in rawBodyPrefix (right after the hero), and the CSS is
-//     injected once into rawHead via ensureCss. Re-running is idempotent:
+//     injected once at the TOP of rawHead's first <style> block (ensureCssTop,
+//     deliberately not the library's before-</style> ensureCss). Idempotent:
 //     the fenced region is stripped and rewritten, so nothing accumulates and
 //     a removed tour stop drops its aside.
 //
@@ -62,7 +63,8 @@ function buildPageToTours() {
   while ((m = secRe.exec(src))) {
     const id = m[1];
     const body = m[2];
-    const title = ((body.match(/<h2>([^<]*)<\/h2>/) || [])[1] || id).replace(/^\d+\.\s*/, '').trim();
+    const rawTitle = (body.match(/<h2>([\s\S]*?)<\/h2>/) || [])[1] || id;
+    const title = rawTitle.replace(/<[^>]+>/g, '').replace(/^\d+\.\s*/, '').trim();
     const stopRe = /<span class="stop-title"><a href="\.\/([a-zA-Z0-9_-]+\.html)(?:#[a-zA-Z0-9_:.-]+)?"/g;
     const seenOnThisTour = new Set();
     let s;
@@ -132,7 +134,10 @@ for (const topic of topics) {
     }
   } else {
     // Audit against the rendered HTML.
-    if (!existsSync(htmlPath)) continue;
+    if (!existsSync(htmlPath)) {
+      if (tours) issues.push(`${page}: a tour stop but the page does not exist`);
+      continue;
+    }
     const html = readFileSync(htmlPath, 'utf8');
     const present = /class="tours-featured"/.test(html);
     if (tours && !present) issues.push(`${page}: a tour stop but no "Featured in tours" aside (run --fix)`);

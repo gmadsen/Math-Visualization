@@ -60,7 +60,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 |---|---|
 | [`inject-changelog-footer.mjs`](./inject-changelog-footer.mjs) | Rebuild `<details class="changelog">` from `git log --follow`. `--audit` mode for CI. |
 | [`inject-used-in-backlinks.mjs`](./inject-used-in-backlinks.mjs) | Reverse-direction `<aside class="related">` on each concept section. `--fix` writes. |
-| [`inject-featured-in-tours.mjs`](./inject-featured-in-tours.mjs) | "Featured in guided tours" aside on each topic page that is a tour stop, parsed from `tours.html` (the reverse of the tour→topic links). `--fix` writes a fenced aside into `content/<topic>.json`'s `rawBodyPrefix` + CSS via `ensureCss`; audit mode verifies presence vs. the rendered HTML. Idempotent; drops the aside when a topic stops being a stop. |
+| [`inject-featured-in-tours.mjs`](./inject-featured-in-tours.mjs) | "Featured in guided tours" aside on each topic page that is a tour stop, parsed from `tours.html` (the reverse of the tour→topic links). `--fix` writes a fenced aside into `content/<topic>.json`'s `rawBodyPrefix` + CSS at the top of the first `<style>` block (bespoke `ensureCssTop`, kept clear of the before-`</style>` slot `inject-display-prefs` owns); audit mode verifies presence vs. the rendered HTML. Idempotent; drops the aside when a topic stops being a stop. |
 | [`inject-breadcrumb.mjs`](./inject-breadcrumb.mjs) | Breadcrumb + prev/next-in-section in top nav. |
 | [`inject-display-prefs.mjs`](./inject-display-prefs.mjs) | `<script src="./js/display-prefs.js">` + CSS for widget/quiz hide toggle. |
 | [`inject-index-stats.mjs`](./inject-index-stats.mjs) | Keep `index.html` hero-tagline topic/concept counts live. |
