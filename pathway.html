@@ -137,6 +137,8 @@
   .section-stripe{stroke:none}
   .edge{fill:none;stroke:color-mix(in srgb, var(--line) 60%, var(--ink) 40%);stroke-width:1.7;opacity:.95}
   .edge.lit{stroke:var(--violet);stroke-width:2.2;opacity:1}
+  /* Outgoing edges of the selected node — the "this unlocks…" direction. */
+  .edge.lit-out{stroke:var(--cyan);stroke-width:2.2;opacity:1;stroke-dasharray:5 3}
   .panel-right{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:1rem 1.1rem;margin-top:1rem}
   .panel-right h3{margin:.2rem 0 .6rem;color:var(--yellow);font-size:1rem}
@@ -144,6 +146,9 @@
   .panel-right .meta{color:var(--mute);font-size:.85rem;margin:.2rem 0}
   .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
     border-radius:999px;padding:1px 8px;font-size:.78rem;color:var(--mute);margin-right:4px}
+  /* Clickable pills in the "Unlocks" view — navigate to the dependent concept. */
+  .pill.go{cursor:pointer;margin-bottom:3px;border-color:color-mix(in srgb, var(--cyan) 45%, var(--line));color:var(--ink)}
+  .pill.go:hover,.pill.go:focus-visible{background:color-mix(in srgb, var(--cyan) 16%, var(--panel2));border-color:var(--cyan);outline:none}
   .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.6rem 0}
   .small{font-size:.85rem;color:var(--mute)}
   .stats{display:flex;gap:1.2rem;color:var(--mute);font-size:.88rem;flex-wrap:wrap;align-items:center}
@@ -490,6 +495,19 @@
   for(const t of topics){
     for(const c of t.concepts){
       byId.set(c.id, {...c, topicId: t.topic, topicPage: t.page, topicTitle: t.title});
+    }
+  }
+
+  // Global reverse adjacency: for each concept, the concepts that list it as a
+  // direct prerequisite. Powers the detail panel's "Unlocks" view — the mirror
+  // image of the prereq edges. Built once over the whole graph (not the
+  // per-goal subgraph) so it answers "what does mastering this open up?" across
+  // topic boundaries, even for concepts outside the current goal's closure.
+  const unlockedBy = new Map();
+  for(const [id] of byId) unlockedBy.set(id, []);
+  for(const [, c] of byId){
+    for(const p of c.prereqs){
+      if(unlockedBy.has(p)) unlockedBy.get(p).push(c.id);
     }
   }
 
@@ -1051,8 +1069,11 @@
     updateDrawerPlanChip();
     onFiltersChanged();
     applySearch();
+    // Re-select the prior node if it survives into the new graph; otherwise
+    // drop the selection entirely (clear the id, not just the panel) so the
+    // URL and detail panel can't disagree about what's selected.
     if(currentSelection && ids.has(currentSelection)) selectNode(currentSelection);
-    else renderDetail(null);
+    else { currentSelection = null; renderDetail(null); }
   }
 
   function updateStats(){
@@ -1643,13 +1664,43 @@
 
   function selectNode(id){
     currentSelection = id;
-    // highlight incoming edges
-    zoomRoot.querySelectorAll('.edge').forEach(e => e.classList.remove('lit'));
+    // Highlight incoming edges (prereqs, violet) and outgoing edges (what this
+    // unlocks, cyan dashed) so the node's two-way role in the DAG is visible.
+    zoomRoot.querySelectorAll('.edge').forEach(e => e.classList.remove('lit', 'lit-out'));
     zoomRoot.querySelectorAll(`.edge[data-to="${cssEscape(id)}"]`).forEach(e => e.classList.add('lit'));
+    zoomRoot.querySelectorAll(`.edge[data-from="${cssEscape(id)}"]`).forEach(e => e.classList.add('lit-out'));
     renderDetail(id);
     updateDrawerPlanChip();
+    syncUrl();
     // On narrow viewports, open the drawer so the user sees the detail.
     if(isNarrow()) setDrawer(true);
+  }
+
+  // Navigate to a concept from anywhere (e.g. an "Unlocks" pill). If it's in
+  // the current goal's rendered graph, just select it; otherwise re-root the
+  // view on that concept's own prerequisite closure, then select it.
+  function goTo(id){
+    if(!byId.has(id)) return;
+    if(currentLayout && currentLayout.nodesById.has(id)){
+      selectNode(id);
+    } else {
+      render(id);
+      // Reflect the re-root in the goal picker only when it's a real option
+      // (capstone/goal ids); otherwise leave the picker untouched.
+      if(goalSel && [...goalSel.options].some(o => o.value === id)) goalSel.value = id;
+      selectNode(id);
+    }
+  }
+
+  // Reflect the current goal + selection in the URL so a view is shareable and
+  // bookmarkable. history.replaceState throws on file://, so guard it.
+  function syncUrl(){
+    if(location.protocol === 'file:') return;
+    const qs = new URLSearchParams();
+    if(currentGoal) qs.set('goal', currentGoal);
+    if(currentSelection) qs.set('selected', currentSelection);
+    try { history.replaceState(null, '', '?' + qs.toString()); }
+    catch(_) { /* ignore — e.g. sandboxed iframes */ }
   }
 
   function renderDetail(id){
@@ -1667,6 +1718,20 @@
           return `<span class="pill">${done} ${pc ? pc.title : p}</span>`;
         }).join(' ')
       : '<span class="small">no prerequisites</span>';
+    // Reverse view: concepts that list THIS one as a prereq — "what mastering
+    // this unlocks". Sorted by title and capped so a foundational hub doesn't
+    // flood the panel. Each pill navigates (goTo) to that dependent concept.
+    const deps = (unlockedBy.get(id) || []).slice()
+      .sort((a,b)=> (byId.get(a)?.title||a).localeCompare(byId.get(b)?.title||b));
+    const DEP_CAP = 24;
+    const depPills = deps.slice(0, DEP_CAP).map(d => {
+      const dc = byId.get(d);
+      const done = MVProgress.isMastered(d, 'v1') ? '✓' : '·';
+      return `<span class="pill go" role="button" tabindex="0" data-goto="${escapeHtml(d)}">${done} ${dc ? dc.title : d}</span>`;
+    }).join(' ');
+    const unlocksList = deps.length
+      ? depPills + (deps.length > DEP_CAP ? ` <span class="small">+${deps.length - DEP_CAP} more</span>` : '')
+      : '<span class="small">nothing yet — a frontier concept</span>';
     const anchor = c.anchor ? `${c.topicPage}#${c.anchor}` : c.topicPage;
     const expertOn = isExpert(id);
     const tierLabel = expertOn
@@ -1692,6 +1757,7 @@
       <div class="meta">${escapeHtml(c.topicTitle)} · <span class="pill" style="border-color:${sColor};color:${sColor}">${escapeHtml(section)}</span> · <a href="${anchor}">open page →</a></div>
       <div class="blurb">${c.blurb || ''}</div>
       <div class="meta"><b>Prereqs:</b> ${prereqList}</div>
+      <div class="meta"><b>Unlocks:</b> ${unlocksList}</div>
       <div class="row">
         <button id="btn-mastered">${info.v1 ? 'mark v1 unmastered' : 'mark v1 mastered'}</button>
         <button id="btn-hard">${info.hard ? 'mark hard unmastered' : 'mark hard mastered'}</button>
@@ -1718,6 +1784,14 @@
     if(tBtn && !tBtn.disabled){
       tBtn.addEventListener('click', copyTranscript);
     }
+    // "Unlocks" pills navigate to the dependent concept (keyboard-activatable).
+    detailBody.querySelectorAll('.pill.go[data-goto]').forEach(pill => {
+      const target = pill.getAttribute('data-goto');
+      pill.addEventListener('click', ()=> goTo(target));
+      pill.addEventListener('keydown', (ev)=>{
+        if(ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); goTo(target); }
+      });
+    });
   }
 
   // ---------- copy-as-study-plan ----------
@@ -1990,14 +2064,11 @@
   const initial = (urlGoal && byId.has(urlGoal)) ? urlGoal : capstones[0].goal;
   goalSel.value = initial;
   goalSel.addEventListener('change', ()=>{
-    const g = goalSel.value;
-    render(g);
-    // history.replaceState throws SecurityError on file:// — skip it there
-    // so double-clicking pathway.html still lets you change the goal.
-    if(location.protocol !== 'file:'){
-      try { history.replaceState(null, '', `?goal=${encodeURIComponent(g)}`); }
-      catch(_) { /* ignore — e.g. sandboxed iframes */ }
-    }
+    // render() re-selects a surviving node (which syncs the URL) or clears the
+    // selection; the trailing syncUrl() covers the cleared case so the URL
+    // always matches the post-change state. (syncUrl is file:// guarded.)
+    render(goalSel.value);
+    syncUrl();
   });
 
   document.getElementById('btn-reset').addEventListener('click', ()=>{
@@ -2005,6 +2076,11 @@
   });
 
   render(initial);
+  // ?selected=<conceptId> deep-link: focus a specific concept after the goal's
+  // graph renders. goTo re-roots the view if the concept lies outside the
+  // initial goal's closure, so a bare ?selected= (no ?goal=) still works.
+  const urlSelected = params.get('selected');
+  if(urlSelected && byId.has(urlSelected)) goTo(urlSelected);
   renderKatex(document.body);
 })();
 </script>
