@@ -45,7 +45,12 @@
     return null;
   }
 
-  var ctx = ctxFromUrl() || ctxFromHandoff();
+  // Always read (and consume) the one-shot handoff, even when the URL already
+  // carries ?tour= — otherwise an abandoned handoff could survive the session
+  // and re-fire later on its matching page. URL context still wins.
+  var fromUrl = ctxFromUrl();
+  var fromHandoff = ctxFromHandoff();
+  var ctx = fromUrl || fromHandoff;
   if (!ctx) return; // not on a tour — stay invisible
 
   ensureToursData(function (tours) {
