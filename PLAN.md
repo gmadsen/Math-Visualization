@@ -22,7 +22,6 @@ The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages g
 
 1. **Meta-page candidates (not yet greenlit — ask before building):** counterexamples gallery (aggregate the existing counterexample widgets), syllabus builder (pathway copy-plan grown into a self-checking checklist page), exam mode (timed mixed quiz over mastered concepts — check review.html's role first).
 2. **Feature-improvement backlog** (one small PR each, pick by appetite):
-   - *Tours*: tour-guide sticky banner on topic pages when arriving via a tour link (needs a committed tours-data.js + per-page loader; `?tour=` deep-link convention).
    - *History*: `?capstone=` pre-filter crossover.
    - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently).
 3. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out); `prefers-reduced-motion` for animated engines + history pulses + program smooth-scrolls; reading-width/font-size knob in `MVDisplay`; high-contrast as a third `mvnb.theme` value; per-section accent tinting on topic pages.
