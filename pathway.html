@@ -1069,8 +1069,11 @@
     updateDrawerPlanChip();
     onFiltersChanged();
     applySearch();
+    // Re-select the prior node if it survives into the new graph; otherwise
+    // drop the selection entirely (clear the id, not just the panel) so the
+    // URL and detail panel can't disagree about what's selected.
     if(currentSelection && ids.has(currentSelection)) selectNode(currentSelection);
-    else renderDetail(null);
+    else { currentSelection = null; renderDetail(null); }
   }
 
   function updateStats(){
@@ -2061,14 +2064,11 @@
   const initial = (urlGoal && byId.has(urlGoal)) ? urlGoal : capstones[0].goal;
   goalSel.value = initial;
   goalSel.addEventListener('change', ()=>{
-    const g = goalSel.value;
-    render(g);
-    // history.replaceState throws SecurityError on file:// — skip it there
-    // so double-clicking pathway.html still lets you change the goal.
-    if(location.protocol !== 'file:'){
-      try { history.replaceState(null, '', `?goal=${encodeURIComponent(g)}`); }
-      catch(_) { /* ignore — e.g. sandboxed iframes */ }
-    }
+    // render() re-selects a surviving node (which syncs the URL) or clears the
+    // selection; the trailing syncUrl() covers the cleared case so the URL
+    // always matches the post-change state. (syncUrl is file:// guarded.)
+    render(goalSel.value);
+    syncUrl();
   });
 
   document.getElementById('btn-reset').addEventListener('click', ()=>{
