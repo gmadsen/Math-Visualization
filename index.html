@@ -97,6 +97,15 @@
      frequency ratio. Auto-animates a half-cycle on first load so the
      reader sees the curves evolve before reaching for the slider. Pure
      SVG, no extra deps. */
+  /* Hero search: a native GET form to search.html?q=… (no JS dependency). */
+  .hero-search{display:flex;gap:0.5rem;justify-content:center;margin:1.3rem auto 0;max-width:480px}
+  .hero-search input{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);
+    border-radius:8px;padding:0.55rem 0.9rem;color:var(--ink);font-size:0.95rem}
+  .hero-search input:focus{outline:none;border-color:var(--cyan)}
+  .hero-search input::placeholder{color:var(--mute)}
+  .hero-search button{background:var(--cyan);color:var(--bg);border:none;border-radius:8px;
+    padding:0.55rem 1.1rem;font-weight:600;cursor:pointer;font-size:0.9rem}
+  .hero-search button:hover{filter:brightness(1.08)}
   .hero-widget{margin:1.4rem auto 0;max-width:420px;padding:0.9rem 1.1rem 0.7rem;
     background:color-mix(in srgb, var(--panel) 60%, transparent);
     border:1px solid color-mix(in srgb, var(--cyan) 22%, var(--line));
@@ -637,6 +646,11 @@
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
+    <form class="hero-search" role="search" action="./search.html" method="get">
+      <input type="search" name="q" placeholder="Search topics, concepts, theorems…"
+             aria-label="Search the notebook" autocomplete="off">
+      <button type="submit">Search</button>
+    </form>
     <div class="hero-widget" aria-label="Lissajous curve preview">
       <svg id="hero-svg" viewBox="0 0 240 140" width="280" height="160" role="img"
            aria-label="Lissajous parametric curve, frequency ratio adjustable">
