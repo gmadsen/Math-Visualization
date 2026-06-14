@@ -31,6 +31,11 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FIX = process.argv.includes('--fix');
 
 // Canonical order + labels. Each page that carries the row is also a link in it.
+// Scope = the 8 "explore" meta surfaces. Utility pages some rows used to list
+// (latex-cheatsheet, progress, review) are deliberately NOT here: they're
+// personal-state/reference pages that live on index.html's own nav (one click
+// via the "← Notebook" backlink), and adding them would push every page's bar
+// past 10 links. Consolidating to these 8 is the consistency goal.
 const NAV = [
   ['pathway.html', 'Pathway'],
   ['tours.html', 'Tours'],
