@@ -196,7 +196,7 @@
     const search = document.createElement('input');
     search.type = 'search';
     search.className = 'timeline-search';
-    search.placeholder = 'search name or keyword…';
+    search.placeholder = 'search name, place, bio, or keyword…';
     search.setAttribute('aria-label', 'Search timeline');
     ctrls.appendChild(search);
     host.appendChild(ctrls);
@@ -512,10 +512,15 @@
       events.forEach((ev, i) => {
         const dot = dotNodes[i];
         let visible = !filterActive || state.activeEras.has(ev.era);
-        // query matches title, summary, or any person name
+        // query matches title, summary, location (city/region), or — for any
+        // credited person — their name, place, and one-line bio.
         let match = false;
         if(q){
-          const haystacks = [ev.title, ev.summary || '', ...((ev.who||[]).map(pid => (personById.get(pid)?.name||'')))];
+          const haystacks = [ev.title, ev.summary || '', ev.city || '', ev.region || ''];
+          for(const pid of (ev.who || [])){
+            const p = personById.get(pid);
+            if(p){ haystacks.push(p.name || '', p.place || '', p.blurb || ''); }
+          }
           match = haystacks.some(h => h.toLowerCase().includes(q));
           visible = visible && match;
         }
