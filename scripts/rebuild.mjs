@@ -61,6 +61,11 @@ const STEPS = [
   // so freshly generated sections/*.html are what gets validated.
   { name: 'meta-pages', script: 'validate-meta-pages.mjs',       fix: false },
   { name: 'recent-updates', script: 'build-recent-updates.mjs',  fix: false },
+  // Gate the generated recent-updates.{js,json} against conflict markers /
+  // syntax / parse errors — index.html loads the .js as a plain <script>, so
+  // a broken file is a landing-page SyntaxError, yet nothing else parses it
+  // (the #518 near-miss). Runs right after the builder regenerates them.
+  { name: 'recent-updates-gate', script: 'validate-recent-updates.mjs', fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
   { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },

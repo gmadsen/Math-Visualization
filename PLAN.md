@@ -20,16 +20,15 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages gate, mastery-awareness on every meta page, who's-who, open-problems, tags theme bars) shipped in full over #512–#519 — `git log` is the record. The explicit open queue, roughly in value order:
 
-1. **recent-updates parse gate** — CI passed with committed conflict markers in recent-updates.js (#518 near-miss; index.html's rail would have been a SyntaxError). Add `node --check` + JSON.parse for recent-updates.* to the rebuild chain or validate-meta-pages.
-2. **Meta-page candidates (not yet greenlit — ask before building):** counterexamples gallery (aggregate the existing counterexample widgets), syllabus builder (pathway copy-plan grown into a self-checking checklist page), exam mode (timed mixed quiz over mastered concepts — check review.html's role first).
-3. **Feature-improvement backlog** (one small PR each, pick by appetite):
+1. **Meta-page candidates (not yet greenlit — ask before building):** counterexamples gallery (aggregate the existing counterexample widgets), syllabus builder (pathway copy-plan grown into a self-checking checklist page), exam mode (timed mixed quiz over mastered concepts — check review.html's role first).
+2. **Feature-improvement backlog** (one small PR each, pick by appetite):
    - *Pathway*: recommended study order (canonical topological walk + next-ready stepper); reverse "what does this unlock" mode (`byPrereq` already exists); `&selected=` deep-link; mobile detail drawer independent scroll.
    - *Mindmap*: pinnable focus card; fuzzy search.
    - *Tours*: tour-guide sticky banner on topic pages when arriving via a tour link; "featured in tours" reverse index on topic pages; build-time validation of tour stop anchors (they rot silently — `L-functions#elliptic` already doesn't resolve to a concept).
    - *History*: timeline search across bios/locations, not just titles; `?capstone=` pre-filter crossover.
    - *Search*: typo tolerance / did-you-mean; inline search box on the index hero.
    - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently); section-links footer fences say `auto` but no script owns them (rename or write the injector); unified meta-page nav (each page hand-rolls its own link row — whos-who/open-problems are absent from older pages' navs).
-4. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out); `prefers-reduced-motion` for animated engines + history pulses + program smooth-scrolls; reading-width/font-size knob in `MVDisplay`; high-contrast as a third `mvnb.theme` value; per-section accent tinting on topic pages.
+3. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out); `prefers-reduced-motion` for animated engines + history pulses + program smooth-scrolls; reading-width/font-size knob in `MVDisplay`; high-contrast as a third `mvnb.theme` value; per-section accent tinting on topic pages.
 
 ## Missing-topic candidates
 
