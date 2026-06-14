@@ -675,7 +675,7 @@
     for(const id of sortedIds) parts.push(id);
     const sortedEdges = edges.map(e => nodes[e.from].id + '>' + nodes[e.to].id).sort();
     for(const e of sortedEdges) parts.push(e);
-    // v5 (decompression): stage 2000×1200 → 2600×1560, REPEL_CROSS 1.7 → 2.8,
+    // v5 (decompression): stage 2000×1200 → 2600×1560, REPEL_CROSS 1.7 → 3.6,
     // ANCHOR 0.010 → 0.016, SPRING_LEN_CROSS 260 → 300, SPRING_LEN_INTRA
     // 75 → 70, REPEL_BASE 3500 → 3200 — separates the 13 sections into
     // distinct islands instead of one hairball. Existing v4 caches invalidate
@@ -703,7 +703,7 @@
   }
 
   // Force layout: section-clustered with O(n²) repulsion.
-  // Tuned for ~500 nodes / ~3000 edges:
+  // Tuned for ~1450 nodes / ~2600 edges:
   //   - Repulsion is reduced for in-section pairs (so sections stay tight)
   //     and amplified for cross-section pairs (so clusters separate).
   //   - Springs pull connected nodes together; cross-topic edges have a
@@ -713,7 +713,7 @@
   async function forceLayout(progressCb){
     const STEPS = 260;
     // Force constants are tuned to spread the corpus across the full
-    // 2000×1200 viewBox. Bump REPEL_BASE / SPRING_LEN_INTRA together when
+    // 2600×1560 viewBox. Bump REPEL_BASE / SPRING_LEN_INTRA together when
     // increasing spread; lowering ANCHOR loosens the per-section home-pull.
     // Any change here must bump the cache version in `layoutKey` to
     // invalidate stale layouts cached under the old constants.
@@ -737,8 +737,8 @@
     const N = nodes.length;
     let lastYield = performance.now();
     for(let step = 0; step < STEPS; step++){
-      // Pairwise repulsion. O(n²) — at N=505 this is ~127k pairs/step,
-      // 33M total. Cheap floats; runs in 1–2s in modern JS.
+      // Pairwise repulsion. O(n²) — at N≈1450 this is ~1.05M pairs/step,
+      // ~270M total. Cheap floats; runs in a few seconds in modern JS.
       for(let i = 0; i < N; i++){
         const ni = nodes[i];
         for(let j = i + 1; j < N; j++){
