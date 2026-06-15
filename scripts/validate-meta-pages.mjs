@@ -20,6 +20,9 @@
 //   4. index.html fallback map (computeSectionMeta) carries the section's
 //      exact title with the canonical id and accent letter.
 //   5. index.html has a matching `.sec` header (titles HTML-encode & as &amp;).
+//   6. css/notebook.css carries a per-section accent rule
+//      `body[data-section="<slugify(title)>"] { --section-accent: var(--<color>) }`
+//      whose color matches the section's letter — the topic-page <h2> tint map.
 // Plus a stale-title scan: meta pages must not use the pre-rename section
 // titles ('Foundations', 'Algebra') as JS map keys or string fallbacks.
 //
@@ -163,10 +166,44 @@ for (const page of META_PAGES) {
   }
 }
 
+// ----- 7. per-section accent map in css/notebook.css -----
+// css/notebook.css maps each topic page's <body data-section="<slugify(title)>">
+// to a --section-accent palette color (the per-section tint on <h2> dividers).
+// That 13-row map hand-mirrors sections.json's title+color, so guard it here:
+// a rename or recolor that isn't reflected in the CSS would silently drop a
+// section's tint to the neutral default. slugify(title) matches the attribute
+// value inject-page-metadata.mjs stamps.
+const COLOR_NAME = { b: 'blue', y: 'yellow', p: 'pink', v: 'violet', g: 'green', c: 'cyan', o: 'orange' };
+const notebookCssPath = join(repoRoot, 'css/notebook.css');
+if (!existsSync(notebookCssPath)) {
+  issues.push('css/notebook.css missing — cannot verify per-section accent map');
+} else {
+  const notebookCss = readFileSync(notebookCssPath, 'utf8');
+  for (const s of sections) {
+    const slug = slugify(s.title);
+    const name = COLOR_NAME[s.color];
+    if (!name) {
+      issues.push(`css/notebook.css accent map: section "${s.title}" has unknown color letter '${s.color}'`);
+      continue;
+    }
+    // Match the rule's body for this exact selector, allowing the alignment
+    // whitespace the file uses between selector and brace.
+    const re = new RegExp(
+      `body\\[data-section="${slug}"\\]\\s*\\{([^}]*)\\}`
+    );
+    const m = notebookCss.match(re);
+    if (!m) {
+      issues.push(`css/notebook.css accent map: no rule for body[data-section="${slug}"] ("${s.title}")`);
+    } else if (!m[1].includes(`--section-accent: var(--${name})`)) {
+      issues.push(`css/notebook.css accent map: body[data-section="${slug}"] should set --section-accent: var(--${name}) (sections.json color '${s.color}')`);
+    }
+  }
+}
+
 // ----- report -----
 if (issues.length) {
   console.error(`validate-meta-pages: ${issues.length} issue(s)`);
   for (const i of issues) console.error(`  [!] ${i}`);
   process.exit(1);
 }
-console.log(`validate-meta-pages: ok (${sections.length} sections × 5 index surfaces + ${META_PAGES.length} pages scanned for stale titles)`);
+console.log(`validate-meta-pages: ok (${sections.length} sections × 5 index surfaces + per-section accent map in css/notebook.css + ${META_PAGES.length} pages scanned for stale titles)`);
