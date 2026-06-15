@@ -1,9 +1,11 @@
 /*
- * theme-light.css — optional light-mode palette overrides.
+ * theme-light.css — non-default palette overrides (light + high-contrast).
  *
- * Activated by <html data-theme="light">. js/theme-toggle.js sets that
- * attribute on DOMContentLoaded (well, on script-run) based on localStorage
- * key "mvnb.theme" ∈ {"dark","light"}; default is dark (no attribute set).
+ * Activated by <html data-theme="light"> or <html data-theme="contrast">.
+ * js/theme-toggle.js sets that attribute on script-run based on localStorage
+ * key "mvnb.theme" ∈ {"dark","light","contrast"}; default is dark (no
+ * attribute set). The high-contrast block lives here (rather than a separate
+ * file) because this stylesheet is already loaded site-wide.
  *
  * Philosophy: the notebook's :root declarations (duplicated per page) define
  * the dark palette via --bg, --panel, --panel2, --ink, --mute, --line, plus
