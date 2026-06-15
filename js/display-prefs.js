@@ -1,7 +1,7 @@
 // display-prefs.js — reader-side toggle to hide widgets and/or quizzes so a
 // topic page becomes a pure-prose reading experience.
 //
-// Storage key: "mvnb.display" = JSON { widgetsHidden: boolean, quizzesHidden: boolean }.
+// Storage key: "mvnb.display" = JSON { widgetsHidden, quizzesHidden, lineageHidden: boolean, readingWidth: "normal"|"narrow"|"wide" }.
 // Both default false (absent key or malformed → both false).
 // When widgetsHidden → <html data-hide-widgets>; a tiny CSS rule
 //   html[data-hide-widgets] .widget { display: none !important; }
@@ -28,22 +28,27 @@
 
 (function () {
   var STORAGE_KEY = 'mvnb.display';
+  // Reading-column width: 'normal' (default 880px main), 'narrow' (focused),
+  // 'wide' (more room for widgets). Applied as <html data-reading-width> with
+  // the max-width rules in css/notebook.css.
+  var WIDTHS = ['normal', 'narrow', 'wide'];
 
   function safeRead() {
     try {
       var raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw == null) return { widgetsHidden: false, quizzesHidden: false };
+      if (raw == null) return { widgetsHidden: false, quizzesHidden: false, readingWidth: 'normal' };
       var parsed = JSON.parse(raw);
       if (!parsed || typeof parsed !== 'object') {
-        return { widgetsHidden: false, quizzesHidden: false };
+        return { widgetsHidden: false, quizzesHidden: false, lineageHidden: false, readingWidth: 'normal' };
       }
       return {
         widgetsHidden: parsed.widgetsHidden === true,
         quizzesHidden: parsed.quizzesHidden === true,
         lineageHidden: parsed.lineageHidden === true,
+        readingWidth: WIDTHS.indexOf(parsed.readingWidth) >= 0 ? parsed.readingWidth : 'normal',
       };
     } catch (e) {
-      return { widgetsHidden: false, quizzesHidden: false, lineageHidden: false };
+      return { widgetsHidden: false, quizzesHidden: false, lineageHidden: false, readingWidth: 'normal' };
     }
   }
 
@@ -61,26 +66,43 @@
     else html.removeAttribute('data-hide-quizzes');
     if (state.lineageHidden) html.setAttribute('data-hide-lineage', '');
     else html.removeAttribute('data-hide-lineage');
+    if (state.readingWidth && state.readingWidth !== 'normal') html.setAttribute('data-reading-width', state.readingWidth);
+    else html.removeAttribute('data-reading-width');
   }
 
   function current() {
     // Read from the DOM (runtime source of truth), not storage.
     var html = document.documentElement;
+    var w = html.getAttribute('data-reading-width');
     return {
       widgetsHidden: html.hasAttribute('data-hide-widgets'),
       quizzesHidden: html.hasAttribute('data-hide-quizzes'),
       lineageHidden: html.hasAttribute('data-hide-lineage'),
+      readingWidth: WIDTHS.indexOf(w) >= 0 ? w : 'normal',
     };
   }
 
-  function setState(next, origin) {
+  function setState(partial, origin) {
     var prev = current();
+    // Merge the partial onto the current state so a caller that touches only
+    // one field (e.g. cycleReadingWidth) leaves the others — including any
+    // existing readingWidth — untouched.
+    var next = {
+      widgetsHidden: prev.widgetsHidden,
+      quizzesHidden: prev.quizzesHidden,
+      lineageHidden: prev.lineageHidden,
+      readingWidth: prev.readingWidth,
+    };
+    if (partial) {
+      for (var k in partial) { if (Object.prototype.hasOwnProperty.call(partial, k)) next[k] = partial[k]; }
+    }
     apply(next);
     safeWrite(next);
     if (
       prev.widgetsHidden !== next.widgetsHidden ||
       prev.quizzesHidden !== next.quizzesHidden ||
-      prev.lineageHidden !== next.lineageHidden
+      prev.lineageHidden !== next.lineageHidden ||
+      prev.readingWidth !== next.readingWidth
     ) {
       try {
         document.dispatchEvent(new CustomEvent('mvdisplay:change', {
@@ -88,12 +110,20 @@
             widgetsHidden: next.widgetsHidden,
             quizzesHidden: next.quizzesHidden,
             lineageHidden: next.lineageHidden,
+            readingWidth: next.readingWidth,
             origin: origin || 'api',
           },
         }));
       } catch (e) { /* defensive */ }
     }
     return next;
+  }
+
+  function cycleReadingWidth() {
+    var w = current().readingWidth;
+    var nextW = WIDTHS[(WIDTHS.indexOf(w) + 1) % WIDTHS.length];
+    setState({ readingWidth: nextW }, 'cycleReadingWidth');
+    return nextW;
   }
 
   function toggleWidgets() {
@@ -236,8 +266,41 @@
     return btn;
   }
 
+  // Reading-width control: a horizontal double-arrow that cycles the reading
+  // column normal → narrow → wide. Dimmed (`--off`) at the default width.
+  var WIDTH_SVG =
+    '<svg ' + ICON_BASE_ATTRS + '>' +
+    '<line x1="3" y1="12" x2="21" y2="12"/>' +
+    '<polyline points="7 8 3 12 7 16"/>' +
+    '<polyline points="17 8 21 12 17 16"/>' +
+    '</svg>';
+
+  function titleForWidth(state) {
+    return 'reading width: ' + state.readingWidth + ' — click to cycle (normal · narrow · wide)';
+  }
+
+  function createReadingWidthButton(opts) {
+    opts = opts || {};
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'mv-display-toggle mv-display-toggle--width';
+    if (opts.className) btn.className += ' ' + opts.className;
+    btn.setAttribute('aria-label', 'Cycle reading width');
+    btn.innerHTML = WIDTH_SVG;
+    var s = current();
+    btn.title = titleForWidth(s);
+    btn.classList.toggle('mv-display-toggle--off', s.readingWidth === 'normal');
+    btn.addEventListener('click', function (ev) { ev.preventDefault(); cycleReadingWidth(); });
+    document.addEventListener('mvdisplay:change', function () {
+      var now = current();
+      btn.title = titleForWidth(now);
+      btn.classList.toggle('mv-display-toggle--off', now.readingWidth === 'normal');
+    });
+    return btn;
+  }
+
   // Back-compat: the slot mounter still calls createToggleButton to produce
-  // all controls. Returns a container with widget + quiz + lineage buttons.
+  // all controls. Returns a container with widget + quiz + lineage + width.
   function createToggleButton(opts) {
     opts = opts || {};
     var wrap = document.createElement('span');
@@ -246,6 +309,7 @@
     wrap.appendChild(createWidgetToggle());
     wrap.appendChild(createQuizToggle());
     wrap.appendChild(createLineageToggle());
+    wrap.appendChild(createReadingWidthButton());
     return wrap;
   }
 
@@ -326,10 +390,12 @@
     toggleQuizzes: toggleQuizzes,
     toggleLineage: toggleLineage,
     showAll: showAll,
+    cycleReadingWidth: cycleReadingWidth,
     current: current,
-    createToggleButton: createToggleButton, // back-compat; returns all three
+    createToggleButton: createToggleButton, // back-compat; returns all four
     createWidgetToggle: createWidgetToggle,
     createQuizToggle: createQuizToggle,
     createLineageToggle: createLineageToggle,
+    createReadingWidthButton: createReadingWidthButton,
   };
 })();

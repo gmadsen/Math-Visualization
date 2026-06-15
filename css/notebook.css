@@ -133,6 +133,12 @@ html[data-theme="contrast"] main a[href]:not(.nav-link):not(.card):not(.mtb-btn)
   text-decoration: underline;
 }
 
+/* ----- Reading-column width knob (js/display-prefs.js, <html data-reading-
+ * width>). Topic pages set main{max-width:880px} inline; these attribute-keyed
+ * rules out-specify that. 'normal' carries no attribute (the page default). */
+html[data-reading-width="narrow"] main { max-width: 680px; }
+html[data-reading-width="wide"]   main { max-width: 1120px; }
+
 body {
   font-family: var(--font-body);
   font-feature-settings: "kern", "liga", "onum";
