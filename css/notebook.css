@@ -149,6 +149,43 @@ html[data-reading-width="narrow"] main { max-width: 680px; }
   html[data-reading-width="wide"] aside.sidetoc { left: max(1rem, calc(50% - 560px - 220px)); }
 }
 
+/* ----- Per-section accent tint. inject-page-metadata.mjs already stamps
+ * <body data-section="<kebab-section-label>"> on every topic page (the section
+ * label kebab-cased, e.g. "algebra-and-homological"); we reuse that attribute
+ * rather than adding a second one. Each label maps to --section-accent (the
+ * same per-section palette color sections.json assigns index.html headers and
+ * mindmap nodes), and the <h2> section-divider underlines pick it up, so each
+ * topic's chrome echoes the color of the subject it lives under. The custom
+ * property inherits from <body> down to the <h2>s. --section-accent defaults to
+ * var(--line) so meta pages and the "reference"/"tours" sections render their
+ * dividers unchanged. Theme-aware: the palette vars are redefined per theme. */
+:root { --section-accent: var(--line); }
+body[data-section="logic-and-foundations"]            { --section-accent: var(--blue); }
+body[data-section="algebra-and-homological"]          { --section-accent: var(--yellow); }
+body[data-section="higher-categories-and-toposes"]    { --section-accent: var(--cyan); }
+body[data-section="analysis"]                         { --section-accent: var(--pink); }
+body[data-section="probability-and-statistics"]       { --section-accent: var(--green); }
+body[data-section="geometry-and-topology"]            { --section-accent: var(--violet); }
+body[data-section="number-theory"]                    { --section-accent: var(--yellow); }
+body[data-section="modular-forms-and-l-functions"]    { --section-accent: var(--cyan); }
+body[data-section="algebraic-geometry"]               { --section-accent: var(--green); }
+body[data-section="combinatorics-and-graph-theory"]   { --section-accent: var(--violet); }
+body[data-section="mathematical-physics"]             { --section-accent: var(--orange); }
+body[data-section="control-theory-and-optimization"]  { --section-accent: var(--pink); }
+body[data-section="learning-theory-and-data-science"] { --section-accent: var(--blue); }
+/* Soften the accent toward the neutral divider color so a page of section
+ * headers reads as a gentle subject tint, not a row of saturated rules. The
+ * attribute-prefixed selector out-specifies the per-page inline `h2 {
+ * border-bottom: 1px solid var(--line) }`. */
+body[data-section] main h2 {
+  border-bottom-color: color-mix(in srgb, var(--section-accent) 55%, var(--line));
+}
+/* High-contrast reader keeps crisp neutral dividers — a tinted, blended border
+ * would lower the line's contrast against the black page. */
+html[data-theme="contrast"] main h2 {
+  border-bottom-color: var(--line);
+}
+
 body {
   font-family: var(--font-body);
   font-feature-settings: "kern", "liga", "onum";
