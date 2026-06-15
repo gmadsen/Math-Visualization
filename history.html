@@ -1213,6 +1213,13 @@ document.addEventListener('DOMContentLoaded', function(){
     data._capstoneArrival = true;
   })();
 
+  // ?q=<text> deep-links the timeline's free-text search directly (mirrors
+  // search.html's ?q=). Only used when ?capstone= didn't already seed.
+  if(!data.initialQuery){
+    const q = new URLSearchParams(location.search).get('q');
+    if(q){ data.initialQuery = q; data._capstoneArrival = true; }
+  }
+
   window.HISTORY_DATA = data;
   if(window.MVHistoryTimeline) window.MVHistoryTimeline.init(document.getElementById('tl-widget'), data);
   if(window.MVHistoryMap) window.MVHistoryMap.init(document.getElementById('map-widget'), data);
