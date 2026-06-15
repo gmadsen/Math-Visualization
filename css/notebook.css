@@ -136,8 +136,18 @@ html[data-theme="contrast"] main a[href]:not(.nav-link):not(.card):not(.mtb-btn)
 /* ----- Reading-column width knob (js/display-prefs.js, <html data-reading-
  * width>). Topic pages set main{max-width:880px} inline; these attribute-keyed
  * rules out-specify that. 'normal' carries no attribute (the page default). */
+/* 'narrow' just moves main's edges inward, away from the fixed sidetoc — safe
+ * at any width. */
 html[data-reading-width="narrow"] main { max-width: 680px; }
-html[data-reading-width="wide"]   main { max-width: 1120px; }
+/* 'wide' grows main leftward into the sidetoc (which sits ~4px left of the
+ * 880px column at left:calc(50% - 440px - 220px)). So only expand where there's
+ * room: above 1600px we widen main AND shift the sidetoc left by the same
+ * amount so the gap is preserved; below that (incl. the 1180px sidetoc reveal
+ * point) wide stays at the default width to avoid overlap. */
+@media (min-width: 1600px) {
+  html[data-reading-width="wide"] main { max-width: 1120px; }
+  html[data-reading-width="wide"] aside.sidetoc { left: max(1rem, calc(50% - 560px - 220px)); }
+}
 
 body {
   font-family: var(--font-body);
