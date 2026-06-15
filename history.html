@@ -1348,7 +1348,7 @@ document.addEventListener('DOMContentLoaded', function(){
     // After expanding, scroll the target into view (browsers don't re-scroll
     // when the target was hidden at the moment of hashchange).
     const t = document.getElementById((location.hash || '').replace(/^#/, ''));
-    if(t) requestAnimationFrame(() => t.scrollIntoView({block:'start', behavior:'smooth'}));
+    if(t) requestAnimationFrame(() => t.scrollIntoView({block:'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}));
   });
 });
 </script>

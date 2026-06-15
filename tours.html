@@ -1412,7 +1412,7 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
     }
     // Smooth scroll feels less jarring than 'instant' when the page swaps
     // between two long sections; reduced-motion is auto-honored by the UA.
-    try { window.scrollTo({top:0, behavior:'smooth'}); }
+    try { window.scrollTo({top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }
     catch(_) { window.scrollTo(0, 0); }
   }
   function showTour(id, opts){
@@ -1587,7 +1587,7 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
         btn.className = 'jump-unmastered';
         btn.textContent = `↓ skip to your first unmastered stop (${firstUnmastered + 1} of ${stops.length})`;
         btn.addEventListener('click', () => {
-          stops[firstUnmastered].scrollIntoView({ behavior: 'smooth', block: 'start' });
+          stops[firstUnmastered].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
         });
         const goal = sec.querySelector('.tour-goal');
         if(goal) goal.insertAdjacentElement('afterend', btn);
@@ -1646,7 +1646,7 @@ where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = 
           const sec = document.getElementById(last.tour);
           const li = sec && sec.querySelectorAll(':scope > ol.tour > li')[stop - 1];
           // wait out the switcher's smooth scroll-to-top before scrolling down
-          if(li) setTimeout(() => li.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400);
+          if(li) setTimeout(() => li.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }), 400);
         });
         const dismiss = document.createElement('button');
         dismiss.type = 'button';
