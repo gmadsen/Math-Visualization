@@ -36,7 +36,7 @@
   function safeRead() {
     try {
       var raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw == null) return { widgetsHidden: false, quizzesHidden: false, readingWidth: 'normal' };
+      if (raw == null) return { widgetsHidden: false, quizzesHidden: false, lineageHidden: false, readingWidth: 'normal' };
       var parsed = JSON.parse(raw);
       if (!parsed || typeof parsed !== 'object') {
         return { widgetsHidden: false, quizzesHidden: false, lineageHidden: false, readingWidth: 'normal' };
