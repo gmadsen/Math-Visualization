@@ -465,7 +465,7 @@ window.MVRenderMath = function(el){
         tdBody.innerHTML = '<p class="td-blurb"><em>No concepts carry this theme yet — the tagging pass is in flight.</em></p>';
       }
       detail.classList.add('shown');
-      detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      detail.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
       // Move focus into the revealed detail panel so keyboard users continue
       // reading from the new region instead of from the previous tag-card
       // location. tdTitle is made focusable just for this hop.
