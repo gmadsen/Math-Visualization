@@ -1,13 +1,14 @@
-// theme-toggle.js — runtime switch between dark (default) and light palette.
+// theme-toggle.js — runtime switch between dark (default), light, and
+// high-contrast palettes. The button cycles dark → light → contrast → dark.
 //
-// Storage key: "mvnb.theme" ∈ {"dark","light"}. Default is dark (absent key).
+// Storage key: "mvnb.theme" ∈ {"dark","light","contrast"}. Default is dark (absent key).
 // When light: document.documentElement.dataset.theme = "light" → css/theme-light.css
 // overrides the palette custom properties.
 //
 // Public API (on window.MVTheme):
-//   MVTheme.get()                     → "light" | "dark"
-//   MVTheme.set(mode)                 → force-set "light" or "dark"
-//   MVTheme.toggle()                  → flip and persist; returns new mode
+//   MVTheme.get()                     → "dark" | "light" | "contrast"
+//   MVTheme.set(mode)                 → force-set one of the three modes
+//   MVTheme.toggle()                  → advance the cycle, persist; returns new mode
 //   MVTheme.createToggleButton(opts?) → returns a <button> wired to toggle()
 //
 // The button's label updates to reflect current mode; caller decides where to
@@ -20,7 +21,7 @@
 
 (function () {
   var STORAGE_KEY = 'mvnb.theme';
-  var MODES = ['dark', 'light'];
+  var MODES = ['dark', 'light', 'contrast'];
 
   // KaTeX copy-friendliness: KaTeX renders each `$…$` block as a wrapper
   // .katex containing both .katex-mathml (semantic, with the LaTeX source
@@ -56,8 +57,10 @@
 
   function apply(mode) {
     var html = document.documentElement;
-    if (mode === 'light') {
-      html.setAttribute('data-theme', 'light');
+    // 'light' and 'contrast' are data-theme values (with CSS palette overrides);
+    // 'dark' is the default and carries no attribute.
+    if (mode === 'light' || mode === 'contrast') {
+      html.setAttribute('data-theme', mode);
     } else {
       html.removeAttribute('data-theme');
     }
@@ -66,9 +69,12 @@
   function get() {
     // Read from the DOM (source of truth at runtime) rather than storage so
     // anything that mutated data-theme directly is honored.
-    return document.documentElement.getAttribute('data-theme') === 'light'
-      ? 'light'
-      : 'dark';
+    var t = document.documentElement.getAttribute('data-theme');
+    return (t === 'light' || t === 'contrast') ? t : 'dark';
+  }
+
+  function nextMode(mode) {
+    return MODES[(MODES.indexOf(mode) + 1) % MODES.length];
   }
 
   function set(mode) {
@@ -85,20 +91,19 @@
   }
 
   function toggle() {
-    return set(get() === 'light' ? 'dark' : 'light');
+    // Cycle dark → light → contrast → dark.
+    return set(nextMode(get()));
   }
 
-  // Label the button with a glyph (sun for light-mode = "switch to dark",
-  // moon for dark-mode = "switch to light") plus a short word so it's legible
-  // without relying on emoji rendering.
+  // The button labels the mode it will switch TO next in the cycle, so the
+  // word is a verb-like cue ("Light", "Contrast", "Dark") rather than naming
+  // the current state.
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   function labelFor(mode) {
-    // mode is current; button says what it'll switch TO.
-    return mode === 'light' ? 'Dark' : 'Light';
+    return cap(nextMode(mode));
   }
   function titleFor(mode) {
-    return mode === 'light'
-      ? 'Switch to dark theme'
-      : 'Switch to light theme';
+    return 'Switch to ' + nextMode(mode) + ' theme';
   }
 
   function createToggleButton(opts) {
@@ -128,8 +133,7 @@
   // 1. Apply stored preference synchronously (before paint, ideally).
   // --------------------------------------------------------------------------
   var stored = safeRead();
-  if (stored === 'light') apply('light');
-  else if (stored === 'dark') apply('dark');
+  if (stored) apply(stored); // safeRead only returns a valid MODES value
   // Otherwise: no preference stored → leave dark (default). We do NOT
   // auto-switch based on prefers-color-scheme; we only log a suggestion once.
 
