@@ -100,6 +100,39 @@ html[data-hide-widgets]:not([data-hide-quizzes]) .widget.quiz {
   --orange: #f4a261;
 }
 
+/* ----- High-contrast theme (third mvnb.theme value, set by js/theme-toggle.js
+ * via <html data-theme="contrast">). A maximum-contrast DARK palette: pure
+ * black ground, pure white ink, brighter accents, and visibly grey borders,
+ * for readers who need stronger separation than the default dark theme. It
+ * lives in notebook.css (rather than theme-light.css) because EVERY themed page
+ * loads notebook.css — directly, or via theme-light.css's @import — whereas a
+ * few pages (e.g. search.html) link notebook.css and not theme-light.css.
+ * Overrides the per-page inline :root palette via attribute-selector specificity. */
+html[data-theme="contrast"] {
+  --bg: #000000;
+  --panel: #0b0b0b;
+  --panel2: #1c1c1c;
+  --ink: #ffffff;
+  --mute: #d8d8d8;      /* muted text stays readable, not dim */
+  --line: #8a8a8a;      /* borders are actually visible */
+  --yellow: #ffe000;
+  --blue:   #5ab4ff;
+  --green:  #2fe06a;
+  --pink:   #ff86a6;
+  --violet: #c9a6ff;
+  --cyan:   #4ff2e2;
+  --orange: #ffac42;
+}
+/* Always-visible focus ring + underlined body links for the high-contrast
+ * reader (the accent-colored links alone may not be enough separation). */
+html[data-theme="contrast"] :focus-visible {
+  outline: 2px solid var(--cyan) !important;
+  outline-offset: 2px;
+}
+html[data-theme="contrast"] main a[href]:not(.nav-link):not(.card):not(.mtb-btn) {
+  text-decoration: underline;
+}
+
 body {
   font-family: var(--font-body);
   font-feature-settings: "kern", "liga", "onum";

@@ -4,8 +4,9 @@
  * Activated by <html data-theme="light"> or <html data-theme="contrast">.
  * js/theme-toggle.js sets that attribute on script-run based on localStorage
  * key "mvnb.theme" ∈ {"dark","light","contrast"}; default is dark (no
- * attribute set). The high-contrast block lives here (rather than a separate
- * file) because this stylesheet is already loaded site-wide.
+ * attribute set). The LIGHT palette is here; the HIGH-CONTRAST palette lives
+ * in notebook.css so it resolves on every themed page (some link notebook.css
+ * directly, not this file).
  *
  * Philosophy: the notebook's :root declarations (duplicated per page) define
  * the dark palette via --bg, --panel, --panel2, --ink, --mute, --line, plus
@@ -45,34 +46,10 @@ html[data-theme="light"] {
   --orange: #c25a1f;
 }
 
-/* ----- High-contrast theme (third mvnb.theme value, set by js/theme-toggle.js
- * via <html data-theme="contrast">). A maximum-contrast DARK palette: pure
- * black ground, pure white ink, brighter accents, and visible borders, for
- * readers who need stronger separation than the default dark theme. */
-html[data-theme="contrast"] {
-  --bg: #000000;
-  --panel: #0b0b0b;
-  --panel2: #1c1c1c;
-  --ink: #ffffff;
-  --mute: #d8d8d8;      /* muted text stays readable, not dim */
-  --line: #8a8a8a;      /* borders are actually visible */
-  --yellow: #ffe000;
-  --blue:   #5ab4ff;
-  --green:  #2fe06a;
-  --pink:   #ff86a6;
-  --violet: #c9a6ff;
-  --cyan:   #4ff2e2;
-  --orange: #ffac42;
-}
-/* Stronger, always-visible focus ring + underlined links for the high-contrast
- * reader (the accent-colored links alone may not be enough separation). */
-html[data-theme="contrast"] :focus-visible {
-  outline: 2px solid var(--cyan) !important;
-  outline-offset: 2px;
-}
-html[data-theme="contrast"] main a[href]:not(.nav-link):not(.card):not(.mtb-btn) {
-  text-decoration: underline;
-}
+/* (The high-contrast palette lives in notebook.css, which EVERY themed page
+ * loads — directly, or via this file's @import — so data-theme="contrast"
+ * resolves even on pages like search.html that link notebook.css and not this
+ * stylesheet.) */
 
 /* Smooth the swap so toggling doesn't strobe. Scoped to the containers whose
  * backgrounds/text actually change color; global * transitions hurt perf on
