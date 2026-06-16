@@ -22,8 +22,7 @@ The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages g
 
 1. **Meta-page candidates (not yet greenlit — ask before building):** counterexamples gallery (aggregate the existing counterexample widgets), syllabus builder (pathway copy-plan grown into a self-checking checklist page), exam mode (timed mixed quiz over mastered concepts — check review.html's role first).
 2. **Feature-improvement backlog** (one small PR each, pick by appetite):
-   - *History*: `?capstone=` pre-filter crossover.
-   - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently).
+   - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently). Note: `history.html` now accepts both `?capstone=` and `?q=` (#540), and `search.html` uses `?q=` — a `?q=` convention is emerging.
 3. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out).
 
 ## Missing-topic candidates
