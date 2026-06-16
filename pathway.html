@@ -281,6 +281,9 @@
   .cap-summary{color:var(--mute);font-size:.85rem;padding:.3rem 0 .1rem;
     display:flex;gap:.9rem;flex-wrap:wrap}
   .cap-summary b{color:var(--yellow)}
+  .cap-summary a{color:var(--cyan);text-decoration:none;
+    border-bottom:1px solid color-mix(in srgb, var(--cyan) 40%, transparent)}
+  .cap-summary a:hover{border-bottom-color:var(--cyan)}
   /* F4: Hover-card — extends the locked-node tooltip to every node. */
   .hover-card{
     position:fixed;z-index:60;
@@ -1298,7 +1301,11 @@
       `<span>For <b>${escapeHtml(capTitle)}</b>:</span>` +
       `<span><b>${ready}</b> ready now</span>` +
       `<span><b>${unlockedNext}</b> unlock next</span>` +
-      `<span><b>${mastered}</b>/${ids.length} mastered</span>`;
+      `<span><b>${mastered}</b>/${ids.length} mastered</span>` +
+      // Crossover to history.html — its timeline pre-spotlights the figures
+      // behind this capstone's goal-topic (or shows the full timeline when the
+      // topic has no historical events). history.html accepts the capstone id.
+      `<a href="./history.html?capstone=${encodeURIComponent(cap.id)}" title="See this capstone's lineage on the history timeline">Historical timeline →</a>`;
     // Capstone titles carry KaTeX too — typeset the summary after the
     // innerHTML pass so $\infty$-topoi etc. render.
     whenKatexReady(() => renderKatex(el));

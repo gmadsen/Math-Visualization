@@ -454,10 +454,14 @@
     const state = {
       activeEras: new Set(),  // chips currently lit
       filterMode: false,      // explicit filter-on flag
-      query: '',
+      // Seed from data.initialQuery so a ?capstone= / ?q= deep-link spotlights
+      // matching figures on first paint (the final applyState() below applies it).
+      query: (data.initialQuery || ''),
       selectedIdx: -1,
       _renderedIdx: -2          // track last selectedIdx the detail was rendered for
     };
+    // Reflect a seeded query into the search box so it's visible and editable.
+    if(state.query) search.value = state.query;
     // Cache the era-band node list once — was being re-queried on every keystroke.
     const bandNodes = [...svg.querySelectorAll('rect.era-band')];
     const labelNodes = [...svg.querySelectorAll('text.era-label')];
@@ -516,7 +520,10 @@
         // credited person — their name, place, and one-line bio.
         let match = false;
         if(q){
-          const haystacks = [ev.title, ev.summary || '', ev.city || '', ev.region || ''];
+          // ev.topicTitle is stamped by the history.html bootstrap from the
+          // event's topicAnchor, so the search (and the ?capstone= deep-link
+          // that pre-seeds it) can spotlight every figure tied to a topic.
+          const haystacks = [ev.title, ev.summary || '', ev.city || '', ev.region || '', ev.topicTitle || ''];
           for(const pid of (ev.who || [])){
             const p = personById.get(pid);
             if(p){ haystacks.push(p.name || '', p.place || '', p.blurb || ''); }

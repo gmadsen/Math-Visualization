@@ -1171,8 +1171,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const map = {};
     for(const ev of (data.events || [])){
       if(!ev.topicAnchor) continue;
+      // Stamp the resolved topic title onto the event so the timeline search
+      // (and the ?capstone= deep-link that pre-seeds it) can match by topic.
+      ev.topicTitle = titleOf(ev.topicAnchor);
       for(const pid of (ev.who || [])){
-        (map[pid] = map[pid] || []).push({ href: ev.topicAnchor, title: titleOf(ev.topicAnchor) });
+        (map[pid] = map[pid] || []).push({ href: ev.topicAnchor, title: ev.topicTitle });
       }
     }
     for(const pid of Object.keys(map)){
@@ -1181,10 +1184,53 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     data.personTopics = map;
   })();
+
+  // ?capstone=<id> (or a bare goal-concept id, mirroring pathway's ?goal=)
+  // pre-seeds the timeline search with the capstone's goal-topic, so the
+  // historical figures behind that capstone spotlight on arrival. No new data
+  // to maintain: the capstone -> goal -> owning-topic -> events chain reuses
+  // the concept bundle + each event's topicAnchor.
+  (function(){
+    const param = new URLSearchParams(location.search).get('capstone');
+    if(!param) return;
+    const MVC = window.__MVConcepts;
+    if(!MVC || !MVC.topics) return;
+    const capList = (MVC.capstones && MVC.capstones.capstones) || [];
+    const cap = capList.find(c => c.id === param);
+    const conceptId = cap ? cap.goal : param;
+    let topic = null;
+    for(const t of Object.values(MVC.topics)){
+      if((t.concepts || []).some(c => (c.id || c) === conceptId)){ topic = t; break; }
+    }
+    if(!topic) return;
+    // Only seed if at least one event actually anchors to that topic — else the
+    // search would dim the whole timeline to an empty result.
+    const slug = topic.topic;
+    const hasEvents = (data.events || []).some(e => e.topicAnchor &&
+      e.topicAnchor.replace(/^\.\//,'').replace(/\.html.*$/,'') === slug);
+    if(!hasEvents) return;
+    data.initialQuery = topic.title;
+    data._capstoneArrival = true;
+  })();
+
+  // ?q=<text> deep-links the timeline's free-text search directly (mirrors
+  // search.html's ?q=). Only used when ?capstone= didn't already seed.
+  if(!data.initialQuery){
+    const q = new URLSearchParams(location.search).get('q');
+    if(q){ data.initialQuery = q; data._capstoneArrival = true; }
+  }
+
   window.HISTORY_DATA = data;
   if(window.MVHistoryTimeline) window.MVHistoryTimeline.init(document.getElementById('tl-widget'), data);
   if(window.MVHistoryMap) window.MVHistoryMap.init(document.getElementById('map-widget'), data);
   if(window.MVHistoryLineage) window.MVHistoryLineage.init(document.getElementById('lineage-widget'), data);
+
+  // On a ?capstone= arrival, bring the (now-spotlighted) timeline into view.
+  // Instant scroll respects the site-wide reduced-motion stance.
+  if(data._capstoneArrival){
+    const tw = document.getElementById('tl-widget');
+    if(tw) tw.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
 
   // populate further-reading cross-link garden
   const fg = document.getElementById('further-grid');
