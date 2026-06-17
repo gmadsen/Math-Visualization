@@ -1236,6 +1236,11 @@
     if(location.protocol === 'file:') return;
     try {
       const params = new URLSearchParams(location.search);
+      // ?capstone= is an arrival-only alias: restoreFromUrl resolves it to a
+      // focus, so once any focus sync runs it's been consumed and `focus`
+      // captures the state. Drop it here so clearing focus can't leave a stale
+      // ?capstone= that would refocus on reload/share (state divergence).
+      params.delete('capstone');
       if(focusIdx === null){
         params.delete('focus');
       } else {
