@@ -44,7 +44,8 @@
 //
 // Zero dependencies: regex + string checks, runs from stock node.
 
-import { dirname, resolve } from 'node:path';
+import { readFileSync, readdirSync } from 'node:fs';
+import { dirname, resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadContentModel } from './lib/content-model.mjs';
 import { loadTopicContent } from './lib/json-block-writer.mjs';
@@ -716,6 +717,32 @@ for (const topicId of model.topicIds) {
   scanDeadSvgKatex(doc, rel, '');
 }
 
+// Registry-widget renderers (Codex review on #203): a `type:"widget"` block in
+// content/*.json carries only `{slug, params}` — the executable script is
+// produced later by `renderScript(params)` in `widgets/<slug>/index.mjs`, so a
+// dead renderMathInElement(svg, …) authored there never appears in `doc` and
+// would slip past the content scan above. Scan the renderer sources directly
+// (same source-text heuristic) so the registry-backed path is covered too.
+const widgetsDir = resolve(repoRoot, 'widgets');
+let widgetRenderers = 0;
+const widgetSources = [];
+try {
+  for (const slug of readdirSync(widgetsDir)) {
+    const idx = join(widgetsDir, slug, 'index.mjs');
+    try { widgetSources.push([`widgets/${slug}/index.mjs`, readFileSync(idx, 'utf8')]); } catch { /* no index.mjs (e.g. _shared dir handled below) */ }
+  }
+  const sharedDir = join(widgetsDir, '_shared');
+  try {
+    for (const f of readdirSync(sharedDir)) {
+      if (f.endsWith('.mjs')) widgetSources.push([`widgets/_shared/${f}`, readFileSync(join(sharedDir, f), 'utf8')]);
+    }
+  } catch { /* no _shared dir */ }
+} catch { /* no widgets dir */ }
+for (const [rel, src] of widgetSources) {
+  widgetRenderers++;
+  scanDeadSvgKatex(src, rel, '');
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 // Report.
 
@@ -727,7 +754,7 @@ function cmp(a, b) {
 errors.sort(cmp);
 warnings.sort(cmp);
 
-console.log(`validate-katex: scanned quizzes/*.json + concepts/*.json + ${contentTopics} content/*.json (raw blocks: structural + doubled-backslash)`);
+console.log(`validate-katex: scanned quizzes/*.json + concepts/*.json + ${contentTopics} content/*.json (raw blocks: structural + doubled-backslash) + ${widgetRenderers} widget renderers (dead-SVG-katex)`);
 console.log('');
 
 if (errors.length) {
