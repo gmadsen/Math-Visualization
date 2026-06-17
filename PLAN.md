@@ -21,9 +21,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 The 2026-06-11 meta-layer audit program (defer-race fixes, validate-meta-pages gate, mastery-awareness on every meta page, who's-who, open-problems, tags theme bars) shipped in full over #512–#519 — `git log` is the record. The explicit open queue, roughly in value order:
 
 1. **Meta-page candidates (not yet greenlit — ask before building):** counterexamples gallery (aggregate the existing counterexample widgets), syllabus builder (pathway copy-plan grown into a self-checking checklist page), exam mode (timed mixed quiz over mastered concepts — check review.html's role first).
-2. **Feature-improvement backlog** (one small PR each, pick by appetite):
-   - *Cross-cutting*: unify deep-link param conventions (`?goal=` / `?tour=` / `?q=` invented independently). Note: `history.html` now accepts both `?capstone=` and `?q=` (#540), and `search.html` uses `?q=` — a `?q=` convention is emerging.
-3. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out).
+2. **Themes / display polish:** light-theme widget eyeball pass (dark-tuned `fill-opacity`/glows wash out).
 
 ## Missing-topic candidates
 

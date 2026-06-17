@@ -538,6 +538,9 @@
 
   // Capstone goals → tagged for special rendering.
   const CAPSTONE_GOAL_IDS = new Set(capstones.map(c => c.goal));
+  // Capstone id → its goal concept id, so a ?capstone= deep-link (the portable
+  // capstone link shared with pathway / history) can focus the goal's node.
+  const CAP_GOAL_BY_ID = new Map(capstones.map(c => [c.id, c.goal]));
 
   // Topic-level map: read from the bundle's canonical `levels` field
   // (single source of truth shared with pathway.html and
@@ -1233,6 +1236,11 @@
     if(location.protocol === 'file:') return;
     try {
       const params = new URLSearchParams(location.search);
+      // ?capstone= is an arrival-only alias: restoreFromUrl resolves it to a
+      // focus, so once any focus sync runs it's been consumed and `focus`
+      // captures the state. Drop it here so clearing focus can't leave a stale
+      // ?capstone= that would refocus on reload/share (state divergence).
+      params.delete('capstone');
       if(focusIdx === null){
         params.delete('focus');
       } else {
@@ -1923,13 +1931,30 @@
   // every label hidden by the default CSS rule.
   applyView();
 
-  // Restore focus from URL (?focus=<concept-id>) if present.
-  (function restoreFocusFromUrl(){
+  // Restore deep-link state from the URL:
+  //   ?focus=<concept-id>     — focus a node's neighborhood (shareable focus,
+  //                             written back by syncFocusToUrl). Same
+  //                             "highlight one concept" gesture pathway exposes
+  //                             as ?selected=; names stay page-native because
+  //                             the view models differ (force graph vs. DAG).
+  //   ?capstone=<capstone-id> — focus that capstone's goal node, so the same
+  //                             portable capstone link works here as on
+  //                             pathway / history.
+  //   ?q=<text>               — pre-fill and run the concept search (mirrors
+  //                             search.html / history.html's ?q=). Independent
+  //                             of focus, so ?q= and ?focus= can co-exist.
+  (function restoreFromUrl(){
     try {
       const params = new URLSearchParams(location.search);
-      const initial = params.get('focus');
-      if(!initial) return;
-      const idx = nodeIndex.get(initial);
+      const q = params.get('q');
+      if(q){ searchEl.value = q; applySearch(); }
+      let focusId = params.get('focus');
+      if(!focusId){
+        const cap = params.get('capstone');
+        if(cap) focusId = CAP_GOAL_BY_ID.get(cap) || null;
+      }
+      if(!focusId) return;
+      const idx = nodeIndex.get(focusId);
       if(idx == null) return;
       focusIdx = idx;
       applyFocus();
