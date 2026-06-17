@@ -44,7 +44,8 @@
 //
 // Zero dependencies: regex + string checks, runs from stock node.
 
-import { dirname, resolve } from 'node:path';
+import { readFileSync, readdirSync } from 'node:fs';
+import { dirname, resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadContentModel } from './lib/content-model.mjs';
 import { loadTopicContent } from './lib/json-block-writer.mjs';
@@ -609,6 +610,56 @@ for (let i = 0; i < model.capstones.length; i++) {
   validateString(c.blurb, 'concepts/capstones.json', `capstones[${key}].blurb`);
 }
 
+// Dead `renderMathInElement(<svg>, …)` calls (issue #203): KaTeX's
+// auto-render extension explicitly does NOT descend into SVG subtrees, so any
+// `renderMathInElement` whose target is an SVG element is dead code — the
+// author expected `$…$` inside SVG `<text>` to typeset, but it never does and
+// the raw source leaks on screen. This is a silent render-time KaTeX failure,
+// exactly the class this validator exists to catch. The fix is to Unicode-ize
+// the SVG labels (the #201/#202 pattern) or wrap the math in `<foreignObject>`.
+//
+// Detection is deliberately conservative: a target identifier is treated as an
+// SVG element only when, within the SAME code string, it is named `svg` (the
+// page-global `SVG()` helper's conventional sink) or assigned from
+// `createElementNS(…)` / the `SVG(…)` helper. Targets resolved via
+// `getElementById` / `querySelector` / `$('#…')` / `createElement` are HTML
+// containers where `renderMathInElement` works correctly and are never flagged
+// — that keeps the corpus's many legitimate `renderMathInElement(out, …)`
+// readout calls clean. Known blind spot (accepted): a node made with plain
+// `createElement(…)` and then `appendChild`-ed into an SVG root isn't tracked
+// across that data flow, so it would slip through — but no such case exists in
+// the corpus, and the documented dead-call shape is the named/`createElementNS`
+// one this catches.
+function svgTargetInString(code, name) {
+  if (name === 'svg') return true;
+  const ns = new RegExp(`\\b(?:const|let|var)?\\s*${name}\\s*=\\s*[^;]*createElementNS\\s*\\(`);
+  const helper = new RegExp(`\\b(?:const|let|var)?\\s*${name}\\s*=\\s*SVG\\s*\\(`);
+  return ns.test(code) || helper.test(code);
+}
+function scanDeadSvgKatex(node, rel, path) {
+  if (Array.isArray(node)) {
+    node.forEach((v, i) => scanDeadSvgKatex(v, rel, `${path}[${i}]`));
+  } else if (typeof node === 'string') {
+    const re = /renderMathInElement\s*\(\s*([A-Za-z_$][\w$]*)/g;
+    let m;
+    while ((m = re.exec(node))) {
+      const arg = m[1];
+      if (arg === 'document' || arg === 'body') continue;
+      if (svgTargetInString(node, arg)) {
+        errors.push({
+          file: rel,
+          path,
+          msg: `dead renderMathInElement(${arg}, …) — KaTeX does not descend into SVG, so $…$ in SVG <text> never renders. Unicode-ize the labels or use <foreignObject>.`,
+        });
+      }
+    }
+  } else if (node && typeof node === 'object') {
+    for (const [k, v] of Object.entries(node)) {
+      scanDeadSvgKatex(v, rel, path ? `${path}.${k}` : k);
+    }
+  }
+}
+
 // Content raw blocks (issue #210): the structured `content/<topic>.json` source
 // — never walked before, so JSON-escape-level bugs (doubled backslash) slid
 // past CI until a human reviewer caught them. Walk every `type:"raw"` block's
@@ -663,6 +714,33 @@ for (const topicId of model.topicIds) {
     }
   };
   walk(doc, '');
+  scanDeadSvgKatex(doc, rel, '');
+}
+
+// Registry-widget renderers (Codex review on #203): a `type:"widget"` block in
+// content/*.json carries only `{slug, params}` — the executable script is
+// produced later by `renderScript(params)` in `widgets/<slug>/index.mjs`, so a
+// dead renderMathInElement(svg, …) authored there never appears in `doc` and
+// would slip past the content scan above. Scan the renderer sources directly
+// (same source-text heuristic) so the registry-backed path is covered too.
+const widgetsDir = resolve(repoRoot, 'widgets');
+let widgetRenderers = 0;
+const widgetSources = [];
+try {
+  for (const slug of readdirSync(widgetsDir)) {
+    const idx = join(widgetsDir, slug, 'index.mjs');
+    try { widgetSources.push([`widgets/${slug}/index.mjs`, readFileSync(idx, 'utf8')]); } catch { /* no index.mjs (e.g. _shared dir handled below) */ }
+  }
+  const sharedDir = join(widgetsDir, '_shared');
+  try {
+    for (const f of readdirSync(sharedDir)) {
+      if (f.endsWith('.mjs')) widgetSources.push([`widgets/_shared/${f}`, readFileSync(join(sharedDir, f), 'utf8')]);
+    }
+  } catch { /* no _shared dir */ }
+} catch { /* no widgets dir */ }
+for (const [rel, src] of widgetSources) {
+  widgetRenderers++;
+  scanDeadSvgKatex(src, rel, '');
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -676,7 +754,7 @@ function cmp(a, b) {
 errors.sort(cmp);
 warnings.sort(cmp);
 
-console.log(`validate-katex: scanned quizzes/*.json + concepts/*.json + ${contentTopics} content/*.json (raw blocks: structural + doubled-backslash)`);
+console.log(`validate-katex: scanned quizzes/*.json + concepts/*.json + ${contentTopics} content/*.json (raw blocks: structural + doubled-backslash) + ${widgetRenderers} widget renderers (dead-SVG-katex)`);
 console.log('');
 
 if (errors.length) {
