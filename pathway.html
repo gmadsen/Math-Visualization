@@ -2063,11 +2063,22 @@
     window.KatexSelect.scan();
   }
   const params = new URLSearchParams(location.search);
-  // Validate the URL goal against the concept graph — a stale or mistyped
-  // ?goal= (e.g. a capstone id instead of its goal concept id) would
-  // otherwise crash layout() with a blank DAG. Fall back to the default.
+  // Resolve a deep-link target to a goal concept id. Three accepted forms keep
+  // a capstone link portable across the meta pages (mirrors history.html's
+  // ?capstone=): an explicit ?goal=<conceptId>; a ?capstone=<capstoneId>; or a
+  // ?goal= that is actually a capstone id (history accepts that, so pathway
+  // should too — previously it fell through to the default). byId is the
+  // concept graph; capById maps a capstone id to its goal concept. A stale or
+  // mistyped value falls back to the default capstone so layout() never gets a
+  // blank DAG.
+  const capById = new Map(capstones.map(c => [c.id, c.goal]));
   const urlGoal = params.get('goal');
-  const initial = (urlGoal && byId.has(urlGoal)) ? urlGoal : capstones[0].goal;
+  const urlCapstone = params.get('capstone');
+  const initial =
+    (urlGoal && byId.has(urlGoal)) ? urlGoal :
+    (urlGoal && capById.has(urlGoal)) ? capById.get(urlGoal) :
+    (urlCapstone && capById.has(urlCapstone)) ? capById.get(urlCapstone) :
+    capstones[0].goal;
   goalSel.value = initial;
   goalSel.addEventListener('change', ()=>{
     // render() re-selects a surviving node (which syncs the URL) or clears the
