@@ -84,11 +84,11 @@
     stroke-width:calc(1.2px / var(--zk, 1));
     transition:stroke 120ms ease}
   /* Labels are inside the panned/zoomed <g>, so SVG font-size is multiplied
-     by the stage's `scale(k)`. To keep labels visually at ~10.5px on screen
+     by the stage's `scale(k)`. To keep labels visually at ~13px on screen
      regardless of zoom, font-size is divided by --zk (set on the stage in
-     applyView). At k=4, SVG font-size = 10.5/4 = 2.6px → 4·2.6 = 10.5px on
+     applyView). At k=4, SVG font-size = 13/4 = 3.25px → 4·3.25 = 13px on
      screen. */
-  .node text.lbl{fill:var(--ink);font-size:calc(10.5px / var(--zk, 1));
+  .node text.lbl{fill:var(--ink);font-size:calc(13px / var(--zk, 1));
     pointer-events:none;font-family:inherit;dominant-baseline:central;
     text-anchor:start}
   /* Default rule: hide all labels. The cullLabels() pass in JS toggles
@@ -903,7 +903,7 @@
   // candidates — in practice ~30-200, comfortably under a frame budget.
   function cullLabels(){
     const k = viewT.k;
-    const fontPx = 10.5; // target screen-space size, matches CSS calc()
+    const fontPx = 13; // target screen-space size, matches CSS calc()
     // Visible-on-screen filter using the current stage transform; `vb` is
     // the SVG viewBox the canvas projects to (STAGE_W × STAGE_H).
     const visible = [];
