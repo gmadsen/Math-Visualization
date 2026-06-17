@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Counterexamples gallery — Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script defer src="./js/progress.js"></script>
+<script defer src="./concepts/bundle.js"></script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+    --orange:#f4a261;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  main{max-width:880px;margin:0 auto;padding:2.5rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.5rem;margin:2.6rem 0 0.8rem;color:var(--ink);
+    border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.6rem}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  .cex{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.2rem;margin:.9rem 0}
+  .cx-head{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.35rem}
+  .cx-name{font-weight:600;font-size:1.08rem;color:var(--ink)}
+  .cx-chip{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    font-family:ui-monospace,Menlo,monospace;padding:2px 9px;border-radius:999px;
+    border:1px solid var(--line);color:var(--mute);background:var(--panel2);margin-left:auto}
+  .cx-chip.mastered{color:var(--green);border-color:color-mix(in srgb, var(--green) 50%, var(--line))}
+  /* The plausible-but-false claim, struck through with a pink "myth" rail. */
+  .cx-claim{color:color-mix(in srgb, var(--ink) 88%, var(--mute));margin:.3rem 0 .5rem;
+    border-left:3px solid color-mix(in srgb, var(--pink) 55%, transparent);
+    padding:.15rem .8rem;background:color-mix(in srgb, var(--pink) 5%, transparent);
+    border-radius:0 6px 6px 0}
+  .cx-claim .myth{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+    font-family:ui-monospace,Menlo,monospace;color:var(--pink);margin-right:.5rem}
+  /* The hypothesis that breaks — the punchline, on a green rail. */
+  .cx-fails{color:var(--ink);margin:.3rem 0 .2rem;
+    border-left:3px solid color-mix(in srgb, var(--green) 55%, transparent);
+    padding:.15rem .8rem;background:color-mix(in srgb, var(--green) 5%, transparent);
+    border-radius:0 6px 6px 0;font-size:.95rem}
+  .cx-fails .breaks{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+    font-family:ui-monospace,Menlo,monospace;color:var(--green);margin-right:.5rem}
+  .cx-links{margin-top:.55rem;font-size:.85rem;color:var(--mute)}
+  .cx-links a{color:var(--cyan);text-decoration:none;border-bottom:1px dashed var(--cyan)}
+  .cx-links a:hover{color:var(--yellow);border-bottom-color:var(--yellow)}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;
+    color:color-mix(in srgb, var(--ink) 90%, var(--violet));
+    background:color-mix(in srgb, var(--violet) 7%, transparent);
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.92rem}
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./whos-who.html">Who's who</a><a class="nav-link" href="./open-problems.html">Open problems</a><a class="nav-link accent" href="./counterexamples.html">Counterexamples</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span>
+</nav>
+
+<main>
+<section class="hero">
+  <h1>Counterexamples gallery</h1>
+  <p class="sub">A plausible implication, and the object that kills it. Each card states a tempting claim, names the single hypothesis that has to break, and links to the page where the notebook builds the counterexample. In the spirit of <em>Counterexamples in Analysis / Topology</em> — the fastest way to learn what a theorem really needs is to see what happens when you drop one assumption. A green check marks counterexamples whose home concept you've mastered.</p>
+</section>
+
+<div id="gallery"></div>
+
+<p class="note">Some objects recur across sections — the line with two origins is the topologists' "not-Hausdorff" example and the geometers' "not-separated" scheme; the Cantor set fails three different theorems on three different pages. That's the point: one pathology refutes many tidy statements.</p>
+
+<footer>Statements are deliberately informal — follow the links for the precise hypotheses.</footer>
+</main>
+
+<script>
+(function(){
+  // Each entry: `claim` is the plausible-but-false statement; `fails` is the
+  // one hypothesis/conclusion that breaks; `topic`+`anchor` deep-link to the
+  // section that builds the object (every anchor verified against the concept
+  // graph — a wrong anchor is a silent 404). `claim`/`fails` carry trusted
+  // page-local $…$ literals inserted raw for KaTeX; dynamic text is esc()'d.
+  // Sections render in the notebook's canonical order.
+  const CASES = {
+    logic: [
+      { name:'Banach–Tarski paradox',
+        claim:'Volume — a finitely-additive, isometry-invariant measure — extends to <em>every</em> subset of $\\mathbb{R}^3$.',
+        fails:'Measurability of the pieces. The paradoxical decomposition of the ball exists only because the chosen pieces are non-measurable (it needs the axiom of choice).',
+        topic:'naive-set-theory', anchor:'choice', topicLabel:'Naive set theory' },
+      { name:'Vitali set (non-measurable)',
+        claim:'Every subset of $\\mathbb{R}$ is Lebesgue measurable, so a "measure of everything" exists.',
+        fails:'Provability without choice. Translation-invariance plus countable additivity make the Vitali set immeasurable — and Solovay showed ZF + dependent choice alone cannot even build one.',
+        topic:'zfc-and-ordinals', anchor:'choice', topicLabel:'ZFC & ordinals' }
+    ],
+    analysis: [
+      { name:"Cantor function (devil's staircase)",
+        claim:'If $f$ is continuous and $f\'=0$ almost everywhere, then $f$ is constant ($f(b)-f(a)=\\int_a^b f\'$).',
+        fails:'Absolute continuity. The staircase climbs from $0$ to $1$ entirely on the measure-zero Cantor set, where it is not differentiable — FTC needs more than "$f\'=0$ a.e.".',
+        topic:'real-analysis', anchor:'absolute-continuity', topicLabel:'Real analysis' },
+      { name:'Pointwise limit $x^n$ on $[0,1]$',
+        claim:'A pointwise limit of continuous functions is continuous (and the limit commutes with the integral).',
+        fails:'Uniformity of convergence. $x^n\\to$ a discontinuous step; the sup-norm stays at $1$, so continuity and $\\int$ are not preserved.',
+        topic:'real-analysis', anchor:'uniform-convergence', topicLabel:'Real analysis' },
+      { name:'Alternating harmonic rearrangement',
+        claim:'A convergent series may be reordered freely without changing its sum.',
+        fails:'Absolute convergence. For a conditionally convergent series, Riemann\'s rearrangement theorem reorders the terms to hit <em>any</em> real target (or $\\pm\\infty$).',
+        topic:'real-analysis', anchor:'numeric-series', topicLabel:'Real analysis' },
+      { name:'Fat Cantor (Smith–Volterra–Cantor) set',
+        claim:'The Lebesgue differentiation theorem\'s "almost everywhere" can be upgraded to "everywhere".',
+        fails:'Emptiness of the exceptional set. At the boundary points of a positive-measure nowhere-dense set the local averages genuinely oscillate — the null exceptional set is real.',
+        topic:'real-analysis', anchor:'lebesgue-differentiation', topicLabel:'Real analysis' },
+      { name:'Cantor set — uncountable, measure zero',
+        claim:'An uncountable subset of $\\mathbb{R}$ must have positive Lebesgue measure.',
+        fails:'The cardinality–measure link. The middle-thirds set has the cardinality of $\\mathbb{R}$ yet measure $0$.',
+        topic:'measure-theory', anchor:'lebesgue', topicLabel:'Measure theory' },
+      { name:'Cantor set — fractional dimension',
+        claim:'A subset of the line has integer (topological) dimension.',
+        fails:'Integrality of dimension. The Cantor set has Hausdorff dimension $\\log 2/\\log 3 \\approx 0.6309$.',
+        topic:'measure-theory', anchor:'hausdorff', topicLabel:'Measure theory' },
+      { name:'Cantor (singular) measure',
+        claim:'A finite atomless measure on $\\mathbb{R}$ is absolutely continuous with respect to Lebesgue measure.',
+        fails:'Absolute continuity. The Cantor measure has no atoms yet lives on a null set, so $\\nu \\perp \\lambda$ — the singular-continuous case of Lebesgue decomposition.',
+        topic:'measure-theory', anchor:'radon-nikodym', topicLabel:'Measure theory' },
+      { name:'Cantor part of a BV function',
+        claim:'A function of bounded variation with no jumps and zero a.c. gradient is constant (so $\\mathrm{BV}=W^{1,1}$).',
+        fails:'Sobolev regularity. The derivative measure can carry a singular "Cantor part" with no jumps and no density — $\\mathrm{BV}$ is strictly bigger than $W^{1,1}$.',
+        topic:'geometric-measure-theory', anchor:'bv-functions', topicLabel:'Geometric measure theory' },
+      { name:'Essential singularity (Casorati–Weierstrass / Picard)',
+        claim:'Near an isolated singularity a holomorphic function omits a neighborhood of some value — it blows up tamely, like a pole.',
+        fails:'Value omission. Near an essential singularity the function comes arbitrarily close to every value (Casorati–Weierstrass), in fact attaining all but one infinitely often (Great Picard).',
+        topic:'advanced-complex-analysis', anchor:'picard-great', topicLabel:'Advanced complex analysis' },
+      { name:'Smale horseshoe',
+        claim:'A smooth, deterministic map has tame, predictable invariant sets.',
+        fails:'Tameness of the dynamics. The horseshoe\'s invariant set is a Cantor set on which the map is conjugate to the full shift — deterministic yet chaotic, with sensitive dependence.',
+        topic:'mathematical-chaos', anchor:'strange-attractors', topicLabel:'Mathematical chaos' }
+    ],
+    probability: [
+      { name:'Brownian sample path',
+        claim:'A continuous function is differentiable somewhere.',
+        fails:'Differentiability. Almost every Brownian path is continuous but nowhere differentiable, with infinite variation on every interval.',
+        topic:'probability-theory', anchor:'brownian', topicLabel:'Probability theory' },
+      { name:'Cauchy distribution',
+        claim:'The sample mean of i.i.d. draws converges to a constant (the law of large numbers).',
+        fails:'A finite first moment. With no mean, the sample mean of $n$ Cauchy draws is again exactly Cauchy — it never settles.',
+        topic:'probability-theory', anchor:'lln', topicLabel:'Probability theory' }
+    ],
+    geometry: [
+      { name:"Topologist's sine curve",
+        claim:'A connected space is path-connected.',
+        fails:'Path-connectedness. The closure of $\\sin(1/x)$ is connected, but no continuous path joins the limit segment to the oscillating arc.',
+        topic:'point-set-topology', anchor:'connected', topicLabel:'Point-set topology' },
+      { name:'Sierpiński space',
+        claim:'Even a two-point space tells its points apart with closed points ($T_1$).',
+        fails:'$T_1$ separation. With $\\tau=\\{\\varnothing,\\{1\\},X\\}$ the space is $T_0$ but the point $1$ is not closed.',
+        topic:'point-set-topology', anchor:'separation', topicLabel:'Point-set topology' },
+      { name:'Cofinite topology on $\\mathbb{R}$',
+        claim:'A $T_1$ space is Hausdorff.',
+        fails:'Hausdorffness. Points are closed, but any two nonempty open sets (co-finite) must intersect — no disjoint neighborhoods.',
+        topic:'point-set-topology', anchor:'separation', topicLabel:'Point-set topology' },
+      { name:'Line with two origins',
+        claim:'Limits of sequences in a (nice, locally Euclidean) space are unique.',
+        fails:'Hausdorffness. The doubled origin gives a sequence two distinct limits — locally Euclidean but not $T_2$.',
+        topic:'point-set-topology', anchor:'separation', topicLabel:'Point-set topology' },
+      { name:'Indiscrete topology',
+        claim:'Distinct points of a space can always be separated by an open set ($T_0$).',
+        fails:'$T_0$ separation. With only $\\varnothing$ and $X$ open, no open set distinguishes any two points.',
+        topic:'point-set-topology', anchor:'separation', topicLabel:'Point-set topology' },
+      { name:"Topologist's sine curve, again (Whitehead)",
+        claim:'A space with trivial homotopy groups is contractible.',
+        fails:'The CW hypothesis. Whitehead\'s theorem needs CW complexes; this space is weakly contractible-flavored but not a CW complex, so the conclusion fails.',
+        topic:'homotopy-theory', anchor:'hurewicz-whitehead', topicLabel:'Homotopy theory' }
+    ],
+    numbertheory: [
+      { name:'High-quality abc triple vs. Vojta',
+        claim:'For coprime $a+b=c$, the naive bound $c \\le \\mathrm{rad}(abc)$ holds.',
+        fails:'The $\\varepsilon=0$ inequality. Triples like $2+3^{10}\\cdot 109 = 23^5$ have quality $>1$ (record $\\approx 1.6299$) — only $c \\le \\mathrm{rad}(abc)^{1+\\varepsilon}$ can survive.',
+        topic:'heights-arithmetic-geometry', anchor:'vojta', topicLabel:'Heights & arithmetic geometry' }
+    ],
+    modular: [
+      { name:'Conditionally convergent Dirichlet series',
+        claim:'A Dirichlet series converges absolutely throughout its half-plane of convergence.',
+        fails:'Absolute convergence. The abscissa of (conditional) convergence can sit strictly to the left of the abscissa of absolute convergence — a whole strip where it converges but not absolutely.',
+        topic:'dirichlet-series-euler-products', anchor:'dir', topicLabel:'Dirichlet series & Euler products' }
+    ],
+    alggeo: [
+      { name:'Line with doubled origin (non-separated scheme)',
+        claim:'A scheme is separated — its diagonal is closed, the algebraic analog of Hausdorff.',
+        fails:'Separatedness. Gluing two affine lines along everything but the origin leaves the diagonal non-closed; a family can have two distinct limits.',
+        topic:'morphisms-fiber-products', anchor:'sepproper', topicLabel:'Morphisms & fiber products' }
+    ]
+  };
+  // Canonical section order (matches the notebook's 13-section taxonomy).
+  const SECTIONS = [
+    ['logic',        'Logic & foundations'],
+    ['analysis',     'Analysis'],
+    ['probability',  'Probability & statistics'],
+    ['geometry',     'Geometry & topology'],
+    ['numbertheory', 'Number theory'],
+    ['modular',      'Modular forms & L-functions'],
+    ['alggeo',       'Algebraic geometry']
+  ];
+
+  function init(){
+    const MVC = window.__MVConcepts;
+    const host = document.getElementById('gallery');
+
+    // anchorKey "topic#anchor" → concept id, so a card can show whether the
+    // concept that owns its home section is mastered (the meta-page mastery
+    // norm). One mastery snapshot, shared across all cards.
+    const anchorToId = new Map();
+    if(MVC && MVC.topics){
+      for(const key of Object.keys(MVC.topics)){
+        for(const c of (MVC.topics[key].concepts || [])){
+          if(c.anchor) anchorToId.set(key + '#' + c.anchor, c.id);
+        }
+      }
+    }
+    const masteredIds = (window.MVProgress && anchorToId.size > 0) ? MVProgress.masteredSet('v1') : null;
+    const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+    for(const [key, heading] of SECTIONS){
+      const list = CASES[key];
+      if(!list || !list.length) continue;
+      const h2 = document.createElement('h2');
+      h2.textContent = heading;
+      host.appendChild(h2);
+      for(const c of list){
+        const card = document.createElement('article');
+        card.className = 'cex';
+        const cid = anchorToId.get(c.topic + '#' + c.anchor);
+        const mastered = !!(masteredIds && cid && masteredIds.has(cid));
+        const chip = mastered ? '<span class="cx-chip mastered">✓ mastered</span>' : '';
+        const href = './' + c.topic + '.html#' + c.anchor;
+        card.innerHTML =
+          `<div class="cx-head"><span class="cx-name">${esc(c.name)}</span>${chip}</div>` +
+          `<div class="cx-claim"><span class="myth">the myth</span>${c.claim}</div>` +
+          `<div class="cx-fails"><span class="breaks">what breaks</span>${c.fails}</div>` +
+          `<div class="cx-links">build it: <a href="${esc(href)}">${esc(c.topicLabel)} →</a></div>`;
+        host.appendChild(card);
+      }
+    }
+
+    if(typeof window.renderMathInElement === 'function'){
+      try {
+        window.renderMathInElement(host, {
+          delimiters:[
+            {left:'$$',right:'$$',display:true},
+            {left:'$',right:'$',display:false},
+            {left:'\\(',right:'\\)',display:false},
+            {left:'\\[',right:'\\]',display:true}
+          ],
+          throwOnError:false
+        });
+      } catch(_){}
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
