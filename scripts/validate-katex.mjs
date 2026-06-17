@@ -624,7 +624,11 @@ for (let i = 0; i < model.capstones.length; i++) {
 // `getElementById` / `querySelector` / `$('#…')` / `createElement` are HTML
 // containers where `renderMathInElement` works correctly and are never flagged
 // — that keeps the corpus's many legitimate `renderMathInElement(out, …)`
-// readout calls clean.
+// readout calls clean. Known blind spot (accepted): a node made with plain
+// `createElement(…)` and then `appendChild`-ed into an SVG root isn't tracked
+// across that data flow, so it would slip through — but no such case exists in
+// the corpus, and the documented dead-call shape is the named/`createElementNS`
+// one this catches.
 function svgTargetInString(code, name) {
   if (name === 'svg') return true;
   const ns = new RegExp(`\\b(?:const|let|var)?\\s*${name}\\s*=\\s*[^;]*createElementNS\\s*\\(`);
